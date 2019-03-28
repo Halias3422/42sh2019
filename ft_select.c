@@ -1,6 +1,6 @@
 
 #include "ft_select.h"
-vivien > david;
+VIVIEN > DAVID 
 int init_term()
 {
 	int ret;
