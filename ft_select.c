@@ -105,6 +105,7 @@ void	fill_str(char *buf, t_pos *pos)
 
 int 	main()
 {
+
 	int		ret;
 	int		col;
 	int		line;
@@ -115,7 +116,9 @@ int 	main()
 	struct	termios term;
 	int		i;
 	t_pos	pos;
+	char	*tmp;
 
+	tmp = NULL;
 	name_term = getenv("TERM");
 	tgetent(NULL, name_term);
 	tcgetattr(0, &term);
@@ -128,7 +131,7 @@ int 	main()
 	line = 0;
 	test = NULL;
 	i = 0;
-	pos.ans = ft_strnew(1);
+	pos.ans = ft_strnew(0);
 	pos.total = 0;
 	pos.actual = 0;
 
@@ -142,7 +145,10 @@ int 	main()
 		{
 			if (buf[0] == 127)
 			{
-				tputs(tgetstr("le", NULL), 1, ft_putchar);
+				tmp = tgetstr("le", NULL);
+				tputs(tmp, 1, ft_putchar);
+				free(tmp);
+				tmp = NULL;
 				tputs(tgetstr("dc", NULL), 1, ft_putchar);
 				remove_str(&pos);
 				pos.total -= pos.total == 0 ? 0 : 1;
@@ -152,6 +158,7 @@ int 	main()
 			{
 				tputs(tgetstr("ei", NULL), 1, ft_putchar);
 				ft_printf("\nreponse -> |%s|\n", pos.ans);
+			//	free(buf);
 				exit (0);
 			}
 			else
