@@ -1,4 +1,3 @@
-
 #include "ft_select.h"
 
 int init_term()
