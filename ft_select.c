@@ -1,5 +1,5 @@
 #include "ft_select.h"
-
+david > vivien
 int init_term()
 {
 	int ret;
@@ -141,6 +141,7 @@ int 	main()
 		{
 			if (buf[0] == 127)
 			{
+				ft_printf("%c\033[6n", 27);
 				tputs(tgetstr("le", NULL), 1, ft_putchar);
 				tputs(tgetstr("dc", NULL), 1, ft_putchar);
 				remove_str(&pos);
