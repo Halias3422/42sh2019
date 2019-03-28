@@ -1,6 +1,5 @@
-
 #include "ft_select.h"
-ne reve pas trop Vivien;
+
 int init_term()
 {
 	int ret;
