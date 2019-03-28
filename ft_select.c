@@ -1,3 +1,4 @@
+
 #include "ft_select.h"
 
 int init_term()
@@ -5,14 +6,13 @@ int init_term()
 	int ret;
 	char *term_type = getenv("TERM");
 
+	ret = 0;
 	if (term_type == NULL)
 	{
 		fprintf(stderr, "TERM must be set (see 'env').\n");
 		return -1;
 	}
-
 	ret = tgetent(NULL, term_type);
-
 	if (ret == -1)
 	{
 		fprintf(stderr, "Could not access to the termcap database..\n");
@@ -79,7 +79,7 @@ void	remove_str(t_pos *pos)
 	swap = ft_strnew(pos->actual);
 	swap = ft_strncpy(swap, pos->ans, pos->actual - 1);
 	swap = ft_strjoinf(swap, pos->ans + pos->actual, 1);
-	free(pos->ans);
+//	free(pos->ans);
 	pos->ans = swap;
 }
 
@@ -92,11 +92,11 @@ void	fill_str(char *buf, t_pos *pos)
 		pos->ans = ft_strjoinf(pos->ans, buf, 1);
 	else
 	{
-		swap = ft_strnew(pos->actual);
+		swap = ft_strnew(pos->actual + 1);
 		swap = ft_strncpy(swap, pos->ans, pos->actual);
 		swap = ft_strjoinf(swap, buf, 1);
 		swap = ft_strjoinf(swap, pos->ans + pos->actual, 1);
-		free(pos->ans);
+//		free(pos->ans);
 		pos->ans = swap;
 	}
 }
@@ -111,15 +111,15 @@ int 	main()
 	char	*test;
 	int		ret2;
 	char	buf[3];
-	char	*name_term;
+//	char	*name_term;
 	struct	termios term;
 	int		i;
 	t_pos	pos;
 	char	*tmp;
 
 	tmp = NULL;
-	name_term = getenv("TERM");
-	tgetent(NULL, name_term);
+//	name_term = getenv("TERM");
+//	tgetent(NULL, name_term);
 	tcgetattr(0, &term);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
@@ -146,13 +146,15 @@ int 	main()
 			{
 				tmp = tgetstr("le", NULL);
 				tputs(tmp, 1, ft_putchar);
-				free(tmp);
+			//	free(tmp);
 				tmp = NULL;
 				tputs(tgetstr("dc", NULL), 1, ft_putchar);
 				remove_str(&pos);
 				pos.total -= pos.total == 0 ? 0 : 1;
 				pos.actual -= pos.actual == 0 ? 0 : 1;
 			}
+			else if (buf[0] == 32)
+				write(1, "\033[6n", 4);
 			else if (buf[0] == 10)
 			{
 				tputs(tgetstr("ei", NULL), 1, ft_putchar);
