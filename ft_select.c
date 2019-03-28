@@ -1,6 +1,6 @@
 
 #include "ft_select.h"
-vivien = superOK;
+ne reve pas trop Vivien;
 int init_term()
 {
 	int ret;
