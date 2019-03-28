@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/03/28 09:40:12 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/03/28 14:52:54 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -24,7 +24,7 @@ OBJ_DIR = srcs_ls/
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra -g# -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -g3# -fsanitize=address
 
 LIBFT = ./libft/
 

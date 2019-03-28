@@ -1,20 +1,6 @@
 
 #include "ft_select.h"
 
-/*int        main(int ac, char **av)
-  {
-  char    *term;
-  char    *buf;
-  int        res;
-
-  buf = NULL;
-  term = getenv("BLABLA");
-  printf("%s\n", term);
-  res = tgetent(buf, term);
-  printf("res = %d, buf = %s\n", res, buf);
-  return (0);
-  }*/
-
 int init_term()
 {
 	int ret;
@@ -42,106 +28,148 @@ int init_term()
 	return 0;
 }
 
-int		find_key(char *buf)
+
+int		find_key(char *buf, t_pos *pos)
 {
-	if (ft_strncmp(buf + 1, "[A", 2) == 0)
-		ft_printf("  haut");
-	if (ft_strncmp(buf + 1, "[C", 2) == 0)
+//	if (ft_strncmp(buf + 1, "[A", 2) == 0) // fleche haut
+//		;
+	if (pos->actual < pos->total && ft_strncmp(buf + 1, "[C", 2) == 0) // fleche droite
 	{
-		ft_printf("  droite");
-//		tputs(buf, 1, ft_putchar);
+		tputs(buf, 1, ft_putchar);
+		pos->actual++;
 
 	}
-	if (ft_strncmp(buf + 1, "[D", 2) == 0)
-		ft_printf("  gauche");
-	if (ft_strncmp(buf + 1, "[B", 2) == 0)
-		ft_printf("  bas");
-/*	if (ft_strncmp(buf + 1, "[A", 2) == 0)
-		ft_printf("haut");
-	if (ft_strncmp(buf + 1, "[A", 2) == 0)
-		ft_printf("haut");
-	if (ft_strncmp(buf + 1, "[A", 2) == 0)
-		ft_printf("haut");
-
-*/
-
-
+	if (pos->actual >= 0 && ft_strncmp(buf + 1, "[D", 2) == 0) // fleche gauche
+	{
+		tputs(buf, 1, ft_putchar);
+		pos->actual -= pos->actual == 0 ? 0 : 1;
+	}
+//	if (ft_strncmp(buf + 1, "[B", 2) == 0) // fleche bas
+//		;
+	if (buf[0] == 10)
+	{
+		tputs(tgetstr("ei", NULL), 1, ft_putchar);
+		exit (0);
+	}
 	return (1);
 }
 
-int 	main(int argc, char **argv)
+int poussin = 0;
+
+void	check_poussin(char c)
 {
-	int ret = init_term();
-	int    col;
-	int    line;
-	char *test;
-	int ret2;
-	char buf[3];
-	char    *name_term;
-	struct    termios term;
+	if (poussin == 0 && c == 'e')
+		poussin = 1;
+	else if (poussin == 1 && c == 'x')
+		poussin = 2;
+	else if (poussin == 2 && c == 'i')
+		poussin = 3;
+	else if (poussin == 3 && c == 't')
+	{
+		tputs(tgetstr("ei", NULL), 1, ft_putchar);
+		exit(0);
+	}
+	else
+		poussin = 0;
+}
+
+void	remove_str(t_pos *pos)
+{
+	char	*swap;
+
+	swap = ft_strnew(pos->actual);
+	swap = ft_strncpy(swap, pos->ans, pos->actual - 1);
+	swap = ft_strjoinf(swap, pos->ans + pos->actual, 1);
+	free(pos->ans);
+	pos->ans = swap;
+}
+
+void	fill_str(char *buf, t_pos *pos)
+{
+	char	*swap;
+
+	swap = NULL;
+	if (pos->actual == pos->total)
+		pos->ans = ft_strjoinf(pos->ans, buf, 1);
+	else
+	{
+		swap = ft_strnew(pos->actual);
+		swap = ft_strncpy(swap, pos->ans, pos->actual);
+		swap = ft_strjoinf(swap, buf, 1);
+		swap = ft_strjoinf(swap, pos->ans + pos->actual, 1);
+		free(pos->ans);
+		pos->ans = swap;
+	}
+}
+
+
+int 	main()
+{
+	int		ret;
+	int		col;
+	int		line;
+	char	*test;
+	int		ret2;
+	char	buf[3];
+	char	*name_term;
+	struct	termios term;
+	int		i;
+	t_pos	pos;
 
 	name_term = getenv("TERM");
 	tgetent(NULL, name_term);
 	tcgetattr(0, &term);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
-
 	tcsetattr(0, TCSADRAIN, &term);
+
+	ret = init_term();
 	col = 0;
 	line = 0;
 	test = NULL;
-	//    On évite les warnings pour variables non utilisées.
-	(void)argc;
-	(void)argv;
-int	i = 0;
+	i = 0;
+	pos.ans = ft_strnew(1);
+	pos.total = 0;
+	pos.actual = 0;
+
 	while (1)
 	{
 		i = 0;
 		ret2 = read(0, buf, 10);
-		if (buf[0] == 27)
-		{
-
-	//		ft_printf("caracter non imprimable --> ");
-			while (buf[i])
-			{
-	//			ft_printf(" %d{%c}", buf[i], buf[i]);
-				i++;
-			}
-	//		find_key(buf);
-		}
+		if (buf[1])
+			find_key(buf, &pos);
 		else
 		{
 			if (buf[0] == 127)
 			{
 				tputs(tgetstr("le", NULL), 1, ft_putchar);
 				tputs(tgetstr("dc", NULL), 1, ft_putchar);
+				remove_str(&pos);
+				pos.total -= pos.total == 0 ? 0 : 1;
+				pos.actual -= pos.actual == 0 ? 0 : 1;
 			}
-	//		ft_printf("imprimable --> %d -/", buf[0]);
+			else if (buf[0] == 10)
+			{
+				tputs(tgetstr("ei", NULL), 1, ft_putchar);
+				ft_printf("\nreponse -> |%s|\n", pos.ans);
+				exit (0);
+			}
 			else
+			{
+				tputs(tgetstr("im", NULL), 1, ft_putchar);
 				tputs(buf , 1, ft_putchar);
+				fill_str(buf, &pos);
+				pos.total++;
+				pos.actual++;
+				check_poussin(buf[0]);
+				tputs(tgetstr("ei", NULL), 1, ft_putchar);
+			}
 		}
 		i = 0;
 		while (i < 10)
 			buf[i++] = '\0';
-//		ft_printf("\n");
 	}
-	if (ret == 0)
-	{
-		//     Le déroulement de notre programme se fera ici.
-		printf("on a gagne a la place du truc bleu\n");
-		col = tgetnum("co");
-		line = tgetnum("li");
-		test = tgetstr("cl", NULL);
-		int i = 0;
-		while (test[i + 1])
-			write(1, &test[i++], 1);
-		printf("\n");
-		i = 1;
-		while (test[i])
-			write(1, &test[i++], 1);
-		printf("col = %d et li = %d\n", col, line);
-	}
-	return ret;
+	return (0);
 }
 
 //tgetnum("ch");
