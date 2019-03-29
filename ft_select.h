@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/28 13:53:00 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/29 11:16:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,10 @@
 
 typedef struct		s_pos
 {
-	int				total;
-	int				actual;
+	int				act_co;
+	int				act_li;
+	int				tot_co;
+	int				tot_li;
 	char			*ans;
 }					t_pos;
 
