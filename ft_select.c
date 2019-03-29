@@ -1,6 +1,26 @@
 
 #include "ft_select.h"
-//VIVIEN > DAVID 
+
+void	get_start_info(char *buf, int *start_li, int *start_co)
+{
+	int        i;
+
+	i = 0;
+	while (buf[i] && buf[i] != '[')
+		i++;
+	if (buf[i] == '\0')
+		*start_li = -1;
+	else
+		*start_li = ft_atoi(buf + i + 1);
+	i = 0;
+	while (buf[i] && buf[i] != ';')
+		i++;
+	if (buf[i] == '\0')
+		*start_co = -1;
+	else
+		*start_co = ft_atoi(buf + i + 1);
+}
+
 int init_term()
 {
 	int ret;
@@ -28,34 +48,39 @@ int init_term()
 }
 
 
-int		find_key(char *buf, t_pos *pos)
+t_hist		*find_key(char *buf, t_pos *pos, t_hist *hist)
 {
-//	if (ft_strncmp(buf + 1, "[A", 2) == 0) // fleche haut
-//		;
-	if (pos->actual < pos->total && ft_strncmp(buf + 1, "[C", 2) == 0) // fleche droite
+
+	if (ft_strncmp(buf + 1, "[A", 2) == 0) // fleche haut
+	{
+		hist = move_through_history(hist, pos, "up");
+	}
+	if (pos->act_co < pos->tot_co && ft_strncmp(buf + 1, "[C", 2) == 0) // fleche droite
 	{
 		tputs(buf, 1, ft_putchar);
-		pos->actual++;
+		pos->act_co++;
 
 	}
-	if (pos->actual >= 0 && ft_strncmp(buf + 1, "[D", 2) == 0) // fleche gauche
+	if (pos->act_co >= 0 && ft_strncmp(buf + 1, "[D", 2) == 0) // fleche gauche
 	{
 		tputs(buf, 1, ft_putchar);
-		pos->actual -= pos->actual == 0 ? 0 : 1;
+		pos->act_co -= pos->act_co == 0 ? 0 : 1;
 	}
-//	if (ft_strncmp(buf + 1, "[B", 2) == 0) // fleche bas
-//		;
+	if (ft_strncmp(buf + 1, "[B", 2) == 0) // fleche bas
+	{
+		hist = move_through_history(hist, pos, "down");
+	}
 	if (buf[0] == 10)
 	{
 		tputs(tgetstr("ei", NULL), 1, ft_putchar);
 		exit (0);
 	}
-	return (1);
+	return (hist);
 }
 
 int poussin = 0;
 
-void	check_poussin(char c)
+void	check_poussin(char c/*, t_pos *pos*/)
 {
 	if (poussin == 0 && c == 'e')
 		poussin = 1;
@@ -66,6 +91,7 @@ void	check_poussin(char c)
 	else if (poussin == 3 && c == 't')
 	{
 		tputs(tgetstr("ei", NULL), 1, ft_putchar);
+		//		close(pos->history);
 		exit(0);
 	}
 	else
@@ -76,10 +102,10 @@ void	remove_str(t_pos *pos)
 {
 	char	*swap;
 
-	swap = ft_strnew(pos->actual);
-	swap = ft_strncpy(swap, pos->ans, pos->actual - 1);
-	swap = ft_strjoinf(swap, pos->ans + pos->actual, 1);
-//	free(pos->ans);
+	swap = ft_strnew(pos->act_co);
+	swap = ft_strncpy(swap, pos->ans, pos->act_co - 1);
+	swap = ft_strjoinf(swap, pos->ans + pos->act_co, 0);
+	//	free(pos->ans);
 	pos->ans = swap;
 }
 
@@ -88,19 +114,18 @@ void	fill_str(char *buf, t_pos *pos)
 	char	*swap;
 
 	swap = NULL;
-	if (pos->actual == pos->total)
-		pos->ans = ft_strjoinf(pos->ans, buf, 1);
+	if (pos->act_co == pos->tot_co)
+		pos->ans = ft_strjoinf(pos->ans, buf, 0);
 	else
 	{
-		swap = ft_strnew(pos->actual + 1);
-		swap = ft_strncpy(swap, pos->ans, pos->actual);
-		swap = ft_strjoinf(swap, buf, 1);
-		swap = ft_strjoinf(swap, pos->ans + pos->actual, 1);
-//		free(pos->ans);
+		swap = ft_strnew(pos->act_co + 1);
+		swap = ft_strncpy(swap, pos->ans, pos->act_co);
+		swap = ft_strjoinf(swap, buf, 0);
+		swap = ft_strjoinf(swap, pos->ans + pos->act_co, 0);
+		//		free(pos->ans);
 		pos->ans = swap;
 	}
 }
-
 
 int 	main()
 {
@@ -110,16 +135,19 @@ int 	main()
 	int		line;
 	char	*test;
 	int		ret2;
-	char	buf[3];
-//	char	*name_term;
+	char	buf[10];
+	//	char	*name_term;
 	struct	termios term;
 	int		i;
 	t_pos	pos;
 	char	*tmp;
+	t_hist	*hist;
+	int		start_li;
+	int		start_co;
 
 	tmp = NULL;
-//	name_term = getenv("TERM");
-//	tgetent(NULL, name_term);
+	//	name_term = getenv("TERM");
+	//	tgetent(NULL, name_term);
 	tcgetattr(0, &term);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
@@ -131,45 +159,60 @@ int 	main()
 	test = NULL;
 	i = 0;
 	pos.ans = ft_strnew(0);
-	pos.total = 0;
-	pos.actual = 0;
+	pos.tot_co = 0;
+	pos.act_co = 0;
 
+	hist = NULL;
+	hist = create_history(&pos, hist);
+	write (1, "\033[6n", 4);
+	ret2 = read(1, buf, 8);
+	get_start_info(buf + 1, &start_li, &start_co);
+	if (start_li == -1 || start_co == -1)
+		ft_printf("FATAL ERROR\n");
+	bzero(buf, 10);
+//	ft_printf("ligne %d et colonne %d\n", start_li, start_co);
+	pos.act_co = start_co;
+	pos.act_li = start_li;
+	pos.tot_co = pos.act_co;
 	while (1)
 	{
 		i = 0;
 		ret2 = read(0, buf, 10);
 		if (buf[1])
-			find_key(buf, &pos);
+			hist = find_key(buf, &pos, hist);
 		else
 		{
 			if (buf[0] == 127)
 			{
 				tmp = tgetstr("le", NULL);
 				tputs(tmp, 1, ft_putchar);
-			//	free(tmp);
+				//	free(tmp);
 				tmp = NULL;
 				tputs(tgetstr("dc", NULL), 1, ft_putchar);
 				remove_str(&pos);
-				pos.total -= pos.total == 0 ? 0 : 1;
-				pos.actual -= pos.actual == 0 ? 0 : 1;
+				pos.tot_co -= pos.tot_co == 0 ? 0 : 1;
+				pos.act_co -= pos.act_co == 0 ? 0 : 1;
 			}
-			else if (buf[0] == 32)
-				write(1, "\033[6n", 4);
+			//			else if (buf[0] == 32)
+			//				write(1, "\033[6n", 4);
 			else if (buf[0] == 10)
 			{
 				tputs(tgetstr("ei", NULL), 1, ft_putchar);
 				ft_printf("\nreponse -> |%s|\n", pos.ans);
-			//	free(buf);
-				exit (0);
+				//	free(buf);
+				write(pos.history, pos.ans, ft_strlen(pos.ans));
+				write(pos.history, "\n", 1);
+				close(pos.history);
+				main();
 			}
 			else
 			{
 				tputs(tgetstr("im", NULL), 1, ft_putchar);
 				tputs(buf , 1, ft_putchar);
 				fill_str(buf, &pos);
-				pos.total++;
-				pos.actual++;
-				check_poussin(buf[0]);
+				pos.tot_co++;
+				pos.act_co++;
+				check_poussin(buf[0]/*, &pos*/);
 				tputs(tgetstr("ei", NULL), 1, ft_putchar);
 			}
 		}
