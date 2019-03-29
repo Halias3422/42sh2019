@@ -184,8 +184,8 @@ int 	main()
 	pos.act_co = 0;
 	pos.act_li = 0;
 	save_pos_prompt = NULL;
-	max_co = tgetnum("co");
-	max_li = tgetnum("li");
+	max_co = tgetnum("co") - 1;
+	max_li = tgetnum("li") - 1;
 
 	write (1, "\033[6n", 4);
 	ret2 = read(1, buf, 8);
@@ -196,6 +196,8 @@ int 	main()
 //	ft_printf("ligne %d et colonne %d\n", start_li, start_co);
 	pos.act_li = start_li;
 	pos.act_co = start_co;
+	pos.tot_li = start_li;
+	pos.tot_co = start_co;
 	while (1)
 	{
 		i = 0;
@@ -212,6 +214,16 @@ int 	main()
 					tputs(tgetstr("dc", NULL), 1, ft_putchar);	
 					pos.tot_co -= pos.tot_co == 0 ? 0 : 1;
 					pos.act_co -= pos.act_co == 0 ? 0 : 1;
+					if (pos.tot_co == 0 && pos.tot_li > 0)
+					{	
+						pos.tot_li -= 1;
+						pos.tot_co = max_co;
+						pos.act_co = max_co;
+						tputs(tgoto(tgetstr("cm", NULL), max_co, pos.tot_li), 1, ft_putchar);
+					}
+
+
+
 				}
 			}
 			else if (buf[0] == 10)
@@ -222,7 +234,7 @@ int 	main()
 			}
 			else if (buf[0] != 127 && buf[0] != 10)
 			{
-				if (pos.tot_co == max_co - 1)
+				if (pos.tot_co == max_co)
 				{
 					tputs("\n", 1, ft_putchar);
 					pos.tot_co = 0;
@@ -232,6 +244,12 @@ int 	main()
 						pos.tot_li += 1;
 						pos.act_li += 1;
 					}
+					else
+						start_li -= 1;
+				}
+				else if (pos.act_co == max_co && pos.tot_li > pos.act_li)
+				{
+						
 				}
 				tputs(tgetstr("im", NULL), 1, ft_putchar);
 				tputs(buf , 1, ft_putchar);
@@ -243,22 +261,22 @@ int 	main()
 			}
 		}
 		tputs(tgetstr("sc", &tamp), 1, ft_putchar);
-		tputs(tgoto(tgetstr("cm", &tamp), 100, 1), 1, ft_putchar);
-		ft_printf("{U.B.T.cyan.}act_co    = %03d{eoc}\n", pos.act_co);
-		tputs(tgoto(tgetstr("cm", &tamp), 100, 2), 1, ft_putchar);
-		ft_printf("{U.B.T.cyan.}act_li    = %03d{eoc}\n", pos.act_li);
-		tputs(tgoto(tgetstr("cm", &tamp), 100, 3), 1, ft_putchar);
-		ft_printf("{U.B.T.cyan.}tot_co    = %03d{eoc}\n", pos.tot_co);
-		tputs(tgoto(tgetstr("cm", &tamp), 100, 4), 1, ft_putchar);
-		ft_printf("{U.B.T.cyan.}tot_li    = %03d{eoc}\n", pos.tot_li);
-		tputs(tgoto(tgetstr("cm", &tamp), 100, 5), 1, ft_putchar);
-		ft_printf("{U.B.T.green.}start_co  = %03d{eoc}\n", start_co);
-		tputs(tgoto(tgetstr("cm", &tamp), 100, 6), 1, ft_putchar);
-		ft_printf("{U.B.T.green.}start_li  = %03d{eoc}\n", start_li);
-		tputs(tgoto(tgetstr("cm", &tamp), 100, 7), 1, ft_putchar);
-		ft_printf("{U.B.T.red.}max_co    = %03d{eoc}\n", max_co);
-		tputs(tgoto(tgetstr("cm", &tamp), 100, 8), 1, ft_putchar);
-		ft_printf("{U.B.T.red.}max_li    = %03d{eoc}\n", max_li);
+		tputs(tgoto(tgetstr("cm", &tamp), max_co - 16, 0), 1, ft_putchar);
+		ft_printf(" {U.B.T.cyan.}act_co    = %03d{eoc}\n", pos.act_co);
+		tputs(tgoto(tgetstr("cm", &tamp), max_co - 16, 1), 1, ft_putchar);
+		ft_printf(" {U.B.T.cyan.}act_li    = %03d{eoc}\n", pos.act_li);
+		tputs(tgoto(tgetstr("cm", &tamp), max_co - 16, 2), 1, ft_putchar);
+		ft_printf(" {U.B.T.cyan.}tot_co    = %03d{eoc}\n", pos.tot_co);
+		tputs(tgoto(tgetstr("cm", &tamp), max_co - 16, 3), 1, ft_putchar);
+		ft_printf(" {U.B.T.cyan.}tot_li    = %03d{eoc}\n", pos.tot_li);
+		tputs(tgoto(tgetstr("cm", &tamp), max_co - 16, 4), 1, ft_putchar);
+		ft_printf(" {U.B.T.green.}start_co  = %03d{eoc}\n", start_co);
+		tputs(tgoto(tgetstr("cm", &tamp), max_co - 16, 5), 1, ft_putchar);
+		ft_printf(" {U.B.T.green.}start_li  = %03d{eoc}\n", start_li);
+		tputs(tgoto(tgetstr("cm", &tamp), max_co - 16, 6), 1, ft_putchar);
+		ft_printf(" {U.B.T.red.}max_co    = %03d{eoc}\n", max_co);
+		tputs(tgoto(tgetstr("cm", &tamp), max_co - 16, 7), 1, ft_putchar);
+		ft_printf(" {U.B.T.red.}max_li    = %03d{eoc}\n", max_li);
 		tputs(tgetstr("rc", &tamp), 1, ft_putchar);
 
 		i = 0;
