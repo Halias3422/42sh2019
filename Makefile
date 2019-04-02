@@ -6,14 +6,14 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/03/28 15:12:26 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/02 08:58:51 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = ft_select
 
-SRC = ft_select.c 
+SRC = ft_select.c
 
 #srcs_ls/ft_ls.c \
 #	  srcs_ls/sort_list_ls.c

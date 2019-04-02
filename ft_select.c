@@ -122,6 +122,13 @@ void	fill_str(char *buf, t_pos *pos)
 	}
 }
 
+void	clean_screen(t_pos *pos)
+{
+	tputs(tgetstr("ce", NULL), 1, ft_putchar);
+	tputs(tgetstr("cb", NULL), 1, ft_putchar);
+	(void)pos;
+}
+
 void	get_start_info(char *buf, int *start_li, int *start_co)
 {
 	int		i;
@@ -228,15 +235,16 @@ int 	main()
 			}
 			else if (buf[0] == 10)
 			{
-				tputs(tgetstr("ei", &tamp), 1, ft_putchar);
-				ft_printf("\nreponse -> |%s|\n", pos.ans);
-				exit (0);
+				void(pos);
 			}
-			else if (buf[0] != 127 && buf[0] != 10)
+			else if (buf[0] == 32)
+			{
+				clean_screen(&pos);
+			}
+			else if (buf[0] != 127/* && buf[0] != 10*/ && buf[0] != 32)
 			{
 				if (pos.tot_co == max_co)
 				{
-					tputs("\n", 1, ft_putchar);
 					pos.tot_co = 0;
 					pos.act_co = 1;
 					if (pos.tot_li < max_li)
