@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 09:57:44 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/29 12:59:16 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/02 09:33:18 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,7 +90,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 		head = ft_list_back(head, hist);
 		}
 	}
-	while (head && head->next)
+/*	while (head && head->next)
 	{
 		ft_printf("head->cmd = {%s}\n", head->cmd);
 		head = head->next;
@@ -103,7 +103,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 		ft_printf("Head->cmd->prev = {%s}\n", head->cmd);
 		head = head->prev;
 	}
-	return (hist);
+*/	return (hist);
 }
 
 
