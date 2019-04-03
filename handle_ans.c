@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 10:37:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 11:13:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/03 13:17:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,22 +16,21 @@
 void	remove_char_ans(t_pos *pos)
 {
 	char	*swap;
-	if (pos->act_co > 0)
-	{
-		swap = ft_strnew(pos->act_co);
-		swap = ft_strncpy(swap, pos->ans, pos->act_co - 1);
-		if (pos->act_co < pos->tot_co)
-			swap = ft_strjoinf(swap, pos->ans + pos->act_co, 0);
-		//	free(pos->ans);
-		pos->ans = swap;
-		pos->let_nb--;
-	}
+
+	swap = ft_strnew(pos->let_nb);
+	swap = ft_strncpy(swap, pos->ans, pos->let_nb - 1);
+	if (pos->let_nb < (int)ft_strlen(pos->ans))
+		swap = ft_strjoinf(swap, pos->ans + pos->let_nb, 0);
+	pos->ans = swap;
+	pos->let_nb--;
+	pos->mode = 1;
+	tputs(tgoto(tgetstr("cm", NULL), pos->act_co - 1, pos->act_li), 1, ft_putchar);
 	if (pos->act_co == 0 && pos->act_li > pos->start_li)
 	{
-//		swap = ft_strnew(pos->act_co);
-//		swap = ft_strncpy(swap, pos->ans, pos->act_co - 1);
-		pos->act_co = pos->max_co + 1;
+		pos->act_co = pos->max_co;
 		pos->act_li--;
+		pos->mode = 0;
+		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 	}
 }
 
@@ -63,13 +62,11 @@ void	print_ans(t_pos *pos)
 	int		len_ans;
 	int		nb_li;
 
-	len_ans = ft_strlen(pos->ans);
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
-	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
-
-	tputs(tgetstr("ce", NULL), 1, ft_putchar);
-	tputs(tgetstr("cb", NULL), 1, ft_putchar);
+	len_ans = ft_strlen(pos->ans);
+	clean_screen(pos);
 	write(1, pos->ans, len_ans);
+	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 	nb_li = len_ans / pos->max_co;
 	while (nb_li != 0)
 	{

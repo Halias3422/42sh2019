@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 10:05:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 10:40:00 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/03 12:45:21 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,8 +51,9 @@ void		input_is_backspace(t_pos *pos)
 		remove_char_ans(pos);
 		pos->tot_co -= pos->tot_co == 0 ? 0 : 1;
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;
-	}
+		print_ans(pos);
 
+	}
 }
 
 void	check_input(char *buf, t_pos *pos, t_hist *hist)
