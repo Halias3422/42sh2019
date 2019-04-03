@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 10:05:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 12:45:21 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/03 13:35:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,20 +17,20 @@ void		input_is_printable_char(t_pos *pos, char *buf)
 {
 	fill_char_ans(buf, pos);
 	print_ans(pos);
-	tputs(tgoto(tgetstr("cm", NULL), pos->act_co + 1, pos->act_li), 1, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), pos->act_co + 1, pos->act_li),
+			1, ft_putchar);
 	if (pos->let_nb % pos->max_co == 0)
-		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->act_li + 1), 1, ft_putchar);
+		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->act_li + 1),
+				1, ft_putchar);
 	pos->tot_co++;
 	pos->act_co++;
-	check_poussin(buf[0]/*, &pos*/);
-
+	check_poussin(buf[0]);
 }
 
 void		input_is_entry(t_pos *pos)
 {
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
 	ft_printf("\nreponse -> |%s|\n", pos->ans);
-	//	free(buf);
 	write(pos->history, pos->ans, ft_strlen(pos->ans));
 	write(pos->history, "\n", 1);
 	close(pos->history);
@@ -45,18 +45,16 @@ void		input_is_backspace(t_pos *pos)
 	{
 		tmp = tgetstr("le", NULL);
 		tputs(tmp, 1, ft_putchar);
-		//	free(tmp);
 		tmp = NULL;
 		tputs(tgetstr("dc", NULL), 1, ft_putchar);
 		remove_char_ans(pos);
 		pos->tot_co -= pos->tot_co == 0 ? 0 : 1;
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;
 		print_ans(pos);
-
 	}
 }
 
-void	check_input(char *buf, t_pos *pos, t_hist *hist)
+void		check_input(char *buf, t_pos *pos, t_hist *hist)
 {
 	if (buf[1])
 		hist = find_arrow(buf, pos, hist);

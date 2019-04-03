@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 09:57:44 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 13:20:01 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/03 13:40:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,16 +24,15 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 		ans_len = ft_strlen(pos->ans);
 		if (ans_len == 0)
 			ans_len = ft_strlen(hist->cmd);
-			while (ans_len-- >= 0)
-			{
-				tputs(tgetstr("le", NULL), 1, ft_putchar);
-				tputs(tgetstr("dc", NULL), 1, ft_putchar);
-			}
-			ft_printf("%s", hist->cmd);
-//			free(pos->ans);
-			pos->ans = hist->cmd;
-			if (hist->prev)
-				hist = hist->prev;
+		while (ans_len-- >= 0)
+		{
+			tputs(tgetstr("le", NULL), 1, ft_putchar);
+			tputs(tgetstr("dc", NULL), 1, ft_putchar);
+		}
+		ft_printf("%s", hist->cmd);
+		pos->ans = hist->cmd;
+		if (hist->prev)
+			hist = hist->prev;
 	}
 	else if (ft_strcmp(usage, "down") == 0 && hist->next)
 	{
@@ -41,16 +40,15 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 		ans_len = ft_strlen(hist->cmd);
 		if (hist->prev)
 			ans_len = ft_strlen(hist->prev->cmd);
-			while (ans_len-- >= 0)
-			{
-				tputs(tgetstr("le", NULL), 1, ft_putchar);
-				tputs(tgetstr("dc", NULL), 1, ft_putchar);
-			}
-			if (hist->next)
-				hist = hist->next;
-			ft_printf("%s", hist->cmd);
+		while (ans_len-- >= 0)
+		{
+			tputs(tgetstr("le", NULL), 1, ft_putchar);
+			tputs(tgetstr("dc", NULL), 1, ft_putchar);
+		}
+		if (hist->next)
+			hist = hist->next;
+		ft_printf("%s", hist->cmd);
 	}
-//	ft_printf("\nans_len = %d\n", ans_len);
 	return (hist);
 }
 
@@ -89,28 +87,26 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 		ret = get_next_line(pos->history, &line);
 		if (ret != 0 && ft_strlen(line) > 0)
 		{
-		hist = (t_hist*)malloc(sizeof(t_hist));
-		hist->cmd = ft_strnew(0);
-		hist->cmd = ft_strjoin(hist->cmd, line);
-		hist->next = NULL;
-		hist->prev = NULL;
-		head = ft_list_back(head, hist);
+			hist = (t_hist*)malloc(sizeof(t_hist));
+			hist->cmd = ft_strnew(0);
+			hist->cmd = ft_strjoin(hist->cmd, line);
+			hist->next = NULL;
+			hist->prev = NULL;
+			head = ft_list_back(head, hist);
 		}
 	}
-/*	while (head && head->next)
-	{
+	/*	while (head && head->next)
+		{
 		ft_printf("head->cmd = {%s}\n", head->cmd);
 		head = head->next;
-	}
-	if (head)
-	ft_printf("head->cmd = {%s}\n", head->cmd);
-	ft_printf("\n	------------\n\n");
-	while (head)
-	{
+		}
+		if (head)
+		ft_printf("head->cmd = {%s}\n", head->cmd);
+		ft_printf("\n	------------\n\n");
+		while (head)
+		{
 		ft_printf("Head->cmd->prev = {%s}\n", head->cmd);
 		head = head->prev;
-	}
-*/	return (hist);
+		}
+		*/	return (hist);
 }
-
-
