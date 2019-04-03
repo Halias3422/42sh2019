@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 09:57:44 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/02 09:02:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/03 08:57:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,8 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 
 	ans_len = 0;
 	if (ft_strcmp(usage, "up") == 0 && hist)
-	{	
+	{
+		clean_screen(pos);
 		ans_len = ft_strlen(pos->ans);
 		if (ans_len == 0)
 			ans_len = ft_strlen(hist->cmd);
@@ -36,6 +37,7 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 	}
 	else if (ft_strcmp(usage, "down") == 0 && hist->next)
 	{
+		clean_screen(pos);
 		ans_len = ft_strlen(hist->cmd);
 		if (hist->prev)
 			ans_len = ft_strlen(hist->prev->cmd);
@@ -95,7 +97,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 		head = ft_list_back(head, hist);
 		}
 	}
-	while (head && head->next)
+/*	while (head && head->next)
 	{
 		ft_printf("head->cmd = {%s}\n", head->cmd);
 		head = head->next;
@@ -108,7 +110,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 		ft_printf("Head->cmd->prev = {%s}\n", head->cmd);
 		head = head->prev;
 	}
-	return (hist);
+*/	return (hist);
 }
 
 
