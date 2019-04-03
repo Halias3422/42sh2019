@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 09:57:44 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/29 12:59:16 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/02 09:02:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,12 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 {
 	int		ans_len;
 
+	ans_len = 0;
 	if (ft_strcmp(usage, "up") == 0 && hist)
 	{	
 		ans_len = ft_strlen(pos->ans);
+		if (ans_len == 0)
+			ans_len = ft_strlen(hist->cmd);
 			while (ans_len-- >= 0)
 			{
 				tputs(tgetstr("le", NULL), 1, ft_putchar);
@@ -34,6 +37,8 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 	else if (ft_strcmp(usage, "down") == 0 && hist->next)
 	{
 		ans_len = ft_strlen(hist->cmd);
+		if (hist->prev)
+			ans_len = ft_strlen(hist->prev->cmd);
 			while (ans_len-- >= 0)
 			{
 				tputs(tgetstr("le", NULL), 1, ft_putchar);
@@ -43,7 +48,7 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 				hist = hist->next;
 			ft_printf("%s", hist->cmd);
 	}
-
+//	ft_printf("\nans_len = %d\n", ans_len);
 	return (hist);
 }
 
