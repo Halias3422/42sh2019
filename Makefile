@@ -6,15 +6,19 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/03 06:51:25 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/03 10:48:16 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = ft_select
 
-SRC = ft_select.c \
-	  history.c
+SRC = history.c \
+	  init_ft_select.c \
+	  check_input.c \
+	  input_is_arrow.c \
+	  handle_ans.c \
+	  util_tools.c
 
 #srcs_ls/ft_ls.c \
 #	  srcs_ls/sort_list_ls.c
