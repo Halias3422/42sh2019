@@ -6,15 +6,20 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/04 08:53:17 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/04 15:16:03 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = ft_select
 
-SRC = history.c \
-	  init_ft_select.c \
+SRC = 	init_termcaps.c \
+		history.c \
+		termcaps_tools.c \
+		check_input.c \
+		handle_ans.c \
+		input_is_arrow.c
+	#  init_ft_select.c \
 	  check_input.c \
 	  input_is_arrow.c \
 	  handle_ans.c \

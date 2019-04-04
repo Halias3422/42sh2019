@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 09:57:44 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 07:59:43 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 12:07:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,8 +30,8 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 		clean_screen(pos);
 		write(1, hist->cmd, ft_strlen(hist->cmd));
 		update_position(pos, hist->cmd);
-//		pos->act_co = ft_strlen(hist->cmd);
-//		pos->let_nb = pos->act_co;
+		//		pos->act_co = ft_strlen(hist->cmd);
+		//		pos->let_nb = pos->act_co;
 		pos->ans = hist->cmd;
 		if (hist->prev)
 			hist = hist->prev;
@@ -44,8 +44,8 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 			hist = hist->next;
 			write(1, hist->cmd, ft_strlen(hist->cmd));
 			update_position(pos, hist->cmd);
-//			pos->act_co = ft_strlen(hist->cmd);
-//			pos->let_nb = pos->act_co;
+			//			pos->act_co = ft_strlen(hist->cmd);
+			//			pos->let_nb = pos->act_co;
 		}
 	}
 	else if (ft_strcmp(usage, "down") == 0)
@@ -103,18 +103,18 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 			head = ft_list_back(head, hist);
 		}
 	}/*
-	while (head && head->next)
-	{
+		while (head && head->next)
+		{
 		ft_printf("head->cmd = {%s}\n", head->cmd);
 		head = head->next;
-	}
-	if (head)
+		}
+		if (head)
 		ft_printf("head->cmd = {%s}\n", head->cmd);
-	ft_printf("\n	------------\n\n");
-	while (head)
-	{
+		ft_printf("\n	------------\n\n");
+		while (head)
+		{
 		ft_printf("Head->cmd->prev = {%s}\n", head->cmd);
 		head = head->prev;
-	}*/
+		}*/
 	return (hist);
 }

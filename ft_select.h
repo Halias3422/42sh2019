@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 08:55:40 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 13:44:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,8 +26,6 @@ typedef struct		s_pos
 {
 	int				act_co;
 	int				act_li;
-	int				tot_co;
-	int				tot_li;
 	int				start_li;
 	int				start_co;
 	int				max_co;
@@ -35,7 +33,6 @@ typedef struct		s_pos
 	char			*ans;
 	int				history;
 	int				let_nb;
-	int				mode;
 }					t_pos;
 
 typedef struct		s_hist
@@ -90,7 +87,7 @@ t_hist				*move_through_history(t_hist *hist, t_pos *pos,
 					char *usage);
 
 /*
-**UTIL_TOOLS.C
+**TERMCAPS_TOOLS.C
 */
 
 void				clean_screen(t_pos *pos);

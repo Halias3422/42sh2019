@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   init_ft_select.c                                 .::    .:/ .      .::   */
+/*   init_termcaps.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/03 09:28:18 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 07:48:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/04/04 16:12:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,18 +22,18 @@ int			check_term(void)
 	ret = 0;
 	if (term_type == NULL)
 	{
-		fprintf(stderr, "TERM must be set (see 'env').\n");
+		ft_printf("TERM must be set (see 'env').\n");
 		return (-1);
 	}
 	ret = tgetent(NULL, term_type);
 	if (ret == -1)
 	{
-		fprintf(stderr, "Could not access to the termcap database..\n");
+		ft_printf("Could not access to the termcap database..\n");
 		return (-1);
 	}
 	else if (ret == 0)
 	{
-		fprintf(stderr, "Terminal type '%s' is not defined in termcap database (or have too few informations).\n", term_type);
+		ft_printf("Terminal type '%s' is not defined in termcap database (or have too few informations).\n", term_type);
 		return (-1);
 	}
 	return (0);
@@ -64,8 +64,6 @@ int			init_pos(t_pos *pos, char *buf)
 	int		ret2;
 
 	pos->ans = ft_strnew(0);
-	pos->tot_co = 0;
-	pos->act_co = 0;
 	pos->let_nb = 0;
 	write(1, "\033[6n", 4);
 	ret2 = read(1, buf, 8);
@@ -74,10 +72,9 @@ int			init_pos(t_pos *pos, char *buf)
 		ft_printf("FATAL ERROR\n");
 	pos->act_li = pos->start_li;
 	pos->act_co = pos->start_co;
-	pos->tot_li = pos->start_li;
-	pos->tot_co = pos->start_co;
 	pos->max_co = tgetnum("co");
-	pos->max_li = tgetnum("li");
+	pos->max_li = tgetnum("li") - 1;
+	//	ft_printf("start_li = %d, start_co = %d, max_co = %d, max_li = %d\n", pos->start_li, pos->start_co, pos->max_co, pos->max_li);
 	return (ret2);
 }
 
@@ -91,12 +88,26 @@ void		init_terminfo(void)
 	tcsetattr(0, TCSADRAIN, &term);
 }
 
-int			main(void)
+void		update_act_pos(t_pos *pos)
+{
+	pos->max_co = tgetnum("co");
+	pos->max_li = tgetnum("li");
+	if (pos->act_co > pos->max_co)
+	{
+		pos->act_li = pos->act_li + pos->act_co / pos->max_co;
+		if (pos->act_co % pos->max_co > 0)
+			pos->act_li++;
+		while (pos->act_li-- > pos->max_li)
+			pos->start_li--;
+		pos->act_co = pos->act_co % pos->max_co;
+	}
+}
+
+int		main(void)
 {
 	int		ret;
 	int		ret2;
 	char	buf[10];
-	int		i;
 	t_pos	pos;
 	t_hist	*hist;
 
@@ -108,12 +119,11 @@ int			main(void)
 	bzero(buf, 10);
 	while (1)
 	{
-		i = 0;
+//		update_act_pos(&pos);
 		ret2 = read(0, buf, 10);
 		hist = check_input(buf, &pos, hist);
 		print_info(&pos);
 		bzero(buf, 10);
-//		ft_printf("puis la hist->cmd = {%s}\n", hist.cmd);
 	}
 	return (0);
 }

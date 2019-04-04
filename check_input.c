@@ -3,29 +3,15 @@
 /*                                                              /             */
 /*   check_input.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/03 10:05:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 08:02:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/04 12:30:53 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/04/04 15:57:40 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
-void		input_is_printable_char(t_pos *pos, char *buf)
-{
-	fill_char_ans(buf, pos);
-	print_ans(pos);
-	tputs(tgoto(tgetstr("cm", NULL), pos->act_co + 1, pos->act_li),
-			1, ft_putchar);
-	if (pos->let_nb % pos->max_co == 0)
-		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->act_li + 1),
-				1, ft_putchar);
-	pos->tot_co++;
-	pos->act_co++;
-	check_poussin(buf[0]);
-}
 
 void		input_is_entry(t_pos *pos)
 {
@@ -37,35 +23,50 @@ void		input_is_entry(t_pos *pos)
 	main();
 }
 
-void		input_is_backspace(t_pos *pos)
+void		input_is_printable_char(t_pos *pos, char *buf)
 {
-	char	*tmp;
-
-	if (pos->act_co > 0 || pos->act_li > pos->start_li)
+	fill_char_ans(buf, pos);
+	if (pos->act_co == pos->max_co)
 	{
-		tmp = tgetstr("le", NULL);
-		tputs(tmp, 1, ft_putchar);
-		tmp = NULL;
-		tputs(tgetstr("dc", NULL), 1, ft_putchar);
-		remove_char_ans(pos);
-		pos->tot_co -= pos->tot_co == 0 ? 0 : 1;
-		pos->act_co -= pos->act_co == 0 ? 0 : 1;
-		print_ans(pos);
+		pos->act_co = 1;
+		if (pos->act_li == pos->max_li)
+			pos->start_li -= 1;
+		else
+			pos->act_li += 1;
 	}
+	else
+		pos->act_co += 1;
+	pos->let_nb += 1;
+	check_poussin(buf[0]);
 }
+
 
 t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 {
-	if (buf[1])
+	//	if (buf[1])
+	//		hist = find_arrow(buf, pos, hist);
+	//	else
+	//	{
+	//		if (buf[0] == 127)
+	//			input_is_backspace(pos);
+	//		else if (buf[0] == 10)
+	//			input_is_entry(pos);
+	//		else
+	if (buf[0] == 27)
 		hist = find_arrow(buf, pos, hist);
 	else
 	{
+		clean_screen(pos);
 		if (buf[0] == 127)
-			input_is_backspace(pos);
-		else if (buf[0] == 10)
-			input_is_entry(pos);
+			;
 		else
-			input_is_printable_char(pos, buf);
+		{
+			if (buf[0] == 10)
+				input_is_entry(pos);
+			else
+				input_is_printable_char(pos, buf);
+			print_ans(pos);
+		}
 	}
 	return (hist);
 }
