@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 09:28:18 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 13:39:25 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 07:48:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,9 +110,10 @@ int			main(void)
 	{
 		i = 0;
 		ret2 = read(0, buf, 10);
-		check_input(buf, &pos, hist);
+		hist = check_input(buf, &pos, hist);
 		print_info(&pos);
 		bzero(buf, 10);
+//		ft_printf("puis la hist->cmd = {%s}\n", hist.cmd);
 	}
 	return (0);
 }

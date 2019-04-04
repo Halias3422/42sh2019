@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 10:13:47 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 13:16:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 06:57:28 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ void		right_arrow(char *buf, t_pos *pos)
 void		left_arrow(char *buf, t_pos *pos)
 {
 	pos->let_nb--;
-	if (pos->let_nb % pos->max_co == 0)
+	if (pos->let_nb % pos->max_co == 0 && pos->act_li > pos->start_li)
 	{
 		pos->act_li--;
 		pos->act_co = pos->max_co;
@@ -55,5 +55,6 @@ t_hist		*find_arrow(char *buf, t_pos *pos, t_hist *hist)
 	else if (pos->let_nb > 0 && pos->act_co >= 0 &&
 			ft_strncmp(buf + 1, "[D", 2) == 0)
 		left_arrow(buf, pos);
+//	ft_printf("ici hist->cmd = {%s}\n", hist->cmd);
 	return (hist);
 }

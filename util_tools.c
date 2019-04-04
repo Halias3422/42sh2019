@@ -3,8 +3,6 @@
 
 void	print_info(t_pos *pos)
 {
-	(void)pos;
-	/*
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 0), 1, ft_putchar);
 	ft_printf(" {U.B.T.cyan.}act_co    = %03d/{eoc}\n", pos->act_co);
@@ -30,7 +28,7 @@ void	print_info(t_pos *pos)
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 10), 1, ft_putchar);
 	ft_printf(" {U.B.T.blue.}mode   = %03d/{eoc}\n", pos->mode);
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
-*/}
+}
 
 
 int poussin = 0;
@@ -57,7 +55,10 @@ void	check_poussin(char c/*, t_pos *pos*/)
 
 void	clean_screen(t_pos *pos)
 {
-	int	cl_screen;
+	(void)pos;
+	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+/*	int	cl_screen;
 
 	cl_screen = pos->start_li;
 	while (cl_screen < pos->max_li)
@@ -66,7 +67,7 @@ void	clean_screen(t_pos *pos)
 		tputs(tgetstr("ce", NULL), 1, ft_putchar);
 		tputs(tgetstr("cb", NULL), 1, ft_putchar);
 	}
-	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
-}
+
+*/}
 
 

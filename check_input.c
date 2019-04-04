@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 10:05:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 13:35:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 08:02:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,7 @@ void		input_is_backspace(t_pos *pos)
 	}
 }
 
-void		check_input(char *buf, t_pos *pos, t_hist *hist)
+t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 {
 	if (buf[1])
 		hist = find_arrow(buf, pos, hist);
@@ -67,4 +67,5 @@ void		check_input(char *buf, t_pos *pos, t_hist *hist)
 		else
 			input_is_printable_char(pos, buf);
 	}
+	return (hist);
 }

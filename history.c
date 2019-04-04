@@ -6,48 +6,56 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 09:57:44 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 13:40:40 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 07:59:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
+void		update_position(t_pos *pos, char *cmd)
+{
+	pos->act_li = pos->act_li + ft_strlen(cmd) / pos->max_co;
+	if ((int)ft_strlen(cmd) < pos->max_co)
+		pos->act_co = ft_strlen(cmd);
+	else
+		pos->act_co = ft_strlen(cmd) % ((pos->act_li - pos->start_li) * pos->max_co);
+	pos->let_nb = ft_strlen(cmd);
+}
+
 t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 {
-	int		ans_len;
-
-	ans_len = 0;
 	if (ft_strcmp(usage, "up") == 0 && hist)
 	{
 		clean_screen(pos);
-		ans_len = ft_strlen(pos->ans);
-		if (ans_len == 0)
-			ans_len = ft_strlen(hist->cmd);
-		while (ans_len-- >= 0)
-		{
-			tputs(tgetstr("le", NULL), 1, ft_putchar);
-			tputs(tgetstr("dc", NULL), 1, ft_putchar);
-		}
-		ft_printf("%s", hist->cmd);
+		write(1, hist->cmd, ft_strlen(hist->cmd));
+		update_position(pos, hist->cmd);
+//		pos->act_co = ft_strlen(hist->cmd);
+//		pos->let_nb = pos->act_co;
 		pos->ans = hist->cmd;
 		if (hist->prev)
 			hist = hist->prev;
 	}
-	else if (ft_strcmp(usage, "down") == 0 && hist->next)
+	else if (ft_strcmp(usage, "down") == 0 && hist && hist->next)
 	{
 		clean_screen(pos);
-		ans_len = ft_strlen(hist->cmd);
-		if (hist->prev)
-			ans_len = ft_strlen(hist->prev->cmd);
-		while (ans_len-- >= 0)
+		if (hist && hist->next)
 		{
-			tputs(tgetstr("le", NULL), 1, ft_putchar);
-			tputs(tgetstr("dc", NULL), 1, ft_putchar);
-		}
-		if (hist->next)
 			hist = hist->next;
-		ft_printf("%s", hist->cmd);
+			write(1, hist->cmd, ft_strlen(hist->cmd));
+			update_position(pos, hist->cmd);
+//			pos->act_co = ft_strlen(hist->cmd);
+//			pos->let_nb = pos->act_co;
+		}
+	}
+	else if (ft_strcmp(usage, "down") == 0)
+	{
+		clean_screen(pos);
+		tputs(tgoto(tgetstr("cm", NULL), 0, pos->start_li), 1, ft_putchar);
+		pos->act_li = pos->start_li;
+		pos->act_co = 0;
+		pos->let_nb = 0;
+		pos->ans[0] = '\0';
 	}
 	return (hist);
 }
@@ -94,19 +102,19 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 			hist->prev = NULL;
 			head = ft_list_back(head, hist);
 		}
-	}
-	/*	while (head && head->next)
-		{
+	}/*
+	while (head && head->next)
+	{
 		ft_printf("head->cmd = {%s}\n", head->cmd);
 		head = head->next;
-		}
-		if (head)
+	}
+	if (head)
 		ft_printf("head->cmd = {%s}\n", head->cmd);
-		ft_printf("\n	------------\n\n");
-		while (head)
-		{
+	ft_printf("\n	------------\n\n");
+	while (head)
+	{
 		ft_printf("Head->cmd->prev = {%s}\n", head->cmd);
 		head = head->prev;
-		}
-		*/	return (hist);
+	}*/
+	return (hist);
 }

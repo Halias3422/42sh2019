@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 13:35:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 06:59:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,7 @@ int					check_term(void);
 **CHECK_INPUT.C
 */
 
-void				check_input(char *buf, t_pos *pos, t_hist *hist);
+t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
 void				input_is_backspace(t_pos *pos);
 void				input_is_entry(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
