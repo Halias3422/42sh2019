@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 10:13:47 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 06:57:28 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 09:32:29 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,11 +15,7 @@
 
 void		right_arrow(char *buf, t_pos *pos)
 {
-	if (pos->let_nb == pos->max_co)
-		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->act_li + 1),
-				1, ft_putchar);
-	tputs(buf, 1, ft_putchar);
-	if (pos->act_co == pos->max_co)
+	if (pos->act_co == pos->max_co - 1)
 	{
 		pos->act_co = 0;
 		pos->act_li += 1;
@@ -27,14 +23,19 @@ void		right_arrow(char *buf, t_pos *pos)
 	else
 		pos->act_co++;
 	pos->let_nb++;
-	if (pos->act_co == 0 && pos->let_nb > 0)
-		pos->act_li++;
+	if (pos->let_nb % pos->max_co == 0)
+		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->act_li),
+				1, ft_putchar);
+	tputs(buf, 1, ft_putchar);
+//	if (pos->act_co == 0 && pos->let_nb > 0)
+//		pos->act_li++;
 }
 
 void		left_arrow(char *buf, t_pos *pos)
 {
 	pos->let_nb--;
-	if (pos->let_nb % pos->max_co == 0 && pos->act_li > pos->start_li)
+//	if (pos->let_nb % pos->max_co == 0 && pos->act_li > pos->start_li)
+	if (pos->act_co == 0 && pos->act_li > pos->start_li)
 	{
 		pos->act_li--;
 		pos->act_co = pos->max_co;

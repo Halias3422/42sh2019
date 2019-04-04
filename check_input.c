@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 10:05:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 08:02:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 11:26:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,13 +39,9 @@ void		input_is_entry(t_pos *pos)
 
 void		input_is_backspace(t_pos *pos)
 {
-	char	*tmp;
-
 	if (pos->act_co > 0 || pos->act_li > pos->start_li)
 	{
-		tmp = tgetstr("le", NULL);
-		tputs(tmp, 1, ft_putchar);
-		tmp = NULL;
+		tputs(tgetstr("le", NULL), 1, ft_putchar);
 		tputs(tgetstr("dc", NULL), 1, ft_putchar);
 		remove_char_ans(pos);
 		pos->tot_co -= pos->tot_co == 0 ? 0 : 1;

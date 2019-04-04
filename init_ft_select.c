@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 09:28:18 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 07:48:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 11:32:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,14 +49,14 @@ void		get_start_info(char *buf, t_pos *pos)
 	if (buf[i] == '\0')
 		pos->start_li = -1;
 	else
-		pos->start_li = ft_atoi(buf + i + 1) - 1;
+		pos->start_li = ft_atoi(buf + i + 1);
 	i = 0;
 	while (buf[i] && buf[i] != ';')
 		i++;
 	if (buf[i] == '\0')
 		pos->start_co = -1;
 	else
-		pos->start_co = ft_atoi(buf + i + 1) - 1;
+		pos->start_co = ft_atoi(buf + i + 1);
 }
 
 int			init_pos(t_pos *pos, char *buf)

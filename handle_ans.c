@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/03 10:37:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/03 13:36:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/04 11:36:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,8 @@ void		remove_char_ans(t_pos *pos)
 	pos->ans = swap;
 	pos->let_nb--;
 	pos->mode = 1;
-	tputs(tgoto(tgetstr("cm", NULL), pos->act_co - 1, pos->act_li), 1,
-			ft_putchar);
+//	tputs(tgoto(tgetstr("cm", NULL), pos->act_co - 1, pos->act_li), 1,
+//			ft_putchar);
 	if (pos->act_co == 0 && pos->act_li > pos->start_li)
 	{
 		pos->act_co = pos->max_co;
@@ -34,6 +34,11 @@ void		remove_char_ans(t_pos *pos)
 		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
 				1, ft_putchar);
 	}
+
+//	print_ans(pos);
+//	tputs(tgetstr("sc", NULL), 1, ft_putchar);
+
+//	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 }
 
 void		fill_char_ans(char *buf, t_pos *pos)
@@ -78,7 +83,7 @@ void		print_ans(t_pos *pos)
 			pos->act_li++;
 			pos->act_co = 0;
 		}
-		else if (pos->act_co == pos->max_co)
+		else if (pos->act_co == pos->max_co && pos->act_li == pos->max_li)
 		{
 			pos->start_li--;
 			pos->act_co = 0;

@@ -56,8 +56,16 @@ void	check_poussin(char c/*, t_pos *pos*/)
 void	clean_screen(t_pos *pos)
 {
 	(void)pos;
-	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
-	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	if (pos->act_li < pos->max_li)
+	{
+		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
+		tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	}
+	if (pos->act_li == pos->max_li)
+	{
+			tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li - 1), 1, ft_putchar);
+		tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	}
 /*	int	cl_screen;
 
 	cl_screen = pos->start_li;
