@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:30:53 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 10:46:43 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/05 12:47:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,6 +36,7 @@ void		input_is_printable_char(t_pos *pos, char *buf)
 	}
 	else if (pos->act_li == pos->max_li && pos->act_co == pos->max_co)
 	{
+		write(1, "\n", 1);
 		pos->act_co = 0;
 		pos->start_li -= 1;
 	}
