@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 13:23:26 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/05 18:00:03 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,22 +49,30 @@ void		get_start_info(char *buf, t_pos *pos)
 	if (buf[i] == '\0')
 		pos->start_li = -1;
 	else
-		pos->start_li = ft_atoi(buf + i + 1) - 1;
+	{
+		pos->start_li = ft_atoi(buf + i + 1) - 1 + ft_strlen(pos->prompt) / pos->max_co;
+		if (pos->start_li > pos->max_li)
+			pos->start_li = pos->max_li;
+	}
 	i = 0;
 	while (buf[i] && buf[i] != ';')
 		i++;
 	if (buf[i] == '\0')
 		pos->start_co = -1;
 	else
-		pos->start_co = ft_atoi(buf + i + 1) - 1;
+		pos->start_co = ft_atoi(buf + i + 1) - 1 + pos->len_prompt;
 }
 
 int			init_pos(t_pos *pos, char *buf)
 {
 	int		ret2;
 
+	pos->max_co = tgetnum("co");
+	pos->max_li = tgetnum("li") - 1;
 	pos->debug = 0;
+	pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 	pos->ans = ft_strnew(0);
+	pos->len_ans = pos->len_prompt;
 	pos->let_nb = 0;
 	write(1, "\033[6n", 4);
 	ret2 = read(1, buf, 8);
@@ -73,8 +81,6 @@ int			init_pos(t_pos *pos, char *buf)
 		ft_printf("FATAL ERROR\n");
 	pos->act_li = pos->start_li;
 	pos->act_co = pos->start_co;
-	pos->max_co = tgetnum("co");
-	pos->max_li = tgetnum("li") - 1;
 	//	ft_printf("start_li = %d, start_co = %d, max_co = %d, max_li = %d\n", pos->start_li, pos->start_co, pos->max_co, pos->max_li);
 	return (ret2);
 }
@@ -108,23 +114,27 @@ int		main(void)
 {
 	int		ret;
 	int		ret2;
-	char	buf[10];
+	char	buf[4];
 	t_pos	pos;
 	t_hist	*hist;
 
+	pos.prompt = "minishell &> ";
+//	pos.prompt = "--------------------------------------------------------------------------------------------------/--------------------------------------------------------------------------------------------------/--------------------------------------------------------------------------------------------------/--------------------------------------------------------------------------------------------------/minishell &> ";
+//	pos.prompt = "minishell $> ";
 	init_terminfo();
 	ret = check_term();
 	ret2 = init_pos(&pos, buf);
 	hist = NULL;
-	hist = create_history(&pos, hist);
-	bzero(buf, 10);
+//	hist = create_history(&pos, hist);
+	bzero(buf, 4);
+	ft_printf("%s", pos.prompt);
 	while (1)
 	{
 //		update_act_pos(&pos);
-		ret2 = read(0, buf, 10);
+		ret2 = read(0, buf, 4);
 		hist = check_input(buf, &pos, hist);
 		print_info(&pos);
-		bzero(buf, 10);
+		bzero(buf, 4);
 	}
 	return (0);
 }
