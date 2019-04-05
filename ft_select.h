@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 13:44:26 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/05 13:23:00 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,7 @@ typedef struct		s_pos
 	char			*ans;
 	int				history;
 	int				let_nb;
+	int				debug;
 }					t_pos;
 
 typedef struct		s_hist

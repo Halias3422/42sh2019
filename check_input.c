@@ -6,12 +6,14 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:30:53 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 12:47:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/05 13:30:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+int	g_i = 1;
 
 void		input_is_entry(t_pos *pos)
 {
@@ -34,9 +36,8 @@ void		input_is_printable_char(t_pos *pos, char *buf)
 		else
 			pos->act_li += 1;
 	}
-	else if (pos->act_li == pos->max_li && pos->act_co == pos->max_co)
+	else if (pos->act_li == pos->max_li && (int)ft_strlen(pos->ans) % (pos->max_co) == 0)//pos->act_co == pos->max_co - 1)
 	{
-		write(1, "\n", 1);
 		pos->act_co = 0;
 		pos->start_li -= 1;
 	}
@@ -54,21 +55,11 @@ void		input_is_backspace(t_pos *pos)
 		tputs(tgetstr("dc", NULL), 1, ft_putchar);
 		remove_char_ans(pos);
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;
-//		print_ans(pos);
 	}
 }
 
 t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 {
-	//	if (buf[1])
-	//		hist = find_arrow(buf, pos, hist);
-	//	else
-	//	{
-	//		if (buf[0] == 127)
-	//			input_is_backspace(pos);
-	//		else if (buf[0] == 10)
-	//			input_is_entry(pos);
-	//		else
 	if (buf[0] == 27)
 		hist = find_arrow(buf, pos, hist);
 	else

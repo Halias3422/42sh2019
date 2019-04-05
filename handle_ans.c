@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:37:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 10:43:25 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/05 13:31:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,12 @@ void		remove_char_ans(t_pos *pos)
 
 void		print_ans(t_pos *pos)
 {
+	if (pos->act_li == pos->max_li &&  (int)ft_strlen(pos->ans) % (pos->max_co) == 0)//pos->act_co == pos->max_co - 1)
+	{
+		ft_putchar('\n');
+		pos->debug += 1;
+	}
+	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
 	write(1, pos->ans, ft_strlen(pos->ans));
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }

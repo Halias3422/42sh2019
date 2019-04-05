@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 16:12:26 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/05 13:23:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,6 +63,7 @@ int			init_pos(t_pos *pos, char *buf)
 {
 	int		ret2;
 
+	pos->debug = 0;
 	pos->ans = ft_strnew(0);
 	pos->let_nb = 0;
 	write(1, "\033[6n", 4);

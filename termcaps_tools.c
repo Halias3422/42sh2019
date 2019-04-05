@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/04 16:12:24 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/05 13:25:31 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,8 @@ void	print_info(t_pos *pos)
 	ft_printf(" {U.B.T.blue.}let_nb    = %03d/{eoc}\n", pos->let_nb);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 7), 1, ft_putchar);
 	ft_printf(" {U.B.T.blue.}len_ans   = %03d/{eoc}\n", ft_strlen(pos->ans));
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 8), 1, ft_putchar);
+	ft_printf(" {U.B.}debug     = %03d/{eoc}\n", pos->debug);
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 }
 
