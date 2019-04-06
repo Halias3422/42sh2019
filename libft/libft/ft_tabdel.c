@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 10:35:37 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/14 10:36:01 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 02:04:44 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,17 +16,9 @@
 void	ft_tabdel(char **tab)
 {
 	int i;
-	int j;
 
 	i = -1;
 	while (tab[++i])
-	{
-		j = -1;
-		while (tab[i][++j])
-			tab[i][j] = '\0';
-	}
-	i = -1;
-	while (tab[++i])
 		free(tab[i]);
-	tab = NULL;
+	free(tab);
 }

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:37:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 18:00:02 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/05 21:29:31 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,8 +21,10 @@ void		remove_char_ans(t_pos *pos)
 	swap = ft_strnew(pos->let_nb);
 	swap = ft_strncpy(swap, pos->ans, pos->let_nb - 1);
 	if (pos->let_nb < pos->len_ans)
+	{
 		swap = ft_strjoinf(swap, pos->ans + pos->let_nb, 1);
-	free(pos->ans);
+		free(pos->ans);
+	}
 	pos->ans = swap;
 	pos->let_nb--;
 	if (pos->act_co == 0 && pos->act_li > pos->start_li)

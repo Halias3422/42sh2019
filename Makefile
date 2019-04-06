@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/04 15:16:03 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/06 01:05:56 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -19,11 +19,6 @@ SRC = 	init_termcaps.c \
 		check_input.c \
 		handle_ans.c \
 		input_is_arrow.c
-	#  init_ft_select.c \
-	  check_input.c \
-	  input_is_arrow.c \
-	  handle_ans.c \
-	  util_tools.c
 
 #srcs_ls/ft_ls.c \
 #	  srcs_ls/sort_list_ls.c
@@ -34,7 +29,7 @@ OBJ_DIR = srcs_ls/
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra -g3# -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 LIBFT = ./libft/
 

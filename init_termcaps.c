@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 18:00:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 01:42:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,7 +81,6 @@ int			init_pos(t_pos *pos, char *buf)
 		ft_printf("FATAL ERROR\n");
 	pos->act_li = pos->start_li;
 	pos->act_co = pos->start_co;
-	//	ft_printf("start_li = %d, start_co = %d, max_co = %d, max_li = %d\n", pos->start_li, pos->start_co, pos->max_co, pos->max_li);
 	return (ret2);
 }
 
@@ -114,27 +113,40 @@ int		main(void)
 {
 	int		ret;
 	int		ret2;
-	char	buf[4];
+	char	buf[9];
 	t_pos	pos;
 	t_hist	*hist;
 
 	pos.prompt = "minishell &> ";
-//	pos.prompt = "--------------------------------------------------------------------------------------------------/--------------------------------------------------------------------------------------------------/--------------------------------------------------------------------------------------------------/--------------------------------------------------------------------------------------------------/minishell &> ";
-//	pos.prompt = "minishell $> ";
 	init_terminfo();
 	ret = check_term();
 	ret2 = init_pos(&pos, buf);
-	hist = NULL;
-//	hist = create_history(&pos, hist);
-	bzero(buf, 4);
+	hist = (t_hist*)malloc(sizeof(t_hist));
+	init_t_hist(hist);
+	hist = create_history(&pos, hist);
+	bzero(buf, 8);
 	ft_printf("%s", pos.prompt);
-	while (1)
+/*	while (hist && hist->prev)
 	{
-//		update_act_pos(&pos);
+		ft_printf("hist->cmd = {%s} / hist->prev->cmd = {%s}\n", hist->cmd, hist->prev == NULL ? NULL : hist->prev->cmd);
+		hist = hist->prev;
+	}
+	ft_printf("\n	------------\n\n");
+	while (hist && hist->next)
+	{
+		ft_printf("hist->cmd = {%s} / hist->next->cmd = {%s}\n", hist->cmd, hist->next == NULL ? NULL : hist->next->cmd);
+		hist = hist->next;
+	}
+	while (hist->prev)
+		hist = hist->prev;
+*/	while (1)
+	{
+		//		update_act_pos(&pos);
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, &pos, hist);
+		print_hist(&pos, hist);
 		print_info(&pos);
-		bzero(buf, 4);
+		bzero(buf, 8);
 	}
 	return (0);
 }

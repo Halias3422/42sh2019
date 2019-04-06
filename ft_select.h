@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 15:03:59 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 01:36:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ int					check_term(void);
 
 t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
 void				input_is_backspace(t_pos *pos);
-void				input_is_entry(t_pos *pos);
+void				input_is_entry(t_pos *pos, t_hist *hist);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
 /*
@@ -85,6 +85,7 @@ void				remove_char_ans(t_pos *pos);
 **HISTORY.C
 */
 
+void				init_t_hist(t_hist *hist);
 t_hist				*create_history(t_pos *pos, t_hist *hist);
 t_hist				*ft_list_back(t_hist *head, t_hist *hist);
 t_hist				*move_through_history(t_hist *hist, t_pos *pos,
@@ -97,5 +98,6 @@ t_hist				*move_through_history(t_hist *hist, t_pos *pos,
 void				clean_screen(t_pos *pos);
 void				check_poussin(char c);
 void				print_info(t_pos *pos);
+void				print_hist(t_pos *pos, t_hist *hist);
 
 #endif

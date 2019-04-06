@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 16:36:37 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 01:13:16 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,28 @@ void	print_info(t_pos *pos)
 	printf(" strlen_ans= %03zu/\n", ft_strlen(pos->ans));
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 8), 1, ft_putchar);
 	printf(" len_ans   = %03d/\n", pos->len_ans);
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 9), 1, ft_putchar);
+	printf(" debug     = %03d/\n", pos->debug);
+	tputs(tgetstr("rc", NULL), 1, ft_putchar);
+}
+
+void	print_hist(t_pos *pos, t_hist *hist)
+{
+	t_hist	*tmp;
+	int		i;
+
+	tmp = hist;
+	i = 0;
+	while (tmp->prev)
+		tmp = tmp->prev;
+	tputs(tgetstr("sc", NULL), 1, ft_putchar);
+	while (tmp)
+	{
+		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 65, i), 1, ft_putchar);
+		printf(" cmd[%d]    = %10s/\n", i, tmp == NULL ? NULL : tmp->cmd);
+		i++;
+		tmp = tmp->next;
+	}
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 }
 

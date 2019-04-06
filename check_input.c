@@ -6,35 +6,47 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 18:00:05 by rlegendr    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   check_input.c                                    .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/04 12:30:53 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 14:01:40 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 02:17:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int	g_i = 1;
-char	g_c = 65;
-
-void		input_is_entry(t_pos *pos)
+void		input_is_entry(t_pos *pos, t_hist *hist)
 {
+	char	*tmp;
+//	char	**delete;
+	
+	tmp = ft_strjoin(getcwd(NULL, 255), "/.history");
+//	delete = ft_strsplit("rm .history", ' ');	
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
+//	execve("/bin/rm", delete, NULL);
+//	ft_tabdel(delete);
 	ft_printf("\nreponse -> |%s|\n", pos->ans);
-	write(pos->history, pos->ans, ft_strlen(pos->ans));
-	write(pos->history, "\n", 1);
+	close(pos->history);
+	pos->history = open(tmp, O_RDWR | O_CREAT, 0666);
+	free(tmp);
+	while (hist->prev)
+		hist = hist->prev;
+	while (hist)
+	{
+		write(pos->history, hist->cmd, ft_strlen(hist->cmd));
+		write(pos->history, "\n", 1);
+		if (hist->prev != NULL)
+		{
+			free(hist->prev->cmd);
+			free(hist->prev);
+		}
+		if (hist->next == NULL)
+		{
+			free(hist->cmd);
+			free(hist);
+			hist = NULL;
+		}
+		else
+			hist = hist->next;
+	}
 	close(pos->history);
 	main();
 }
@@ -51,7 +63,7 @@ void		input_is_printable_char(t_pos *pos, char *buf)
 		else
 			pos->act_li += 1;
 	}
-	else if ((pos->start_li + (/*(int)ft_strlen(pos->ans)*/ pos->len_ans / pos->max_co)) == pos->max_li + 1 && /*(int)ft_strlen(pos->ans)*/ pos->len_ans % (pos->max_co) == 0)
+	else if ((pos->start_li + (pos->len_ans / pos->max_co)) == pos->max_li + 1 && pos->len_ans % (pos->max_co) == 0)
 	{
 		tputs(tgetstr("sc", NULL), 1, ft_putchar);
 		tputs(tgoto(tgetstr("cm", NULL), pos->max_co + 1, pos->max_li + 1), 1, ft_putchar);
@@ -97,10 +109,12 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 		else
 		{
 			if (buf[0] == 10)
-				input_is_entry(pos);
+				input_is_entry(pos, hist);
 			else
 				input_is_printable_char(pos, buf);
 		}
+		free(hist->cmd);
+		hist->cmd = ft_strdup(pos->ans);
 		print_ans(pos);
 	}
 	return (hist);

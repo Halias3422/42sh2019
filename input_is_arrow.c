@@ -6,12 +6,14 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 15:11:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/05 16:29:33 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 01:38:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+
 
 void		right_arrow(char *buf, t_pos *pos)
 {
@@ -52,15 +54,15 @@ void		left_arrow(char *buf, t_pos *pos)
 
 t_hist		*find_arrow(char *buf, t_pos *pos, t_hist *hist)
 {
-	/*	if (ft_strncmp(buf + 1, "[A", 2) == 0)
+	if (ft_strncmp(buf + 1, "[A", 2) == 0)
 		hist = move_through_history(hist, pos, "up");
-		else if (ft_strncmp(buf + 1, "[B", 2) == 0)
+	else if (ft_strncmp(buf + 1, "[B", 2) == 0)
 		hist = move_through_history(hist, pos, "down");
-		else*/ if (pos->let_nb < (int)ft_strlen(pos->ans) &&
-				ft_strncmp(buf + 1, "[C", 2) == 0)
-			right_arrow(buf, pos);
-		else if (pos->let_nb > 0 && pos->act_co >= 0 &&
-				ft_strncmp(buf + 1, "[D", 2) == 0)
-			left_arrow(buf, pos);
-		return (hist);
+	else if (pos->let_nb < (int)ft_strlen(pos->ans) &&
+			ft_strncmp(buf + 1, "[C", 2) == 0)
+		right_arrow(buf, pos);
+	else if (pos->let_nb > 0 && pos->act_co >= 0 &&
+			ft_strncmp(buf + 1, "[D", 2) == 0)
+		left_arrow(buf, pos);
+	return (hist);
 }
