@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/06 01:42:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 10:43:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,6 +70,10 @@ int			init_pos(t_pos *pos, char *buf)
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
 	pos->debug = 0;
+	pos->debug2 = 0;
+	pos->debug3 = 0;
+	pos->debug4 = 0;
+	pos->debug5 = 0;
 	pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 	pos->ans = ft_strnew(0);
 	pos->len_ans = pos->len_prompt;
@@ -117,7 +121,7 @@ int		main(void)
 	t_pos	pos;
 	t_hist	*hist;
 
-	pos.prompt = "minishell &> ";
+	pos.prompt = "&> ";
 	init_terminfo();
 	ret = check_term();
 	ret2 = init_pos(&pos, buf);
@@ -125,7 +129,6 @@ int		main(void)
 	init_t_hist(hist);
 	hist = create_history(&pos, hist);
 	bzero(buf, 8);
-	ft_printf("%s", pos.prompt);
 /*	while (hist && hist->prev)
 	{
 		ft_printf("hist->cmd = {%s} / hist->prev->cmd = {%s}\n", hist->cmd, hist->prev == NULL ? NULL : hist->prev->cmd);
@@ -136,10 +139,11 @@ int		main(void)
 	{
 		ft_printf("hist->cmd = {%s} / hist->next->cmd = {%s}\n", hist->cmd, hist->next == NULL ? NULL : hist->next->cmd);
 		hist = hist->next;
-	}
-	while (hist->prev)
-		hist = hist->prev;
-*/	while (1)
+	}*/
+//	while (hist->prev)
+//		hist = hist->prev;
+	ft_printf("%s", pos.prompt);
+	while (1)
 	{
 		//		update_act_pos(&pos);
 		ret2 = read(0, buf, 4);

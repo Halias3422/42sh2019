@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/06 01:13:16 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 10:38:43 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,25 +17,35 @@ void	print_info(t_pos *pos)
 {
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 0), 1, ft_putchar);
-	printf(" act_co    = %03d/\n", pos->act_co);
+	ft_printf(" {S.white.T.grey.}act_co    = %03d/{eoc}\n", pos->act_co);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 1), 1, ft_putchar);
-	printf(" act_li    = %03d/\n", pos->act_li);
+	ft_printf(" {S.white.T.grey.}act_li    = %03d/{eoc}\n", pos->act_li);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 2), 1, ft_putchar);
-	printf(" start_co  = %03d/\n", pos->start_co);
+	ft_printf(" {S.white.T.grey.}start_co  = %03d/{eoc}\n", pos->start_co);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 3), 1, ft_putchar);
-	printf(" start_li  = %03d/\n", pos->start_li);
+	ft_printf(" {S.white.T.grey.}start_li  = %03d/{eoc}\n", pos->start_li);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 4), 1, ft_putchar);
-	printf(" max_co    = %03d/\n", pos->max_co);
+	ft_printf(" {S.white.T.grey.}max_co    = %03d/{eoc}\n", pos->max_co);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 5), 1, ft_putchar);
-	printf(" max_li    = %03d/\n", pos->max_li);
+	ft_printf(" {S.white.T.grey.}max_li    = %03d/{eoc}\n", pos->max_li);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 6), 1, ft_putchar);
-	printf(" let_nb    = %03d/\n", pos->let_nb);
+	ft_printf(" {S.white.T.grey.}let_nb    = %03d/{eoc}\n", pos->let_nb);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 7), 1, ft_putchar);
-	printf(" strlen_ans= %03zu/\n", ft_strlen(pos->ans));
+	ft_printf(" {S.white.T.grey.}strlen_ans= %03d/{eoc}\n", ft_strlen(pos->ans));
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 8), 1, ft_putchar);
-	printf(" len_ans   = %03d/\n", pos->len_ans);
+	ft_printf(" {S.white.T.grey.}len_ans   = %03d/{eoc}\n", pos->len_ans);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 9), 1, ft_putchar);
-	printf(" debug     = %03d/\n", pos->debug);
+	ft_printf(" {S.white.T.grey.}debug     = %03d/{eoc}\n", pos->debug);
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 10), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}debug2    = %03d/{eoc}\n", pos->debug2);
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 11), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}debug3    = %03d/{eoc}\n", pos->debug3);
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 12), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}debug4    = %03d/{eoc}\n", pos->debug4);
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 13), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}debug5    = %03d/{eoc}\n", pos->debug5);
+	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}pos->ans  = %-20.20s/{eoc}\n", pos->ans);
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 }
 
@@ -52,7 +62,7 @@ void	print_hist(t_pos *pos, t_hist *hist)
 	while (tmp)
 	{
 		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 65, i), 1, ft_putchar);
-		printf(" cmd[%d]    = %10s/\n", i, tmp == NULL ? NULL : tmp->cmd);
+		ft_printf(" {S.white.T.grey.}cmd[%d]    = %-35.35s/{eoc}\n", i, tmp == NULL ? NULL : tmp->cmd);
 		i++;
 		tmp = tmp->next;
 	}

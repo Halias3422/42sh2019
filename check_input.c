@@ -6,46 +6,53 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/06 02:17:27 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 10:43:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
+void		write_100_bc(t_pos *pos)
+{
+	int 	i;
+
+	i = 0;
+	while (i < 100)
+	{
+		write(pos->history, "\0", 1);
+		i += 1;
+	}
+}
+
 void		input_is_entry(t_pos *pos, t_hist *hist)
 {
 	char	*tmp;
-//	char	**delete;
 	
 	tmp = ft_strjoin(getcwd(NULL, 255), "/.history");
-//	delete = ft_strsplit("rm .history", ' ');	
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
-//	execve("/bin/rm", delete, NULL);
-//	ft_tabdel(delete);
-	ft_printf("\nreponse -> |%s|\n", pos->ans);
+	ft_printf("\nreponse -> |%s|, fd = %d\n", pos->ans, pos->history);	
 	close(pos->history);
 	pos->history = open(tmp, O_RDWR | O_CREAT, 0666);
 	free(tmp);
-	while (hist->prev)
+	while (hist->prev != NULL)
 		hist = hist->prev;
 	while (hist)
-	{
+	{	
 		write(pos->history, hist->cmd, ft_strlen(hist->cmd));
 		write(pos->history, "\n", 1);
-		if (hist->prev != NULL)
-		{
-			free(hist->prev->cmd);
-			free(hist->prev);
-		}
 		if (hist->next == NULL)
 		{
-			free(hist->cmd);
-			free(hist);
-			hist = NULL;
+		//	ft_printf("{T.blue.}la --> %s{eoc}", hist->cmd);
+			if (hist->cmd == NULL || ft_strcmp(hist->cmd, pos->ans) != 0)
+			{
+		//		ft_printf("{T.red.}la pos_ans = %s{eoc}", pos->ans);
+				write(pos->history, pos->ans, ft_strlen(pos->ans));
+				write(pos->history, "\n", 1);
+			}
+			break ;
 		}
-		else
-			hist = hist->next;
+		hist = hist->next;
 	}
 	close(pos->history);
 	main();

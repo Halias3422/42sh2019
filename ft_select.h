@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/06 01:36:45 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/06 10:35:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,10 @@ typedef struct		s_pos
 	int				history;
 	int				let_nb;
 	int				debug;
+	int				debug2;
+	int				debug3;
+	int				debug4;
+	int				debug5;
 	char			*prompt;
 	int				len_prompt;
 }					t_pos;
