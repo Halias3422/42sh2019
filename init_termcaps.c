@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/06 10:43:47 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/08 15:27:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,7 +121,7 @@ int		main(void)
 	t_pos	pos;
 	t_hist	*hist;
 
-	pos.prompt = "&> ";
+	pos.prompt = "minishell &> ";
 	init_terminfo();
 	ret = check_term();
 	ret2 = init_pos(&pos, buf);
@@ -137,19 +137,21 @@ int		main(void)
 	ft_printf("\n	------------\n\n");
 	while (hist && hist->next)
 	{
-		ft_printf("hist->cmd = {%s} / hist->next->cmd = {%s}\n", hist->cmd, hist->next == NULL ? NULL : hist->next->cmd);
+		ft_printf("hist->cmd = {%s} / hist->next->cmd = {%s} / hist->cmd_no = %d\n", hist->cmd, hist->next == NULL ? NULL : hist->next->cmd, hist->cmd_no);
 		hist = hist->next;
 	}*/
 //	while (hist->prev)
 //		hist = hist->prev;
+//	print_info(&pos);
+//	print_hist(&pos, hist);
 	ft_printf("%s", pos.prompt);
 	while (1)
 	{
 		//		update_act_pos(&pos);
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, &pos, hist);
-		print_hist(&pos, hist);
-		print_info(&pos);
+//		print_info(&pos);
+//		print_hist(&pos, hist);
 		bzero(buf, 8);
 	}
 	return (0);

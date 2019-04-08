@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/06 09:04:47 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/08 12:30:23 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -19,9 +19,6 @@ SRC = 	init_termcaps.c \
 		check_input.c \
 		handle_ans.c \
 		input_is_arrow.c
-
-#srcs_ls/ft_ls.c \
-#	  srcs_ls/sort_list_ls.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -47,8 +44,8 @@ $(NAME): $(SRC) $(HEADER) $(LIBFT.A)
 libs:
 	@ make -C libft/
 
-#$(OBJ_DIR)%.o: %.c
-#		@$(CC) $(FLAGS) $(SRC) -I./includes
+%.o: %.c
+	@$(CC) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
 
 clean:
 	@rm -f $(OBJ)

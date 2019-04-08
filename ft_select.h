@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/06 10:35:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/08 10:00:57 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ typedef struct		s_hist
 	struct s_hist	*next;
 	struct s_hist	*prev;
 	char			*cmd;
+	int				cmd_no;
 }					t_hist;
 
 /*
