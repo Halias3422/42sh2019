@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 09:06:51 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 09:29:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,13 +53,11 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 		update_position(pos, hist->cmd);
 		if (hist->cmd != NULL)
 		{
-			pos->debug += 1;
 			free(pos->ans);
 			pos->ans = ft_strdup(hist->cmd);
 		}
 		else
 		{
-			pos->debug3 += 1;
 			free(pos->ans);
 			pos->ans = ft_strnew(0);
 		}

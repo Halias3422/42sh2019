@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 09:14:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 09:29:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,6 @@ void		input_is_entry(t_pos *pos, t_hist *hist)
 	tmp = ft_strjoinf(getcwd(NULL, 255), "/.history", 1);
 	remove(tmp);
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
-//	ft_printf("\nreponse -> |%s|, fd = %d\n", pos->ans, pos->history);	
 	ft_printf("%s\n", pos->ans);
 	close(pos->history);
 	pos->history = open(tmp, O_RDWR | O_CREAT, 0666);
@@ -64,7 +63,7 @@ void		input_is_entry(t_pos *pos, t_hist *hist)
 	}
 	free_t_hist(hist);
 	close(pos->history);
-	main();
+	return (pos->ans);
 }
 
 void		input_is_printable_char(t_pos *pos, char *buf)
