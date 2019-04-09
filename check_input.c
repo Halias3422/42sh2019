@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 09:31:06 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 09:50:46 by bjuarez     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -124,7 +124,10 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 		else
 		{
 			if (buf[0] == 10)
+			{
+				check_enter(pos);
 				input_is_entry(pos, hist);
+			}
 			else
 				input_is_printable_char(pos, buf);
 		}

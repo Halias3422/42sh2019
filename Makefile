@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/09 08:09:38 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/09 09:43:31 by bjuarez     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,7 +18,8 @@ SRC = 	init_termcaps.c \
 		termcaps_tools.c \
 		check_input.c \
 		handle_ans.c \
-		input_is_arrow.c
+		input_is_arrow.c \
+		token.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 08:16:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 09:44:12 by bjuarez     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,5 +105,7 @@ void				clean_screen(t_pos *pos);
 void				check_poussin(char c);
 void				print_info(t_pos *pos);
 void				print_hist(t_pos *pos, t_hist *hist);
+
+#include "token.h"
 
 #endif
