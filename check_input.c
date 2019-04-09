@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/08 12:45:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 09:14:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,8 @@ void		input_is_entry(t_pos *pos, t_hist *hist)
 	tmp = ft_strjoinf(getcwd(NULL, 255), "/.history", 1);
 	remove(tmp);
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
-	ft_printf("\nreponse -> |%s|, fd = %d\n", pos->ans, pos->history);	
+//	ft_printf("\nreponse -> |%s|, fd = %d\n", pos->ans, pos->history);	
+	ft_printf("%s\n", pos->ans);
 	close(pos->history);
 	pos->history = open(tmp, O_RDWR | O_CREAT, 0666);
 	free(tmp);
@@ -45,22 +46,19 @@ void		input_is_entry(t_pos *pos, t_hist *hist)
 		hist = hist->prev;
 	while (hist)
 	{
-		if (hist->cmd && hist->cmd[0])
-		{
-	//		ft_printf("cmd_no = %d, cmd = /%s/\n", hist->cmd_no, hist->cmd);
-			write(pos->history, hist->cmd, ft_strlen(hist->cmd));
-			write(pos->history, "\n", 1);
-		}
 		if (hist->next == NULL)
 		{
-		//	if ((hist->cmd == NULL || ft_strcmp(hist->cmd, pos->ans) != 0) && pos->ans[0] != '\0')
 			if (pos->ans && pos->ans[0] != '\0')
 			{
-	//			ft_printf("cmd_no = %d, cmd = /%s/\n", hist->cmd_no, pos->ans);
 				write(pos->history, pos->ans, ft_strlen(pos->ans));
 				write(pos->history, "\n", 1);
 			}
 			break ;
+		}
+		if (hist->cmd && hist->cmd[0])
+		{
+			write(pos->history, hist->cmd, ft_strlen(hist->cmd));
+			write(pos->history, "\n", 1);
 		}
 		hist = hist->next;
 	}
@@ -68,44 +66,6 @@ void		input_is_entry(t_pos *pos, t_hist *hist)
 	close(pos->history);
 	main();
 }
-
-/*void		input_is_entry(t_pos *pos, t_hist *hist)
-  {
-  char	*tmp;
-
-  tmp = NULL;
-  if (pos->ans[0] != '\0')
-  {
-  tmp = ft_strjoin(getcwd(NULL, 255), "/.history");
-  tputs(tgetstr("ei", NULL), 1, ft_putchar);
-  ft_printf("\nreponse -> |%s|, fd = %d\n", pos->ans, pos->history);	
-  close(pos->history);
-  pos->history = open(tmp, O_RDWR | O_CREAT, 0666);
-  free(tmp);
-  while (hist->prev != NULL)
-  hist = hist->prev;
-  while (hist)
-  {	
-  write(pos->history, hist->cmd, ft_strlen(hist->cmd));
-  write(pos->history, "\n", 1);
-  if (hist->next == NULL)
-  {
-  if (hist->cmd == NULL || ft_strcmp(hist->cmd, pos->ans) != 0)
-  {
-  write(pos->history, pos->ans, ft_strlen(pos->ans));
-  write(pos->history, "\n", 1);
-  }
-  break ;
-  }
-  hist = hist->next;
-  }
-  }
-  else
-  write (1, "\n", 1);
-  free_t_hist(hist);
-  close(pos->history);
-  main();
-  }*/
 
 void		input_is_printable_char(t_pos *pos, char *buf)
 {
@@ -169,8 +129,12 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 			else
 				input_is_printable_char(pos, buf);
 		}
-	//	free(hist->cmd);
-	//	hist->cmd = ft_strdup(pos->ans);
+		if (hist->next == NULL)
+		{
+			if (hist->cmd != NULL)
+				free(hist->cmd);
+			hist->cmd = ft_strdup(pos->ans);
+		}
 		print_ans(pos);
 	}
 	return (hist);

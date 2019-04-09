@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/08 15:27:26 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 09:14:42 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,7 @@ int			init_pos(t_pos *pos, char *buf)
 	pos->debug5 = 0;
 	pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 	pos->ans = ft_strnew(0);
+	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	pos->let_nb = 0;
 	write(1, "\033[6n", 4);
@@ -142,16 +143,16 @@ int		main(void)
 	}*/
 //	while (hist->prev)
 //		hist = hist->prev;
-//	print_info(&pos);
-//	print_hist(&pos, hist);
+	print_info(&pos);
+	print_hist(&pos, hist);
 	ft_printf("%s", pos.prompt);
 	while (1)
 	{
 		//		update_act_pos(&pos);
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, &pos, hist);
-//		print_info(&pos);
-//		print_hist(&pos, hist);
+		print_info(&pos);
+		print_hist(&pos, hist);
 		bzero(buf, 8);
 	}
 	return (0);

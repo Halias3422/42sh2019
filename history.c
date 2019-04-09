@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/08 15:27:33 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 09:06:51 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,31 +48,37 @@ t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 	}
 	else if (ft_strcmp(usage, "down") == 0 && hist && hist->next)
 	{
-		if (hist && hist->next)
+		hist = hist->next;
+		write(1, hist->cmd, ft_strlen(hist->cmd));
+		update_position(pos, hist->cmd);
+		if (hist->cmd != NULL)
 		{
-			hist = hist->next;
-			write(1, hist->cmd, ft_strlen(hist->cmd));
-			update_position(pos, hist->cmd);
-			if (hist->cmd != NULL)
-			{
-				free(pos->ans);
-				pos->ans = ft_strdup(hist->cmd);
-			}
-			else
-			{
-				free(pos->ans);
-				pos->ans = ft_strnew(0);
-			}
+			pos->debug += 1;
+			free(pos->ans);
+			pos->ans = ft_strdup(hist->cmd);
+		}
+		else
+		{
+			pos->debug3 += 1;
+			free(pos->ans);
+			pos->ans = ft_strnew(0);
 		}
 	}
 	else if (ft_strcmp(usage, "down") == 0)
 	{
-		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
-		pos->act_li = pos->start_li;
-		pos->act_co = pos->start_co;
-		pos->let_nb = 0;
-		free(pos->ans);
-		pos->ans = ft_strnew(0);
+		if (hist->cmd)
+		{
+			free(pos->ans);
+			pos->ans = ft_strdup(hist->cmd);
+			write(1, hist->cmd, ft_strlen(hist->cmd));
+			update_position(pos, hist->cmd);
+		}
+		else
+		{
+			pos->act_li = pos->start_li;
+			pos->act_co = pos->start_co;
+			pos->let_nb = 0;
+		}
 	}
 	return (hist);
 }
