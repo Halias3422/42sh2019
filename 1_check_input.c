@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/10 09:40:36 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 09:59:14 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,10 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 		else
 		{
 			if (buf[0] == 10)
+			{
 				input_is_entry(pos, hist);
+				hist = NULL;
+			}
 			else
 				input_is_printable_char(pos, buf);
 		}
@@ -99,6 +102,7 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 				free(hist->cmd);
 			hist->cmd = ft_strdup(pos->ans);
 		}
+
 		print_ans(pos);
 	}
 	return (hist);

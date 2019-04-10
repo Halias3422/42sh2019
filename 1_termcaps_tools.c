@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 10:15:22 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 10:00:24 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,6 +78,8 @@ void	print_hist(t_pos *pos, t_hist *hist)
 	int		i;
 	int		actual_hist;
 
+	if (hist == NULL)
+		return;
 	tmp = hist;
 	actual_hist = tmp->cmd_no;
 	i = 0;
