@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 10:18:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 14:53:16 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 16:04:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,7 @@ static void	if_prompt_is_on_last_char(t_pos *pos)
 
 void		input_is_printable_char(t_pos *pos, char *buf)
 {
+	pos->history_mode = 1;
 	fill_char_ans(buf, pos);
 	pos->len_ans += 1;
 	if (pos->act_li != pos->max_li && pos->act_co == pos->max_co - 1)

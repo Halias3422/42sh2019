@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/10 14:13:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 16:05:20 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,7 @@ int		init_pos(t_pos *pos, char *buf)
 
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
+	pos->history_mode = 0;
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;
@@ -78,7 +79,7 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->debug5 = 0;
 	pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 	pos->ans = ft_strnew(0);
-	pos->saved_ans = NULL;
+//	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	pos->let_nb = 0;
 	write(1, "\033[6n", 4);

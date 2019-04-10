@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 15:25:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 15:55:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,6 @@ typedef struct		s_pos
 	int				max_li;
 	char			*ans;
 	int				len_ans;
-	char			*saved_ans;
 	int				history;
 	int				let_nb;
 	int				debug;
@@ -40,6 +39,7 @@ typedef struct		s_pos
 	int				debug3;
 	int				debug4;
 	int				debug5;
+	int				history_mode;
 	char			*prompt;
 	int				len_prompt;
 	int				error;

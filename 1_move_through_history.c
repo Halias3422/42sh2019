@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 09:41:10 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/10 09:41:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 16:25:48 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,6 +51,7 @@ static t_hist	*go_back_down_in_history(t_hist *hist, t_pos *pos)
 
 static t_hist	*go_back_in_history(t_hist *hist, t_pos *pos)
 {
+
 	if (hist->prev == NULL && hist->cmd == NULL)
 		return (hist);
 	if (hist && hist->prev != NULL)
@@ -62,10 +63,39 @@ static t_hist	*go_back_in_history(t_hist *hist, t_pos *pos)
 	return (hist);
 }
 
+t_hist			*search_in_history(t_hist *hist, t_pos *pos, char *usage)
+{
+	int		saved_cmd;
+
+	(void)usage;
+	saved_cmd = hist->cmd_no;
+	while (1)
+	{
+		if (hist->prev)
+			hist = hist->prev;
+		if (ft_strncmp(hist->cmd, pos->ans, ft_strlen(pos->ans)) == 0)
+			break ;
+		if (hist->prev == NULL)
+			break ;
+	}
+	if (hist->prev == NULL && ft_strncmp(hist->cmd, pos->ans, ft_strlen(pos->ans)) != 0)
+	{
+		while (hist->cmd_no != saved_cmd)
+		{
+			if (hist->next == NULL)
+				break ;
+			hist = hist->next;
+		}
+	}
+	return (hist);
+}
+
 t_hist			*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 {
 	clean_screen(pos);
-	if (ft_strcmp(usage, "up") == 0 && hist)
+	if (pos->history_mode == 1)
+		hist = search_in_history(hist, pos, usage);
+	else if (ft_strcmp(usage, "up") == 0 && hist)
 		hist = go_back_in_history(hist, pos);
 	else if (ft_strcmp(usage, "down") == 0 && hist && hist->next)
 		hist = go_back_down_in_history(hist, pos);
