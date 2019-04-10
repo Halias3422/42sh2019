@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/10 09:59:14 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 14:18:54 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,6 @@ void		input_is_backspace(t_pos *pos)
 
 t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 {
-
 	if (buf[0] == 27)
 		hist = find_arrow(buf, pos, hist);
 	else

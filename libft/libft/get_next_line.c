@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 08:43:18 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 11:09:22 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 13:38:58 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ char	*get_line(char *str, char **line)
 
 int		get_next_line(const int fd, char **line)
 {
-	static char	*str[0];
+	static char	*str[255];
 	char		buf[BUFF_SIZE + 1];
 	char		*temp;
 	int			ret;
@@ -58,7 +58,6 @@ int		get_next_line(const int fd, char **line)
 	}
 	if (ret < 0)
 		return (-1);
-
 	if ((*line = get_line(str[fd], line)) == NULL)
 		return (0);
 	return (1);
