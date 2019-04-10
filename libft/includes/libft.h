@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/03 11:50:56 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/28 14:30:46 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 10:00:14 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,7 @@ typedef struct		s_list
 
 }					t_list;
 
+char				*ft_strnjoinnf(char *s1, char *s2, char *str);
 char				*ft_strjoinf(char *s1, char *s2, int mode);
 char				*ft_strndup(char *str, int n);
 void				ft_free_void(void *str1, void *str2, void *str3,

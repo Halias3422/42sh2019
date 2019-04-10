@@ -6,14 +6,12 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 15:11:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/08 13:10:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 10:15:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
-
 
 void		right_arrow(char *buf, t_pos *pos)
 {
@@ -29,19 +27,18 @@ void		right_arrow(char *buf, t_pos *pos)
 	}
 	pos->let_nb++;
 	if (pos->act_co % pos->max_co == 0)
-		tputs(tgoto(tgetstr("cm", NULL), pos->start_co - 1 - pos->len_prompt, pos->act_li),
-				1, ft_putchar);
-
+		tputs(tgoto(tgetstr("cm", NULL), pos->start_co - 1 -
+			pos->len_prompt, pos->act_li), 1, ft_putchar);
 }
 
 void		left_arrow(char *buf, t_pos *pos)
 {
-	//	if (pos->let_nb % pos->max_co == 0 && pos->act_li > pos->start_li)
 	if (pos->act_co == 0 && pos->act_li > pos->start_li)
 	{
 		pos->act_li--;
 		pos->act_co = pos->max_co - 1;
-		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 1, pos->act_li), 1, ft_putchar);
+		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 1,
+			pos->act_li), 1, ft_putchar);
 	}
 	else
 	{
@@ -49,7 +46,6 @@ void		left_arrow(char *buf, t_pos *pos)
 		tputs(buf, 1, ft_putchar);
 	}
 	pos->let_nb--;
-
 }
 
 t_hist		*find_arrow(char *buf, t_pos *pos, t_hist *hist)
