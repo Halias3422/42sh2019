@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/10 16:05:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 08:23:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,7 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->debug5 = 0;
 	pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 	pos->ans = ft_strnew(0);
-//	pos->saved_ans = NULL;
+	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	pos->let_nb = 0;
 	write(1, "\033[6n", 4);
@@ -154,6 +154,7 @@ char	*termcaps42sh(char *prompt, int error)
 			if (strcmp("exit", pos.ans) == 0)
 			{
 				free(pos.ans);
+				free(pos.saved_ans);
 				return (NULL);
 			}
 			return (pos.ans);

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 07:50:25 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 08:04:03 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,6 +31,7 @@ typedef struct		s_pos
 	int				max_co;
 	int				max_li;
 	char			*ans;
+	char			*saved_ans;
 	int				len_ans;
 	int				history;
 	int				let_nb;
@@ -72,7 +73,6 @@ int					check_term(void);
 t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
 void				input_is_backspace(t_pos *pos);
 void				input_is_entry(t_pos *pos, t_hist *hist);
-void				input_is_printable_char(t_pos *pos, char *buf);
 
 /*
 **INPUT_IS_PRINTABLE_CHAR.C
