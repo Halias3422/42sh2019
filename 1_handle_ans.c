@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:37:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/08 08:30:05 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/09 15:16:22 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,9 +38,11 @@ void		remove_char_ans(t_pos *pos)
 
 void		print_ans(t_pos *pos)
 {
-	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li),
+			1, ft_putchar);
 	write(1, pos->ans, ft_strlen(pos->ans));
-	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
+			1, ft_putchar);
 }
 
 void		fill_char_ans(char *buf, t_pos *pos)

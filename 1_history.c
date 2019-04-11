@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 09:29:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/10 09:34:31 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,8 @@ void		update_position(t_pos *pos, char *cmd)
 	int		diff;
 
 	diff = 0;
+	if (cmd == NULL)
+		return ;
 	pos->len_ans = pos->len_prompt + ft_strlen(cmd);
 	pos->act_li = pos->start_li + pos->len_ans / pos->max_co;
 	if (pos->act_li > pos->max_li)
@@ -32,56 +34,7 @@ void		update_position(t_pos *pos, char *cmd)
 		pos->start_li -= diff;
 }
 
-t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
-{
-	clean_screen(pos);
-	if (ft_strcmp(usage, "up") == 0 && hist)
-	{
-		if (hist->prev == NULL && hist->cmd == NULL)
-			return (hist);
-		if (hist && hist->prev != NULL)
-			hist = hist->prev;
-		write(1, hist->cmd, ft_strlen(hist->cmd));
-		update_position(pos, hist->cmd);
-		free(pos->ans);
-		pos->ans = ft_strdup(hist->cmd);
-	}
-	else if (ft_strcmp(usage, "down") == 0 && hist && hist->next)
-	{
-		hist = hist->next;
-		write(1, hist->cmd, ft_strlen(hist->cmd));
-		update_position(pos, hist->cmd);
-		if (hist->cmd != NULL)
-		{
-			free(pos->ans);
-			pos->ans = ft_strdup(hist->cmd);
-		}
-		else
-		{
-			free(pos->ans);
-			pos->ans = ft_strnew(0);
-		}
-	}
-	else if (ft_strcmp(usage, "down") == 0)
-	{
-		if (hist->cmd)
-		{
-			free(pos->ans);
-			pos->ans = ft_strdup(hist->cmd);
-			write(1, hist->cmd, ft_strlen(hist->cmd));
-			update_position(pos, hist->cmd);
-		}
-		else
-		{
-			pos->act_li = pos->start_li;
-			pos->act_co = pos->start_co;
-			pos->let_nb = 0;
-		}
-	}
-	return (hist);
-}
-
-void	init_t_hist(t_hist *hist)
+void		init_t_hist(t_hist *hist)
 {
 	if (hist == NULL)
 		return ;
@@ -91,7 +44,7 @@ void	init_t_hist(t_hist *hist)
 	hist->cmd_no = 0;
 }
 
-t_hist	*add_list_back_hist(t_hist *hist)
+t_hist		*add_list_back_hist(t_hist *hist)
 {
 	t_hist	*new;
 
@@ -119,6 +72,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 	char	*line;
 
 	ret = 1;
+	line = NULL;
 	pwd = getcwd(NULL, 255);
 	pwd = ft_strjoinf(pwd, "/.history", 1);
 	pos->history = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);

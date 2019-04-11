@@ -6,20 +6,22 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/09 09:43:31 by bjuarez     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/11 08:32:16 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = ft_select
 
-SRC = 	init_termcaps.c \
-		history.c \
-		termcaps_tools.c \
-		check_input.c \
-		handle_ans.c \
-		input_is_arrow.c \
-		token.c
+SRC = 	1_init_termcaps.c \
+		1_history.c \
+		1_move_through_history.c \
+		1_termcaps_tools.c \
+		1_check_input.c \
+		1_input_is_printable_char.c \
+		1_handle_ans.c \
+		1_input_is_arrow.c \
+		main_termcaps.c
 
 OBJ = $(SRC:.c=.o)
 

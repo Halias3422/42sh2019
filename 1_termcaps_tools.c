@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/08 16:16:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 08:15:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,15 +52,15 @@ void	print_info(t_pos *pos)
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 8), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}len_ans   = %03d/{eoc}\n", pos->len_ans);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 9), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug     = %03d/{eoc}\n", pos->debug);
+	ft_printf(" {S.white.T.grey.}historyMd = %03d/{eoc}\n", pos->history_mode);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 10), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug2    = %03d/{eoc}\n", pos->debug2);
+	ft_printf(" {S.white.T.grey.}debug2    = %03d/{eoc}\n", pos->debug);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 11), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug3    = %03d/{eoc}\n", pos->debug3);
+	ft_printf(" {S.white.T.grey.}debug3    = %03d/{eoc}\n", pos->debug2);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 12), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug4    = %03d/{eoc}\n", pos->debug4);
+	ft_printf(" {S.white.T.grey.}debug4    = %03d/{eoc}\n", pos->debug3);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 13), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug5    = %03d/{eoc}\n", pos->debug5);
+	ft_printf(" {S.white.T.grey.}debug5    = %03d/{eoc}\n", pos->debug4);
 	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}pos->ans  = %-20.20s/{eoc}\n", pos->ans);
 	tputs(tgoto(tgetstr("cm", NULL), 0, 1), 1, ft_putchar);
@@ -78,6 +78,8 @@ void	print_hist(t_pos *pos, t_hist *hist)
 	int		i;
 	int		actual_hist;
 
+	if (hist == NULL)
+		return;
 	tmp = hist;
 	actual_hist = tmp->cmd_no;
 	i = 0;

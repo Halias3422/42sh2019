@@ -6,17 +6,17 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 09:29:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 08:23:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int			check_term(void)
+int		check_term(void)
 {
-	int		ret;
-	char	*term_type;
+	int			ret;
+	char		*term_type;
 
 	term_type = getenv("TERM");
 	ret = 0;
@@ -33,15 +33,16 @@ int			check_term(void)
 	}
 	else if (ret == 0)
 	{
-		ft_printf("Terminal type '%s' is not defined in termcap database (or have too few informations).\n", term_type);
+		ft_printf("Terminal type '%s' is not defined in termcap database ");
+		ft_printf("or have too few informations).\n", term_type);
 		return (-1);
 	}
 	return (0);
 }
 
-void		get_start_info(char *buf, t_pos *pos)
+void	get_start_info(char *buf, t_pos *pos)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (buf[i] && buf[i] != '[')
@@ -50,7 +51,8 @@ void		get_start_info(char *buf, t_pos *pos)
 		pos->start_li = -1;
 	else
 	{
-		pos->start_li = ft_atoi(buf + i + 1) - 1 + ft_strlen(pos->prompt) / pos->max_co;
+		pos->start_li = ft_atoi(buf + i + 1) - 1 +
+			ft_strlen(pos->prompt) / pos->max_co;
 		if (pos->start_li > pos->max_li)
 			pos->start_li = pos->max_li;
 	}
@@ -63,12 +65,13 @@ void		get_start_info(char *buf, t_pos *pos)
 		pos->start_co = ft_atoi(buf + i + 1) - 1 + pos->len_prompt;
 }
 
-int			init_pos(t_pos *pos, char *buf)
+int		init_pos(t_pos *pos, char *buf)
 {
-	int		ret2;
+	int			ret2;
 
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
+	pos->history_mode = 0;
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;
@@ -89,7 +92,7 @@ int			init_pos(t_pos *pos, char *buf)
 	return (ret2);
 }
 
-void		init_terminfo(void)
+void	init_terminfo(void)
 {
 	struct termios	term;
 
@@ -99,7 +102,7 @@ void		init_terminfo(void)
 	tcsetattr(0, TCSADRAIN, &term);
 }
 
-void		update_act_pos(t_pos *pos)
+void	update_act_pos(t_pos *pos)
 {
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li");
@@ -114,46 +117,85 @@ void		update_act_pos(t_pos *pos)
 	}
 }
 
-int		main(void)
+char	*termcaps42sh(char *prompt, int error)
 {
-	int		ret;
-	int		ret2;
-	char	buf[9];
-	t_pos	pos;
-	t_hist	*hist;
+	int			ret;
+	int			ret2;
+	char		buf[9];
+	t_pos		pos;
+	t_hist		*hist;
 
-	pos.prompt = "minishell &> ";
+	error = 0;
+	pos.prompt = ft_strdup(prompt);
 	init_terminfo();
 	ret = check_term();
+	if (ret == -1)
+		exit(0);
 	ret2 = init_pos(&pos, buf);
 	hist = (t_hist*)malloc(sizeof(t_hist));
 	init_t_hist(hist);
 	hist = create_history(&pos, hist);
 	bzero(buf, 8);
-/*	while (hist && hist->prev)
-	{
-		ft_printf("hist->cmd = {%s} / hist->prev->cmd = {%s}\n", hist->cmd, hist->prev == NULL ? NULL : hist->prev->cmd);
-		hist = hist->prev;
-	}
-	ft_printf("\n	------------\n\n");
-	while (hist && hist->next)
-	{
-		ft_printf("hist->cmd = {%s} / hist->next->cmd = {%s} / hist->cmd_no = %d\n", hist->cmd, hist->next == NULL ? NULL : hist->next->cmd, hist->cmd_no);
-		hist = hist->next;
-	}*/
-//	while (hist->prev)
-//		hist = hist->prev;
 	print_info(&pos);
 	print_hist(&pos, hist);
 	ft_printf("%s", pos.prompt);
 	while (1)
 	{
-		//		update_act_pos(&pos);
+	//	update_position(&pos, pos.ans);
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, &pos, hist);
+	//	ft_printf("{%s}", buf);
 		print_info(&pos);
 		print_hist(&pos, hist);
+		if (buf[0] == 10)
+		{
+			write(1, "\n", 1);
+			free(pos.prompt);
+			if (strcmp("exit", pos.ans) == 0)
+			{
+				free(pos.ans);
+				free(pos.saved_ans);
+				return (NULL);
+			}
+			return (pos.ans);
+		}
 		bzero(buf, 8);
 	}
 	return (0);
 }
+/*
+int		main(void)
+{
+	test("minishell $> ", 0);*/
+/*	int			ret;
+	int			ret2;
+	char		buf[9];
+	t_pos		pos;
+	t_hist		*hist;
+
+
+//	pos.prompt = "minishell &> ";
+	pos.prompt = "> ";
+	init_terminfo();
+	ret = check_term();
+	if (ret == -1)
+		exit(0);
+	ret2 = init_pos(&pos, buf);
+	hist = (t_hist*)malloc(sizeof(t_hist));
+	init_t_hist(hist);
+	hist = create_history(&pos, hist);
+	bzero(buf, 8);
+//	print_info(&pos);
+//	print_hist(&pos, hist);
+	ft_printf("%s", pos.prompt);
+	while (1)
+	{
+	//	update_position(&pos, pos.ans);
+		ret2 = read(0, buf, 4);
+		hist = check_input(buf, &pos, hist);
+//		print_info(&pos);
+//		print_hist(&pos, hist);
+		bzero(buf, 8);
+	}*/
+/*	return (0);
+}*/
