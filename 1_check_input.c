@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 09:19:07 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 09:45:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,9 +95,8 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 			else
 				input_is_printable_char(pos, buf);
 		}
-		//	if (pos->saved_ans)
-				free(pos->saved_ans);
-			pos->saved_ans = ft_strdup(pos->ans);
+		free(pos->saved_ans);
+		pos->saved_ans = ft_strdup(pos->ans);
 		if (hist && hist->next == NULL)
 		{
 			if (hist->cmd != NULL)
@@ -108,5 +107,7 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 			pos->history_mode = 0;
 		print_ans(pos);
 	}
+	if (buf[0] == 10)
+		free(pos->saved_ans);
 	return (hist);
 }

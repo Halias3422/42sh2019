@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 08:23:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 09:39:52 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -154,7 +154,7 @@ char	*termcaps42sh(char *prompt, int error)
 			if (strcmp("exit", pos.ans) == 0)
 			{
 				free(pos.ans);
-				free(pos.saved_ans);
+			//	free(pos.saved_ans);
 				return (NULL);
 			}
 			return (pos.ans);

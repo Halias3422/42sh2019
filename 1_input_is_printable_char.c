@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 10:18:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 08:41:04 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 09:26:51 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,6 @@ void		input_is_printable_char(t_pos *pos, char *buf)
 {
 	pos->history_mode = 1;
 	fill_char_ans(buf, pos);
-//	pos->saved_ans = ft_strdup(pos->ans);
 	pos->len_ans += 1;
 	if (pos->act_li != pos->max_li && pos->act_co == pos->max_co - 1)
 	{
@@ -49,5 +48,4 @@ void		input_is_printable_char(t_pos *pos, char *buf)
 	else
 		pos->act_co += 1;
 	pos->let_nb += 1;
-//	check_poussin(buf[0]);
 }

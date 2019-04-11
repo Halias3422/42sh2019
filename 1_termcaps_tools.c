@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 08:15:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 09:46:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,6 +31,8 @@ void	clear_info()
 
 void	print_info(t_pos *pos)
 {
+	(void)pos;
+	return ;
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 	clear_info();
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 0), 1, ft_putchar);
@@ -78,6 +80,9 @@ void	print_hist(t_pos *pos, t_hist *hist)
 	int		i;
 	int		actual_hist;
 
+	(void)pos;
+	(void)hist;
+	return ;
 	if (hist == NULL)
 		return;
 	tmp = hist;
