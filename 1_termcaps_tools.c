@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 09:46:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 10:30:21 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,8 +31,6 @@ void	clear_info()
 
 void	print_info(t_pos *pos)
 {
-	(void)pos;
-	return ;
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 	clear_info();
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 0), 1, ft_putchar);
@@ -68,9 +66,12 @@ void	print_info(t_pos *pos)
 	tputs(tgoto(tgetstr("cm", NULL), 0, 1), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}pos->ans  = %-d/{eoc}\n", pos->ans == NULL ? -1 : pos->ans[0]);
 	tputs(tgoto(tgetstr("cm", NULL), 0, 3), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}pos->saved_ans = %-20.20s/{eoc}\n", pos->saved_ans);
-	tputs(tgoto(tgetstr("cm", NULL), 0, 4), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}pos->saved_ans = %-d/{eoc}\n", pos->saved_ans == NULL ? -1 : pos->saved_ans[0]);
+	if (pos->saved_ans != NULL)
+	{
+		ft_printf(" {S.white.T.grey.}pos->saved_ans = %-20.20s/{eoc}\n", pos->saved_ans);
+		tputs(tgoto(tgetstr("cm", NULL), 0, 4), 1, ft_putchar);
+		ft_printf(" {S.white.T.grey.}pos->saved_ans = %-d/{eoc}\n", pos->saved_ans == NULL ? -1 : pos->saved_ans[0]);
+	}
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 }
 
@@ -80,9 +81,6 @@ void	print_hist(t_pos *pos, t_hist *hist)
 	int		i;
 	int		actual_hist;
 
-	(void)pos;
-	(void)hist;
-	return ;
 	if (hist == NULL)
 		return;
 	tmp = hist;

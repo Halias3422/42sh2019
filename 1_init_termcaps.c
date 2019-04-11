@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 09:39:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 11:35:41 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,6 +99,8 @@ void	init_terminfo(void)
 	tcgetattr(0, &term);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
+	term.c_cc[VMIN] = 1;
+	term.c_cc[VTIME] = 0;
 	tcsetattr(0, TCSADRAIN, &term);
 }
 
@@ -136,8 +138,8 @@ char	*termcaps42sh(char *prompt, int error)
 	init_t_hist(hist);
 	hist = create_history(&pos, hist);
 	bzero(buf, 8);
-	print_info(&pos);
-	print_hist(&pos, hist);
+//	print_info(&pos);
+//	print_hist(&pos, hist);
 	ft_printf("%s", pos.prompt);
 	while (1)
 	{
@@ -145,14 +147,15 @@ char	*termcaps42sh(char *prompt, int error)
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, &pos, hist);
 	//	ft_printf("{%s}", buf);
-		print_info(&pos);
-		print_hist(&pos, hist);
+//		print_info(&pos);
+//		print_hist(&pos, hist);
 		if (buf[0] == 10)
 		{
 			write(1, "\n", 1);
 			free(pos.prompt);
 			if (strcmp("exit", pos.ans) == 0)
 			{
+			//	ft_printf("pos.saved_ans = /%s/\n", pos.saved_ans);
 				free(pos.ans);
 			//	free(pos.saved_ans);
 				return (NULL);

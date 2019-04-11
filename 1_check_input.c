@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 09:45:45 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 11:37:01 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,9 +23,9 @@ void		free_t_hist(t_hist *hist)
 	{
 		tmp = hist;
 		if (hist->cmd)
-			free(hist->cmd);
+			hist->cmd = ft_secure_free(hist->cmd);
 		hist = hist->prev;
-		free(tmp);
+		tmp = ft_secure_free(tmp);
 	}
 }
 
@@ -39,7 +39,7 @@ void		input_is_entry(t_pos *pos, t_hist *hist)
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
 	close(pos->history);
 	pos->history = open(tmp, O_RDWR | O_CREAT, 0666);
-	free(tmp);
+	tmp = ft_secure_free(tmp);
 	while (hist->prev != NULL)
 		hist = hist->prev;
 	while (hist)
@@ -83,6 +83,7 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 	else
 	{
 		clean_screen(pos);
+		bzero(buf + 1, 3);
 		if (buf[0] == 127)
 			input_is_backspace(pos);
 		else
@@ -95,19 +96,18 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 			else
 				input_is_printable_char(pos, buf);
 		}
-		free(pos->saved_ans);
-		pos->saved_ans = ft_strdup(pos->ans);
+		pos->saved_ans = ft_secure_free(pos->saved_ans);
+		if (buf[0] != 10)
+			pos->saved_ans = ft_strdup(pos->ans);
 		if (hist && hist->next == NULL)
 		{
 			if (hist->cmd != NULL)
-				free(hist->cmd);
+				hist->cmd = ft_secure_free(hist->cmd);
 			hist->cmd = ft_strdup(pos->ans);
 		}
 		if (pos->ans[0] == '\0')
 			pos->history_mode = 0;
 		print_ans(pos);
 	}
-	if (buf[0] == 10)
-		free(pos->saved_ans);
 	return (hist);
 }
