@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 09:41:10 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 08:24:43 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/11 09:19:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,6 @@ static t_hist	*stay_down_in_history(t_hist *hist, t_pos *pos)
 		free(pos->ans);
 		pos->ans = ft_strdup(hist->cmd);
 		write(1, hist->cmd, ft_strlen(hist->cmd));
-//		update_position(pos, hist->cmd);
 	}
 	else
 	{
@@ -35,7 +34,6 @@ static t_hist	*go_back_down_in_history(t_hist *hist, t_pos *pos)
 {
 	hist = hist->next;
 	write(1, hist->cmd, ft_strlen(hist->cmd));
-//	update_position(pos, hist->cmd);
 	if (hist->cmd != NULL)
 	{
 		free(pos->ans);
@@ -57,7 +55,6 @@ static t_hist	*go_back_in_history(t_hist *hist, t_pos *pos)
 	if (hist && hist->prev != NULL)
 		hist = hist->prev;
 	write(1, hist->cmd, ft_strlen(hist->cmd));
-//	update_position(pos, hist->cmd);
 	free(pos->ans);
 	pos->ans = ft_strdup(hist->cmd);
 	return (hist);
@@ -86,9 +83,11 @@ t_hist			*search_up_in_history(t_hist *hist, t_pos *pos)
 			hist = hist->next;
 		}
 	}
-	free(pos->ans);
-	pos->ans = ft_strdup(hist->cmd);
-//	print_ans(pos);
+	else
+	{
+		free(pos->ans);
+		pos->ans = ft_strdup(hist->cmd);
+	}
 	return (hist);
 }
 
@@ -115,9 +114,11 @@ t_hist			*search_down_in_history(t_hist *hist, t_pos *pos)
 			hist = hist->prev;
 		}
 	}
-	free(pos->ans);
-	pos->ans = ft_strdup(hist->cmd);
-//	print_ans(pos);
+	else
+	{
+		free(pos->ans);
+		pos->ans = ft_strdup(hist->cmd);
+	}
 	return (hist);
 }
 
@@ -134,7 +135,7 @@ t_hist			*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 		hist = go_back_down_in_history(hist, pos);
 	else if (ft_strcmp(usage, "down") == 0)
 		hist = stay_down_in_history(hist, pos);
-	update_position(pos, hist->cmd);
+	update_position(pos, pos->ans);
 	print_ans(pos);
 	return (hist);
 }
