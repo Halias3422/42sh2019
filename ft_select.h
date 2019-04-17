@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 09:58:44 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 14:35:44 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,7 +104,7 @@ void				right_arrow(char *buf, t_pos *pos);
 **HANDLE_ANS.C
 */
 
-void				print_ans(t_pos *pos);
+void				print_ans(t_pos *pos, char *buf);
 void				fill_char_ans(char *buf, t_pos *pos);
 void				remove_char_ans(t_pos *pos);
 

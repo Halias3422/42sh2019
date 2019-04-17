@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 13:13:32 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 15:43:42 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,13 +100,15 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 				if ((pos->is_complete = find_missing_quote(pos->ans)) == 0)
 				{
 					input_is_printable_char(pos, buf);
-					write(1, "\n> ", 2);
+					if (pos->act_li == pos->max_li)
+						pos->start_li -= 1;
+					else
+						pos->act_li += 1;
+					pos->act_co = pos->len_prompt;
+					write(1, "\n> ", 3);
 				}
 				if (pos->is_complete == 1)
-				{
 					hist = input_is_entry(pos, hist);
-				}
-				update_position(pos, pos->ans);
 			}
 			else
 				input_is_printable_char(pos, buf);
@@ -122,8 +124,8 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 		}
 		if (pos->ans[0] == '\0')
 			pos->history_mode = 0;
-		clean_screen(pos);
-		print_ans(pos);
 	}
+	clean_screen(pos);
+	print_ans(pos, buf);
 	return (hist);
 }

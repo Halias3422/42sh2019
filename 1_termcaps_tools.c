@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 10:36:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 13:51:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ void	print_info(t_pos *pos)
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 13), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}debug5    = %03d/{eoc}\n", pos->debug4);
 */	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}pos->ans  = %-100.100s/{eoc}\n", pos->ans);
+	ft_printf(" {S.white.T.grey.}pos->ans  = %-85.85s/{eoc}\n", pos->ans);
 /*	tputs(tgoto(tgetstr("cm", NULL), 0, 1), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}pos->ans  = %-d/{eoc}\n", pos->ans == NULL ? -1 : pos->ans[0]);
 *//*	if (pos->saved_ans != NULL)
