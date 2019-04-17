@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/12 11:53:53 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 10:12:16 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,6 +69,7 @@ int		init_pos(t_pos *pos, char *buf)
 {
 	int			ret2;
 
+	pos->quote = 0;
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
 	pos->history_mode = 0;
@@ -122,7 +123,6 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	t_inter		inter;
    
 	inter = (t_inter){0, 0, 0, 0, 0, 0, 0, 0};
-	ft_printf("%d, %d, %d, %d, %d, %d, %d, %d\n", inter.sg_quote, inter.db_quote, inter.bracket, inter.parenthesis, inter.a_quote, inter.db_and, inter.pipe, inter.db_pipe);
 	error = 0;
 	while (hist->next)
 		hist = hist->next;
@@ -141,13 +141,19 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	{
 	//	update_position(&pos, pos->ans);
 		ret2 = read(0, buf, 4);
-		hist = check_input(buf, pos, hist);
+		hist = check_input(buf, pos, hist, &inter);
 		print_info(pos);
 		print_hist(pos, hist);
-		if (buf[0] == 10)
+		if (buf[0] == 10 && pos->is_complete == 1)
 			return (pos->ans);
+		else if (buf[0] == 10)
+		{
+//			pos->ans = ft_secure_free(pos->ans);
+//			pos->ans = ft_strnew(0);
+//			update_position(pos, pos->ans);
+		//	write(1, "\n> ", 3);
+		}
 		bzero(buf, 8);
 	}
 	return (NULL);
 }
-

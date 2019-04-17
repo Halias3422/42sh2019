@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:37:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 15:16:22 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 10:51:40 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,14 +36,38 @@ void		remove_char_ans(t_pos *pos)
 	}
 }
 
+int			get_last_line(t_pos *pos)
+{
+	int		i;
+
+	i = 0;
+	i = ft_strlen(pos->ans) - 1;
+	while (pos->ans[i] != '\n')
+		i--;
+	return (i + 1);
+}
+
 void		print_ans(t_pos *pos)
 {
-	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li),
-			1, ft_putchar);
-	write(1, pos->ans, ft_strlen(pos->ans));
-	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
-			1, ft_putchar);
+	if (pos->is_complete == 1)
+	{
+		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li),
+				1, ft_putchar);
+		write(1, pos->ans, ft_strlen(pos->ans));
+		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
+				1, ft_putchar);
+
+	}
+/*	else
+	{
+//		tputs(tgoto(tgetstr("cm", NULL), pos->len_prompt, pos->act_li),
+//				1, ft_putchar);
+//		write(1, pos->ans, ft_strlen(pos->ans + get_last_line(pos)));
+	//	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
+	//			1, ft_putchar);
+	}*/
 }
+
 
 void		fill_char_ans(char *buf, t_pos *pos)
 {

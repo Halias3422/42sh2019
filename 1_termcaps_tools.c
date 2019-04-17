@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/12 10:57:33 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 10:36:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,22 +61,23 @@ void	print_info(t_pos *pos)
 	ft_printf(" {S.white.T.grey.}debug4    = %03d/{eoc}\n", pos->debug3);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 13), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}debug5    = %03d/{eoc}\n", pos->debug4);
-	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
-*/	ft_printf(" {S.white.T.grey.}pos->ans  = %-20.20s/{eoc}\n", pos->ans);
-	tputs(tgoto(tgetstr("cm", NULL), 0, 1), 1, ft_putchar);
+*/	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}pos->ans  = %-100.100s/{eoc}\n", pos->ans);
+/*	tputs(tgoto(tgetstr("cm", NULL), 0, 1), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}pos->ans  = %-d/{eoc}\n", pos->ans == NULL ? -1 : pos->ans[0]);
-	tputs(tgoto(tgetstr("cm", NULL), 0, 3), 1, ft_putchar);
-	if (pos->saved_ans != NULL)
+*//*	if (pos->saved_ans != NULL)
 	{
+		tputs(tgoto(tgetstr("cm", NULL), 0, 3), 1, ft_putchar);
 		ft_printf(" {S.white.T.grey.}pos->saved_ans = %-20.20s/{eoc}\n", pos->saved_ans);
 		tputs(tgoto(tgetstr("cm", NULL), 0, 4), 1, ft_putchar);
 		ft_printf(" {S.white.T.grey.}pos->saved_ans = %-d/{eoc}\n", pos->saved_ans == NULL ? -1 : pos->saved_ans[0]);
-	}
+	}*/
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 }
 
 void	print_hist(t_pos *pos, t_hist *hist)
 {
+	return ;
 	t_hist	*tmp;
 	int		i;
 	int		actual_hist;
@@ -106,9 +107,18 @@ void	print_hist(t_pos *pos, t_hist *hist)
 
 void	clean_screen(t_pos *pos)
 {
-	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
-	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	if (pos->is_complete == 1)
+	{
+		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
+		tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	}
+	else
+	{
+		tputs(tgoto(tgetstr("cm", NULL), pos->len_prompt, pos->act_li), 1, ft_putchar);
+	//	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	}
 }
+
 
 int poussin = 0;
 

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/12 11:19:55 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 09:58:44 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,7 @@ typedef struct		s_pos
 	int				max_li;
 	char			*ans;
 	char			*saved_ans;
+	int				is_complete;
 	int				len_ans;
 	int				history;
 	int				let_nb;
@@ -39,6 +40,7 @@ typedef struct		s_pos
 	char			*prompt;
 	int				len_prompt;
 	int				error;
+	int				quote;
 }					t_pos;
 
 typedef struct		s_inter
@@ -79,7 +81,7 @@ int					check_term(void);
 */
 
 void				free_t_hist(t_hist *hist);
-t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
+t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter);
 void				input_is_backspace(t_pos *pos);
 t_hist				*input_is_entry(t_pos *pos, t_hist *hist);
 
@@ -87,7 +89,7 @@ t_hist				*input_is_entry(t_pos *pos, t_hist *hist);
 **INPUT_IS_PRINTABLE_CHAR.C
 */
 
-//static void			if_prompt_is_on_last_char(t_pos *pos);
+void				if_prompt_is_on_last_char(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
 /*

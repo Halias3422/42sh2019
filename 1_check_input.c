@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/12 11:09:53 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 10:54:48 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,8 +65,35 @@ void		input_is_backspace(t_pos *pos)
 	}
 }
 
-t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
+int			find_missing_quote(char *str)
 {
+	int		i;
+	int		nb_quote;
+
+	i = 0;
+	nb_quote = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			nb_quote += 1;
+		i++;
+	}
+	if (nb_quote % 2 == 0)
+		return (1);
+	return (0);
+}
+
+void		input_not_complete(t_pos *pos, t_hist *hist)
+{
+	(void)pos;
+	(void)hist;
+//	input_is_printable_char(pos, buf);
+//	update_position(pos, pos->ans);
+}
+
+t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
+{
+	(void)inter;
 	if (buf[0] == 27)
 		hist = find_arrow(buf, pos, hist);
 	else
@@ -78,7 +105,24 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 		else
 		{
 			if (buf[0] == 10)
-				hist = input_is_entry(pos, hist);
+			{
+				if ((pos->is_complete = find_missing_quote(pos->ans)) == 0)
+				{
+				//	ft_printf("-2-");
+
+
+					input_is_printable_char(pos, buf);
+				//	input_not_complete(pos, hist);
+				}
+				if (pos->is_complete == 1)
+				{
+				//	ft_printf("-1-");
+					hist = input_is_entry(pos, hist);
+				}
+				update_position(pos, pos->ans);
+			}
+			else if (buf[0] == 10 && pos->is_complete == 0)
+				input_not_complete(pos, hist);
 			else
 				input_is_printable_char(pos, buf);
 		}
