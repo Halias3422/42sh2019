@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 15:11:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/10 14:40:02 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 13:15:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,9 +50,9 @@ void		left_arrow(char *buf, t_pos *pos)
 
 t_hist		*find_arrow(char *buf, t_pos *pos, t_hist *hist)
 {
-	if (ft_strncmp(buf + 1, "[A", 2) == 0)
+	if (ft_strncmp(buf + 1, "[A", 2) == 0 && pos->is_complete == 1)
 		hist = move_through_history(hist, pos, "up");
-	else if (ft_strncmp(buf + 1, "[B", 2) == 0)
+	else if (ft_strncmp(buf + 1, "[B", 2) == 0 && pos->is_complete == 1)
 		hist = move_through_history(hist, pos, "down");
 	else if (pos->let_nb < (int)ft_strlen(pos->ans) &&
 			ft_strncmp(buf + 1, "[C", 2) == 0)

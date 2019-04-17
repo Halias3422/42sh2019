@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 10:54:48 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/17 13:13:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,14 +83,6 @@ int			find_missing_quote(char *str)
 	return (0);
 }
 
-void		input_not_complete(t_pos *pos, t_hist *hist)
-{
-	(void)pos;
-	(void)hist;
-//	input_is_printable_char(pos, buf);
-//	update_position(pos, pos->ans);
-}
-
 t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 {
 	(void)inter;
@@ -98,7 +90,6 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 		hist = find_arrow(buf, pos, hist);
 	else
 	{
-		clean_screen(pos);
 		bzero(buf + 1, 3);
 		if (buf[0] == 127)
 			input_is_backspace(pos);
@@ -108,28 +99,22 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 			{
 				if ((pos->is_complete = find_missing_quote(pos->ans)) == 0)
 				{
-				//	ft_printf("-2-");
-
-
 					input_is_printable_char(pos, buf);
-				//	input_not_complete(pos, hist);
+					write(1, "\n> ", 2);
 				}
 				if (pos->is_complete == 1)
 				{
-				//	ft_printf("-1-");
 					hist = input_is_entry(pos, hist);
 				}
 				update_position(pos, pos->ans);
 			}
-			else if (buf[0] == 10 && pos->is_complete == 0)
-				input_not_complete(pos, hist);
 			else
 				input_is_printable_char(pos, buf);
 		}
 		pos->saved_ans = ft_secure_free(pos->saved_ans);
 		if (buf[0] != 10)
 			pos->saved_ans = ft_strdup(pos->ans);
-		if (hist && hist->next == NULL)
+		if (hist && hist->next == NULL && pos->is_complete == 1)
 		{
 			if (hist->cmd != NULL)
 				hist->cmd = ft_secure_free(hist->cmd);
@@ -137,6 +122,7 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 		}
 		if (pos->ans[0] == '\0')
 			pos->history_mode = 0;
+		clean_screen(pos);
 		print_ans(pos);
 	}
 	return (hist);
