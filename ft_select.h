@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 09:26:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 15:17:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,11 @@ typedef struct		s_pos
 	int				len_prompt;
 	int				error;
 	int				quote;
+	int				debug;
+	int				debug2;
+	int				debug3;
+	int				debug4;
+	int				debug5;
 }					t_pos;
 
 typedef struct		s_inter
