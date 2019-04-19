@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:37:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 15:43:49 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 08:42:52 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,7 @@ void		print_ans(t_pos *pos, char *buf)
 
 	line = 0;
 	i = -1;
-	if (1)//pos->is_complete == 1)
+	if (pos->is_complete == 1)
 	{
 		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li),
 				1, ft_putchar);
@@ -85,8 +85,8 @@ void		print_ans(t_pos *pos, char *buf)
 		tputs(tgoto(tgetstr("cm", NULL), pos->len_prompt, pos->act_li),
 				1, ft_putchar);
 		write(1, pos->ans + get_last_line(pos), ft_strlen(pos->ans + get_last_line(pos)));
-//		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
-//				1, ft_putchar);
+		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
+				1, ft_putchar);
 	}
 }
 

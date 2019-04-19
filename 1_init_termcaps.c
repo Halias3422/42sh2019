@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 15:43:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 07:28:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -139,7 +139,6 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	ft_printf("%s", pos->prompt);
 	while (1)
 	{
-	//	update_position(&pos, pos->ans);
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, pos, hist, &inter);
 		print_info(pos);

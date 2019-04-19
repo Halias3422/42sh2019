@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 10:54:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 07:32:21 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,29 +41,6 @@ void		update_position(t_pos *pos, char *cmd)
 	}
 	else
 	{
-//		ft_printf("-1-");
-/*		while (pos->ans[i])
-		{
-		//	ft_printf("-2-");
-			if ((i != 0 && i % pos->max_co == 0))
-			{
-				if (pos->act_li < pos->max_li)
-				{
-				//	ft_printf("-3-act_li %d, pos->ans[%d] |%c|", pos->act_li, i, pos->ans[i]);
-					pos->act_li += 1;
-					write(1, "\n", 1);
-				}
-				else
-				{
-				//	ft_printf("-4-");
-					pos->start_li -= 1;
-				}
-			}
-			i++;
-		}*/
-//		while (pos->ans[i] != '\n')
-//			i--;
-//		i++;
 		i = ft_strlen(pos->ans) - 1;
 		if (pos->act_li != pos->max_li)
 			pos->act_li += 1;
@@ -74,7 +51,6 @@ void		update_position(t_pos *pos, char *cmd)
 		}
 		pos->act_co = ft_strlen(pos->ans + i) % pos->max_co;
 		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
-	//	write(1, "> ", 3);
 	}
 }
 

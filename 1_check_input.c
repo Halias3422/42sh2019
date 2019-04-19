@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 15:43:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 08:41:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,8 @@ t_hist		*input_is_entry(t_pos *pos, t_hist *hist)
 
 void		input_is_backspace(t_pos *pos)
 {
-	if (pos->let_nb > 0 || pos->act_li > pos->start_li)
+	if ((pos->is_complete == 1 && (pos->let_nb > 0 || pos->act_li >
+	pos->start_li)) || (pos->is_complete == 0 && pos->act_co > pos->len_prompt))
 	{
 		tputs(tgetstr("le", NULL), 1, ft_putchar);
 		tputs(tgetstr("dc", NULL), 1, ft_putchar);
