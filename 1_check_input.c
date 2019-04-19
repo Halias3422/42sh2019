@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 08:41:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 11:08:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,13 +50,14 @@ t_hist		*input_is_entry(t_pos *pos, t_hist *hist)
 	hist->cmd = ft_strdup(pos->ans);
 	hist = add_list_back_hist(hist);
 	hist = hist->prev;
+
 	return (hist);
 }
 
 void		input_is_backspace(t_pos *pos)
 {
-	if ((pos->is_complete == 1 && (pos->let_nb > 0 || pos->act_li >
-	pos->start_li)) || (pos->is_complete == 0 && pos->act_co > pos->len_prompt))
+	if ((pos->let_nb > 0 && pos->is_complete == 1 && (pos->let_nb > 0 || pos->act_li >
+	pos->start_li)) || (pos->is_complete == 0 && (pos->act_co > pos->len_prompt || pos->ans[pos->let_nb - 1] != '\n')))
 	{
 		tputs(tgetstr("le", NULL), 1, ft_putchar);
 		tputs(tgetstr("dc", NULL), 1, ft_putchar);

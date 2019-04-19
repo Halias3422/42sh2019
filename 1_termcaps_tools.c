@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 08:11:42 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 11:08:46 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,11 +56,8 @@ void	print_info(t_pos *pos)
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 10), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}len_prompt = %03d/{eoc}\n", pos->len_prompt);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 11), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}is_compl = %03d/{eoc}\n", pos->is_complete);
-
-/*	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 10), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug2    = %03d/{eoc}\n", pos->debug);
-	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 11), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}is_compl   = %03d/{eoc}\n", pos->is_complete);
+/*	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 11), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}debug3    = %03d/{eoc}\n", pos->debug2);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 12), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}debug4    = %03d/{eoc}\n", pos->debug3);
@@ -120,7 +117,7 @@ void	clean_screen(t_pos *pos)
 	else
 	{
 		tputs(tgoto(tgetstr("cm", NULL), pos->len_prompt, pos->act_li), 1, ft_putchar);
-	//	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+		tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 15:11:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 08:40:17 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 11:06:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,8 @@ void		left_arrow(char *buf, t_pos *pos)
 		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 1,
 			pos->act_li), 1, ft_putchar);
 	}
+	else if (pos->is_complete == 0 && pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == 2)
+		return ;
 	else
 	{
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/17 13:04:32 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 13:07:59 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 09:21:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,11 +56,3 @@ int			find_missing_quote(char *str)
 		return (1);
 	return (0);
 }
-
-t_hist		*input_is_entry(t_pos *pos, t_hist *hist)
-{
-	pos->is_complete = find_missing_quote(pos->ans);
-	if (pos->is_complete == 1)
-		hist = input_is_complete(pos, hist);
-	else
-		hist = input_is_not_complete(pos, hist);
