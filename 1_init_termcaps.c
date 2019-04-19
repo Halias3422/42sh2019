@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 09:26:53 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 13:01:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -144,7 +144,9 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 		print_info(pos);
 		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
+		{
 			return (pos->ans);
+		}
 		bzero(buf, 8);
 	}
 	return (NULL);

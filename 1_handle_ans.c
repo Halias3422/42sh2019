@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:37:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 10:47:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 14:11:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,13 +101,12 @@ void		print_ans(t_pos *pos, char *buf)
 	}
 */}
 
-
 void		fill_char_ans(char *buf, t_pos *pos)
 {
 	char	*swap;
 
 	swap = NULL;
-	if (pos->let_nb == (int)ft_strlen(pos->ans))
+	if (pos->let_nb == (int)ft_strlen(pos->ans) || (pos->is_complete == 0 && ft_strcmp(buf, "\n") == 0))
 		pos->ans = ft_strjoinf(pos->ans, buf, 1);
 	else
 	{
@@ -118,4 +117,6 @@ void		fill_char_ans(char *buf, t_pos *pos)
 		free(pos->ans);
 		pos->ans = swap;
 	}
+	if (pos->is_complete == 0 && ft_strcmp(buf, "\n") == 0)
+		pos->let_nb = (int)ft_strlen(pos->ans) - 1;
 }
