@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 14:01:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 14:18:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 10:58:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,11 +56,15 @@ t_hist		*input_is_entry(t_pos *pos, t_hist *hist)
 
 void		input_is_backspace(t_pos *pos)
 {
-	if ((pos->let_nb > 0 && pos->is_complete == 1 && (pos->let_nb > 0 || pos->act_li >
-	pos->start_li)) || (pos->is_complete == 0 && (pos->act_co > pos->len_prompt || pos->ans[pos->let_nb - 1] != '\n')))
+	if (pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n')
 	{
-		tputs(tgetstr("le", NULL), 1, ft_putchar);
-		tputs(tgetstr("dc", NULL), 1, ft_putchar);
+		pos->act_li -= 1;
+		pos->act_co = len_of_previous_line(pos);
+		pos->len_ans -= 1;
+		remove_char_ans(pos);
+	}
+	else if ((pos->let_nb > 0 && (pos->act_co > pos->len_prompt || pos->ans[pos->let_nb - 1] != '\n')))
+	{
 		remove_char_ans(pos);
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;
 		pos->len_ans -= 1;
@@ -102,12 +106,24 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 				if ((pos->is_complete = find_missing_quote(pos->ans)) == 0)
 				{
 					input_is_printable_char(pos, buf);
-					if (pos->act_li == pos->max_li)
-						pos->start_li -= 1;
+				//	if (pos->let_nb != pos->len_ans)
+				//	{
+						update_position(pos, pos->ans);
+						pos->debug = pos->act_co;
+						pos->act_li = get_len_with_lines(pos) / pos->max_co;
+					//	if (pos->act_li == pos->max_li)
+					//		pos->start_li -= 1;
+					//	else
+					//		pos->act_li += 1;
+						pos->act_co = pos->len_prompt;
+				/*	}
 					else
-						pos->act_li += 1;
-					pos->act_co = pos->len_prompt;
-					write(1, "\n> ", 3);
+					{
+						pos->debug = 1;
+							update_position(pos, pos->ans);
+						tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+					}
+				*/	write(1, "\n> ", 3);
 				}
 				if (pos->is_complete == 1)
 					hist = input_is_entry(pos, hist);

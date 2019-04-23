@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:37:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 14:11:13 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 10:58:52 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,34 @@ int			get_last_line(t_pos *pos)
 	return (i + 1);
 }
 
+int			get_len_with_lines(t_pos *pos)
+{
+	int		i;
+	int		len;
+	int		line;
+
+	line = pos->len_prompt;
+	i = -1;
+	len = pos->len_prompt;
+	while (pos->ans[++i])
+	{
+		if (pos->ans[i] == '\n')
+		{
+			if (line < pos->max_co)
+				len += (pos->max_co - line);
+			else
+				len += (pos->max_co - line % pos->max_co);
+			line = 0;
+		}
+		else
+		{
+			line += 1;
+			len += 1;
+		}
+	}
+	return (len);
+}
+
 void		print_ans(t_pos *pos, char *buf)
 {
 	int		i;
@@ -76,7 +104,7 @@ void		print_ans(t_pos *pos, char *buf)
 			while (pos->ans[++i])
 			{
 			write(1, &pos->ans[i], 1);
-			if (pos->ans[i] == '\n')// && buf[0] == 10)
+			if (pos->ans[i] == '\n' && pos->is_complete == 0)// && buf[0] == 10)
 				write(1, "> ", 2);
 		//	ft_printf("line = |%d| - pos->ans[%d] = |%d|\n", line, i, pos->ans[i]);
 			if (line == pos->max_co - 2 && pos->ans[i] == '\n')

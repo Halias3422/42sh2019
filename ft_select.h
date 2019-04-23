@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 15:17:20 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 10:58:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,6 +104,7 @@ void				input_is_printable_char(t_pos *pos, char *buf);
 t_hist				*find_arrow(char *buf, t_pos *pos, t_hist *hist);
 void				left_arrow(char *buf, t_pos *pos);
 void				right_arrow(char *buf, t_pos *pos);
+int					len_of_previous_line(t_pos *pos);
 
 /*
 **HANDLE_ANS.C
@@ -112,6 +113,7 @@ void				right_arrow(char *buf, t_pos *pos);
 void				print_ans(t_pos *pos, char *buf);
 void				fill_char_ans(char *buf, t_pos *pos);
 void				remove_char_ans(t_pos *pos);
+int					get_len_with_lines(t_pos *pos);
 
 /*
 **HISTORY.C

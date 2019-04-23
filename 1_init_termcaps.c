@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 15:18:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 10:23:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,7 +81,7 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;
-	pos->debug4 = 0;
+	pos->debug4 = -1;
 	pos->debug5 = 0;
 	write(1, "\033[6n", 4);
 	ret2 = read(1, buf, 8);
@@ -149,7 +149,11 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 		print_info(pos);
 		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
+		{
+			update_position(pos, pos->ans);
+			tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 			return (pos->ans);
+		}
 		bzero(buf, 8);
 	}
 	return (NULL);

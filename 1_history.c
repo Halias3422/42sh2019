@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 14:18:23 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 08:44:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ void		update_position(t_pos *pos, char *cmd)
 		diff = 0;
 		if (cmd == NULL)
 			return ;
-		pos->len_ans = pos->len_prompt + ft_strlen(cmd);
+		pos->len_ans = get_len_with_lines(pos);
 		pos->act_li = pos->start_li + pos->len_ans / pos->max_co;
 		if (pos->act_li > pos->max_li)
 			pos->act_li = pos->max_li;
