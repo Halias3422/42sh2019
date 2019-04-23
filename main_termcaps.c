@@ -6,12 +6,12 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 13:32:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 14:42:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "termcaps.h"
 
 int		main(void)
 {
