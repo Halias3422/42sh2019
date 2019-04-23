@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 09:41:10 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 14:36:53 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 13:04:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -125,6 +125,7 @@ t_hist			*search_down_in_history(t_hist *hist, t_pos *pos)
 t_hist			*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 {
 	clean_screen(pos);
+//	ft_printf("\n\n\n\nABRURURURURU %d\n\n\n\n", pos->history_mode);
 	if (pos->history_mode == 1 && ft_strcmp(usage, "up") == 0)
 		hist = search_up_in_history(hist, pos);
 	else if (pos->history_mode == 1 && ft_strcmp(usage, "down") == 0)
@@ -136,6 +137,7 @@ t_hist			*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 	else if (ft_strcmp(usage, "down") == 0)
 		hist = stay_down_in_history(hist, pos);
 	update_position(pos, pos->ans);
+
 //	print_ans(pos);
 	return (hist);
 }

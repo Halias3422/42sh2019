@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 15:11:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 11:00:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 11:11:49 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,22 +51,13 @@ int			len_of_previous_line(t_pos *pos)
 
 void		left_arrow(char *buf, t_pos *pos)
 {
-	pos->debug2 = pos->act_co;
-	pos->debug3 = pos->act_li;
 	if (pos->act_co == 0 && pos->act_li > pos->start_li)
 	{
-		pos->debug = 5;
 		pos->act_li--;
 		if (pos->ans[pos->let_nb - 1] == '\n')
-		{
-			pos->debug = 1;
 			pos->act_co = len_of_previous_line(pos);
-		}
 		else
-		{
-			pos->debug = 2;
 			pos->act_co = pos->max_co - 1;
-		}
 		tputs(tgoto(tgetstr("cm", NULL), pos->act_co,
 			pos->act_li), 1, ft_putchar);
 	}
@@ -87,7 +78,7 @@ void		left_arrow(char *buf, t_pos *pos)
 
 t_hist		*find_arrow(char *buf, t_pos *pos, t_hist *hist)
 {
-	if (ft_strncmp(buf + 1, "[A", 2) == 0 && pos->is_complete == 1)
+	if (ft_strncmp(buf + 1, "[A", 2) == 0/* && pos->is_complete == 1*/)
 		hist = move_through_history(hist, pos, "up");
 	else if (ft_strncmp(buf + 1, "[B", 2) == 0 && pos->is_complete == 1)
 		hist = move_through_history(hist, pos, "down");

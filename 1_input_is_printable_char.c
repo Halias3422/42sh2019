@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 10:18:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/19 16:23:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 13:22:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,10 +44,7 @@ int			count_nb_line(t_pos *pos, int *j)
 			*j = 2;
 		}
 		else if (*j % pos->max_co/* - (*j > pos->max_co ? 0 : 2)))*/ == 0 && *j != 0)
-		{
 			nb_line += 1;
-			pos->debug3 = *j;
-		}
 		++*j;
 		i++;
 	}
@@ -85,5 +82,4 @@ void		input_is_printable_char(t_pos *pos, char *buf)
 	else
 		pos->act_co += 1;
 	pos->let_nb += 1;
-	pos->debug2 = nb_char_last_line;
 }
