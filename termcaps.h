@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_select.h                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 17:25:20 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 07:47:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,8 +14,8 @@
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/libft.h"
+# include "libft/includes/ft_printf.h"
+# include "libft/includes/libft.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <term.h>
@@ -88,23 +88,29 @@ int					check_term(void);
 void				free_t_hist(t_hist *hist);
 t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter);
 void				input_is_backspace(t_pos *pos);
-t_hist				*input_is_entry(t_pos *pos, t_hist *hist);
 
 /*
 **INPUT_IS_PRINTABLE_CHAR.C
 */
 
-void				if_prompt_is_on_last_char(t_pos *pos);
+void				prompt_is_on_last_char(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
 /*
-**INPUT_IS_ARROW.C
+**ESCAPE_CODE.C
 */
 
-t_hist				*find_arrow(char *buf, t_pos *pos, t_hist *hist);
+t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
 void				left_arrow(char *buf, t_pos *pos);
 void				right_arrow(char *buf, t_pos *pos);
 int					len_of_previous_line(t_pos *pos);
+
+/*
+** INPUT_IS_ENTRY.C
+*/
+
+t_hist				*input_is_complete(t_pos *pos, t_hist *hist);
+t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
 
 /*
 **HANDLE_ANS.C

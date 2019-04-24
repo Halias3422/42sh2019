@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 16:03:21 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 08:47:49 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,9 +36,9 @@ void            left_arrow(char *buf, t_pos *pos)
 		else
 			pos->act_co = pos->max_co - 1;
 	}
-/*	else if (pos->is_complete == 0 && pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == 2)
+	else if (pos->is_complete == 0 && pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == 2)
 		return ;
-*/	else
+	else
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;
 	tputs(buf, 1, ft_putchar);
 	pos->let_nb -= 1;
@@ -46,10 +46,10 @@ void            left_arrow(char *buf, t_pos *pos)
 
 t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 {
-/*	if (ft_strncmp(buf + 1, "[A", 2) == 0)
+	if (ft_strncmp(buf + 1, "[A", 2) == 0)
 		hist = move_through_history(hist, pos, "up");
 	else if (ft_strncmp(buf + 1, "[B", 2) == 0)
-		hist = move_through_history(hist, pos, "down");*/
+		hist = move_through_history(hist, pos, "down");
 	if (pos->let_nb < (int)ft_strlen(pos->ans) &&
 			ft_strncmp(buf + 1, "[C", 2) == 0)
 		right_arrow(buf, pos);
