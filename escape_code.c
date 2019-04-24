@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 10:46:49 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 15:17:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ void            left_arrow(char *buf, t_pos *pos)
 		else
 			pos->act_co = pos->max_co - 1;
 	}
-	else if (pos->is_complete == 0 && pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == 2)
+	else if (pos->is_complete == 0 && pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == pos->len_prompt)
 		return ;
 	else
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;

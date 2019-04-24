@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 13:04:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 16:01:30 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,14 +34,13 @@ typedef struct		s_pos
 	char			*saved_ans;
 	int				is_complete;
 	int				len_ans;
-	int				history;
 	int				let_nb;
 	int				let_nb_saved;
+	int				history;
 	int				history_mode;
+	int				history_loop;
 	char			*prompt;
 	int				len_prompt;
-	int				ans_printed;
-	int				quote;
 	int				debug;
 	int				debug2;
 	int				debug3;

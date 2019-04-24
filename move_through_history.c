@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:42:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 14:42:00 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 15:58:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,7 @@ static t_hist		*stay_down_in_history(t_hist *hist, t_pos *pos)
 		pos->act_co = pos->start_co;
 		pos->let_nb = 0;
 	}
+	pos->history_loop = 0;
 	return (hist);
 }
 
@@ -82,9 +83,12 @@ static t_hist		*go_back_in_history(t_hist *hist, t_pos *pos)
 		return (hist);
 	if (hist && hist->prev != NULL)
 		hist = hist->prev;
-	if (pos->is_complete == 0)
+	if (hist && hist->next != NULL && hist->next->cmd != NULL && pos->is_complete == 0 && pos->history_loop++ == 0)
+		hist = hist->next;
+	if (pos->is_complete == 0 && hist->cmd != NULL)
 	{
-		pos->ans[pos->let_nb_saved] = '\0';
+		if ((int)ft_strlen(pos->ans) > pos->let_nb_saved)
+			pos->ans[pos->let_nb_saved] = '\0';
 		pos->ans = ft_strjoinf(pos->ans, hist->cmd, 1);
 	}
 	else if (pos->is_complete == 1)
