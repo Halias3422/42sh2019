@@ -1,64 +1,59 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   input_is_arrow.c                                 .::    .:/ .      .::   */
+/*   escape_code.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/04 15:11:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/10 14:40:02 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/04/24 08:47:49 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "termcaps.h"
 
-void		right_arrow(char *buf, t_pos *pos)
+void            right_arrow(char *buf, t_pos *pos)
 {
-	if (pos->act_co == pos->max_co - 1)
+	if (pos->act_co == pos->max_co - 1 || pos->ans[pos->let_nb] == '\n')
 	{
 		pos->act_co = 0;
 		pos->act_li += 1;
 	}
 	else
-	{
 		pos->act_co++;
-		tputs(buf, 1, ft_putchar);
-	}
+	tputs(buf, 1, ft_putchar);
 	pos->let_nb++;
-	if (pos->act_co % pos->max_co == 0)
-		tputs(tgoto(tgetstr("cm", NULL), pos->start_co - 1 -
-			pos->len_prompt, pos->act_li), 1, ft_putchar);
 }
 
-void		left_arrow(char *buf, t_pos *pos)
+void            left_arrow(char *buf, t_pos *pos)
 {
 	if (pos->act_co == 0 && pos->act_li > pos->start_li)
 	{
 		pos->act_li--;
-		pos->act_co = pos->max_co - 1;
-		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 1,
-			pos->act_li), 1, ft_putchar);
+		if (pos->ans[pos->let_nb - 1] == '\n')
+			pos->act_co = len_of_previous_line(pos);
+		else
+			pos->act_co = pos->max_co - 1;
 	}
+	else if (pos->is_complete == 0 && pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == 2)
+		return ;
 	else
-	{
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;
-		tputs(buf, 1, ft_putchar);
-	}
-	pos->let_nb--;
+	tputs(buf, 1, ft_putchar);
+	pos->let_nb -= 1;
 }
 
-t_hist		*find_arrow(char *buf, t_pos *pos, t_hist *hist)
+t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 {
 	if (ft_strncmp(buf + 1, "[A", 2) == 0)
 		hist = move_through_history(hist, pos, "up");
 	else if (ft_strncmp(buf + 1, "[B", 2) == 0)
 		hist = move_through_history(hist, pos, "down");
-	else if (pos->let_nb < (int)ft_strlen(pos->ans) &&
+	if (pos->let_nb < (int)ft_strlen(pos->ans) &&
 			ft_strncmp(buf + 1, "[C", 2) == 0)
 		right_arrow(buf, pos);
-	else if (pos->let_nb > 0 && pos->act_co >= 0 &&
-			ft_strncmp(buf + 1, "[D", 2) == 0)
+	else if (pos->let_nb > 0 && ft_strncmp(buf + 1, "[D", 2) == 0)
 		left_arrow(buf, pos);
 	return (hist);
 }

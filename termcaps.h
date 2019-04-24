@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 09:06:15 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 07:47:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,19 +32,33 @@ typedef struct		s_pos
 	int				max_li;
 	char			*ans;
 	char			*saved_ans;
+	int				is_complete;
 	int				len_ans;
 	int				history;
 	int				let_nb;
+	int				history_mode;
+	char			*prompt;
+	int				len_prompt;
+	int				error;
+	int				quote;
 	int				debug;
 	int				debug2;
 	int				debug3;
 	int				debug4;
 	int				debug5;
-	int				history_mode;
-	char			*prompt;
-	int				len_prompt;
-	int				error;
 }					t_pos;
+
+typedef struct		s_inter
+{
+	int				sg_quote;
+	int				db_quote;
+	int				bracket;
+	int				parenthesis;
+	int				a_quote;
+	int				db_and;
+	int				pipe;
+	int				db_pipe;
+}					t_inter;
 
 typedef struct		s_hist
 {
@@ -54,7 +68,8 @@ typedef struct		s_hist
 	int				cmd_no;
 }					t_hist;
 
-char	*termcaps42sh(char *prompt, int error);
+int		get_next_line_42sh(const int fd, char **line);
+char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist);
 
 /*
 **INIT_FT_SELECT.C
@@ -70,32 +85,41 @@ int					check_term(void);
 **CHECK_INPUT.C
 */
 
-t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
+void				free_t_hist(t_hist *hist);
+t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter);
 void				input_is_backspace(t_pos *pos);
-void				input_is_entry(t_pos *pos, t_hist *hist);
 
 /*
 **INPUT_IS_PRINTABLE_CHAR.C
 */
 
-//static void			if_prompt_is_on_last_char(t_pos *pos);
+void				prompt_is_on_last_char(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
 /*
-**INPUT_IS_ARROW.C
+**ESCAPE_CODE.C
 */
 
-t_hist				*find_arrow(char *buf, t_pos *pos, t_hist *hist);
+t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
 void				left_arrow(char *buf, t_pos *pos);
 void				right_arrow(char *buf, t_pos *pos);
+int					len_of_previous_line(t_pos *pos);
+
+/*
+** INPUT_IS_ENTRY.C
+*/
+
+t_hist				*input_is_complete(t_pos *pos, t_hist *hist);
+t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
 
 /*
 **HANDLE_ANS.C
 */
 
-void				print_ans(t_pos *pos);
+void				print_ans(t_pos *pos, char *buf);
 void				fill_char_ans(char *buf, t_pos *pos);
 void				remove_char_ans(t_pos *pos);
+int					get_len_with_lines(t_pos *pos);
 
 /*
 **HISTORY.C
@@ -103,7 +127,7 @@ void				remove_char_ans(t_pos *pos);
 
 void				init_t_hist(t_hist *hist);
 t_hist				*create_history(t_pos *pos, t_hist *hist);
-t_hist				*ft_list_back(t_hist *head, t_hist *hist);
+t_hist				*add_list_back_hist(t_hist *hist);
 void				update_position(t_pos *pos, char *cmd);
 
 /*

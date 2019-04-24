@@ -6,32 +6,67 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/10 09:34:31 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 07:46:41 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "termcaps.h"
 
 void		update_position(t_pos *pos, char *cmd)
 {
 	int		diff;
+	int		i;
 
-	diff = 0;
-	if (cmd == NULL)
-		return ;
-	pos->len_ans = pos->len_prompt + ft_strlen(cmd);
-	pos->act_li = pos->start_li + pos->len_ans / pos->max_co;
-	if (pos->act_li > pos->max_li)
-		pos->act_li = pos->max_li;
-	if (pos->len_ans < pos->max_co)
-		pos->act_co = pos->len_ans;
+	i = 0;
+	if (pos->is_complete == 1)
+	{
+		diff = 0;
+		if (cmd == NULL)
+			return ;
+		pos->len_ans = get_len_with_lines(pos);
+		pos->act_li = pos->start_li + pos->len_ans / pos->max_co;
+		if (pos->act_li > pos->max_li)
+			pos->act_li = pos->max_li;
+		if (pos->len_ans < pos->max_co)
+			pos->act_co = pos->len_ans;
+		else
+			pos->act_co = pos->len_ans % pos->max_co;
+		pos->let_nb = ft_strlen(cmd);
+		diff = (pos->start_li + (pos->len_ans / pos->max_co)) - pos->max_li;
+		if (diff > 0)
+			pos->start_li -= diff;
+	}
 	else
-		pos->act_co = pos->len_ans % pos->max_co;
-	pos->let_nb = ft_strlen(cmd);
-	diff = (pos->start_li + (pos->len_ans / pos->max_co)) - pos->max_li;
-	if (diff > 0)
-		pos->start_li -= diff;
+	{
+		i = ft_strlen(pos->ans) - 1;
+		if (pos->act_li != pos->max_li)
+			pos->act_li += 1;
+		else
+		{
+			//	pos->start_li -= 1;
+			prompt_is_on_last_char(pos);
+		}
+		pos->act_co = ft_strlen(pos->ans + i) % pos->max_co;
+		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+	}
+}
+
+
+void            free_t_hist(t_hist *hist)
+{
+	t_hist *tmp;
+
+	while (hist->next)
+		hist = hist->next;
+	while (hist)
+	{
+		tmp = hist;
+		if (hist->cmd)
+			hist->cmd = ft_secure_free(hist->cmd);
+		hist = hist->prev;
+		tmp = ft_secure_free(tmp);
+	}
 }
 
 void		init_t_hist(t_hist *hist)
@@ -79,9 +114,12 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 	free(pwd);
 	while ((ret = get_next_line(pos->history, &line)))
 	{
-		hist->cmd = ft_strnew(0);
-		hist->cmd = ft_strjoinf(hist->cmd, line, 3);
-		hist = add_list_back_hist(hist);
+		if (ft_strlen(line) > 0)
+		{
+			hist->cmd = ft_strnew(0);
+			hist->cmd = ft_strjoinf(hist->cmd, line, 3);
+			hist = add_list_back_hist(hist);
+		}
 		line = NULL;
 	}
 	return (hist);

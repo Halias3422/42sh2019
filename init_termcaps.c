@@ -6,12 +6,12 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/11 08:23:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 14:42:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "termcaps.h"
 
 int		check_term(void)
 {
@@ -69,19 +69,20 @@ int		init_pos(t_pos *pos, char *buf)
 {
 	int			ret2;
 
+	pos->quote = 0;
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
 	pos->history_mode = 0;
-	pos->debug = 0;
-	pos->debug2 = 0;
-	pos->debug3 = 0;
-	pos->debug4 = 0;
-	pos->debug5 = 0;
 	pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 	pos->ans = ft_strnew(0);
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	pos->let_nb = 0;
+	pos->debug = 0;
+	pos->debug2 = 0;
+	pos->debug3 = 0;
+	pos->debug4 = -1;
+	pos->debug5 = 0;
 	write(1, "\033[6n", 4);
 	ret2 = read(1, buf, 8);
 	get_start_info(buf + 1, pos);
@@ -99,6 +100,8 @@ void	init_terminfo(void)
 	tcgetattr(0, &term);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
+	term.c_cc[VMIN] = 1;
+	term.c_cc[VTIME] = 0;
 	tcsetattr(0, TCSADRAIN, &term);
 }
 
@@ -117,85 +120,40 @@ void	update_act_pos(t_pos *pos)
 	}
 }
 
-char	*termcaps42sh(char *prompt, int error)
+char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 {
 	int			ret;
 	int			ret2;
 	char		buf[9];
-	t_pos		pos;
-	t_hist		*hist;
-
+	t_inter		inter;
+   
+	inter = (t_inter){0, 0, 0, 0, 0, 0, 0, 0};
 	error = 0;
-	pos.prompt = ft_strdup(prompt);
+	while (hist->next)
+		hist = hist->next;
+	if (pos->prompt == NULL)
+		pos->prompt = ft_strdup(prompt);
 	init_terminfo();
 	ret = check_term();
 	if (ret == -1)
 		exit(0);
-	ret2 = init_pos(&pos, buf);
-	hist = (t_hist*)malloc(sizeof(t_hist));
-	init_t_hist(hist);
-	hist = create_history(&pos, hist);
+	ret2 = init_pos(pos, buf);
 	bzero(buf, 8);
-	print_info(&pos);
-	print_hist(&pos, hist);
-	ft_printf("%s", pos.prompt);
+	print_info(pos);
+	print_hist(pos, hist);
+	ft_printf("%s", pos->prompt);
 	while (1)
 	{
-	//	update_position(&pos, pos.ans);
 		ret2 = read(0, buf, 4);
-		hist = check_input(buf, &pos, hist);
-	//	ft_printf("{%s}", buf);
-		print_info(&pos);
-		print_hist(&pos, hist);
-		if (buf[0] == 10)
+		hist = check_input(buf, pos, hist, &inter);
+		print_info(pos);
+		print_hist(pos, hist);
+		if (buf[0] == 10 && pos->is_complete == 1)
 		{
-			write(1, "\n", 1);
-			free(pos.prompt);
-			if (strcmp("exit", pos.ans) == 0)
-			{
-				free(pos.ans);
-				free(pos.saved_ans);
-				return (NULL);
-			}
-			return (pos.ans);
+			tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+			return (pos->ans);
 		}
 		bzero(buf, 8);
 	}
-	return (0);
+	return (NULL);
 }
-/*
-int		main(void)
-{
-	test("minishell $> ", 0);*/
-/*	int			ret;
-	int			ret2;
-	char		buf[9];
-	t_pos		pos;
-	t_hist		*hist;
-
-
-//	pos.prompt = "minishell &> ";
-	pos.prompt = "> ";
-	init_terminfo();
-	ret = check_term();
-	if (ret == -1)
-		exit(0);
-	ret2 = init_pos(&pos, buf);
-	hist = (t_hist*)malloc(sizeof(t_hist));
-	init_t_hist(hist);
-	hist = create_history(&pos, hist);
-	bzero(buf, 8);
-//	print_info(&pos);
-//	print_hist(&pos, hist);
-	ft_printf("%s", pos.prompt);
-	while (1)
-	{
-	//	update_position(&pos, pos.ans);
-		ret2 = read(0, buf, 4);
-		hist = check_input(buf, &pos, hist);
-//		print_info(&pos);
-//		print_hist(&pos, hist);
-		bzero(buf, 8);
-	}*/
-/*	return (0);
-}*/
