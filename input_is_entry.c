@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 07:32:59 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 10:13:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,11 +33,12 @@ int			find_missing_quote(char *str)
 
 t_hist			*entry_is_incomplete(t_pos *pos, t_hist *hist, char *buf)
 {
-	pos->history_mode = 0;
 	input_is_printable_char(pos, buf);
+	pos->history_mode = 0;
 	pos->act_li = pos->start_li + get_len_with_lines(pos) / pos->max_co;
 	pos->act_co = pos->len_prompt;
-	write(1, "\n>", 3);
+	clean_screen(pos);
+	print_ans_start(pos, buf);
 	return (hist);
 }
 

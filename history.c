@@ -6,52 +6,12 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 07:46:41 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 10:02:17 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-
-void		update_position(t_pos *pos, char *cmd)
-{
-	int		diff;
-	int		i;
-
-	i = 0;
-	if (pos->is_complete == 1)
-	{
-		diff = 0;
-		if (cmd == NULL)
-			return ;
-		pos->len_ans = get_len_with_lines(pos);
-		pos->act_li = pos->start_li + pos->len_ans / pos->max_co;
-		if (pos->act_li > pos->max_li)
-			pos->act_li = pos->max_li;
-		if (pos->len_ans < pos->max_co)
-			pos->act_co = pos->len_ans;
-		else
-			pos->act_co = pos->len_ans % pos->max_co;
-		pos->let_nb = ft_strlen(cmd);
-		diff = (pos->start_li + (pos->len_ans / pos->max_co)) - pos->max_li;
-		if (diff > 0)
-			pos->start_li -= diff;
-	}
-	else
-	{
-		i = ft_strlen(pos->ans) - 1;
-		if (pos->act_li != pos->max_li)
-			pos->act_li += 1;
-		else
-		{
-			//	pos->start_li -= 1;
-			prompt_is_on_last_char(pos);
-		}
-		pos->act_co = ft_strlen(pos->ans + i) % pos->max_co;
-		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
-	}
-}
-
 
 void            free_t_hist(t_hist *hist)
 {

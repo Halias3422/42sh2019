@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 08:09:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 10:46:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,10 +37,10 @@ void		remove_char_ans(t_pos *pos)
 
 void		input_is_backspace(t_pos *pos)
 {
-	if (pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n')
+	if (pos->let_nb > 0 && pos->act_co == 0 && pos->ans[pos->let_nb - 1] == '\n')
 	{
 		pos->act_li -= 1;
-		pos->act_co = len_of_previous_line(pos);
+		pos->act_co = len_of_previous_line(pos, 0);
 		pos->len_ans -= 1;
 		remove_char_ans(pos);
 	}
@@ -78,7 +78,11 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 	if (pos->ans[0] == '\0')
 		pos->history_mode = 0;
 	}
-	clean_screen(pos);
-	print_ans(pos, buf);
+	if (buf[0] != 10 && pos->ans_printed == 0)
+	{
+		clean_screen(pos);
+		print_ans_start(pos, buf);
+	}
+	pos->ans_printed = 0;
 	return (hist);
 }

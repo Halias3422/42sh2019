@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 07:47:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 10:45:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ typedef struct		s_pos
 	int				history_mode;
 	char			*prompt;
 	int				len_prompt;
-	int				error;
+	int				ans_printed;
 	int				quote;
 	int				debug;
 	int				debug2;
@@ -103,7 +103,7 @@ void				input_is_printable_char(t_pos *pos, char *buf);
 t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
 void				left_arrow(char *buf, t_pos *pos);
 void				right_arrow(char *buf, t_pos *pos);
-int					len_of_previous_line(t_pos *pos);
+int					len_of_previous_line(t_pos *pos, int usage);
 
 /*
 ** INPUT_IS_ENTRY.C
@@ -116,7 +116,8 @@ t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
 **HANDLE_ANS.C
 */
 
-void				print_ans(t_pos *pos, char *buf);
+void				print_ans_act(t_pos *pos, char *buf);
+void				print_ans_start(t_pos *pos, char *buf);
 void				fill_char_ans(char *buf, t_pos *pos);
 void				remove_char_ans(t_pos *pos);
 int					get_len_with_lines(t_pos *pos);
@@ -139,7 +140,7 @@ static t_hist		*stay_down_in_history(t_hist *hist, t_pos *pos);
 static t_hist		*go_back_down_in_history(t_hist *hist, t_pos *pos);
 static t_hist		*go_back_in_history(t_hist *hist, t_pos *pos);
 */
-t_hist				*move_through_history(t_hist *hist, t_pos *pos, char *usage);
+t_hist				*move_through_history(t_hist *hist, t_pos *pos, char *usage, char *buf);
 
 /*
 **TERMCAPS_TOOLS.C
@@ -149,5 +150,11 @@ void				clean_screen(t_pos *pos);
 void				check_poussin(char c);
 void				print_info(t_pos *pos);
 void				print_hist(t_pos *pos, t_hist *hist);
+
+/*
+**CALCUL_LINE.C
+*/
+
+int					count_nb_line(t_pos *pos, int *j);
 
 #endif

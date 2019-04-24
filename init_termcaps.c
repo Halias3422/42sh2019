@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 14:42:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 10:20:55 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,10 +78,11 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	pos->let_nb = 0;
+	pos->ans_printed = 0;
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;
-	pos->debug4 = -1;
+	pos->debug4 = 0;
 	pos->debug5 = 0;
 	write(1, "\033[6n", 4);
 	ret2 = read(1, buf, 8);

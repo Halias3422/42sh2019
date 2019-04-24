@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 08:47:49 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 10:46:49 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ void            left_arrow(char *buf, t_pos *pos)
 	{
 		pos->act_li--;
 		if (pos->ans[pos->let_nb - 1] == '\n')
-			pos->act_co = len_of_previous_line(pos);
+			pos->act_co = len_of_previous_line(pos, 0);
 		else
 			pos->act_co = pos->max_co - 1;
 	}
@@ -47,9 +47,9 @@ void            left_arrow(char *buf, t_pos *pos)
 t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 {
 	if (ft_strncmp(buf + 1, "[A", 2) == 0)
-		hist = move_through_history(hist, pos, "up");
+		hist = move_through_history(hist, pos, "up", buf);
 	else if (ft_strncmp(buf + 1, "[B", 2) == 0)
-		hist = move_through_history(hist, pos, "down");
+		hist = move_through_history(hist, pos, "down", buf);
 	if (pos->let_nb < (int)ft_strlen(pos->ans) &&
 			ft_strncmp(buf + 1, "[C", 2) == 0)
 		right_arrow(buf, pos);
