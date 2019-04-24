@@ -3,17 +3,17 @@
 /*                                                              /             */
 /*   move_through_history.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/09 09:41:10 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 13:04:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/24 07:42:17 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/04/24 08:38:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "termcaps.h"
 
-static t_hist	*stay_down_in_history(t_hist *hist, t_pos *pos)
+static t_hist		*stay_down_in_history(t_hist *hist, t_pos *pos)
 {
 	if (hist->cmd)
 	{
@@ -30,7 +30,7 @@ static t_hist	*stay_down_in_history(t_hist *hist, t_pos *pos)
 	return (hist);
 }
 
-static t_hist	*go_back_down_in_history(t_hist *hist, t_pos *pos)
+static t_hist		*go_back_down_in_history(t_hist *hist, t_pos *pos)
 {
 	hist = hist->next;
 	write(1, hist->cmd, ft_strlen(hist->cmd));
@@ -47,9 +47,8 @@ static t_hist	*go_back_down_in_history(t_hist *hist, t_pos *pos)
 	return (hist);
 }
 
-static t_hist	*go_back_in_history(t_hist *hist, t_pos *pos)
+static t_hist		*go_back_in_history(t_hist *hist, t_pos *pos)
 {
-
 	if (hist->prev == NULL && hist->cmd == NULL)
 		return (hist);
 	if (hist && hist->prev != NULL)
@@ -60,7 +59,7 @@ static t_hist	*go_back_in_history(t_hist *hist, t_pos *pos)
 	return (hist);
 }
 
-t_hist			*search_up_in_history(t_hist *hist, t_pos *pos)
+t_hist*			search_up_in_history(t_hist *hist, t_pos *pos)
 {
 	int			saved_cmd;
 
@@ -91,9 +90,9 @@ t_hist			*search_up_in_history(t_hist *hist, t_pos *pos)
 	return (hist);
 }
 
-t_hist			*search_down_in_history(t_hist *hist, t_pos *pos)
+t_hist		*search_down_in_history(t_hist *hist, t_pos *pos)
 {
-	int			saved_cmd;
+	int		saved_cmd;
 
 	saved_cmd = hist->cmd_no;
 	while (1)
@@ -122,10 +121,9 @@ t_hist			*search_down_in_history(t_hist *hist, t_pos *pos)
 	return (hist);
 }
 
-t_hist			*move_through_history(t_hist *hist, t_pos *pos, char *usage)
+t_hist		*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 {
-	clean_screen(pos);
-//	ft_printf("\n\n\n\nABRURURURURU %d\n\n\n\n", pos->history_mode);
+	//	clean_screen(pos);
 	if (pos->history_mode == 1 && ft_strcmp(usage, "up") == 0)
 		hist = search_up_in_history(hist, pos);
 	else if (pos->history_mode == 1 && ft_strcmp(usage, "down") == 0)
@@ -138,6 +136,5 @@ t_hist			*move_through_history(t_hist *hist, t_pos *pos, char *usage)
 		hist = stay_down_in_history(hist, pos);
 	update_position(pos, pos->ans);
 
-//	print_ans(pos);
 	return (hist);
 }

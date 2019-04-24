@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:48:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 16:18:49 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 08:17:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ void            fill_char_ans(char *buf, t_pos *pos)
 	char    *swap;
 
 	swap = NULL;
-	if (pos->let_nb == (int)ft_strlen(pos->ans))// || (pos->is_complete == 0 && ft_strcmp(buf, "\n") == 0))
+	if ((pos->let_nb == (int)ft_strlen(pos->ans)) || (pos->is_complete == 0 && ft_strcmp(buf, "\n") == 0))
 		pos->ans = ft_strjoinf(pos->ans, buf, 1);
 	else
 	{
@@ -29,9 +29,8 @@ void            fill_char_ans(char *buf, t_pos *pos)
 		free(pos->ans);
 		pos->ans = swap;
 	}
-	/*	if (pos->is_complete == 0 && ft_strcmp(buf, "\n") == 0)
+		if (pos->is_complete == 0 && ft_strcmp(buf, "\n") == 0)
 		pos->let_nb = (int)ft_strlen(pos->ans) - 1;
-		}*/
 }
 
 void		prompt_is_on_last_char(t_pos *pos)

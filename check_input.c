@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 16:20:55 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 08:09:52 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,16 +56,27 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 {
 	(void)inter;
 	if (buf[0] == 27)
-		escape_code(buf, pos, hist);
+		hist = escape_code(buf, pos, hist);
 	else
 	{
 		bzero(buf + 1, 3);
 		if (buf[0] == 127)
 			input_is_backspace(pos);
 		else if (buf[0] == 10)
-			return (hist);
+			hist = input_is_entry(pos, hist, buf);
 		else
 			input_is_printable_char(pos, buf);
+	pos->saved_ans = ft_secure_free(pos->saved_ans);
+	if (buf[0] != 10)
+		pos->saved_ans = ft_strdup(pos->ans);
+	if (hist && hist->next == NULL && pos->is_complete == 1)
+	{
+		if (hist->cmd != NULL)
+			hist->cmd = ft_secure_free(hist->cmd);
+		hist->cmd = ft_strdup(pos->ans);
+	}
+	if (pos->ans[0] == '\0')
+		pos->history_mode = 0;
 	}
 	clean_screen(pos);
 	print_ans(pos, buf);

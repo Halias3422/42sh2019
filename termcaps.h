@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 16:06:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 07:47:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,13 +88,12 @@ int					check_term(void);
 void				free_t_hist(t_hist *hist);
 t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter);
 void				input_is_backspace(t_pos *pos);
-t_hist				*input_is_entry(t_pos *pos, t_hist *hist);
 
 /*
 **INPUT_IS_PRINTABLE_CHAR.C
 */
 
-void				if_prompt_is_on_last_char(t_pos *pos);
+void				prompt_is_on_last_char(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
 /*
@@ -111,7 +110,7 @@ int					len_of_previous_line(t_pos *pos);
 */
 
 t_hist				*input_is_complete(t_pos *pos, t_hist *hist);
-t_hist				*input_is_entry(t_pos *pos, t_hist *hist);
+t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
 
 /*
 **HANDLE_ANS.C
