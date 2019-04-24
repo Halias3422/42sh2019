@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 10:31:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 13:10:59 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,22 +48,24 @@ void	print_info(t_pos *pos)
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 6), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}let_nb    = %03d/{eoc}\n", pos->let_nb);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 7), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}strlen_ans= %03d/{eoc}\n", ft_strlen(pos->ans));	
+	ft_printf(" {S.white.T.grey.}let_nb_sav= %03d/{eoc}\n", pos->let_nb_saved);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 8), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}len_ans   = %03d/{eoc}\n", pos->len_ans);
+	ft_printf(" {S.white.T.grey.}strlen_ans= %03d/{eoc}\n", ft_strlen(pos->ans));
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 9), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}historyMd = %03d/{eoc}\n", pos->history_mode);
+	ft_printf(" {S.white.T.grey.}len_ans   = %03d/{eoc}\n", pos->len_ans);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 10), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}len_prompt= %03d/{eoc}\n", pos->len_prompt);
+	ft_printf(" {S.white.T.grey.}historyMd = %03d/{eoc}\n", pos->history_mode);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 11), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}is_compl  = %03d/{eoc}\n", pos->is_complete);
+	ft_printf(" {S.white.T.grey.}len_prompt= %03d/{eoc}\n", pos->len_prompt);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 12), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug     = %03d/{eoc}\n", pos->debug);
+	ft_printf(" {S.white.T.grey.}is_compl  = %03d/{eoc}\n", pos->is_complete);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 13), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug2    = %03d/{eoc}\n", pos->debug2);
+	ft_printf(" {S.white.T.grey.}debug     = %03d/{eoc}\n", pos->debug);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 14), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}debug3    = %03d/{eoc}\n", pos->debug3);
+	ft_printf(" {S.white.T.grey.}debug2    = %03d/{eoc}\n", pos->debug2);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 15), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}debug3    = %03d/{eoc}\n", pos->debug3);
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 16), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}debug4    = %03d/{eoc}\n", pos->debug4);
 	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}pos->ans  = %-25.25s/{eoc}\n", pos->ans);
