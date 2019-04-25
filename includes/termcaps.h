@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_select.h                                      .::    .:/ .      .::   */
+/*   termcaps.h                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 07:47:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 11:14:36 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,8 +14,8 @@
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 
-# include "libft/includes/ft_printf.h"
-# include "libft/includes/libft.h"
+# include "../libft/includes/ft_printf.h"
+# include "../libft/includes/libft.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <term.h>

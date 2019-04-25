@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   termcaps_tools.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/23 15:03:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 11:39:09 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 void	clear_info()
 {
-	int 	i;
+	int	i;
 
 	i = 0;
 	while (i < 21)
@@ -37,18 +37,18 @@ void	print_info(t_pos *pos)
 	ft_printf(" {S.white.T.grey.}act_co    = %03d/{eoc}\n", pos->act_co);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 1), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}act_li    = %03d/{eoc}\n", pos->act_li);
-	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 2), 1, ft_putchar);	
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 2), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}start_co  = %03d/{eoc}\n", pos->start_co);
-	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 3), 1, ft_putchar);	
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 3), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}start_li  = %03d/{eoc}\n", pos->start_li);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 4), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}max_co    = %03d/{eoc}\n", pos->max_co);	
+	ft_printf(" {S.white.T.grey.}max_co    = %03d/{eoc}\n", pos->max_co);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 5), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}max_li    = %03d/{eoc}\n", pos->max_li);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 6), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}let_nb    = %03d/{eoc}\n", pos->let_nb);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 7), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}strlen_ans= %03d/{eoc}\n", ft_strlen(pos->ans));	
+	ft_printf(" {S.white.T.grey.}strlen_ans= %03d/{eoc}\n", ft_strlen(pos->ans));
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 8), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}len_ans   = %03d/{eoc}\n", pos->len_ans);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 9), 1, ft_putchar);
@@ -69,13 +69,6 @@ void	print_info(t_pos *pos)
 	ft_printf(" {S.white.T.grey.}pos->ans  = %-25.25s/{eoc}\n", pos->ans);
 	tputs(tgoto(tgetstr("cm", NULL), 0, 1), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}pos->ans  = %-d/{eoc}\n", pos->ans == NULL ? -1 : pos->ans[0]);
-	/*	if (pos->saved_ans != NULL)
-		{
-		tputs(tgoto(tgetstr("cm", NULL), 0, 3), 1, ft_putchar);
-		ft_printf(" {S.white.T.grey.}pos->saved_ans = %-20.20s/{eoc}\n", pos->saved_ans);
-		tputs(tgoto(tgetstr("cm", NULL), 0, 4), 1, ft_putchar);
-		ft_printf(" {S.white.T.grey.}pos->saved_ans = %-d/{eoc}\n", pos->saved_ans == NULL ? -1 : pos->saved_ans[0]);
-		}*/
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 }
 
@@ -86,7 +79,7 @@ void	print_hist(t_pos *pos, t_hist *hist)
 	int		actual_hist;
 
 	if (hist == NULL)
-		return;
+		return ;
 	tmp = hist;
 	actual_hist = tmp->cmd_no;
 	i = 0;
@@ -112,20 +105,22 @@ void	clean_screen(t_pos *pos)
 {
 	if (pos->is_complete == 1)
 	{
-		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
+		tputs(tgoto(tgetstr("cm", NULL),
+				pos->start_co, pos->start_li), 1, ft_putchar);
 		tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	}
 	else
 	{
-		tputs(tgoto(tgetstr("cm", NULL), pos->len_prompt, pos->act_li), 1, ft_putchar);
+		tputs(tgoto(tgetstr("cm", NULL),
+				pos->len_prompt, pos->act_li), 1, ft_putchar);
 		tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	}
 }
 
-void            print_ans(t_pos *pos, char *buf)
+void	print_ans(t_pos *pos, char *buf)
 {
-	int             i;
-	int             line;
+	int i;
+	int line;
 
 	line = 0;
 	i = -1;
@@ -139,7 +134,7 @@ void            print_ans(t_pos *pos, char *buf)
 		while (pos->ans[++i])
 		{
 			write(1, &pos->ans[i], 1);
-			if (pos->ans[i] == '\n' && pos->is_complete == 0)// && buf[0] == 10)
+			if (pos->ans[i] == '\n' && pos->is_complete == 0)
 				write(1, "> ", 2);
 			if (line == pos->max_co - 2 && pos->ans[i] == '\n')
 			{
