@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 16:01:30 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/25 08:08:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -135,12 +135,17 @@ void				update_position(t_pos *pos, char *cmd);
 **MOVE_THROUGHT_HISTORY.C
 */
 
-/*
-static t_hist		*stay_down_in_history(t_hist *hist, t_pos *pos);
-static t_hist		*go_back_down_in_history(t_hist *hist, t_pos *pos);
-static t_hist		*go_back_in_history(t_hist *hist, t_pos *pos);
-*/
+
 t_hist				*move_through_history(t_hist *hist, t_pos *pos, char *usage, char *buf);
+
+/*
+**SEARCH_IN_HISTORY.C
+*/
+
+t_hist		*search_up_complete_in_history(t_hist *hist, t_pos *pos);
+t_hist		*search_down_complete_in_history(t_hist *hist, t_pos *pos);
+t_hist		*search_up_incomplete_in_history(t_hist *hist, t_pos *pos);
+t_hist		*search_down_incomplete_in_history(t_hist *hist, t_pos *pos);
 
 /*
 **TERMCAPS_TOOLS.C

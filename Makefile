@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/24 09:53:41 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/25 08:53:38 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -22,6 +22,7 @@ SRC = init_termcaps.c \
 	  calcul_line.c \
 	  input_is_entry.c \
 	  move_through_history.c \
+	  search_in_history.c \
 	  main_termcaps.c 
 # 	init_termcaps.c \
 		history.c \
@@ -65,6 +66,7 @@ libs:
 clean:
 	@rm -f $(OBJ)
 	@rm -f includes/*.gch
+	@rm -f .DS_Store
 	@rm -rf $(NAME).dSYM
 	@(cd $(LIBFT) && $(MAKE) $@)
 	@echo "\033[1;33mclean 	\033[1;36m$(NAME)	\033[1;32m[✓]\033[0m"
