@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 08:08:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/25 09:55:25 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,7 +103,7 @@ void				input_is_printable_char(t_pos *pos, char *buf);
 t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
 void				left_arrow(char *buf, t_pos *pos);
 void				right_arrow(char *buf, t_pos *pos);
-int					len_of_previous_line(t_pos *pos, int usage);
+int					len_of_previous_line(t_pos *pos);
 
 /*
 ** INPUT_IS_ENTRY.C

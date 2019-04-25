@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:46:10 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 10:53:24 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/25 14:10:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,8 +26,11 @@ int			get_len_with_lines(t_pos *pos)
 	{
 		if (pos->ans[i] == '\n')
 		{
+			pos->debug4 += 1;
 			if (line < pos->max_co)
+			{
 				len += (pos->max_co - line);
+			}
 			else
 				len += (pos->max_co - line % pos->max_co);
 			line = 0;
@@ -41,7 +44,7 @@ int			get_len_with_lines(t_pos *pos)
 	return (len);
 }
 
-int			len_of_previous_line(t_pos *pos, int usage)
+int			len_of_previous_line(t_pos *pos)
 {
 	int		len;
 	int		i;
@@ -53,11 +56,11 @@ int			len_of_previous_line(t_pos *pos, int usage)
 		i--;
 		len++;
 	}
-	pos->debug3 = i;
-	pos->debug4 = len;
-	if (pos->act_li == pos->start_li || pos->is_complete == 0)
+	if (pos->act_li == pos->start_li || pos->is_complete == 0 || i == -1)
+	{
 		len += pos->len_prompt;
-	if (len > pos->max_co && usage == 1)
+	}
+	if (len > pos->max_co)
 		len = len % pos->max_co;
 	return (len);
 }

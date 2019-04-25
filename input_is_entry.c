@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/24 13:08:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/25 14:10:18 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,8 +36,14 @@ t_hist			*entry_is_incomplete(t_pos *pos, t_hist *hist, char *buf)
 	input_is_printable_char(pos, buf);
 	pos->history_mode = 0;
 	pos->act_li = pos->start_li + get_len_with_lines(pos) / pos->max_co;
+	pos->debug = pos->act_li;
 	pos->act_co = pos->len_prompt;
-	clean_screen(pos);
+/*	while (pos->act_li > pos->max_li)
+	{
+		pos->act_li--;
+		prompt_is_on_last_char(pos);
+	}
+*/	clean_screen(pos);
 	print_ans_start(pos, buf);
 	pos->let_nb_saved = ft_strlen(pos->ans);
 	return (hist);
@@ -70,7 +76,14 @@ t_hist			*entry_is_complete(t_pos *pos, t_hist *hist)
 t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 {
 	pos->is_complete = find_missing_quote(pos->ans);
-	if (pos->is_complete == 0)
+	pos->act_li = pos->start_li + get_len_with_lines(pos) / pos->max_co;
+	pos->act_co = get_len_with_lines(pos) % pos->max_co;
+/*	while (pos->act_li > pos->max_li)
+	{
+		pos->act_li -= 1;
+		prompt_is_on_last_char(pos);
+	}
+*/	if (pos->is_complete == 0)
 		entry_is_incomplete(pos, hist, buf);
 	else
 		entry_is_complete(pos, hist);
