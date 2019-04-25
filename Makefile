@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/04/24 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/24 11:23:58 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/25 10:44:24 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -19,7 +19,7 @@ OBJ_PATH = ./obj/
 INC_PATH = ./includes/
 SRC_NAME =	calcul_line.c check_input.c escape_code.c history.c init_termcaps.c\
 			input_is_entry.c input_is_printable_char.c main_termcaps.c move_through_history.c\
-			termcaps_tools.c
+			termcaps_tools.c jump.c search_in_history.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = termcaps.h
 
