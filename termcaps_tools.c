@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 14:07:36 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 13:22:49 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ void	clear_info()
 void	print_info(t_pos *pos)
 {
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
-	clear_info();
+//	clear_info();
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 0), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}act_co    = %03d/{eoc}\n", pos->act_co);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 1), 1, ft_putchar);
@@ -69,8 +69,10 @@ void	print_info(t_pos *pos)
 	ft_printf(" {S.white.T.grey.}debug3    = %03d/{eoc}\n", pos->debug3);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 17), 1, ft_putchar);
 	ft_printf(" {S.white.T.grey.}debug4    = %03d/{eoc}\n", pos->debug4);
-	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
-	ft_printf(" {S.white.T.grey.}pos->ans  = %-140.140s/{eoc}\n", pos->ans);
+	tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 18), 1, ft_putchar);
+	ft_printf(" {S.white.T.grey.}debug5    = %03d/{eoc}\n", pos->debug5);
+	//	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
+	//	ft_printf(" {S.white.T.grey.}pos->ans  = %-140.140s/{eoc}\n", pos->ans);
 	/*	if (pos->saved_ans != NULL)
 		{
 		tputs(tgoto(tgetstr("cm", NULL), 0, 3), 1, ft_putchar);
@@ -87,6 +89,7 @@ void	print_hist(t_pos *pos, t_hist *hist)
 	int		i;
 	int		actual_hist;
 
+	return ;
 	if (hist == NULL)
 		return;
 	tmp = hist;
@@ -112,16 +115,30 @@ void	print_hist(t_pos *pos, t_hist *hist)
 
 void	clean_screen(t_pos *pos)
 {
-//	if (pos->is_complete == 1)
-//	{
-		tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
-		tputs(tgetstr("cd", NULL), 1, ft_putchar);
-//	}
-//	else
-//	{
-//		tputs(tgoto(tgetstr("cm", NULL), pos->len_prompt, pos->act_li), 1, ft_putchar);
-//		tputs(tgetstr("cd", NULL), 1, ft_putchar);
-//	}
+	//	if (pos->is_complete == 1)
+	//	{
+	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	//	}
+	//	else
+	//	{
+	//		tputs(tgoto(tgetstr("cm", NULL), pos->len_prompt, pos->act_li), 1, ft_putchar);
+	//		tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	//	}
+}
+
+void			debug_line(t_pos *pos, int line, int i)
+{
+		tputs(tgetstr("sc", NULL), 1, ft_putchar);
+		if (i < 50)
+tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 60, i), 1, ft_putchar);
+		else
+		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 35, i - 50), 1, ft_putchar);
+
+		ft_printf(" {S.white.T.grey.}line = %04d/{eoc}\n", line);
+	tputs(tgetstr("rc", NULL), 1, ft_putchar);
+
+
 }
 
 void            print_ans_start(t_pos *pos, char *buf)
@@ -129,25 +146,23 @@ void            print_ans_start(t_pos *pos, char *buf)
 	int             i;
 	int             line;
 
-	line = 0;
+	line = pos->len_prompt;
 	i = -1;
 	(void)buf;
 	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li),
 			1, ft_putchar);
-	if (ft_strchr(pos->ans, '\n') == NULL)
-		write(1, pos->ans, ft_strlen(pos->ans));
-	else
+	while (pos->ans[++i])
 	{
-		while (pos->ans[++i])
+		write(1, &pos->ans[i], 1);
+		line++;
+		if (line == pos->max_co)
+			line = 0;
+		if (line == 1 && pos->ans[i] == '\n' && pos->is_complete == 0)
+			write(1, "\n", 1);
+		if (pos->ans[i] == '\n' && pos->is_complete == 0)
 		{
-			write(1, &pos->ans[i], 1);
-			if (pos->ans[i] == '\n' && pos->is_complete == 0)// && buf[0] == 10)
-				write(1, "> ", 2);
-			if (line == pos->max_co - 2 && pos->ans[i] == '\n')
-				write(1, "\n", 1);
-			if (i == pos->max_co)
-				line = 0;
-			line++;
+			write(1, "> ", 2);
+			line = pos->len_prompt;
 		}
 	}
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),

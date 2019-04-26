@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 13:14:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 10:56:58 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,6 @@ int		main(void)
 	while (1)
 	{
 		ans = termcaps42sh("$ ", 0, &pos, hist);
-		write(1, "\n", 1);
 		if (ans == NULL)
 			break ;
 		if (ft_strcmp("exit", ans) == 0)
