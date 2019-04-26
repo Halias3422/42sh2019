@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 11:57:33 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 15:25:14 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,14 +77,17 @@ t_hist			*entry_is_complete(t_pos *pos, t_hist *hist)
 
 t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 {
+	int		get_len;
+
 	pos->is_complete = find_missing_quote(pos->ans);
 	if (pos->is_complete == 0)
 	{
 		pos->history_mode = 0;
 		input_is_printable_char(pos, buf);
 	}
-	pos->act_li = pos->start_li + get_len_with_lines(pos) / pos->max_co;
-	pos->act_co = get_len_with_lines(pos) % pos->max_co;
+	get_len = get_len_with_lines(pos);	
+	pos->act_li = pos->start_li + get_len / pos->max_co;
+	pos->act_co = get_len % pos->max_co;
 	while (pos->act_li > pos->max_li)
 	{
 		pos->act_li -= 1;
