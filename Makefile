@@ -6,12 +6,12 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/25 08:53:38 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/26 15:26:22 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME = ft_select
+NAME = 42sh
 
 SRC = init_termcaps.c \
 	  termcaps_tools.c \

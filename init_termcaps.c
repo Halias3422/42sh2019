@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 14:53:41 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 16:10:54 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,7 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->ans = ft_strnew(0);
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
+	pos->ans_printed = 0;
 	pos->let_nb = 0;
 	pos->let_nb_saved = 0;
 	pos->history_loop = 0;
@@ -142,12 +143,13 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	bzero(buf, 8);
 //	print_info(pos);
 //	print_hist(pos, hist);
-	ft_printf("{B.T.yellow.}%s{eoc}", pos->prompt);
+	ft_printf("\n{T.cyan.}%s{B.T.white.} in {eoc}{B.T.blue.}%s{eoc}\n", "rle_sain", "mon ordinateur :)");
+	ft_printf("{B.T.white.}%s{eoc}", pos->prompt);
 	while (1)
 	{
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, pos, hist, &inter);
-		print_info(pos);
+//		print_info(pos);
 //		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 11:59:31 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 15:55:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@ typedef struct		s_pos
 	int				start_co;
 	int				max_co;
 	int				max_li;
+	int				ans_printed;
 	char			*ans;
 	char			*saved_ans;
 	int				is_complete;

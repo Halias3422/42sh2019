@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 13:46:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 16:00:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -136,20 +136,25 @@ void            print_ans_start(t_pos *pos, char *buf)
 	(void)buf;
 	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li),
 			1, ft_putchar);
-	while (pos->ans[++i])
+	if (ft_strchr(pos->ans, '\n' != 0))
+		write(1, pos->ans, ft_strlen(pos->ans));
+	else
 	{
-		write(1, &pos->ans[i], 1);
-		line++;
-		if (line == pos->max_co)
-			line = 0;
-		if (line == 1 && pos->ans[i] == '\n' && pos->is_complete == 0)
-			write(1, "\n", 1);
-		if (pos->ans[i] == '\n' && pos->is_complete == 0)
+		while (pos->ans[++i])
 		{
-			write(1, "> ", 2);
-			line = pos->len_prompt;
+			write(1, &pos->ans[i], 1);
+			line++;
+			if (line == pos->max_co)
+				line = 0;
+			if (line == 1 && pos->ans[i] == '\n' && pos->is_complete == 0)
+				write(1, "\n", 1);
+			if (pos->ans[i] == '\n' && pos->is_complete == 0)
+			{
+				write(1, "> ", 2);
+				line = pos->len_prompt;
+			}
 		}
 	}
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
-			1, ft_putchar);
+				1, ft_putchar);
 }
