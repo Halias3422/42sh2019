@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/25 08:12:14 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 09:39:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 11:23:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,9 +29,9 @@ void		jump_left(t_pos *pos)
 			pos->let_nb--;
 			if (pos->act_co > 0)
 				pos->act_co--;
-			else if (pos->act_co == 0 && pos->act_li > pos->start_li)
+			else if (pos->act_co <= 0 && pos->act_li > pos->start_li)
 			{
-				pos->act_co = pos->max_co;
+				pos->act_co = pos->max_co - 1;
 				pos->act_li--;
 			}
 		}
@@ -42,13 +42,14 @@ void		jump_left(t_pos *pos)
 		pos->let_nb--;
 		if (pos->act_co > 0)
 			pos->act_co--;
-		else if (pos->act_co == 0 && pos->act_li > pos->start_li)
+		else if (pos->act_co <= 0 && pos->act_li > pos->start_li)
 		{
-			pos->act_co = pos->max_co;
+			pos->act_co = pos->max_co - 1;
 			pos->act_li--;
 		}
 	}
 	pos->debug = pos->act_co;
+	pos->debug2 = pos->act_li;
 	pos->debug3 = pos->let_nb;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }
@@ -64,7 +65,7 @@ void		jump_right(t_pos *pos)
 			pos->let_nb++;
 			if (pos->act_co == pos->max_co && pos->ans[pos->let_nb])
 			{
-				pos->act_co = 0;
+				pos->act_co = 1;
 				pos->act_li++;
 			}
 			else
@@ -76,7 +77,7 @@ void		jump_right(t_pos *pos)
 		pos->let_nb++;
 		if (pos->act_co == pos->max_co && pos->ans[pos->let_nb])
 		{
-			pos->act_co = 0;
+			pos->act_co = 1;
 			pos->act_li++;
 		}
 		else
@@ -86,13 +87,10 @@ void		jump_right(t_pos *pos)
 
 void		go_hard(t_pos *pos)
 {
-	int i;
-
-	i = get_len_with_lines(pos);
-/*	while (pos->ans[pos->let_nb])
+	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != '\n')
 	{
 		pos->let_nb++;
-		if (pos->act_co >= pos->max_co)
+		if (pos->act_co == pos->max_co - 1)
 		{
 			pos->act_co = 0;
 			pos->act_li++;
@@ -100,34 +98,22 @@ void		go_hard(t_pos *pos)
 		else
 			pos->act_co++;
 	}
-	pos->let_nb++;
-	if (pos->act_co >= pos->max_co)
-	{
-		pos->act_co = 0;
-		pos->act_li++;
-	}
-	else
-		pos->act_co++;*/
-	if (pos->len_ans < pos->max_co)
-	{
-		pos->let_nb = pos->len_ans;
-		pos->act_co = pos->len_ans + pos->len_prompt;
-	}
-	pos->act_co = i % pos->max_co;
-	pos->act_li = pos->start_li + i / pos->max_li;
-	while (pos->act_li > pos->max_li)
-	{
-		pos->act_li--;
-		pos->start_li--;
-	}
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }
 
 void		or_go_home(t_pos *pos)
 {
-	pos->let_nb = 0;
-	pos->act_co = pos->start_co;
-	pos->act_li = pos->start_li;
+	while (pos->let_nb > 0 && (pos->ans[pos->let_nb - 1] != '\n'))
+	{
+		pos->let_nb--;
+		if (pos->act_co == 0)
+		{
+			pos->act_co = pos->max_co - 1;
+			pos->act_li--;
+		}
+		else
+			pos->act_co--;
+	}
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }
 

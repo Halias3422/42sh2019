@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   escape_code.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 09:41:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 10:17:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ void            left_arrow(char *buf, t_pos *pos)
 	{
 		pos->act_li--;
 		if (pos->ans[pos->let_nb - 1] == '\n')
-			pos->act_co = len_of_previous_line(pos, 0);
+			pos->act_co = len_of_previous_line(pos);
 		else
 			pos->act_co = pos->max_co - 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:42:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 08:22:32 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/25 10:21:29 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,6 @@ void		update_position(t_pos *pos, char *cmd)
 		pos->act_co = get_len_with_lines(pos) % pos->max_co;
 		while (pos->act_li > pos->max_li)
 		{
-			pos->debug4 += 1;
 			pos->act_li -= 1;
 			prompt_is_on_last_char(pos);
 		}

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 09:45:08 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 10:17:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,7 +103,7 @@ void				input_is_printable_char(t_pos *pos, char *buf);
 t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
 void				left_arrow(char *buf, t_pos *pos);
 void				right_arrow(char *buf, t_pos *pos);
-int					len_of_previous_line(t_pos *pos, int usage);
+int					len_of_previous_line(t_pos *pos);
 
 /*
 ** INPUT_IS_ENTRY.C
@@ -161,12 +161,6 @@ void				print_hist(t_pos *pos, t_hist *hist);
 */
 
 int					count_nb_line(t_pos *pos, int *j);
-
-/*
- * **JUMP.C
- * */
-void				jump_left(t_pos *pos);
-void				jump_right(t_pos *pos);
 void				find_jump(char *buf, t_pos *pos);
 
 #endif
