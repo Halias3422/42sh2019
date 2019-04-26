@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 16:10:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 17:01:38 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -131,6 +131,8 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
    
 	inter = (t_inter){0, 0, 0, 0, 0, 0, 0, 0};
 	error = 0;
+
+	ft_printf("{T.cyan.}rle_sain{eoc} {B.}in{eoc} {B.T.blue.}mon ordinateur :){eoc}\n");
 	while (hist->next)
 		hist = hist->next;
 	if (pos->prompt == NULL)
@@ -143,7 +145,6 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	bzero(buf, 8);
 //	print_info(pos);
 //	print_hist(pos, hist);
-	ft_printf("\n{T.cyan.}%s{B.T.white.} in {eoc}{B.T.blue.}%s{eoc}\n", "rle_sain", "mon ordinateur :)");
 	ft_printf("{B.T.white.}%s{eoc}", pos->prompt);
 	while (1)
 	{
