@@ -6,48 +6,12 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 17:01:36 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 08:44:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-
-void		remove_char_ans(t_pos *pos)
-{
-	char	*swap;
-
-	swap = ft_strnew(pos->let_nb);
-	swap = ft_strncpy(swap, pos->ans, pos->let_nb - 1);
-	if (pos->let_nb < pos->len_ans)
-	{
-		swap = ft_strjoinf(swap, pos->ans + pos->let_nb, 1);
-		free(pos->ans);
-	}
-	pos->ans = swap;
-}
-
-void            input_is_backspace(t_pos *pos)
-{
-	if (pos->act_co == 0 && pos->act_li > pos->start_li)
-	{
-		pos->act_li -= 1;
-		if (pos->ans[pos->let_nb - 1] == '\n')
-			pos->act_co = len_of_previous_line(pos);
-		else
-			pos->act_co = pos->max_co - 1;
-	}
-	else if (pos->is_complete == 0 && pos->let_nb > 0 &&
-		pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == pos->len_prompt)
-		return ;
-	else
-		pos->act_co -= pos->act_co == 0 ? 0 : 1;
-	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
-		1, ft_putchar);
-	remove_char_ans(pos);
-	pos->let_nb -= 1;
-	pos->len_ans -= 1;
-}
 
 void		update_history(t_pos *pos, t_hist *hist, char *buf)
 {
@@ -64,9 +28,8 @@ void		update_history(t_pos *pos, t_hist *hist, char *buf)
 		pos->history_mode = 0;
 }
 
-t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
+t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 {
-	(void)inter;
 	if (buf[0] == 27)
 		hist = escape_code(buf, pos, hist);
 	else

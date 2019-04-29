@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 16:10:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 08:23:23 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,5 +61,7 @@ t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 		right_arrow(buf, pos);
 	else if (pos->let_nb > 0 && ft_strncmp(buf + 1, "[D", 2) == 0)
 		left_arrow(buf, pos);
+	else if (pos->let_nb < (int)ft_strlen(pos->ans) && buf[1] == 91 && buf[2] == 51)
+		input_is_delete(pos);
 	return (hist);
 }

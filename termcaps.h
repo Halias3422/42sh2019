@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 15:55:27 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 08:29:16 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,8 +87,15 @@ int					check_term(void);
 */
 
 void				free_t_hist(t_hist *hist);
-t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter);
+t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
+
+/*
+**INPUT_IS_REMOVE_CHAR.C
+*/
+
 void				input_is_backspace(t_pos *pos);
+void				remove_char_ans(t_pos *pos);
+void				input_is_delete(t_pos *pos);
 
 /*
 **INPUT_IS_PRINTABLE_CHAR.C

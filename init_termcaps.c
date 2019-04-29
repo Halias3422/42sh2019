@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 17:01:38 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 08:31:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -143,15 +143,15 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 		exit(0);
 	ret2 = init_pos(pos, buf);
 	bzero(buf, 8);
-//	print_info(pos);
-//	print_hist(pos, hist);
+	print_info(pos);
+	print_hist(pos, hist);
 	ft_printf("{B.T.white.}%s{eoc}", pos->prompt);
 	while (1)
 	{
 		ret2 = read(0, buf, 4);
-		hist = check_input(buf, pos, hist, &inter);
-//		print_info(pos);
-//		print_hist(pos, hist);
+		hist = check_input(buf, pos, hist);
+		print_info(pos);
+		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{
 			tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);

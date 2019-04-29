@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 16:55:58 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 07:35:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,11 +73,12 @@ void	print_info(t_pos *pos)
 	ft_printf(" {S.white.T.grey.}debug5    = %03d/{eoc}\n", pos->debug5);
 	//	tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
 	//	ft_printf(" {S.white.T.grey.}pos->ans  = %-140.140s/{eoc}\n", pos->ans);
-	/*	if (pos->saved_ans != NULL)
+		if (pos->saved_ans != NULL)
 		{
 		tputs(tgoto(tgetstr("cm", NULL), 0, 3), 1, ft_putchar);
 		ft_printf(" {S.white.T.grey.}pos->saved_ans = %-20.20s/{eoc}\n", pos->saved_ans);
-		tputs(tgoto(tgetstr("cm", NULL), 0, 4), 1, ft_putchar);
+		}
+/*		tputs(tgoto(tgetstr("cm", NULL), 0, 4), 1, ft_putchar);
 		ft_printf(" {S.white.T.grey.}pos->saved_ans = %-d/{eoc}\n", pos->saved_ans == NULL ? -1 : pos->saved_ans[0]);
 		}*/
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
