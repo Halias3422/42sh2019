@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 07:35:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 09:18:30 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -147,7 +147,7 @@ void            print_ans_start(t_pos *pos, char *buf)
 			line++;
 			if (line == pos->max_co)
 				line = 0;
-			if (line == 1 && pos->ans[i] == '\n' && pos->is_complete == 0)
+			if (line == 1 && pos->ans[i] == '\n'/* && pos->is_complete == 0*/)
 				write(1, "\n", 1);
 			if (pos->ans[i] == '\n' && pos->is_complete == 0)
 			{
