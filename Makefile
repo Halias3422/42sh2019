@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/29 09:15:04 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/29 11:10:11 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -54,7 +54,7 @@ LIBFT.A = ./libft/libft.a
 all: libs $(NAME)
 
 $(NAME): $(SRC) $(HEADER) $(LIBFT.A)
-	@$(CC) -o $(NAME) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
+	$(CC) -o $(NAME) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
 	@rm -rf $(NAME).dSYM
 	@ echo "\033[1;36m$(NAME)		\033[1;32m[✓]\033[0m"
 
@@ -62,7 +62,7 @@ libs:
 	@ make -C libft/
 
 %.o: %.c
-	@$(CC) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
+	$(CC) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
 
 clean:
 	@rm -f $(OBJ)

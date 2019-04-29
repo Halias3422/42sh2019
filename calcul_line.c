@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:46:10 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 16:51:16 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 11:32:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ int			get_len_with_lines(t_pos *pos)
 		if (pos->ans[i] == '\n')
 		{
 			len += pos->max_co - (len % pos->max_co);
-			if (pos->is_complete == 0)
+			if (pos->is_complete == 0 || pos->was_incomplete == 1)
 				len += pos->len_prompt;
 		}
 		pos->debug2 = len;

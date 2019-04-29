@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 08:31:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 13:00:48 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,14 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
 	pos->history_mode = 0;
-	pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
+/*	if (ft_strlen(pos->prompt) == 2)
+		pos->len_prompt = 2;
+	else*/
+		pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
+//	if (pos->len_prompt == pos->max_co)
+//		pos->debug5 += 256485;
+//	pos->debug = pos->len_prompt;
+//	pos->debug2 = pos->max_co;
 	pos->ans = ft_strnew(0);
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
@@ -80,11 +87,12 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->let_nb = 0;
 	pos->let_nb_saved = 0;
 	pos->history_loop = 0;
-	pos->debug = 0;
-	pos->debug2 = 0;
-	pos->debug3 = 0;
-	pos->debug4 = 0;
-	pos->debug5 = 0;
+	pos->was_incomplete = 0;
+//	pos->debug = 0;
+///	pos->debug2 = 0;
+///	pos->debug3 = 0;
+//	pos->debug4 = 0;
+//	pos->debug5 = 0;
 	write(1, "\033[6n", 4);
 	ret2 = read(1, buf, 8);
 	get_start_info(buf + 1, pos);
@@ -132,7 +140,7 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	inter = (t_inter){0, 0, 0, 0, 0, 0, 0, 0};
 	error = 0;
 
-	ft_printf("{T.cyan.}rle_sain{eoc} {B.}in{eoc} {B.T.blue.}mon ordinateur :){eoc}\n");
+//	ft_printf("{T.cyan.}rle_sain{eoc} {B.}in{eoc} {B.T.blue.}mon ordinateur :){eoc}\n");
 	while (hist->next)
 		hist = hist->next;
 	if (pos->prompt == NULL)
@@ -143,15 +151,15 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 		exit(0);
 	ret2 = init_pos(pos, buf);
 	bzero(buf, 8);
-	print_info(pos);
-	print_hist(pos, hist);
+//	print_info(pos);
+//	print_hist(pos, hist);
 	ft_printf("{B.T.white.}%s{eoc}", pos->prompt);
 	while (1)
 	{
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, pos, hist);
-		print_info(pos);
-		print_hist(pos, hist);
+//		print_info(pos);
+//		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{
 			tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 08:29:16 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 11:31:25 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,7 @@ typedef struct		s_pos
 	char			*ans;
 	char			*saved_ans;
 	int				is_complete;
+	int				was_incomplete;
 	int				len_ans;
 	int				let_nb;
 	int				let_nb_saved;
