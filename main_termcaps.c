@@ -6,14 +6,14 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 10:56:58 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 13:51:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-int		main(void)
+int			main(void)
 {
 	char	*ans;
 	t_hist	*hist;

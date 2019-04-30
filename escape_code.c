@@ -6,14 +6,14 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 08:23:23 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 14:35:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-void            right_arrow(char *buf, t_pos *pos)
+void		right_arrow(char *buf, t_pos *pos)
 {
 	(void)buf;
 	if (pos->act_co == pos->max_co - 1 || pos->ans[pos->let_nb] == '\n')
@@ -24,13 +24,13 @@ void            right_arrow(char *buf, t_pos *pos)
 	else
 		pos->act_co++;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
-//	tputs(buf, 1, ft_putchar);
 	pos->let_nb++;
-	pos->ans_printed = 1;
 }
 
-void            left_arrow(char *buf, t_pos *pos)
+void		left_arrow(char *buf, t_pos *pos)
 {
+	if (pos->act_co == 0 && pos->act_li == 0)
+		return ;
 	(void)buf;
 	if (pos->act_co == 0 && pos->act_li > pos->start_li)
 	{
@@ -40,14 +40,13 @@ void            left_arrow(char *buf, t_pos *pos)
 		else
 			pos->act_co = pos->max_co - 1;
 	}
-	else if (pos->is_complete == 0 && pos->let_nb > 0 && pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == pos->len_prompt)
+	else if (pos->is_complete == 0 && pos->let_nb > 0 &&
+		pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == pos->len_prompt)
 		return ;
 	else
 		pos->act_co -= pos->act_co == 0 ? 0 : 1;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
-//	tputs(buf, 1, ft_putchar);
 	pos->let_nb -= 1;
-	pos->ans_printed = 1;
 }
 
 t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
@@ -61,7 +60,10 @@ t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 		right_arrow(buf, pos);
 	else if (pos->let_nb > 0 && ft_strncmp(buf + 1, "[D", 2) == 0)
 		left_arrow(buf, pos);
-	else if (pos->let_nb < (int)ft_strlen(pos->ans) && buf[1] == 91 && buf[2] == 51)
+	else if (pos->let_nb < (int)ft_strlen(pos->ans) && buf[1] == 91 &&
+			buf[2] == 51)
 		input_is_delete(pos);
+	if (ft_strcmp(buf + 1, "[D") == 0 || ft_strcmp(buf + 1, "[C") == 0)
+		pos->ans_printed = 1;
 	return (hist);
 }

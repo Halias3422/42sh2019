@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 11:31:25 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 09:34:19 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -125,8 +125,7 @@ t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
 **HANDLE_ANS.C
 */
 
-void				print_ans_act(t_pos *pos, char *buf);
-void				print_ans_start(t_pos *pos, char *buf);
+void				prepare_to_print(t_pos *pos, char *buf);
 void				fill_char_ans(char *buf, t_pos *pos);
 void				remove_char_ans(t_pos *pos);
 int					get_len_with_lines(t_pos *pos);
@@ -160,8 +159,6 @@ t_hist		*search_down_incomplete_in_history(t_hist *hist, t_pos *pos);
 **TERMCAPS_TOOLS.C
 */
 
-void				clean_screen(t_pos *pos);
-void				check_poussin(char c);
 void				print_info(t_pos *pos);
 void				print_hist(t_pos *pos, t_hist *hist);
 
@@ -169,6 +166,7 @@ void				print_hist(t_pos *pos, t_hist *hist);
 **CALCUL_LINE.C
 */
 
+int					go_to_let_nb_saved(t_pos *pos);
 int					count_nb_line(t_pos *pos, int *j);
 
 #endif

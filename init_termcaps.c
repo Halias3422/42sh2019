@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 13:00:48 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 08:56:28 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,8 +78,6 @@ int		init_pos(t_pos *pos, char *buf)
 		pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 //	if (pos->len_prompt == pos->max_co)
 //		pos->debug5 += 256485;
-//	pos->debug = pos->len_prompt;
-//	pos->debug2 = pos->max_co;
 	pos->ans = ft_strnew(0);
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
@@ -88,11 +86,11 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->let_nb_saved = 0;
 	pos->history_loop = 0;
 	pos->was_incomplete = 0;
-//	pos->debug = 0;
-///	pos->debug2 = 0;
-///	pos->debug3 = 0;
-//	pos->debug4 = 0;
-//	pos->debug5 = 0;
+	pos->debug = 0;
+	pos->debug2 = 0;
+	pos->debug3 = 0;
+	pos->debug4 = 0;
+	pos->debug5 = 0;
 	write(1, "\033[6n", 4);
 	ret2 = read(1, buf, 8);
 	get_start_info(buf + 1, pos);

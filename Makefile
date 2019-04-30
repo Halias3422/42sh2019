@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/29 11:10:11 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/30 09:32:01 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -14,7 +14,7 @@
 NAME = 42sh
 
 SRC = init_termcaps.c \
-	  termcaps_tools.c \
+	  print_ans.c \
 	  history.c \
 	  check_input.c \
 	  input_is_printable_char.c \
@@ -24,6 +24,7 @@ SRC = init_termcaps.c \
 	  move_through_history.c \
 	  search_in_history.c \
 	  input_is_remove_char.c \
+	  debug.c \
 	  main_termcaps.c
 # 	init_termcaps.c \
 		history.c \
@@ -54,7 +55,7 @@ LIBFT.A = ./libft/libft.a
 all: libs $(NAME)
 
 $(NAME): $(SRC) $(HEADER) $(LIBFT.A)
-	$(CC) -o $(NAME) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
+	@$(CC) -o $(NAME) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
 	@rm -rf $(NAME).dSYM
 	@ echo "\033[1;36m$(NAME)		\033[1;32m[✓]\033[0m"
 
@@ -62,7 +63,7 @@ libs:
 	@ make -C libft/
 
 %.o: %.c
-	$(CC) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
+	@$(CC) $(FLAGS) $(SRC) -I./includes $(LIBFT.A) -ltermcap
 
 clean:
 	@rm -f $(OBJ)

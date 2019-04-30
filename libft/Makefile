@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 11:51:34 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/29 10:34:17 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/30 07:52:46 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -38,7 +38,7 @@ $(NAME): $(O_LIBFT) $(O_PRINTF) $(HEADERS)
 	@echo "\033[1;36m$(PROJECT_NAME)		\033[1;32m[✓]\033[0;37m"
 
 (DIR_O)/%.o: %.c
-	$(CC) $(CFLAGS) $<
+	@$(CC) $(CFLAGS) $<
 
 exe : $(NAME)
 	@gcc -o $(EXE) -I./includes $(MAIN) $(NAME)

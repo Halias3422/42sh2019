@@ -6,16 +6,16 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/26 13:29:43 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/29 13:47:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-void            free_t_hist(t_hist *hist)
+void		free_t_hist(t_hist *hist)
 {
-	t_hist *tmp;
+	t_hist	*tmp;
 
 	while (hist->next)
 		hist = hist->next;
