@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 08:56:28 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 11:05:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,16 +101,15 @@ int		init_pos(t_pos *pos, char *buf)
 	return (ret2);
 }
 
-void	init_terminfo(void)
+void	init_terminfo(t_pos *pos)
 {
-	struct termios	term;
-
-	tcgetattr(0, &term);
-	term.c_lflag &= ~(ICANON);
-	term.c_lflag &= ~(ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	tcsetattr(0, TCSADRAIN, &term);
+	tcgetattr(0, &(pos->my_term));
+	tcgetattr(0, &(pos->old_term));
+	pos->my_term.c_lflag &= ~(ICANON);
+	pos->my_term.c_lflag &= ~(ECHO);
+	pos->my_term.c_cc[VMIN] = 1;
+	pos->my_term.c_cc[VTIME] = 0;
+	tcsetattr(0, TCSADRAIN, &(pos->my_term));
 }
 
 void	update_act_pos(t_pos *pos)
@@ -138,26 +137,26 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	inter = (t_inter){0, 0, 0, 0, 0, 0, 0, 0};
 	error = 0;
 
-//	ft_printf("{T.cyan.}rle_sain{eoc} {B.}in{eoc} {B.T.blue.}mon ordinateur :){eoc}\n");
+	ft_printf("{T.cyan.}rle_sain{eoc} {B.}in{eoc} {B.T.blue.}mon ordinateur :){eoc}\n");
 	while (hist->next)
 		hist = hist->next;
 	if (pos->prompt == NULL)
 		pos->prompt = ft_strdup(prompt);
-	init_terminfo();
+	init_terminfo(pos);
 	ret = check_term();
 	if (ret == -1)
 		exit(0);
 	ret2 = init_pos(pos, buf);
 	bzero(buf, 8);
-//	print_info(pos);
-//	print_hist(pos, hist);
+	print_info(pos);
+	print_hist(pos, hist);
 	ft_printf("{B.T.white.}%s{eoc}", pos->prompt);
 	while (1)
 	{
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, pos, hist);
-//		print_info(pos);
-//		print_hist(pos, hist);
+		print_info(pos);
+		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{
 			tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);

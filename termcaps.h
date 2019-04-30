@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 09:34:19 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 11:04:04 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,8 @@ typedef struct		s_pos
 	int				debug3;
 	int				debug4;
 	int				debug5;
+	struct termios	old_term;
+	struct termios	my_term;
 }					t_pos;
 
 typedef struct		s_inter
@@ -78,7 +80,7 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist);
 */
 
 int					main(void);
-void				init_terminfo(void);
+void				init_terminfo(t_pos *pos);
 int					init_pos(t_pos *pos, char *buf);
 void				get_start_info(char *buf, t_pos *pos);
 int					check_term(void);

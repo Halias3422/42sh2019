@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 13:51:43 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/30 11:06:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ int			main(void)
 			free_t_hist(hist);
 			free(ans);
 			close(pos.history);
+			tcsetattr(2, TCSANOW, &(pos.old_term));
 			exit(0);
 		}
 	//	ft_printf("reponse -> /%s/\n", ans);
