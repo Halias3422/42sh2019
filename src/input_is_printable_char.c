@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:48:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 13:40:22 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 14:52:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,8 +57,11 @@ void		input_is_printable_char(t_pos *pos, char *buf)
 		else
 			pos->act_li += 1;
 	}
-	else if (pos->is_complete == 0 && pos->start_li + (count_nb_line(pos, &nb_char_last_line)) == pos->max_li + 1)
+	else if (pos->start_li + get_len_with_lines(pos) / pos->max_co/*(count_nb_line(pos, &nb_char_last_line)*/ == pos->max_li + 1)
 	{
+		if (pos->act_co != pos->max_co)
+			pos->act_li -= 1;
+		pos->act_co += 1;
 		prompt_is_on_last_char(pos);
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   init_termcaps.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 13:18:41 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 17:36:26 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,7 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->ans = ft_strnew(0);
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
+	pos->ans_printed = 0;
 	pos->let_nb = 0;
 	pos->let_nb_saved = 0;
 	pos->history_loop = 0;
@@ -140,18 +141,20 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 		exit(0);
 	ret2 = init_pos(pos, buf);
 	bzero(buf, 8);
-	print_hist(pos, hist);
 	print_info(pos);
-	ft_printf("{B.T.yellow.}%s{eoc}", pos->prompt);
+//	print_hist(pos, hist);
+//	ft_printf("\n{T.cyan.}%s{B.T.white.} in {eoc}{B.T.blue.}%s{eoc}\n", "rle_sain", "mon ordinateur :)");
+	ft_printf("{B.T.white.}%s{eoc}", pos->prompt);
 	while (1)
 	{
 		ret2 = read(0, buf, 4);
 		hist = check_input(buf, pos, hist, &inter);
-		print_hist(pos, hist);
 		print_info(pos);
+//		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{
 			tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+			write(1, "\n", 1);
 			return (pos->ans);
 		}
 		bzero(buf, 8);

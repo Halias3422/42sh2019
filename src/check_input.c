@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 09:55:42 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/26 15:57:05 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,10 +80,11 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist, t_inter *inter)
 			input_is_printable_char(pos, buf);
 		update_history(pos, hist, buf);
 	}
-	if (buf[0] != 10)
+	if (buf[0] != 10 && pos->ans_printed == 0)
 	{
 		clean_screen(pos);
 		print_ans_start(pos, buf);
 	}
+	pos->ans_printed = 0;
 	return (hist);
 }
