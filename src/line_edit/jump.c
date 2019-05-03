@@ -6,16 +6,48 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/25 08:12:14 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 07:42:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 10:00:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
+void		short_update(t_pos *pos, int len)
+{
+	pos->act_li = pos->start_li + len / pos->max_co;
+	pos->act_co = len % pos->max_co;
+	while (pos->act_li > pos->max_li)
+	{
+		pos->act_li -= 1;
+		prompt_is_on_last_char(pos);
+	}
+}
+
+int			go_to_let_nb(t_pos *pos)
+{
+	int		i;
+	int		len;
+
+	i = -1;
+	len = pos->len_prompt;
+	while (++i < pos->let_nb)
+	{
+		if (pos->ans[i] != '\n')
+			len += 1;
+		if (pos->ans[i] == '\n')
+		{
+			len += pos->max_co - (len % pos->max_co);
+			if (pos->is_complete == 0 || pos->was_incomplete == 1)
+				len += pos->len_prompt;
+		}
+	}
+	return (len);
+}
+
 void		jump_left(t_pos *pos)
 {
-	if (pos->is_complete == 0 && pos->act_co == 2 && pos->ans[pos->let_nb])
+	if (pos->is_complete == 0 && pos->act_co == 2)
 		return ;
 	if (pos->let_nb == 0)
 		return ;
@@ -26,43 +58,11 @@ void		jump_left(t_pos *pos)
 	}
 	if (ft_isspace(pos->ans[pos->let_nb]) == 1)
 		while (pos->let_nb > 0 && ft_isspace(pos->ans[pos->let_nb]) == 1)
-		{
-			pos->debug2 = pos->ans[pos->let_nb];
-			pos->let_nb--;
-			/*if (pos->act_co > 0)
-				pos->act_co--;
-			else if (pos->act_co <= 0 && pos->act_li > pos->start_li)
-			{
-				pos->act_co = pos->max_co - 1;
-				pos->act_li--;
-			}*/
-			if (pos->act_co > 0)
-				pos->act_co--;
-			else
-			{
-				if (pos->act_co == 0 && pos->act_li > pos->start_li)
-				{
-					pos->act_li--;
-					if (pos->ans[pos->let_nb - 1] == '\n')
-						pos->act_co = len_of_previous_line(pos);
-					else
-						pos->act_co = pos->max_co - 1;
-				}
-			}
-		}
-	while (pos->let_nb > 0 && ft_isspace(pos->ans[pos->let_nb]) == 0)
-	{
-		if (ft_isspace(pos->ans[pos->let_nb - 1]) == 1)
-			break ;
-		pos->let_nb--;
-		if (pos->act_co > 0)
-			pos->act_co--;
-		else if (pos->act_co <= 0 && pos->act_li > pos->start_li)
-		{
-			pos->act_co = pos->max_co - 1;
-			pos->act_li--;
-		}
-	}
+			left_arrow(NULL, pos);
+	while (pos->let_nb > 0 && ft_isspace(pos->ans[pos->let_nb - 1]) == 0)
+		pos->let_nb -= 1;
+	int len = go_to_let_nb(pos);
+	short_update(pos, len);
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }
 
@@ -70,51 +70,73 @@ void		jump_right(t_pos *pos)
 {
 	if (pos->let_nb >= pos->len_ans)
 		return ;
+	if (pos->is_complete == 0 && pos->ans && pos->let_nb > 0 && pos->ans[pos->let_nb] == '\n')
+		return ;
 	if (pos->ans[pos->let_nb] && ft_isspace(pos->ans[pos->let_nb]) == 0)
 	{
 		while (pos->ans[pos->let_nb] && ft_isspace(pos->ans[pos->let_nb]) == 0)
+			right_arrow(NULL, pos);
+	}
+	while (pos->ans[pos->let_nb] && ft_isspace(pos->ans[pos->let_nb]) == 1)
+		right_arrow(NULL, pos);
+}
+
+void		go_hard(t_pos *pos)
+{
+	if (pos->is_complete == 0)
+	{
+		while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != '\n')
 		{
 			pos->let_nb++;
-			if ((pos->act_co == pos->max_co && pos->ans[pos->let_nb]) || pos->ans[pos->let_nb] == '\n')
+			if (pos->act_co == pos->max_co - 1)
 			{
-				pos->act_co = 1;
+				pos->act_co = 0;
 				pos->act_li++;
 			}
 			else
 				pos->act_co++;
 		}
 	}
-	while (pos->ans[pos->let_nb] && ft_isspace(pos->ans[pos->let_nb]) == 1)
+	else
 	{
-		pos->let_nb++;
-		if (pos->act_co == pos->max_co && pos->ans[pos->let_nb])
+		while (pos->ans[pos->let_nb] != '\0')
 		{
-			pos->act_co = 1;
-			pos->act_li++;
+			if (pos->ans[pos->let_nb + 1] == '\n')
+			{
+				pos->act_co = 0;
+				pos->act_li++;
+			}
+			else
+				pos->act_co++;
+			pos->let_nb++;
 		}
-		else
-			pos->act_co++;
-	}
-}
-
-void		go_hard(t_pos *pos)
-{
-	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != '\n')
-	{
-		pos->let_nb++;
-		if (pos->act_co == pos->max_co - 1)
-		{
-			pos->act_co = 0;
-			pos->act_li++;
-		}
-		else
-			pos->act_co++;
 	}
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }
 
 void		or_go_home(t_pos *pos)
 {
+	if (pos->is_complete == 0)
+	{
+		while (pos->let_nb > 0 && (pos->ans[pos->let_nb - 1] != '\n'))
+		{
+			pos->let_nb--;
+			if (pos->act_co == 0)
+			{ 
+				pos->act_co = pos->max_co - 1;
+				pos->act_li--;
+			}
+			else
+				pos->act_co--;
+		}	
+	}
+	else
+	{
+		pos->act_co = pos->start_co;
+		pos->act_li = pos->start_li;
+		pos->let_nb = 0;
+	}
+	
 	while (pos->let_nb > 0 && (pos->ans[pos->let_nb - 1] != '\n'))
 	{
 		pos->let_nb--;
@@ -129,17 +151,41 @@ void		or_go_home(t_pos *pos)
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }
 
+int			nb_line(t_pos *pos)
+{
+	int i;
+	int line;
+
+	i = 0;
+	line = 1;
+	while (pos->ans[i])
+	{
+		if (pos->ans[i] == '\n')
+			line++;
+		i++;
+	}
+	return (line);
+}
+
 void		jump_UP(t_pos *pos)
 {
-	if (pos->is_complete == 0)
+	if (pos->is_complete == 0 || pos->act_li == pos->start_li)
 		return ;
+	if (pos->act_li > pos->start_li && pos->is_complete == 1)
+	{
+		pos->act_li--;
+	}
 }
 
 void		jump_DOWN(t_pos *pos)
 {
-	if (pos->is_complete == 0)
+	int line;
+
+	line = nb_line(pos);
+	if (pos->is_complete == 0 || line == 1)
 		return ;
-	
+	if (line > 1 && pos->act_li < pos->start_li + line - 1)
+		pos->act_li++;	
 }
 
 void		find_jump(char *buf, t_pos *pos)
