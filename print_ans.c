@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 12:07:48 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/03 14:33:19 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 14:53:24 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,8 +102,6 @@ void            prepare_to_print(t_pos *pos, char *buf)
 		i = incomplete_history(&act_co, &act_li, pos);
 	else
 		i = global_case(&act_co, &act_li, buf, pos);
-	pos->debug = i;
-	pos->debug2 = act_co;
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	tputs(tgetstr("vi", NULL), 1, ft_putchar);
 	if (buf[0] == 27 && pos->is_complete == 1)

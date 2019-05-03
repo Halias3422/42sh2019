@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/03 14:35:32 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 15:45:17 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -133,12 +133,10 @@ void		clean_at_start(t_pos *pos)
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 }
 
-void		resize_screen()
+void		resize_screen(t_pos *pos)
 {
-	t_pos	*pos;
 	int		len;
 
-	pos = stock_pos_ptr(NULL, 1);
 	check_term();
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
@@ -154,25 +152,31 @@ void		resize_screen()
 	pos->debug3 = len;
 	print_ans(pos, 0, pos->start_co);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
-	print_info(pos);
+//	print_info(pos);
 }
 
 void		sighandler(int signum)
 {
+	t_pos *pos;
+
+	pos = stock_pos_ptr(NULL, 1);
 	if (signum == RESIZING)
-		resize_screen();
+		resize_screen(pos);
+	else
+		pos->debug = signum;
 }
 
 void	signal_list(void)
 {
 	signal(SIGWINCH, sighandler);
+	signal(SIGINT, sighandler);
 }
 
 char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 {
 	int			ret;
 	int			ret2;
-	char		buf[9];
+	char		buf[500];
 	t_inter		inter;
 
 	inter = (t_inter){0, 0, 0, 0, 0, 0, 0, 0};
@@ -196,7 +200,9 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	signal_list();
 	while (1)
 	{
-		ret2 = read(0, buf, 4);
+		ret2 = read(0, buf, 1);
+		if (buf[0] ==  27)
+			ret2 = read(0, buf + 1, 6);
 		if (pos->max_co > 2)
 			hist = check_input(buf, pos, hist);
 //		print_info(pos);

@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 09:33:47 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 15:32:25 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@ t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
 		hist = escape_code(buf, pos, hist);
 	else
 	{
-		bzero(buf + 1, 3);
+//		bzero(buf + 1, 3);
 		if (buf[0] == 127)
 			input_is_backspace(pos);
 		else if (buf[0] == 10)
