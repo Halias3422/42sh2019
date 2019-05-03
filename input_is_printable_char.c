@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:48:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 08:57:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 12:02:31 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,8 +39,10 @@ void		prompt_is_on_last_char(t_pos *pos)
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 	tputs(tgoto(tgetstr("cm", NULL), pos->max_co + 1, pos->max_li + 1),
 			1, ft_putchar);
-	write(1, " ", 1);
+	write(1, "\n", 1);
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
+
+//	tputs(tgetstr("sf", NULL), 1, ft_putchar);
 	pos->start_li -= 1;
 }
 

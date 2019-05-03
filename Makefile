@@ -6,12 +6,12 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/30 09:32:01 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/03 10:09:16 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME = 42sh
+NAME = 21sh
 
 SRC = init_termcaps.c \
 	  print_ans.c \

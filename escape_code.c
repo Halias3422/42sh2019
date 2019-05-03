@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 14:35:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 09:50:31 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,10 +35,17 @@ void		left_arrow(char *buf, t_pos *pos)
 	if (pos->act_co == 0 && pos->act_li > pos->start_li)
 	{
 		pos->act_li--;
+		pos->debug2 = pos->act_co;
 		if (pos->ans[pos->let_nb - 1] == '\n')
+		{
 			pos->act_co = len_of_previous_line(pos);
+			if (pos->act_co == pos->max_co)
+				pos->act_co = 0;
+		}
 		else
 			pos->act_co = pos->max_co - 1;
+		pos->debug3 = pos->ans[pos->let_nb - 1];
+		pos->debug = pos->act_co;
 	}
 	else if (pos->is_complete == 0 && pos->let_nb > 0 &&
 		pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == pos->len_prompt)

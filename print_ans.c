@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   termcaps_tools.c                                 .::    .:/ .      .::   */
+/*   print_ans.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/04 12:07:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 09:50:17 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/04 12:07:48 by mjalenqu     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/03 14:33:19 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,10 +74,10 @@ void			print_ans(t_pos *pos, int i, int act_co)
 		{
 			write(1, &pos->ans[i], 1);
 			act_co += 1;
-			if (act_co == pos->max_co)
+			if (act_co == 1 && pos->ans[i] == '\n' && i > 0 && pos->ans[i - 1] != '\n')
+				write(1, "\n", 1);
+			if (act_co == pos->max_co || pos->ans[i] == '\n')
 				act_co = 0;
-			//	if (act_co == 1 && pos->ans[i] == '\n')
-			//		write(1, "\n", 1);
 			if (pos->ans[i] == '\n' && pos->is_complete == 0)
 			{
 				write(1, "> ", 2);
@@ -91,7 +91,6 @@ void			print_ans(t_pos *pos, int i, int act_co)
 void            prepare_to_print(t_pos *pos, char *buf)
 {
 	int             i;
-	int             line;
 	int				act_co;
 	int				act_li;
 
@@ -103,10 +102,14 @@ void            prepare_to_print(t_pos *pos, char *buf)
 		i = incomplete_history(&act_co, &act_li, pos);
 	else
 		i = global_case(&act_co, &act_li, buf, pos);
-	line = pos->len_prompt;
+	pos->debug = i;
+	pos->debug2 = act_co;
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	tputs(tgetstr("vi", NULL), 1, ft_putchar);
-	print_ans(pos, i, act_co);
+	if (buf[0] == 27 && pos->is_complete == 1)
+		print_ans(pos, i, pos->start_co);
+	else
+		print_ans(pos, i, act_co);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
 			1, ft_putchar);

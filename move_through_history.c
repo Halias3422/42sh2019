@@ -6,13 +6,23 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:42:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 13:53:16 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 11:41:43 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
+void		short_update(t_pos *pos, int len)
+{
+	pos->act_li = pos->start_li + len / pos->max_co;
+	pos->act_co = len % pos->max_co;
+	while (pos->act_li > pos->max_li)
+	{
+		pos->act_li -= 1;
+		prompt_is_on_last_char(pos);
+	}
+}
 
 void		update_position(t_pos *pos, char *cmd)
 {
@@ -20,13 +30,8 @@ void		update_position(t_pos *pos, char *cmd)
 	int		get_len;
 
 	get_len = get_len_with_lines(pos);
-	pos->act_li = pos->start_li + get_len / pos->max_co;
-	pos->act_co = get_len % pos->max_co;
-	while (pos->act_li > pos->max_li)
-	{
-		pos->act_li -= 1;
-		prompt_is_on_last_char(pos);
-	}
+	pos->debug = get_len;
+	short_update(pos, get_len);
 	//		if (pos->is_complete == 0 && (get_len_with_lines(pos) > pos->max_co || pos->act_co < pos->len_prompt))
 	//			pos->act_co += pos->len_prompt;
 	pos->let_nb = ft_strlen(pos->ans);

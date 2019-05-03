@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:46:10 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 09:28:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 09:40:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,6 +60,7 @@ int			len_of_previous_line(t_pos *pos)
 	int		len;
 	int		i;
 
+	pos->debug5 += 10;
 	i = pos->let_nb - 2;
 	len = 0;
 	while (i >= 0 && pos->ans[i] != '\n')

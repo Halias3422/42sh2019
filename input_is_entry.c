@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 09:33:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 14:55:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,13 +75,7 @@ t_hist		*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 		input_is_printable_char(pos, buf);
 	}
 	get_len = get_len_with_lines(pos);
-	pos->act_li = pos->start_li + get_len / pos->max_co;
-	pos->act_co = get_len % pos->max_co;
-	while (pos->act_li > pos->max_li)
-	{
-		pos->act_li -= 1;
-		prompt_is_on_last_char(pos);
-	}
+	short_update(pos, get_len);
 	if (pos->is_complete == 0)
 		entry_is_incomplete(pos, hist, buf);
 	else

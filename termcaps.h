@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 11:04:04 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 14:54:19 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,6 +74,9 @@ typedef struct		s_hist
 
 int		get_next_line_42sh(const int fd, char **line);
 char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist);
+void	print_ans(t_pos *pos, int i, int act_co);
+void	clean_at_start(t_pos *pos);
+void	short_update(t_pos *pos, int len);
 
 /*
 **INIT_FT_SELECT.C

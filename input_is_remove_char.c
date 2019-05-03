@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/29 08:12:16 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 14:48:55 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 09:50:24 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,11 @@ void		input_is_backspace(t_pos *pos)
 	{
 		pos->act_li -= 1;
 		if (pos->ans[pos->let_nb - 1] == '\n')
+		{
 			pos->act_co = len_of_previous_line(pos);
+			if (pos->act_co == pos->max_co)
+				pos->act_co = 0;
+		}
 		else
 			pos->act_co = pos->max_co - 1;
 	}

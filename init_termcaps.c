@@ -6,12 +6,16 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 11:05:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/03 14:35:32 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
+
+#define RESIZING 28
+
+
 
 int		check_term(void)
 {
@@ -65,6 +69,15 @@ void	get_start_info(char *buf, t_pos *pos)
 		pos->start_co = ft_atoi(buf + i + 1) - 1 + pos->len_prompt;
 }
 
+t_pos	*stock_pos_ptr(t_pos *pos, int usage)
+{
+	static t_pos *stock_pos;
+
+	if (usage == 0)
+		stock_pos = pos;
+	return (stock_pos);
+}
+
 int		init_pos(t_pos *pos, char *buf)
 {
 	int			ret2;
@@ -72,12 +85,10 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
 	pos->history_mode = 0;
-/*	if (ft_strlen(pos->prompt) == 2)
+		if (ft_strlen(pos->prompt) == 2)
 		pos->len_prompt = 2;
-	else*/
-		pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
-//	if (pos->len_prompt == pos->max_co)
-//		pos->debug5 += 256485;
+		else
+	pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 	pos->ans = ft_strnew(0);
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
@@ -98,6 +109,7 @@ int		init_pos(t_pos *pos, char *buf)
 		ft_printf("FATAL ERROR\n");
 	pos->act_li = pos->start_li;
 	pos->act_co = pos->start_co;
+	stock_pos_ptr(pos, 0);
 	return (ret2);
 }
 
@@ -112,19 +124,48 @@ void	init_terminfo(t_pos *pos)
 	tcsetattr(0, TCSADRAIN, &(pos->my_term));
 }
 
-void	update_act_pos(t_pos *pos)
+void		clean_at_start(t_pos *pos)
 {
+	tputs(tgetstr("sc", NULL), 1, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), pos->start_co, pos->start_li), 1, ft_putchar);
+	tputs(tgetstr("sc", NULL), 1, ft_putchar);
+}
+
+void		resize_screen()
+{
+	t_pos	*pos;
+	int		len;
+
+	pos = stock_pos_ptr(NULL, 1);
+	check_term();
 	pos->max_co = tgetnum("co");
-	pos->max_li = tgetnum("li");
-	if (pos->act_co > pos->max_co)
-	{
-		pos->act_li = pos->act_li + pos->act_co / pos->max_co;
-		if (pos->act_co % pos->max_co > 0)
-			pos->act_li++;
-		while (pos->act_li-- > pos->max_li)
-			pos->start_li--;
-		pos->act_co = pos->act_co % pos->max_co;
-	}
+	pos->max_li = tgetnum("li") - 1;
+	len = get_len_with_lines(pos);
+	pos->let_nb = ft_strlen(pos->ans);
+	pos->len_ans = pos->let_nb;
+	short_update(pos, len);
+	clean_at_start(pos);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	tputs(tgetstr("vi", NULL), 1, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), 0, pos->start_li), 1, ft_putchar);
+	ft_printf("{B.T.blue.}%s{eoc}", pos->prompt);
+	pos->debug3 = len;
+	print_ans(pos, 0, pos->start_co);
+	tputs(tgetstr("ve", NULL), 1, ft_putchar);
+	print_info(pos);
+}
+
+void		sighandler(int signum)
+{
+	if (signum == RESIZING)
+		resize_screen();
+}
+
+void	signal_list(void)
+{
+	signal(SIGWINCH, sighandler);
 }
 
 char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
@@ -133,11 +174,11 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	int			ret2;
 	char		buf[9];
 	t_inter		inter;
-   
+
 	inter = (t_inter){0, 0, 0, 0, 0, 0, 0, 0};
 	error = 0;
 
-	ft_printf("{T.cyan.}rle_sain{eoc} {B.}in{eoc} {B.T.blue.}mon ordinateur :){eoc}\n");
+	//	ft_printf("{T.cyan.}rle_sain{eoc} {B.}in{eoc} {B.T.blue.}mon ordinateur :){eoc}\n");
 	while (hist->next)
 		hist = hist->next;
 	if (pos->prompt == NULL)
@@ -147,23 +188,26 @@ char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist)
 	if (ret == -1)
 		exit(0);
 	ret2 = init_pos(pos, buf);
-	bzero(buf, 8);
-	print_info(pos);
-	print_hist(pos, hist);
+	ft_bzero(buf, 8);
+
+//	print_info(pos);
+	//	print_hist(pos, hist);
 	ft_printf("{B.T.white.}%s{eoc}", pos->prompt);
+	signal_list();
 	while (1)
 	{
 		ret2 = read(0, buf, 4);
-		hist = check_input(buf, pos, hist);
-		print_info(pos);
-		print_hist(pos, hist);
+		if (pos->max_co > 2)
+			hist = check_input(buf, pos, hist);
+//		print_info(pos);
+		//		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{
 			tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 			write(1, "\n", 1);
 			return (pos->ans);
 		}
-		bzero(buf, 8);
+		ft_bzero(buf, 8);
 	}
 	return (NULL);
 }
