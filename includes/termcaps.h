@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   termcaps.h                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 13:12:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/06 15:05:03 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,12 +14,8 @@
 #ifndef TERMCAPS_H
 # define TERMCAPS_H
 
-// # include "ft_printf.h"
-# include "../libft/includes/ft_str.h"
-# include "../libft/includes/ft_int.h"
-# include "../libft/includes/ft_unix.h"
-# include "exec.h"
-# include "check_error.h"
+# include "libft/includes/ft_printf.h"
+# include "libft/includes/libft.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <term.h>
@@ -27,42 +23,10 @@
 # include <curses.h>
 
 /*
-** color **
+** Signal define
 */
-# define RESET "\033[00m"
-# define RED "\033[0;31m"
-# define GREEN "\033[0;32m"
-# define YELLOW "\033[0;33m"
-# define BLUE "\033[0;34m"
-# define PURPLE "\033[0;35m"
-# define CYAN "\033[0;36m"
-# define BRED "\033[1;31m"
-# define BGREEN "\033[1;32m"
-# define BYELLOW "\033[1;33m"
-# define BBLUE "\033[1;34m"
-# define BPURPLE "\033[1;35m"
-# define BCYAN "\033[1;36m"
 
-/*
-** key **
-*/
-# define UP     4283163
-# define DOWN   4348699
-# define LEFT   4479771
-# define RIGHT  4414235
-# define TAB    9
-# define DEL    2117294875
-# define BACK   127
-# define ENTER  10
-# define ESCAPE 27
-# define CTRLUP	2117425947
-# define CTRLDOWN	2117491483
-# define HOME	4741915
-# define END	4610843
-# define ALT_L    25115
-# define ALT_R    26139
-
-# define HIST	".42_history"
+# define RESIZING 28
 
 typedef struct		s_pos
 {
@@ -86,12 +50,11 @@ typedef struct		s_pos
 	char			*prompt;
 	int				len_prompt;
 	int				start_select;
-	char			debug;
+	int				debug;
 	int				debug2;
 	int				debug3;
 	int				debug4;
 	int				debug5;
-	char			*toto;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
@@ -108,197 +71,152 @@ typedef struct		s_inter
 	int				db_pipe;
 }					t_inter;
 
-typedef struct			s_command
+typedef struct		s_hist
 {
-	char				*res;
-	struct s_command	*next;
-	struct s_command	*prev;
-}						t_command;
+	struct s_hist	*next;
+	struct s_hist	*prev;
+	char			*cmd;
+	int				cmd_no;
+}					t_hist;
 
-typedef struct			s_select
-{
-	struct termios		my_term;
-	struct termios		old_term;
-}						t_select;
-
-typedef struct			s_var
-{
-	char				*name;
-	char				*data;
-	int					type;
-	struct s_var		*next;
-}						t_var;
-
-typedef struct			s_hist
-{
-	struct s_hist		*next;
-	struct s_hist		*prev;
-	char				*cmd;
-	int					cmd_no;
-}						t_hist;
-
-
-int		get_next_line_42sh(const int fd, char **line);
-char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist);
+void	print_info(t_pos *pos);
+void	print_hist(t_pos *pos, t_hist *hist);
 
 /*
-**INIT_FT_SELECT.C
+** CALCUL_LINE
 */
 
-void				init_terminfo(t_pos *pos);
-int					init_pos(t_pos *pos, char *buf);
-void				get_start_info(char *buf, t_pos *pos);
+int					get_len_with_lines(t_pos *pos);
+int					go_to_let_nb_saved(t_pos *pos);
+int					len_of_previous_line(t_pos *pos);
+int					count_nb_line(t_pos *pos, int *j);
+int					go_to_let_nb(t_pos *pos);
+
+/*
+** CHECK_ERROR
+*/
+
 int					check_term(void);
 
 /*
-**CHECK_INPUT.C
+** CHECK_INPUT.C
 */
 
-void				free_t_hist(t_hist *hist);
 t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
 
 /*
-**INPUT_IS_REMOVE_CHAR.C
+** ESCAPE_CODE
 */
 
-void				input_is_backspace(t_pos *pos);
-void				remove_char_ans(t_pos *pos);
-void				input_is_delete(t_pos *pos);
+t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
+void				right_arrow(t_pos *pos);
+void				left_arrow(t_pos *pos);
 
 /*
-**INPUT_IS_PRINTABLE_CHAR.C
+** HISTORY.C
 */
 
+void				free_t_hist(t_hist *hist);
+void				init_t_hist(t_hist *hist);
+t_hist				*add_list_back_hist(t_hist *hist);
+t_hist				*create_history(t_pos *pos, t_hist *hist);
+
+/*
+** INITIALISATION_STOCK
+*/
+
+void				init_terminfo(t_pos *pos);
+void				init_pos(t_pos *pos, char *buf);
+void			*stock(t_pos *pos, int usage);
+
+/*
+** INPUT_IS_ENTRY
+*/
+
+int					find_missing_quote(char *str);
+t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
+
+/*
+** INPUT_IS_PRINTABLE_CHAR
+*/
 void				prompt_is_on_last_char(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
 /*
-**ESCAPE_CODE.C
+** INPUT_IS_REMOVE_CHAR
 */
 
-t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
-void				left_arrow(t_pos *pos);
-void				right_arrow(t_pos *pos);
-int					len_of_previous_line(t_pos *pos);
+void				input_is_delete(t_pos *pos);
+int					input_is_backspace(t_pos *pos);
 
 /*
-** INPUT_IS_ENTRY.C
+** MOVE_THROUGHT_HISTORY
 */
 
-t_hist				*input_is_complete(t_pos *pos, t_hist *hist);
-t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
+t_hist				*move_through_history(t_hist *hist,
+						t_pos *pos, char *usage);
 
 /*
-**HANDLE_ANS.C
+** PRINT_ANS
 */
 
 void				prepare_to_print(t_pos *pos, char *buf);
-void				fill_char_ans(char *buf, t_pos *pos);
-void				remove_char_ans(t_pos *pos);
-int					get_len_with_lines(t_pos *pos);
+void				print_ans(t_pos *pos, int i, int act_coi);
 
 /*
-**HISTORY.C
+** SEARCH_IN_HISTORY
 */
 
-void				init_t_hist(t_hist *hist);
-t_hist				*create_history(t_pos *pos, t_hist *hist);
-t_hist				*add_list_back_hist(t_hist *hist);
-void				update_position(t_pos *pos, char *cmd);
+t_hist				*search_up_complete_in_history(t_hist *hist, t_pos *pos);
+t_hist				*search_down_complete_in_history(t_hist *hist, t_pos *pos);
 
 /*
-**MOVE_THROUGHT_HISTORY.C
+** SIGNAL
 */
 
-
-t_hist				*move_through_history(t_hist *hist, t_pos *pos, char *usage, char *buf);
+void				signal_list(void);
 
 /*
-**SEARCH_IN_HISTORY.C
+** START_TERMCAPS
 */
 
-t_hist		*search_up_complete_in_history(t_hist *hist, t_pos *pos);
-t_hist		*search_down_complete_in_history(t_hist *hist, t_pos *pos);
-t_hist		*search_up_incomplete_in_history(t_hist *hist, t_pos *pos);
-t_hist		*search_down_incomplete_in_history(t_hist *hist, t_pos *pos);
+char				*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist);
+void				print_prompt(t_pos *pos);
 
 /*
-**TERMCAPS_TOOLS.C
+** TAB_KEY
 */
 
-void				print_info(t_pos *pos);
-void				print_hist(t_pos *pos, t_hist *hist);
+void				input_is_tab(t_pos *pos);
 
 /*
-**CALCUL_LINE.C
+** TOOLS
 */
 
-int					go_to_let_nb_saved(t_pos *pos);
-int					count_nb_line(t_pos *pos, int *j);
-
-
+void				clean_at_start(t_pos *pos);
+void				short_update(t_pos *pos, int len);
+void				update_position(t_pos *pos);
 
 /*
-*******************************************************************************
-***							init_term.c										***
-*******************************************************************************
+** COPY a mettre a la norme
 */
-int						get_term(void);
-int						check_term(void);
+
+void	display_line(t_pos		*pos);
+int		is_select(char *buf, t_pos *pos);
+void	selected(t_pos *pos, char *buf);
+void	selection_check(t_pos *pos, char *buf);
 
 /*
-*******************************************************************************
-***							key_hook.c										***
-*******************************************************************************
-*/
-int						ft_put_c(int c);
-
-/*
-*******************************************************************************
-***								env.c										***
-*******************************************************************************
-*/
-t_var					*init_env(char **env);
-char					*init_name(char *src);
-
-/*
-*******************************************************************************
-***								windows.c									***
-*******************************************************************************
+** JUMP a mettre a la norme
 */
 
-/*
-*******************************************************************************
-***								ft_error.c									***
-*******************************************************************************
-*/
-void					ft_error_quit(int nb);
-void					ft_error(int nb);
-
-/*
-*******************************************************************************
-***								history.c									***
-*******************************************************************************
-*/
-int						ft_create_file(char *path);
-int						ft_execute(char *exec, char **opt, char **env);
-int						ft_file_exists(char *path);
-int						ft_file_wrights(char *path);
-
-char					*remove_char(char **str, int i);
-
-/*
-*******************************************************************************
-***								ft_error.c									***
-*******************************************************************************
-*/
-//void					free_all(t_all *all);
-void					free_env(t_var *var);
-
-void					find_jump(char *buf, t_pos *pos);
-void					selected(t_pos *pos, char *buf);
-int						is_select(char *buf);
-
-# include "lexeur.h"
+void	jump_left(t_pos *pos);
+void	jump_right(t_pos *pos);
+void	go_hard(t_pos *pos);
+void	or_go_home(t_pos *pos);
+int		nb_line(t_pos *pos);
+void	jump_up(t_pos *pos);
+void	jump_down(t_pos *pos);
+void	find_jump(char *buf, t_pos *pos);
 
 #endif
