@@ -6,17 +6,17 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/29 08:59:30 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/09 09:59:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 09:51:01 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	splitjoin2(char *str, int mode)
+static int		splitjoin2(char *str, int mode)
 {
-	int i;
-	int check;
+	int		i;
+	int		check;
 
 	i = 0;
 	check = 0;
@@ -35,7 +35,7 @@ static int	splitjoin2(char *str, int mode)
 	return (-1);
 }
 
-static int	splitjoin(char *str, int mode)
+static int		splitjoin(char *str, int mode)
 {
 	if (str == NULL)
 		return (0);
@@ -52,7 +52,7 @@ static int	splitjoin(char *str, int mode)
 	return (-1);
 }
 
-static char	*ft_strnjoinn(char const *s1, char const *s2, int n1, int n2)
+static char		*ft_strnjoinn(char const *s1, char const *s2, int n1, int n2)
 {
 	char	*str;
 	int		i;
@@ -79,7 +79,7 @@ static char	*ft_strnjoinn(char const *s1, char const *s2, int n1, int n2)
 	return (str);
 }
 
-char	*ft_strnjoinnf(char *s1, char *s2, char *str)
+char			*ft_strnjoinnf(char *s1, char *s2, char *str)
 {
 	char	*tmp;
 	int		n1;
