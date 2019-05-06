@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:42:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/03 11:41:43 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 07:30:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,8 +32,6 @@ void		update_position(t_pos *pos, char *cmd)
 	get_len = get_len_with_lines(pos);
 	pos->debug = get_len;
 	short_update(pos, get_len);
-	//		if (pos->is_complete == 0 && (get_len_with_lines(pos) > pos->max_co || pos->act_co < pos->len_prompt))
-	//			pos->act_co += pos->len_prompt;
 	pos->let_nb = ft_strlen(pos->ans);
 	pos->len_ans = pos->let_nb;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);

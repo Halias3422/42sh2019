@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/03 10:09:16 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/06 07:07:20 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -26,17 +26,6 @@ SRC = init_termcaps.c \
 	  input_is_remove_char.c \
 	  debug.c \
 	  main_termcaps.c
-# 	init_termcaps.c \
-		history.c \
-		move_through_history.c \
-		termcaps_tools.c \
-		check_input.c \
-		input_is_printable_char.c \
-		handle_ans.c \
-		input_is_arrow.c \
-		input_is_entry.c \
-		main_termcaps.c
-
 
 OBJ = $(SRC:.c=.o)
 
@@ -44,7 +33,7 @@ OBJ_DIR = srcs_ls/
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -g3# -fsanitize=address
 
 LIBFT = ./libft/
 

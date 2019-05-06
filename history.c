@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 13:47:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 07:28:21 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,6 +80,8 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 			hist->cmd = ft_strjoinf(hist->cmd, line, 3);
 			hist = add_list_back_hist(hist);
 		}
+		else if (line != NULL)
+			free(line);
 		line = NULL;
 	}
 	return (hist);
