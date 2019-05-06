@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_select.h                                      .::    .:/ .      .::   */
+/*   termcaps.h                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 14:54:19 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 09:58:38 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef FT_SELECT_H
-# define FT_SELECT_H
+#ifndef TERMCAPS_H
+# define TERMCAPS_H
 
 # include "libft/includes/ft_printf.h"
 # include "libft/includes/libft.h"
@@ -21,6 +21,12 @@
 # include <term.h>
 # include <stdlib.h>
 # include <curses.h>
+
+/*
+** Signal define
+*/
+
+# define RESIZING 28
 
 typedef struct		s_pos
 {
@@ -72,106 +78,112 @@ typedef struct		s_hist
 	int				cmd_no;
 }					t_hist;
 
-int		get_next_line_42sh(const int fd, char **line);
-char	*termcaps42sh(char *prompt, int error, t_pos *pos, t_hist *hist);
-void	print_ans(t_pos *pos, int i, int act_co);
-void	clean_at_start(t_pos *pos);
-void	short_update(t_pos *pos, int len);
-
 /*
-**INIT_FT_SELECT.C
+** CALCUL_LINE
 */
 
-int					main(void);
-void				init_terminfo(t_pos *pos);
-int					init_pos(t_pos *pos, char *buf);
-void				get_start_info(char *buf, t_pos *pos);
+int					get_len_with_lines(t_pos *pos);
+int					go_to_let_nb_saved(t_pos *pos);
+int					len_of_previous_line(t_pos *pos);
+int					count_nb_line(t_pos *pos, int *j);
+
+/*
+** CHECK_ERROR
+*/
+
 int					check_term(void);
 
 /*
-**CHECK_INPUT.C
+** CHECK_INPUT.C
 */
 
-void				free_t_hist(t_hist *hist);
 t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
 
 /*
-**INPUT_IS_REMOVE_CHAR.C
+** ESCAPE_CODE
 */
 
-void				input_is_backspace(t_pos *pos);
-void				remove_char_ans(t_pos *pos);
-void				input_is_delete(t_pos *pos);
+t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
+void				right_arrow(t_pos *pos);
+void				left_arrow(t_pos *pos);
 
 /*
-**INPUT_IS_PRINTABLE_CHAR.C
+** HISTORY.C
 */
 
+void				free_t_hist(t_hist *hist);
+void				init_t_hist(t_hist *hist);
+t_hist				*add_list_back_hist(t_hist *hist);
+t_hist				*create_history(t_pos *pos, t_hist *hist);
+
+/*
+** INITIALISATION_STOCK
+*/
+
+void				init_terminfo(t_pos *pos);
+void				init_pos(t_pos *pos, char *buf);
+void			*stock(t_pos *pos, int usage);
+
+/*
+** INPUT_IS_ENTRY
+*/
+
+int					find_missing_quote(char *str);
+t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
+
+/*
+** INPUT_IS_PRINTABLE_CHAR
+*/
 void				prompt_is_on_last_char(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
 /*
-**ESCAPE_CODE.C
+** INPUT_IS_REMOVE_CHAR
 */
 
-t_hist				*escape_code(char *buf, t_pos *pos, t_hist *hist);
-void				left_arrow(char *buf, t_pos *pos);
-void				right_arrow(char *buf, t_pos *pos);
-int					len_of_previous_line(t_pos *pos);
+void				input_is_delete(t_pos *pos);
+int					input_is_backspace(t_pos *pos);
 
 /*
-** INPUT_IS_ENTRY.C
+** MOVE_THROUGHT_HISTORY
 */
 
-t_hist				*input_is_complete(t_pos *pos, t_hist *hist);
-t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
+t_hist				*move_through_history(t_hist *hist,
+						t_pos *pos, char *usage);
 
 /*
-**HANDLE_ANS.C
+** PRINT_ANS
 */
 
 void				prepare_to_print(t_pos *pos, char *buf);
-void				fill_char_ans(char *buf, t_pos *pos);
-void				remove_char_ans(t_pos *pos);
-int					get_len_with_lines(t_pos *pos);
+void				print_ans(t_pos *pos, int i, int act_coi);
 
 /*
-**HISTORY.C
+** SEARCH_IN_HISTORY
 */
 
-void				init_t_hist(t_hist *hist);
-t_hist				*create_history(t_pos *pos, t_hist *hist);
-t_hist				*add_list_back_hist(t_hist *hist);
-void				update_position(t_pos *pos, char *cmd);
+t_hist				*search_up_complete_in_history(t_hist *hist, t_pos *pos);
+t_hist				*search_down_complete_in_history(t_hist *hist, t_pos *pos);
 
 /*
-**MOVE_THROUGHT_HISTORY.C
+** SIGNAL
 */
 
-
-t_hist				*move_through_history(t_hist *hist, t_pos *pos, char *usage, char *buf);
+void				signal_list(void);
 
 /*
-**SEARCH_IN_HISTORY.C
+** TOOLS
 */
 
-t_hist		*search_up_complete_in_history(t_hist *hist, t_pos *pos);
-t_hist		*search_down_complete_in_history(t_hist *hist, t_pos *pos);
-t_hist		*search_up_incomplete_in_history(t_hist *hist, t_pos *pos);
-t_hist		*search_down_incomplete_in_history(t_hist *hist, t_pos *pos);
+void				clean_at_start(t_pos *pos);
+void				short_update(t_pos *pos, int len);
+void				update_position(t_pos *pos);
 
 /*
-**TERMCAPS_TOOLS.C
+** START_TERMCAPS
 */
 
-void				print_info(t_pos *pos);
-void				print_hist(t_pos *pos, t_hist *hist);
-
-/*
-**CALCUL_LINE.C
-*/
-
-int					go_to_let_nb_saved(t_pos *pos);
-int					count_nb_line(t_pos *pos, int *j);
+char				*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist);
+void				print_prompt(t_pos *pos);
 
 #endif

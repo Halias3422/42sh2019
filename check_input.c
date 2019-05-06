@@ -6,14 +6,14 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/03 15:32:25 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 09:58:37 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-void		update_history(t_pos *pos, t_hist *hist, char *buf)
+static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 {
 	pos->saved_ans = ft_secure_free(pos->saved_ans);
 	if (buf[0] != 10)
@@ -29,15 +29,14 @@ void		update_history(t_pos *pos, t_hist *hist, char *buf)
 		pos->history_mode = 0;
 }
 
-t_hist		*check_input(char *buf, t_pos *pos, t_hist *hist)
+t_hist			*check_input(char *buf, t_pos *pos, t_hist *hist)
 {
 	if (buf[0] == 27)
 		hist = escape_code(buf, pos, hist);
 	else
 	{
-//		bzero(buf + 1, 3);
 		if (buf[0] == 127)
-			input_is_backspace(pos);
+			pos->ans_printed = input_is_backspace(pos);
 		else if (buf[0] == 10)
 			hist = input_is_entry(pos, hist, buf);
 		else if (buf[0] != 127 && buf[0] != 10)

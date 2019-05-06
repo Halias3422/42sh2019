@@ -1,43 +1,41 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main_termcaps.c                                  .::    .:/ .      .::   */
+/*   check_error.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 09:15:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/05/06 08:14:23 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/06 08:15:24 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-int		main(void)
+int		check_term(void)
 {
-	char	*ans;
-	t_hist	*hist;
-	t_pos	pos;
+	int			ret;
+	char		*term_type;
 
-	hist = (t_hist *)malloc(sizeof(t_hist));
-	init_t_hist(hist);
-	pos.prompt = NULL;
-	pos.is_complete = 1;
-	hist = create_history(&pos, hist);
-	while (1)
+	term_type = getenv("TERM");
+	ret = 0;
+	if (term_type == NULL)
 	{
-		ans = termcaps42sh("$ ", &pos, hist);
-		if (ans == NULL)
-			break ;
-		if (ft_strcmp("exit", ans) == 0)
-		{
-			free(pos.prompt);
-			free_t_hist(hist);
-			free(ans);
-			close(pos.history);
-			tcsetattr(2, TCSANOW, &(pos.old_term));
-			exit(0);
-		}
-		ans = ft_secure_free(ans);
+		ft_printf("TERM must be set (see 'env').\n");
+		return (-1);
 	}
+	ret = tgetent(NULL, term_type);
+	if (ret == -1)
+	{
+		ft_printf("Could not access to the termcap database..\n");
+		return (-1);
+	}
+	else if (ret == 0)
+	{
+		ft_printf("Terminal type '%s' is not defined in termcap database ");
+		ft_printf("or have too few informations).\n", term_type);
+		return (-1);
+	}
+	return (0);
 }

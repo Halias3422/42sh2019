@@ -6,14 +6,14 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/02 14:55:04 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 09:42:46 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-int			find_missing_quote(char *str)
+int				find_missing_quote(char *str)
 {
 	int		i;
 	int		nb_quote;
@@ -31,7 +31,7 @@ int			find_missing_quote(char *str)
 	return (0);
 }
 
-t_hist		*entry_is_incomplete(t_pos *pos, t_hist *hist, char *buf)
+static t_hist	*entry_is_incomplete(t_pos *pos, t_hist *hist, char *buf)
 {
 	pos->act_co = pos->len_prompt;
 	prepare_to_print(pos, buf);
@@ -40,7 +40,7 @@ t_hist		*entry_is_incomplete(t_pos *pos, t_hist *hist, char *buf)
 	return (hist);
 }
 
-t_hist		*entry_is_complete(t_pos *pos, t_hist *hist)
+static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
 {
 	while (hist->next)
 		hist = hist->next;
@@ -64,7 +64,7 @@ t_hist		*entry_is_complete(t_pos *pos, t_hist *hist)
 	return (hist);
 }
 
-t_hist		*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
+t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 {
 	int		get_len;
 

@@ -6,14 +6,14 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/06 07:07:20 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/06 09:46:43 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = 21sh
 
-SRC = init_termcaps.c \
+SRC = start_termcaps.c \
 	  print_ans.c \
 	  history.c \
 	  check_input.c \
@@ -25,6 +25,10 @@ SRC = init_termcaps.c \
 	  search_in_history.c \
 	  input_is_remove_char.c \
 	  debug.c \
+	  tools.c \
+	  signal.c \
+	  initialisation_stock.c \
+	  check_error.c \
 	  main_termcaps.c
 
 OBJ = $(SRC:.c=.o)
