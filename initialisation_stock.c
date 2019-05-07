@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:12:35 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 14:31:05 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 11:03:57 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,14 +49,19 @@ static void		get_start_info(char *buf, t_pos *pos)
 		pos->start_co = ft_atoi(buf + i + 1) - 1 + pos->len_prompt;
 }
 
-void			*stock(t_pos *pos, int usage)
+void			*stock(void *to_stock, int usage)
 {
-	static t_pos *stock_pos;
+	static t_pos	*stock_pos;
+	static char		*copy;
 
 	if (usage == 0)
-		stock_pos = pos;
+		stock_pos = to_stock;
 	if (usage == 1)
 		return (stock_pos);
+	if (usage == 3)
+		copy = to_stock;
+	if (usage == 4)
+		return (copy);
 	return (NULL);
 }
 
@@ -74,6 +79,7 @@ static void		init_classic_var(t_pos *pos)
 	pos->debug3 = 0;
 	pos->debug4 = 0;
 	pos->debug5 = 0;
+	pos->debugchar = NULL;
 }
 
 void			init_pos(t_pos *pos, char *buf)

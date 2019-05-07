@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 16:10:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 11:03:42 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,8 @@
 # include <term.h>
 # include <stdlib.h>
 # include <curses.h>
+
+# include <dirent.h>
 
 /*
 ** Signal define
@@ -55,6 +57,7 @@ typedef struct		s_pos
 	int				debug3;
 	int				debug4;
 	int				debug5;
+	char			*debugchar;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
@@ -78,6 +81,14 @@ typedef struct		s_hist
 	char			*cmd;
 	int				cmd_no;
 }					t_hist;
+
+typedef struct		s_htab
+{
+	struct s_htab	*next;
+	struct s_htab	*prev;
+	char			*content;
+	int				content_no;
+}					t_htab;
 
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
@@ -127,7 +138,7 @@ t_hist				*create_history(t_pos *pos, t_hist *hist);
 
 void				init_terminfo(t_pos *pos);
 void				init_pos(t_pos *pos, char *buf);
-void			*stock(t_pos *pos, int usage);
+void			*stock(void *to_stock, int usage);
 
 /*
 ** INPUT_IS_ENTRY
@@ -202,7 +213,7 @@ void				update_position(t_pos *pos);
 */
 
 void	display_line(t_pos		*pos);
-int		is_select(char *buf);
+int		is_select(char *buf, t_pos *pos);
 void	selected(t_pos *pos, char *buf);
 void	selection_check(t_pos *pos, char *buf);
 

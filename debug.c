@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 09:27:30 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 16:09:28 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 11:03:34 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,8 +46,8 @@ void	print_info(t_pos *pos)
 	{
 		clear_info(21);
 		
-//		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
-//		ft_printf("{S.white.T.grey.}pos->ans  = %-80.80s/{eoc}\n", pos->ans);
+		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
+		ft_printf("{S.white.T.grey.}search  = %-40.40s/{eoc}\n", pos->debugchar);
 
 		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 0), 1, ft_putchar);
 		printf("act_co    = %03d/\n", pos->act_co);

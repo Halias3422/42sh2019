@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/25 12:30:24 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/25 12:35:34 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 11:23:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,15 +20,9 @@ char		*ft_strndup(char *s1, int n)
 
 	i = ft_strlen(s1);
 	if (n < i)
-	{
-		if (!(tab = (char *)malloc(sizeof(char) * n + 1)))
-			return (NULL);
-	}
-	else
-	{
-		if (!(tab = (char *)malloc(sizeof(char) * i + 1)))
-			return (NULL);
-	}
+		i = n;
+	if (!(tab = (char *)malloc(sizeof(char) * i + 1)))
+		return (NULL);
 	i = 0;
 	while (s1[i] != '\0' && i < n)
 	{
