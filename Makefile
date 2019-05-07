@@ -6,7 +6,7 @@
 #    By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/11 11:27:41 by rlegendr     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/06 09:46:43 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/06 14:26:51 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -29,6 +29,9 @@ SRC = start_termcaps.c \
 	  signal.c \
 	  initialisation_stock.c \
 	  check_error.c \
+	  tab_key.c \
+	  copy.c \
+	  jump.c \
 	  main_termcaps.c
 
 OBJ = $(SRC:.c=.o)
@@ -37,7 +40,7 @@ OBJ_DIR = srcs_ls/
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra -g3# -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 LIBFT = ./libft/
 

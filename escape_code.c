@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 09:29:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 14:36:33 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,6 +53,8 @@ void		left_arrow(t_pos *pos)
 
 t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 {
+	if ((buf && buf[1] == 27) || ft_strncmp(buf + 1, "[F", 2) == 0 || ft_strncmp(buf + 1, "[H", 2) == 0)
+		find_jump(buf, pos);
 	if (ft_strncmp(buf + 1, "[A", 2) == 0)
 		hist = move_through_history(hist, pos, "up");
 	else if (ft_strncmp(buf + 1, "[B", 2) == 0)

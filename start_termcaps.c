@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 09:46:21 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 16:13:37 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,12 +18,10 @@ void		print_prompt(t_pos *pos)
 	ft_printf("{B.T.white.}%s{eoc}", pos->prompt);
 }
 
-static int	start_termcaps(t_hist *hist, t_pos *pos, char *buf, char *prompt)
+static int	start_termcaps(t_pos *pos, char *buf, char *prompt)
 {
 	int		ret;
 
-	while (hist->next)
-		hist = hist->next;
 	if (pos->prompt == NULL)
 		pos->prompt = ft_strdup(prompt);
 	init_terminfo(pos);
@@ -43,16 +41,21 @@ char		*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist)
 	int			ret;
 	char		buf[9];
 
-	start_termcaps(hist, pos, buf, prompt);
+	while (hist->next)
+		hist = hist->next;
+	start_termcaps(pos, buf, prompt);
 	print_prompt(pos);
 	signal_list();
+
+	print_info(pos);
 	while (1)
 	{
 		ret = read(0, buf, 1);
 		if (buf[0] == 27)
-			ret = read(0, buf + 1, 6);
+			ret = read(0, buf + 1, 8);
 		if (pos->max_co > 2)
 			hist = check_input(buf, pos, hist);
+	print_info(pos);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{
 			tputs(tgoto(tgetstr("cm", NULL),

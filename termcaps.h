@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 09:58:38 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 16:10:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,6 +49,7 @@ typedef struct		s_pos
 	int				history_loop;
 	char			*prompt;
 	int				len_prompt;
+	int				start_select;
 	int				debug;
 	int				debug2;
 	int				debug3;
@@ -78,6 +79,9 @@ typedef struct		s_hist
 	int				cmd_no;
 }					t_hist;
 
+void	print_info(t_pos *pos);
+void	print_hist(t_pos *pos, t_hist *hist);
+
 /*
 ** CALCUL_LINE
 */
@@ -86,6 +90,7 @@ int					get_len_with_lines(t_pos *pos);
 int					go_to_let_nb_saved(t_pos *pos);
 int					len_of_previous_line(t_pos *pos);
 int					count_nb_line(t_pos *pos, int *j);
+int					go_to_let_nb(t_pos *pos);
 
 /*
 ** CHECK_ERROR
@@ -172,6 +177,19 @@ t_hist				*search_down_complete_in_history(t_hist *hist, t_pos *pos);
 void				signal_list(void);
 
 /*
+** START_TERMCAPS
+*/
+
+char				*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist);
+void				print_prompt(t_pos *pos);
+
+/*
+** TAB_KEY
+*/
+
+void				input_is_tab(t_pos *pos);
+
+/*
 ** TOOLS
 */
 
@@ -180,10 +198,25 @@ void				short_update(t_pos *pos, int len);
 void				update_position(t_pos *pos);
 
 /*
-** START_TERMCAPS
+** COPY a mettre a la norme
 */
 
-char				*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist);
-void				print_prompt(t_pos *pos);
+void	display_line(t_pos		*pos);
+int		is_select(char *buf);
+void	selected(t_pos *pos, char *buf);
+void	selection_check(t_pos *pos, char *buf);
+
+/*
+** JUMP a mettre a la norme
+*/
+
+void	jump_left(t_pos *pos);
+void	jump_right(t_pos *pos);
+void	go_hard(t_pos *pos);
+void	or_go_home(t_pos *pos);
+int		nb_line(t_pos *pos);
+void	jump_up(t_pos *pos);
+void	jump_down(t_pos *pos);
+void	find_jump(char *buf, t_pos *pos);
 
 #endif
