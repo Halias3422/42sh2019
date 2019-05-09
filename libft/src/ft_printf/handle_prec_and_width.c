@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/21 11:35:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/31 11:42:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 15:16:03 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,14 +21,14 @@ char			*add_prec_to_pointer(t_data data, char *arg)
 
 	i = 0;
 	j = 0;
-	if (ft_strlen(arg) > (size_t)data.prec)
+	if (ft_strlen(arg) > data.prec)
 		return (arg);
 	new_arg = ft_strnew(data.prec + 2);
 	while (i <= 1)
 	{
 		new_arg[i++] = arg[j++];
 	}
-	while ((i - 3 + ft_strlen(arg)) <= (size_t)data.prec)
+	while ((i - 3 + ft_strlen(arg)) <= data.prec)
 		new_arg[i++] = '0';
 	while (arg[j])
 		new_arg[i++] = arg[j++];
@@ -43,7 +43,7 @@ char			*add_prec_to_string(t_data data, char *arg)
 	char		*new_arg;
 
 	i = -1;
-	if (ft_strlen(arg) > (size_t)data.prec)
+	if (ft_strlen(arg) > data.prec)
 	{
 		new_arg = ft_strnew(data.prec);
 		while (++i < data.prec)
@@ -69,11 +69,11 @@ char			*handle_width(t_data data, char *arg)
 	{
 		if (data.prec_dot == 1 && data.prec == 0 &&
 				(is_contained_in("0", data.flag, 0) == 1))
-			while (ft_strlen(arg) < (size_t)data.width)
+			while (ft_strlen(arg) < data.width)
 				arg = add_char_begin_string(arg, "0");
 		else
 		{
-			while (ft_strlen(arg) < (size_t)data.width)
+			while (ft_strlen(arg) < data.width)
 				arg = add_char_begin_string(arg, " ");
 		}
 	}
@@ -85,7 +85,7 @@ char			*handle_prec(t_data data, char *arg)
 	if (data.prec_dot == 1 && (data.conv_type >= 4 && data.conv_type <= 9))
 	{
 		arg = handle_plus_minus_with_zero(data, arg);
-		while (ft_strlen(arg) < (size_t)data.prec)
+		while (ft_strlen(arg) < data.prec)
 			arg = add_char_begin_string(arg, "0");
 		if (data.minus > 0 && arg[0] != '-')
 			arg = add_char_begin_string(arg, "-");

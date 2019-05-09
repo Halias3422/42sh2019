@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/09 09:46:18 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 08:24:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 15:13:38 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,7 @@ int			determ_flag_and_width(t_data *data, char *format, int i)
 
 char		*determ_data(char *format, t_data *data, va_list va, int i)
 {
-	init_data(data);
+	init_data_printf(data);
 	i = determ_flag_and_width(data, format, i);
 	while (format[i] && (format[i] == 'h' || format[i] == 'l' ||
 				format[i] == 'L'))

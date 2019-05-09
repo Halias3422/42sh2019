@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:12:35 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 10:24:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 15:19:36 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,7 @@ static void		init_classic_var(t_pos *pos)
 	pos->debug3 = 0;
 	pos->debug4 = 0;
 	pos->debug5 = 0;
+	pos->debugchar = NULL;
 }
 
 void			init_pos(t_pos *pos)

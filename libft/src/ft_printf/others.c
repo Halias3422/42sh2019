@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/09 14:56:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 08:54:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 11:38:49 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@
 ** FREE DATA ELEMS MALLOCED IN DETERM DATA
 */
 
-t_data		*init_data(t_data *data)
+t_data		*init_data_printf(t_data *data)
 {
 	data->conv = 0;
 	data->conv_type = 0;

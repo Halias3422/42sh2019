@@ -6,30 +6,12 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 09:34:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/08 13:39:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 15:04:21 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-
-
-char	*ft_strndup(char *s1, int start, int end)
-{
-	int		i;
-	char	*res;
-
-	i = 0;
-	res = malloc(sizeof(char) * (end - start + 1));
-	while (s1[start] && start <= end)
-	{
-		res[i] = s1[start];
-		i++;
-		start++;
-	}
-	res[i] = '\0';
-	return (res);
-}
 
 char	*remove_cut(char *str, int start, int end)
 {
@@ -61,9 +43,9 @@ void    save_char(t_pos *pos)
 
     save = NULL;
     if (pos->start_select < pos->let_nb)
-        save = ft_strndup(pos->ans, pos->start_select, pos->let_nb);
+        save = ft_strndup(pos->ans + pos->start_select, pos->let_nb - pos->start_select);
     else
-        save = ft_strndup(pos->ans, pos->let_nb, pos->start_select);
+        save = ft_strndup(pos->ans + pos->let_nb, pos->start_select - pos->let_nb);
     stock(save, 3);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dcoat <marvin@le-101.fr>                   +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 19:51:31 by dcoat        #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/28 09:43:22 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 11:39:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,10 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include "libft.h"
+# include "ft_str.h"
+# include "ft_unix.h"
+# include "ft_mem.h"
+# include "ft_int.h"
 
 /*
 ** STRUCTURE CONTAINING ALL THE POSSIBLE ARGUMENTS OF PRINTF
@@ -216,7 +219,7 @@ int							check_color_code(t_data *d, t_color *col, int i,
 **		OTHERS.C 1 && 2
 */
 
-t_data						*init_data(t_data *data);
+t_data						*init_data_printf(t_data *data);
 long						*init_tab_arg_nb(t_data data);
 char						*free_strjoin(char *str1, char *str2);
 int							check_non_valid_conv(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 11:13:53 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/31 12:05:21 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 15:14:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ void		fill_num(t_float *flt, t_data *data)
 		flt->nb_int = (long long)flt->nb_float;
 		flt->nb_float = flt->nb_float - flt->nb_int;
 		flt->nb_float = flt->nb_float * 10;
-		if (ft_strlen(flt->num) == flt->left_length)
+		if ((size_t)ft_strlen(flt->num) == flt->left_length)
 			flt->num = free_strjoin(flt->num, ".");
 		tmp2 = ft_itoa(flt->nb_int);
 		flt->num = free_strjoin(flt->num, tmp2);
@@ -91,7 +91,7 @@ char		*handle_float(long double nb, t_data *data)
 		flt.nb_float = -nb;
 	else
 		flt.nb_float = nb;
-	while (ft_strlen(flt.num) <= (flt.prec + flt.left_length + 1) &&
+	while ((size_t)ft_strlen(flt.num) <= (flt.prec + flt.left_length + 1) &&
 			ft_strcmp(flt.num, "inf") != 0 && ft_strcmp(flt.num, "nan") != 0)
 		fill_num(&flt, data);
 	if (ft_strcmp(flt.num, "inf") != 0 && ft_strcmp(flt.num, "nan") != 0)
