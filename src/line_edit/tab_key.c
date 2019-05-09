@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 10:24:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 16:02:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/09 16:07:19 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,6 +104,7 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char *path, char *n
 
 	(void)pos;
 	(void)read;
+	(void)name;
 	pwd = malloc(1000);
 	ft_bzero(pwd, 999);
 	if ((dirp = opendir(path)) != NULL)
