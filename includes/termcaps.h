@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   termcaps.h                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/03/28 09:15:13 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 15:05:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/09 10:24:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,8 +14,12 @@
 #ifndef TERMCAPS_H
 # define TERMCAPS_H
 
-# include "libft/includes/ft_printf.h"
-# include "libft/includes/libft.h"
+// # include "ft_printf.h"
+# include "../libft/includes/ft_str.h"
+# include "../libft/includes/ft_int.h"
+# include "../libft/includes/ft_unix.h"
+# include "exec.h"
+# include "check_error.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <term.h>
@@ -23,10 +27,44 @@
 # include <curses.h>
 
 /*
-** Signal define
+** color **
 */
+# define RESET "\033[00m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define BRED "\033[1;31m"
+# define BGREEN "\033[1;32m"
+# define BYELLOW "\033[1;33m"
+# define BBLUE "\033[1;34m"
+# define BPURPLE "\033[1;35m"
+# define BCYAN "\033[1;36m"
 
-# define RESIZING 28
+/*
+** key **
+*/
+# define UP     4283163
+# define DOWN   4348699
+# define LEFT   4479771
+# define RIGHT  4414235
+# define TAB    9
+# define DEL    2117294875
+# define BACK   127
+# define ENTER  10
+# define ESCAPE 27
+# define CTRLUP	2117425947
+# define CTRLDOWN	2117491483
+# define HOME	4741915
+# define END	4610843
+# define ALT_L    25115
+# define ALT_R    26139
+
+# define HIST		".42_history"
+# define RESIZING	28
+# define CTRL_C		2
 
 typedef struct		s_pos
 {
@@ -50,11 +88,12 @@ typedef struct		s_pos
 	char			*prompt;
 	int				len_prompt;
 	int				start_select;
-	int				debug;
+	char			debug;
 	int				debug2;
 	int				debug3;
 	int				debug4;
 	int				debug5;
+	char			*toto;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
@@ -71,13 +110,34 @@ typedef struct		s_inter
 	int				db_pipe;
 }					t_inter;
 
-typedef struct		s_hist
+typedef struct			s_command
 {
-	struct s_hist	*next;
-	struct s_hist	*prev;
-	char			*cmd;
-	int				cmd_no;
-}					t_hist;
+	char				*res;
+	struct s_command	*next;
+	struct s_command	*prev;
+}						t_command;
+
+typedef struct			s_select
+{
+	struct termios		my_term;
+	struct termios		old_term;
+}						t_select;
+
+typedef struct			s_var
+{
+	char				*name;
+	char				*data;
+	int					type;
+	struct s_var		*next;
+}						t_var;
+
+typedef struct			s_hist
+{
+	struct s_hist		*next;
+	struct s_hist		*prev;
+	char				*cmd;
+	int					cmd_no;
+}						t_hist;
 
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
@@ -102,7 +162,7 @@ int					check_term(void);
 ** CHECK_INPUT.C
 */
 
-t_hist				*check_input(char *buf, t_pos *pos, t_hist *hist);
+t_hist				*check_input(unsigned char *buf, t_pos *pos, t_hist *hist);
 
 /*
 ** ESCAPE_CODE
@@ -126,8 +186,8 @@ t_hist				*create_history(t_pos *pos, t_hist *hist);
 */
 
 void				init_terminfo(t_pos *pos);
-void				init_pos(t_pos *pos, char *buf);
-void			*stock(t_pos *pos, int usage);
+void				init_pos(t_pos *pos);
+void				*stock(void *to_stock, int usage);
 
 /*
 ** INPUT_IS_ENTRY
@@ -218,5 +278,64 @@ int		nb_line(t_pos *pos);
 void	jump_up(t_pos *pos);
 void	jump_down(t_pos *pos);
 void	find_jump(char *buf, t_pos *pos);
+
+/*
+*******************************************************************************
+***							init_term.c										***
+*******************************************************************************
+*/
+int						get_term(void);
+int						check_term(void);
+
+/*
+*******************************************************************************
+***							key_hook.c										***
+*******************************************************************************
+*/
+int						ft_put_c(int c);
+
+/*
+*******************************************************************************
+***								env.c										***
+*******************************************************************************
+*/
+t_var					*init_env(char **env);
+char					*init_name(char *src);
+
+/*
+*******************************************************************************
+***								windows.c									***
+*******************************************************************************
+*/
+
+/*
+*******************************************************************************
+***								ft_error.c									***
+*******************************************************************************
+*/
+void					ft_error_quit(int nb);
+void					ft_error(int nb);
+
+/*
+*******************************************************************************
+***								history.c									***
+*******************************************************************************
+*/
+int						ft_create_file(char *path);
+int						ft_execute(char *exec, char **opt, char **env);
+int						ft_file_exists(char *path);
+int						ft_file_wrights(char *path);
+
+char					*remove_char(char **str, int i);
+
+/*
+*******************************************************************************
+***								ft_error.c									***
+*******************************************************************************
+*/
+//void					free_all(t_all *all);
+void					free_env(t_var *var);
+
+# include "lexeur.h"
 
 #endif

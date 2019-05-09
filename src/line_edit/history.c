@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   history.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 09:30:24 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/07 08:21:13 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,9 +23,9 @@ void		free_t_hist(t_hist *hist)
 	{
 		tmp = hist;
 		if (hist->cmd)
-			hist->cmd = ft_secure_free(hist->cmd);
+			ft_strdel(&hist->cmd);
 		hist = hist->prev;
-		tmp = ft_secure_free(tmp);
+		free(tmp);
 	}
 }
 
