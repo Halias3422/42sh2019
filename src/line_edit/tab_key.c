@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/06 10:24:34 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 16:06:36 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/10 14:09:09 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,8 +67,6 @@ char        *get_full_path(t_pos *pos, char *search)
 	len = i;
 	while (pos->ans[len] && pos->ans[len] != ' ')
 		len += 1;
-	pos->debug2 = i;
-	pos->debug3 = len;
 	search = ft_strndup(pos->ans + i, len - i);
 	return (search);
 }
@@ -96,7 +94,56 @@ t_htab        *looking_for_all(t_pos *pos, t_htab *htab)
 	return (htab);
 }
 
-t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char *path, char *name)
+void		init_t_htab(t_htab *htab)
+{
+	htab->content = NULL;
+	htab->content_no = 0;
+	htab->content_type = -1;
+	htab->lenght_max = 0;
+	htab->next = NULL;
+	htab->prev = NULL;
+}
+
+t_htab		*add_list_back_htab(t_htab *htab)
+{
+	t_htab    *new;
+
+	new = NULL;
+	if (!(new = (t_htab*)malloc(sizeof(t_htab))))
+		return (NULL);
+	if (htab == NULL)
+	{
+		init_t_htab(new);
+		return (new);
+	}
+	else
+	{
+		while (htab->next != NULL)
+			htab = htab->next;
+		init_t_htab(new);
+		new->prev = htab;
+		htab->next = new;
+		return (new);
+	}
+	free(new);
+	return (NULL);
+}
+
+void		add_slash_on_ans(t_pos *pos)
+{
+	int		i;
+
+	i = ft_strlen(pos->ans) - 1;
+	pos->debug = i;
+	if (i == -1)
+		return ;
+	if (pos->ans[i] == '/')
+		return ;
+	pos->debug5 += 1;
+	input_is_printable_char(pos, "/");
+}
+
+t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char **name)
 {
 	DIR				*dirp;
 	struct dirent	*read;
@@ -107,17 +154,44 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char *path, char *n
 	(void)name;
 	pwd = malloc(1000);
 	ft_bzero(pwd, 999);
-	if ((dirp = opendir(path)) != NULL)
+	pos->debugchar2 = *name;
+	pos->debugchar = *path;
+//	ft_printf("\n name = -%s-\n path = -%s-\n", *name, *path);
+//	exit(0);
+	if ((dirp = opendir(*path)) != NULL)
 	{
-		free(pwd);
-		ft_strcpy(pwd, path);
+		ft_strcpy(pwd, *path);
+		add_slash_on_ans(pos);
+	//	*name = ft_strjoinf(*path, *name, 2);
+		*path = ft_secure_free(*path);
 	}
 	else
 	{
+		*path = ft_strjoinf(*path, *name, 1);
 		pwd = getcwd(pwd, 1000);
 		dirp = opendir(pwd);
 	}
-	
+	while ((read = readdir(dirp)) != NULL)
+	{
+			htab = add_list_back_htab(htab);
+			htab->content = ft_strdup(read->d_name);
+			htab->content_no = htab->prev == NULL ? 0 : htab->prev->content_no + 1;
+			if (htab->prev == NULL)
+				htab->lenght_max = ft_strlen(htab->content);
+			else
+				htab->lenght_max = htab->prev->lenght_max < ft_strlen(htab->content) ? ft_strlen(htab->content) : htab->prev->lenght_max;
+			htab->content_type = (int)read->d_type;
+	}
+	closedir(dirp);
+	free(pwd);
+	while (htab)
+	{
+		htab->lenght_max = htab->next == NULL ? htab->lenght_max : htab->next->lenght_max;
+	//	ft_printf("\n--> content = %s // num = %d // type = %d // lenghtmax = %d", htab->content, htab->content_no, htab->content_type, htab->lenght_max);
+		if (htab->prev == NULL)
+			break ;
+		htab = htab->prev;
+	}
 	return (htab);
 }
 
@@ -127,46 +201,77 @@ t_htab        *looking_for_var(t_pos *pos, t_htab *htab)
 	return (htab);
 }
 
-void        print_htab(t_pos *pos, t_htab *htab)
+// content_type --> fichier/exe 4, dossier 8
+
+void	complete_with_space(t_htab *htab, t_pos *pos)
 {
+	int		i;
+
 	(void)pos;
-	while (htab && htab->prev)
-		htab = htab->prev;
-	while (htab && htab->next)
-	{
-		ft_putstr(htab->content);
-		htab = htab->next;
-	}
+	i = ft_strlen(htab->content);
+	while (i++ < htab->lenght_max)
+		write(1, " ", 1);
 }
 
-void        input_is_tab(t_pos *pos)
+void	print_htab(t_pos *pos, t_htab *htab)
 {
-	int        usage;
-	t_htab    *htab;
-	char    *path;
+	t_htab	*tmp;
+	int		i;
+	int		max_word;
+
+	tmp = htab;
+	i = 0;
+	max_word = pos->max_co / (htab->lenght_max + 4);
+	pos->debug4 = max_word;
+	write(1, "\n", 1);
+	while (tmp->prev)
+		tmp = tmp->prev;
+	while (tmp)
+	{
+		if (tmp->content_type == 4)
+			ft_printf("{B.T.cyan.}%s{eoc}    ", tmp == NULL ? NULL : tmp->content);
+		else
+			ft_printf("{B.}%s{eoc}    ", tmp == NULL ? NULL : tmp->content);
+		complete_with_space(tmp, pos);
+		if ((tmp->content_no + 1) % max_word == 0)
+			write(1, "\n", 1);
+		i++;
+		tmp = tmp->next;
+	}
+	write(1, "\n", 1);
+	print_prompt(pos);
+	get_cursor_info(pos, &pos->act_li, &pos->act_co);
+	pos->start_li = pos->act_li;
+	pos->act_co = pos->len_prompt + ft_strlen(pos->ans);
+	write(1, pos->ans, ft_strlen(pos->ans));
+	pos->navigation = 2;
+	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+}
+
+void		input_is_tab(t_pos *pos)
+{
+	int		usage;
+	char	*path;
 	char	*name;
+	t_htab	*htab;
 
 	htab = NULL;
 	path = NULL;
 	name = NULL;
 	usage = scan_pos_ans(pos);
 	pos->ans_printed = 1;
-	pos->debug = usage;
 	if (usage == -1)
 		return ;
 	path = get_full_path(pos, path);
-	name = get_correct_path(path);
-	ft_printf("\npath = -%s- et name = -%s-\n", path, name);
-	exit (0);
-	pos->debugchar = path;
+//	name = get_correct_path(path);
 	if (usage == 0)
 		htab = looking_for_all(pos, htab);
 	if (usage == 1)
-		htab = looking_for_current(pos, htab, path, name);
+		htab = looking_for_current(pos, htab, &path, &name);
 	if (usage == 2)
 		htab = looking_for_var(pos, htab);
-	if (htab)
+	if (htab && (path == NULL || (path && path[0] == '\0')))
 		print_htab(pos, htab);
 	//    free(search);
-	return ;
+	print_info(pos);
 }

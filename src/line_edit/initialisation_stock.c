@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   initialisation_stock.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/06 08:12:35 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 15:19:36 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/10 13:07:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,34 +24,41 @@ void			init_terminfo(t_pos *pos)
 	tcsetattr(0, TCSADRAIN, &(pos->my_term));
 }
 
-static void		get_start_info(char *buf, t_pos *pos)
+void			get_cursor_info(t_pos *pos, int *li, int *co)
 {
 	int			i;
+	char		*buf;
 
+	buf = malloc(10);
+	ft_bzero(buf, 9);
 	i = 0;
+	write(1, "\033[6n", 4);
+	read(1, buf, 8);
+	buf = buf + 1;
 	while (buf[i] && buf[i] != '[')
 		i++;
 	if (buf[i] == '\0')
-		pos->start_li = -1;
+		*li = -1;
 	else
 	{
-		pos->start_li = ft_atoi(buf + i + 1) - 1 +
+		*li = ft_atoi(buf + i + 1) - 1 +
 			ft_strlen(pos->prompt) / pos->max_co;
-		if (pos->start_li > pos->max_li)
-			pos->start_li = pos->max_li;
+		if (*li > pos->max_li)
+			*li = pos->max_li;
 	}
 	i = 0;
 	while (buf[i] && buf[i] != ';')
 		i++;
 	if (buf[i] == '\0')
-		pos->start_co = -1;
+		*co = -1;
 	else
-		pos->start_co = ft_atoi(buf + i + 1) - 1 + pos->len_prompt;
+		*co = ft_atoi(buf + i + 1) - 1 + pos->len_prompt;
+	free(buf - 1);
 }
 
 void			*stock(void *to_stock, int usage)
 {
-	static t_pos	*stock_pos;
+	static t_pos	*stock_pos = NULL;
 	static char		*copy;
 
 	if (usage == 0)
@@ -74,19 +81,18 @@ static void		init_classic_var(t_pos *pos)
 	pos->history_loop = 0;
 	pos->was_incomplete = 0;
 	pos->start_select = -1;
+	pos->navigation = 0;
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;
 	pos->debug4 = 0;
 	pos->debug5 = 0;
 	pos->debugchar = NULL;
+	pos->debugchar2 = NULL;
 }
 
 void			init_pos(t_pos *pos)
 {
-	char		buf[10];
-
-	ft_bzero(buf, 9);
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
 	if (ft_strlen(pos->prompt) == 2)
@@ -97,9 +103,8 @@ void			init_pos(t_pos *pos)
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	init_classic_var(pos);
-	write(1, "\033[6n", 4);
-	read(1, buf, 8);
-	get_start_info(buf + 1, pos);
+
+	get_cursor_info(pos, &pos->start_li, &pos->start_co);
 	if (pos->start_li == -1 || pos->start_co == -1)
 	{
 		pos->start_li = 0;

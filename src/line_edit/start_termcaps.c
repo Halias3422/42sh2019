@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 10:24:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/10 12:42:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,6 +16,7 @@
 void		print_prompt(t_pos *pos)
 {
 	ft_putcolor(BYELLOW, pos->prompt, RESET);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 }
 
 static int	start_termcaps(t_pos *pos, char *buf, char *prompt)
@@ -46,6 +47,7 @@ char		*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist)
 	start_termcaps(pos, (char*)buf, prompt);
 	print_prompt(pos);
 	signal_list();
+	print_info(pos);
 	while (1)
 	{
 		ret = read(0, buf, 1);

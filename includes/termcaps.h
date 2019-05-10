@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 15:16:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/10 13:07:36 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,24 +90,28 @@ typedef struct		s_pos
 	char			*prompt;
 	int				len_prompt;
 	int				start_select;
+	int				navigation;
 	char			debug;
 	int				debug2;
 	int				debug3;
 	int				debug4;
 	int				debug5;
     char            *debugchar;
+	char			*debugchar2;
 	char			*toto;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
 
-typedef struct        s_htab
+typedef struct		s_htab
 {
-    struct s_htab    *next;
-    struct s_htab    *prev;
-    char            *content;
-    int                content_no;
-}                    t_htab;
+    struct s_htab	*next;
+    struct s_htab	*prev;
+    char			*content;
+	int				content_type;
+    int				content_no;
+	int				lenght_max;
+}					t_htab;
 
 typedef struct		s_inter
 {
@@ -197,6 +201,7 @@ t_hist				*create_history(t_pos *pos, t_hist *hist);
 ** INITIALISATION_STOCK
 */
 
+void				get_cursor_info(t_pos *pos, int *li, int *co);
 void				init_terminfo(t_pos *pos);
 void				init_pos(t_pos *pos);
 void				*stock(void *to_stock, int usage);
@@ -256,7 +261,7 @@ char				*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist);
 void				print_prompt(t_pos *pos);
 
 /*
-** TAB_KEY
+** TAB_KEY a mettre a la norme // fichier non termine
 */
 
 void				input_is_tab(t_pos *pos);
