@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/10 12:42:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/10 14:50:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,13 +37,13 @@ t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 		hist = escape_code((char*)buf, pos, hist);
 	else
 	{
-		if (buf[0] == 9)
+		if (buf[0] == 9 && pos->is_complete == 1)
 			input_is_tab(pos);
 		else if (buf[0] == 127)
 			pos->ans_printed = input_is_backspace(pos);
 		else if (buf[0] == 10)
 			hist = input_is_entry(pos, hist, (char*)buf);
-		else if (buf[0] != 127 && buf[0] != 10)
+		else if (buf[0] != 127 && buf[0] != 10 && buf[0] != 9)
 			input_is_printable_char(pos, (char*)buf);
 		update_history(pos, hist, (char*)buf);
 	}

@@ -6,12 +6,71 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/10 14:09:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/10 16:22:55 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
+
+t_htab        *looking_for_var(t_pos *pos, t_htab *htab)
+{
+	(void)pos;
+	return (htab);
+}
+
+// content_type --> fichier/exe 4, dossier 8
+
+void	complete_with_space(t_htab *htab, t_pos *pos)
+{
+	int		i;
+
+	(void)pos;
+	i = ft_strlen(htab->content);
+	while (i++ < htab->lenght_max)
+		write(1, " ", 1);
+}
+
+t_htab        *looking_for_all(t_pos *pos, t_htab *htab)
+{
+	(void)pos;
+	return (htab);
+}
+
+void		init_t_htab(t_htab *htab)
+{
+	htab->content = NULL;
+	htab->content_no = 0;
+	htab->content_type = -1;
+	htab->lenght_max = 0;
+	htab->next = NULL;
+	htab->prev = NULL;
+}
+
+t_htab		*add_list_back_htab(t_htab *htab)
+{
+	t_htab    *new;
+
+	new = NULL;
+	if (!(new = (t_htab*)malloc(sizeof(t_htab))))
+		return (NULL);
+	if (htab == NULL)
+	{
+		init_t_htab(new);
+		return (new);
+	}
+	else
+	{
+		while (htab->next != NULL)
+			htab = htab->next;
+		init_t_htab(new);
+		new->prev = htab;
+		htab->next = new;
+		return (new);
+	}
+	free(new);
+	return (NULL);
+}
 
 int        scan_pos_ans(t_pos *pos)
 {
@@ -73,10 +132,17 @@ char        *get_full_path(t_pos *pos, char *search)
 
 char		*get_correct_path(char *path)
 {
+
 	int		i;
 	char	*name;
+	DIR		*test;
 
 	name = NULL;
+	if ((test = opendir(path)) != NULL)
+	{
+		closedir(test);
+		return (name);
+	}
 	i = ft_strlen(path) - 1;
 	if (i == -1)
 		return (NULL);
@@ -87,46 +153,6 @@ char		*get_correct_path(char *path)
 	name = ft_strdup(path + i + 1);
 	path[i + 1] = '\0';
 	return (name);
-}
-t_htab        *looking_for_all(t_pos *pos, t_htab *htab)
-{
-	(void)pos;
-	return (htab);
-}
-
-void		init_t_htab(t_htab *htab)
-{
-	htab->content = NULL;
-	htab->content_no = 0;
-	htab->content_type = -1;
-	htab->lenght_max = 0;
-	htab->next = NULL;
-	htab->prev = NULL;
-}
-
-t_htab		*add_list_back_htab(t_htab *htab)
-{
-	t_htab    *new;
-
-	new = NULL;
-	if (!(new = (t_htab*)malloc(sizeof(t_htab))))
-		return (NULL);
-	if (htab == NULL)
-	{
-		init_t_htab(new);
-		return (new);
-	}
-	else
-	{
-		while (htab->next != NULL)
-			htab = htab->next;
-		init_t_htab(new);
-		new->prev = htab;
-		htab->next = new;
-		return (new);
-	}
-	free(new);
-	return (NULL);
 }
 
 void		add_slash_on_ans(t_pos *pos)
@@ -154,20 +180,25 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char *
 	(void)name;
 	pwd = malloc(1000);
 	ft_bzero(pwd, 999);
-	pos->debugchar2 = *name;
-	pos->debugchar = *path;
 //	ft_printf("\n name = -%s-\n path = -%s-\n", *name, *path);
 //	exit(0);
+	pos->debugchar = ft_strdup(*path);
+	pos->debugchar2 = ft_strdup(*name);
 	if ((dirp = opendir(*path)) != NULL)
 	{
+		pos->debug2 += 1;
 		ft_strcpy(pwd, *path);
-		add_slash_on_ans(pos);
+		if (*name == NULL)
+		{
+			pos->debug5 += 1;
+			add_slash_on_ans(pos);
+		}
 	//	*name = ft_strjoinf(*path, *name, 2);
-		*path = ft_secure_free(*path);
+	//	*path = ft_secure_free(*path);
 	}
 	else
 	{
-		*path = ft_strjoinf(*path, *name, 1);
+//		*path = ft_strjoinf(*path, *name, 1);
 		pwd = getcwd(pwd, 1000);
 		dirp = opendir(pwd);
 	}
@@ -195,24 +226,6 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char *
 	return (htab);
 }
 
-t_htab        *looking_for_var(t_pos *pos, t_htab *htab)
-{
-	(void)pos;
-	return (htab);
-}
-
-// content_type --> fichier/exe 4, dossier 8
-
-void	complete_with_space(t_htab *htab, t_pos *pos)
-{
-	int		i;
-
-	(void)pos;
-	i = ft_strlen(htab->content);
-	while (i++ < htab->lenght_max)
-		write(1, " ", 1);
-}
-
 void	print_htab(t_pos *pos, t_htab *htab)
 {
 	t_htab	*tmp;
@@ -229,9 +242,9 @@ void	print_htab(t_pos *pos, t_htab *htab)
 	while (tmp)
 	{
 		if (tmp->content_type == 4)
-			ft_printf("{B.T.cyan.}%s{eoc}    ", tmp == NULL ? NULL : tmp->content);
+			ft_printf("{T.cyan.}%s{eoc}    ", tmp == NULL ? NULL : tmp->content);
 		else
-			ft_printf("{B.}%s{eoc}    ", tmp == NULL ? NULL : tmp->content);
+			ft_printf("%s    ", tmp == NULL ? NULL : tmp->content);
 		complete_with_space(tmp, pos);
 		if ((tmp->content_no + 1) % max_word == 0)
 			write(1, "\n", 1);
@@ -253,6 +266,7 @@ void		input_is_tab(t_pos *pos)
 	int		usage;
 	char	*path;
 	char	*name;
+
 	t_htab	*htab;
 
 	htab = NULL;
@@ -263,15 +277,16 @@ void		input_is_tab(t_pos *pos)
 	if (usage == -1)
 		return ;
 	path = get_full_path(pos, path);
-//	name = get_correct_path(path);
+	name = get_correct_path(path);
 	if (usage == 0)
 		htab = looking_for_all(pos, htab);
 	if (usage == 1)
 		htab = looking_for_current(pos, htab, &path, &name);
 	if (usage == 2)
 		htab = looking_for_var(pos, htab);
-	if (htab && (path == NULL || (path && path[0] == '\0')))
+	if (htab && name == NULL)
 		print_htab(pos, htab);
+
 	//    free(search);
 	print_info(pos);
 }
