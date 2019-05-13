@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/10 16:25:32 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/13 09:38:24 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,11 +63,11 @@ void			*stock(void *to_stock, int usage)
 
 	if (usage == 0)
 		stock_pos = to_stock;
-	if (usage == 1)
+	else if (usage == 1)
 		return (stock_pos);
-	if (usage == 3)
+	else if (usage == 3)
 		copy = to_stock;
-	if (usage == 4)
+	else if (usage == 4)
 		return (copy);
 	return (NULL);
 }

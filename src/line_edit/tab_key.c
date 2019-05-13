@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/10 16:22:55 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/13 16:23:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,7 @@ void		init_t_htab(t_htab *htab)
 	htab->content_no = 0;
 	htab->content_type = -1;
 	htab->lenght_max = 0;
+	htab->matching_index = -1;
 	htab->next = NULL;
 	htab->prev = NULL;
 }
@@ -186,19 +187,15 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char *
 	pos->debugchar2 = ft_strdup(*name);
 	if ((dirp = opendir(*path)) != NULL)
 	{
-		pos->debug2 += 1;
 		ft_strcpy(pwd, *path);
 		if (*name == NULL)
-		{
-			pos->debug5 += 1;
 			add_slash_on_ans(pos);
-		}
-	//	*name = ft_strjoinf(*path, *name, 2);
-	//	*path = ft_secure_free(*path);
 	}
 	else
 	{
-//		*path = ft_strjoinf(*path, *name, 1);
+		pos->debug3 = *path[0];
+		if (*path && *path[0] != 0)
+			*name = ft_strjoinf(*path, *name, 2);
 		pwd = getcwd(pwd, 1000);
 		dirp = opendir(pwd);
 	}
@@ -223,6 +220,7 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char *
 			break ;
 		htab = htab->prev;
 	}
+	print_info(pos);
 	return (htab);
 }
 
@@ -253,12 +251,121 @@ void	print_htab(t_pos *pos, t_htab *htab)
 	}
 	write(1, "\n", 1);
 	print_prompt(pos);
-	get_cursor_info(pos, &pos->act_li, &pos->act_co);
-	pos->start_li = pos->act_li;
-	pos->act_co = pos->len_prompt + ft_strlen(pos->ans);
 	write(1, pos->ans, ft_strlen(pos->ans));
+	get_cursor_info(pos, &pos->act_li, &pos->act_co);
+	pos->act_co -= pos->len_prompt;
+	if (pos->act_li == pos->max_li)
+		pos->start_li = pos->act_li - get_len_with_lines(pos) / pos->max_co;
+	else
+		pos->start_li = pos->act_li;
+	pos->debug4 = get_len_with_lines(pos);
+//	if (pos->act_li != pos->start_li)
+//		pos->act_co -= pos->len_prompt;
 	pos->navigation = 2;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+}
+
+void		free_htab(t_htab *htab)
+{
+	t_htab *tmp;
+
+	while (htab->prev)
+		htab = htab->prev;
+	tmp = htab;
+	while (htab)
+	{
+		htab = htab->next;
+		free(tmp->content);
+		free(tmp);
+		tmp = htab;
+	}
+}
+
+int		is_the_same_letter_unsensitive(char a, char b)
+{
+	if ((a >= 65 && a <= 90 && a + 32 == b) ||
+		(a >= 97 && a <= 122 && a - 32 == b) || a == b)
+		return (1);
+	return (0);
+}
+
+int		ft_strstr_case_unsensitive(char *str, char *tofind)
+{
+	int		j;
+	char	*s;
+
+	s = (char*)str;
+	if (tofind[0] == '\0')
+		return (0);
+	while (*s)
+	{
+		j = 0;
+		while (tofind[j] && is_the_same_letter_unsensitive(*(s + j), (tofind[j])))
+			j++;
+		if (tofind[j] == '\0')
+			return (j);
+		s++;
+	}
+	return (-1);
+}
+
+t_htab		*get_current_match(t_pos *pos, t_htab *htab, char *name)
+{
+	t_htab		*new;
+	int			match;
+
+	new = NULL;
+	(void)pos;
+	(void)name;
+	while (htab)
+	{
+		if ((match = ft_strstr_case_unsensitive(htab->content, name)) != -1)
+		{
+			new = add_list_back_htab(new);
+			new->content = ft_strdup(htab->content);
+			new->content_type = htab->content_type;
+			new->lenght_max = ft_strlen(new->content);
+			new->content_no = new->prev == NULL ? 0 : new->prev->content_no + 1;
+			new->matching_index = match;
+		}
+		if (htab->next == NULL)
+			break ;
+		htab = htab->next;
+	}
+	if (new == NULL)
+	{
+		pos->debug2 += 1;
+		return (htab);
+	}
+	pos->debug4 += 1;
+	while (new->prev)
+		new = new->prev;
+	while (new)
+	{
+	//	ft_printf("\ncontent matched = %s, content_no = %d", new->content, new->content_no);
+		if (new->next == NULL)
+			break ;
+		new = new->next;
+	}
+	return (new);
+}
+
+void		auto_complete(t_pos *pos, t_htab *htab)
+{
+	int		len;
+
+	pos->ans[ft_strlen(pos->ans) - htab->matching_index] = '\0';
+	pos->ans = ft_strjoinf(pos->ans, htab->content, 1);
+	pos->let_nb = ft_strlen(pos->ans);
+	len = get_len_with_lines(pos);
+	short_update(pos, len);
+	clean_at_start(pos);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+	tputs(tgetstr("vi", NULL), 1, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), 0, pos->start_li), 1, ft_putchar);
+	print_prompt(pos);
+	print_ans(pos, 0, pos->start_co);
+	tputs(tgetstr("ve", NULL), 1, ft_putchar);
 }
 
 void		input_is_tab(t_pos *pos)
@@ -286,7 +393,16 @@ void		input_is_tab(t_pos *pos)
 		htab = looking_for_var(pos, htab);
 	if (htab && name == NULL)
 		print_htab(pos, htab);
-
+	else if (htab)
+	{
+		htab = get_current_match(pos, htab, name);
+		pos->debug = htab->content_no;
+		if (htab->content_no == 0)
+			auto_complete(pos, htab);
+		else
+			print_htab(pos, htab);
+	}
+	pos->debugchar2 = ft_strdup(name);
 	//    free(search);
 	print_info(pos);
 }

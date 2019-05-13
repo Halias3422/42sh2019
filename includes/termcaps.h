@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/10 13:07:36 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/13 16:03:01 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -111,6 +111,7 @@ typedef struct		s_htab
 	int				content_type;
     int				content_no;
 	int				lenght_max;
+	int				matching_index;
 }					t_htab;
 
 typedef struct		s_inter
