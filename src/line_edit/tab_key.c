@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/14 11:34:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/14 15:14:20 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -167,7 +167,14 @@ void		add_slash_on_ans(t_pos *pos)
 	if (pos->ans[i] == '/')
 		return ;
 	pos->debug5 += 1;
-	input_is_printable_char(pos, "/");
+	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != ' ')
+	{
+		pos->debug3 += 1;
+		pos->let_nb += 1;
+	}
+	pos->debug = pos->let_nb;
+	if (pos->ans[pos->let_nb - 1] != '/')
+		input_is_printable_char(pos, "/");
 }
 
 int				check_simple_dot(char *path)
@@ -239,6 +246,9 @@ void	print_htab(t_pos *pos, t_htab *htab)
 	t_htab	*tmp;
 	int		i;
 	int		max_word;
+	
+	int		len;
+
 
 	tmp = htab;
 	i = 0;
@@ -262,9 +272,12 @@ void	print_htab(t_pos *pos, t_htab *htab)
 	write(1, "\n", 1);
 	print_prompt(pos);
 	write(1, pos->ans, ft_strlen(pos->ans));
-	get_cursor_info(pos, &pos->act_li, &pos->act_co);
-	pos->act_co -= pos->len_prompt;
-	pos->let_nb = ft_strlen(pos->ans);
+
+	len = go_to_let_nb(pos);
+	short_update(pos, len);
+//	get_cursor_info(pos, &pos->act_li, &pos->act_co);
+//	pos->act_co -= pos->len_prompt;
+//	pos->let_nb = ft_strlen(pos->ans);
 	pos->len_ans = ft_strlen(pos->ans) + pos->len_prompt;
 	if (pos->act_li == pos->max_li)
 		pos->start_li = pos->act_li - get_len_with_lines(pos) / pos->max_co;
@@ -309,7 +322,7 @@ int		ft_strstr_case_unsensitive(char *str, char *tofind)
 
 	i = 0;
 	s = (char*)str;
-	ft_printf("\n analyse\nstr = %s\ntofind = %s", str, tofind);
+//	ft_printf("\n analyse\nstr = %s\ntofind = %s", str, tofind);
 	if (tofind[0] == '\0')
 		return (0);
 	while (s[i])
@@ -333,7 +346,7 @@ t_htab		*get_current_match(t_pos *pos, t_htab *htab, char *name)
 	while (htab)
 	{
 		match = ft_strstr_case_unsensitive(htab->content, name);
-		ft_printf(" /// resultat analyse --> %d", match);
+//		ft_printf(" /// resultat analyse --> %d", match);
 		if (match != -1)
 		{
 			new = add_list_back_htab(new);
@@ -365,40 +378,55 @@ t_htab		*get_current_match(t_pos *pos, t_htab *htab, char *name)
 	return (new);
 }
 
-int			reduce_ans(t_pos *pos, t_htab *htab)
+int			reduce_ans(t_pos *pos, t_htab *htab, char *name, char **stock)
 {
 	int		pos_i;
 	int		search_i;
+	char	swap;
 
-	pos_i = htab->matching_index;
-	search_i = ft_strlen(htab->content) - 1;
-	ft_printf("\n depart\npos->ans = %s -- index = %d\nhtab->content = %s -- index = %d", pos->ans, pos_i, htab->content, search_i);
+	(void)name;
+//	pos_i = htab->matching_index;
+	pos_i = ft_strstr_case_unsensitive(pos->ans, name) - 1;
+	search_i = ft_strlen(name) - 1;
+	*stock = ft_strdup(pos->ans + pos_i + (pos->let_nb == ft_strlen(pos->ans) ? 1 : 2));
+//	ft_printf("\n depart\nglobal = %s -- index = %d\nrecherche = %s -- index = %d", pos->ans, pos_i, name, search_i);
 //	while (htab->content[search_i] != pos->ans[pos_i])
 //		search_i -= 1;
-	while (htab->content[search_i] == pos->ans[pos_i])
+	while (is_the_same_letter_unsensitive(htab->content[search_i], pos->ans[pos_i]) && pos->ans[pos_i] != 32 && htab->content[search_i] != 32)
 	{
-		ft_printf("\npos[%d] = %c - %c = htabcontent[%d]", pos_i, pos->ans[pos_i], htab->content[search_i], search_i);
-		pos->ans[pos_i] = pos->ans[pos_i + 1];
+//		ft_printf("\npos[%d] = -%c- - -%c- = htabcontent[%d]", pos_i, pos->ans[pos_i], htab->content[search_i], search_i);
+		swap = pos->ans[pos_i + 1];
+		pos->ans[pos_i + 1] = '\0';
+		pos->ans[pos_i] = swap;
 		pos_i -= 1;
 		search_i -= 1;
+
 	}
-	return (pos_i);
+//	if (pos->ans[pos_i] == 32)
+//		pos->ans[pos_i] = '\0';
+	return (pos_i + 1);
 }
 
-void		auto_complete(t_pos *pos, t_htab *htab)
+void		auto_complete(t_pos *pos, t_htab *htab, char *name)
 {
 	int		len;
 	int		test;
+	char	*stock;
 
-	test = reduce_ans(pos, htab);
-	ft_printf("\ntest = %d\n", test);
-	exit(0);
+	stock = NULL;
+	test = reduce_ans(pos, htab, name, &stock);
+//	ft_printf("\ntest = %d\n", test);
+//	ft_printf("\npos->ans avant collage = /%s/, stock = /%s/", pos->ans, stock);
+//	ft_printf("\nmorceau a coller = /%s/, a l'index %d", htab->content, test);
 	ft_strjoin_insert(&pos->ans, htab->content, test);
+	pos->let_nb = ft_strlen(pos->ans) - 1;
+//	ft_printf("\npos->ans apres collage = /%s/", pos->ans);
+	pos->ans = ft_strjoinf(pos->ans, stock, 3);
+//	ft_printf("\npos->ans = -%s-\n", pos->ans);
+//	exit (0);
 //	pos->ans[ft_strlen(pos->ans) - htab->matching_index] = '\0';
-	pos->ans = ft_strjoinf(pos->ans, htab->content, 1);
-	pos->let_nb = ft_strlen(pos->ans);
 	pos->len_ans = ft_strlen(pos->ans) + pos->len_prompt;
-	len = get_len_with_lines(pos);
+	len = go_to_let_nb(pos);
 	short_update(pos, len);
 	clean_at_start(pos);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
@@ -407,6 +435,7 @@ void		auto_complete(t_pos *pos, t_htab *htab)
 	print_prompt(pos);
 	print_ans(pos, 0, pos->start_co);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), pos->act_co , pos->act_li), 1, ft_putchar);
 }
 
 void		input_is_tab(t_pos *pos)
@@ -439,11 +468,12 @@ void		input_is_tab(t_pos *pos)
 		htab = get_current_match(pos, htab, name);
 		pos->debug = htab->content_no;
 		if (htab->content_no == 0)
-			auto_complete(pos, htab);
+			auto_complete(pos, htab, name);
 		else
 			print_htab(pos, htab);
 	}
 	pos->debugchar2 = ft_strdup(name);
 	//    free(search);
+	//
 	print_info(pos);
 }
