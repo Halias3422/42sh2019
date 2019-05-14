@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/10 14:50:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/14 09:14:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,10 +29,19 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 		pos->history_mode = 0;
 }
 
+void			ctrl_key(t_pos *pos, char c)
+{
+	(void)pos;
+	(void)c;
+	return ;
+}
+
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {
 	selection_check(pos, (char*)buf);
 //	if (check_copy(buf, pos) == 0)
+//	if (buf[0] >= 1 && buf[0] <= 24 && buf[1] == 0)
+//		ctrl_key(pos, buf[0]);
 	if (buf[0] == 27)
 		hist = escape_code((char*)buf, pos, hist);
 	else

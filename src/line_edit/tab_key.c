@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/13 16:23:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/14 11:34:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -170,6 +170,16 @@ void		add_slash_on_ans(t_pos *pos)
 	input_is_printable_char(pos, "/");
 }
 
+int				check_simple_dot(char *path)
+{
+	int		i;
+
+	i = ft_strlen(path) - 1;
+	if ((i == 0 && path[i] == '.') || (i > 0 && path[i] == '.' && path[i - 1] == '/'))
+		return (0);
+	return (1);
+}
+
 t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char **name)
 {
 	DIR				*dirp;
@@ -185,7 +195,7 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char *
 //	exit(0);
 	pos->debugchar = ft_strdup(*path);
 	pos->debugchar2 = ft_strdup(*name);
-	if ((dirp = opendir(*path)) != NULL)
+	if ((dirp = opendir(*path)) != NULL)// && check_simple_dot(*path))
 	{
 		ft_strcpy(pwd, *path);
 		if (*name == NULL)
@@ -254,6 +264,8 @@ void	print_htab(t_pos *pos, t_htab *htab)
 	write(1, pos->ans, ft_strlen(pos->ans));
 	get_cursor_info(pos, &pos->act_li, &pos->act_co);
 	pos->act_co -= pos->len_prompt;
+	pos->let_nb = ft_strlen(pos->ans);
+	pos->len_ans = ft_strlen(pos->ans) + pos->len_prompt;
 	if (pos->act_li == pos->max_li)
 		pos->start_li = pos->act_li - get_len_with_lines(pos) / pos->max_co;
 	else
@@ -292,19 +304,22 @@ int		is_the_same_letter_unsensitive(char a, char b)
 int		ft_strstr_case_unsensitive(char *str, char *tofind)
 {
 	int		j;
+	int		i;
 	char	*s;
 
+	i = 0;
 	s = (char*)str;
+	ft_printf("\n analyse\nstr = %s\ntofind = %s", str, tofind);
 	if (tofind[0] == '\0')
 		return (0);
-	while (*s)
+	while (s[i])
 	{
 		j = 0;
-		while (tofind[j] && is_the_same_letter_unsensitive(*(s + j), (tofind[j])))
+		while (tofind[j] && is_the_same_letter_unsensitive(s[i + j], (tofind[j])))
 			j++;
 		if (tofind[j] == '\0')
-			return (j);
-		s++;
+			return (i + j);
+		i++;
 	}
 	return (-1);
 }
@@ -315,11 +330,11 @@ t_htab		*get_current_match(t_pos *pos, t_htab *htab, char *name)
 	int			match;
 
 	new = NULL;
-	(void)pos;
-	(void)name;
 	while (htab)
 	{
-		if ((match = ft_strstr_case_unsensitive(htab->content, name)) != -1)
+		match = ft_strstr_case_unsensitive(htab->content, name);
+		ft_printf(" /// resultat analyse --> %d", match);
+		if (match != -1)
 		{
 			new = add_list_back_htab(new);
 			new->content = ft_strdup(htab->content);
@@ -350,13 +365,39 @@ t_htab		*get_current_match(t_pos *pos, t_htab *htab, char *name)
 	return (new);
 }
 
+int			reduce_ans(t_pos *pos, t_htab *htab)
+{
+	int		pos_i;
+	int		search_i;
+
+	pos_i = htab->matching_index;
+	search_i = ft_strlen(htab->content) - 1;
+	ft_printf("\n depart\npos->ans = %s -- index = %d\nhtab->content = %s -- index = %d", pos->ans, pos_i, htab->content, search_i);
+//	while (htab->content[search_i] != pos->ans[pos_i])
+//		search_i -= 1;
+	while (htab->content[search_i] == pos->ans[pos_i])
+	{
+		ft_printf("\npos[%d] = %c - %c = htabcontent[%d]", pos_i, pos->ans[pos_i], htab->content[search_i], search_i);
+		pos->ans[pos_i] = pos->ans[pos_i + 1];
+		pos_i -= 1;
+		search_i -= 1;
+	}
+	return (pos_i);
+}
+
 void		auto_complete(t_pos *pos, t_htab *htab)
 {
 	int		len;
+	int		test;
 
-	pos->ans[ft_strlen(pos->ans) - htab->matching_index] = '\0';
+	test = reduce_ans(pos, htab);
+	ft_printf("\ntest = %d\n", test);
+	exit(0);
+	ft_strjoin_insert(&pos->ans, htab->content, test);
+//	pos->ans[ft_strlen(pos->ans) - htab->matching_index] = '\0';
 	pos->ans = ft_strjoinf(pos->ans, htab->content, 1);
 	pos->let_nb = ft_strlen(pos->ans);
+	pos->len_ans = ft_strlen(pos->ans) + pos->len_prompt;
 	len = get_len_with_lines(pos);
 	short_update(pos, len);
 	clean_at_start(pos);
