@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/15 15:41:14 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/15 16:00:06 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -353,6 +353,7 @@ t_htab		*get_current_match(t_htab *htab, char *name)
 	}
 	if (new == NULL)
 		return (htab);
+	free_htab(htab);
 	return (new);
 }
 
@@ -378,13 +379,12 @@ void		reduce_ans(t_pos *pos, char *name)
 	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32)
 		right_arrow(pos);
 	search_i = ft_strlen(name) - 1;
-	while (is_the_same_letter_unsensitive(name[search_i], pos->ans[pos->let_nb - 1]) && search_i >= 0 && pos->let_nb + 1 >= 0)
+	while (search_i >= 0 && pos->let_nb + 1 >= 0 && is_the_same_letter_unsensitive(name[search_i], pos->ans[pos->let_nb - 1]))
 	{
 		input_is_backspace(pos);
 		search_i -= 1;
 	}
 }
-
 
 int		is_a_directory(char *path, t_pos *pos)
 {
@@ -402,7 +402,11 @@ int		is_a_directory(char *path, t_pos *pos)
 	to_open[word_index - i + 1] = '\0';
 	ft_strncpy(to_open, path + i, word_index - i + 1);
 	if ((dirp = opendir(to_open)) == NULL)
+	{
+		free(to_open);
 		return (0);
+	}
+	free(to_open);
 	closedir(dirp);
 	return (1);
 }
@@ -470,7 +474,6 @@ t_htab		*get_intelligent_match(t_htab *htab, char *name)
 	while (htab)
 	{
 		compare = ft_strncmp_case_unsensitive(htab->content, name, ft_strlen(name));
-		//		ft_printf("\nhtab->content = --%s--\nname = --%s--\ncompare = %d", htab->content, name, compare);
 		if (compare == 0)
 		{
 			new = add_list_back_htab(new);
@@ -485,6 +488,7 @@ t_htab		*get_intelligent_match(t_htab *htab, char *name)
 	}
 	if (new == NULL)
 		return (htab);
+	free_htab(htab);
 	return (new);
 }
 
@@ -517,24 +521,13 @@ void		input_is_tab(t_pos *pos)
 	{
 		htab = get_current_match(htab, name);
 		htab = get_intelligent_match(htab, name);
-		/*		while (htab->prev)
-				htab = htab->prev;
-				while (htab)
-				{
-				ft_printf("\nmaillon %d --> %s", htab->content_no, htab->content);
-				if (htab->next == NULL)
-				break ;
-				htab = htab->next;
-				}
-				exit(0);
-				*/		if (htab->content_no == 0)
-		auto_complete(pos, htab, name);
-				else
-					print_htab(pos, htab);
-				pos->debug += 20;
+		if (htab->content_no == 0)
+			auto_complete(pos, htab, name);
+		else
+			print_htab(pos, htab);
 	}
-//	pos->debugchar2 = ft_strdup(name);
-	//    free(search);
-	//
+	free(path);
+	free(name);
+	free_htab(htab);
 	print_info(pos);
 }
