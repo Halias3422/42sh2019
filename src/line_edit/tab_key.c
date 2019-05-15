@@ -6,14 +6,14 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/15 16:00:06 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/15 16:36:35 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-t_htab        *looking_for_var(t_pos *pos, t_htab *htab)
+t_htab			*looking_for_var(t_pos *pos, t_htab *htab)
 {
 	(void)pos;
 	return (htab);
@@ -21,22 +21,22 @@ t_htab        *looking_for_var(t_pos *pos, t_htab *htab)
 
 // content_type --> fichier/exe 4, dossier 8
 
-void	complete_with_space(t_htab *htab)
+void			complete_with_space(t_htab *htab)
 {
-	int		i;
+	int			i;
 
 	i = ft_strlen(htab->content);
 	while (i++ < htab->lenght_max)
 		write(1, " ", 1);
 }
 
-t_htab        *looking_for_all(t_pos *pos, t_htab *htab)
+t_htab			*looking_for_all(t_pos *pos, t_htab *htab)
 {
 	(void)pos;
 	return (htab);
 }
 
-void		init_t_htab(t_htab *htab)
+void			init_t_htab(t_htab *htab)
 {
 	htab->content = NULL;
 	htab->content_no = 0;
@@ -47,9 +47,9 @@ void		init_t_htab(t_htab *htab)
 	htab->prev = NULL;
 }
 
-t_htab		*add_list_back_htab(t_htab *htab)
+t_htab			*add_list_back_htab(t_htab *htab)
 {
-	t_htab    *new;
+	t_htab		*new;
 
 	new = NULL;
 	if (!(new = (t_htab*)malloc(sizeof(t_htab))))
@@ -72,10 +72,10 @@ t_htab		*add_list_back_htab(t_htab *htab)
 	return (NULL);
 }
 
-int        scan_pos_ans(t_pos *pos)
+int				scan_pos_ans(t_pos *pos)
 {
-	int        i;
-	int        word_number;
+	int			i;
+	int			word_number;
 
 	i = 0;
 	word_number = 0;
@@ -113,10 +113,10 @@ int        scan_pos_ans(t_pos *pos)
 	return (1);
 }
 
-char        *get_full_path(t_pos *pos, char *search)
+char			*get_full_path(t_pos *pos, char *search)
 {
-	int        i;
-	int        len;
+	int			i;
+	int			len;
 
 	i = pos->let_nb;
 	if (i == 0)
@@ -130,12 +130,12 @@ char        *get_full_path(t_pos *pos, char *search)
 	return (search);
 }
 
-char		*get_correct_path(char *path)
+char			*get_correct_path(char *path)
 {
 
-	int		i;
-	char	*name;
-	DIR		*test;
+	int			i;
+	char		*name;
+	DIR			*test;
 
 	name = NULL;
 	if ((test = opendir(path)) != NULL)
@@ -155,25 +155,22 @@ char		*get_correct_path(char *path)
 	return (name);
 }
 
-void		add_slash_on_ans(t_pos *pos)
+void			add_slash_on_ans(t_pos *pos)
 {
-	int		i;
+	int			i;
 
 	i = ft_strlen(pos->ans) - 1;
-	pos->debug = i;
 	if (i == -1)
 		return ;
-	pos->debug5 += 1;
 	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != ' ')
 		pos->let_nb += 1;
-	pos->debug = pos->let_nb;
 	if (pos->ans[pos->let_nb - 1] != '/')
 		input_is_printable_char(pos, "/");
 }
 
-int				check_simple_dot(char *path)
+int					check_simple_dot(char *path)
 {
-	int		i;
+	int			i;
 
 	i = ft_strlen(path) - 1;
 	if ((i == 0 && path[i] == '.') || (i > 0 && path[i] == '.' && path[i - 1] == '/'))
@@ -181,21 +178,14 @@ int				check_simple_dot(char *path)
 	return (1);
 }
 
-t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char **name)
+t_htab				*looking_for_current(t_pos *pos, t_htab *htab, char **path, char **name)
 {
 	DIR				*dirp;
 	struct dirent	*read;
 	char			*pwd;
 
-	(void)pos;
-	(void)read;
-	(void)name;
 	pwd = malloc(1000);
 	ft_bzero(pwd, 999);
-	//	ft_printf("\n name = -%s-\n path = -%s-\n", *name, *path);
-	//	exit(0);
-//	pos->debugchar = ft_strdup(*path);
-//	pos->debugchar2 = ft_strdup(*name);
 	if ((dirp = opendir(*path)) != NULL)// && check_simple_dot(*path))
 	{
 		ft_strcpy(pwd, *path);
@@ -204,7 +194,6 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char *
 	}
 	else
 	{
-		pos->debug3 = *path[0];
 		if (*path && *path[0] != 0)
 			*name = ft_strjoinf(*path, *name, 2);
 		pwd = getcwd(pwd, 1000);
@@ -223,69 +212,50 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char *
 	}
 	closedir(dirp);
 	free(pwd);
-	while (htab)
-	{
-		htab->lenght_max = htab->next == NULL ? htab->lenght_max : htab->next->lenght_max;
-		//	ft_printf("\n--> content = %s // num = %d // type = %d // lenghtmax = %d", htab->content, htab->content_no, htab->content_type, htab->lenght_max);
-		if (htab->prev == NULL)
-			break ;
+	while (htab->prev)
 		htab = htab->prev;
-	}
-	print_info(pos);
 	return (htab);
 }
 
-void	put_nl_increment_start_li(t_pos *pos)
+void			print_htab(t_htab *htab, t_pos *pos)
 {
-	write(1, "\n", 1);
-	pos->act_li = pos->act_li + (pos->act_li == pos->max_li ? 0 : 1);
-	pos->start_li = pos->start_li + (pos->start_li == pos->max_li ? 0 : 1);
-}
+	int			max_word;
 
-void	print_htab_2(t_htab *htab, t_pos *pos)
-{
-	t_htab	*tmp;
-	int		max_word;
-
-	tmp = htab;
 	max_word = pos->max_co / (htab->lenght_max + 4);
 	write(1, "\n", 1);
-	while (tmp->prev)
-		tmp = tmp->prev;
-	while (tmp)
+	while (htab->prev)
+		htab = htab->prev;
+	while (htab)
 	{
-		if (tmp->content_type == 4)
-			ft_printf("{T.cyan.}%s{eoc}    ", tmp == NULL ? NULL : tmp->content);
+		if (htab->content_type == 4)
+			ft_printf("{B.T.red.}%s{eoc}    ", htab == NULL ? NULL : htab->content);
 		else
-			ft_printf("%s    ", tmp == NULL ? NULL : tmp->content);
-		complete_with_space(tmp);
-		if ((tmp->content_no + 1) % max_word == 0)
+			ft_printf("%s    ", htab == NULL ? NULL : htab->content);
+		complete_with_space(htab);
+		if ((htab->content_no + 1) % max_word == 0)
 			write(1, "\n", 1);
-		tmp = tmp->next;
+		htab = htab->next;
 	}
 	write(1, "\n", 1);
 }
 
-void	print_htab(t_pos *pos, t_htab *htab)
+void			prepare_to_print_htab(t_pos *pos, t_htab *htab)
 {
-	int		len;
+	int			len;
 
-	print_htab_2(htab, pos);
+	print_htab(htab, pos);
 	get_cursor_info(pos, &pos->start_li, &pos->start_co);
 	print_prompt(pos);
 	write(1, pos->ans, ft_strlen(pos->ans));
-	pos->debug = pos->start_co;
 	len = go_to_let_nb(pos);
 	short_update(pos, len);
-//	pos->len_ans = ft_strlen(pos->ans) + pos->len_prompt;
-	//pos->start_li = pos->act_li - get_len_with_lines(pos) / pos->max_co;
 	pos->navigation = 2;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }
 
-void		free_htab(t_htab *htab)
+void			free_htab(t_htab *htab)
 {
-	t_htab *tmp;
+	t_htab		*tmp;
 
 	while (htab->prev)
 		htab = htab->prev;
@@ -299,7 +269,7 @@ void		free_htab(t_htab *htab)
 	}
 }
 
-int		is_the_same_letter_unsensitive(char a, char b)
+int				is_the_same_letter_unsensitive(char a, char b)
 {
 	if ((a >= 65 && a <= 90 && a + 32 == b) ||
 			(a >= 97 && a <= 122 && a - 32 == b) || a == b)
@@ -307,11 +277,11 @@ int		is_the_same_letter_unsensitive(char a, char b)
 	return (0);
 }
 
-int		ft_strstr_case_unsensitive(char *str, char *tofind)
+int				ft_strstr_case_unsensitive(char *str, char *tofind)
 {
-	int		j;
-	int		i;
-	char	*s;
+	int			j;
+	int			i;
+	char		*s;
 
 	i = 0;
 	s = str;
@@ -329,7 +299,7 @@ int		ft_strstr_case_unsensitive(char *str, char *tofind)
 	return (-1);
 }
 
-t_htab		*get_current_match(t_htab *htab, char *name)
+t_htab			*get_current_match(t_htab *htab, char *name)
 {
 	t_htab		*new;
 	int			match;
@@ -357,9 +327,9 @@ t_htab		*get_current_match(t_htab *htab, char *name)
 	return (new);
 }
 
-int			get_word_index(t_pos *pos)
+int				get_word_index(t_pos *pos)
 {
-	int		i;
+	int			i;
 
 
 	if (pos->let_nb == ft_strlen(pos->ans))
@@ -372,9 +342,9 @@ int			get_word_index(t_pos *pos)
 	return (i);
 }
 
-void		reduce_ans(t_pos *pos, char *name)
+void			reduce_ans(t_pos *pos, char *name)
 {
-	int		search_i;
+	int			search_i;
 
 	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32)
 		right_arrow(pos);
@@ -386,12 +356,12 @@ void		reduce_ans(t_pos *pos, char *name)
 	}
 }
 
-int		is_a_directory(char *path, t_pos *pos)
+int				is_a_directory(char *path, t_pos *pos)
 {
-	DIR		*dirp;
-	int		i;
-	char	*to_open;
-	int		word_index;
+	DIR			*dirp;
+	int			i;
+	char		*to_open;
+	int			word_index;
 
 
 	word_index = get_word_index(pos);
@@ -411,10 +381,10 @@ int		is_a_directory(char *path, t_pos *pos)
 	return (1);
 }
 
-void		input_is_a_string_of_printable(t_pos *pos, char *to_add)
+void			input_is_a_string_of_printable_char(t_pos *pos, char *to_add)
 {
-	int		j;
-	char	buf[2];
+	int			j;
+	char		buf[2];
 
 	j = 0;
 	buf[1] = '\0';
@@ -426,17 +396,14 @@ void		input_is_a_string_of_printable(t_pos *pos, char *to_add)
 	}
 }
 
-void		auto_complete(t_pos *pos, t_htab *htab, char *name)
+void			auto_complete(t_pos *pos, t_htab *htab, char *name)
 {
 	reduce_ans(pos, name);
-	input_is_a_string_of_printable(pos, htab->content);
+	input_is_a_string_of_printable_char(pos, htab->content);
 	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32)
 		pos->let_nb += 1;
 	if (is_a_directory(pos->ans, pos))
-	{
-		pos->debug2 += 20;
 		add_slash_on_ans(pos);
-	}
 	else if (pos->let_nb == ft_strlen(pos->ans))
 		input_is_printable_char(pos, " ");
 	else
@@ -451,7 +418,7 @@ void		auto_complete(t_pos *pos, t_htab *htab, char *name)
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co , pos->act_li), 1, ft_putchar);
 }
 
-int		ft_strncmp_case_unsensitive(char *s1, char *s2, size_t n)
+int				ft_strncmp_case_unsensitive(char *s1, char *s2, size_t n)
 {
 	size_t i;
 
@@ -459,11 +426,11 @@ int		ft_strncmp_case_unsensitive(char *s1, char *s2, size_t n)
 	while (is_the_same_letter_unsensitive(s1[i], s2[i]) && i < n && s1[i] && s2[i])
 		i++;
 	if (s1[i] != s2[i] && i < n)
-		return ((((unsigned char)s1[i])) - ((unsigned char)s2[i]));
+		return (s1[i] - s2[i]);
 	return (0);
 }
 
-t_htab		*get_intelligent_match(t_htab *htab, char *name)
+t_htab			*get_intelligent_match(t_htab *htab, char *name)
 {
 	t_htab	*new;
 	int		compare;
@@ -492,12 +459,11 @@ t_htab		*get_intelligent_match(t_htab *htab, char *name)
 	return (new);
 }
 
-void		input_is_tab(t_pos *pos)
+void			input_is_tab(t_pos *pos)
 {
 	int		usage;
 	char	*path;
 	char	*name;
-
 	t_htab	*htab;
 
 	htab = NULL;
@@ -511,12 +477,12 @@ void		input_is_tab(t_pos *pos)
 	name = get_correct_path(path);
 	if (usage == 0)
 		htab = looking_for_all(pos, htab);
-	if (usage == 1)
+	else if (usage == 1)
 		htab = looking_for_current(pos, htab, &path, &name);
-	if (usage == 2)
+	else if (usage == 2)
 		htab = looking_for_var(pos, htab);
 	if (htab && name == NULL)
-		print_htab(pos, htab);
+		prepare_to_print_htab(pos, htab);
 	else if (htab)
 	{
 		htab = get_current_match(htab, name);
@@ -524,7 +490,7 @@ void		input_is_tab(t_pos *pos)
 		if (htab->content_no == 0)
 			auto_complete(pos, htab, name);
 		else
-			print_htab(pos, htab);
+			prepare_to_print_htab(pos, htab);
 	}
 	free(path);
 	free(name);
