@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/13 09:38:24 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/15 15:45:59 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ void			get_cursor_info(t_pos *pos, int *li, int *co)
 	buf = malloc(10);
 	ft_bzero(buf, 9);
 	i = 0;
-	write(1, "\033[6n", 4);
+	write(1, "\033[6n", 5);
 	read(1, buf, 8);
 	buf = buf + 1;
 	while (buf[i] && buf[i] != '[')
