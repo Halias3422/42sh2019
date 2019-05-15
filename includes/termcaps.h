@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 15:16:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/13 09:31:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -346,6 +346,7 @@ char					*remove_char(char **str, int i);
 *******************************************************************************
 */
 //void					free_all(t_all *all);
+void					check_copy(unsigned char *buf, t_pos *pos);
 void					free_env(t_var *var);
 
 # include "lexeur.h"
