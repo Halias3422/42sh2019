@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/15 15:45:59 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 08:27:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,11 +82,13 @@ static void		init_classic_var(t_pos *pos)
 	pos->was_incomplete = 0;
 	pos->start_select = -1;
 	pos->navigation = 0;
+	pos->ctrl_hist_cmd = ft_strnew(0);
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;
 	pos->debug4 = 0;
 	pos->debug5 = 0;
+	pos->ctrl_search_history = 0;
 	pos->debugchar = NULL;
 	pos->debugchar2 = NULL;
 }

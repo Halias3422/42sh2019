@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 14:23:16 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 09:15:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 08:26:17 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -125,10 +125,10 @@ int		nb_line(t_pos *pos)
 	int line;
 
 	i = 0;
-	line = 1;
+	line = 0;
 	while (pos->ans[i])
 	{
-		if (pos->ans[i] == '\n')
+		if (pos->ans[i] == '\n' || i % pos->max_co - 1 == 0)
 			line++;
 		i++;
 	}
@@ -142,6 +142,7 @@ void	jump_up(t_pos *pos)
 	if (pos->act_li > pos->start_li && pos->is_complete == 1)
 	{
 		pos->act_li--;
+		pos->let_nb = pos->let_nb - pos->max_co;
 	}
 }
 
@@ -150,10 +151,20 @@ void	jump_down(t_pos *pos)
 	int line;
 
 	line = nb_line(pos);
-	if (pos->is_complete == 0 || line == 1)
+	pos->debug = line;
+	if (pos->is_complete == 0 || line < 1)
 		return ;
-	if (line > 1 && pos->act_li < pos->start_li + line - 1)
+	if (line >= 1 && pos->act_li < pos->start_li + line - 1)
+	{
 		pos->act_li++;
+		if (pos->let_nb + pos->max_co <= ft_strlen(pos->ans))
+			pos->let_nb = pos->let_nb + pos->max_co;
+		else
+		{
+			pos->let_nb = ft_strlen(pos->ans);
+			get_pos_coordinates_right_again(pos);
+		}
+	}
 }
 
 void	find_jump(char *buf, t_pos *pos)

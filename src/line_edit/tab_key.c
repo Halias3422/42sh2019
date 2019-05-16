@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/15 16:36:35 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 08:43:46 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -257,6 +257,8 @@ void			free_htab(t_htab *htab)
 {
 	t_htab		*tmp;
 
+	if (htab == NULL)
+		return ;
 	while (htab->prev)
 		htab = htab->prev;
 	tmp = htab;
