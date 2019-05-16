@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 12:56:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/14 14:36:29 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,7 @@ int		init_pos(t_pos *pos, char *buf)
 //	if (pos->len_prompt == pos->max_co)
 //		pos->debug5 += 256485;
 	pos->ans = ft_strnew(0);
+	pos->ctrl_hist_cmd = ft_strnew(0);
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	pos->ans_printed = 0;
@@ -87,6 +88,7 @@ int		init_pos(t_pos *pos, char *buf)
 	pos->history_loop = 0;
 	pos->was_incomplete = 0;
 	pos->start_select = -1;
+	pos->ctrl_search_history = 0;
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;

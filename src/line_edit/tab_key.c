@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/13 16:23:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/15 07:08:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -161,12 +161,10 @@ void		add_slash_on_ans(t_pos *pos)
 	int		i;
 
 	i = ft_strlen(pos->ans) - 1;
-	pos->debug = i;
 	if (i == -1)
 		return ;
 	if (pos->ans[i] == '/')
 		return ;
-	pos->debug5 += 1;
 	input_is_printable_char(pos, "/");
 }
 
@@ -193,7 +191,6 @@ t_htab        *looking_for_current(t_pos *pos, t_htab *htab, char **path, char *
 	}
 	else
 	{
-		pos->debug3 = *path[0];
 		if (*path && *path[0] != 0)
 			*name = ft_strjoinf(*path, *name, 2);
 		pwd = getcwd(pwd, 1000);
@@ -233,7 +230,6 @@ void	print_htab(t_pos *pos, t_htab *htab)
 	tmp = htab;
 	i = 0;
 	max_word = pos->max_co / (htab->lenght_max + 4);
-	pos->debug4 = max_word;
 	write(1, "\n", 1);
 	while (tmp->prev)
 		tmp = tmp->prev;
@@ -258,7 +254,6 @@ void	print_htab(t_pos *pos, t_htab *htab)
 		pos->start_li = pos->act_li - get_len_with_lines(pos) / pos->max_co;
 	else
 		pos->start_li = pos->act_li;
-	pos->debug4 = get_len_with_lines(pos);
 //	if (pos->act_li != pos->start_li)
 //		pos->act_co -= pos->len_prompt;
 	pos->navigation = 2;
@@ -334,10 +329,8 @@ t_htab		*get_current_match(t_pos *pos, t_htab *htab, char *name)
 	}
 	if (new == NULL)
 	{
-		pos->debug2 += 1;
 		return (htab);
 	}
-	pos->debug4 += 1;
 	while (new->prev)
 		new = new->prev;
 	while (new)
@@ -396,7 +389,6 @@ void		input_is_tab(t_pos *pos)
 	else if (htab)
 	{
 		htab = get_current_match(pos, htab, name);
-		pos->debug = htab->content_no;
 		if (htab->content_no == 0)
 			auto_complete(pos, htab);
 		else

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/13 16:03:01 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 07:30:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,6 +99,8 @@ typedef struct		s_pos
     char            *debugchar;
 	char			*debugchar2;
 	char			*toto;
+	int				ctrl_search_history;
+	char			*ctrl_hist_cmd;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
@@ -154,6 +156,13 @@ typedef struct			s_hist
 	char				*cmd;
 	int					cmd_no;
 }						t_hist;
+
+typedef struct			ctrl_hist
+{
+	int					needle;
+	int					act_co;
+	int					act_li;
+}						t_ctrl_hist;
 
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
@@ -353,6 +362,32 @@ char					*remove_char(char **str, int i);
 */
 //void					free_all(t_all *all);
 void					free_env(t_var *var);
+
+/*
+**	CONTROL_SEARCH_HISTORY.C
+*/
+
+t_hist					*control_search_history(t_pos *pos, t_hist *hist,
+						unsigned char *buf);
+t_hist					*search_occurence_in_history(t_pos *pos, t_hist *hist,
+						t_ctrl_hist *ctrl);
+void					needle_found_in_history(t_pos *pos, t_hist *hist,
+						t_ctrl_hist *ctrl);
+t_hist					*exiting_control_mode(t_pos *pos, t_hist *hist);
+int						get_pos_strstr(char *str, char *tofind, int i, int j);
+
+/*
+**	CONTROL_SEARCH_HISTORY_CALCUL_POS.C
+*/
+
+void					get_right_coordinates_found(t_pos *pos, t_hist *hist,
+						t_ctrl_hist *ctrl);
+void					get_right_coordinates_not_found(t_pos *pos, t_ctrl_hist
+						*ctrl);
+int						count_cmd_line_len(t_pos *pos, char *ans, int act_co);
+void					count_ctrl_col_and_line(t_pos *pos, char *ans,
+						t_ctrl_hist *ctrl, int needle);
+void					get_pos_coordinates_right_again(t_pos *pos);
 
 # include "lexeur.h"
 

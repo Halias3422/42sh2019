@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 09:14:54 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/15 07:27:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,15 +59,17 @@ t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 		hist = move_through_history(hist, pos, "up");
 	else if (ft_strncmp(buf + 1, "[B", 2) == 0)
 		hist = move_through_history(hist, pos, "down");
-	if (pos->let_nb < (int)ft_strlen(pos->ans) &&
+	if (pos->ctrl_search_history == 0 && pos->let_nb < (int)ft_strlen(pos->ans) &&
 			ft_strncmp(buf + 1, "[C", 2) == 0)
 		right_arrow(pos);
-	else if (pos->let_nb > 0 && ft_strncmp(buf + 1, "[D", 2) == 0)
+	else if (pos->ctrl_search_history == 0 && pos->let_nb > 0 && ft_strncmp(buf + 1, "[D", 2) == 0)
 		left_arrow(pos);
 	else if (pos->let_nb < (int)ft_strlen(pos->ans) && buf[1] == 91 &&
 			buf[2] == 51)
 		input_is_delete(pos);
 	if (ft_strcmp(buf + 1, "[D") == 0 || ft_strcmp(buf + 1, "[C") == 0)
 		pos->ans_printed = 1;
+	if (pos->ctrl_search_history == 1)
+		hist = exiting_control_mode(pos, hist);
 	return (hist);
 }
