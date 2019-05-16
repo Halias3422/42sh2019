@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 08:22:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 13:12:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,6 +62,5 @@ t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 		prepare_to_print(pos, (char*)buf);
 	pos->ans_printed = 0;
 	pos->navigation -= 1;
-//	pos->debug4 = pos->navigation;
 	return (hist);
 }

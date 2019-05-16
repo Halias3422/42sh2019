@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/14 08:27:47 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 13:13:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,7 +51,6 @@ static void		sighandler(int signum)
 		resize_screen(pos);
 	if (signum == CTRL_C)
 		ctrl_c(pos);
-	pos->debug += 1;
 	print_info(pos);
 
 }
