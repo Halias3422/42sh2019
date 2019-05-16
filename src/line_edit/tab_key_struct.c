@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:50:36 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:45:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 17:54:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,14 +24,14 @@ static void		init_t_htab(t_htab *htab)
 	htab->prev = NULL;
 }
 
-t_htab	*add_list_back_sort_htab(t_htab *head, t_htab *ls, int loop)
+t_htab			*add_list_back_sort_htab(t_htab *head, t_htab *ls, int loop)
 {
 	t_htab	*tmp;
 
 	tmp = NULL;
 	if (loop == 0)
 	{
-		ls->next =	NULL;
+		ls->next = NULL;
 		return (ls);
 	}
 	tmp = head;
@@ -45,7 +45,7 @@ t_htab	*add_list_back_sort_htab(t_htab *head, t_htab *ls, int loop)
 
 t_htab			*add_list_back_htab(t_htab *htab)
 {
-	t_htab		*new;
+	t_htab	*new;
 
 	new = NULL;
 	if (!(new = (t_htab*)malloc(sizeof(t_htab))))
@@ -70,7 +70,7 @@ t_htab			*add_list_back_htab(t_htab *htab)
 
 void			free_htab(t_htab *htab)
 {
-	t_htab		*tmp;
+	t_htab	*tmp;
 
 	if (htab == NULL)
 		return ;
@@ -85,4 +85,3 @@ void			free_htab(t_htab *htab)
 		tmp = htab;
 	}
 }
-

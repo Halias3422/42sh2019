@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 17:37:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:45:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 17:53:43 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ static void		generic_sort_list_2(t_htab **tmp, t_htab **tmp2)
 	}
 }
 
-static t_htab		*generic_sort_list(t_htab *head, t_htab *ls, int loop)
+static t_htab	*generic_sort_list(t_htab *head, t_htab *ls, int loop)
 {
 	t_htab	*tmp;
 	t_htab	*tmp2;
@@ -69,7 +69,7 @@ static t_htab		*generic_sort_list(t_htab *head, t_htab *ls, int loop)
 	return (head);
 }
 
-t_htab		*sort_list_htab(t_htab *head)
+t_htab			*sort_list_htab(t_htab *head)
 {
 	t_htab	*ls_sort;
 

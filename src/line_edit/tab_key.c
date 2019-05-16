@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:46:33 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 17:52:46 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,14 +18,6 @@ t_htab			*looking_for_var(t_pos *pos, t_htab *htab)
 	(void)pos;
 	return (htab);
 }
-
-// content_type --> fichier/exe 4, dossier 8
-
-/////////////////////
-
-
-
-//////////////////////
 
 int				scan_pos_ans(t_pos *pos)
 {
@@ -91,8 +83,7 @@ void			input_is_tab(t_pos *pos)
 		prepare_to_print_htab(pos, htab);
 	else if (htab)
 		htab = prepare_auto_complete(pos, htab, name);
-
 	ft_free_void(path, name, NULL, NULL);
-	free_htab(htab);
 //	print_info(pos);
+	free_htab(htab);
 }

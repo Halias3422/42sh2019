@@ -6,14 +6,14 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 17:39:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:48:21 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 17:58:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static char			*get_env_path(t_var *env)
+static char		*get_env_path(t_var *env)
 {
 	while (env)
 	{
@@ -26,7 +26,7 @@ static char			*get_env_path(t_var *env)
 	return (NULL);
 }
 
-static t_htab			*open_path_and_fill_htab(char *path, t_htab *htab, char *name)
+static t_htab	*open_path_and_fill_htab(char *path, t_htab *htab, char *name)
 {
 	DIR				*dirp;
 	struct dirent	*read;
@@ -35,7 +35,8 @@ static t_htab			*open_path_and_fill_htab(char *path, t_htab *htab, char *name)
 		return (htab);
 	while ((read = readdir(dirp)) != NULL)
 	{
-		if (read->d_name[0] != '.' && ft_strstr_case_unsensitive(read->d_name, name) != -1)
+		if (read->d_name[0] != '.' &&
+			ft_strstr_case_unsensitive(read->d_name, name) != -1)
 		{
 			htab = add_list_back_htab(htab);
 			htab->content = ft_strdup(read->d_name);
@@ -43,8 +44,10 @@ static t_htab			*open_path_and_fill_htab(char *path, t_htab *htab, char *name)
 			if (htab->prev == NULL)
 				htab->lenght_max = ft_strlen(htab->content);
 			else
-				htab->lenght_max = htab->prev->lenght_max > ft_strlen(htab->content) ? ft_strlen(htab->content) : htab->prev->lenght_max;
-			htab->content_type = (int)read->d_type;
+				htab->lenght_max =
+					htab->prev->lenght_max > ft_strlen(htab->content) ?
+					ft_strlen(htab->content) : htab->prev->lenght_max;
+			htab->content_type = read->d_type;
 		}
 	}
 	closedir(dirp);
@@ -52,19 +55,21 @@ static t_htab			*open_path_and_fill_htab(char *path, t_htab *htab, char *name)
 	return (htab);
 }
 
-static char			*get_name(t_pos *pos, int i, int j)
+static char		*get_name(t_pos *pos, int i, int j)
 {
-	char	*name;
+	char			*name;
 
 	name = NULL;
 	i = pos->let_nb;
 	if (pos->ans[i] == 32)
 		i -= 1;
-	while (i >= 0 && pos->ans[i] != '|' && pos->ans[i] != '&' && pos->ans[i] != 32)
+	while (i >= 0 && pos->ans[i] != '|' &&
+		pos->ans[i] != '&' && pos->ans[i] != 32)
 		i -= 1;
 	i += 1;
 	j = i;
-	while (pos->ans[j] && pos->ans[j] != '|' && pos->ans[j] != '&' && pos->ans[j] != 32)
+	while (pos->ans[j] && pos->ans[j] != '|' &&
+		pos->ans[j] != '&' && pos->ans[j] != 32)
 		j += 1;
 	name = malloc(j - i + 1);
 	name[j - i] = '\0';
@@ -74,10 +79,10 @@ static char			*get_name(t_pos *pos, int i, int j)
 
 t_htab			*looking_for_all(t_pos *pos, t_htab *htab, char **name)
 {
-	t_var	*env;
-	char	**all_path;
-	int		i;
-	int		j;
+	t_var			*env;
+	char			**all_path;
+	int				i;
+	int				j;
 
 	i = 0;
 	j = 0;
