@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_memccpy.c                                     .::    .:/ .      .::   */
+/*   ft_free_voids.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: shthevak <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/03/23 16:23:50 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 13:05:41 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/22 12:45:00 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/16 12:57:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_mem.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+void	ft_free_void(void *ptr, void *ptr2, void *ptr3, void *ptr4)
 {
-	unsigned	char	*d;
-	unsigned	char	*s;
-	size_t				i;
-
-	d = (unsigned char*)dst;
-	s = (unsigned char*)src;
-	i = 0;
-	while (i < n)
-	{
-		d[i] = s[i];
-		if (d[i] == (unsigned char)c)
-			return (dst + i + 1);
-		i++;
-	}
-	return (NULL);
+	if (ptr)
+		free(ptr);
+	if (ptr2)
+		free(ptr2);
+	if (ptr3)
+		free(ptr3);
+	if (ptr4)
+		free(ptr4);
 }

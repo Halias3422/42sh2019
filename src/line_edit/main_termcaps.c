@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/09 10:33:36 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 09:46:21 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,14 +23,14 @@ int		main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	var = init_env(env);
+	stock(var, 5);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);
-	pos.prompt = NULL;
 	pos.is_complete = 1;
 	hist = create_history(&pos, hist);
 	while (1)
 	{
-		ans = termcaps42sh("$ ", &pos, hist);
+		ans = termcaps42sh(&pos, hist);
 		if (ans == NULL)
 			break ;
 		if (ft_strcmp("exit", ans) == 0)
