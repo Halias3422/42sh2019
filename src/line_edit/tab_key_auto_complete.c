@@ -6,14 +6,27 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:21:44 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:16:00 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/20 12:03:06 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-t_htab			*get_current_match(t_htab *htab, char *name)
+int			wildcard_match(char *s1, char *s2)
+{
+	if (*s1 && *s2 == '*')
+		return (wildcard_match(s1, s2 + 1) || wildcard_match(s1 + 1, s2));
+	else if ((*s1 == '\0') && *s2 == '*')
+		return (wildcard_match(s1, (s2 + 1)));
+	else if (*s1 && *s2 && is_the_same_letter_unsensitive(*s1, *s2))
+		return (wildcard_match((s1 + 1), (s2 + 1)));
+	else if ((*s1 == '\0') && (*s2 == '\0'))
+		return (1);
+	return (0);
+}
+
+t_htab			*get_current_match(t_htab *htab, char *name, int wildcard)
 {
 	t_htab		*new;
 	int			match;
@@ -22,7 +35,7 @@ t_htab			*get_current_match(t_htab *htab, char *name)
 	while (htab)
 	{
 		match = ft_strstr_case_unsensitive(htab->content, name);
-		if (match != -1)
+		if ((wildcard == 0 && match != -1) || (wildcard == 1 && wildcard_match(htab->content, name)))
 		{
 			new = add_list_back_htab(new);
 			new->content = ft_strdup(htab->content);
@@ -100,10 +113,28 @@ void			auto_complete(t_pos *pos, t_htab *htab, char *name)
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co , pos->act_li), 1, ft_putchar);
 }
 
+int				got_a_wildcard(char *name)
+{
+	int		i;
+
+	i = 0;
+	while (name[i])
+	{
+		if (name[i] == '*')
+			return (1);
+		i += 1;
+	}
+	return (0);
+}
+
 t_htab			*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name)
 {
-	htab = get_current_match(htab, name);
-	htab = get_intelligent_match(htab, name);
+	int		wildcard;
+
+	wildcard = got_a_wildcard(name);
+	htab = get_current_match(htab, name, wildcard);
+	if (wildcard == 0)
+		htab = get_intelligent_match(htab, name);
 	adjust_lenght_max(htab);
 	if (htab->content_no == 0)
 		auto_complete(pos, htab, name);

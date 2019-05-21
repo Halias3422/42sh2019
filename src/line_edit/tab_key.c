@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:52:46 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/20 15:08:31 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,13 @@ t_htab			*looking_for_var(t_pos *pos, t_htab *htab)
 {
 	(void)pos;
 	return (htab);
+}
+
+int				is_on_token(char *ans)
+{
+	if (ft_strncmp(ans, "&&", 2) == 0 || ft_strncmp(ans, "&", 1) == 0 || ft_strncmp(ans, "||", 2) == 0 || ft_strncmp(ans, "|", 1) == 0 || ft_strncmp(ans, ";", 1) == 0 || ft_strncmp(ans, "`", 1) == 0)
+		return (1);
+	return (0);
 }
 
 int				scan_pos_ans(t_pos *pos)
@@ -41,7 +48,7 @@ int				scan_pos_ans(t_pos *pos)
 			if (pos->ans[i] != ' ')
 				word_number += 1;
 		}
-		else if (ft_strncmp(pos->ans + i, "&&", 2) == 0 || ft_strncmp(pos->ans + i, "&", 1) == 0 || ft_strncmp(pos->ans + i, "||", 2) == 0)
+		else if (is_on_token(pos->ans + i))
 		{
 			word_number = 0;
 			i += 1;

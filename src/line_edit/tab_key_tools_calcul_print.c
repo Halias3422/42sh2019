@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:44:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:46:00 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/20 15:15:32 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,18 +62,15 @@ void			complete_with_space(t_htab *htab)
 		write(1, " ", 1);
 }
 
-void			print_htab(t_htab *htab, t_pos *pos)
+void			print_htab(t_htab *htab, int max_word)
 {
-	int			max_word;
-
-	max_word = pos->max_co / (htab->lenght_max + 4);
 	write(1, "\n", 1);
 	while (htab->prev)
 		htab = htab->prev;
 	while (htab)
 	{
 		if (htab->content_type == 4)
-			ft_printf("{B.T.red.}%s{eoc}    ", htab == NULL ? NULL : htab->content);
+			ft_printf("{B.T.cyan.}%s{eoc}/{eoc}   ", htab == NULL ? NULL : htab->content);
 		else
 			ft_printf("%s    ", htab == NULL ? NULL : htab->content);
 		complete_with_space(htab);
@@ -87,13 +84,16 @@ void			print_htab(t_htab *htab, t_pos *pos)
 void			prepare_to_print_htab(t_pos *pos, t_htab *htab)
 {
 	int			len;
+	int			max_word;
 
-	print_htab(htab, pos);
+	if ((max_word = pos->max_co / (htab->lenght_max + 4)) == 0)
+		return ;
+	print_htab(htab, max_word);
 	get_cursor_info(pos, &pos->start_li, &pos->start_co);
 	print_prompt(pos);
 	write(1, pos->ans, ft_strlen(pos->ans));
 	len = go_to_let_nb(pos);
 	short_update(pos, len);
-	pos->navigation = 2;
+//	pos->navigation = 2;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }

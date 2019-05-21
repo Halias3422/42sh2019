@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:42:49 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/20 15:14:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ typedef struct		s_pos
 	char			*prompt;
 	int				len_prompt;
 	int				start_select;
-	int				navigation;
+//	int				navigation;
 	char			debug;
 	int				debug2;
 	int				debug3;
@@ -167,7 +167,7 @@ typedef struct			ctrl_hist
 
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
-
+int		got_a_wildcard(char *name);
 
 /*
 ** CALCUL_LINE
@@ -300,7 +300,7 @@ t_htab			*looking_for_all(t_pos *pos, t_htab *htab, char **name);
 int				is_a_directory(char *path, t_pos *pos);
 int				get_word_index(t_pos *pos);
 void			prepare_to_print_htab(t_pos *pos, t_htab *htabi);
-void			print_htab(t_htab *htab, t_pos *pos);
+void			print_htab(t_htab *htab, int max_word);
 void			complete_with_space(t_htab *htab);
 
 /*
@@ -325,7 +325,10 @@ t_htab			*add_list_back_sort_htab(t_htab *head, t_htab *ls, int loop);
 ** TAB_KEY_AUTO_COMPLETE
 */
 
-t_htab			*get_current_match(t_htab *htab, char *name);
+
+int			wildcard_match(char *s1, char *s2);
+
+t_htab			*get_current_match(t_htab *htab, char *name, int wildcard);
 void			auto_complete(t_pos *pos, t_htab *htab, char *name);
 t_htab			*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name);
 t_htab			*get_intelligent_match(t_htab *htab, char *name);

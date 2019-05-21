@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 17:39:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:58:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/20 15:29:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ static t_htab	*open_path_and_fill_htab(char *path, t_htab *htab, char *name)
 	while ((read = readdir(dirp)) != NULL)
 	{
 		if (read->d_name[0] != '.' &&
-			ft_strstr_case_unsensitive(read->d_name, name) != -1)
+			(ft_strstr_case_unsensitive(read->d_name, name) != -1 || wildcard_match(read->d_name, name)))
 		{
 			htab = add_list_back_htab(htab);
 			htab->content = ft_strdup(read->d_name);
@@ -97,5 +97,6 @@ t_htab			*looking_for_all(t_pos *pos, t_htab *htab, char **name)
 	}
 	if (htab)
 		htab = sort_list_htab(htab);
+	ft_tabdel(all_path);
 	return (htab);
 }

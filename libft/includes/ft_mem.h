@@ -6,7 +6,7 @@
 /*   By: shthevak <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/23 16:06:35 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 13:22:40 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/20 15:26:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,5 +28,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	ft_memdel(void **ap);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	ft_free_void(void *ptr, void *ptr2, void *ptr3, void *ptr4);
+void	ft_tabdel(char **tabl);
 
 #endif
