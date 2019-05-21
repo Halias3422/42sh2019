@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/17 13:29:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/21 09:30:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -308,13 +308,8 @@ void	find_jump(char *buf, t_pos *pos);
 **	JUMP_UP_DOWN.C
 */
 
-void				jump_down(t_pos *pos, int i);
+void				jump_down(t_pos *pos);
 void				jump_up(t_pos *pos);
-void				jump_down_with_backslash_n(t_pos *pos, int tmp_let_nb,
-					int tmp_act_co, int first_act_co);
-void				jump_up_with_backslash_n(t_pos *pos);
-int					check_if_backslash_n(t_pos *pos, int i, int usage);
-
 
 /*
 *******************************************************************************

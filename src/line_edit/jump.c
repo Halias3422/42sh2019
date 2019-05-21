@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 14:23:16 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/17 13:27:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/21 09:29:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -138,14 +138,13 @@ int		nb_line(t_pos *pos)
 void	find_jump(char *buf, t_pos *pos)
 {
 	int	nb_line;
-	int	j;
 
-	nb_line = count_nb_line(pos, &j);
+	pos->ans_printed = 1;
+	nb_line = pos->start_li + get_len_with_lines(pos) / pos->max_co;
 	if (ft_strcmp(buf + 2, "[A") == 0 && pos->act_li > pos->start_li)
 		jump_up(pos);
-	if (ft_strcmp(buf + 2, "[B") == 0 &&
-			(pos->start_li + nb_line) > pos->act_li)
-		jump_down(pos, pos->let_nb);
+	if (ft_strcmp(buf + 2, "[B") == 0 && nb_line > pos->act_li)
+		jump_down(pos);
 	if (ft_strcmp(buf + 2, "[D") == 0)
 		jump_left(pos);
 	else if (ft_strcmp(buf + 2, "[C") == 0)
