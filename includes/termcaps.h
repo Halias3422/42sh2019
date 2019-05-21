@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 10:03:58 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/21 12:59:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -456,6 +456,7 @@ int						count_cmd_line_len(t_pos *pos, char *ans, int act_co);
 void					count_ctrl_col_and_line(t_pos *pos, char *ans,
 						t_ctrl_hist *ctrl, int needle);
 void					get_pos_coordinates_right_again(t_pos *pos);
+void    check_copy(unsigned char *buf, t_pos *pos);
 
 # include "lexeur.h"
 
