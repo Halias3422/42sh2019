@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 14:23:16 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 08:26:17 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/21 09:29:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -135,43 +135,15 @@ int		nb_line(t_pos *pos)
 	return (line);
 }
 
-void	jump_up(t_pos *pos)
-{
-	if (pos->is_complete == 0 || pos->act_li == pos->start_li)
-		return ;
-	if (pos->act_li > pos->start_li && pos->is_complete == 1)
-	{
-		pos->act_li--;
-		pos->let_nb = pos->let_nb - pos->max_co;
-	}
-}
-
-void	jump_down(t_pos *pos)
-{
-	int line;
-
-	line = nb_line(pos);
-	pos->debug = line;
-	if (pos->is_complete == 0 || line < 1)
-		return ;
-	if (line >= 1 && pos->act_li < pos->start_li + line - 1)
-	{
-		pos->act_li++;
-		if (pos->let_nb + pos->max_co <= ft_strlen(pos->ans))
-			pos->let_nb = pos->let_nb + pos->max_co;
-		else
-		{
-			pos->let_nb = ft_strlen(pos->ans);
-			get_pos_coordinates_right_again(pos);
-		}
-	}
-}
-
 void	find_jump(char *buf, t_pos *pos)
 {
-	if		 (ft_strcmp(buf + 2, "[A") == 0)
+	int	nb_line;
+
+	pos->ans_printed = 1;
+	nb_line = pos->start_li + get_len_with_lines(pos) / pos->max_co;
+	if (ft_strcmp(buf + 2, "[A") == 0 && pos->act_li > pos->start_li)
 		jump_up(pos);
-	if (ft_strcmp(buf + 2, "[B") == 0)
+	if (ft_strcmp(buf + 2, "[B") == 0 && nb_line > pos->act_li)
 		jump_down(pos);
 	if (ft_strcmp(buf + 2, "[D") == 0)
 		jump_left(pos);

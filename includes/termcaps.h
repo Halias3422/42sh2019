@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/20 15:14:47 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/21 10:03:58 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -365,9 +365,14 @@ void	jump_right(t_pos *pos);
 void	go_hard(t_pos *pos);
 void	or_go_home(t_pos *pos);
 int		nb_line(t_pos *pos);
-void	jump_up(t_pos *pos);
-void	jump_down(t_pos *pos);
 void	find_jump(char *buf, t_pos *pos);
+
+/*
+**JUMP_UP_DOWN.C
+*/
+
+void	jump_down(t_pos *pos);
+void	jump_up(t_pos *pos);
 
 /*
 *******************************************************************************
