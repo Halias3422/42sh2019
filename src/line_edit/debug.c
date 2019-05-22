@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 09:27:30 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 12:51:04 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 14:48:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -195,7 +195,7 @@ void	print_info(t_pos *pos)
 	}
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 }
-/*
+
 void	print_hist(t_pos *pos, t_hist *hist)
 {
 	t_hist	*tmp;
@@ -223,5 +223,5 @@ void	print_hist(t_pos *pos, t_hist *hist)
 		tmp = tmp->next;
 	}
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
-}*/
+}
 

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 12:59:10 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 12:42:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,6 +102,7 @@ typedef struct		s_pos
 	int				ctrl_search_history;
 	char			*ctrl_hist_cmd;
 	char			*toto;
+	int				replace_hist;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
@@ -373,6 +374,13 @@ void	find_jump(char *buf, t_pos *pos);
 
 void	jump_down(t_pos *pos);
 void	jump_up(t_pos *pos);
+
+/*
+** HISTORY_EXPANSION.C
+*/
+
+t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist);
+
 
 /*
 *******************************************************************************

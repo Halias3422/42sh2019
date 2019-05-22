@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:15:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 09:52:27 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 11:37:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,6 @@ void	update_position(t_pos *pos)
 	int		get_len;
 
 	get_len = get_len_with_lines(pos);
-	pos->debug = get_len;
 	short_update(pos, get_len);
 	pos->let_nb = ft_strlen(pos->ans);
 	pos->len_ans = pos->let_nb;

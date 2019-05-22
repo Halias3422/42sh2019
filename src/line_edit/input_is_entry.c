@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 08:54:31 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 15:12:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,13 @@ t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 {
 	int		get_len;
 
+	check_history_expansion(pos, pos->ans, hist);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
+	if (pos->ans == NULL)
+	{
+		ft_strdel(&pos->saved_ans);
+		return (hist);
+	}
 	pos->is_complete = find_missing_quote(pos->ans);
 	if (pos->is_complete == 0)
 	{

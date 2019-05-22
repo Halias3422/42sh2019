@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/21 09:57:45 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/22 07:19:54 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -30,7 +30,7 @@ SRC_NAME =	line_edit/calcul_line.c line_edit/check_input.c line_edit/escape_code
 			line_edit/initialisation_stock.c line_edit/tools.c line_edit/cut.c\
 			lexeur/back_slash.c lexeur/error.c line_edit/signal.c line_edit/check_error.c\
 			lexeur/fill_fd.c lexeur/lexeur.c lexeur/fill_lexeur.c lexeur/redirection.c \
-			replace/replace.c replace/env_replace.c replace/var_replace.c\
+			replace/replace.c replace/env_replace.c replace/var_replace.c replace/history_expansion.c\
 			exec/exec.c exec/process.c
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)

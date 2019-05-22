@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 13:38:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 14:50:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,13 +58,15 @@ char		*termcaps42sh(t_pos *pos, t_hist *hist)
 		if (pos->max_co > 2)
 			hist = check_input(buf, pos, hist);
 		print_info(pos);
-		if (buf[0] == 10 && pos->is_complete == 1)
+		print_hist(pos, hist);
+		if (buf[0] == 10 && pos->is_complete == 1 && pos->replace_hist == 0)
 		{
 			tputs(tgoto(tgetstr("cm", NULL),
 				pos->act_co, pos->act_li), 1, ft_putchar);
 			write(1, "\n", 1);
 			return (pos->ans);
 		}
+	pos->replace_hist = 0;
 		ft_bzero(buf, 8);
 	}
 	return (NULL);

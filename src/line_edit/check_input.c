@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 13:37:22 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 15:08:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,8 @@ t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 			input_is_printable_char(pos, (char*)buf);
 		if (buf[0] == 18 || pos->ctrl_search_history == 1)
 			hist = control_search_history(pos, hist, buf);
-		update_history(pos, hist, (char*)buf);
+		if (pos->ans != NULL)
+			update_history(pos, hist, (char*)buf);
 	}
 	if (buf[0] != 10 && pos->ans_printed == 0)
 		prepare_to_print(pos, (char*)buf);
