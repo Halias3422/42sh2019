@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 09:30:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/21 12:59:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@
 # include "../libft/includes/ft_int.h"
 # include "../libft/includes/ft_unix.h"
 # include "../libft/includes/ft_printf.h"
+# include "../libft/includes/ft_mem.h"
 # include "exec.h"
 # include "check_error.h"
 # include <stdio.h>
@@ -90,7 +91,7 @@ typedef struct		s_pos
 	char			*prompt;
 	int				len_prompt;
 	int				start_select;
-	int				navigation;
+//	int				navigation;
 	char			debug;
 	int				debug2;
 	int				debug3;
@@ -166,7 +167,7 @@ typedef struct			ctrl_hist
 
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
-
+int		got_a_wildcard(char *name);
 
 /*
 ** CALCUL_LINE
@@ -226,6 +227,9 @@ t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
 /*
 ** INPUT_IS_PRINTABLE_CHAR
 */
+
+void				input_is_a_string_of_printable_char(t_pos *pos,
+					char *to_add);
 void				prompt_is_on_last_char(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
@@ -267,7 +271,7 @@ void				signal_list(void);
 ** START_TERMCAPS
 */
 
-char				*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist);
+char				*termcaps42sh(t_pos *pos, t_hist *hist);
 void				print_prompt(t_pos *pos);
 
 /*
@@ -275,6 +279,65 @@ void				print_prompt(t_pos *pos);
 */
 
 void				input_is_tab(t_pos *pos);
+
+/*
+** TAB_KEY_CURRENT_DIR
+*/
+
+t_htab				*looking_for_current(t_pos *pos, t_htab *htab,
+					char **path, char **name);
+
+/*
+** TAB_KEY_ALL_PATH
+*/
+
+t_htab			*looking_for_all(t_pos *pos, t_htab *htab, char **name);
+
+/*
+** TAB_KEY_TOOLS_CALCUL_PRINT
+*/
+
+int				is_a_directory(char *path, t_pos *pos);
+int				get_word_index(t_pos *pos);
+void			prepare_to_print_htab(t_pos *pos, t_htab *htabi);
+void			print_htab(t_htab *htab, int max_word);
+void			complete_with_space(t_htab *htab);
+
+/*
+** TAB_KEY_TOOLS_MANIP
+*/
+
+t_htab			*adjust_lenght_max(t_htab *htab);
+char			*get_full_path(t_pos *pos);
+char			*get_correct_path(char *path);
+void			reduce_ans(t_pos *pos, char *name);
+void			add_slash_on_ans(t_pos *pos);
+
+/*
+** TAB_KEY_STRUCT
+*/
+
+void			free_htab(t_htab *htab);
+t_htab			*add_list_back_htab(t_htab *htab);
+t_htab			*add_list_back_sort_htab(t_htab *head, t_htab *ls, int loop);
+
+/*
+** TAB_KEY_AUTO_COMPLETE
+*/
+
+
+int			wildcard_match(char *s1, char *s2);
+
+t_htab			*get_current_match(t_htab *htab, char *name, int wildcard);
+void			auto_complete(t_pos *pos, t_htab *htab, char *name);
+t_htab			*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name);
+t_htab			*get_intelligent_match(t_htab *htab, char *name);
+
+/*
+** TAB_KEY_SORT
+*/
+
+t_htab		*sort_list_htab(t_htab *head);
 
 /*
 ** TOOLS
@@ -305,11 +368,11 @@ int		nb_line(t_pos *pos);
 void	find_jump(char *buf, t_pos *pos);
 
 /*
-**	JUMP_UP_DOWN.C
+**JUMP_UP_DOWN.C
 */
 
-void				jump_down(t_pos *pos);
-void				jump_up(t_pos *pos);
+void	jump_down(t_pos *pos);
+void	jump_up(t_pos *pos);
 
 /*
 *******************************************************************************
@@ -393,6 +456,7 @@ int						count_cmd_line_len(t_pos *pos, char *ans, int act_co);
 void					count_ctrl_col_and_line(t_pos *pos, char *ans,
 						t_ctrl_hist *ctrl, int needle);
 void					get_pos_coordinates_right_again(t_pos *pos);
+void    check_copy(unsigned char *buf, t_pos *pos);
 
 # include "lexeur.h"
 

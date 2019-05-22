@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/17 07:50:56 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/21 09:57:45 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,17 +17,20 @@ LIB_PATH = libft/libft.a
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
-SRC_NAME =	line_edit/calcul_line.c line_edit/check_input.c line_edit/escape_code.c \
-			line_edit/history.c line_edit/input_is_entry.c line_edit/input_is_printable_char.c \
-			line_edit/jump.c line_edit/main_termcaps.c line_edit/move_through_history.c\
-			line_edit/control_search_history.c line_edit/control_search_history_calcul_pos.c \
-			line_edit/search_in_history.c line_edit/env.c line_edit/input_is_remove_char.c \
-			line_edit/print_ans.c line_edit/debug.c line_edit/copy.c line_edit/start_termcaps.c \
-			line_edit/tab_key.c line_edit/initialisation_stock.c line_edit/tools.c line_edit/cut.c \
-			line_edit/jump_up_down.c \
-			lexeur/back_slash.c lexeur/error.c line_edit/signal.c line_edit/check_error.c \
+SRC_NAME =	line_edit/calcul_line.c line_edit/check_input.c line_edit/escape_code.c\
+			line_edit/history.c line_edit/input_is_entry.c line_edit/input_is_printable_char.c\
+			line_edit/jump.c line_edit/jump_up_down.c line_edit/main_termcaps.c\
+			line_edit/move_through_history.c\
+			line_edit/control_search_history.c line_edit/control_search_history_calcul_pos.c\
+			line_edit/search_in_history.c line_edit/env.c line_edit/input_is_remove_char.c\
+			line_edit/print_ans.c line_edit/debug.c line_edit/copy.c line_edit/start_termcaps.c\
+			line_edit/tab_key.c line_edit/tab_key_all_path.c line_edit/tab_key_sort.c\
+			line_edit/tab_key_current_dir.c line_edit/tab_key_tools_calcul_print.c\
+			line_edit/tab_key_tools_manip.c line_edit/tab_key_struct.c line_edit/tab_key_auto_complete.c\
+			line_edit/initialisation_stock.c line_edit/tools.c line_edit/cut.c\
+			lexeur/back_slash.c lexeur/error.c line_edit/signal.c line_edit/check_error.c\
 			lexeur/fill_fd.c lexeur/lexeur.c lexeur/fill_lexeur.c lexeur/redirection.c \
-			replace/replace.c replace/env_replace.c replace/var_replace.c \
+			replace/replace.c replace/env_replace.c replace/var_replace.c\
 			exec/exec.c exec/process.c
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)
@@ -36,7 +39,7 @@ INC_NAME = termcaps.h
 INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
-FLAG += -Wall -Werror -Wextra -g3# -fsanitize=address
+FLAG += -Wall -Werror -Wextra -o3 -g3# -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 
@@ -56,7 +59,7 @@ all: $(NAME)
 $(NAME) : $(OBJ_PATH) $(OBJ) Makefile
 	@make -C libft
 	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]"
-	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -Iinclude
+	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
 	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]"
 
 $(OBJ_PATH):

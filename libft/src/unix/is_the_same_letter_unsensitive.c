@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_memccpy.c                                     .::    .:/ .      .::   */
+/*   is_the_same_letter_unsensitive.c                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: shthevak <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/03/23 16:23:50 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 13:05:41 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/05/16 10:29:48 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/16 10:30:32 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
+#include "ft_unix.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+int				is_the_same_letter_unsensitive(char a, char b)
 {
-	unsigned	char	*d;
-	unsigned	char	*s;
-	size_t				i;
-
-	d = (unsigned char*)dst;
-	s = (unsigned char*)src;
-	i = 0;
-	while (i < n)
-	{
-		d[i] = s[i];
-		if (d[i] == (unsigned char)c)
-			return (dst + i + 1);
-		i++;
-	}
-	return (NULL);
+	if ((a >= 65 && a <= 90 && a + 32 == b) ||
+			(a >= 97 && a <= 122 && a - 32 == b) || a == b)
+		return (1);
+	return (0);
 }

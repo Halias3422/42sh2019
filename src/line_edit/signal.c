@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 13:13:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 17:46:44 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ static void		resize_screen(t_pos *pos)
 	print_prompt(pos);
 	print_ans(pos, 0, pos->start_co);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
-	print_info(pos);
+//	print_info(pos);
 }
 
 static void		ctrl_c(t_pos *pos)
@@ -51,7 +51,8 @@ static void		sighandler(int signum)
 		resize_screen(pos);
 	if (signum == CTRL_C)
 		ctrl_c(pos);
-	print_info(pos);
+	pos->debug += 1;
+//	print_info(pos);
 
 }
 

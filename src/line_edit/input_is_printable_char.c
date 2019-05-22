@@ -6,12 +6,27 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:48:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 08:10:07 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/16 09:49:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
+
+void			input_is_a_string_of_printable_char(t_pos *pos, char *to_add)
+{
+	int			j;
+	char		buf[2];
+
+	j = 0;
+	buf[1] = '\0';
+	while (to_add[j])
+	{
+		buf[0] = to_add[j];
+		input_is_printable_char(pos, buf);
+		j += 1;
+	}
+}
 
 static void		fill_char_ans(char *buf, t_pos *pos)
 {
