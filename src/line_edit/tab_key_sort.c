@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 17:37:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:53:43 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 15:09:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,13 @@ t_htab			*sort_list_htab(t_htab *head)
 	ls_sort = NULL;
 	if (head)
 		head = generic_sort_list(head, ls_sort, 0);
+	ls_sort = head;
+	while (ls_sort)
+	{
+		ls_sort->content_no = ls_sort->prev == NULL ?
+			0 : ls_sort->prev->content_no + 1;
+		ls_sort = ls_sort->next;
+	}
 	head->prev = NULL;
 	return (head);
 }

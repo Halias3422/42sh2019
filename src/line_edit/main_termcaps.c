@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 12:40:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 16:13:18 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ int		main(int ac, char **av, char **env)
 	pos.is_complete = 1;
 	pos.prompt = NULL;
 	hist = create_history(&pos, hist);
+	ghist = &hist;
 	while (1)
 	{
 		ans = termcaps42sh(&pos, hist);
@@ -43,6 +44,7 @@ int		main(int ac, char **av, char **env)
 			tcsetattr(2, TCSANOW, &(pos.old_term));
 			exit(0);
 		}
+		
 		ans = ft_secure_free(ans);
 	}
 }

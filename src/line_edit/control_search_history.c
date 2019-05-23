@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/15 13:30:27 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 08:55:33 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 13:46:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,7 @@ t_hist		*exiting_control_mode(t_pos *pos, t_hist *hist)
 	pos->ctrl_search_history = 0;
 	if (pos->ctrl_hist_cmd && ft_strlen(pos->ctrl_hist_cmd) > 0)
 	{
-		free(pos->ans);
+		pos->ans = ft_secure_free(pos->ans);
 		pos->ans = ft_strnew(ft_strlen(pos->ctrl_hist_cmd));
 		pos->ans = ft_strcpy(pos->ans, pos->ctrl_hist_cmd);
 		clean_at_start(pos);
@@ -61,10 +61,11 @@ t_hist		*exiting_control_mode(t_pos *pos, t_hist *hist)
 	get_pos_coordinates_right_again(pos);
 	if (ft_strlen(pos->ctrl_hist_cmd) == 0)
 	{
-		free(pos->ans);
+		pos->ans = ft_secure_free(pos->ans);
 		pos->ans = ft_strnew(0);
 	}
 	pos->let_nb = ft_strlen(pos->ans);
+	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	return (hist);
 }
 
@@ -89,7 +90,8 @@ void		needle_found_in_history(t_pos *pos, t_hist *hist, t_ctrl_hist *ctrl)
 	if (pos->ctrl_hist_cmd)
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	pos->ctrl_hist_cmd = ft_strnew(ft_strlen(hist->cmd));
-	pos->ctrl_hist_cmd = ft_strcpy(pos->ctrl_hist_cmd, hist->cmd);
+	ft_strcpy(pos->ctrl_hist_cmd, hist->cmd);
+//	pos->ctrl_hist_cmd = hist->cmd;
 }
 
 t_hist		*search_occurence_in_history(t_pos *pos, t_hist *hist,
@@ -111,7 +113,7 @@ t_hist		*search_occurence_in_history(t_pos *pos, t_hist *hist,
 	if (ctrl->needle == -1)
 	{
 		get_right_coordinates_not_found(pos, ctrl);
-		free(pos->ctrl_hist_cmd);
+		pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 		pos->ctrl_hist_cmd = ft_strnew(0);
 		while (hist->next)
 			hist = hist->next;
@@ -141,5 +143,6 @@ t_hist		*control_search_history(t_pos *pos, t_hist *hist,
 	while (hist->next)
 		hist = hist->next;
 	hist = search_occurence_in_history(pos, hist, &ctrl);
+//	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	return (hist);
 }

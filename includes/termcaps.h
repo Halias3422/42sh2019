@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 12:59:10 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 16:24:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@
 # include <stdlib.h>
 # include <curses.h>
 # include <dirent.h>
+# include "lexeur.h"
 
 /*
 ** color **
@@ -69,6 +70,8 @@
 # define RESIZING	28
 # define CTRL_C		2
 
+extern struct s_hist **ghist;
+
 typedef struct		s_pos
 {
 	int				act_co;
@@ -91,7 +94,6 @@ typedef struct		s_pos
 	char			*prompt;
 	int				len_prompt;
 	int				start_select;
-//	int				navigation;
 	char			debug;
 	int				debug2;
 	int				debug3;
@@ -457,7 +459,5 @@ void					count_ctrl_col_and_line(t_pos *pos, char *ans,
 						t_ctrl_hist *ctrl, int needle);
 void					get_pos_coordinates_right_again(t_pos *pos);
 void    check_copy(unsigned char *buf, t_pos *pos);
-
-# include "lexeur.h"
 
 #endif

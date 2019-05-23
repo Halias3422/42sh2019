@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:44:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/20 15:15:32 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 12:38:40 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,7 +93,12 @@ void			prepare_to_print_htab(t_pos *pos, t_htab *htab)
 	print_prompt(pos);
 	write(1, pos->ans, ft_strlen(pos->ans));
 	len = go_to_let_nb(pos);
-	short_update(pos, len);
-//	pos->navigation = 2;
+	pos->act_li = pos->start_li + len / pos->max_co;
+	pos->act_co = len % pos->max_co;
+	while (pos->act_li > pos->max_li)
+	{
+		pos->act_li -= 1;
+		pos->start_li -= 1;
+	}
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }

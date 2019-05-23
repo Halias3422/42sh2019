@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 13:38:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 09:38:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,10 +44,12 @@ char		*termcaps42sh(t_pos *pos, t_hist *hist)
 
 	while (hist->next)
 		hist = hist->next;
+	ghist = &hist;
 	start_termcaps(pos, (char*)buf);
 	print_prompt(pos);
 	signal_list();
-	print_info(pos);
+//	print_info(pos);
+//	print_hist(pos, hist);
 	while (1)
 	{
 		ret = read(0, buf, 1);
@@ -57,7 +59,8 @@ char		*termcaps42sh(t_pos *pos, t_hist *hist)
 			ret = read(0, buf + 1, 8);
 		if (pos->max_co > 2)
 			hist = check_input(buf, pos, hist);
-		print_info(pos);
+//		print_info(pos);
+//		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{
 			tputs(tgoto(tgetstr("cm", NULL),

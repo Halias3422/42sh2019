@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/20 15:40:00 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 16:12:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,6 +61,7 @@ void			*stock(void *to_stock, int usage)
 	static t_pos	*stock_pos = NULL;
 	static char		*stock_copy = NULL;
 	static t_var	*stock_var = NULL;
+	static t_hist	*stock_hist = NULL;
 
 	if (usage == 0)
 		stock_pos = to_stock;
@@ -74,6 +75,10 @@ void			*stock(void *to_stock, int usage)
 		stock_var = to_stock;
 	else if (usage == 6)
 		return (stock_var);
+	else if (usage == 7)
+		stock_hist = to_stock;
+	else if (usage == 8)
+		return (stock_hist);
 	return (NULL);
 }
 
