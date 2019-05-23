@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 12:42:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 12:56:58 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -380,7 +380,36 @@ void	jump_up(t_pos *pos);
 */
 
 t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist);
+t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos);
+t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
+				t_hist *hist, int *i);
+char			*get_expansion_content(char *ans, int i);
+int				get_expansion_length(char *ans, int i);
 
+/*
+**HISTORY_EXPANSION_FREE.C
+*/
+
+t_hist			*no_expansion_found(char **expansion, char **new_ans,
+				t_hist *hist);
+char			*new_ans_not_valid(char **ans, char *new_ans, int *i);
+char			*filling_ans_with_new_ans(t_pos *pos, char *new_ans, char **ans,
+				int end_exp);
+
+/*
+**HISTORY_EXPANSION_TYPES.C
+*/
+
+t_hist			*get_expansion_type(char *expansion, t_hist *hist,
+				char **new_ans, int *i);
+t_hist			*double_exclamation_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+t_hist			*word_finding_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+t_hist			*negative_number_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+t_hist			*number_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
 
 /*
 *******************************************************************************

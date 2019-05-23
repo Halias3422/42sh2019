@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/22 07:19:54 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/23 12:58:58 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -27,10 +27,12 @@ SRC_NAME =	line_edit/calcul_line.c line_edit/check_input.c line_edit/escape_code
 			line_edit/tab_key.c line_edit/tab_key_all_path.c line_edit/tab_key_sort.c\
 			line_edit/tab_key_current_dir.c line_edit/tab_key_tools_calcul_print.c\
 			line_edit/tab_key_tools_manip.c line_edit/tab_key_struct.c line_edit/tab_key_auto_complete.c\
+			line_edit/history_expansion.c line_edit/history_expansion_free.c\
+			line_edit/history_expansions_types.c\
 			line_edit/initialisation_stock.c line_edit/tools.c line_edit/cut.c\
 			lexeur/back_slash.c lexeur/error.c line_edit/signal.c line_edit/check_error.c\
 			lexeur/fill_fd.c lexeur/lexeur.c lexeur/fill_lexeur.c lexeur/redirection.c \
-			replace/replace.c replace/env_replace.c replace/var_replace.c replace/history_expansion.c\
+			replace/replace.c replace/env_replace.c replace/var_replace.c\
 			exec/exec.c exec/process.c
 			
 OBJ_NAME = $(SRC_NAME:.c=.o)
