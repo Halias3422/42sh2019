@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 12:56:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 13:10:52 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@
 # include <stdlib.h>
 # include <curses.h>
 # include <dirent.h>
+# include "lexeur.h"
 
 /*
 ** color **
@@ -69,6 +70,8 @@
 # define RESIZING	28
 # define CTRL_C		2
 
+extern struct s_hist **ghist;
+
 typedef struct		s_pos
 {
 	int				act_co;
@@ -91,7 +94,6 @@ typedef struct		s_pos
 	char			*prompt;
 	int				len_prompt;
 	int				start_select;
-//	int				navigation;
 	char			debug;
 	int				debug2;
 	int				debug3;
@@ -103,6 +105,7 @@ typedef struct		s_pos
 	char			*ctrl_hist_cmd;
 	char			*toto;
 	int				replace_hist;
+	int				error;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
@@ -165,6 +168,33 @@ typedef struct			ctrl_hist
 		int				act_co;
 		int				act_li;
 }						t_ctrl_hist;
+
+typedef struct		s_tok
+{
+	int				quote;
+	int				dquote;
+	int				bquote;
+	int				cmdand;
+	int				cmdor;
+	int				pipe;
+	int				heredoc;
+	char			*herestr;
+	char			*fullheredoc;
+	int				i;
+	int				n;
+	int				mode;
+	int				nb_quote;
+	int				nb_dquote;
+	char			*dquote_d;
+}					t_tok;
+
+typedef struct			s_tokench
+{
+	char				*token;
+	int					end;
+	struct s_tokench	*next;
+	struct s_tokench	*prev;
+}						t_tokench;
 
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
@@ -376,6 +406,7 @@ void	jump_down(t_pos *pos);
 void	jump_up(t_pos *pos);
 
 /*
+<<<<<<< HEAD
 ** HISTORY_EXPANSION.C
 */
 
@@ -410,6 +441,56 @@ t_hist			*negative_number_expansion(char **new_ans, t_hist *hist,
 				char *expansion);
 t_hist			*number_expansion(char **new_ans, t_hist *hist,
 				char *expansion);
+
+/*
+** token_init.c
+*/
+
+t_tokench	*add_list_back_tok_next(t_tokench *tok);
+void		maj_token(t_tokench *tok, char *c);
+void		init_tok(t_tok *in);
+
+/*
+** token.c
+*/
+
+void	check_token(t_pos *pos, t_tok *in, t_tokench *tok);
+void	init_tok(t_tok *in);
+
+/*
+** token_check_open.c
+*/
+
+void		check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
+
+/*
+** token_check_close.c
+*/
+
+int			check_close_nothing(t_pos *pos, t_tok *in);
+int			check_close_nothing2(t_pos *pos, t_tok *in);
+int			check_close_tree(t_pos *pos, t_tok *in);
+void		check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
+t_tokench	*check_close(t_tokench *tok, char *c, t_tok *in);
+
+/*
+** token_heredoc_open.c
+*/
+
+void		check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
+
+/*
+** token_heredoc_close.c
+*/
+
+void		heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
+
+/*
+** token_free.c
+*/
+
+void		free_heredoc(t_tok *in);
+void		free_all_check_token(t_tok *in, t_tokench *tok);
 
 /*
 *******************************************************************************
@@ -494,7 +575,5 @@ void					count_ctrl_col_and_line(t_pos *pos, char *ans,
 						t_ctrl_hist *ctrl, int needle);
 void					get_pos_coordinates_right_again(t_pos *pos);
 void    check_copy(unsigned char *buf, t_pos *pos);
-
-# include "lexeur.h"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 11:20:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 13:08:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,6 +61,7 @@ void			*stock(void *to_stock, int usage)
 	static t_pos	*stock_pos = NULL;
 	static char		*stock_copy = NULL;
 	static t_var	*stock_var = NULL;
+	static t_hist	*stock_hist = NULL;
 
 	if (usage == 0)
 		stock_pos = to_stock;
@@ -74,6 +75,10 @@ void			*stock(void *to_stock, int usage)
 		stock_var = to_stock;
 	else if (usage == 6)
 		return (stock_var);
+	else if (usage == 7)
+		stock_hist = to_stock;
+	else if (usage == 8)
+		return (stock_hist);
 	return (NULL);
 }
 
@@ -86,7 +91,6 @@ static void		init_classic_var(t_pos *pos)
 	pos->history_loop = 0;
 	pos->was_incomplete = 0;
 	pos->start_select = -1;
-//	pos->navigation = 0;
 	pos->ctrl_hist_cmd = ft_strnew(0);
 	pos->debug = 0;
 	pos->debug2 = 0;
@@ -94,6 +98,7 @@ static void		init_classic_var(t_pos *pos)
 	pos->debug4 = 0;
 	pos->debug5 = 0;
 	pos->replace_hist = 0;
+	pos->error = 0;
 	pos->ctrl_search_history = 0;
 	pos->debugchar = NULL;
 	pos->debugchar2 = NULL;

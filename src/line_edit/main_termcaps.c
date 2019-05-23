@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 09:40:22 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 13:06:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ int		main(int ac, char **av, char **env)
 	pos.is_complete = 1;
 	pos.prompt = NULL;
 	hist = create_history(&pos, hist);
+	ghist = &hist;
 	while (1)
 	{
 		ans = termcaps42sh(&pos, hist);

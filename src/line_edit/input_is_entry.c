@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 09:43:41 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 13:07:52 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,15 +67,18 @@ static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
 t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 {
 	int		get_len;
+	t_tok       in;
+	t_tokench     tok;
 
 	check_history_expansion(pos, pos->ans, hist);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
+	init_tok(&in);
+	check_token(pos, &in, &tok);
 	if (pos->ans == NULL)
 	{
 		ft_strdel(&pos->saved_ans);
 		return (hist);
 	}
-	pos->is_complete = find_missing_quote(pos->ans);
 	if (pos->is_complete == 0)
 	{
 		pos->history_mode = 0;

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:21:44 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/20 12:03:06 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 09:40:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,14 +95,14 @@ void			auto_complete(t_pos *pos, t_htab *htab, char *name)
 {
 	reduce_ans(pos, name);
 	input_is_a_string_of_printable_char(pos, htab->content);
-	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32)
+	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32 && pos->ans[pos->let_nb] != '&' && pos->ans[pos->let_nb] != '|' && pos->ans[pos->let_nb] != ';')
 		pos->let_nb += 1;
 	if (is_a_directory(pos->ans, pos))
 		add_slash_on_ans(pos);
-	else if (pos->let_nb == ft_strlen(pos->ans))
-		input_is_printable_char(pos, " ");
-	else
+	else if (pos->ans[pos->let_nb] == 32)
 		right_arrow(pos);
+	else
+		input_is_printable_char(pos, " ");
 	clean_at_start(pos);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	tputs(tgetstr("vi", NULL), 1, ft_putchar);
@@ -131,6 +131,7 @@ t_htab			*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name)
 {
 	int		wildcard;
 
+//	print_info(pos);
 	wildcard = got_a_wildcard(name);
 	htab = get_current_match(htab, name, wildcard);
 	if (wildcard == 0)

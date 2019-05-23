@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:46:14 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 17:46:02 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 09:55:34 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,7 @@ void			reduce_ans(t_pos *pos, char *name)
 {
 	int			search_i;
 
-	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32)
+	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32 && pos->ans[pos->let_nb] != '&' && pos->ans[pos->let_nb] != '|' && pos->ans[pos->let_nb] != ';')
 		right_arrow(pos);
 	search_i = ft_strlen(name) - 1;
 	while (search_i >= 0 && pos->let_nb + 1 >= 0 &&

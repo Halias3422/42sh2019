@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 17:39:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/20 15:29:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 09:35:43 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,10 +61,9 @@ static char		*get_name(t_pos *pos, int i, int j)
 
 	name = NULL;
 	i = pos->let_nb;
-	if (pos->ans[i] == 32)
+	if (pos->ans[i] == 0 || pos->ans[i] == '$' || pos->ans[i] == '&' || pos->ans[i] == '|' || pos->ans[i] == ';' || pos->ans[i] == 32)
 		i -= 1;
-	while (i >= 0 && pos->ans[i] != '|' &&
-		pos->ans[i] != '&' && pos->ans[i] != 32)
+	while (i >= 0 && pos->ans[i] != '|' && pos->ans[i] != '&' && pos->ans[i] != 32 && pos->ans[i] != ';')
 		i -= 1;
 	i += 1;
 	j = i;
@@ -74,6 +73,7 @@ static char		*get_name(t_pos *pos, int i, int j)
 	name = malloc(j - i + 1);
 	name[j - i] = '\0';
 	ft_strncpy(name, pos->ans + i, j - i);
+	print_info(pos);
 	return (name);
 }
 

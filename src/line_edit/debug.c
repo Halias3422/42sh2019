@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 09:27:30 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 14:48:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 13:11:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,6 @@ void	clear_info(int max_line)
 void	print_info(t_pos *pos)
 {
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
-	pos->debug5 += 1;
 	if (pos->max_co >= 16)
 	{
 		clear_info(21);
@@ -94,6 +93,8 @@ void	print_info(t_pos *pos)
 		printf("debug5    = %03d/\n", pos->debug5);
 		tputs(tgoto(tgetstr("cm", NULL), 0, 19), 1, ft_putchar);
 		printf("copy    = %s/\n", pos->debugchar);
+//		tputs(tgoto(tgetstr("cm", NULL), 0, 19), 1, ft_putchar);
+//		printf("copy    = %s/\n", pos->debugchar);
 	}
 	else if (pos->max_co < 16)
 	{
