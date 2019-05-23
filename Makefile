@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/21 09:57:45 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/23 09:46:28 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -28,6 +28,9 @@ SRC_NAME =	line_edit/calcul_line.c line_edit/check_input.c line_edit/escape_code
 			line_edit/tab_key_current_dir.c line_edit/tab_key_tools_calcul_print.c\
 			line_edit/tab_key_tools_manip.c line_edit/tab_key_struct.c line_edit/tab_key_auto_complete.c\
 			line_edit/initialisation_stock.c line_edit/tools.c line_edit/cut.c\
+			line_edit/token_init.c line_edit/token.c\
+			line_edit/token_check_open.c line_edit/token_check_close.c line_edit/token_heredoc_open.c\
+			line_edit/token_heredoc_close.c line_edit/token_free.c\
 			lexeur/back_slash.c lexeur/error.c line_edit/signal.c line_edit/check_error.c\
 			lexeur/fill_fd.c lexeur/lexeur.c lexeur/fill_lexeur.c lexeur/redirection.c \
 			replace/replace.c replace/env_replace.c replace/var_replace.c\
