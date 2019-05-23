@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 13:10:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 14:34:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -243,7 +243,7 @@ t_hist				*create_history(t_pos *pos, t_hist *hist);
 ** INITIALISATION_STOCK
 */
 
-void				get_cursor_info(t_pos *pos, int *li, int *co);
+void				get_cursor_info(t_pos *pos, int *li, int *co, int i);
 void				init_terminfo(t_pos *pos);
 void				init_pos(t_pos *pos);
 void				*stock(void *to_stock, int usage);
@@ -306,10 +306,16 @@ char				*termcaps42sh(t_pos *pos, t_hist *hist);
 void				print_prompt(t_pos *pos);
 
 /*
-** TAB_KEY a mettre a la norme // fichier non termine
+** TAB_KEY
 */
 
 void				input_is_tab(t_pos *pos);
+
+/*
+** TAB_KEY_VAR
+*/
+
+t_htab			*looking_for_var(t_pos *pos, t_htab *htab, char **name);
 
 /*
 ** TAB_KEY_CURRENT_DIR
@@ -377,6 +383,7 @@ t_htab		*sort_list_htab(t_htab *head);
 void				clean_at_start(t_pos *pos);
 void				short_update(t_pos *pos, int len);
 void				update_position(t_pos *pos);
+int					is_in_selection_area(int i, t_pos *pos);
 
 /*
 ** COPY a mettre a la norme
@@ -391,11 +398,6 @@ void	selection_check(t_pos *pos, char *buf);
 ** JUMP a mettre a la norme
 */
 
-void	jump_left(t_pos *pos);
-void	jump_right(t_pos *pos);
-void	go_hard(t_pos *pos);
-void	or_go_home(t_pos *pos);
-int		nb_line(t_pos *pos);
 void	find_jump(char *buf, t_pos *pos);
 
 /*
@@ -406,7 +408,6 @@ void	jump_down(t_pos *pos);
 void	jump_up(t_pos *pos);
 
 /*
-<<<<<<< HEAD
 ** HISTORY_EXPANSION.C
 */
 

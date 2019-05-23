@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:44:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 12:38:40 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 13:41:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,7 @@ void			prepare_to_print_htab(t_pos *pos, t_htab *htab)
 	if ((max_word = pos->max_co / (htab->lenght_max + 4)) == 0)
 		return ;
 	print_htab(htab, max_word);
-	get_cursor_info(pos, &pos->start_li, &pos->start_co);
+	get_cursor_info(pos, &pos->start_li, &pos->start_co, 0);
 	print_prompt(pos);
 	write(1, pos->ans, ft_strlen(pos->ans));
 	len = go_to_let_nb(pos);

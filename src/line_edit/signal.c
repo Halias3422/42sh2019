@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 09:38:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 14:10:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,6 @@ static void		resize_screen(t_pos *pos)
 	print_prompt(pos);
 	print_ans(pos, 0, pos->start_co);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
-//	print_info(pos);
 }
 
 static void		ctrl_c(t_pos *pos)
@@ -43,7 +42,7 @@ static void		ctrl_c(t_pos *pos)
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	init_pos(pos);
-//	print_prompt(pos);
+	print_prompt(pos);
 }
 
 static void		sighandler(int signum)
@@ -55,9 +54,6 @@ static void		sighandler(int signum)
 		resize_screen(pos);
 	if (signum == CTRL_C)
 		ctrl_c(pos);
-//	print_hist(pos, *ghist);
-//	print_info(pos);
-
 }
 
 void			signal_list(void)

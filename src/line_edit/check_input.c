@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 13:09:40 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 15:49:36 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,23 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 		pos->history_mode = 0;
 }
 
+static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
+{
+	if (buf[0] == 9 && pos->is_complete == 1 && pos->ctrl_search_history == 0)
+		input_is_tab(pos);
+	else if (buf[0] == 127)
+		pos->ans_printed = input_is_backspace(pos);
+	else if (buf[0] == 10 && pos->ctrl_search_history == 0)
+		hist = input_is_entry(pos, hist, (char*)buf);
+	else if (buf[0] != 127 && buf[0] != 10 && buf[0] != 9 && buf[0] != 18)
+		input_is_printable_char(pos, (char*)buf);
+	if (buf[0] == 18 || pos->ctrl_search_history == 1)
+		hist = control_search_history(pos, hist, buf);
+	if (pos->ans != NULL)
+		update_history(pos, hist, (char*)buf);
+	return (hist);
+}
+
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {
 	if (buf[0] != 226 && buf[0] != 195)
@@ -38,20 +55,8 @@ t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 	else if (buf[0] == 226 || buf[0] == 195)
 		check_copy(buf, pos);
 	else
-	{
-		if (buf[0] == 9 && pos->is_complete == 1 && pos->ctrl_search_history == 0)
-			input_is_tab(pos);
-		else if (buf[0] == 127)
-			pos->ans_printed = input_is_backspace(pos);
-		else if (buf[0] == 10 && pos->ctrl_search_history == 0)
-			hist = input_is_entry(pos, hist, (char*)buf);
-		else if (buf[0] != 127 && buf[0] != 10 && buf[0] != 9 && buf[0] != 18)
-			input_is_printable_char(pos, (char*)buf);
-		if (buf[0] == 18 || pos->ctrl_search_history == 1)
-			hist = control_search_history(pos, hist, buf);
-		if (pos->ans != NULL)
-			update_history(pos, hist, (char*)buf);
-	}
+		hist = input_no_escape(pos, hist, buf);
+
 	if (buf[0] != 10 && pos->ans_printed == 0)
 		prepare_to_print(pos, (char*)buf);
 	pos->ans_printed = 0;

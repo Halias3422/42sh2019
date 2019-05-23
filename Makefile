@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/23 13:05:17 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/23 14:37:48 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -25,7 +25,7 @@ SRC_NAME =	line_edit/calcul_line.c line_edit/check_input.c line_edit/escape_code
 			line_edit/search_in_history.c line_edit/env.c line_edit/input_is_remove_char.c\
 			line_edit/print_ans.c line_edit/debug.c line_edit/copy.c line_edit/start_termcaps.c\
 			line_edit/tab_key.c line_edit/tab_key_all_path.c line_edit/tab_key_sort.c\
-			line_edit/tab_key_current_dir.c line_edit/tab_key_tools_calcul_print.c\
+			line_edit/tab_key_current_dir.c line_edit/tab_key_tools_calcul_print.c line_edit/tab_key_var.c\
 			line_edit/tab_key_tools_manip.c line_edit/tab_key_struct.c line_edit/tab_key_auto_complete.c\
 			line_edit/history_expansion.c line_edit/history_expansion_free.c\
 			line_edit/history_expansions_types.c\

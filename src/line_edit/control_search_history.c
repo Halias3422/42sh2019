@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/15 13:30:27 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 13:46:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 13:47:03 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,10 +88,9 @@ void		needle_found_in_history(t_pos *pos, t_hist *hist, t_ctrl_hist *ctrl)
 	tputs(tgoto(tgetstr("cm", NULL), ctrl->act_co, ctrl->act_li)
 			, 1, ft_putchar);
 	if (pos->ctrl_hist_cmd)
-	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
+		pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	pos->ctrl_hist_cmd = ft_strnew(ft_strlen(hist->cmd));
 	ft_strcpy(pos->ctrl_hist_cmd, hist->cmd);
-//	pos->ctrl_hist_cmd = hist->cmd;
 }
 
 t_hist		*search_occurence_in_history(t_pos *pos, t_hist *hist,
@@ -143,6 +142,5 @@ t_hist		*control_search_history(t_pos *pos, t_hist *hist,
 	while (hist->next)
 		hist = hist->next;
 	hist = search_occurence_in_history(pos, hist, &ctrl);
-//	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	return (hist);
 }

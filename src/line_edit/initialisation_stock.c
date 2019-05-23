@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 13:08:24 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 13:41:57 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,14 +24,11 @@ void			init_terminfo(t_pos *pos)
 	tcsetattr(0, TCSADRAIN, &(pos->my_term));
 }
 
-void			get_cursor_info(t_pos *pos, int *li, int *co)
+void			get_cursor_info(t_pos *pos, int *li, int *co, int i)
 {
-	int			i;
 	char		*buf;
 
-	buf = malloc(10);
-	ft_bzero(buf, 9);
-	i = 0;
+	buf = ft_strnew(10);
 	write(1, "\033[6n", 5);
 	read(1, buf, 8);
 	buf = buf + 1;
@@ -116,8 +113,7 @@ void			init_pos(t_pos *pos)
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	init_classic_var(pos);
-
-	get_cursor_info(pos, &pos->start_li, &pos->start_co);
+	get_cursor_info(pos, &pos->start_li, &pos->start_co, 0);
 	if (pos->start_li == -1 || pos->start_co == -1)
 	{
 		pos->start_li = 0;
