@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 10:15:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 11:01:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,5 @@ t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 	if (buf[0] != 10 && pos->ans_printed == 0)
 		prepare_to_print(pos, (char*)buf);
 	pos->ans_printed = 0;
-	pos->debugchar = pos->saved_ans;
-	print_info(pos);
 	return (hist);
 }

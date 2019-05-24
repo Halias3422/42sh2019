@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 08:54:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 11:27:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,11 +92,7 @@ t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos)
 	if (ans != NULL && pos->replace_hist > 0)
 	{
 		clean_at_start(pos);
-		write(1, ans, ft_strlen(ans));
-		pos->let_nb = ft_strlen(ans);
-		update_position(pos);
-		tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li),
-				1, ft_putchar);
+		print_ans(pos, 0, pos->len_prompt);
 		pos->history_mode = 0;
 	}
 	if (ans != NULL)
@@ -128,5 +124,7 @@ t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist)
 			i += 1;
 	}
 	hist = exit_history_expansion(hist, ans, pos);
+	if (pos->error == 1)
+		pos->replace_hist = 0;
 	return (hist);
 }

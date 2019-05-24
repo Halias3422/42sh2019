@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 09:49:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 11:23:24 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,6 +70,7 @@ t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 		pos->history_mode = 0;
 		input_is_printable_char(pos, buf);
 	}
+//	update_position(pos);
 	short_update(pos, get_len_with_lines(pos));
 	if (pos->is_complete == 0)
 		entry_is_incomplete(pos, hist, buf);
