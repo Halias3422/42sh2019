@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:46:14 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 09:55:34 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 10:19:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,10 @@ t_htab			*adjust_lenght_max(t_htab *htab)
 {
 	while (htab)
 	{
-		htab->lenght_max = htab->next == NULL ? htab->lenght_max : htab->next->lenght_max;
+		htab->lenght_max = htab->next == NULL ?
+			htab->lenght_max : htab->next->lenght_max;
 		if (htab->prev == NULL)
-			break;
+			break ;
 		htab = htab->prev;
 	}
 	return (htab);
@@ -46,7 +47,6 @@ char			*get_full_path(t_pos *pos)
 
 char			*get_correct_path(char *path)
 {
-
 	int			i;
 	char		*name;
 	DIR			*test;
@@ -73,7 +73,9 @@ void			reduce_ans(t_pos *pos, char *name)
 {
 	int			search_i;
 
-	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32 && pos->ans[pos->let_nb] != '&' && pos->ans[pos->let_nb] != '|' && pos->ans[pos->let_nb] != ';')
+	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32 &&
+			pos->ans[pos->let_nb] != '&' && pos->ans[pos->let_nb] != '|' &&
+			pos->ans[pos->let_nb] != ';')
 		right_arrow(pos);
 	search_i = ft_strlen(name) - 1;
 	while (search_i >= 0 && pos->let_nb + 1 >= 0 &&

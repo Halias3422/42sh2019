@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 09:52:37 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 10:15:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,6 @@ static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {
-//	ft_printf("\n1 saved-ans = /%s/", pos->saved_ans);
 	pos->debugchar = pos->saved_ans;
 	if (buf[0] != 226 && buf[0] != 195)
 		selection_check(pos, (char*)buf);
@@ -60,7 +59,6 @@ t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 		hist = input_no_escape(pos, hist, buf);
 	if (buf[0] != 10 && pos->ans_printed == 0)
 		prepare_to_print(pos, (char*)buf);
-//	ft_printf("\n2 saved-ans = /%s/", pos->saved_ans);
 	pos->ans_printed = 0;
 	pos->debugchar = pos->saved_ans;
 	print_info(pos);

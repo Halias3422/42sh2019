@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:44:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 13:41:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 10:18:42 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,6 @@ int				is_a_directory(char *path, t_pos *pos)
 	int			i;
 	char		*to_open;
 	int			word_index;
-
 
 	word_index = get_word_index(pos);
 	i = word_index;
@@ -41,7 +40,6 @@ int				is_a_directory(char *path, t_pos *pos)
 int				get_word_index(t_pos *pos)
 {
 	int			i;
-
 
 	if (pos->let_nb == ft_strlen(pos->ans))
 		return (pos->let_nb - 1);
@@ -70,7 +68,8 @@ void			print_htab(t_htab *htab, int max_word)
 	while (htab)
 	{
 		if (htab->content_type == 4)
-			ft_printf("{B.T.cyan.}%s{eoc}/{eoc}   ", htab == NULL ? NULL : htab->content);
+			ft_printf("{B.T.cyan.}%s{eoc}/{eoc}   ", htab == NULL ?
+				NULL : htab->content);
 		else
 			ft_printf("%s    ", htab == NULL ? NULL : htab->content);
 		complete_with_space(htab);

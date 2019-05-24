@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 08:09:55 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 10:31:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -363,6 +363,7 @@ void			add_slash_on_ans(t_pos *pos);
 void			free_htab(t_htab *htab);
 t_htab			*add_list_back_htab(t_htab *htab);
 t_htab			*add_list_back_sort_htab(t_htab *head, t_htab *ls, int loop);
+t_htab			*fill_new_htab(t_htab *htab, t_htab *neww, int match);
 
 /*
 ** TAB_KEY_AUTO_COMPLETE
@@ -447,7 +448,7 @@ t_hist			*word_finding_expansion(char **new_ans, t_hist *hist,
 t_hist			*negative_number_expansion(char **new_ans, t_hist *hist,
 				char *expansion);
 t_hist			*number_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
+				char *expansion, t_pos *pos);
 
 /*
 ** token_init.c

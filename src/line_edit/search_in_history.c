@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/25 07:58:52 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 09:52:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 10:17:44 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,6 @@ t_hist		*search_up_complete_in_history(t_hist *hist, t_pos *pos)
 	{
 		if (hist->prev)
 			hist = hist->prev;
-//				ft_printf("\nhist->cmd = /%s/ pos->saved_ans = /%s/\n", hist->cmd, pos->saved_ans);
 		pos->debugchar = pos->saved_ans;
 		print_info(pos);
 		if (ft_strncmp(hist->cmd, pos->saved_ans,
