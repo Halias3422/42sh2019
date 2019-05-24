@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/24 07:21:45 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/13 09:22:34 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/23 09:44:59 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,8 +67,12 @@ static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
 t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 {
 	int		get_len;
+	t_tok       in;
+	t_tokench     tok;
 
-	pos->is_complete = find_missing_quote(pos->ans);
+	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
+	init_tok(&in);
+	check_token(pos, &in, &tok);
 	if (pos->is_complete == 0)
 	{
 		pos->history_mode = 0;

@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/23 14:41:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/13 09:51:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/22 13:49:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,6 +31,7 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {
+	pos->debug2 = pos->ctrl_search_history;
 	if (buf[0] != 226 && buf[0] != 195)
 		selection_check(pos, (char*)buf);
 	if (buf[0] == 27)
@@ -39,14 +40,16 @@ t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 		check_copy(buf, pos);
 	else
 	{
-		if (buf[0] == 9)
+		if (buf[0] == 9 && pos->is_complete == 1 && pos->ctrl_search_history == 0)
 			input_is_tab(pos);
 		else if (buf[0] == 127)
 			pos->ans_printed = input_is_backspace(pos);
-		else if (buf[0] == 10)
+		else if (buf[0] == 10 && pos->ctrl_search_history == 0)
 			hist = input_is_entry(pos, hist, (char*)buf);
-		else if (buf[0] != 127 && buf[0] != 10)
+		else if (buf[0] != 127 && buf[0] != 10 && buf[0] != 9 && buf[0] != 18)
 			input_is_printable_char(pos, (char*)buf);
+		if (buf[0] == 18 || pos->ctrl_search_history == 1)
+			hist = control_search_history(pos, hist, buf);
 		update_history(pos, hist, (char*)buf);
 	}
 	if (buf[0] != 10 && pos->ans_printed == 0)

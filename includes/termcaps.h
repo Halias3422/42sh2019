@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/13 09:31:20 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 11:05:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,11 +14,11 @@
 #ifndef TERMCAPS_H
 # define TERMCAPS_H
 
-// # include "ft_printf.h"
 # include "../libft/includes/ft_str.h"
 # include "../libft/includes/ft_int.h"
 # include "../libft/includes/ft_unix.h"
 # include "../libft/includes/ft_printf.h"
+# include "../libft/includes/ft_mem.h"
 # include "exec.h"
 # include "check_error.h"
 # include <stdio.h>
@@ -27,6 +27,7 @@
 # include <stdlib.h>
 # include <curses.h>
 # include <dirent.h>
+# include "lexeur.h"
 
 /*
 ** color **
@@ -68,6 +69,8 @@
 # define RESIZING	28
 # define CTRL_C		2
 
+extern struct s_hist **ghist;
+
 typedef struct		s_pos
 {
 	int				act_co;
@@ -96,18 +99,25 @@ typedef struct		s_pos
 	int				debug4;
 	int				debug5;
     char            *debugchar;
+	char			*debugchar2;
+	int				ctrl_search_history;
+	char			*ctrl_hist_cmd;
 	char			*toto;
+	int				error;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
 
-typedef struct        s_htab
+typedef struct		s_htab
 {
-    struct s_htab    *next;
-    struct s_htab    *prev;
-    char            *content;
-    int                content_no;
-}                    t_htab;
+    struct s_htab	*next;
+    struct s_htab	*prev;
+    char			*content;
+	int				content_type;
+    int				content_no;
+	int				lenght_max;
+	int				matching_index;
+}					t_htab;
 
 typedef struct		s_inter
 {
@@ -150,9 +160,43 @@ typedef struct			s_hist
 	int					cmd_no;
 }						t_hist;
 
+typedef struct			ctrl_hist
+{
+		int				needle;
+		int				act_co;
+		int				act_li;
+}						t_ctrl_hist;
+
+typedef struct		s_tok
+{
+	int				quote;
+	int				dquote;
+	int				bquote;
+	int				cmdand;
+	int				cmdor;
+	int				pipe;
+	int				heredoc;
+	char			*herestr;
+	char			*fullheredoc;
+	int				i;
+	int				n;
+	int				mode;
+	int				nb_quote;
+	int				nb_dquote;
+	char			*dquote_d;
+}					t_tok;
+
+typedef struct			s_tokench
+{
+	char				*token;
+	int					end;
+	struct s_tokench	*next;
+	struct s_tokench	*prev;
+}						t_tokench;
+
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
-
+int		got_a_wildcard(char *name);
 
 /*
 ** CALCUL_LINE
@@ -197,6 +241,7 @@ t_hist				*create_history(t_pos *pos, t_hist *hist);
 ** INITIALISATION_STOCK
 */
 
+void				get_cursor_info(t_pos *pos, int *li, int *co);
 void				init_terminfo(t_pos *pos);
 void				init_pos(t_pos *pos);
 void				*stock(void *to_stock, int usage);
@@ -211,6 +256,9 @@ t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
 /*
 ** INPUT_IS_PRINTABLE_CHAR
 */
+
+void				input_is_a_string_of_printable_char(t_pos *pos,
+					char *to_add);
 void				prompt_is_on_last_char(t_pos *pos);
 void				input_is_printable_char(t_pos *pos, char *buf);
 
@@ -252,14 +300,73 @@ void				signal_list(void);
 ** START_TERMCAPS
 */
 
-char				*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist);
+char				*termcaps42sh(t_pos *pos, t_hist *hist);
 void				print_prompt(t_pos *pos);
 
 /*
-** TAB_KEY
+** TAB_KEY a mettre a la norme // fichier non termine
 */
 
 void				input_is_tab(t_pos *pos);
+
+/*
+** TAB_KEY_CURRENT_DIR
+*/
+
+t_htab				*looking_for_current(t_pos *pos, t_htab *htab,
+					char **path, char **name);
+
+/*
+** TAB_KEY_ALL_PATH
+*/
+
+t_htab			*looking_for_all(t_pos *pos, t_htab *htab, char **name);
+
+/*
+** TAB_KEY_TOOLS_CALCUL_PRINT
+*/
+
+int				is_a_directory(char *path, t_pos *pos);
+int				get_word_index(t_pos *pos);
+void			prepare_to_print_htab(t_pos *pos, t_htab *htabi);
+void			print_htab(t_htab *htab, int max_word);
+void			complete_with_space(t_htab *htab);
+
+/*
+** TAB_KEY_TOOLS_MANIP
+*/
+
+t_htab			*adjust_lenght_max(t_htab *htab);
+char			*get_full_path(t_pos *pos);
+char			*get_correct_path(char *path);
+void			reduce_ans(t_pos *pos, char *name);
+void			add_slash_on_ans(t_pos *pos);
+
+/*
+** TAB_KEY_STRUCT
+*/
+
+void			free_htab(t_htab *htab);
+t_htab			*add_list_back_htab(t_htab *htab);
+t_htab			*add_list_back_sort_htab(t_htab *head, t_htab *ls, int loop);
+
+/*
+** TAB_KEY_AUTO_COMPLETE
+*/
+
+
+int			wildcard_match(char *s1, char *s2);
+
+t_htab			*get_current_match(t_htab *htab, char *name, int wildcard);
+void			auto_complete(t_pos *pos, t_htab *htab, char *name);
+t_htab			*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name);
+t_htab			*get_intelligent_match(t_htab *htab, char *name);
+
+/*
+** TAB_KEY_SORT
+*/
+
+t_htab		*sort_list_htab(t_htab *head);
 
 /*
 ** TOOLS
@@ -272,11 +379,28 @@ void				update_position(t_pos *pos);
 /*
 ** COPY a mettre a la norme
 */
-
+void	print_from_begin(t_pos *pos);
 void	display_line(t_pos		*pos);
+void	selection_check(t_pos *pos, char *buf);
+void	select_right(t_pos *pos);
+void	select_left(t_pos *pos);
+
+/*
+** COPY_TOOLS
+*/
 int		is_select(char *buf, t_pos *pos);
 void	selected(t_pos *pos, char *buf);
-void	selection_check(t_pos *pos, char *buf);
+void	clear_and_print(t_pos *pos);
+void	save_char(t_pos *pos);
+
+/*
+** CUT
+*/
+void					check_copy(unsigned char *buf, t_pos *pos);
+void					copy(t_pos *pos);
+void					paste(t_pos *pos);
+void					cut_char(t_pos *pos);
+char					*remove_cut(char *str, int start, int end);
 
 /*
 ** JUMP a mettre a la norme
@@ -287,9 +411,64 @@ void	jump_right(t_pos *pos);
 void	go_hard(t_pos *pos);
 void	or_go_home(t_pos *pos);
 int		nb_line(t_pos *pos);
-void	jump_up(t_pos *pos);
-void	jump_down(t_pos *pos);
 void	find_jump(char *buf, t_pos *pos);
+
+/*
+**JUMP_UP_DOWN.C
+*/
+
+void	jump_down(t_pos *pos);
+void	jump_up(t_pos *pos);
+
+/*
+** token_init.c
+*/
+
+t_tokench	*add_list_back_tok_next(t_tokench *tok);
+void		maj_token(t_tokench *tok, char *c);
+void		init_tok(t_tok *in);
+
+/*
+** token.c
+*/
+
+void	check_token(t_pos *pos, t_tok *in, t_tokench *tok);
+void	init_tok(t_tok *in);
+
+/*
+** token_check_open.c
+*/
+
+void		check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
+
+/*
+** token_check_close.c
+*/
+
+int			check_close_nothing(t_pos *pos, t_tok *in);
+int			check_close_nothing2(t_pos *pos, t_tok *in);
+int			check_close_tree(t_pos *pos, t_tok *in);
+void		check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
+t_tokench	*check_close(t_tokench *tok, char *c, t_tok *in);
+
+/*
+** token_heredoc_open.c
+*/
+
+void		check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
+
+/*
+** token_heredoc_close.c
+*/
+
+void		heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
+
+/*
+** token_free.c
+*/
+
+void		free_heredoc(t_tok *in);
+void		free_all_check_token(t_tok *in, t_tokench *tok);
 
 /*
 *******************************************************************************
@@ -346,9 +525,33 @@ char					*remove_char(char **str, int i);
 *******************************************************************************
 */
 //void					free_all(t_all *all);
-void					check_copy(unsigned char *buf, t_pos *pos);
 void					free_env(t_var *var);
 
-# include "lexeur.h"
+/*
+ * **    CONTROL_SEARCH_HISTORY.C
+ * */
+
+t_hist					*control_search_history(t_pos *pos, t_hist *hist,
+						unsigned char *buf);
+t_hist					*search_occurence_in_history(t_pos *pos, t_hist *hist,
+						t_ctrl_hist *ctrl);
+void                    needle_found_in_history(t_pos *pos, t_hist *hist,
+						t_ctrl_hist *ctrl);
+t_hist					*exiting_control_mode(t_pos *pos, t_hist *hist);
+int						get_pos_strstr(char *str, char *tofind, int i, int j);
+
+/*
+**    CONTROL_SEARCH_HISTORY_CALCUL_POS.C
+*/
+
+void					get_right_coordinates_found(t_pos *pos, t_hist *hist,
+						t_ctrl_hist *ctrl);
+void					get_right_coordinates_not_found(t_pos *pos, t_ctrl_hist
+						*ctrl);
+int						count_cmd_line_len(t_pos *pos, char *ans, int act_co);
+void					count_ctrl_col_and_line(t_pos *pos, char *ans,
+						t_ctrl_hist *ctrl, int needle);
+void					get_pos_coordinates_right_again(t_pos *pos);
+void    check_copy(unsigned char *buf, t_pos *pos);
 
 #endif

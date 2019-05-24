@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/13 09:24:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 10:40:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,15 +15,16 @@
 
 void		print_prompt(t_pos *pos)
 {
-	ft_putcolor(BYELLOW, pos->prompt, RESET);
+	ft_printf("{B.T.cyan.}%s{eoc}", pos->prompt);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 }
 
-static int	start_termcaps(t_pos *pos, char *buf, char *prompt)
+static int	start_termcaps(t_pos *pos, char *buf)
 {
 	int		ret;
 
 	if (pos->prompt == NULL)
-		pos->prompt = ft_strdup(prompt);
+		pos->prompt = ft_strdup("$ ");
 	init_terminfo(pos);
 	ret = check_term();
 	if (ret == -1)
@@ -36,16 +37,19 @@ static int	start_termcaps(t_pos *pos, char *buf, char *prompt)
 		//		print_info(pos);
 		//		print_hist(pos, hist);
 
-char		*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist)
+char		*termcaps42sh(t_pos *pos, t_hist *hist)
 {
 	int				ret;
 	unsigned char	buf[9];
 
 	while (hist->next)
 		hist = hist->next;
-	start_termcaps(pos, (char*)buf, prompt);
+	ghist = &hist;
+	start_termcaps(pos, (char*)buf);
 	print_prompt(pos);
 	signal_list();
+//	print_info(pos);
+//	print_hist(pos, hist);
 	while (1)
 	{
 		ret = read(0, buf, 1);
@@ -55,7 +59,8 @@ char		*termcaps42sh(char *prompt, t_pos *pos, t_hist *hist)
 			ret = read(0, buf + 1, 8);
 		if (pos->max_co > 2)
 			hist = check_input(buf, pos, hist);
-		print_info(pos);
+//		print_info(pos);
+//		print_hist(pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1)
 		{
 			tputs(tgoto(tgetstr("cm", NULL),
