@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 17:39:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 14:48:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 13:44:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,6 @@ static char		*get_name(t_pos *pos, int i, int j)
 	name = malloc(j - i + 1);
 	name[j - i] = '\0';
 	ft_strncpy(name, pos->ans + i, j - i);
-	print_info(pos);
 	return (name);
 }
 
