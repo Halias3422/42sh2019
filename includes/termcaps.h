@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 14:34:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 08:09:55 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -209,6 +209,12 @@ int					go_to_let_nb_saved(t_pos *pos);
 int					len_of_previous_line(t_pos *pos);
 int					count_nb_line(t_pos *pos, int *j);
 int					go_to_let_nb(t_pos *pos);
+
+/*
+**FT_ERRNO.C
+*/
+
+void				error_handling(t_pos *pos, char *variable, int err);
 
 /*
 ** CHECK_ERROR

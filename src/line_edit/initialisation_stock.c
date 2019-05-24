@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 13:41:57 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 09:04:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,10 +114,10 @@ void			init_pos(t_pos *pos)
 	pos->len_ans = pos->len_prompt;
 	init_classic_var(pos);
 	get_cursor_info(pos, &pos->start_li, &pos->start_co, 0);
+	pos->start_co = pos->len_prompt;
 	if (pos->start_li == -1 || pos->start_co == -1)
 	{
 		pos->start_li = 0;
-		pos->start_co = pos->len_prompt;
 		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
 		print_prompt(pos);
 	}

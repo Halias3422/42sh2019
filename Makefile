@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/23 14:37:48 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/24 09:06:56 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,6 +33,7 @@ SRC_NAME =	line_edit/calcul_line.c line_edit/check_input.c line_edit/escape_code
 			line_edit/token_init.c line_edit/token.c\
 			line_edit/token_check_open.c line_edit/token_check_close.c line_edit/token_heredoc_open.c\
 			line_edit/token_heredoc_close.c line_edit/token_free.c\
+			line_edit/ft_errno.c\
 			lexeur/back_slash.c lexeur/error.c line_edit/signal.c line_edit/check_error.c\
 			lexeur/fill_fd.c lexeur/lexeur.c lexeur/fill_lexeur.c lexeur/redirection.c \
 			replace/replace.c replace/env_replace.c replace/var_replace.c\
@@ -44,7 +45,7 @@ INC_NAME = termcaps.h
 INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
-FLAG += -Wall -Werror -Wextra -o3 -g3# -fsanitize=address
+FLAG += -Wall -Werror -Wextra -o3 -g3 -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 
