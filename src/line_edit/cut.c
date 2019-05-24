@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/07 09:34:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 10:04:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 10:10:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,10 @@ void    cut_char(t_pos *pos)
 	int len;
 
     if (pos->start_select == -1)
-        return ;
+	{
+		pos->ans_printed = 1;
+		return ;
+	}
     save_char(pos);
 	if (pos->start_select < pos->let_nb)
 	{
@@ -93,7 +96,10 @@ void	paste(t_pos *pos)
 
 	tmp = stock(NULL, 4);
 	if (tmp == NULL)
+	{
+		pos->ans_printed = 1;
 		return ;
+	}
 	i = 0;
 	co[1] = '\0';
 	while (tmp[i])
@@ -112,7 +118,10 @@ void	paste(t_pos *pos)
 void	copy(t_pos *pos)
 {
 	if (pos->start_select == -1)
-        return ;
+	{
+		pos->ans_printed = 1;
+		return ;
+	}
     save_char(pos);
 	pos->start_select = -1;
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
