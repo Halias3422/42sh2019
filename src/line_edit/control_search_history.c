@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/15 13:30:27 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 13:47:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/27 10:01:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,20 +73,18 @@ void		needle_found_in_history(t_pos *pos, t_hist *hist, t_ctrl_hist *ctrl)
 {
 	write(1, hist->cmd, ft_strlen(hist->cmd));
 	get_right_coordinates_found(pos, hist, ctrl);
-	if (ctrl->act_li < pos->max_co)
-	{
+//	if (ctrl->act_li < pos->max_co)
+//	{
 		ctrl->act_li = pos->start_li;
 		count_ctrl_col_and_line(pos, hist->cmd, ctrl, ctrl->needle);
 		if (ctrl->act_li > pos->start_li)
 			ctrl->act_co -= 1;
 		ctrl->act_li += count_cmd_line_len(pos, pos->ans, pos->len_prompt + 19);
 		if (ctrl->act_li > pos->max_co)
-		{
 			ctrl->act_li = ctrl->act_li - (ctrl->act_li - pos->max_co);
-		}
-	}
-	tputs(tgoto(tgetstr("cm", NULL), ctrl->act_co, ctrl->act_li)
-			, 1, ft_putchar);
+//	}
+//	tputs(tgoto(tgetstr("cm", NULL), ctrl->act_co, ctrl->act_li)
+//			, 1, ft_putchar);
 	if (pos->ctrl_hist_cmd)
 		pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	pos->ctrl_hist_cmd = ft_strnew(ft_strlen(hist->cmd));
@@ -142,5 +140,6 @@ t_hist		*control_search_history(t_pos *pos, t_hist *hist,
 	while (hist->next)
 		hist = hist->next;
 	hist = search_occurence_in_history(pos, hist, &ctrl);
+	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 	return (hist);
 }

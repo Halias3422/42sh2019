@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 09:27:30 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 11:01:44 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/27 09:54:53 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,7 +98,7 @@ void	print_info(t_pos *pos)
 	}
 	else if (pos->max_co < 16)
 	{
-	//	clear_info(42);
+		clear_info(42);
 		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
 		printf("AC\n");
 		tputs(tgoto(tgetstr("cm", NULL), 0, 1), 1, ft_putchar);

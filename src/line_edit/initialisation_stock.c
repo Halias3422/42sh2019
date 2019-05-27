@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 09:04:42 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/27 07:56:01 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,7 @@ void			*stock(void *to_stock, int usage)
 	static char		*stock_copy = NULL;
 	static t_var	*stock_var = NULL;
 	static t_hist	*stock_hist = NULL;
-
+	
 	if (usage == 0)
 		stock_pos = to_stock;
 	else if (usage == 1)
