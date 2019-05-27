@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:15:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 08:55:40 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 13:42:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,4 +44,12 @@ void	update_position(t_pos *pos)
 	pos->let_nb = ft_strlen(pos->ans);
 	pos->len_ans = pos->let_nb;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+}
+
+int		is_in_selection_area(int i, t_pos *pos)
+{
+	if ((i >= pos->start_select && i <= pos->let_nb) ||
+		(i <= pos->start_select && i >= pos->let_nb))
+		return (1);
+	return (0);
 }

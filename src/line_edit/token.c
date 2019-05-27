@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 08:40:32 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 14:58:21 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 09:19:29 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,12 +33,12 @@ static int	find_last_token(char *ans)
 	check = 0;
 	while (ans[j])
 		j++;
-	while (ans[j] <= 32 || ans[j] > 126)
+	while (j >= 0 && (ans[j] <= 32 || ans[j] > 126))
 		j--;
 	j--;
-	if (ans[j - 1] == 92)
+	if (j > 0 && ans[j - 1] == 92)
 		return (0);
-	if ((check = verif_token(&ans[j])) != 0)
+	if (j >= 0 && (check = verif_token(&ans[j])) != 0)
 		return (check);
 	return (0);
 }

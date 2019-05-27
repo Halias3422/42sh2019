@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/23 10:37:27 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 09:04:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,14 +24,11 @@ void			init_terminfo(t_pos *pos)
 	tcsetattr(0, TCSADRAIN, &(pos->my_term));
 }
 
-void			get_cursor_info(t_pos *pos, int *li, int *co)
+void			get_cursor_info(t_pos *pos, int *li, int *co, int i)
 {
-	int			i;
 	char		*buf;
 
-	buf = malloc(10);
-	ft_bzero(buf, 9);
-	i = 0;
+	buf = ft_strnew(10);
 	write(1, "\033[6n", 5);
 	read(1, buf, 8);
 	buf = buf + 1;
@@ -91,13 +88,13 @@ static void		init_classic_var(t_pos *pos)
 	pos->history_loop = 0;
 	pos->was_incomplete = 0;
 	pos->start_select = -1;
-//	pos->navigation = 0;
 	pos->ctrl_hist_cmd = ft_strnew(0);
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;
 	pos->debug4 = 0;
 	pos->debug5 = 0;
+	pos->replace_hist = 0;
 	pos->error = 0;
 	pos->ctrl_search_history = 0;
 	pos->debugchar = NULL;
@@ -116,12 +113,11 @@ void			init_pos(t_pos *pos)
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	init_classic_var(pos);
-
-	get_cursor_info(pos, &pos->start_li, &pos->start_co);
+	get_cursor_info(pos, &pos->start_li, &pos->start_co, 0);
+	pos->start_co = pos->len_prompt;
 	if (pos->start_li == -1 || pos->start_co == -1)
 	{
 		pos->start_li = 0;
-		pos->start_co = pos->len_prompt;
 		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
 		print_prompt(pos);
 	}

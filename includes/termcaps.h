@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 11:05:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/27 08:00:59 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,6 +14,7 @@
 #ifndef TERMCAPS_H
 # define TERMCAPS_H
 
+// # include "ft_printf.h"
 # include "../libft/includes/ft_str.h"
 # include "../libft/includes/ft_int.h"
 # include "../libft/includes/ft_unix.h"
@@ -103,6 +104,7 @@ typedef struct		s_pos
 	int				ctrl_search_history;
 	char			*ctrl_hist_cmd;
 	char			*toto;
+	int				replace_hist;
 	int				error;
 	struct termios	old_term;
 	struct termios	my_term;
@@ -209,6 +211,12 @@ int					count_nb_line(t_pos *pos, int *j);
 int					go_to_let_nb(t_pos *pos);
 
 /*
+**FT_ERRNO.C
+*/
+
+void				error_handling(t_pos *pos, char *variable, int err);
+
+/*
 ** CHECK_ERROR
 */
 
@@ -241,7 +249,7 @@ t_hist				*create_history(t_pos *pos, t_hist *hist);
 ** INITIALISATION_STOCK
 */
 
-void				get_cursor_info(t_pos *pos, int *li, int *co);
+void				get_cursor_info(t_pos *pos, int *li, int *co, int i);
 void				init_terminfo(t_pos *pos);
 void				init_pos(t_pos *pos);
 void				*stock(void *to_stock, int usage);
@@ -304,10 +312,16 @@ char				*termcaps42sh(t_pos *pos, t_hist *hist);
 void				print_prompt(t_pos *pos);
 
 /*
-** TAB_KEY a mettre a la norme // fichier non termine
+** TAB_KEY
 */
 
 void				input_is_tab(t_pos *pos);
+
+/*
+** TAB_KEY_VAR
+*/
+
+t_htab			*looking_for_var(t_pos *pos, t_htab *htab, char **name);
 
 /*
 ** TAB_KEY_CURRENT_DIR
@@ -349,6 +363,7 @@ void			add_slash_on_ans(t_pos *pos);
 void			free_htab(t_htab *htab);
 t_htab			*add_list_back_htab(t_htab *htab);
 t_htab			*add_list_back_sort_htab(t_htab *head, t_htab *ls, int loop);
+t_htab			*fill_new_htab(t_htab *htab, t_htab *neww, int match);
 
 /*
 ** TAB_KEY_AUTO_COMPLETE
@@ -372,45 +387,42 @@ t_htab		*sort_list_htab(t_htab *head);
 ** TOOLS
 */
 
-void				clean_at_start(t_pos *pos);
-void				short_update(t_pos *pos, int len);
-void				update_position(t_pos *pos);
+void			clean_at_start(t_pos *pos);
+void			short_update(t_pos *pos, int len);
+void			update_position(t_pos *pos);
+int				is_in_selection_area(int i, t_pos *pos);
 
 /*
 ** COPY a mettre a la norme
 */
-void	print_from_begin(t_pos *pos);
-void	display_line(t_pos		*pos);
-void	selection_check(t_pos *pos, char *buf);
-void	select_right(t_pos *pos);
-void	select_left(t_pos *pos);
+void			print_from_begin(t_pos *pos);
+void			display_line(t_pos*pos);
+void			selection_check(t_pos *pos, char *buf);
+void			select_right(t_pos *pos);
+void			select_left(t_pos		*pos);
 
 /*
 ** COPY_TOOLS
 */
-int		is_select(char *buf, t_pos *pos);
-void	selected(t_pos *pos, char *buf);
-void	clear_and_print(t_pos *pos);
-void	save_char(t_pos *pos);
+int				is_select(char *buf, t_pos *pos);
+void			selected(t_pos *pos, char *buf);
+void			clear_and_print(t_pos *pos);
+void			save_char(t_pos *pos);
 
 /*
 ** CUT
 */
-void					check_copy(unsigned char *buf, t_pos *pos);
-void					copy(t_pos *pos);
-void					paste(t_pos *pos);
-void					cut_char(t_pos *pos);
-char					*remove_cut(char *str, int start, int end);
+void			check_copy(unsigned char *buf, t_pos *pos);
+void			copy(t_pos *pos);
+void			paste(t_pos *pos);
+void			cut_char(t_pos *pos);
+char			*remove_cut(char *str, int start, int end);
+
 
 /*
 ** JUMP a mettre a la norme
 */
 
-void	jump_left(t_pos *pos);
-void	jump_right(t_pos *pos);
-void	go_hard(t_pos *pos);
-void	or_go_home(t_pos *pos);
-int		nb_line(t_pos *pos);
 void	find_jump(char *buf, t_pos *pos);
 
 /*
@@ -419,6 +431,42 @@ void	find_jump(char *buf, t_pos *pos);
 
 void	jump_down(t_pos *pos);
 void	jump_up(t_pos *pos);
+
+/*
+** HISTORY_EXPANSION.C
+*/
+
+t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist);
+t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos);
+t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
+				t_hist *hist, int *i);
+char			*get_expansion_content(char *ans, int i);
+int				get_expansion_length(char *ans, int i);
+
+/*
+**HISTORY_EXPANSION_FREE.C
+*/
+
+t_hist			*no_expansion_found(char **expansion, char **new_ans,
+				t_hist *hist);
+char			*new_ans_not_valid(char **ans, char *new_ans, int *i);
+char			*filling_ans_with_new_ans(t_pos *pos, char *new_ans, char **ans,
+				int end_exp);
+
+/*
+**HISTORY_EXPANSION_TYPES.C
+*/
+
+t_hist			*get_expansion_type(char *expansion, t_hist *hist,
+				char **new_ans, int *i);
+t_hist			*double_exclamation_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+t_hist			*word_finding_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+t_hist			*negative_number_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+t_hist			*number_expansion(char **new_ans, t_hist *hist,
+				char *expansion, t_pos *pos);
 
 /*
 ** token_init.c
