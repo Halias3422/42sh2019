@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.42.fr>          +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/28 11:01:22 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/28 15:13:51 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -39,10 +39,15 @@ SRC_EXEC = $(addprefix exec/, \
 
 SRC_REP = $(addprefix replace/, \
 				alias.c env_replace.c replace.c tool.c var_replace.c)
-				
+
+SRC_BUILTIN = $(addprefix builtin/, \
+				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
+				ft_unset.c tool.c)
+
 SRC_MAIN = $(addprefix main/, main.c)
 
-SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP)
+SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN)
+
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = termcaps.h
 
@@ -50,7 +55,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -o3 -g3# -fsanitize=address
+FLAG += -Wall -Werror -Wextra -o3 -g3 -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 
@@ -80,6 +85,7 @@ $(OBJ_PATH):
 	@mkdir -p obj/lexeur 2> /dev/null
 	@mkdir -p obj/replace 2> /dev/null
 	@mkdir -p obj/exec 2> /dev/null
+	@mkdir -p obj/builtin 2> /dev/null
 	@mkdir -p obj/main 2> /dev/null
 	@mkdir -p obj/ft_printf 2> /dev/null
 

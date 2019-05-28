@@ -1,39 +1,48 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   h.c                                              .::    .:/ .      .::   */
+/*   ft_export.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/04 10:59:46 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Created: 2019/05/20 15:23:43 by husahuc      #+#   ##    ##    #+#       */
 /*   Updated: 2019/05/28 14:47:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/hache.h"
+#include "../../includes/builtin.h"
 
-int		hache_function(char *str)
+int			ft_export_env(char *name, t_var **ptr_var)
 {
-	int		size;
-	int		nb;
-	int     i;
+	t_var *var;
 
-	i = 0;
-	nb = 0;
-	size = ft_strlen(str);
-	while (str[i])
-		nb += str[i++];
-	nb %= 100;
-	
-	return (nb);
+	var = *ptr_var;
+	if (ft_get_val(name, var, LOCAL) == NULL)
+		return (0);
+	while (var)
+	{
+		if (ft_strcmp(name, var->name) == 0 && var->type == LOCAL)
+		{
+			var->type = ENVIRONEMENT;
+			return (1);
+		}
+		var = var->next;
+	}
+	return (0);
 }
 
-int		main(int ac, char **av)
+int			ft_export(t_process *p, t_var **ptr_var)
 {
-	if (ac != 2)
-		return (0);
-	ft_printf("res: %s\n", av[1]);
-	ft_printf("int -> __%d__\n", hache_function(av[1]));
+	int i;
+
+	i = 0;
+	while (p->cmd[++i])
+	{
+		if (ft_export_env(p->cmd[i], ptr_var))
+			ft_printf("ok\n");
+		else
+			ft_printf("not\n");
+	}
 	return (0);
 }

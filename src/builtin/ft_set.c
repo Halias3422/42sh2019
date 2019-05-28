@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   h.c                                              .::    .:/ .      .::   */
+/*   ft_set.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/04 10:59:46 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
 /*   Updated: 2019/05/28 14:47:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/hache.h"
+#include "../../includes/builtin.h"
 
-int		hache_function(char *str)
+// Changer pour ft_printf
+// afficher charactere entre ''
+// faire le tri
+
+int		ft_set(t_process *p, t_var **ptr_var)
 {
-	int		size;
-	int		nb;
-	int     i;
+	t_var *var;
 
-	i = 0;
-	nb = 0;
-	size = ft_strlen(str);
-	while (str[i])
-		nb += str[i++];
-	nb %= 100;
-	
-	return (nb);
-}
-
-int		main(int ac, char **av)
-{
-	if (ac != 2)
-		return (0);
-	ft_printf("res: %s\n", av[1]);
-	ft_printf("int -> __%d__\n", hache_function(av[1]));
-	return (0);
+	var = *ptr_var;
+	if (p->cmd[1])
+		return (1);
+	while (var)
+	{
+		ft_printf("%s=%s\n", var->name, var->data);
+		var = var->next;
+	}
+	return (1);
 }
