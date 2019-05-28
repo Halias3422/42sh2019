@@ -85,12 +85,10 @@ tags
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
-
 .42_history
 .42_alias
 42sh
 21sh
 ft_select
-
 .DS_Store
 # End of https://www.gitignore.io/api/c,vim,visualstudiocode
