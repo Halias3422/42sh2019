@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   replace.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 15:24:04 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 17:41:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,6 @@ int			replace_find_alias(char ***array, t_var *var, t_replace *r, int i)
 int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 {
 	int		done;
-	char	*tmp;
 	int		i;
 
 	done = 0;
@@ -82,13 +81,6 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 	while ((*array)[i])
 	{
 		replace_find_alias(array, var, replace, i);
-		if ((*array)[i][0] == '\'')
-		{
-			tmp = (*array)[i];
-			(*array)[i] = ft_strsub((*array)[i], 1, ft_strlen((*array)[i]) - 2);
-			ft_strdel(&tmp);
-			i++;
-		}
 		if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
 		{
 			done = 1;
@@ -111,12 +103,21 @@ char		**remove_env(t_var *start, char *str)
 {
 	char		**array;
 	t_replace	*replace;
+	int			i = 0;
 
 	init_replace(&replace);
 	array = split_space(str);
+	while (array[i])
+	{
+		printf("array[%d]: _%s_\n", i, array[i]);
+		i++;
+	}
 	while (1)
+	{
+		remoove_quote(&array);
 		if (remove_env_while(&array, start, replace) == 0)
 			break ;
+	}
 	ft_strdel(&str);
 //	free_replace(replace);
 	return (array);
