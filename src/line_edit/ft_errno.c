@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/24 07:19:15 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 15:07:28 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 09:36:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,4 +66,6 @@ void			error_handling(t_pos *pos, char *variable, int err)
 		free_t_hist(err_list);
 		err_list = NULL;
 	}
+//	else if (err == 1)
+//		free_t_hist(err_list);
 }
