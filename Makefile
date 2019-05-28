@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/27 08:43:44 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/27 13:47:42 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -20,8 +20,8 @@ INC_PATH = ./includes/
 SRC_NAME =	line_edit/calcul_line.c line_edit/check_input.c line_edit/escape_code.c\
 			line_edit/history.c line_edit/input_is_entry.c line_edit/input_is_printable_char.c\
 			line_edit/jump.c line_edit/jump_up_down.c line_edit/main_termcaps.c\
-			line_edit/move_through_history.c\
-			line_edit/control_search_history.c line_edit/control_search_history_calcul_pos.c\
+			line_edit/move_through_history.c line_edit/control_search_history_calcul_pos.c\
+			line_edit/control_search_history.c line_edit/control_search_history_calcul_lines.c\
 			line_edit/search_in_history.c line_edit/env.c line_edit/input_is_remove_char.c\
 			line_edit/print_ans.c line_edit/debug.c line_edit/copy.c line_edit/start_termcaps.c\
 			line_edit/tab_key.c line_edit/tab_key_all_path.c line_edit/tab_key_sort.c\

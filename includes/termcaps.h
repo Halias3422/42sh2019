@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 10:31:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 08:24:53 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -571,17 +571,23 @@ t_hist					*exiting_control_mode(t_pos *pos, t_hist *hist);
 int						get_pos_strstr(char *str, char *tofind, int i, int j);
 
 /*
-**    CONTROL_SEARCH_HISTORY_CALCUL_POS.C
+**CONTROL_SEARCH_HISTORY_CALCUL_LINES.C
 */
 
 void					get_right_coordinates_found(t_pos *pos, t_hist *hist,
 						t_ctrl_hist *ctrl);
-void					get_right_coordinates_not_found(t_pos *pos, t_ctrl_hist
-						*ctrl);
 int						count_cmd_line_len(t_pos *pos, char *ans, int act_co);
 void					count_ctrl_col_and_line(t_pos *pos, char *ans,
 						t_ctrl_hist *ctrl, int needle);
+
+/*
+**CONTROL_SEARCH_HISTORY_CALCUL_POS.C
+*/
+
+void					get_right_coordinates_not_found(t_pos *pos, t_ctrl_hist
+						*ctrl);
 void					get_pos_coordinates_right_again(t_pos *pos);
+
 void    check_copy(unsigned char *buf, t_pos *pos);
 
 #endif
