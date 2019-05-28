@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 08:40:32 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 09:19:29 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 11:38:06 by bjuarez     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,9 @@ static void	check_close_token(t_pos *pos, t_tok *in, t_tokench *tok)
 
 static int	check_in(t_pos *pos, t_tok *in)
 {
+	int	p;
+
+	p = ft_strlen(pos->ans);
 	if (in->heredoc == 1)
 		return (0);
 	if (in->quote == 1)
@@ -76,6 +79,16 @@ static int	check_in(t_pos *pos, t_tok *in)
 	if (find_last_token(pos->ans) < 4 && find_last_token(pos->ans) > 0
 		&& in->quote != 1 && in->dquote != 1 && in->bquote != 1)
 		return (0);
+	if (pos->ans && p > 0)
+	{
+		if (pos->ans[p - 1] == 92)
+		{
+			if (p == 1)
+				return (0);
+			if (p > 1 && pos->ans[p - 2] != 92)
+				return (0);
+		}
+	}
 	return (1);
 }
 
