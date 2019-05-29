@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/28 15:39:06 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/29 11:19:54 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -47,6 +47,9 @@ MOBJ_PATH = $(addprefix $(OBJ_PATH), mem/)
 PSRC_PATH = $(addprefix $(SRC_PATH), ft_printf/)
 POBJ_PATH = $(addprefix $(OBJ_PATH), ft_printf/)
 
+PESRC_PATH = $(addprefix $(SRC_PATH), ft_printf_err/)
+PEOBJ_PATH = $(addprefix $(OBJ_PATH), ft_printf_err/)
+
 # **************************************************************************** #
 # 									SRCS                                       #
 # **************************************************************************** #
@@ -83,6 +86,13 @@ PSRC_NAME = add_conversion.c add_flag2.c add_flags.c bonus_conversion_type_1.c\
 			handle_float.c handle_prec_and_width.c others.c others2.c \
 			print_colors.c print_printf.c
 
+PEINC_NAME = ft_printf_err.h
+PESRC_NAME = add_conversion.c add_flag2.c add_flags.c bonus_conversion_type_1.c\
+			bonus_conversion_type_2.c bonus_conversion_type_3.c conversion_type.c\
+			conversion_type2.c determ_data.c ft_printf.c handle_flags_order.c\
+			handle_float.c handle_prec_and_width.c others.c others2.c \
+			print_colors.c print_printf.c
+
 # **************************************************************************** #
 #  									VAR                                        #
 # **************************************************************************** #
@@ -107,6 +117,10 @@ POBJ_NAME = $(PSRC_NAME:.c=.o)
 POBJ = $(addprefix $(POBJ_PATH), $(POBJ_NAME))
 PINC = $(addprefix $(INC_PATH), $(PINC_NAME))
 
+PEOBJ_NAME = $(PESRC_NAME:.c=.o)
+PEOBJ = $(addprefix $(PEOBJ_PATH), $(PEOBJ_NAME))
+PEINC = $(addprefix $(INC_PATH), $(PEINC_NAME))
+
 # **************************************************************************** #
 #  									FLAG                                       #
 # **************************************************************************** #
@@ -119,8 +133,8 @@ FLAGS = -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 
 all : $(OBJ_PATH) $(NAME)
 
-$(NAME): $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ)
-	@ar rcs $(NAME) $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ)
+$(NAME): $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
+	@ar rcs $(NAME) $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
 	@echo "\n\033[0m"
 
 $(OBJ_PATH):
@@ -130,26 +144,31 @@ $(OBJ_PATH):
 	@mkdir -p $(IOBJ_PATH) 2> /dev/null
 	@mkdir -p $(MOBJ_PATH) 2> /dev/null
 	@mkdir -p $(POBJ_PATH) 2> /dev/null
+	@mkdir -p $(PEOBJ_PATH) 2> /dev/null
 
 $(SOBJ_PATH)%.o: $(SSRC_PATH)%.c $(SINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(UOBJ_PATH)%.o: $(USRC_PATH)%.c $(UINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(IOBJ_PATH)%.o: $(ISRC_PATH)%.c $(IINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(MOBJ_PATH)%.o: $(MSRC_PATH)%.c $(MINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(POBJ_PATH)%.o: $(PSRC_PATH)%.c $(PINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
+
+$(PEOBJ_PATH)%.o: $(PESRC_PATH)%.c $(PEINC)
+	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
+	@echo "$(DARK_BLUE).\c"
 
 clean: 
 	@rm -rf $(OBJ_PATH)

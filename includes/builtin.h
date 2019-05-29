@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 10:13:21 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 11:09:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,10 @@
 
 # include "exec.h"
 
-# define LEN_BUILTIN_LIST 9
+# define LEN_BUILTIN_LIST 10
+
+typedef struct	s_var t_var;
+typedef struct	s_process t_process;
 
 typedef struct	s_builtin
 {
@@ -36,6 +39,7 @@ int				ft_set(t_process *p, t_var **ptr_var);
 int				ft_type(t_process *p, t_var **var);
 int				ft_export(t_process *p, t_var **ptr_var);
 int				ft_unset(t_process *p, t_var **ptr_var);
+int				ft_fc(t_process *p, t_var **var);
 
 char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);

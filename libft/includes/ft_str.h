@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/03 15:18:39 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:50:28 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 10:10:23 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,8 @@
 # include "ft_unix.h"
 # include "ft_mem.h"
 # include "ft_int.h"
+# include "ft_printf.h"
+# include "ft_printf_err.h"
 
 /*
 ** Get Next Line Struct
