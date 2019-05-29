@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.42.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:52:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 11:02:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,8 +19,10 @@
 # include "../libft/includes/ft_unix.h"
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/ft_mem.h"
+# include "../libft/includes/ft_printf_err.h"
 # include "exec.h"
 # include "check_error.h"
+# include "builtin.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <term.h>

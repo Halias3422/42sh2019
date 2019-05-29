@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/25 15:45:32 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 10:57:09 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,6 @@
 #ifndef EXEC_H
 # define EXEC_H
 
-# include "lexeur.h"
 # include "termcaps.h"
 # include <unistd.h>
 
