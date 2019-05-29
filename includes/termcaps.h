@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 09:40:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 11:53:39 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -521,6 +521,7 @@ void		free_all_check_token(t_tok *in, t_tokench *tok);
 ** init_alias.c
 */
 void		init_alias(t_var *var, t_pos *pos);
+void		write_alias(t_var *var, t_pos *pos);
 
 /*
 *******************************************************************************

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/29 09:16:52 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 11:42:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 11:56:41 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ void	write_alias(t_var *var, t_pos *pos)
 {
 	while (var && var->next)
 	{
-		if (var->type == ALIAS)
+		if (var->type == 2)
 		{
 			write(pos->alias, var->name, ft_strlen(var->name));
 			write(pos->alias, "=", 1);
@@ -50,7 +50,7 @@ void	init_alias(t_var *var, t_pos *pos)
 			var = var->next;
 			var->name = init_name(line);
 			var->data = init_data(line);
-			var->type = ALIAS;
+			var->type = 2;
 			var->next = NULL;
 		}
 		if (line != NULL)

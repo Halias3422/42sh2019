@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 14:18:10 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 16:51:38 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,32 +72,26 @@ char		**split_space(char *str)
 	{
 		while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
 			i++;
-		if (str[i] && str[i] == '"')
-		{
-			i++;
-			start = i;
-			while (str[i] && str[i] != '"')
-				i++;
-			res[k] = ft_strsub(str, start, i - start);
-			k++;
-			i++;
-		}
-		else if (str[i] && str[i] == '\'')
-		{
-			start = i;
-			i++;
-			while (str[i] && str[i] != '\'')
-				i++;
-			res[k] = ft_strsub(str, start, (i + 1) - start);
-			k++;
-			i++;
-		}
-		else if (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
+		if (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
 		{
 			start = i;
 			while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
-			&& str[i] != '"' && str[i] != '\'' && find_token(str, i) == -1))
+			&& find_token(str, i) == -1))
+			{
+				if (str[i] == '\'')
+				{
+					i++;
+					while (str[i] && str[i] != '\'')
+						i++;
+				}
+				if (str[i] == '"')
+				{
+					i++;
+					while (str[i] && str[i] != '"')
+						i++;
+				}
 				i++;
+			}
 			res[k] = ft_strsub(str, start, i - start);
 			k++;
 		}
