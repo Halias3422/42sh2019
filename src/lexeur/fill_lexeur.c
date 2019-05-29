@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 11:08:46 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 16:11:33 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,10 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	i = 0;
 	j = 0;
 	while (buf[i])
+	{
+		ft_printf("buf[%d] = _%s_\n", i, buf[i]);
 		i++;
+	}
 	array = malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])

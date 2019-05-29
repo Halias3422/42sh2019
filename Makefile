@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mjalenqu <mjalenqu@student.42.fr>          +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/05/28 14:31:22 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/29 09:41:30 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -29,7 +29,7 @@ SRC_LINE = $(addprefix line_edit/, \
 				start_termcaps.c tab_key.c tab_key_all_path.c tab_key_auto_complete.c tab_key_current_dir.c\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
 				token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
-				token_heredoc_open.c token_init.c)
+				token_heredoc_open.c token_init.c init_alias.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c double_quote.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c)

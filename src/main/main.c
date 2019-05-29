@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 10:17:01 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 09:40:57 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ int				main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	my_env = init_env(env);
+	my_env = init_env(env, &pos);
 	stock(my_env, 5);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);

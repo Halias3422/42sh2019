@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   env.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/25 15:07:07 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 09:41:40 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,7 @@ char	*init_name(char *src)
 	return (dest);
 }
 
-t_var	*init_env(char **env)
+t_var	*init_env(char **env, t_pos *pos)
 {
 	t_var	*new;
 	t_var	*save;
@@ -65,6 +65,7 @@ t_var	*init_env(char **env)
 		}
 	}
 	new->next = NULL;
+	init_alias(save, pos);
 	return (save);
 }
 
