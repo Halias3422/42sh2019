@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 17:41:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 13:11:51 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,13 +63,11 @@ int			replace_find_alias(char ***array, t_var *var, t_replace *r, int i)
 		if (check_alias((*array)[i], var, r) == 1)
 		{
 			done = 1;
-			(*array)[i] = replace_alias((*array)[i], var, r);
+			replace_alias(array, var, r);
 		}
 	}
 	return (done);
 }
-
-// TODO gerer les simple quotes.
 
 int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 {
@@ -114,10 +112,10 @@ char		**remove_env(t_var *start, char *str)
 	}
 	while (1)
 	{
-		remoove_quote(&array);
 		if (remove_env_while(&array, start, replace) == 0)
 			break ;
 	}
+	remoove_quote(&array);
 	ft_strdel(&str);
 //	free_replace(replace);
 	return (array);
