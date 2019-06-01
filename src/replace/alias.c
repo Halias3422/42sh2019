@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/01 14:20:44 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/01 14:33:33 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,6 @@ void		fill_array(char ***res, char ***array, int *i)
 		(*res)[*i] = ft_strdup((*array)[*i]);
 		(*i)++;
 	}
-	printf("i ici: %d\n", *i);
 	(*res)[*i] = NULL;
 }
 
@@ -52,8 +51,7 @@ void		free_array(char ***array)
 	i = 0;
 	while ((*array)[i])
 	{
-		printf("del: _%s_\n", (*array)[i]);
-		ft_strdel(array[i]);
+		ft_strdel(&(*array)[i]);
 		i++;
 	}
 }
@@ -120,7 +118,6 @@ void		replace_alias(char ***array, t_var *var, t_replace *replace)
 {
 	int			i;
 	t_replace	*tmp_r;
-	int			j = 0;
 
 	tmp_r = replace;
 	i = 0;
@@ -137,6 +134,4 @@ void		replace_alias(char ***array, t_var *var, t_replace *replace)
 		else
 			break ;
 	}
-	while ((*array)[++j])
-		printf("array[%d]: _%s_\n", j, (*array)[j]);
 }
