@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 13:11:51 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/01 14:21:33 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,22 +53,6 @@ int			check_alias(char *array, t_var *var, t_replace *replace)
 	return (1);
 }
 
-int			replace_find_alias(char ***array, t_var *var, t_replace *r, int i)
-{
-	int		done;
-
-	done = 0;
-	if (i == 0 || find_token((*array)[i - 1], 0) != -1)
-	{
-		if (check_alias((*array)[i], var, r) == 1)
-		{
-			done = 1;
-			replace_alias(array, var, r);
-		}
-	}
-	return (done);
-}
-
 int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 {
 	int		done;
@@ -76,9 +60,14 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 
 	done = 0;
 	i = 0;
+	replace_alias(array, var, replace);
 	while ((*array)[i])
 	{
-		replace_find_alias(array, var, replace, i);
+		printf("arrau[%d]\t_%s_\n", i, (*array)[i]);
+		i++;
+	}
+	while ((*array)[i])
+	{
 		if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
 		{
 			done = 1;

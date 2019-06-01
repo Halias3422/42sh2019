@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/30 11:16:24 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/01 14:20:44 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,10 +39,23 @@ void		fill_array(char ***res, char ***array, int *i)
 	while ((*array)[*i])
 	{
 		(*res)[*i] = ft_strdup((*array)[*i]);
-		printf("res[%d]: _%s_\n", *i, (*res)[*i]);
 		(*i)++;
 	}
+	printf("i ici: %d\n", *i);
 	(*res)[*i] = NULL;
+}
+
+void		free_array(char ***array)
+{
+	int		i;
+
+	i = 0;
+	while ((*array)[i])
+	{
+		printf("del: _%s_\n", (*array)[i]);
+		ft_strdel(array[i]);
+		i++;
+	}
 }
 
 char		**fill_alias_solo(char *str, char ***array)
@@ -53,10 +66,10 @@ char		**fill_alias_solo(char *str, char ***array)
 	i = 0;
 	res = malloc(sizeof(char *) * (cnt_array((*array)) + 1));
 	res[i] = ft_strdup(str);
-	printf("res[%d]: _%s_\n", i, res[i]);
+	i++;
 	fill_array(&res, array, &i);
 	ft_strdel(&str);
-//	free_array(array);
+	free_array(array);
 	return (res);
 }
 
@@ -107,6 +120,7 @@ void		replace_alias(char ***array, t_var *var, t_replace *replace)
 {
 	int			i;
 	t_replace	*tmp_r;
+	int			j = 0;
 
 	tmp_r = replace;
 	i = 0;
@@ -123,6 +137,6 @@ void		replace_alias(char ***array, t_var *var, t_replace *replace)
 		else
 			break ;
 	}
-	list_add(&replace, (*array)[i]);
-	ft_strdel(array[i]);
+	while ((*array)[++j])
+		printf("array[%d]: _%s_\n", j, (*array)[j]);
 }
