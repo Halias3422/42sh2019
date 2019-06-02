@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/01 15:23:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/02 13:51:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,6 @@ char		check_last_char(char *str)
 	i = 0;
 	while (str[i])
 		i++;
-	printf("str[i - 1]: %c\n", str[i - 1]);
 	return (str[i - 1]);
 }
 
@@ -111,9 +110,26 @@ void		replace_alias_while(t_var *var, char ***array)
 char		*del_space(char *str)
 {
 	int		i;
+	int		s;
+	char	*tmp;
 	char	*res;
 
 	i = 0;
+	res = ft_strdup("");
+	while (str[i])
+	{
+		jump_space(str, &i);
+		s = i;
+		while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
+			i++;
+		tmp = ft_strsub(str, s, i - s);
+		ft_strjoin_free(&res, tmp);
+		ft_strdel(&tmp);
+		if (str[i])
+			i++;
+	}
+	ft_strdel(&str);
+	return (res);
 }
 
 void		replace_alias(char ***array, t_var *var, t_replace *replace)
@@ -134,7 +150,12 @@ void		replace_alias(char ***array, t_var *var, t_replace *replace)
 		if ((*array)[i + 1] && check_last_char((*array)[i]) == ' ')
 			i++;
 		else
+		{
+			printf("b: avant: array: _%s_\n", (*array)[i]);
+			(*array)[i] = del_space((*array)[i]);
+			printf("b: apres array: _%s_\n", (*array)[i]);
 			break ;
+		}
 		//enlever les espaces sur ce qui a etait replace merci.
 		printf("avant: array: _%s_\n", (*array)[i - 1]);
 		(*array)[i - 1] = del_space((*array)[i - 1]);
