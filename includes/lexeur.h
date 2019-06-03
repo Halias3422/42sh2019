@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 16:55:57 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 11:37:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -174,7 +174,7 @@ void		init_replace(t_replace **replace);
 */
 
 
-char		*replace_alias(char *array, t_var *var, t_replace *replace);
+void		replace_alias(char ***array, t_var *var, t_replace *replace);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

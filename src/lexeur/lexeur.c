@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:45:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/02 13:43:55 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,16 +92,20 @@ int			cnt_wrd(char *buf)
 	return (cnt);
 }
 
-//TODO Make 'and "s
-
 t_lexeur	**start_lex(t_var *var, char *res)
 {
 	t_lexeur	**array;
 	char		**tmp;
+	int			i = 0;
 
 	array = NULL;
 	tmp = remove_env(var, res);
 	array = fill_lex(tmp, array);
+	while (array[i])
+	{
+		printf("array[%d]: |%s|\n", i, array[i]->word);
+		i++;
+	}
 	return (array);
 }
 
