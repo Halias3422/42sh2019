@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 11:09:42 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/05 14:58:52 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,19 @@ typedef struct	s_builtin
 	const char	*name;
 	int			(*ptr_builtin)(t_process*, t_var**);
 }				t_builtin;
+
+typedef struct	s_fc
+{
+	char		*flags;
+	char		*ename;
+	char		*str_first;
+	char		*str_last;
+	int			int_first;
+	int			int_last;
+	int			first_is_str;
+	int			last_is_str;
+	int			error;
+}				t_fc;
 
 extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 
