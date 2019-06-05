@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/29 09:16:52 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 11:56:41 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/05 08:48:48 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,9 @@
 
 void	write_alias(t_var *var, t_pos *pos)
 {
-	while (var && var->next)
+	chdir(pos->path);
+	pos->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT , 0664);
+	while (var)
 	{
 		if (var->type == 2)
 		{
@@ -34,12 +36,11 @@ void	init_alias(t_var *var, t_pos *pos)
 	int		ret;
 	char	*line;
 
-	// ret = 1;
 	line = NULL;
-	pwd = getcwd(NULL, 255);
-	pwd = ft_strjoinf(pwd, "/.aliases", 1);
+	pos->path = getcwd(NULL, 255);
+	pwd = ft_strjoin(pos->path, "/.aliases");
 	pos->alias = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
-	free(pwd);
+	ft_strdel(&pwd);
 	while (var->next)
 		var = var->next;
 	while ((ret = get_next_line(pos->alias, &line)) > 0)
@@ -56,4 +57,5 @@ void	init_alias(t_var *var, t_pos *pos)
 		if (line != NULL)
 			ft_strdel(&line);
 	}
+	close(pos->alias);
 }

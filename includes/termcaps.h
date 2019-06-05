@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 11:53:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/05 08:43:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,6 +106,7 @@ typedef struct		s_pos
 	char			*toto;
 	int				replace_hist;
 	int				error;
+	char			*path;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
