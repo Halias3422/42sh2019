@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/02 13:51:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/04 13:37:42 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,14 +33,17 @@ int			cnt_array(char **str)
 	return (i);
 }
 
-void		fill_array(char ***res, char ***array, int *i)
+void		fill_array(char ***res, char ***array)
 {
-	while ((*array)[*i])
+	int		i;
+
+	i = 0;
+	while ((*array)[i])
 	{
-		(*res)[*i] = ft_strdup((*array)[*i]);
-		(*i)++;
+		(*res)[i] = ft_strdup((*array)[i]);
+		(i)++;
 	}
-	(*res)[*i] = NULL;
+	(*res)[i] = NULL;
 }
 
 void		free_array(char ***array)
@@ -55,16 +58,14 @@ void		free_array(char ***array)
 	}
 }
 
-char		**fill_alias_solo(char *str, char ***array)
+char		**fill_alias_solo(int i, char *str, char ***array)
 {
 	char	**res;
-	int		i;
 
-	i = 0;
 	res = malloc(sizeof(char *) * (cnt_array((*array)) + 1));
+	fill_array(&res, array);
+	ft_strdel(&res[i]);
 	res[i] = ft_strdup(str);
-	i++;
-	fill_array(&res, array, &i);
 	ft_strdel(&str);
 	free_array(array);
 	return (res);
@@ -75,10 +76,10 @@ void		fill_alias_multiple(int i, char *str, char ***array)
 	i = 0;
 	str = NULL;
 	array = NULL;
-//replace  i eme alias dans array.
+// TODO replace  i eme alias dans array.
 }
 
-void		replace_alias_while(t_var *var, char ***array)
+void		replace_alias_while(int ind, t_var *var, char ***array)
 {
 	char	*tmp;
 	int		j;
@@ -99,12 +100,14 @@ void		replace_alias_while(t_var *var, char ***array)
 			t++;
 		if (!tmp[t])
 		{
-			(*array) = fill_alias_solo(ft_strsub(tmp, s, t - s), array);
+			(*array) = fill_alias_solo(ind, ft_strsub(tmp, s, t - s), array);
+			ft_strdel(&tmp);
 			return ;
 		}
 		fill_alias_multiple(i, ft_strsub(tmp, s, i - s), array);
 		j++;
 	}
+	ft_strdel(&tmp);
 }
 
 char		*del_space(char *str)
@@ -136,29 +139,27 @@ void		replace_alias(char ***array, t_var *var, t_replace *replace)
 {
 	int			i;
 	t_replace	*tmp_r;
+	t_var		*tmp_v;
 
 	tmp_r = replace;
+	tmp_v = var;
 	i = 0;
 	while (1)
 	{
-		while (var && (ft_strcmp((*array)[i], var->name) != 0 &&
+		while (var && (ft_strcmp((*array)[i], var->name) != 0 ||
 		var->type != ALIAS))
 			var = var->next;
 		if (!var)
 			return ;
-		replace_alias_while(var, array);
+		replace_alias_while(i, var, array);
 		if ((*array)[i + 1] && check_last_char((*array)[i]) == ' ')
 			i++;
 		else
 		{
-			printf("b: avant: array: _%s_\n", (*array)[i]);
 			(*array)[i] = del_space((*array)[i]);
-			printf("b: apres array: _%s_\n", (*array)[i]);
 			break ;
 		}
-		//enlever les espaces sur ce qui a etait replace merci.
-		printf("avant: array: _%s_\n", (*array)[i - 1]);
+		var = tmp_v;
 		(*array)[i - 1] = del_space((*array)[i - 1]);
-		printf("apres array: _%s_\n", (*array)[i - 1]);
 	}
 }
