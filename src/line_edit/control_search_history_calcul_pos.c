@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/27 13:40:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:43:53 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 12:41:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,14 +16,17 @@
 static void	calcul_len_of_ctrl_prompt(t_pos *pos, t_ctrl_hist *ctrl)
 {
 	int		check_new_line;
+	int		len;
 	int		i;
 
 	i = 0;
+	len = ft_strlen(pos->ans);
 	check_new_line = 0;
-	while (i < 22 + ft_strlen(pos->ans) + check_new_line)
+	while (i < 22 + len + check_new_line)
 	{
 		if (ctrl->act_co == pos->max_co - 1 ||
-				(i >= 21 && pos->ans[i - 21] == '\n'))
+			(i >= 21 && i - 21 < ft_strlen(pos->ans) &&
+			 pos->ans[i - 21] == '\n'))
 		{
 			ctrl->act_co = 0;
 			ctrl->act_li += 1;
@@ -40,7 +43,7 @@ void		get_right_coordinates_not_found(t_pos *pos, t_ctrl_hist *ctrl)
 {
 	ctrl->act_co = pos->len_prompt;
 	if (ft_strlen(pos->ans) + 24 == pos->max_co && ctrl->needle == -1 &&
-		pos->act_li == pos->max_li)
+			pos->act_li == pos->max_li)
 		prompt_is_on_last_char(pos);
 	ctrl->act_li = pos->start_li;
 	calcul_len_of_ctrl_prompt(pos, ctrl);
@@ -54,7 +57,7 @@ void		get_right_coordinates_not_found(t_pos *pos, t_ctrl_hist *ctrl)
 }
 
 void		get_right_coordinates_found(t_pos *pos, t_hist *hist,
-			t_ctrl_hist *ctrl)
+		t_ctrl_hist *ctrl)
 {
 	int		nb_line_lost;
 
