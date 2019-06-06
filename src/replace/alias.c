@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 19:18:29 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 19:57:04 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -161,6 +161,8 @@ char		*del_space(char *str)
 	ft_strdel(&str);
 	return (res);
 }
+
+// faire attention quand le replace est plus long que array c'est un pb .oupss.
 
 void		replace_alias(char ***array, t_var *var, t_replace *replace)
 {
