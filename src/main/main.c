@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/05 09:15:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 13:05:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,8 @@ int				main(int ac, char **av, char **env)
 	t_var	*my_env;
 	t_pos	pos;
 
+char	*pwd;
+pwd = malloc(1000);
 	(void)ac;
 	(void)av;
 	my_env = init_env(env, &pos);
@@ -44,6 +46,7 @@ int				main(int ac, char **av, char **env)
 	ghist = &hist;
 	while (1)
 	{
+		ft_printf("{B.T.cyan.}42sh {eoc}{B.} --- {B.T.yellow.}%s{eoc}\n", getcwd(pwd, 1000));
 		ans = termcaps42sh(&pos, hist);
 		if (ans == NULL)
 			break ;

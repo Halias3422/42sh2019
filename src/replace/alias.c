@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/04 13:37:42 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 16:56:57 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,13 +23,14 @@ char		check_last_char(char *str)
 	return (str[i - 1]);
 }
 
-int			cnt_array(char **str)
+int			cnt_array(char ***str)
 {
 	int i;
 
 	i = 0;
-	while (str[i])
+	while ((*str)[i])
 		i++;
+	printf("%d\n", i);
 	return (i);
 }
 
@@ -41,8 +42,10 @@ void		fill_array(char ***res, char ***array)
 	while ((*array)[i])
 	{
 		(*res)[i] = ft_strdup((*array)[i]);
+		printf("\tres[%d]: _%s_\n", i, (*res)[i]);
 		(i)++;
 	}
+	printf("i pour NULL: %d\n", i);
 	(*res)[i] = NULL;
 }
 
@@ -58,25 +61,48 @@ void		free_array(char ***array)
 	}
 }
 
+int			end(char **str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i + 1);
+}
+
 char		**fill_alias_solo(int i, char *str, char ***array)
 {
 	char	**res;
 
-	res = malloc(sizeof(char *) * (cnt_array((*array)) + 1));
+	puts("solo");
+	printf("str: _%s_\n", str);
+	printf("allocation res 2 + ");
+	res = malloc(sizeof(char *) * (cnt_array(array) + 2));
 	fill_array(&res, array);
 	ft_strdel(&res[i]);
 	res[i] = ft_strdup(str);
+	res[end(*array)] = NULL;
 	ft_strdel(&str);
 	free_array(array);
 	return (res);
 }
 
-void		fill_alias_multiple(int i, char *str, char ***array)
+char		**fill_alias_multiple(int *i, char *str, char ***array)
 {
-	i = 0;
-	str = NULL;
-	array = NULL;
-// TODO replace  i eme alias dans array.
+	char	**res;
+
+	puts("multiple");
+	printf("str: _%s_\n", str);
+	printf("allocation 2 + ");
+	res = malloc(sizeof(char *) * (cnt_array(array) + 2));
+	fill_array(&res, array);
+	ft_strdel(&res[*i]);
+	res[*i] = ft_strdup(str);
+	ft_strdel(&str);
+	free_array(array);
+	(*i)++;
+	return (res);
 }
 
 void		replace_alias_while(int ind, t_var *var, char ***array)
@@ -104,7 +130,7 @@ void		replace_alias_while(int ind, t_var *var, char ***array)
 			ft_strdel(&tmp);
 			return ;
 		}
-		fill_alias_multiple(i, ft_strsub(tmp, s, i - s), array);
+		(*array) = fill_alias_multiple(&ind, ft_strsub(tmp, s, j - s), array);
 		j++;
 	}
 	ft_strdel(&tmp);
