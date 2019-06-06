@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/05 09:15:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 14:55:05 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,6 @@ static void		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
 	free_t_hist(hist);
 	free(pos->ans);
 	close(pos->history);
-	tcsetattr(2, TCSANOW, &(pos->old_term));
 	exit(0);
 }
 
@@ -31,6 +30,9 @@ int				main(int ac, char **av, char **env)
 	t_hist	*hist;
 	t_var	*my_env;
 	t_pos	pos;
+
+	char	*pwd;
+	pwd = malloc(1000);
 
 	(void)ac;
 	(void)av;
@@ -44,7 +46,9 @@ int				main(int ac, char **av, char **env)
 	ghist = &hist;
 	while (1)
 	{
+		ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", getcwd(pwd, 1000));
 		ans = termcaps42sh(&pos, hist);
+		tcsetattr(2, TCSANOW, &(pos.old_term));
 		if (ans == NULL)
 			break ;
 		if (ans && ft_strcmp("exit", ans) == 0)
