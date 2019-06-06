@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:46:14 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 10:19:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 10:51:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,6 +94,12 @@ void			add_slash_on_ans(t_pos *pos)
 	i = ft_strlen(pos->ans) - 1;
 	if (i == -1)
 		return ;
+	if (pos->ans[0] == '.' && pos->ans[1] == 0)
+	{
+		pos->let_nb = 1;
+		input_is_printable_char(pos, "/");
+		return ;
+	}
 	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != ' ')
 		pos->let_nb += 1;
 	if (pos->ans[pos->let_nb - 1] != '/' &&
