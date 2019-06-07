@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/04 12:02:06 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 09:03:12 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 		replace_alias(array, var, replace);
 	while ((*array)[i])
 	{
-		printf("arrau[%d]\t_%s_\n", i, (*array)[i]);
+	//	printf("arrau[%d]\t_%s_\n", i, (*array)[i]);
 		i++;
 	}
 	while ((*array)[i])

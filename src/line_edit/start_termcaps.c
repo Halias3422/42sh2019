@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 15:04:07 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 12:53:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist)
 	signal_list();
 	while (1)
 	{
+//		print_info(pos);
 		ret = read(0, buf, 1);
 		if (buf[0] == 137)
 			return (NULL);
