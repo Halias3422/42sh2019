@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 11:29:00 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 16:52:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,6 +38,8 @@ typedef struct	s_fc
 	int			int_last;
 	int			first_is_str;
 	int			last_is_str;
+	int			first_not_precised;
+	int			last_not_precised;
 	int			error;
 }				t_fc;
 
