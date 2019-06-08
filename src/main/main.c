@@ -6,22 +6,27 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 14:55:05 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 17:15:48 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static void		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
+static int		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
 {
+	int	res;
+
+	res  = 0;
+	if (ft_strlen(pos->ans) > 5)
+		res = ft_atoi(pos->ans + 5);
 	write_alias(var, pos);
 	free_env(var);
 	free(pos->prompt);
 	free_t_hist(hist);
 	free(pos->ans);
 	close(pos->history);
-	exit(0);
+	return (res);
 }
 
 int				main(int ac, char **av, char **env)
@@ -51,8 +56,8 @@ int				main(int ac, char **av, char **env)
 		tcsetattr(2, TCSANOW, &(pos.old_term));
 		if (ans == NULL)
 			break ;
-		if (ans && ft_strcmp("exit", ans) == 0)
-			exit_mode(&pos, hist, my_env);
+		if (ans && ft_strncmp("exit", ans, 4) == 0)
+			return (exit_mode(&pos, hist, my_env));
 		if (pos.error == 1)
 			error_handling(&pos, NULL, 0);
 		if ((check_error(ans)) != -1)
