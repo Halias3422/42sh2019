@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/07 15:59:15 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 17:31:33 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,10 +63,7 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 	if (check_alias((*array)[0], var, replace) == 1)
 		replace_alias(array, var, replace);
 	while ((*array)[i])
-	{
-		//printf("arrau[%d]\t_%s_\n", i, (*array)[i]);
 		i++;
-	}
 	while ((*array)[i])
 	{
 		if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
@@ -101,6 +98,5 @@ char		**remove_env(t_var *start, char *str)
 	}
 	remoove_quote(&array);
 	ft_strdel(&str);
-//	free_replace(replace);
 	return (array);
 }
