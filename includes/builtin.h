@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/05 14:58:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 11:29:00 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ typedef struct	s_builtin
 
 typedef struct	s_fc
 {
+	char		*flags_model;
 	char		*flags;
 	char		*ename;
 	char		*str_first;
