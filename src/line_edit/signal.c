@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 15:06:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 14:06:49 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,13 @@ static void		ctrl_c(t_pos *pos)
 	print_prompt(pos);
 }
 
+static	void	segfault(t_pos *pos)
+{
+	ft_printf("Process kill by a segfault : 11\n");
+	init_pos(pos);
+	print_prompt(pos);
+}
+
 static void		sighandler(int signum)
 {
 	t_pos *pos;
@@ -61,10 +68,15 @@ static void		sighandler(int signum)
 		resize_screen(pos);
 	if (signum == CTRL_C)
 		ctrl_c(pos);
+	if (signum == 11)
+		segfault(pos);
 }
 
 void			signal_list(void)
 {
 	signal(SIGWINCH, sighandler);
 	signal(SIGINT, sighandler);
+	signal(SIGSEGV, sighandler);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }

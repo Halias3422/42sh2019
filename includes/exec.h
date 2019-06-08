@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:57:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 14:26:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,4 +102,7 @@ int			main_option_exec(t_process **first, t_process **second, t_var *var);
 
 int			main_alias(t_process *p, t_var **var);
 int			main_unalias(t_process *p, t_var **var);
+
+void    	check_pid(int pid);
+
 #endif
