@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 15:06:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/10 13:30:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,4 +67,13 @@ void			signal_list(void)
 {
 	signal(SIGWINCH, sighandler);
 	signal(SIGINT, sighandler);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGHUP, SIG_IGN);
+	signal(SIGILL, SIG_IGN);
+	signal(SIGTRAP, SIG_IGN);
+	signal(SIGEMT, SIG_IGN);
+	signal(SIGFPE, SIG_IGN);
+	signal(SIGSYS, SIG_IGN);
+	signal(SIGPIPE, SIG_IGN);
 }

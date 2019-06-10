@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/06/05 09:16:17 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/10 11:01:24 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -35,10 +35,10 @@ SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c double_quote.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c)
 
 SRC_EXEC = $(addprefix exec/, \
-				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c)
+				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c check_pid.c)
 
 SRC_REP = $(addprefix replace/, \
-				alias.c env_replace.c replace.c tool.c var_replace.c quote.c)
+				alias.c env_replace.c replace.c tool.c var_replace.c quote.c alias_tools.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
@@ -55,7 +55,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 
