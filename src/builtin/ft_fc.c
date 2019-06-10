@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 18:46:23 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/10 08:21:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 void		print_fc_usage(void)
 {
 	write(2, "fc: usage: fc [-e ename] [-nlr] [first] [last]", 46);
-	write(2, " or fc -s [pat=rep] [cmd]", 25);
+	write(2, " or fc -s [pat=rep] [cmd]\n", 26);
 }
 
 static void		init_fc_struct(t_fc *fc)
@@ -57,7 +57,6 @@ int			ft_fc(t_process *p, t_var **var)
 	if (fc.error == 0)
 	{
 		get_str_args_of_fc(&fc, p, i, 0);
-		ft_printf("int_first = %d int_last = %d\n", fc.int_first, fc.int_last);
 		execute_fc_according_to_flags(&fc);
 	}
 	return (0);

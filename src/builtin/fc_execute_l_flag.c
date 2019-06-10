@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 18:30:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 19:13:36 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/10 08:19:36 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,8 @@ static void		correct_int_first_and_int_last(t_fc *fc, t_hist *hist)
 	if (fc->first_not_precised == 1 && fc->last_not_precised == 1)
 	{
 		fc->int_first = hist->cmd_no - 15;
+		if (fc->int_first < 0)
+			fc->int_first = 0;
 		fc->int_last = hist->cmd_no;
 	}
 	else if (fc->first_not_precised == 1)
