@@ -6,71 +6,13 @@
 /*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/11 12:51:46 by mateodelarb ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 17:41:00 by mateodelarb ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
-
-char		check_last_char(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (str[i - 1]);
-}
-
-int			cnt_arrayl(char ***str)
-{
-	int i;
-
-	i = 0;
-	while ((*str)[i])
-	{
-		printf("str[%d]: _%s_\n", i, (*str)[i]);
-		i++;
-	}
-	printf("le i du malloc: %d\n", i);
-	return (i);
-}
-
-void		fill_array(char ***res, char ***array)
-{
-	int		i;
-
-	i = 0;
-	while ((*array)[i])
-	{
-		(*res)[i] = ft_strdup((*array)[i]);
-		(i)++;
-	}
-	(*res)[i] = NULL;
-}
-
-void		free_array(char ***array)
-{
-	int		i;
-
-	i = 0;
-	while ((*array)[i])
-	{
-		ft_strdel(&(*array)[i]);
-		i++;
-	}
-}
-
-int			end(char **str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i + 1);
-}
+#include "../../includes/alias.h"
 
 char		**fill_alias_solo(int *i, char *str, char ***array)
 {
@@ -78,7 +20,7 @@ char		**fill_alias_solo(int *i, char *str, char ***array)
 
 	puts("solo");
 	printf("str: _%s_\n", str);
-	res = malloc(sizeof(char *) * (cnt_arrayl(array) + 2));
+	res = malloc(sizeof(char *) * (cnt_array(*array) + 2));
 	fill_array(&res, array);
 	ft_strdel(&res[*i]);
 	res[*i] = ft_strdup(str);
@@ -94,7 +36,7 @@ char		**fill_alias_multiple(int *i, char *str, char ***array)
 
 	puts("multiple");
 	printf("str: _%s_\n", str);
-	res = malloc(sizeof(char *) * (cnt_arrayl(array) + 2));
+	res = malloc(sizeof(char *) * (cnt_array(*array) + 2));
 	fill_array(&res, array);
 	ft_strdel(&res[*i]);
 	res[*i] = ft_strdup(str);
@@ -165,6 +107,8 @@ char		*del_space(char *str)
 
 void		replace_alias(char ***array, t_var *var, t_replace *replace)
 {
+	//faire un return char **
+	//passer d'un char ** a une liste chainer a modifier 
 	int			i;
 	t_replace	*tmp_r;
 	t_var		*tmp_v;

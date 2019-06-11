@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 17:34:13 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 17:34:04 by mateodelarb ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -183,10 +183,4 @@ void		replace_alias(char ***array, t_var *var, t_replace *replace);
 */
 
 void   		remoove_quote(char ***array);
-
-char		check_last_char(char *str);
-int			cnt_array(char **str);
-void		fill_array(char ***res, char ***array);
-void		free_array(char ***array);
-
 #endif

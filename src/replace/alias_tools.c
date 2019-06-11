@@ -3,15 +3,16 @@
 /*                                                              /             */
 /*   alias_tools.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 17:32:27 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 17:32:58 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 17:41:15 by mateodelarb ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
+#include "../../includes/alias.h"
 
 char		check_last_char(char *str)
 {
@@ -56,4 +57,14 @@ void		free_array(char ***array)
 		ft_strdel(&(*array)[i]);
 		i++;
 	}
+}
+
+int			end(char **str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i + 1);
 }
