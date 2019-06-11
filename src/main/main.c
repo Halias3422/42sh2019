@@ -3,26 +3,31 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 13:05:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 12:14:24 by mateodelarb ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static void		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
+static int		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
 {
+	int	res;
+
+	res  = 0;
+	if (ft_strlen(pos->ans) > 5)
+		res = ft_atoi(pos->ans + 5);
 	write_alias(var, pos);
 	free_env(var);
 	free(pos->prompt);
 	free_t_hist(hist);
 	free(pos->ans);
+	free(pos->path);
 	close(pos->history);
-	tcsetattr(2, TCSANOW, &(pos->old_term));
-	exit(0);
+	return (res);
 }
 
 int				main(int ac, char **av, char **env)
@@ -32,8 +37,9 @@ int				main(int ac, char **av, char **env)
 	t_var	*my_env;
 	t_pos	pos;
 
-char	*pwd;
-pwd = malloc(1000);
+	char	*pwd;
+	pwd = NULL;
+
 	(void)ac;
 	(void)av;
 	my_env = init_env(env, &pos);
@@ -46,12 +52,14 @@ pwd = malloc(1000);
 	ghist = &hist;
 	while (1)
 	{
-		ft_printf("{B.T.cyan.}42sh {eoc}{B.} --- {B.T.yellow.}%s{eoc}\n", getcwd(pwd, 1000));
+		ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", pwd = getcwd(NULL, 1000));
+		ft_strdel(&pwd);
 		ans = termcaps42sh(&pos, hist);
+		tcsetattr(2, TCSANOW, &(pos.old_term));
 		if (ans == NULL)
 			break ;
-		if (ans && ft_strcmp("exit", ans) == 0)
-			exit_mode(&pos, hist, my_env);
+		if (ans && ft_strncmp("exit", ans, 4) == 0)
+			return (exit_mode(&pos, hist, my_env));
 		if (pos.error == 1)
 			error_handling(&pos, NULL, 0);
 		if ((check_error(ans)) != -1)

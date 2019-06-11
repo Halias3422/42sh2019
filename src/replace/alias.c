@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 19:57:04 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 12:51:46 by mateodelarb ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ char		check_last_char(char *str)
 	return (str[i - 1]);
 }
 
-int			cnt_array(char ***str)
+int			cnt_arrayl(char ***str)
 {
 	int i;
 
@@ -78,7 +78,7 @@ char		**fill_alias_solo(int *i, char *str, char ***array)
 
 	puts("solo");
 	printf("str: _%s_\n", str);
-	res = malloc(sizeof(char *) * (cnt_array(array) + 2));
+	res = malloc(sizeof(char *) * (cnt_arrayl(array) + 2));
 	fill_array(&res, array);
 	ft_strdel(&res[*i]);
 	res[*i] = ft_strdup(str);
@@ -94,7 +94,7 @@ char		**fill_alias_multiple(int *i, char *str, char ***array)
 
 	puts("multiple");
 	printf("str: _%s_\n", str);
-	res = malloc(sizeof(char *) * (cnt_array(array) + 2));
+	res = malloc(sizeof(char *) * (cnt_arrayl(array) + 2));
 	fill_array(&res, array);
 	ft_strdel(&res[*i]);
 	res[*i] = ft_strdup(str);
@@ -127,8 +127,7 @@ void		replace_alias_while(int *ind, t_var *var, char ***array)
 		if (!tmp[t])
 		{
 			(*array) = fill_alias_solo(ind, ft_strsub(tmp, s, t - s), array);
-			ft_strdel(&tmp);
-			return ;
+			break ;
 		}
 		(*array) = fill_alias_multiple(ind, ft_strsub(tmp, s, j - s), array);
 		j++;
