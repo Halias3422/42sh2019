@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias_tools.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/06/08 17:32:27 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/11 17:41:15 by mateodelarb ###    #+. /#+    ###.fr     */
+/*   Created: 2019/06/12 12:34:55 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/12 12:34:57 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
