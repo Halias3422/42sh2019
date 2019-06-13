@@ -6,13 +6,15 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/13 13:57:56 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/13 16:51:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
+
+void		print_list(t_alias *alias);
 
 int			cnt_list(t_alias *alias)
 {
@@ -24,6 +26,7 @@ int			cnt_list(t_alias *alias)
 		alias = alias->next;
 		nb++;
 	}
+	printf("nb:_%d_\n", nb);
 	return (nb);
 }
 
@@ -32,10 +35,13 @@ char		**make_list_to_ar(t_alias *alias)
 	char	**res;
 	int		i;
 
+	print_list(alias);
 	res = malloc(sizeof(char *) * (cnt_list(alias) + 1));
 	i = 0;
 	while (alias)
 	{
+		printf("i:%d\n", i);
+		dprintf(1, "alias: _%s_\n", alias->data);
 		res[i] = ft_strdup(alias->data);
 		i++;
 		alias = alias->next;
@@ -63,11 +69,16 @@ t_alias		*make_ar_to_list(char **str)
 		else
 			alias->prev = prev;
 		alias->data = ft_strdup(str[i]);
-		alias->next = NULL;
 		prev = alias;
-		alias = alias->next;
+		if (str[i + 1])
+		{
+			alias->next = malloc(sizeof(t_alias));
+			alias = alias->next;
+		}
 		i++;
 	}
+	alias->next = NULL;
+	alias = start;
 	return (start);
 }
 
@@ -120,15 +131,13 @@ void		print_list(t_alias *alias)
 {
 	while (alias)
 	{
-		printf("alias: _%s_\n", alias->data);
+		printf("%p : print__alias: _%s_ : %p\n",alias, alias->data, alias->next);
 		alias = alias->next;
 	}
 }
 
 void		fill_alias_solo(char *str, t_alias *alias)
 {
-	puts("solo");
-	printf("str: _%s_\n", str);
 	ft_strdel(&alias->data);
 	alias->data = ft_strdup(str);
 	ft_strdel(&str);
@@ -144,24 +153,23 @@ void		ft_add_list(t_alias *alias, int i, char *str)
 	j = 0;
 	while (j < i - 1)
 	{
-		puts("time");
 		alias = alias->next;
 		j++;
 	}
 	new->next = alias->next;
 	new->prev = alias;
 	alias->next = new;
-	printf("alias->name:_%s_\n", alias->data);
 }
 
 void		fill_alias_multiple(char *str, t_alias *alias, int *i)
 {
 	if (*i >= 1)
-		return (ft_add_list(alias, *i, str));
-	puts("multiple");
-	printf("str: _%s_\ti: %d\n", str, *i);
-	ft_strdel(&alias->data);
-	alias->data = ft_strdup(str);
+		ft_add_list(alias, *i, str);
+	else
+	{
+		ft_strdel(&alias->data);
+		alias->data = ft_strdup(str);
+	}
 	ft_strdel(&str);
 	(*i)++;
 }
@@ -224,7 +232,6 @@ char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 		}
 		alias->prev->data = del_space(alias->prev->data);
 	}
-	print_list(alias);
 	res = make_list_to_ar(start);
 	return (res);
 }
