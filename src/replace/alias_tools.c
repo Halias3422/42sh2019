@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/12 12:34:55 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/13 11:03:04 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/13 13:09:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ int			cnt_array(char **str)
 
 void		fill_list(char *str, t_alias *alias)
 {
-	ft_strdel(alias->data);
+	ft_strdel(&alias->data);
 	alias->data = ft_strdup(str);
 }
 

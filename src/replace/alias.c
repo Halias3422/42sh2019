@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/13 11:08:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/13 13:57:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -131,20 +131,38 @@ void		fill_alias_solo(char *str, t_alias *alias)
 	printf("str: _%s_\n", str);
 	ft_strdel(&alias->data);
 	alias->data = ft_strdup(str);
-	print_list(alias);
 	ft_strdel(&str);
+}
+
+void		ft_add_list(t_alias *alias, int i, char *str)
+{
+	int		j;
+	t_alias	*new;
+
+	new = malloc(sizeof(t_alias));
+	new->data = ft_strdup(str);
+	j = 0;
+	while (j < i - 1)
+	{
+		puts("time");
+		alias = alias->next;
+		j++;
+	}
+	new->next = alias->next;
+	new->prev = alias;
+	alias->next = new;
+	printf("alias->name:_%s_\n", alias->data);
 }
 
 void		fill_alias_multiple(char *str, t_alias *alias, int *i)
 {
-//	if (*i >= 1)
-	//	ft_add_list(alias, i);
+	if (*i >= 1)
+		return (ft_add_list(alias, *i, str));
 	puts("multiple");
-	printf("str: _%s_\n", str);
+	printf("str: _%s_\ti: %d\n", str, *i);
 	ft_strdel(&alias->data);
 	alias->data = ft_strdup(str);
 	ft_strdel(&str);
-	print_list(alias);
 	(*i)++;
 }
 
@@ -159,7 +177,7 @@ void		replace_alias_while(t_var *var, t_alias *alias)
 	j = 0;
 	i = 0;
 	tmp = ft_strdup(var->data);
-	if (check_simple_or_multiple(tmp)) // attention il pase pas la 
+	if (!check_simple_or_multiple(tmp))
 	{
 		while (tmp[j] && ((tmp[j] < 9 || tmp[j] > 13) && tmp[j] != ' '))
 			j++;
@@ -175,7 +193,6 @@ void		replace_alias_while(t_var *var, t_alias *alias)
 		while (tmp[t] && ((tmp[t] >= 9 && tmp[t] <= 13) || tmp[t] == ' '))
 			t++;
 		fill_alias_multiple(ft_strsub(tmp, s, j - s), alias, &i);
-		i++;
 		jump_space(tmp, &j);
 	}
 	ft_strdel(&tmp);
@@ -185,8 +202,10 @@ char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 {
 	char		**res;
 	t_alias		*alias;
+	t_alias		*start;
 
 	alias = make_ar_to_list(*array);
+	start = alias;
 	(void)replace;
 	while (1)
 	{
@@ -205,6 +224,7 @@ char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 		}
 		alias->prev->data = del_space(alias->prev->data);
 	}
-	res = make_list_to_ar(alias);
+	print_list(alias);
+	res = make_list_to_ar(start);
 	return (res);
 }
