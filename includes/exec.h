@@ -16,6 +16,7 @@
 
 # include "termcaps.h"
 # include <unistd.h>
+# include "builtin.h"
 
 typedef struct			s_lexeur t_lexeur;
 typedef struct			s_var t_var;
@@ -63,8 +64,9 @@ void		free_process(t_job *j);
 */
 
 void		main_exec(t_job *j, t_var *var);
-int			solve_execve(char *path, char **arg, t_var *var);
-int			main_exec_while(t_process *p, t_var *var);
+//int			solve_execve(char *path, char **arg, t_var *var);
+//int			main_exec_while(t_process *p, t_var *var);
+int		ft_test_path(t_process *p, t_var *var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

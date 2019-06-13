@@ -23,7 +23,7 @@ void		ft_tabfree(char **res)
 	free(res);
 }
 
-int			use_execve(char **res, t_var *l_var)
+/*int			use_execve(char **res, t_var *l_var)
 {
 	char	**path;
 	char	*tmp;
@@ -77,7 +77,9 @@ int			solve_execve(char *path, char **arg, t_var *var)
 		}
 	}
 	else
+	{
 		wait(&pid);
+	}
 	check_pid(pid);
 	ft_tabfree(array);
 	return (1);
@@ -105,26 +107,96 @@ int			main_exec_while(t_process *p, t_var *var)
 		}
 	}
 	return (0);
+}*/
+
+// new proposition
+
+int		ft_execute_function(char *path, char **arg, t_var *var)
+{
+	char **tab_var;
+
+	tab_var = split_env(var);
+	if (execve(path, arg, tab_var) == -1)
+		return (-1);
+	return (0);
+}
+
+int		ft_test_path(t_process *p, t_var *var)
+{
+	char	**path;
+	char	*path_env;
+	char	*tmp;
+	int		i;
+
+	if ((path_env = ft_get_val("PATH", var, ENVIRONEMENT)) == NULL)
+	{
+		return (-1);
+	}
+	path = ft_strsplit(path_env, ':');
+	i = 0;
+	while (path[i])
+	{
+		tmp = strjoin_path(path[i], p->cmd[0]);
+		if (ft_execute_function(tmp, p->cmd, var) == 0)
+		{
+			ft_tabfree(path);
+			return (0);
+		}
+		i++;
+		ft_strdel(&tmp);
+	}
+	ft_strdel(&tmp);
+	ft_tabfree(path);
+	return (-1);
+}
+
+int		ft_execute_test(t_process *p, t_var *var)
+{
+	if (find_builtins(p, var) == 0)
+	{
+		if (ft_strchr(p->cmd[0], '/') != 0)
+		{
+			ft_execute_function(p->cmd[0], p->cmd, var);
+		}
+		else
+		{
+			ft_test_path(p, var);
+		}
+	}
+	return (0);
+}
+
+int		fork_simple(t_process *p, t_var *var)
+{
+	pid_t pid;
+
+	pid = fork();
+	if (pid == 0)
+		ft_execute_test(p, var);
+	else
+		wait(&pid);
+	return (1);
+}
+
+void		process_test(t_process *p, t_var *var)
+{
+	t_process *tmp;
+
+	tmp = p;
+
+	// ici pour redirection
+	while (tmp)
+	{
+		fork_simple(tmp, var);
+		tmp = tmp->next;
+	}
 }
 
 void		main_exec(t_job *j, t_var *var)
 {
-	t_process	*tmp;
-
 	while (j)
 	{
-		tmp = j->p;
-		while (j->p)
-		{
-			if (j->p->next && j->p->split != '\0')
-			{
-				if (main_option_exec((&j->p), (&j->p->next), var) == -1)
-					break ;
-			}
-			else if (main_exec_while(j->p, var) == -1)
-				return ;
-			j->p = j->p->next;
-		}
+		process_test(j->p, var);
 		j = j->next;
 	}
 }
