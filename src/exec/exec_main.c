@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 11:29:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 14:23:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 09:51:17 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void		ft_tabfree(char **res)
 
 	i = -1;
 	while (res[++i])
-		free(res[i]);
+		ft_strdel(&res[i]);
 	free(res);
 }
 
@@ -67,11 +67,11 @@ int			solve_execve(char *path, char **arg, t_var *var)
 
 	pid = fork();
 	array = split_env(var);
+	sig_child_handlers();
 	if (pid == 0)
 	{
 		if (execve(path, arg, array) == -1)
 		{
-			signal_list();
 			ft_tabfree(array);
 			return (-1);
 		}

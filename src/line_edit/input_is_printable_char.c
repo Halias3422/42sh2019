@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:48:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 09:49:27 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 09:46:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ static void		fill_char_ans(char *buf, t_pos *pos)
 		swap = ft_strncpy(swap, pos->ans, pos->let_nb);
 		swap = ft_strjoinf(swap, buf, 1);
 		swap = ft_strjoinf(swap, pos->ans + pos->let_nb, 1);
-		free(pos->ans);
+		ft_strdel(&pos->ans);
 		pos->ans = swap;
 	}
 	if (pos->is_complete == 0 && ft_strcmp(buf, "\n") == 0)

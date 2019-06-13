@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/05 09:16:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 15:00:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,6 +75,7 @@ extern struct s_hist **ghist;
 
 typedef struct		s_pos
 {
+	int				sigint;
 	int				act_co;
 	int				act_li;
 	int				start_li;
@@ -620,5 +621,6 @@ void					get_pos_coordinates_right_again(t_pos *pos);
 
 
 void					check_copy(unsigned char *buf, t_pos *pos);
+void					sig_child_handlers(void);
 
 #endif

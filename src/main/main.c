@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/10 11:17:17 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 09:48:43 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,10 +22,10 @@ static int		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
 		res = ft_atoi(pos->ans + 5);
 	write_alias(var, pos);
 	free_env(var);
-	free(pos->prompt);
+	ft_strdel(&pos->prompt);
 	free_t_hist(hist);
-	free(pos->ans);
-	free(pos->path);
+	ft_strdel(&pos->ans);
+	ft_strdel(&pos->path);
 	close(pos->history);
 	return (res);
 }
@@ -62,7 +62,7 @@ int				main(int ac, char **av, char **env)
 			return (exit_mode(&pos, hist, my_env));
 		if (pos.error == 1)
 			error_handling(&pos, NULL, 0);
-		if ((check_error(ans)) != -1)
+		if ((check_error(ans)) != -1 && !pos.sigint)
 			start_exec(start_lex(my_env, ans), my_env);
 		else
 			pos.ans = ft_secure_free(pos.ans);

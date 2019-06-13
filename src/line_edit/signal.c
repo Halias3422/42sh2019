@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/10 13:30:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 09:45:00 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,12 +44,20 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
-	while ((*ghist)->next)
-		*ghist = (*ghist)->next;
+	char	*pwd;
+	
+	while ((*ghist) && (*ghist)->next)
+	 	*ghist = (*ghist)->next;
+	if (pos->ans)
+		ft_strdel(&pos->ans);
 	write(1, "\n", 1);
-	pos->ans = ft_secure_free(pos->ans);
+	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", pwd = getcwd(NULL, 1000));
 	init_pos(pos);
+	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	print_prompt(pos);
+	pos->act_li++;
+	pos->sigint = 1;
+	ft_strdel(&pwd);
 }
 
 static void		sighandler(int signum)
@@ -61,6 +69,18 @@ static void		sighandler(int signum)
 		resize_screen(pos);
 	if (signum == CTRL_C)
 		ctrl_c(pos);
+}
+
+void		sig_child_handlers(void)
+{
+	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTERM, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	signal(SIGWINCH, SIG_DFL);
+	signal(SIGUSR1, SIG_DFL);
+	signal(SIGHUP, SIG_DFL);
+	signal(SIGIO, SIG_DFL);
 }
 
 void			signal_list(void)

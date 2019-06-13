@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 09:41:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/12 09:54:38 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,8 +76,8 @@ void	free_env(t_var *env)
 	while (env)
 	{
 		buf = env->next;
-		free(env->name);
-		free(env->data);
+		ft_strdel(&env->name);
+		ft_strdel(&env->data);
 		free(env);
 		env = buf;
 	}

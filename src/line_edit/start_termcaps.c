@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/10 11:00:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 14:50:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,7 @@
 
 void			print_prompt(t_pos *pos)
 {
+	//ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", pwd = getcwd(NULL, 1000));
 	ft_printf("{B.T.cyan.}%s{eoc}", pos->prompt);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 }
@@ -52,9 +53,9 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist)
 	ghist = &hist;
 	start_termcaps(pos, (char*)buf);
 	print_prompt(pos);
-	signal_list();
 	while (1)
 	{
+		signal_list();
 		ret = read(0, buf, 1);
 		if (buf[0] == 137)
 			return (NULL);
@@ -71,6 +72,8 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist)
 			return (returning_ans(pos));
 		pos->replace_hist = 0;
 		ft_bzero(buf, 8);
+//		while (hist->next)
+//			hist = hist->next;
 	}
 	return (NULL);
 }
