@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/12 12:34:55 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 11:36:41 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 14:16:13 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,11 +19,13 @@ char		check_last_char(t_alias *alias, int j)
 	int		i;
 
 	i = 0;
+	printf("j: %d\n", j);
 	while (j > 1)
 	{
 		alias = alias->next;
 		j--;
 	}
+	printf("alias: _%s_\n", alias->data);
 	while (alias->data[i])
 		i++;
 	return (alias->data[i - 1]);
