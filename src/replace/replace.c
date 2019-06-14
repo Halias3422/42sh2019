@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 15:41:28 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 16:53:06 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,12 +67,7 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 		if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
 		{
 			done = 1;
-			(*array)[i] = replace_env(var, (*array)[i], 0);
-		}
-		if ((*array)[i] && f_check_var(var, (*array)[i]) == 1)
-		{
-			done = 1;
-			(*array)[i] = replace_var(var, (*array)[i]);
+			(*array) = replace_var(var, (*array), i);
 		}
 		if ((*array)[i])
 			i++;
