@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/12 12:34:55 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/13 13:09:22 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 11:36:41 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,14 +14,19 @@
 #include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
 
-char		check_last_char(char *str)
+char		check_last_char(t_alias *alias, int j)
 {
 	int		i;
 
 	i = 0;
-	while (str[i])
+	while (j > 1)
+	{
+		alias = alias->next;
+		j--;
+	}
+	while (alias->data[i])
 		i++;
-	return (str[i - 1]);
+	return (alias->data[i - 1]);
 }
 
 int			cnt_array(char **str)

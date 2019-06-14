@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/11 16:17:46 by mateodelarb  #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 14:50:54 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 10:42:31 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ typedef struct s_alias
 } t_alias;
 
 
-char		check_last_char(char *str);
+char		check_last_char(t_alias *alias, int j);
 int			cnt_array(char **str);
 void		fill_alias(char *str, t_alias *alias);
 void		free_array(char ***array);
