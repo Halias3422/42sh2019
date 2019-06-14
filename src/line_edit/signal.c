@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:45:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 10:50:48 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,6 @@ static void		ctrl_c(t_pos *pos)
 	init_pos(pos);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	print_prompt(pos);
-	pos->act_li++;
 	pos->sigint = 1;
 	ft_strdel(&pwd);
 }
