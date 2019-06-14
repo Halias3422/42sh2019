@@ -3,24 +3,30 @@
 /*                                                              /             */
 /*   alias_tools.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/06/08 17:32:27 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 17:32:58 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/06/12 12:34:55 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/14 11:36:41 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
+#include "../../includes/alias.h"
 
-char		check_last_char(char *str)
+char		check_last_char(t_alias *alias, int j)
 {
 	int		i;
 
 	i = 0;
-	while (str[i])
+	while (j > 1)
+	{
+		alias = alias->next;
+		j--;
+	}
+	while (alias->data[i])
 		i++;
-	return (str[i - 1]);
+	return (alias->data[i - 1]);
 }
 
 int			cnt_array(char **str)
@@ -33,17 +39,10 @@ int			cnt_array(char **str)
 	return (i);
 }
 
-void		fill_array(char ***res, char ***array)
+void		fill_list(char *str, t_alias *alias)
 {
-	int		i;
-
-	i = 0;
-	while ((*array)[i])
-	{
-		(*res)[i] = ft_strdup((*array)[i]);
-		(i)++;
-	}
-	(*res)[i] = NULL;
+	ft_strdel(&alias->data);
+	alias->data = ft_strdup(str);
 }
 
 void		free_array(char ***array)
@@ -56,4 +55,14 @@ void		free_array(char ***array)
 		ft_strdel(&(*array)[i]);
 		i++;
 	}
+}
+
+int			end(char **str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i + 1);
 }
