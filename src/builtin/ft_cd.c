@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 14:27:36 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/20 14:13:35 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 14:16:13 by husahuc     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,16 +15,6 @@
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
 
-int		ft_error_cd(char *error, char *name)
-{
-	ft_putstr("cd: ");
-	ft_putstr(error);
-	ft_putstr(": ");
-	ft_putstr(name);
-	ft_putchar('\n');
-	return (1);
-}
-
 int		ft_change_dir(char *path, t_var **var, char *old)
 {
 	char	path_pwd[1000];
@@ -32,9 +22,9 @@ int		ft_change_dir(char *path, t_var **var, char *old)
 	if (chdir(path) == -1)
 	{
 		if (access(path, F_OK))
-			return (ft_error_cd(CD_NO_FILE, path));
+			ft_printf_err("cd: %s: %s\n", CD_NO_FILE, path);
 		else if (access(path, R_OK | W_OK | X_OK))
-			return (ft_error_cd(CD_NO_RIGHTS, path));
+			ft_printf_err("cd: %s: %s", CD_NO_RIGHTS, path);
 		return (1);
 	}
 	free(path);
