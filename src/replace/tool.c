@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 16:51:38 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/15 16:01:18 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,7 @@ int			cnt_size(char *str)
 	return (nb);
 }
 
+//faire un sorte que les fd restes collé aux redirections comme 5> ect.
 char		**split_space(char *str)
 {
 	int		i;

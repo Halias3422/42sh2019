@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/15 11:13:36 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/15 15:59:33 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,9 +37,6 @@ enum e_token
 	T_IN_D,
 	T_IN_S,
 	T_SEMI,
-	T_SUB,
-	T_ARITHMETIC,
-	T_HISTORY
 };
 
 typedef struct s_var t_var;
