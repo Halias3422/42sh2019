@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 16:52:20 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/15 11:13:31 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ char		*replace_while(t_var *env, char *ar[4])
 	return (ft_strdup(ar[1]));
 }
 
-char		**replace_var(t_var *env, char *str, int i)
+char		*replace_var(t_var *env, char *str, int i)
 {
 	int		s;
 	char	*ar[5];

@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+      #
+#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/06/11 13:03:25 by mateodelarb ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/15 11:14:38 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -38,7 +38,7 @@ SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c check_pid.c)
 
 SRC_REP = $(addprefix replace/, \
-				alias.c env_replace.c replace.c tool.c var_replace.c quote.c alias_tools.c)
+				alias.c env_replace.c replace.c tool.c quote.c alias_tools.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
