@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/15 16:01:18 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/16 13:49:34 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ char		**split_space(char *str)
 			start = i;
 			while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
 			&& find_token(str, i) == -1))
-			{
+			{//faire en sorte que si c'est > >> < ou << alors on les laisse avec des int avant ou apres.
 				if (str[i] == '\'')
 				{
 					i++;
