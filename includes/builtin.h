@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 19:14:21 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/24 13:43:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,6 +90,12 @@ int				find_flags_order(t_fc *fc, char let_a, char let_b, int usage);
 */
 
 void			prepare_l_flag(t_fc *fc, t_hist *hist);
+
+/*
+**		FC_EXECUTE_S_FLAG.C
+*/
+
+void			prepare_s_flag(t_fc *fc, t_hist *hist);
 
 # define ARGUMENTS "cd: Too many arguments."
 # define CD_NO_HOME "cd: No HOME directory."

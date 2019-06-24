@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/24 13:21:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/24 13:59:55 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,8 @@ static void		execute_fc_according_to_flags(t_fc *fc)
 		return ;
 	if (ft_strchr(fc->flags, 'l') != NULL)
 		prepare_l_flag(fc, hist);
+	else if (ft_strchr(fc->flags, 's') != NULL)
+		prepare_s_flag(fc, hist);
 }
 
 int			ft_fc(t_process *p, t_var **var)

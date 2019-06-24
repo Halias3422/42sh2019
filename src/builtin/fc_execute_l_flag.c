@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 18:30:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/24 13:31:55 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/24 13:42:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,11 +70,6 @@ static void		correct_int_first_and_int_last(t_fc *fc, t_hist *hist)
 	}
 }
 
-void		get_values_int_first_last(t_fc *fc)
-{
-	ft_printf("first_str = %d int_first = %d last_str = %d int_last = %d\n", fc->first_is_str, fc->int_first, fc->last_is_str, fc->int_last);
-}
-
 void		prepare_l_flag(t_fc *fc, t_hist *hist)
 {
 	int		swap;
@@ -89,7 +84,6 @@ void		prepare_l_flag(t_fc *fc, t_hist *hist)
 		fc->first_is_str = fc->last_is_str;
 		fc->last_is_str = swap;
 	}
-	//get_values_int_first_last(fc);
 	while (hist->prev && hist->cmd_no + 1 > fc->int_first)
 		hist = hist->prev;
 	print_l_flag(fc, hist);
