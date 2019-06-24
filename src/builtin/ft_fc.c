@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/10 08:21:40 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/24 13:21:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,12 @@ static void		execute_fc_according_to_flags(t_fc *fc)
 	t_hist	*hist;
 
 	hist = stock(NULL, 8);
+	while (hist && hist->next)
+		hist = hist->next;
+	if (fc->int_first == 0)
+		fc->int_first = hist->cmd_no - 1;
+	if (fc->int_last == 0)
+		fc->int_last = hist->cmd_no - 1;
 	if (fc->error == 1)
 		return ;
 	if (ft_strchr(fc->flags, 'l') != NULL)
