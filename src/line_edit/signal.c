@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 14:53:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 14:39:23 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,9 +44,9 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
-	while ((*ghist)->next)
+/*	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
-	write(1, "\n", 1);
+*/	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	init_pos(pos);
 	print_prompt(pos);

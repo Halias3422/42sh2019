@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/06/06 12:52:52 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/10 13:57:52 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -46,7 +46,10 @@ SRC_BUILTIN = $(addprefix builtin/, \
 
 SRC_MAIN = $(addprefix main/, main.c)
 
-SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN)
+SRC_HACH = $(addprefix hachage/, \
+				hach.c)
+
+SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HACH)
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = termcaps.h
@@ -55,7 +58,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 

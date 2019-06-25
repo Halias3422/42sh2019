@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 10:13:25 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/07 08:35:59 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@
 # include "exec.h"
 # include "check_error.h"
 # include "builtin.h"
+# include "hach.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <term.h>

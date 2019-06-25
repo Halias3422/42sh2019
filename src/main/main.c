@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 14:57:51 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/10 13:56:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ int				main(int ac, char **av, char **env)
 	t_pos	pos;
 
 	char	*pwd;
-	pwd = malloc(1000);
+	pwd = NULL;
 
 	(void)ac;
 	(void)av;
@@ -47,7 +47,9 @@ int				main(int ac, char **av, char **env)
 	while (1)
 	{
 		ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", getcwd(pwd, 1000));
+		free(pwd);
 		ans = termcaps42sh(&pos, hist);
+		hach_function(pos.ans);
 		tcsetattr(2, TCSANOW, &(pos.old_term));
 		if (ans == NULL)
 			break ;
