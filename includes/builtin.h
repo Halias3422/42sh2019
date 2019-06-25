@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/24 13:43:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 09:03:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,7 @@
 # define BUILTIN_H
 
 # include "exec.h"
+# include <dirent.h>
 
 # define LEN_BUILTIN_LIST 10
 # define TERM "42sh"
@@ -96,6 +97,12 @@ void			prepare_l_flag(t_fc *fc, t_hist *hist);
 */
 
 void			prepare_s_flag(t_fc *fc, t_hist *hist);
+
+/*
+**		FC_EXECUTE_E_FLAG.C
+*/
+
+void			prepare_e_flag(t_fc *fc, t_hist *hist);
 
 # define ARGUMENTS "cd: Too many arguments."
 # define CD_NO_HOME "cd: No HOME directory."

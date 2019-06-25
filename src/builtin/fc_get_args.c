@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 18:16:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/24 13:30:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 07:41:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,10 +37,11 @@ static void		make_str_arg_into_int(t_fc *fc, t_hist *hist)
 			hist = hist->prev;
 			if (ft_strncmp(fc->str_first, hist->cmd,
 						ft_strlen(fc->str_first)) == 0)
-				fc->int_first = hist->cmd_no;
+			{
+				fc->int_first = hist->cmd_no + 1;
+				break ;
+			}
 		}
-		if (fc->int_first > fc->int_last && check++ == 0)
-			fc->int_first += 1;
 	}
 	while (hist->next->next)
 		hist = hist->next;
@@ -51,10 +52,11 @@ static void		make_str_arg_into_int(t_fc *fc, t_hist *hist)
 			hist = hist->prev;
 			if (ft_strncmp(fc->str_last, hist->cmd,
 						ft_strlen(fc->str_last)) == 0)
-				fc->int_last = hist->cmd_no;
+			{
+				fc->int_last = hist->cmd_no + 1;
+				break ;
+			}
 		}
-		if (fc->int_first < fc->int_last || (fc->int_first - 1 == fc->int_last && check == 1))
-			fc->int_last += 1;
 	}
 	if ((fc->int_first == -1 || fc->int_last == -1) && fc->error++ == 0)
 		ft_printf_err("%s: fc: history specification out of range\n", TERM);
@@ -65,10 +67,15 @@ static void		check_if_str_args_need_correction(t_fc *fc, int check)
 	if (check == 0)
 	{
 		fc->first_not_precised = 1;
+		fc->int_first = 0;
 		fc->last_not_precised = 1;
+		fc->int_last = 0;
 	}
 	if (check == 1)
+	{
 		fc->last_not_precised = 1;
+		fc->int_last = 0;
+	}
 	if (fc->first_is_str == 1 || fc->last_is_str == 1)
 		make_str_arg_into_int(fc, stock(NULL, 8));
 }

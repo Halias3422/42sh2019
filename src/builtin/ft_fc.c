@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/24 13:59:55 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/25 09:06:41 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,8 @@ static void		execute_fc_according_to_flags(t_fc *fc)
 		prepare_l_flag(fc, hist);
 	else if (ft_strchr(fc->flags, 's') != NULL)
 		prepare_s_flag(fc, hist);
+	else if (ft_strchr(fc->flags, 'e') != NULL)
+		prepare_e_flag(fc, hist);
 }
 
 int			ft_fc(t_process *p, t_var **var)
@@ -60,11 +62,18 @@ int			ft_fc(t_process *p, t_var **var)
 	int		i;
 
 	(void)var;
-	init_fc_struct(&fc);
+/*	while (*var)
+	{
+		ft_printf("var->name = %s\n", (*var)->name);
+		ft_printf("var->data = %s\n\n", (*var)->data);
+		*var = (*var)->next;
+	}
+*/	init_fc_struct(&fc);
 	i = determ_fc_flags(&fc, p, 0, 1);
 	if (fc.error == 0)
 	{
 		get_str_args_of_fc(&fc, p, i, 0);
+		
 		execute_fc_according_to_flags(&fc);
 	}
 	return (0);
