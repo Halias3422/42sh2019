@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_set.c                                         .::    .:/ .      .::   */
+/*   check_pid.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 17:22:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/06/08 14:23:39 by mjalenqu     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/10 11:23:12 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
-#include "../../includes/exec.h"
+#include "exec.h"
 
-int		ft_set(t_process *p, t_var **ptr_var)
+void	check_pid(int pid)
 {
-	t_var *var;
-
-	var = *ptr_var;
-	if (p->cmd[1])
-		return (1);
-	while (var)
-	{
-		ft_printf("%s=%s\n", var->name, var->data);
-		var = var->next;
-	}
-	return (1);
+	if (pid == 11)
+		ft_printf("Process killed by a segfault : 11\n");
+	else if (pid == 10)
+		ft_printf("Bus error: 10\n");
+	else if (pid == 6)
+		ft_printf("Abort : 6\n");
 }

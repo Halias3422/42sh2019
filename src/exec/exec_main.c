@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec_main.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 11:29:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:54 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 14:23:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,12 +71,14 @@ int			solve_execve(char *path, char **arg, t_var *var)
 	{
 		if (execve(path, arg, array) == -1)
 		{
+			signal_list();
 			ft_tabfree(array);
 			return (-1);
 		}
 	}
 	else
 		wait(&pid);
+	check_pid(pid);
 	ft_tabfree(array);
 	return (1);
 }

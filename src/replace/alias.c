@@ -3,60 +3,15 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/04 13:37:42 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 17:33:09 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
-
-char		check_last_char(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (str[i - 1]);
-}
-
-int			cnt_array(char **str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-void		fill_array(char ***res, char ***array)
-{
-	int		i;
-
-	i = 0;
-	while ((*array)[i])
-	{
-		(*res)[i] = ft_strdup((*array)[i]);
-		(i)++;
-	}
-	(*res)[i] = NULL;
-}
-
-void		free_array(char ***array)
-{
-	int		i;
-
-	i = 0;
-	while ((*array)[i])
-	{
-		ft_strdel(&(*array)[i]);
-		i++;
-	}
-}
 
 char		**fill_alias_solo(int i, char *str, char ***array)
 {
@@ -101,8 +56,7 @@ void		replace_alias_while(int ind, t_var *var, char ***array)
 		if (!tmp[t])
 		{
 			(*array) = fill_alias_solo(ind, ft_strsub(tmp, s, t - s), array);
-			ft_strdel(&tmp);
-			return ;
+			break ;
 		}
 		fill_alias_multiple(i, ft_strsub(tmp, s, i - s), array);
 		j++;

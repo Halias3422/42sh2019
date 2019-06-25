@@ -1,30 +1,59 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_set.c                                         .::    .:/ .      .::   */
+/*   alias_tools.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 17:22:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/06/08 17:32:27 by mjalenqu     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/08 17:32:58 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
-#include "../../includes/exec.h"
+#include "../../includes/lexeur.h"
 
-int		ft_set(t_process *p, t_var **ptr_var)
+char		check_last_char(char *str)
 {
-	t_var *var;
+	int		i;
 
-	var = *ptr_var;
-	if (p->cmd[1])
-		return (1);
-	while (var)
+	i = 0;
+	while (str[i])
+		i++;
+	return (str[i - 1]);
+}
+
+int			cnt_array(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void		fill_array(char ***res, char ***array)
+{
+	int		i;
+
+	i = 0;
+	while ((*array)[i])
 	{
-		ft_printf("%s=%s\n", var->name, var->data);
-		var = var->next;
+		(*res)[i] = ft_strdup((*array)[i]);
+		(i)++;
 	}
-	return (1);
+	(*res)[i] = NULL;
+}
+
+void		free_array(char ***array)
+{
+	int		i;
+
+	i = 0;
+	while ((*array)[i])
+	{
+		ft_strdel(&(*array)[i]);
+		i++;
+	}
 }
