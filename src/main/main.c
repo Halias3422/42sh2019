@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 13:21:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 13:47:37 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ int				main(int ac, char **av, char **env)
 			return (exit_mode(&pos, hist, my_env));
 		if (pos.error == 1)
 			error_handling(&pos, NULL, 0);
-		if ((check_error(ans)) != -1 && !pos.sigint)
+		if ((check_error(ans)) != -1)
 			start_exec(start_lex(my_env, ans), my_env);
 		else
 			pos.ans = ft_secure_free(pos.ans);

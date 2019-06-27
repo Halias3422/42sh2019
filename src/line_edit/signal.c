@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 10:50:48 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 13:30:31 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,6 @@ static void		ctrl_c(t_pos *pos)
 	init_pos(pos);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	print_prompt(pos);
-	pos->sigint = 1;
 	ft_strdel(&pwd);
 }
 
@@ -70,8 +69,25 @@ static void		sighandler(int signum)
 		ctrl_c(pos);
 }
 
+// static void		sig_child_list(int	sig)
+// {
+// 	t_pos	*pos;
+// 	char	*pwd;
+
+// 	(void)sig;
+// 	pos = stock(NULL, 1);
+// 	write(1, "\n", 1);
+// 	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", pwd = getcwd(NULL, 1000));
+// 	init_pos(pos);
+// 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
+// 	print_prompt(pos);
+// 	ft_strdel(&pwd);
+// }
+
 void		sig_child_handlers(void)
 {
+	//signal(SIGINT, sig_child_list);
+	signal(SIGINT, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTERM, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
