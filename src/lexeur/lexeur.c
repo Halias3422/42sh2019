@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:59:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/04 16:24:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,10 +96,18 @@ t_lexeur	**start_lex(t_var *var, char *res)
 {
 	t_lexeur	**array;
 	char		**tmp;
+	int			i = 0;
 
 	array = NULL;
 	tmp = remove_env(var, res);
 	array = fill_lex(tmp, array);
+	while (array[i])
+	{
+		puts("-----------------------------------------------");
+		ft_printf("lexeur: word:_%s_\ttoken:_%d_\tredirection:_%s_\tfd:_%d_\n", array[i]->word, array[i]->token, array[i]->redirection, array[i]->fd);
+		puts("-----------------------------------------------");
+		i++;
+	}
 	return (array);
 }
 

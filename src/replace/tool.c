@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:58:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/04 16:23:54 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,7 @@ int			cnt_size(char *str)
 	return (nb);
 }
 
+//faire un sorte que les fd restes collé aux redirections comme 5> ect.
 char		**split_space(char *str)
 {
 	int		i;
@@ -77,7 +78,7 @@ char		**split_space(char *str)
 			start = i;
 			while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
 			&& find_token(str, i) == -1))
-			{
+			{//faire en sorte que si c'est > >> < ou << alors on les laisse avec des int avant ou apres.
 				if (str[i] == '\'')
 				{
 					i++;

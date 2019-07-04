@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 16:20:29 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/04 16:23:49 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,18 +66,11 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 		(*array) = replace_alias(array, var, replace);
 	}
 	while ((*array)[i])
-		i++;
-	while ((*array)[i])
 	{
 		if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
 		{
 			done = 1;
-			(*array)[i] = replace_env(var, (*array)[i], 0);
-		}
-		if ((*array)[i] && f_check_var(var, (*array)[i]) == 1)
-		{
-			done = 1;
-			(*array)[i] = replace_var(var, (*array)[i]);
+			(*array)[i] = replace_var(var, (*array)[i], 0);
 		}
 		if ((*array)[i])
 			i++;
@@ -86,6 +79,7 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 }
 
 // TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var.
+// TODO checker si une variable avec plusieurs mots ex: 'bonjour les amis' se replace bien.
 
 char		**remove_env(t_var *start, char *str)
 {

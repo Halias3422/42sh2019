@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   quote.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:28:26 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/04 16:50:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,14 +32,13 @@ char	*replace(char *str, char c)
 	ar[1] = ft_strsub(str, 0, i);
 	i++;
 	s = i;
-	while (str[i] != c)
+	while (str[i] && str[i] != c)
 		i++;
 	ar[3] = ft_strsub(str, s, i - s);
 	ar[0] = ft_strjoin(ar[1], ar[3]);
 	i++;
 	s = i;
-	while (str[i])
-		i++;
+	i = ft_strlen(str);
 	ar[2] = ft_strsub(str, s, i - s);
 	ft_strjoin_free(&ar[0], ar[2]);
 	ft_strdel(&str);

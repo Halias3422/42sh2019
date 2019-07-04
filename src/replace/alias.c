@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 11:36:39 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/14 15:17:46 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -125,8 +125,11 @@ char		*del_space(char *str)
 
 void		fill_alias_solo(char *str, t_alias *alias)
 {
-	ft_strdel(&alias->data);
+	char	*tmp;
+
+	tmp = alias->data;
 	alias->data = ft_strdup(str);
+	ft_strdel(&tmp);
 	ft_strdel(&str);
 }
 
@@ -174,10 +177,10 @@ int		replace_alias_while(t_var *var, t_alias *alias)
 	tmp = ft_strdup(var->data);
 	if (!check_simple_or_multiple(tmp))
 	{
-		while (tmp[j] && ((tmp[j] < 9 || tmp[j] > 13) && tmp[j] != ' '))
+		while (tmp[j])
 			j++;
 		fill_alias_solo(ft_strsub(tmp, 0, j), alias);
-		return (0);
+		return (1);
 	}
 	while (tmp[j])
 	{
@@ -231,7 +234,8 @@ char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 			break ;
 		}
 		alias->data = del_space(alias->data);
-		alias = alias->next;
+		if (alias->next)
+			alias = alias->next;
 	}
 	res = make_list_to_ar(start);
 	return (res);
