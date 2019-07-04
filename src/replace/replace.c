@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   replace.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 12:37:06 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/04 13:32:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,10 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 	done = 0;
 	i = 0;
 	if (check_alias((*array)[0], var, replace) == 1)
+	{
+		done = 1;
 		(*array) = replace_alias(array, var, replace);
+	}
 	while ((*array)[i])
 		i++;
 	while ((*array)[i])
