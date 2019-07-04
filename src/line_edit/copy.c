@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 14:22:14 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:41:21 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/06 10:39:36 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,6 @@ void		display_line(t_pos *pos)
 	else
 	{
 		len = go_to_let_nb_saved(pos);
-		pos->debug = pos->start_li + len / pos->max_co;
 		tputs(tgoto(tgetstr("cm", NULL), len % pos->max_co, pos->start_li +
 					len / pos->max_co), 1, ft_putchar);
 		tputs(tgetstr("cd", NULL), 1, ft_putchar);

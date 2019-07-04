@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/11 14:50:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/04 11:44:25 by mjalenqu     #+#   ##    ##    #+#       */
+/*   Updated: 2019/07/04 13:38:46 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist)
 	while (1)
 	{
 		signal_list();
+//		print_info(pos);
 		ret = read(0, buf, 1);
 		if (buf[0] == 137)
 			return (NULL);
