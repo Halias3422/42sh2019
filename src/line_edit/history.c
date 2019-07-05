@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:59:23 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 09:25:58 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,7 +71,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 	pwd = getcwd(NULL, 255);
 	pwd = ft_strjoinf(pwd, "/.history", 1);
 	pos->history = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
-	ft_strdel(&pwd);
+	free(pwd);
 	while ((ret = get_next_line(pos->history, &line)))
 	{
 		if (ft_strlen(line) > 0)
@@ -81,7 +81,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 			hist = add_list_back_hist(hist);
 		}
 		else if (line != NULL)
-			ft_strdel(&line);
+			free(line);
 		line = NULL;
 	}
 	return (hist);

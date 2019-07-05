@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/27 13:30:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/05 15:03:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,7 @@ static void		resize_screen(t_pos *pos)
 static void		ctrl_c(t_pos *pos)
 {
 	char	*pwd;
-	
+
 	while ((*ghist) && (*ghist)->next)
 	 	*ghist = (*ghist)->next;
 	if (pos->ans)

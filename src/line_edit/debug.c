@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 09:27:30 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 10:42:53 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 15:53:17 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ void	print_info(t_pos *pos)
 //		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
 //		ft_printf("{S.white.T.grey.}pos->ans  = %-80.80s/{eoc}\n", pos->ans);
 /*
+>>>>>>> origin:src/line_edit/debug.c
 		tputs(tgoto(tgetstr("cm", NULL), 0, 3), 1, ft_putchar);
 				ft_printf("{S.white.T.grey.}name  = %-40.40s/{eoc}\n", pos->debugchar2);
 */
@@ -94,10 +95,7 @@ void	print_info(t_pos *pos)
 //		tputs(tgoto(tgetstr("cm", NULL), 0, 19), 1, ft_putchar);
 //		ft_printf("copy    = %s/\n", pos->debugchar);
 				tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
-				ft_printf("{S.white.T.grey.}name  = %s/{eoc}\n", pos->debugchar);
-
-				tputs(tgoto(tgetstr("cm", NULL), 0, 2), 1, ft_putchar);
-				ft_printf("{S.white.T.grey.}path  = %s/{eoc}\n", pos->debugchar2);
+				ft_printf("{S.white.T.grey.}saved_ans  = %s/{eoc}\n", pos->debugchar);
 	}
 	else if (pos->max_co < 16)
 	{

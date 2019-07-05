@@ -3,58 +3,29 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 17:59:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/11 12:14:24 by mateodelarb ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static int		is_nbr(char c)
-{
-	if ((c < 58 && c > 47) || c == '\t' || c == ' ')
-		return (1);
-	return (0);
-}
-
-static int		exit_shell(t_pos *pos)
-{
-	int		ret;
-	int		i;
-
-	i = 4;
-	if (ft_strlen(pos->ans) <= 4)
-		return (0);
-	ret = ft_atoi(pos->ans + 5);
-	while (pos->ans[i])
-	{
-		if (is_nbr(pos->ans[i]) == 0)
-		{
-			ft_printf("{B.T.red.}42sh {eoc}: exit : numeric argument required\n");
-			return (0);
-		}
-		i++;
-	}
-	return (ret);
-}
-
 static int		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
 {
 	int	res;
 
 	res  = 0;
-	// if (ft_strlen(pos->ans) > 5)
-	// 	res = ft_atoi(pos->ans + 5);
-	res = exit_shell(pos);
+	if (ft_strlen(pos->ans) > 5)
+		res = ft_atoi(pos->ans + 5);
 	write_alias(var, pos);
 	free_env(var);
-	ft_strdel(&pos->prompt);
+	free(pos->prompt);
 	free_t_hist(hist);
-	ft_strdel(&pos->ans);
-	ft_strdel(&pos->path);
+	free(pos->ans);
+	free(pos->path);
 	close(pos->history);
 	return (res);
 }

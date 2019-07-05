@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:54:09 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 10:58:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -128,7 +128,7 @@ void		free_process(t_job *j)
 	while (j->p)
 	{
 		buf = j->p->next;
-		ft_strdel(&j->p->token);
+		free(j->p->token);
 		free(j->p);
 		j->p = buf;
 	}

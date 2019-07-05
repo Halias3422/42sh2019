@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   input_is_remove_char.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/29 08:12:16 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:47:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/06 09:43:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ void			input_is_delete(t_pos *pos)
 	swap = ft_strnew(pos->let_nb + 1);
 	swap = ft_strncpy(swap, pos->ans, pos->let_nb);
 	swap = ft_strjoinf(swap, pos->ans + pos->let_nb + 1, 1);
-	ft_strdel(&pos->ans);
+	free(pos->ans);
 	pos->ans = swap;
 }
 
@@ -33,7 +33,7 @@ static void		remove_char_ans(t_pos *pos)
 	if (pos->let_nb < pos->len_ans)
 	{
 		swap = ft_strjoinf(swap, pos->ans + pos->let_nb, 1);
-		ft_strdel(&pos->ans);
+		free(pos->ans);
 	}
 	pos->ans = swap;
 }

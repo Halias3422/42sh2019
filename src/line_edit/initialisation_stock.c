@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   initialisation_stock.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/19 08:58:09 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 09:36:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,7 +99,6 @@ static void		init_classic_var(t_pos *pos)
 	pos->ctrl_search_history = 0;
 	pos->debugchar = NULL;
 	pos->debugchar2 = NULL;
-	pos->sigint = 0;
 }
 
 void			init_pos(t_pos *pos)

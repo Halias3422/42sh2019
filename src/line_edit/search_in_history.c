@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   search_in_history.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/25 07:58:52 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:48:27 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/24 13:43:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ t_hist		*search_up_complete_in_history(t_hist *hist, t_pos *pos)
 	}
 	else if (hist->cmd)
 	{
-		ft_strdel(&pos->ans);
+		free(pos->ans);
 		pos->ans = ft_strdup(hist->cmd);
 	}
 	return (hist);
@@ -61,7 +61,7 @@ t_hist		*search_down_complete_in_history(t_hist *hist, t_pos *pos)
 	}
 	else if (hist->cmd)
 	{
-		ft_strdel(&pos->ans);
+		free(pos->ans);
 		pos->ans = ft_strdup(hist->cmd);
 	}
 	return (hist);

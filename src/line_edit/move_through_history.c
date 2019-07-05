@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   move_through_history.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:42:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:48:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/22 12:51:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ static t_hist	*stay_down_in_history(t_hist *hist, t_pos *pos)
 		}
 		else
 		{
-			ft_strdel(&pos->ans);
+			free(pos->ans);
 			pos->ans = ft_strdup(hist->cmd);
 		}
 	}
@@ -43,7 +43,7 @@ static t_hist	*go_back_down_in_history(t_hist *hist, t_pos *pos)
 	hist = hist->next;
 	if (hist->cmd != NULL && pos->is_complete == 1)
 	{
-		ft_strdel(&pos->ans);
+		free(pos->ans);
 		pos->ans = ft_strdup(hist->cmd);
 	}
 	else if (pos->is_complete == 0)
@@ -55,7 +55,7 @@ static t_hist	*go_back_down_in_history(t_hist *hist, t_pos *pos)
 	}
 	else
 	{
-		ft_strdel(&pos->ans);
+		free(pos->ans);
 		pos->ans = ft_strnew(0);
 	}
 	return (hist);
@@ -78,7 +78,7 @@ static t_hist	*go_back_in_history(t_hist *hist, t_pos *pos)
 	}
 	else if (pos->is_complete == 1)
 	{
-		ft_strdel(&pos->ans);
+		free(pos->ans);
 		pos->ans = ft_strdup(hist->cmd);
 	}
 	return (hist);

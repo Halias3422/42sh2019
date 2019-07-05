@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 11:29:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 11:01:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 14:23:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void		ft_tabfree(char **res)
 
 	i = -1;
 	while (res[++i])
-		ft_strdel(&res[i]);
+		free(res[i]);
 	free(res);
 }
 
@@ -64,24 +64,23 @@ int			solve_execve(char *path, char **arg, t_var *var)
 {
 	char	**array;
 	pid_t	pid;
-	int		status;
 
-	status = 0;
 	pid = fork();
 	array = split_env(var);
-	sig_child_handlers();
 	if (pid == 0)
 	{
 		if (execve(path, arg, array) == -1)
 		{
+			signal_list();
 			ft_tabfree(array);
 			return (-1);
 		}
 	}
 	else
-		waitpid(pid, &status, 0);
+		wait(&pid);
+	check_pid(pid);
 	ft_tabfree(array);
-	return (check_pid(status));
+	return (1);
 }
 
 int			main_exec_while(t_process *p, t_var *var)
@@ -90,7 +89,7 @@ int			main_exec_while(t_process *p, t_var *var)
 	{
 		if (ft_strchr(p->cmd[0], '/') != 0)
 		{
-			if (exec_path(p->cmd, var) == -1)
+			if (exec_path(p->cmd, var) != 1)
 			{
 				cnf_print_error(p->cmd[0]);
 				return (-1);

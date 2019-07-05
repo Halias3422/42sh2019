@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tab_key_current_dir.c                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:41:18 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/12 09:55:51 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/23 14:58:34 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,7 @@ t_htab				*looking_for_current(t_pos *pos, t_htab *htab, char **path,
 		dirp = opendir(pwd);
 	}
 	htab = building_htab_current(read, htab, dirp);
-	ft_strdel(&pwd);
+	free(pwd);
 	htab = adjust_lenght_max(htab);
 	return (htab);
 }

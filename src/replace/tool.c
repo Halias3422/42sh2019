@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 16:23:54 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/04 20:07:00 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,11 +49,9 @@ int			cnt_size(char *str)
 				i++;
 		}
 		if (str[i] && (ret = find_token(str, i)) != -1)
-		{
 			i += g_fill_token[ret].size;
-			nb++;
-		}
 	}
+	printf("nb: %d\n", nb);
 	return (nb);
 }
 
@@ -76,33 +74,55 @@ char		**split_space(char *str)
 		if (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
 		{
 			start = i;
-			while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
-			&& find_token(str, i) == -1))
-			{//faire en sorte que si c'est > >> < ou << alors on les laisse avec des int avant ou apres.
-				if (str[i] == '\'')
+			if (str[i] && ((str[i] >= '0' && str[i] <= '9') || (find_token(str, i) >= 4 && find_token(str, i) <= 7)))
+			{
+				if ((ret = find_token(str, i)) != -1)
 				{
-					i++;
-					while (str[i] && str[i] != '\'')
+					i += g_fill_token[ret].size;
+					while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 						i++;
 				}
-				if (str[i] == '"')
+				else
 				{
-					i++;
-					while (str[i] && str[i] != '"')
+					while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 						i++;
+					if (str[i])
+						ret = find_token(str, i);
+					if (str[i] && (ret >= 4 && ret <= 7))
+						i += g_fill_token[ret].size;
 				}
-				i++;
+			}
+			else
+			{
+				while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
+				&& (find_token(str, i) == -1) && (str[i] < '0' || str[i] > '9')))
+				{
+					if (str[i] == '\'')
+					{
+						i++;
+						while (str[i] && str[i] != '\'')
+							i++;
+					}
+					if (str[i] == '"')
+					{
+						i++;
+						while (str[i] && str[i] != '"')
+							i++;
+					}
+					i++;
+				}
 			}
 			res[k] = ft_strsub(str, start, i - start);
-			k++;
 		}
 		if (str[i] && (ret = find_token(str, i)) != -1)
 		{
 			res[k] = ft_strsub(str, i, g_fill_token[ret].size);
-			k++;
 			i += g_fill_token[ret].size;
 		}
+		k++;
 	}
+	printf("k fin: %d\n",k);
+	// TODO faire en sorte que cntsize alloue bien.
 	res[k] = NULL;
 	return (res);
 }

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_cd.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 14:27:36 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 16:24:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 14:16:13 by husahuc     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ int		ft_change_dir(char *path, t_var **var, char *old)
 			ft_printf_err("cd: %s: %s", CD_NO_RIGHTS, path);
 		return (1);
 	}
-	ft_strdel(&path);
+	free(path);
 	getcwd(path_pwd, 1000);
 	add_list_env(var, ENVIRONEMENT, "PWD", ft_strdup(path_pwd));
 	add_list_env(var, ENVIRONEMENT, "OLDPWD", ft_strdup(old));
@@ -75,7 +75,7 @@ int		ft_cd(t_process *p, t_var **var)
 	{
 		ft_change_dir(buf = ft_strjoin(path_pwd,
 			(path = ft_strjoin("/", p->cmd[1]))), var, path_pwd);
-		ft_strdel(&path);
+		free(path);
 	}
 	return (1);
 }
