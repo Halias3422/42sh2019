@@ -13,7 +13,7 @@
 
 #include "../../includes/lexeur.h"
 
-t_lexeur	*fill_fd(char *red, int fd, int token)
+t_lexeur	*fill_fd(int fd, int token)
 {
 	t_lexeur	*res;
 
@@ -21,27 +21,7 @@ t_lexeur	*fill_fd(char *red, int fd, int token)
 	res->word = NULL;
 	res->token = token;
 	res->fd = fd;
-	if (red)
-		res->redirection = ft_strdup(red);
-	else
-		res->redirection = NULL;
-	ft_strdel(&red);
-	return (res);
-}
-
-t_lexeur	*fill_number(char *word, int token)
-{
-	t_lexeur	*res;
-
-	res = malloc(sizeof(t_lexeur));
-	if (word)
-		res->word = ft_strdup(word);
-	else
-		res->word = NULL;
-	res->token = token;
-	res->fd = -1;
 	res->redirection = NULL;
-	ft_strdel(&word);
 	return (res);
 }
 
@@ -49,7 +29,7 @@ int			check_fd(char *buf, int i)
 {
 	int		token;
 
-	while (buf[i] && (buf[i] >= '0' && buf[i] <= '9'))//refaire ca le int peut etre apres le token
+	while (buf[i] && (buf[i] >= '0' && buf[i] <= '9'))
 		i++;
 	if (!buf[i])
 		return (1);
@@ -66,7 +46,6 @@ t_lexeur	*find_fd(char *buf, int i)
 	int			start;
 	int			token;
 
-	tmp = 0;//il faut gerer la redirection que si c'est < ou << le mot d'apres mais pas les 2 autres.
 	if (check_fd(buf, i))
 		return (NULL);
 	while (buf[i])
@@ -78,11 +57,9 @@ t_lexeur	*find_fd(char *buf, int i)
 				i++;
 			token = find_token(buf, i);
 			tmp = ft_strsub(buf, start, i - start);
-			i += ft_strlen(tmp);
-			if (token != 4 && token != 5 && token != 6 && token != 7)
-				return (fill_number(tmp, token));
+			printf("tmp: _%s_\n", tmp);
 			fd = ft_atoi(tmp);
-			return (fill_fd(fill_redirection(buf, &i, token), fd, token));
+			return (fill_fd(fd, token));
 		}
 		i++;
 	}

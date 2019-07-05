@@ -83,7 +83,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	{
 		k = 0;
 		if ((tmp = find_fd(buf[i], 0)) != NULL)
-			array[j] = ft_strdup(tmp);
+			array[j] = tmp;
 		else if (buf[i])
 			array[j] = fill_lex_while(buf[i], &k, find_token(buf[i], k));
 		i++;
@@ -91,6 +91,12 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	}
 	array[j] = NULL;
 	check_redirection(&array);
+	j = 0;
+	while (array[j])
+	{
+		printf("----\narray[%d]: word_%s_\t token_%d_\t redirection_%s_\t fd_%d_\n---\n", j, array[j]->word, array[j]->token, array[j]->redirection, array[j]->fd);
+		j++;
+	}
 	del_back_slash(&array);
 	return (array);
 }
