@@ -5,9 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/02 09:44:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:46:39 by vde-sain    ###    #+. /#+    ###.fr     */
-
+/*   Created: 2019/07/05 13:21:55 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/07/05 13:49:47 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +49,7 @@ int			check_fd(char *buf, int i)
 {
 	int		token;
 
-	while (buf[i] && (buf[i] >= '0' && buf[i] <= '9'))
+	while (buf[i] && (buf[i] >= '0' && buf[i] <= '9'))//refaire ca le int peut etre apres le token
 		i++;
 	if (!buf[i])
 		return (1);
@@ -67,7 +66,7 @@ t_lexeur	*find_fd(char *buf, int i)
 	int			start;
 	int			token;
 
-	tmp = 0;
+	tmp = 0;//il faut gerer la redirection que si c'est < ou << le mot d'apres mais pas les 2 autres.
 	if (check_fd(buf, i))
 		return (NULL);
 	while (buf[i])

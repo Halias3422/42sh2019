@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 13:25:53 by mateodelarb ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/05 13:39:41 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,16 +73,17 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	i = 0;
 	j = 0;
 	while (buf[i])
+	{
+		printf("llleee buf: _%s_\n", buf[i]);
 		i++;
+	}
 	array = malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])
 	{
 		k = 0;
-		if (buf[i + 1] && ft_strcmp(buf[i], "") == 0)
-			i++;
 		if ((tmp = find_fd(buf[i], 0)) != NULL)
-			array[j] = tmp;
+			array[j] = ft_strdup(tmp);
 		else if (buf[i])
 			array[j] = fill_lex_while(buf[i], &k, find_token(buf[i], k));
 		i++;

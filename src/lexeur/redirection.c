@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 17:01:39 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:45:22 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/05 13:36:21 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,8 +19,8 @@ char			*fill_redirection(char *buf, int *i, int token)
 	int		start;
 	int		j;
 
+	printf("buf: _%s_\n", buf);
 	*i += g_fill_token[token].size;
-	jump_space(buf, i);
 	start = *i;
 	if (token == 4 || token == 5)
 	{
