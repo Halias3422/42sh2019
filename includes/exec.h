@@ -29,6 +29,7 @@ typedef	struct			s_process
 	char				split;
 	char				*token;
 	char				*redirection;
+	int					fd;
 }						t_process;
 
 typedef struct			s_job

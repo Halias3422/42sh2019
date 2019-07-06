@@ -29,12 +29,12 @@ int			cnt_process(t_lexeur **res, int i)
 
 void		fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 {
-	printf("thit tmp: _%d_\n", res[*i]->token);
+	puts("fill_cmd");
 	if (res[*i]->token == (enum e_token)-1)
 		(*j)->p->token = NULL;
 	else
 		(*j)->p->token = ft_strdup(g_fill_token[res[*i]->token].name);
-	printf("thit tmp: _%s_\n", (*j)->p->token);
+	(*j)->p->fd = res[*i]->fd;
 	if (!res[*i]->redirection)
 		(*j)->p->redirection = ft_strdup("");
 	else
@@ -80,10 +80,10 @@ int *i)
 	fill_process_split(j, res, i);
 	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
 	while (res[*i] && (res[*i]->word || res[*i]->redirection))
-		fill_cmd(res, j, &k, i);
+		fill_cmd(res, j, &k, i);//le process est pas rempli quand il y a une redirection.
 	(*j)->p->cmd[k] = NULL;
-	if (res[*i] && (res[*i]->token != 1 && res[*i]->token != 8 && res[*i]->token
-	!= 4 && res[*i]->token != 5 && res[*i]->token != 6 && res[*i]->token != 7))
+	if (res[*i] && (res[*i]->token == 2 || res[*i]->token == 3
+	|| res[*i]->token == 0))
 	{
 		(*j)->p->next = malloc(sizeof(t_process));
 		(*j)->p = (*j)->p->next;

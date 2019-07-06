@@ -31,7 +31,7 @@ void		print_job(t_job *j)
 		start = j->p;
 		while (j->p)
 		{
-			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\tredirection: _%s_\n", process, j->p->next, j->p->split, j->p->token, j->p->redirection);
+			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\tredirection: _%s_\tfd_%d_\n", process, j->p->next, j->p->split, j->p->token, j->p->redirection, j->p->fd);
 			process++;
 			while (j->p->cmd[i])
 			{

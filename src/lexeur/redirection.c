@@ -19,7 +19,6 @@ char			*fill_redirection(char *buf, int *i, int token)
 	int		start;
 	int		j;
 
-	printf("buf: _%s_\n", buf);
 	*i += g_fill_token[token].size;
 	start = *i;
 	if (token == 4 || token == 5)
@@ -41,6 +40,7 @@ t_lexeur		*fill_all(t_lexeur ***array, int j)
 {
 	t_lexeur	*res;
 
+	puts("li");
 	res = malloc(sizeof(t_lexeur));
 	res->redirection = NULL;
 	res->word = NULL;
@@ -54,15 +54,18 @@ void			replace_input(t_lexeur ***array,
 {
 	if ((*array)[*i]->word)
 	{
+		puts("le");
 		res[j] = malloc(sizeof(t_lexeur));
 		res[j]->token = (*array)[*i]->token;
 		res[j]->redirection = ft_strdup("");
 		res[j]->word = ft_strdup((*array)[*i]->word);
 		res[j]->fd = (*array)[*i]->fd;
+		printf("res[%d]\t_%s_\n", j, res[j]->word);
 	}
 	else if ((*array)[*i]->token == 6
 	|| (*array)[*i]->token == 7)
 	{
+		puts("la");
 		res[j] = malloc(sizeof(t_lexeur));
 		res[j]->token = (*array)[*i]->token;
 		res[j]->redirection = ft_strdup((*array)[*i + 1]->word);
@@ -88,7 +91,7 @@ t_lexeur		**find_input_redirection(t_lexeur ***array)
 	j = 0;
 	while ((*array)[i])
 	{
-		replace_input(array, res, &i, j);
+		replace_input(array, res, &i, j);//le process est pas rempli quand il y a une redirection.
 		i++;
 		j++;
 	}
