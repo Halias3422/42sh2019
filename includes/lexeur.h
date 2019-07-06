@@ -43,7 +43,7 @@ typedef struct s_var t_var;
 
 typedef struct s_token
 {
-  const char    *name;
+  char    *name;
   int           size;
   enum e_token	token;
 } t_token;

@@ -29,21 +29,18 @@ int			cnt_process(t_lexeur **res, int i)
 
 void		fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 {
-	if (res[*i]->token == 4)
-		(*j)->p->token = ft_strdup(ft_strjoin(">>", res[*i]->redirection));
-	else if (res[*i]->token == 5)
-		(*j)->p->token = ft_strdup(ft_strjoin(">", res[*i]->redirection));
-	else if (res[*i]->token == 6)
-		(*j)->p->token = ft_strdup(ft_strjoin("<<", res[*i]->redirection));
-	else if (res[*i]->token == 7)
-		(*j)->p->token = ft_strdup(ft_strjoin("<", res[*i]->redirection));
+	printf("thit tmp: _%d_\n", res[*i]->token);
+	if (res[*i]->token == (enum e_token)-1)
+		(*j)->p->token = NULL;
 	else
-	{
-		if (!res[*i]->redirection)
-			(*j)->p->token = ft_strdup("");
-		(*j)->p->cmd[*k] = ft_strdup(res[*i]->word);
-		(*k)++;
-	}
+		(*j)->p->token = ft_strdup(g_fill_token[res[*i]->token].name);
+	printf("thit tmp: _%s_\n", (*j)->p->token);
+	if (!res[*i]->redirection)
+		(*j)->p->redirection = ft_strdup("");
+	else
+		(*j)->p->redirection = ft_strdup(res[*i]->redirection);
+	(*j)->p->cmd[*k] = ft_strdup(res[*i]->word);
+	(*k)++;
 	(*i)++;
 }
 

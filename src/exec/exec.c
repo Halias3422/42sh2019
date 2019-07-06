@@ -26,16 +26,16 @@ void		print_job(t_job *j)
 	process = 0;
 	while (j)
 	{
-//		ft_printf("\n---jobs---[%d]->next: _%p_\tsplit: _%c_\n", job, j->next, j->split);
+		ft_printf("\n---jobs---[%d]->next: _%p_\tsplit: _%c_\n", job, j->next, j->split);
 		job++;
 		start = j->p;
 		while (j->p)
 		{
-//			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\n", process, j->p->next, j->p->split, j->p->token);
+			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\tredirection: _%s_\n", process, j->p->next, j->p->split, j->p->token, j->p->redirection);
 			process++;
 			while (j->p->cmd[i])
 			{
-//				ft_printf("cmd[%d]-> _%s_\n", i, j->p->cmd[i]);
+				ft_printf("cmd[%d]-> _%s_\n", i, j->p->cmd[i]);
 				i++;
 			}
 			i = 0;
@@ -90,7 +90,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
-	//print_job(j);
+	print_job(j);
 	main_exec(j, var);
 	return (0);
 }

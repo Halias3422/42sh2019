@@ -73,10 +73,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	i = 0;
 	j = 0;
 	while (buf[i])
-	{
-		printf("llleee buf: _%s_\n", buf[i]);
 		i++;
-	}
 	array = malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])
@@ -91,12 +88,6 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	}
 	array[j] = NULL;
 	check_redirection(&array);
-	j = 0;
-	while (array[j])
-	{
-		printf("----\narray[%d]: word_%s_\t token_%d_\t redirection_%s_\t fd_%d_\n---\n", j, array[j]->word, array[j]->token, array[j]->redirection, array[j]->fd);
-		j++;
-	}
 	del_back_slash(&array);
 	return (array);
 }

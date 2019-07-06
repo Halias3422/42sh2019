@@ -28,6 +28,7 @@ typedef	struct			s_process
 	char				status;
 	char				split;
 	char				*token;
+	char				*redirection;
 }						t_process;
 
 typedef struct			s_job
