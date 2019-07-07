@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/07 07:34:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/07 23:02:14 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,75 +14,112 @@
 #include "../../includes/lexeur.h"
 #include "../../includes/termcaps.h"
 
-char		*switch_word(char *str, char *tmp, int i)
+int			cnt_list_var(t_tvar *var)
 {
-	char	*res;
-	int		j;
-	int		k;
+	int		nb;
 
-	j = 0;
-	while (j < i)
-		j++;
-	res = ft_strsub(str, 0, j);
-	if (ft_strcmp(tmp, "") == 0)
-		return (res);
-	ft_strjoin_free(&res, tmp);
-	k = j;
-	while (str[k] && ((str[k] < 9 && str[k] > 13) || str[k] != ' '))
-		k++;
-	j = k;
-	while (str[j])
-		j++;
-	ft_strjoin_free(&res, ft_strsub(str, k, j - k));
-	ft_strdel(&str);
+	nb = 0;
+	while (var)
+	{
+		var = var->next;
+		nb++;
+	}
+	return (nb);
+}
+
+char		**make_list_to_ar_var(t_tvar *alias)
+{
+	char	**res;
+	int		i;
+
+	res = malloc(sizeof(char *) * (cnt_list_var(alias) + 1));
+	i = 0;
+	while (alias)
+	{
+		res[i] = ft_strdup(alias->data);
+		i++;
+		alias = alias->next;
+	}
+	res[i] = NULL;
+	// TODO free la liste chainé ici.
 	return (res);
 }
 
-char		*replace_while(t_var *env, char *ar[4])
+t_tvar		*make_ar_to_list_var(char **str)
+{
+	t_tvar		*start;
+	t_tvar		*var;
+	int			i;
+
+	var = malloc(sizeof(t_tvar));
+	start = var;
+	i = 0;
+	while (str[i])
+	{
+		if (!var)
+			var = malloc(sizeof(t_tvar));
+		var->data = ft_strdup(str[i]);
+		if (str[i + 1])
+		{
+			var->next = malloc(sizeof(t_var));
+			var = var->next;
+		}
+		i++;
+	}
+	var->next = NULL;
+	var = start;
+	// TODO free str ici.
+	return (var);
+}
+
+char		*get_the_data(char *name, t_var *env)
 {
 	t_var	*start;
 
 	start = env;
-	while (start)
-	{
-		if (ft_strcmp(ar[0], start->name) == 0 && start->type != ALIAS)
-		{
-			ar[2] = ft_strjoin(ar[1], start->data);
-			ft_strjoin_free(&ar[2], ar[3]);
-			ft_strdel(&ar[0]);
-			ft_strdel(&ar[1]);
-			return (ar[2]);
-		}
+	while (start && ft_strcmp(name, start->name) != 0)
 		start = start->next;
-	}
-	return (ft_strdup(ar[1]));
+	if (!start)
+		return (ft_strdup(""));
+	return (start->data);
 }
 
-char		*replace_var(t_var *env, char *str, int i)
+char		*replace_var_to_data(char *str, t_var *env)
 {
+	char	*res;
+	char	*name;
+	char	*tmp;
+	int		i;
 	int		s;
-	char	*ar[5];
 
-	s = i;
-	ar[3] = ft_strdup("");
+	i = 0;
 	while (str[i] && str[i] != '$')
 		i++;
-	ar[1] = ft_strsub(str, s, i - s);
 	i++;
 	s = i;
-	while (str[i] && str[i] != '$' && str[i] != '"' &&
-	(str[i] < 9 || str[i] > 13) && str[i] != ' ')
+	while (str[i])
 		i++;
-	ar[0] = ft_strsub(str, s, i - s);
-	if (str[i])
+	name = ft_strsub(str, s, i - s);
+	tmp = get_the_data(name, env);
+	res = ft_strjoin(ft_strsub(str, 0, s - 1), tmp);
+	return (res);
+}
+
+char		**replace_var(t_var *env, char **str)
+{
+	t_tvar	*var;
+	t_tvar	*start;
+	char	**res;
+
+	var = make_ar_to_list_var(str);
+	start = var;
+	while (var)
 	{
-		s = i;
-		while (str[i])
-			i++;
-		ar[3] = ft_strsub(str, s, i - s);
+		if (ft_strchr(var->data, '$'))
+			var->data = replace_var_to_data(var->data, env);
+		var = var->next;
 	}
-	ar[2] = replace_while(env, ar);
-	ft_strdel(&ar[0]);
-	ft_strdel(&ar[1]);
-	return (ar[2]);
+	var = start;
+	res = make_list_to_ar_var(var);
+	return (res);
 }
