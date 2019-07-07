@@ -54,6 +54,7 @@ int			cnt_size(char *str)
 			i += g_fill_token[ret].size;
 		}
 	}
+	printf("nb: %d\n", nb);
 	return (nb);
 }
 
@@ -121,7 +122,10 @@ char		**split_space(char *str)
 			i += g_fill_token[ret].size;
 		}
 		k++;
+		if (str[i])
+			i++;
 	}
+	printf("k %d\n", k);
 	res[k] = NULL;
 	return (res);
 }
