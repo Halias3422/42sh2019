@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/07 04:12:58 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/07 04:41:42 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/07 05:35:12 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,17 +63,26 @@ char		*get_data(char *str)
 void		add_var(char *str, t_var *var)
 {
 	t_var	*start;
+	t_var	*prev;
 	t_var	*new;
 
 	start = var;
-	while (var->next)
+	while (var)
+	{
+		if (ft_strcmp(var->name, get_name(str)) == 0)
+		{
+			ft_strdel(&var->data);
+			var->data = get_data(str);
+			var = start;
+			return ;
+		}
+		prev = var;
 		var = var->next;
+	}
 	new = malloc(sizeof(t_var));
 	new->name = get_name(str);
-	printf("new->name: _%s_\n", new->name);
 	new->data = get_data(str);
-	printf("new->data: _%s_\n", new->data);
-	var->next = new;
+	prev->next = new;
 	new->next = NULL;
 	new->type = LOCAL;
 	var = start;

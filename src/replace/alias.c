@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 15:17:46 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/07 07:42:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ char		**make_list_to_ar(t_alias *alias)
 		alias = alias->next;
 	}
 	res[i] = NULL;
+	// TODO free la liste chainé ici.
 	return (res);
 }
 
@@ -75,6 +76,7 @@ t_alias		*make_ar_to_list(char **str)
 	}
 	alias->next = NULL;
 	alias = start;
+	// TODO free str ici.
 	return (start);
 }
 
@@ -237,6 +239,6 @@ char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 		if (alias->next)
 			alias = alias->next;
 	}
-	res = make_list_to_ar(start);
+	res = make_list_to_ar(start);// TODO free array
 	return (res);
 }
