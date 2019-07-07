@@ -24,6 +24,7 @@ void		print_job(t_job *j)
 	job = 0;
 	i = 0;
 	process = 0;
+	puts("\n------------------------  EXEC  ------------------------");
 	while (j)
 	{
 		ft_printf("\n---jobs---[%d]->next: _%p_\tsplit: _%c_\n", job, j->next, j->split);

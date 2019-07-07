@@ -57,7 +57,6 @@ t_lexeur	*find_fd(char *buf, int i)
 				i++;
 			token = find_token(buf, i);
 			tmp = ft_strsub(buf, start, i - start);
-			printf("tmp: _%s_\n", tmp);
 			fd = ft_atoi(tmp);
 			return (fill_fd(fd, token));
 		}

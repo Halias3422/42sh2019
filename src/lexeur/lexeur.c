@@ -96,10 +96,16 @@ t_lexeur	**start_lex(t_var *var, char *res)
 {
 	t_lexeur	**array;
 	char		**tmp;
+	int			i = 0;
 
 	array = NULL;
 	tmp = remove_env(var, res);
 	array = fill_lex(tmp, array);
+	while (array[i])
+	{
+		printf("---LEXEUR---\nword:_%s_\ttoken: %d\tredirection: _%s_\tfd %d\n", array[i]->word, array[i]->token, array[i]->redirection, array[i]->fd);
+		i++;
+	}
 	return (array);
 }
 
