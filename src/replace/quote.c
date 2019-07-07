@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/07 07:43:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/07 23:33:19 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,7 @@ char	*replace(char *str, char c)
 	int		i;
 
 	i = 0;
+	printf("str: _%s_\n", str);
 	while (str[i] != c)
 		i++;
 	ar[1] = ft_strsub(str, 0, i);
