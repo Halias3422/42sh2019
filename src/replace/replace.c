@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/04 20:10:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/07 23:02:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/08 04:53:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,20 +67,21 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 	}
 	while ((*array)[i])
 	{
-		if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
+		if ((*array)[i][0] != '\'')
 		{
-			done = 1;
-			(*array) = replace_var(var, (*array));
-			return (done);
+			if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
+			{
+				done = 1;
+				(*array) = replace_var(var, (*array));
+				break ;
+			}
 		}
 		i++;
 	}
 	return (done);
 }
 
-// TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var.
-// TODO checker si une variable avec plusieurs mots ex: 'bonjour les amis' se replace bien.
-// refaire les variables et bug sur les doubles quotes.
+// TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var. et tester les boucles
 
 char		**remove_env(t_var *start, char *str)
 {

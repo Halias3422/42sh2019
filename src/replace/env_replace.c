@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/08 01:26:39 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/08 03:25:55 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,15 +101,12 @@ char		*replace_var_to_data(char *str, t_var *env)
 	&& str[i] != '"' && str[i] != '\''))
 		i++;
 	name = ft_strsub(str, s, i - s);
-	printf("[%d][%d]name: _%s_\n", s, i, name);
 	tmp = get_the_data(name, env);
 	res = ft_strjoin(ft_strsub(str, 0, s - 1), tmp);
 	s = i;
 	while (str[i])
 		i++;
-	printf("1: res: _%s_\n", res);
 	ft_strjoin_free(&res, ft_strsub(str, s, i - s));
-	printf("2: res: _%s_\n", res);
 	return (res);
 }
 
@@ -123,7 +120,6 @@ char		**replace_var(t_var *env, char **str)
 	start = var;
 	while (var)
 	{
-		printf("var: __%s__\n", var->data);
 		if (ft_strchr(var->data, '$'))
 			var->data = replace_var_to_data(var->data, env);
 		var = var->next;
