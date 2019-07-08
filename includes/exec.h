@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 14:26:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/07 04:14:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,8 @@ typedef	struct			s_process
 	char				status;
 	char				split;
 	char				*token;
+	char				*redirection;
+	int					fd;
 }						t_process;
 
 typedef struct			s_job
@@ -104,5 +106,11 @@ int			main_alias(t_process *p, t_var **var);
 int			main_unalias(t_process *p, t_var **var);
 
 void    	check_pid(int pid);
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                      var.c                                 ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
 
+void        add_var(char *str, t_var *var);
 #endif

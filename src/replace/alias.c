@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/14 15:17:46 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/08 13:26:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ char		**make_list_to_ar(t_alias *alias)
 		alias = alias->next;
 	}
 	res[i] = NULL;
+	// TODO free la liste chainé ici.
 	return (res);
 }
 
@@ -75,6 +76,7 @@ t_alias		*make_ar_to_list(char **str)
 	}
 	alias->next = NULL;
 	alias = start;
+	// TODO free str ici.
 	return (start);
 }
 
@@ -207,10 +209,16 @@ char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 	t_alias		*start;
 	t_var		*s_var;
 	int			ret;
+	int			i = 0;
 
 	alias = make_ar_to_list(*array);
 	start = alias;
 	(void)replace;
+	while ((*array)[i])
+	{
+		printf("array[%d] = %s\n", i, (*array)[i]);
+		i++;
+	}
 	while (1)
 	{
 		s_var = var;
@@ -237,6 +245,6 @@ char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 		if (alias->next)
 			alias = alias->next;
 	}
-	res = make_list_to_ar(start);
+	res = make_list_to_ar(start);// TODO free array
 	return (res);
 }

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 20:07:00 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/08 09:16:34 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,13 +49,15 @@ int			cnt_size(char *str)
 				i++;
 		}
 		if (str[i] && (ret = find_token(str, i)) != -1)
+		{
+			nb++;
 			i += g_fill_token[ret].size;
+		}
 	}
-	printf("nb: %d\n", nb);
+//	printf("nb: %d\n", nb);
 	return (nb);
 }
 
-//faire un sorte que les fd restes collé aux redirections comme 5> ect.
 char		**split_space(char *str)
 {
 	int		i;
@@ -120,9 +122,10 @@ char		**split_space(char *str)
 			i += g_fill_token[ret].size;
 		}
 		k++;
+		if (str[i])
+			i++;
 	}
-	printf("k fin: %d\n",k);
-	// TODO faire en sorte que cntsize alloue bien.
+//	printf("k %d\n", k);
 	res[k] = NULL;
 	return (res);
 }

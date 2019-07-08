@@ -19,7 +19,7 @@ int			cnt_process(t_lexeur **res, int i)
 	int		nb;
 
 	nb = 0;
-	while (res[i] && (res[i]->word || res[i]->redirection))
+	while (res[i])
 	{
 		i++;
 		nb++;
@@ -29,18 +29,16 @@ int			cnt_process(t_lexeur **res, int i)
 
 void		fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 {
-	if (res[*i]->token == 4)
-		(*j)->p->token = ft_strdup(ft_strjoin(">>", res[*i]->redirection));
-	else if (res[*i]->token == 5)
-		(*j)->p->token = ft_strdup(ft_strjoin(">", res[*i]->redirection));
-	else if (res[*i]->token == 6)
-		(*j)->p->token = ft_strdup(ft_strjoin("<<", res[*i]->redirection));
-	else if (res[*i]->token == 7)
-		(*j)->p->token = ft_strdup(ft_strjoin("<", res[*i]->redirection));
-	else
+	if (res[*i]->fd != -1)
 	{
-		if (!res[*i]->redirection)
-			(*j)->p->token = ft_strdup("");
+		(*j)->p->fd = res[*i]->fd;
+	}
+	if (!res[*i]->redirection)
+		(*j)->p->redirection = ft_strdup("");
+	else
+		(*j)->p->redirection = ft_strdup(res[*i]->redirection);
+	if (res[*i]->word)
+	{
 		(*j)->p->cmd[*k] = ft_strdup(res[*i]->word);
 		(*k)++;
 	}
@@ -74,6 +72,28 @@ void		fill_process_split(t_job **j, t_lexeur **res, int *i)
 		(*j)->p->split = '\0';
 }
 
+char		*find_fill_token(t_lexeur **ar, int i)
+{
+	char	*res;
+	int		j;
+
+	j = 0;
+	res = NULL;
+	while (j < i)
+	{
+		if (ar[j]->token == (enum e_token)4)
+			return (ft_strdup(">>"));
+		if (ar[j]->token == (enum e_token)5)
+			return (ft_strdup(">"));
+		if (ar[j]->token == (enum e_token)6)
+			return (ft_strdup("<<"));
+		if (ar[j]->token == (enum e_token)7)
+			return (ft_strdup("<"));
+		j++;
+	}
+	return (res);
+}
+
 int			fill_process_while(t_lexeur **res, t_job **j, t_process **start,
 int *i)
 {
@@ -81,12 +101,14 @@ int *i)
 
 	k = 0;
 	fill_process_split(j, res, i);
-	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
-	while (res[*i] && (res[*i]->word || res[*i]->redirection))
-		fill_cmd(res, j, &k, i);
+	(*j)->p->fd = -1;
+	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));//changer la condition du while
+	while (res[*i] && (res[*i]->word || res[*i]->redirection || res[*i]->token == 4 || res[*i]->token == 5))
+		fill_cmd(res, j, &k, i);//le process est pas rempli quand il y a une redirection.
 	(*j)->p->cmd[k] = NULL;
-	if (res[*i] && (res[*i]->token != 1 && res[*i]->token != 8 && res[*i]->token
-	!= 4 && res[*i]->token != 5 && res[*i]->token != 6 && res[*i]->token != 7))
+	(*j)->p->token = find_fill_token(res, *i);
+	if (res[*i] && (res[*i]->token == 2 || res[*i]->token == 3
+	|| res[*i]->token == 0))
 	{
 		(*j)->p->next = malloc(sizeof(t_process));
 		(*j)->p = (*j)->p->next;

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec_main.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 11:29:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 14:23:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/07 04:49:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,6 +95,8 @@ int			main_exec_while(t_process *p, t_var *var)
 				return (-1);
 			}
 		}
+		else if (ft_strchr(p->cmd[0], '=') != 0)
+			add_var(p->cmd[0], var);
 		else
 		{
 			if (use_execve(p->cmd, var) == -1)

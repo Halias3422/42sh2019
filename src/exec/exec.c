@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/08 09:20:21 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@ void		print_job(t_job *j)
 	job = 0;
 	i = 0;
 	process = 0;
+//	puts("\n------------------------  EXEC  ------------------------");
 	while (j)
 	{
 //		ft_printf("\n---jobs---[%d]->next: _%p_\tsplit: _%c_\n", job, j->next, j->split);
@@ -31,7 +32,7 @@ void		print_job(t_job *j)
 		start = j->p;
 		while (j->p)
 		{
-//			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\n", process, j->p->next, j->p->split, j->p->token);
+//			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\tredirection: _%s_\tfd_%d_\n", process, j->p->next, j->p->split, j->p->token, j->p->redirection, j->p->fd);
 			process++;
 			while (j->p->cmd[i])
 			{
@@ -45,7 +46,7 @@ void		print_job(t_job *j)
 		process = 0;
 		j = j->next;
 	}
-	puts("");
+//	puts("");
 }
 
 void		init_job(t_job *j)
@@ -90,7 +91,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
-	//print_job(j);
+	print_job(j);
 	main_exec(j, var);
 	return (0);
 }

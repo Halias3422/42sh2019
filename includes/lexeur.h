@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/15 15:59:33 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/07 22:29:40 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,7 +43,7 @@ typedef struct s_var t_var;
 
 typedef struct s_token
 {
-  const char    *name;
+  char    *name;
   int           size;
   enum e_token	token;
 } t_token;
@@ -61,6 +61,12 @@ typedef struct s_already_replace
 	char						*name;
 	struct s_already_replace	*next;
 } t_replace;
+
+typedef struct s_temp_var
+{
+	char				*data;
+	struct s_temp_var	*next;
+} t_tvar;
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -133,7 +139,7 @@ char		**remove_env(t_var *var, char *str);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-char		*replace_var(t_var *env, char *str, int i);
+char		**replace_var(t_var *env, char **str);
 char		*switch_word(char *str, char *tmp, int i);
 
 /*

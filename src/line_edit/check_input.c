@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/10 10:59:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/08 13:13:49 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,19 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 		pos->history_mode = 0;
 }
 
+// static void		clear_all(t_pos *pos)
+// {
+// 	char *pwd;
+
+// 	tputs(tgetstr("cl", NULL), 1, ft_putchar);
+// 	pos->act_co = 1;
+// 	pos->act_li = 1;
+// 	pos->start_co = 1;
+// 	pos->start_li = 1;
+// 	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", pwd = getcwd(NULL, 1000));
+// 	ft_strdel(&pwd);
+// }
+
 static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 {
 	if (buf[0] == 9 && pos->is_complete == 1 && pos->ctrl_search_history == 0)
@@ -41,6 +54,8 @@ static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 		input_is_printable_char(pos, (char*)buf);
 	if (buf[0] == 18 || pos->ctrl_search_history == 1)
 		hist = control_search_history(pos, hist, buf);
+//	if (buf[0] == 12)
+//		clear_all(pos);
 	if (pos->ans != NULL)
 		update_history(pos, hist, (char*)buf);
 	return (hist);

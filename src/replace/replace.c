@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   replace.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 16:18:47 by mateodelarb ###    #+. /#+    ###.fr     */
+/*   Created: 2019/07/04 20:10:49 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/07/08 13:39:27 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,19 +67,21 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 	}
 	while ((*array)[i])
 	{
-		if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
+		if ((*array)[i][0] != '\'')
 		{
-			done = 1;
-			(*array)[i] = replace_var(var, (*array)[i], 0);
+			if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
+			{
+				done = 1;
+				(*array) = replace_var(var, (*array));
+				break ;
+			}
 		}
-		if ((*array)[i])
-			i++;
+		i++;
 	}
 	return (done);
 }
 
-// TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var.
-// TODO checker si une variable avec plusieurs mots ex: 'bonjour les amis' se replace bien.
+// TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var. et tester les boucles
 
 char		**remove_env(t_var *start, char *str)
 {
@@ -91,7 +93,7 @@ char		**remove_env(t_var *start, char *str)
 	array = split_space(str);
 	while (array[i])
 	{
-		printf("%d: %s\n", i, array[i]);
+//		printf("%d: %s\n", i, array[i]);
 		i++;
 	}
 	while (1)

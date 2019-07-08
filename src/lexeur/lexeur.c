@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 13:26:38 by mateodelarb ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/08 09:15:27 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,10 +96,16 @@ t_lexeur	**start_lex(t_var *var, char *res)
 {
 	t_lexeur	**array;
 	char		**tmp;
+	int			i = 0;
 
 	array = NULL;
 	tmp = remove_env(var, res);
 	array = fill_lex(tmp, array);
+	while (array[i])
+	{
+//		printf("---LEXEUR---\nword:_%s_\ttoken: %d\tredirection: _%s_\tfd %d\n", array[i]->word, array[i]->token, array[i]->redirection, array[i]->fd);
+		i++;
+	}
 	return (array);
 }
 

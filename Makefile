@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/07/05 11:28:20 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/07/08 09:58:34 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -35,7 +35,7 @@ SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c double_quote.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c)
 
 SRC_EXEC = $(addprefix exec/, \
-				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c redirection.c check_pid.c)
+				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c redirection.c check_pid.c var.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c env_replace.c replace.c tool.c quote.c alias_tools.c)
@@ -55,7 +55,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 

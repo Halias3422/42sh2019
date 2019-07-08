@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mateodelarbre <mateodelarbre@student.le    +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/04 13:25:53 by mateodelarb ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/08 08:57:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,8 +79,6 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	while (buf[i])
 	{
 		k = 0;
-		if (buf[i + 1] && ft_strcmp(buf[i], "") == 0)
-			i++;
 		if ((tmp = find_fd(buf[i], 0)) != NULL)
 			array[j] = tmp;
 		else if (buf[i])
