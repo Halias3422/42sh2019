@@ -35,7 +35,7 @@ static void		init_fc_struct(t_fc *fc)
 	fc->error = 0;
 }
 
-static void		execute_fc_according_to_flags(t_fc *fc)
+static void		execute_fc_according_to_flags(t_fc *fc, t_var **var)
 {
 	t_hist	*hist;
 
@@ -53,7 +53,7 @@ static void		execute_fc_according_to_flags(t_fc *fc)
 	else if (ft_strchr(fc->flags, 's') != NULL)
 		prepare_s_flag(fc, hist);
 	else if (ft_strchr(fc->flags, 'e') != NULL)
-		prepare_e_flag(fc, hist);
+		prepare_e_flag(fc, hist, var);
 }
 
 int			ft_fc(t_process *p, t_var **var)
@@ -74,7 +74,7 @@ int			ft_fc(t_process *p, t_var **var)
 	{
 		get_str_args_of_fc(&fc, p, i, 0);
 		
-		execute_fc_according_to_flags(&fc);
+		execute_fc_according_to_flags(&fc, var);
 	}
 	return (0);
 }
