@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/08 09:16:34 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/09 09:24:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -126,7 +126,7 @@ char		**split_space(char *str)
 			i++;
 	}
 //	printf("k %d\n", k);
-	res[k] = NULL;
+	res[k] = 0;
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/08 09:20:21 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/09 09:16:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,12 +86,15 @@ void		fill_job(t_job *j, t_lexeur **res)
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
+	t_job		*s;
 
 	j = malloc(sizeof(t_job));
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
 	print_job(j);
+	s = j;
 	main_exec(j, var);
+	free_all_job(s);
 	return (0);
 }

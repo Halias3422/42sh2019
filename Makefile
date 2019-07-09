@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/07/08 09:58:34 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/07/09 12:54:23 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -35,10 +35,10 @@ SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c double_quote.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c)
 
 SRC_EXEC = $(addprefix exec/, \
-				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c redirection.c check_pid.c var.c)
+				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c redirection.c check_pid.c var.c free_jobs.c)
 
 SRC_REP = $(addprefix replace/, \
-				alias.c env_replace.c replace.c tool.c quote.c alias_tools.c)
+				alias.c env_replace.c replace.c tool.c quote.c alias_tools.c free_file.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \

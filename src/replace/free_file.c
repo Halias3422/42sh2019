@@ -1,68 +1,57 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   alias_tools.c                                    .::    .:/ .      .::   */
+/*   free_file.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/06/12 12:34:55 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/08 04:59:04 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/07/09 07:30:29 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/07/09 09:31:45 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
 
-char		check_last_char(t_alias *alias, int j)
+void		free_list(t_alias *alias)
 {
-	int		i;
+	t_alias		*tmp;
 
-	i = 0;
-	while (j > 1)
+	while (alias)
 	{
+		ft_strdel(&alias->data);
+		if (alias->prev)
+			free(alias->prev);
+		tmp = alias;
 		alias = alias->next;
-		j--;
+		free(tmp);
 	}
-	while (alias->data[i])
-		i++;
-	return (alias->data[i - 1]);
 }
 
-int			cnt_array(char **str)
+void		free_ar(char **str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (str[i])
+	{
+		ft_strdel(&str[i]);
 		i++;
-	return (i);
+	}
+	free(str);
 }
 
-void		fill_list(char *str, t_alias *alias)
-{
-	ft_strdel(&alias->data);
-	alias->data = ft_strdup(str);
-}
-
-void		free_array(char ***array)
+void		free_all_the_ar(char ***array)
 {
 	int		i;
 
 	i = 0;
-	while ((*array)[i])
+	while ((*array)[i] != 0)
 	{
+		printf("%d -> %p\n", i, (*array)[i]);
 		ft_strdel(&(*array)[i]);
 		i++;
 	}
-}
-
-int			end(char **str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i + 1);
+	free(*array);
+	free(array);
 }

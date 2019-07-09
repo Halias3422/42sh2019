@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/07 04:14:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/09 07:21:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ typedef struct			s_job
 {
 	struct s_job		*next;
 	t_process			*p;
-	pid_t				*pgid;
+	pid_t				pgid;
 	char				split;
 	char				status;
 }						t_job;
@@ -106,6 +106,7 @@ int			main_alias(t_process *p, t_var **var);
 int			main_unalias(t_process *p, t_var **var);
 
 void    	check_pid(int pid);
+
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                      var.c                                 ┃
@@ -113,4 +114,12 @@ void    	check_pid(int pid);
 */
 
 void        add_var(char *str, t_var *var);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                free_jobs.c                                 ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		free_all_job(t_job *j);
 #endif
