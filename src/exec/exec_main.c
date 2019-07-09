@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 11:29:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/07 04:49:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/09 07:18:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,8 +36,8 @@ int			use_execve(char **res, t_var *l_var)
 	if (!(start))
 		return (-1);
 	path = ft_strsplit(start->data, ':');
-	i = 0;
-	while (path[i])
+	i = -1;
+	while (path[++i])
 	{
 		tmp = strjoin_path(path[i], res[0]);
 		if (use_execve_acces(tmp, res, l_var) == 0)
@@ -45,7 +45,6 @@ int			use_execve(char **res, t_var *l_var)
 			ft_tabfree(path);
 			return (0);
 		}
-		i++;
 		ft_strdel(&tmp);
 	}
 	ft_strdel(&tmp);
@@ -112,7 +111,9 @@ int			main_exec_while(t_process *p, t_var *var)
 void		main_exec(t_job *j, t_var *var)
 {
 	t_process	*tmp;
+	t_job		*s;
 
+	s = j;
 	while (j)
 	{
 		tmp = j->p;
