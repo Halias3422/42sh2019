@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   alias.h                                          .::    .:/ .      .::   */
+/*   free_file.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/06/11 16:17:46 by mateodelarb  #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/09 07:36:29 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/07/09 07:30:29 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/07/09 07:38:00 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef ALIAS_H
-# define ALIAS_H
+#include "../../includes/alias.h"
 
-typedef struct s_alias
+void		free_list(t_alias *alias)
 {
-	char			*data;
-	struct s_alias	*next;
-	struct s_alias	*prev;
-} t_alias;
-
-
-char		check_last_char(t_alias *alias, int j);
-int			cnt_array(char **str);
-void		fill_alias(char *str, t_alias *alias);
-void		free_array(char ***array);
-int			end(char **str);
-
-void        free_list(t_alias *alias);
-
-#endif
+	
+}
