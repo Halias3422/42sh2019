@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/10 21:04:05 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/10 23:25:09 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,8 @@ int			cnt_size(char *str)
 			nb++;
 			while (str[i] && (str[i] != '\'' && (i == 0 || str[i - 1] != '\\')))
 				i++;
-			i++;
+			if (str[i])
+				i++;
 		}
 		else if (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
 		{
