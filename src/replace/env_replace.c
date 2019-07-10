@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/08 03:25:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/10 22:51:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -109,6 +109,7 @@ char		*replace_var_to_data(char *str, t_var *env)
 	ft_strjoin_free(&res, ft_strsub(str, s, i - s));
 	return (res);
 }
+
 
 char		**replace_var(t_var *env, char **str)
 {

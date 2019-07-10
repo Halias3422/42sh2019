@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/04 20:10:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/10 21:04:26 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/10 22:51:48 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,6 +54,18 @@ int			check_alias(char *array, t_var *var, t_replace *replace)
 	return (1);
 }
 
+int			check_backslash_var(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '$')
+		i++;
+	if (i == 0 || str[i - 1] != '\\')
+		return (1);
+	return (0);
+}
+
 int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 {
 	int		done;
@@ -70,7 +82,8 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 	{
 		if ((*array)[i][0] != '\'')
 		{
-			if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
+			if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL &&
+			check_backslash_var((*array)[i]))
 			{
 				done = 1;
 				(*array) = replace_var(var, (*array));
@@ -83,6 +96,7 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 }
 
 // TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var. et tester les boucles
+// TODO faire les \ devant les variables.
 
 char		**remove_env(t_var *start, char *str)
 {
