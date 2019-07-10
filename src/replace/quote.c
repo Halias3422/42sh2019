@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/08 03:26:19 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/10 06:10:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,7 @@
 ** ar[3] = tmp.
 */
 
+// TODO coucou martin essaye  echo "\"     la" et tu vas crach ici mais la mon brain is boum.
 char	*replace(char *str, char c)
 {
 	char	*ar[4];
@@ -27,13 +28,17 @@ char	*replace(char *str, char c)
 	int		i;
 
 	i = 0;
-	while (str[i] != c)
+	while (str[i] != c && (i == 0 || str[i - 1] != '\\'))
 		i++;
 	ar[1] = ft_strsub(str, 0, i);
 	i++;
 	s = i;
-	while (str[i] != c)
+	while (str[i])
+	{
+		if (str[i] == c && (i == 0 || str[i - 1] != '\\'))
+			break ;
 		i++;
+	}
 	ar[3] = ft_strsub(str, s, i - s);
 	ar[0] = ft_strjoin(ar[1], ar[3]);
 	i++;
@@ -60,7 +65,8 @@ void	remoove_quote(char ***array)
 	{
 		while ((*array)[i][j])
 		{
-			if ((*array)[i][j] == '\'' || (*array)[i][j] == '"')
+			if (((*array)[i][j] == '\'' && (j == 0 || (*array)[i][j - 1] != '\\'))
+			|| ((*array)[i][j] == '"' && (j == 0 || (*array)[i][j - 1] != '\\')))
 				(*array)[i] = replace((*array)[i], (*array)[i][j]);
 			j++;
 		}
