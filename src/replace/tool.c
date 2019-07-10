@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/10 13:58:03 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/10 14:10:35 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,10 +59,8 @@ int			cnt_size(char *str)
 		printf("i =%d\tstr =%s && len = %d\n", i, str, ft_strlen(str));
 		if (str[i] && (ret = find_token(str, i)) != -1)
 		{
-			printf("before i =%d\t", i);
 			nb++;
 			i += g_fill_token[ret].size;
-			printf("after i =%d\n", i);
 		}
 	}
 //	printf("nb: %d\n", nb);
