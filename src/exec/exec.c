@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/09 07:18:42 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/09 09:16:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,19 +24,19 @@ void		print_job(t_job *j)
 	job = 0;
 	i = 0;
 	process = 0;
-	puts("\n------------------------  EXEC  ------------------------");
+//	puts("\n------------------------  EXEC  ------------------------");
 	while (j)
 	{
-		ft_printf("\n---jobs---[%d]->next: _%p_\tsplit: _%c_\n", job, j->next, j->split);
+//		ft_printf("\n---jobs---[%d]->next: _%p_\tsplit: _%c_\n", job, j->next, j->split);
 		job++;
 		start = j->p;
 		while (j->p)
 		{
-			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\tredirection: _%s_\tfd_%d_\n", process, j->p->next, j->p->split, j->p->token, j->p->redirection, j->p->fd);
+//			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\tredirection: _%s_\tfd_%d_\n", process, j->p->next, j->p->split, j->p->token, j->p->redirection, j->p->fd);
 			process++;
 			while (j->p->cmd[i])
 			{
-				ft_printf("cmd[%d]-> _%s_\n", i, j->p->cmd[i]);
+//				ft_printf("cmd[%d]-> _%s_\n", i, j->p->cmd[i]);
 				i++;
 			}
 			i = 0;
@@ -46,7 +46,7 @@ void		print_job(t_job *j)
 		process = 0;
 		j = j->next;
 	}
-	puts("");
+//	puts("");
 }
 
 void		init_job(t_job *j)
