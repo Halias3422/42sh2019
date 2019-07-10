@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/09 07:30:29 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/09 09:31:45 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/10 09:42:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,19 +39,4 @@ void		free_ar(char **str)
 		i++;
 	}
 	free(str);
-}
-
-void		free_all_the_ar(char ***array)
-{
-	int		i;
-
-	i = 0;
-	while ((*array)[i] != 0)
-	{
-		printf("%d -> %p\n", i, (*array)[i]);
-		ft_strdel(&(*array)[i]);
-		i++;
-	}
-	free(*array);
-	free(array);
 }

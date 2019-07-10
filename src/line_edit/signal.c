@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/05 15:03:20 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/09 18:42:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,11 +47,12 @@ static void		ctrl_c(t_pos *pos)
 	char	*pwd;
 
 	while ((*ghist) && (*ghist)->next)
-	 	*ghist = (*ghist)->next;
+		*ghist = (*ghist)->next;
 	if (pos->ans)
 		ft_strdel(&pos->ans);
 	write(1, "\n", 1);
-	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", pwd = getcwd(NULL, 1000));
+	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+				pwd = getcwd(NULL, 1000));
 	init_pos(pos);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	print_prompt(pos);
@@ -69,24 +70,8 @@ static void		sighandler(int signum)
 		ctrl_c(pos);
 }
 
-// static void		sig_child_list(int	sig)
-// {
-// 	t_pos	*pos;
-// 	char	*pwd;
-
-// 	(void)sig;
-// 	pos = stock(NULL, 1);
-// 	write(1, "\n", 1);
-// 	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", pwd = getcwd(NULL, 1000));
-// 	init_pos(pos);
-// 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
-// 	print_prompt(pos);
-// 	ft_strdel(&pwd);
-// }
-
-void		sig_child_handlers(void)
+void			sig_child_handlers(void)
 {
-	//signal(SIGINT, sig_child_list);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTERM, SIG_DFL);

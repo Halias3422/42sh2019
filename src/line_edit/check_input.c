@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/09 17:14:37 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/09 18:17:40 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,8 @@ static void		print_ecran(t_pos *pos)
 {
 	char *pwd;
 
-	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n", pwd = getcwd(NULL, 1000));
+	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+				pwd = getcwd(NULL, 1000));
 	ft_printf("{B.T.cyan.}%s{eoc}%s ", pos->prompt, pos->ans);
 	pos->let_nb = ft_strlen(pos->ans);
 	ft_strdel(&pwd);
@@ -56,7 +57,8 @@ static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 		pos->ans_printed = input_is_backspace(pos);
 	else if (buf[0] == 10 && pos->ctrl_search_history == 0)
 		hist = input_is_entry(pos, hist, (char*)buf);
-	else if (buf[0] != 127 && buf[0] != 10 && buf[0] != 9 && buf[0] != 18 && buf[0] != 12)
+	else if (buf[0] != 127 && buf[0] != 10 && buf[0] != 9 &&
+						buf[0] != 18 && buf[0] != 12)
 		input_is_printable_char(pos, (char*)buf);
 	if (buf[0] == 18 || pos->ctrl_search_history == 1)
 		hist = control_search_history(pos, hist, buf);

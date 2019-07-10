@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/09 09:24:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/10 13:58:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,19 +25,21 @@ int			cnt_size(char *str)
 	{
 		while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
 			i++;
-		if (str[i] && str[i] == '"')
+//		printf("str[%d]: _%c_\n", i, str[i]);
+		if (str[i] && (str[i] == '"' && (i == 0 || str[i - 1] != '\\')))
 		{
 			i++;
 			nb++;
-			while (str[i] && str[i] != '"')
+			while (str[i] && (str[i] != '"' && (i == 0 || str[i - 1] != '\\')))
 				i++;
-			i++;
+			if (str[i])
+				i++;
 		}
-		if (str[i] && str[i] == '\'')
+		if (str[i] && (str[i] == '\'' && (i == 0 || str[i - 1] != '\\')))
 		{
 			i++;
 			nb++;
-			while (str[i] && str[i] != '\'')
+			while (str[i] && (str[i] != '\'' && (i == 0 || str[i - 1] != '\\')))
 				i++;
 			i++;
 		}
@@ -45,13 +47,22 @@ int			cnt_size(char *str)
 		{
 			nb++;
 			while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
-			&& str[i] != '"' && str[i] != '\'' && find_token(str, i) == -1))
+			&& find_token(str, i) == -1))
+			{
+				if (str[i] == '"' && (i == 0 || str[i - 1] != '\\'))
+					break ;
+				if (str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
+					break ;
 				i++;
+			}
 		}
+		printf("i =%d\tstr =%s && len = %d\n", i, str, ft_strlen(str));
 		if (str[i] && (ret = find_token(str, i)) != -1)
 		{
+			printf("before i =%d\t", i);
 			nb++;
 			i += g_fill_token[ret].size;
+			printf("after i =%d\n", i);
 		}
 	}
 //	printf("nb: %d\n", nb);
@@ -99,19 +110,20 @@ char		**split_space(char *str)
 				while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
 				&& (find_token(str, i) == -1) && (str[i] < '0' || str[i] > '9')))
 				{
-					if (str[i] == '\'')
+					if (str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
 					{
 						i++;
-						while (str[i] && str[i] != '\'')
+						while (str[i] && (str[i] != '\'' && (i == 0 || str[i - 1] != '\\')))
 							i++;
 					}
-					if (str[i] == '"')
+					if (str[i] == '"' && (i == 0 || str[i - 1] != '\\'))
 					{
 						i++;
-						while (str[i] && str[i] != '"')
+						while (str[i] && str[i] != '"' && (i == 0 || str[i - 1] != '\\'))
 							i++;
 					}
-					i++;
+					if (str[i])
+						i++;
 				}
 			}
 			res[k] = ft_strsub(str, start, i - start);
