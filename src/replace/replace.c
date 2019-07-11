@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/04 20:10:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/10 22:51:48 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/11 06:19:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,7 +96,6 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 }
 
 // TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var. et tester les boucles
-// TODO faire les \ devant les variables.
 
 char		**remove_env(t_var *start, char *str)
 {
@@ -110,7 +109,9 @@ char		**remove_env(t_var *start, char *str)
 		if (remove_env_while(&array, start, replace) == 0)
 			break ;
 	}
+	del_back_slash(&array);
 	remoove_quote(&array);
+	del_back_slash_end(&array);
 	ft_strdel(&str);
 	return (array);
 }

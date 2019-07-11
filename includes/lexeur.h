@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/07 22:29:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/11 06:16:16 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,7 +97,8 @@ void		jump_space(char *buf, int *i);
 
 void		fill_lex_solve_back_slash(char *buf, int *i, int *start);
 void		cnt_solve_back_slash(char *buf, int *i, int *cnt);
-void		del_back_slash(t_lexeur ***tabe);
+void		del_back_slash(char ***ar);
+void		del_back_slash_end(char ***ar);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

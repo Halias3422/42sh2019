@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:47:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/11 06:58:14 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,8 @@ int			back_slash_count(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\\')
+		if (str[i] == '\\' && str[i + 1] && str[i + 1] != '"'
+		&& str[i + 1] != '\'')
 			i++;
 		a++;
 		if (str[i])
@@ -73,7 +74,8 @@ char		*solve_back_slash(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\\' && str[i + 1])
+		if (str[i] == '\\' && str[i + 1] && str[i + 1] != '"'
+		&& str[i + 1] != '\'')
 			i++;
 		res[a] = str[i];
 		a++;
@@ -84,7 +86,7 @@ char		*solve_back_slash(char *str)
 	return (res);
 }
 
-void		del_back_slash(t_lexeur ***array)
+void		del_back_slash(char ***ar)
 {
 	int		j;
 	int		k;
@@ -93,19 +95,87 @@ void		del_back_slash(t_lexeur ***array)
 	j = 0;
 	k = 0;
 	start = 0;
-	while ((*array)[j])
+	while ((*ar)[j])
 	{
-		if ((*array)[j]->word != NULL)
+		while ((*ar)[j][k])
 		{
-			while ((*array)[j]->word[k])
+			if ((*ar)[j][k] == '\'' && (k == 0 || (*ar)[j][k - 1] != '\\'))
 			{
-				if ((*array)[j]->word[k + 1] && (*array)[j]->word[k] == '\\')
+				k++;
+				while ((*ar)[j][k])
 				{
-					(*array)[j]->word = solve_back_slash((*array)[j]->word);
+					if ((*ar)[j][k] == '\'' && (k == 0 ||
+					(*ar)[j][k - 1] != '\\'))
+						break ;
+					k++;
+				}
+			}
+			if ((*ar)[j][k + 1] && (*ar)[j][k] == '\\')
+			{
+				if ((*ar)[j][k + 1] != '\'' && (*ar)[j][k + 1] != '"')
+				{
+					(*ar)[j] = solve_back_slash((*ar)[j]);
 					break ;
 				}
-				k++;
 			}
+			k++;
+		}
+		k = 0;
+		j++;
+	}
+}
+
+char		*solve_back_slash_end(char *str)
+{
+	char	*res;
+	int		i;
+	int		a;
+
+	a = back_slash_count(str);
+	res = malloc(sizeof(char) * (a + 1));
+	a = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\' && str[i + 1] && (str[i + 1] == '"'
+		|| str[i + 1] == '\''))
+			i++;
+		res[a] = str[i];
+		a++;
+		i++;
+	}
+	res[a] = '\0';
+	ft_strdel(&str);
+	return (res);
+}
+
+void		del_back_slash_end(char ***ar)
+{
+	int		j;
+	int		k;
+	int		start;
+
+	j = 0;
+	k = 0;
+	start = 0;
+	while ((*ar)[j])
+	{
+		while ((*ar)[j][k])
+		{
+			if ((*ar)[j][k] == '\'' && (k == 0 || (*ar)[j][k - 1] != '\\'))
+			{
+				k++;
+				while ((*ar)[j][k] != '\'' ||
+				(k == 0 || (*ar)[j][k - 1] != '\\'))
+					k++;
+			}
+			if ((*ar)[j][k + 1] && ((*ar)[j][k + 1] == '\'' 
+			|| (*ar)[j][k + 1] == '"') && (*ar)[j][k] == '\\')
+			{
+				(*ar)[j] = solve_back_slash_end((*ar)[j]);
+				break ;
+			}
+			k++;
 		}
 		k = 0;
 		j++;

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/10 23:25:09 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/11 00:11:05 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -133,7 +133,6 @@ char		**split_space(char *str)
 		if (str[i])
 			i++;
 	}
-//	printf("k %d\n", k);
 	res[k] = 0;
 	return (res);
 }

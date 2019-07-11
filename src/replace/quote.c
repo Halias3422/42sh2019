@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/10 21:03:19 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/11 07:38:52 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,6 @@
 ** ar[3] = tmp.
 */
 
-// TODO coucou martin essaye  echo "\"     la" et tu vas crach ici mais la mon brain is boum.
 char	*replace(char *str, char c)
 {
 	char	*ar[4];
@@ -28,9 +27,16 @@ char	*replace(char *str, char c)
 	int		i;
 
 	i = 0;
-	while (str[i] != c && (i == 0 || str[i - 1] != '\\'))
-		i++;
-	ar[1] = ft_strsub(str, 0, i);
+	printf("str: _%s_\t%c\n", str, c);
+	if (str[i] != c)
+	{
+		while (str[i] != c || (i == 0 || str[i - 1] == '\\'))
+			i++;
+		ar[1] = ft_strsub(str, 0, i);
+	}
+	else
+		ar[1] = ft_strdup("");
+	printf("ar[1]: _%s_\n", ar[1]);
 	i++;
 	s = i;
 	while (str[i])
