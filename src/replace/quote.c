@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/11 07:38:52 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/11 09:10:16 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,10 @@ char	*replace(char *str, char c)
 	while (str[i])
 	{
 		if (str[i] == c && (i == 0 || str[i - 1] != '\\'))
+		{
+			printf("___str[%d]: _%c_\n", i, str[i]);
 			break ;
+		}
 		i++;
 	}
 	ar[3] = ft_strsub(str, s, i - s);
@@ -76,10 +79,10 @@ void	remoove_quote(char ***array)
 			if (((*array)[i][j] == '\'' && (j == 0 || (*array)[i][j - 1] != '\\'))
 			|| ((*array)[i][j] == '"' && (j == 0 || (*array)[i][j - 1] != '\\')))
 				(*array)[i] = replace((*array)[i], (*array)[i][j]);
-			if (j < ft_strlen((*array)[i]))
-				j++;
-			else
-				j = ft_strlen((*array)[i]);
+			//if (j < ft_strlen((*array)[i]))
+			j++;
+			//else
+			//	j = ft_strlen((*array)[i]);
 		}
 		j = 0;
 		i++;
