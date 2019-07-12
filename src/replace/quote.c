@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 09:22:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 10:45:21 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,6 +53,7 @@ char	*replace(char *str, char c)
 	else
 		ar[2] = ft_strdup("");
 	ft_strjoin_free(&ar[0], ar[2]);
+	ft_printf("0 = %s\n1 = %s\n2 = %s\n3 = %s\n", ar[0], ar[1], ar[2], ar[3]);
 	ft_strdel(&str);
 	ft_strdel(&ar[1]);
 	ft_strdel(&ar[2]);
@@ -62,22 +63,39 @@ char	*replace(char *str, char c)
 
 // TODO faire les \ devant les alias. ils ne se font pas
 // gerer le bug des simples quotes qui passe 2 fois dans la boucle.  echo '\""\$USER\""'
+ 
+int		go_to_char(char *str, char c, int i)
+{
+	while (str[i] && str[i] != c)
+	{
+		i++;
+		if (str[i] == c && (i == 0 || str[i - 1] != '\\'))
+			return (i);
+	}
+	return (i);
+}
 
 void	remoove_quote(char ***array)
 {
 	int		i;
 	int		j;
+	char	c;
+	int		end;
 
 	j = 0;
 	i = 0;
 	while ((*array)[i])
 	{
-		printf("array[%d]=%s\n", i, (*array)[i]);
 		while ((*array)[i][j])
 		{
 			if (((*array)[i][j] == '\'' && (j == 0 || (*array)[i][j - 1] != '\\'))
 			|| ((*array)[i][j] == '"' && (j == 0 || (*array)[i][j - 1] != '\\')))
+			{
+				c = (*array)[i][j];
+				end = go_to_char((*array)[i], c, j + 1);
 				(*array)[i] = replace((*array)[i], (*array)[i][j]);
+				j = end;
+			}
 			if (j < ft_strlen((*array)[i]))
 				j++;
 			else
