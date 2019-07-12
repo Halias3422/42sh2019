@@ -3,15 +3,29 @@
 /*                                                              /             */
 /*   free_file.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/09 07:30:29 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/10 09:42:24 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 00:49:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/alias.h"
+#include "../../includes/lexeur.h"
+
+void		free_list_tvar(t_tvar *alias)
+{
+	t_tvar		*tmp;
+
+	while (alias)
+	{
+		ft_strdel(&alias->data);
+		tmp = alias;
+		alias = alias->next;
+		free(tmp);
+	}
+}
 
 void		free_list(t_alias *alias)
 {

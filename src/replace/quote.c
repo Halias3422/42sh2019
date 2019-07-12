@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/11 09:10:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 00:27:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,6 +64,10 @@ char	*replace(char *str, char c)
 	ft_strdel(&ar[3]);
 	return (ar[0]);
 }
+
+// TODO faire les echo ${USER}
+// TODO faire les \ devant les alias. ils ne se font pas
+// gerer le bug des simples quotes qui passe 2 fois dans la boucle.  echo '\""\$USER\""'
 
 void	remoove_quote(char ***array)
 {

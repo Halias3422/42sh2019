@@ -6,13 +6,14 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/10 22:51:43 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 03:42:33 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 #include "../../includes/termcaps.h"
+#include "../../includes/alias.h"
 
 int			cnt_list_var(t_tvar *var)
 {
@@ -30,8 +31,10 @@ int			cnt_list_var(t_tvar *var)
 char		**make_list_to_ar_var(t_tvar *alias)
 {
 	char	**res;
+	t_tvar	*s;
 	int		i;
 
+	s = alias;
 	res = malloc(sizeof(char *) * (cnt_list_var(alias) + 1));
 	i = 0;
 	while (alias)
@@ -41,7 +44,7 @@ char		**make_list_to_ar_var(t_tvar *alias)
 		alias = alias->next;
 	}
 	res[i] = NULL;
-	// TODO free la liste chainé ici.
+	free_list_tvar(s);
 	return (res);
 }
 
@@ -68,7 +71,7 @@ t_tvar		*make_ar_to_list_var(char **str)
 	}
 	var->next = NULL;
 	var = start;
-	// TODO free str ici.
+	free_ar(str);
 	return (var);
 }
 
@@ -97,12 +100,29 @@ char		*replace_var_to_data(char *str, t_var *env)
 		i++;
 	i++;
 	s = i;
+	if (str[i] == '{')
+		s = i + 1;
 	while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
 	&& str[i] != '"' && str[i] != '\''))
-		i++;
+	{
+		if (str[i] == '{')
+		{
+			i++;
+			while (str[i] != '}')
+				i++;
+			break ;
+		}
+		else
+			i++;
+	}
 	name = ft_strsub(str, s, i - s);
 	tmp = get_the_data(name, env);
-	res = ft_strjoin(ft_strsub(str, 0, s - 1), tmp);
+	if (str[s] && str[s - 1] && str[s - 1] == '{')
+		res = ft_strjoin(ft_strsub(str, 0, s - 2), tmp);
+	else
+		res = ft_strjoin(ft_strsub(str, 0, s - 1), tmp);
+	if (str[s] && str[s - 1] && str[s - 1] == '{')
+		i++;
 	s = i;
 	while (str[i])
 		i++;
@@ -121,6 +141,7 @@ char		**replace_var(t_var *env, char **str)
 	start = var;
 	while (var)
 	{
+		printf("var->name : _%s_\n", var->data);
 		if (ft_strchr(var->data, '$'))
 			var->data = replace_var_to_data(var->data, env);
 		var = var->next;
