@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   quote.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 03:48:23 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 09:22:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,15 +72,16 @@ void	remoove_quote(char ***array)
 	i = 0;
 	while ((*array)[i])
 	{
+		printf("array[%d]=%s\n", i, (*array)[i]);
 		while ((*array)[i][j])
 		{
 			if (((*array)[i][j] == '\'' && (j == 0 || (*array)[i][j - 1] != '\\'))
 			|| ((*array)[i][j] == '"' && (j == 0 || (*array)[i][j - 1] != '\\')))
 				(*array)[i] = replace((*array)[i], (*array)[i][j]);
-			//if (j < ft_strlen((*array)[i]))
-			j++;
-			//else
-			//	j = ft_strlen((*array)[i]);
+			if (j < ft_strlen((*array)[i]))
+				j++;
+			else
+				j = ft_strlen((*array)[i]);
 		}
 		j = 0;
 		i++;
