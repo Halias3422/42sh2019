@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/04 20:10:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/11 06:19:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 03:51:15 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,7 @@ int			remove_env_while(char ***array, t_var *var, t_replace *replace)
 
 	done = 0;
 	i = 0;
-	if (check_alias((*array)[0], var, replace) == 1)
+	if (check_alias((*array)[0], var, replace) == 1 && (*array)[0][0] != '\\')
 	{
 		done = 1;
 		(*array) = replace_alias(array, var, replace);
