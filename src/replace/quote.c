@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 03:48:23 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 06:42:12 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,29 @@
 ** ar[3] = tmp.
 */
 
+char	*fill_first_replace(int *i, char *str, char c, int *s)
+{
+	char	*res;
+
+	if (str[*i] != c)
+	{
+		while (str[*i] != c || (*i == 0 || str[*i - 1] == '\\'))
+			(*i)++;
+		res = ft_strsub(str, 0, *i);
+	}
+	else
+		res = ft_strdup("");
+	(*i)++;
+	(*s) = (*i);
+	while (str[*i])
+	{
+		if (str[*i] == c && (*i == 0 || str[*i - 1] != '\\'))
+			break ;
+		(*i)++;
+	}
+	return (res);
+}
+
 char	*replace(char *str, char c)
 {
 	char	*ar[4];
@@ -27,22 +50,7 @@ char	*replace(char *str, char c)
 	int		i;
 
 	i = 0;
-	if (str[i] != c)
-	{
-		while (str[i] != c || (i == 0 || str[i - 1] == '\\'))
-			i++;
-		ar[1] = ft_strsub(str, 0, i);
-	}
-	else
-		ar[1] = ft_strdup("");
-	i++;
-	s = i;
-	while (str[i])
-	{
-		if (str[i] == c && (i == 0 || str[i - 1] != '\\'))
-			break ;
-		i++;
-	}
+	ar[1] = fill_first_replace(&i, str, c, &s);
 	ar[3] = ft_strsub(str, s, i - s);
 	ar[0] = ft_strjoin(ar[1], ar[3]);
 	i++;
@@ -60,7 +68,6 @@ char	*replace(char *str, char c)
 	return (ar[0]);
 }
 
-// TODO faire les \ devant les alias. ils ne se font pas
 // gerer le bug des simples quotes qui passe 2 fois dans la boucle.  echo '\""\$USER\""'
 
 void	remoove_quote(char ***array)
@@ -74,8 +81,9 @@ void	remoove_quote(char ***array)
 	{
 		while ((*array)[i][j])
 		{
-			if (((*array)[i][j] == '\'' && (j == 0 || (*array)[i][j - 1] != '\\'))
-			|| ((*array)[i][j] == '"' && (j == 0 || (*array)[i][j - 1] != '\\')))
+			if (((*array)[i][j] == '\'' && (j == 0 ||
+			(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
+			&& (j == 0 || (*array)[i][j - 1] != '\\')))
 				(*array)[i] = replace((*array)[i], (*array)[i][j]);
 			//if (j < ft_strlen((*array)[i]))
 			j++;

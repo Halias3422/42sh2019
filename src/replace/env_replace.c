@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 03:42:33 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 07:12:23 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -141,7 +141,6 @@ char		**replace_var(t_var *env, char **str)
 	start = var;
 	while (var)
 	{
-		printf("var->name : _%s_\n", var->data);
 		if (ft_strchr(var->data, '$'))
 			var->data = replace_var_to_data(var->data, env);
 		var = var->next;
