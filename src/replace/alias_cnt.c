@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/12 07:08:58 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 07:12:28 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/13 03:44:37 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,4 +35,45 @@ int			cnt_list(t_alias *alias)
 		nb++;
 	}
 	return (nb);
+}
+
+void		fill_alias_solo(char *str, t_alias *alias)
+{
+	char	*tmp;
+
+	tmp = alias->data;
+	alias->data = ft_strdup(str);
+	ft_strdel(&tmp);
+	ft_strdel(&str);
+}
+
+void		ft_add_list(t_alias *alias, int i, char *str)
+{
+	int		j;
+	t_alias	*new;
+
+	new = malloc(sizeof(t_alias));
+	new->data = ft_strdup(str);
+	j = 0;
+	while (j < i - 1)
+	{
+		alias = alias->next;
+		j++;
+	}
+	new->next = alias->next;
+	new->prev = alias;
+	alias->next = new;
+}
+
+void		fill_alias_multiple(char *str, t_alias *alias, int *i)
+{
+	if (*i >= 1)
+		ft_add_list(alias, *i, str);
+	else
+	{
+		ft_strdel(&alias->data);
+		alias->data = ft_strdup(str);
+	}
+	ft_strdel(&str);
+	(*i)++;
 }

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/12 06:55:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 07:12:14 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/13 03:44:35 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,21 +32,21 @@ char		**make_list_to_ar(t_alias *alias)
 	return (res);
 }
 
-void		make_ar_to_list_while(int *i, char **str, t_alias *alias,
+void		make_ar_to_list_while(int *i, char **str, t_alias **alias,
 t_alias *prev)
 {
-	if (!alias)
-		alias = malloc(sizeof(t_alias));
+	if (!(*alias))
+		(*alias) = malloc(sizeof(t_alias));
 	if (*i == 0)
-		alias->prev = NULL;
+		(*alias)->prev = NULL;
 	else
-		alias->prev = prev;
-	alias->data = ft_strdup(str[*i]);
-	prev = alias;
+		(*alias)->prev = prev;
+	(*alias)->data = ft_strdup(str[*i]);
+	prev = (*alias);
 	if (str[*i + 1])
 	{
-		alias->next = malloc(sizeof(t_alias));
-		alias = alias->next;
+		(*alias)->next = malloc(sizeof(t_alias));
+		(*alias) = (*alias)->next;
 	}
 	(*i)++;
 }
@@ -63,7 +63,7 @@ t_alias		*make_ar_to_list(char **str)
 	start = alias;
 	i = 0;
 	while (str[i])
-		make_ar_to_list_while(&i, str, alias, prev);
+		make_ar_to_list_while(&i, str, &alias, prev);
 	alias->next = NULL;
 	alias = start;
 	free_ar(str);

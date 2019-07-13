@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/11 16:17:46 by mateodelarb  #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 07:11:50 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/13 03:44:34 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,5 +68,8 @@ char		*del_space(char *str);
 
 int			cnt_list(t_alias *alias);
 int			cnt_array(char **str);
+void		fill_alias_solo(char *str, t_alias *alias);
+void		ft_add_list(t_alias *alias, int i, char *str);
+void		fill_alias_multiple(char *str, t_alias *alias, int *i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 06:42:12 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/12 09:19:40 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,10 +85,10 @@ void	remoove_quote(char ***array)
 			(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
 			&& (j == 0 || (*array)[i][j - 1] != '\\')))
 				(*array)[i] = replace((*array)[i], (*array)[i][j]);
-			//if (j < ft_strlen((*array)[i]))
+			if (j < ft_strlen((*array)[i]))
 			j++;
-			//else
-			//	j = ft_strlen((*array)[i]);
+			else
+				j = ft_strlen((*array)[i]);
 		}
 		j = 0;
 		i++;
