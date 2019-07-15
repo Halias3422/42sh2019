@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/15 04:47:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/15 22:37:28 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,8 @@ void	need_replace_quote(char ***array, int i, int *j)
 
 	c = (*array)[i][*j];
 	(*array)[i] = replace((*array)[i], c);
-	(*j)++;
+	if ((*array)[i][*j])
+		(*j)++;
 	while ((*array)[i][*j])
 	{
 		if ((*array)[i][*j] == c && (i == 0 ||
