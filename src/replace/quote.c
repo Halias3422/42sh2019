@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/13 06:38:51 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/15 04:47:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,40 +68,50 @@ char	*replace(char *str, char c)
 	return (ar[0]);
 }
 
+void	need_replace_quote(char ***array, int i, int *j)
+{
+	char	c;
+
+	c = (*array)[i][*j];
+	(*array)[i] = replace((*array)[i], c);
+	(*j)++;
+	while ((*array)[i][*j])
+	{
+		if ((*array)[i][*j] == c && (i == 0 ||
+		(*array)[i][(*j) - 1] != '\\'))
+			break ;
+		(*j)++;
+	}
+}
+
+void	browse_ar(char ***array, int i, int j)
+{
+	while ((*array)[i][j])
+	{
+		if (((*array)[i][j] == '\'' && (j == 0 ||
+		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
+		&& (j == 0 || (*array)[i][j - 1] != '\\')))
+			need_replace_quote(array, i, &j);
+		else
+		{
+			if (j < ft_strlen((*array)[i]))
+				j++;
+			else
+				j = ft_strlen((*array)[i]);
+		}
+	}
+}
+
 void	remoove_quote(char ***array)
 {
 	int		i;
 	int		j;
-	char	c;
 
 	j = 0;
 	i = 0;
 	while ((*array)[i])
 	{
-		while ((*array)[i][j])
-		{
-			if (((*array)[i][j] == '\'' && (j == 0 ||
-			(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
-			&& (j == 0 || (*array)[i][j - 1] != '\\')))
-			{
-				c = (*array)[i][j];
-				(*array)[i] = replace((*array)[i], c);
-				j++;
-				while ((*array)[i][j])
-				{
-					if ((*array)[i][j] == c && (i == 0 || (*array)[i][j - 1] != '\\'))
-						break ;
-					j++;
-				}
-			}
-			else
-			{
-				if (j < ft_strlen((*array)[i]))
-					j++;
-				else
-					j = ft_strlen((*array)[i]);
-			}
-		}
+		browse_ar(array, i, j);
 		j = 0;
 		i++;
 	}

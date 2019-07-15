@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/11 16:17:46 by mateodelarb  #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/13 03:44:34 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/15 04:38:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,4 +72,13 @@ void		fill_alias_solo(char *str, t_alias *alias);
 void		ft_add_list(t_alias *alias, int i, char *str);
 void		fill_alias_multiple(char *str, t_alias *alias, int *i);
 
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                  var_tool.c                                ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+int			cnt_list_var(t_tvar *var);
+char		**make_list_to_ar_var(t_tvar *alias);
+t_tvar		*make_ar_to_list_var(char **str);
 #endif
