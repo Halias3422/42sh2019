@@ -6,18 +6,21 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/15 05:51:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/15 06:15:39 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 
-void		split_space_find_number(int *ret, char *str, int *i)
+void		split_space_find_number(char *str, int *i)
 {
-	if (((*ret) = find_token(str, *i)) != -1)
+	int		ret;
+
+	ret = 0;
+	if (((ret) = find_token(str, *i)) != -1)
 	{
-		(*i) += g_fill_token[*ret].size;
+		(*i) += g_fill_token[ret].size;
 		while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
 			(*i)++;
 	}
@@ -26,9 +29,9 @@ void		split_space_find_number(int *ret, char *str, int *i)
 		while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
 			(*i)++;
 		if (str[*i])
-			(*ret) = find_token(str, *i);
-		if (str[*i] && ((*ret) >= 4 && (*ret) <= 7))
-			(*i) = g_fill_token[*ret].size;
+			(ret) = find_token(str, *i);
+		if (str[*i] && ((ret) >= 4 && (ret) <= 7))
+			*i = g_fill_token[ret].size;
 	}
 }
 
@@ -56,8 +59,8 @@ void		split_space_basic(char *str, int *i)
 
 void		basic_split_while(int *i, char *str, char **res, int *k)
 {
-	int		ret;
 	int		start;
+	int		ret;
 
 	while (str[*i] && ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == ' '))
 		(*i)++;
@@ -66,9 +69,10 @@ void		basic_split_while(int *i, char *str, char **res, int *k)
 		start = *i;
 		if (str[*i] && ((str[*i] >= '0' && str[*i] <= '9') ||
 		(find_token(str, *i) >= 4 && find_token(str, *i) <= 7)))
-			split_space_find_number(&ret, str, i);
+			split_space_find_number(str, i);
 		else
 			split_space_basic(str, i);
+		dprintf(1, "str[%d]: _%c_\tstr[i%d]: _%c_\n", start, str[start], (*i), str[(*i)]);
 		res[*k] = ft_strsub(str, start, (*i) - start);
 	}
 	if (str[*i] && (ret = find_token(str, *i)) != -1)
