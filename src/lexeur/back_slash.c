@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/13 23:29:03 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/16 02:21:21 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,6 +110,17 @@ void		del_back_slash(char ***ar)
 					k++;
 				}
 			}
+			if ((*ar)[j][k] == '\"' && (k == 0 || (*ar)[j][k - 1] != '\\'))
+			{
+				k++;
+				while ((*ar)[j][k])
+				{
+					if ((*ar)[j][k] == '\"' && (k == 0 ||
+					(*ar)[j][k - 1] != '\\'))
+						break ;
+					k++;
+				}
+			}
 			if ((*ar)[j][k + 1] && (*ar)[j][k] == '\\')
 			{
 				if ((*ar)[j][k + 1] != '\'' && (*ar)[j][k + 1] != '"')
@@ -125,20 +136,41 @@ void		del_back_slash(char ***ar)
 	}
 }
 
+int			back_slash_count_end(char *str)
+{
+	int		a;
+	int		i;
+
+	a = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\' && str[i + 1] && str[i + 1] != '"'
+		&& str[i + 1] != '\'' && str[i + 1] != '$')
+			i++;
+		a++;
+		if (str[i])
+			i++;
+	}
+	return (a);
+}
+
 char		*solve_back_slash_end(char *str)
 {
 	char	*res;
 	int		i;
 	int		a;
+	int		tmp;
 
-	a = back_slash_count(str);
+	a = back_slash_count_end(str);
 	res = malloc(sizeof(char) * (a + 1));
+	tmp = a;
 	a = 0;
 	i = 0;
-	while (str[i])
+	while (str[i] && a < tmp)
 	{
-		if (str[i] == '\\' && str[i + 1] && (str[i + 1] == '"'
-		|| str[i + 1] == '\''))
+		if (str[i] && (str[i] == '\\' && str[i + 1] && (str[i + 1] == '"'
+		|| str[i + 1] == '\'' || str[i + 1] == '$')))
 			i++;
 		res[a] = str[i];
 		a++;
@@ -170,7 +202,8 @@ void		del_back_slash_end(char ***ar)
 					k++;
 			}
 			if ((*ar)[j][k + 1] && ((*ar)[j][k + 1] == '\''
-			|| (*ar)[j][k + 1] == '"') && (*ar)[j][k] == '\\')
+			|| (*ar)[j][k + 1] == '"' || (*ar)[j][k + 1] == '$')
+			&& (*ar)[j][k] == '\\')
 			{
 				(*ar)[j] = solve_back_slash_end((*ar)[j]);
 				break ;
