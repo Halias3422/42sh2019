@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/15 05:45:24 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/15 05:54:05 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/16 06:16:31 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,8 @@ void		cnt_size_double_quote(int *i, int *nb, char *str)
 	(*nb)++;
 	while (str[*i] && (str[*i] != '"' && (*i == 0 || str[(*i) - 1] != '\\')))
 		(*i)++;
-	(*i)++;
+	if (str[*i])
+		(*i)++;
 }
 
 int			cnt_printable_char(int *nb, char *str, int *i)

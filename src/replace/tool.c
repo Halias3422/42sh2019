@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/15 23:28:32 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/16 06:12:59 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,8 @@ void		split_space_basic(char *str, int *i)
 				if (str[*i] == '"' && ((*i) == 0 || str[(*i) - 1] != '\\'))
 					break ;
 		}
+		if (str[*i] == '\\' && str[*i + 1] == ' ')
+			(*i)++;
 		if (str[*i])
 			(*i)++;
 	}
@@ -78,7 +80,7 @@ void		basic_split_while(int *i, char *str, char **res, int *k)
 	{
 		res[*k] = ft_strsub(str, *i, g_fill_token[ret].size);
 		(*i) += g_fill_token[ret].size;
-	} 
+	}
 	(*k)++;
 	if (str[*i])
 		(*i)++;
