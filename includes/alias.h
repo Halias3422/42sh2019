@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/11 16:17:46 by mateodelarb  #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 00:50:44 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/15 04:38:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,6 @@ typedef struct s_alias
 
 
 char		check_last_char(t_alias *alias, int j);
-int			cnt_array(char **str);
 void		fill_alias(char *str, t_alias *alias);
 void		free_array(char ***array);
 int			end(char **str);
@@ -48,4 +47,38 @@ int			end(char **str);
 void        free_list(t_alias *alias);
 void		free_ar(char **str);
 void		free_list_tvar(t_tvar *alias);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                         alias_change_type.c                                ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+
+t_alias		*make_ar_to_list(char **str);
+char		**make_list_to_ar(t_alias *alias);
+int			check_simple_or_multiple(char *str);
+char		*del_space(char *str);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                               alias_cnt.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+int			cnt_list(t_alias *alias);
+int			cnt_array(char **str);
+void		fill_alias_solo(char *str, t_alias *alias);
+void		ft_add_list(t_alias *alias, int i, char *str);
+void		fill_alias_multiple(char *str, t_alias *alias, int *i);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                  var_tool.c                                ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+int			cnt_list_var(t_tvar *var);
+char		**make_list_to_ar_var(t_tvar *alias);
+t_tvar		*make_ar_to_list_var(char **str);
 #endif

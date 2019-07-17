@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/11 06:16:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/15 05:50:55 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -151,12 +151,6 @@ char		*switch_word(char *str, char *tmp, int i);
 
 void        check_var(t_var *env, char **str);
 
-/*
-**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-**┃                                 var_replace.c                              ┃
-**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-*/
-
 char		**replace_env(t_var *env, char *str);
 int			f_check_var(t_var *env, char *str);
 
@@ -173,10 +167,23 @@ void		init_replace(t_replace **replace);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-**┃                                   tool.c                                   ┃
+**┃                               tool_cnt.c                                   ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
+void		cnt_size_simple_quote(int *i, int *nb, char *str);
+void		cnt_size_double_quote(int *i, int *nb, char *str);
+int			cnt_printable_char(int *nb, char *str, int *i);
+int			cnt_size(char *str);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                              tool_list.c                                   ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		free_replace(t_replace *replace);
+void		init_replace(t_replace **replace);
 
 char		**replace_alias(char ***array, t_var *var, t_replace *replace);
 
