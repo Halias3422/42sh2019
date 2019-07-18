@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/09 07:21:07 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/18 07:09:16 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ void		free_process(t_job *j);
 
 void		main_exec(t_job *j, t_var *var);
 int			solve_execve(char *path, char **arg, t_var *var);
-int			main_exec_while(t_process *p, t_var *var);
+int			main_exec_while(t_process *p, t_var *var, t_job *j);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -94,7 +94,7 @@ void		cnf_print_error(char *str);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int			main_option_exec(t_process **first, t_process **second, t_var *var);
+int			main_option_exec(t_process **first, t_process **second, t_var *var, t_job *j);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

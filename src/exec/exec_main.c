@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 11:29:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/09 07:18:22 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/18 07:34:33 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,8 +82,9 @@ int			solve_execve(char *path, char **arg, t_var *var)
 	return (1);
 }
 
-int			main_exec_while(t_process *p, t_var *var)
+int			main_exec_while(t_process *p, t_var *var, t_job *j)
 {
+	(void)j;
 	if (find_builtins(p, var) == 0)
 	{
 		if (ft_strchr(p->cmd[0], '/') != 0)
@@ -121,10 +122,10 @@ void		main_exec(t_job *j, t_var *var)
 		{
 			if (j->p->next && j->p->split != '\0')
 			{
-				if (main_option_exec((&j->p), (&j->p->next), var) == -1)
+				if (main_option_exec((&j->p), (&j->p->next), var, j) == -1)
 					break ;
 			}
-			else if (main_exec_while(j->p, var) == -1)
+			else if (main_exec_while(j->p, var, j) == -1)
 				return ;
 			j->p = j->p->next;
 		}

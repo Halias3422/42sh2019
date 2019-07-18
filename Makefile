@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/07/17 01:20:59 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/07/18 07:07:31 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -42,7 +42,7 @@ SRC_REP = $(addprefix replace/, \
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
-				ft_unset.c ft_fc.c tool.c)
+				ft_unset.c ft_fc.c tool.c ft_job.c)
 
 SRC_MAIN = $(addprefix main/, main.c)
 
