@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   double_quote.c                                   .::    .:/ .      .::   */
+/*   redirection_tools.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/15 13:55:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/20 18:04:03 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/07/17 01:19:20 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/07/17 01:21:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 
-void		fill_lex_doudle_quote(char *buf, int *i, int *start)
+void			free_ar_lexeur(t_lexeur ***array)
 {
-	(*i)++;
-	*start = *i;
-	while (buf[*i] && buf[*i] != '"')
-		(*i)++;
+	int		i;
+
+	i = 0;
+	while ((*array)[i])
+	{
+		ft_strdel(&(*array)[i]->word);
+		ft_strdel(&(*array)[i]->redirection);
+		i++;
+	}
+	free((*array));
 }

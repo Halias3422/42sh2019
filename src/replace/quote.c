@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/15 11:04:46 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/17 08:37:00 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,7 +77,6 @@ void	need_replace_quote(char ***array, int i, int *j)
 	(*array)[i] = replace((*array)[i], c);
 	if ((*array)[i][*j])
 		(*j)++;
-	printf("-%s-%d\n", (*array)[i], *j);
 	while ((*array)[i][*j])
 	{
 		printf("|%d|\n", *j);

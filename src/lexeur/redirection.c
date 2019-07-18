@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 17:01:39 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/12 06:41:39 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/17 01:21:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,8 @@ t_lexeur		**find_input_redirection(t_lexeur ***array)
 		i++;
 		j++;
 	}
-	res[j] = NULL;// TODO free array ici garcon.
+	res[j] = NULL;
+	free_ar_lexeur(array);
 	return (res);
 }
 
