@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtin.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 11:09:42 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/18 06:55:58 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,10 +16,14 @@
 
 # include "exec.h"
 
+# include <sys/types.h>
+# include <sys/stat.h>
+
 # define LEN_BUILTIN_LIST 10
 
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
+typedef struct	s_job t_job;
 
 typedef struct	s_builtin
 {
@@ -29,8 +33,6 @@ typedef struct	s_builtin
 
 extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 
-# include <sys/types.h>
-# include <sys/stat.h>
 
 int				ft_test(t_process *p, t_var **var);
 int				ft_echo(t_process *p, t_var **var);
@@ -40,6 +42,8 @@ int				ft_type(t_process *p, t_var **var);
 int				ft_export(t_process *p, t_var **ptr_var);
 int				ft_unset(t_process *p, t_var **ptr_var);
 int				ft_fc(t_process *p, t_var **var);
+
+int				ft_job(t_process *p, t_var *var, t_job *j);
 
 char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);

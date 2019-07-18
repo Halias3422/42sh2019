@@ -6,22 +6,22 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 15:35:45 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/17 08:27:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/18 08:22:51 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int		exec_and(t_process **first, t_process **second, t_var *var)
+int		exec_and(t_process **first, t_process **second, t_var *var, t_job *j)
 {
 	while (1)
 	{
-		if (main_exec_while((*first), var) != 0)
+		if (main_exec_while((*first), var, j) != 0)
 			return (-1);
 		if (!(*second))
 			break ;
-		if (main_exec_while((*second), var) != 0)
+		if (main_exec_while((*second), var, j) != 0)
 			return (-1);
 		if ((*second)->split == 'A')
 		{
@@ -37,12 +37,12 @@ int		exec_and(t_process **first, t_process **second, t_var *var)
 	return (1);
 }
 
-int		exec_or(t_process **first, t_process **second, t_var *var)
+int		exec_or(t_process **first, t_process **second, t_var *var, t_job *j)
 {
 	while (1)
 	{
-		if (main_exec_while((*first), var) == 0 ||
-		main_exec_while((*second), var) == 0)
+		if (main_exec_while((*first), var, j) == 0 ||
+		main_exec_while((*second), var, j) == 0)
 		{
 			while ((*first)->split == '|')
 				(*first) = (*first)->next;
@@ -62,13 +62,14 @@ int		exec_or(t_process **first, t_process **second, t_var *var)
 	return (1);
 }
 
-int		main_option_exec(t_process **first, t_process **second, t_var *var)
+int		main_option_exec(t_process **first, t_process **second, t_var *var,
+t_job *j)
 {
 	if ((*first)->split == 'A')
-		return (exec_and(first, second, var));
+		return (exec_and(first, second, var, j));
 	/*if (first->split == 'P')
 		exec_pipe(first, second, var);*/
 	if ((*first)->split == '|')
-		return (exec_or(first, second, var));
+		return (exec_or(first, second, var, j));
 	return (1);
 }
