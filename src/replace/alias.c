@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/18 07:49:49 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/18 07:53:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,6 @@ int			replace_alias_first_part(t_var **s_var, t_alias *alias)
 
 int			replace_alias_last_part(t_alias *alias, int *ret)
 {
-	printf("last_part_data: _%s_\n", alias->data);
 	if (alias->next && check_last_char(alias, (*ret)) == ' ')
 	{
 		while ((*ret) - 1)
@@ -86,6 +85,7 @@ int			replace_alias_last_part(t_alias *alias, int *ret)
 }
 
 // alias l='ls -Ga ' il va pas checker les prochains alias.
+// boucles infines sur alias ls='ls -G'.
 
 char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 {
@@ -107,11 +107,9 @@ char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 		ret = replace_alias_while(s_var, alias);
 		if (replace_alias_last_part(alias, &ret) == 0)
 			break ;
-		printf("data: _%s_\n", alias->data);
 		alias->data = del_space(alias->data);
 		if (alias->next)
 			alias = alias->next;
-		printf("data: _%s_\n", alias->data);
 	}
 	alias->data = del_space(alias->data);
 	res = make_list_to_ar(start);
