@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/18 07:53:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/19 03:09:04 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,8 +84,7 @@ int			replace_alias_last_part(t_alias *alias, int *ret)
 	return (1);
 }
 
-// alias l='ls -Ga ' il va pas checker les prochains alias.
-// boucles infines sur alias ls='ls -G'.
+// boucles infines sur alias ls='ls -G'. (il faut gerer les boucles infinies et on est bon)
 
 char		**replace_alias(char ***array, t_var *var, t_replace *replace)
 {

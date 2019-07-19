@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/19 03:36:51 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,9 +102,9 @@ int *i)
 	k = 0;
 	fill_process_split(j, res, i);
 	(*j)->p->fd = -1;
-	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));//changer la condition du while
+	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
 	while (res[*i] && (res[*i]->word || res[*i]->redirection || res[*i]->token == 4 || res[*i]->token == 5))
-		fill_cmd(res, j, &k, i);//le process est pas rempli quand il y a une redirection.
+		fill_cmd(res, j, &k, i);
 	(*j)->p->cmd[k] = NULL;
 	(*j)->p->token = find_fill_token(res, *i);
 	if (res[*i] && (res[*i]->token == 2 || res[*i]->token == 3
