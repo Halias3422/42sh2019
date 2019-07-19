@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/04 20:10:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/17 20:52:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/18 09:20:12 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,6 +103,7 @@ char		**remove_env(t_var *start, char *str)
 	t_replace	*replace;
 
 	init_replace(&replace);
+	get_replace(replace, 1);
 	array = split_space(str);
 	while (1)
 	{

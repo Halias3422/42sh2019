@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/18 07:09:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/19 03:10:36 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@ typedef	struct			s_process
 	char				*token;
 	char				*redirection;
 	int					fd;
+	int					number;
 }						t_process;
 
 typedef struct			s_job

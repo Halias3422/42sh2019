@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/17 01:21:41 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/18 08:50:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -210,7 +210,7 @@ int			cnt_size(char *str);
 
 void		free_replace(t_replace *replace);
 void		init_replace(t_replace **replace);
-
+void		*get_replace(void *stock, int i);
 char		**replace_alias(char ***array, t_var *var, t_replace *replace);
 
 /*

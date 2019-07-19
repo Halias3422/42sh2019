@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool_list.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/15 05:49:46 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/15 05:51:04 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/18 09:18:54 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,4 +31,15 @@ void		init_replace(t_replace **replace)
 	(*replace) = malloc(sizeof(t_replace));
 	(*replace)->name = ft_strdup("");
 	(*replace)->next = NULL;
+}
+
+void		*get_replace(void *stock, int i)
+{
+	static t_replace *ret;
+
+	if (i == 1)
+		ret = stock;
+	if (i == 2)
+		return (ret);
+	return (NULL);
 }
