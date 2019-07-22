@@ -160,7 +160,8 @@ int		ft_execute_test(t_process *p, t_var *var)
 		}
 		else
 		{
-			ft_test_path(p, var);
+			if (ft_test_path(p, var) == -1)
+				printf("42sh: command not found: %s\n", p->cmd[0]);
 		}
 	}
 	return (0);
@@ -178,6 +179,50 @@ int		fork_simple(t_process *p, t_var *var)
 	return (1);
 }
 
+int		fork_pipe(t_process *p, t_var *var)
+{
+	pid_t pfd[2];
+	pid_t pid;
+
+	pipe(pfd);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(pfd[1]);
+		dup2(pfd[0], 0);
+		close(pfd[0]);
+		ft_execute_test(p->next, var);
+	}
+	else
+	{
+		close(pfd[0]);
+		dup2(pfd[1], 1);
+		close(pfd[1]);
+		ft_execute_test(p, var);
+	}
+	return (0);
+}
+
+int		fork_redirect(t_process *p, t_var *var)
+{
+	pid_t	pid;
+	int		fd;
+
+	pid = fork();
+	if (p->next)
+	{
+		printf("%s\n", p->next->cmd[0]);
+		fd = open(p->next->cmd[0], O_CREAT);
+	}
+	if (pid == 0)
+	{
+		ft_execute_test(p, var);
+	}
+	else
+		wait(&pid);
+	return (1);
+}
+
 void		process_test(t_process *p, t_var *var)
 {
 	t_process *tmp;
@@ -187,7 +232,11 @@ void		process_test(t_process *p, t_var *var)
 	// ici pour redirection
 	while (tmp)
 	{
-		fork_simple(tmp, var);
+		/*if (tmp->split == 'P')
+		{
+			fork_pipe(p, var);
+		}*/
+		fork_redirect(tmp, var);
 		tmp = tmp->next;
 	}
 }

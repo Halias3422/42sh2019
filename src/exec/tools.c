@@ -80,18 +80,18 @@ char	*strjoin_path(char *s1, char *s2)
 	return (tmp);
 }
 
-int		use_execve_acces(char *tmp, char **res, t_var *l_var)
+/*int		use_execve_acces(char *tmp, char **res, t_var *l_var)
 {
 	if ((access(tmp, F_OK)) == 0)
 	{
 		if ((access(tmp, X_OK)) == -1)
 			ft_putstr("Permission denied.");
-		solve_execve(tmp, res, l_var);
+		ft_test_path(tmp, res, l_var);
 		ft_strdel(&tmp);
 		return (0);
 	}
 	return (1);
-}
+}*/
 
 void	cnf_print_error(char *str)
 {
