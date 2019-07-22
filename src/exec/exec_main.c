@@ -167,6 +167,27 @@ int		ft_execute_test(t_process *p, t_var *var)
 	return (0);
 }
 
+int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errfile)
+{
+	if (infile != STDIN_FILENO)
+	{
+		dup2(infile, STDIN_FILENO);
+		close(infile);
+	}
+	if (outfile != STDOUT_FILENO)
+	{
+		dup2(outfile, STDOUT_FILENO);
+		close(outfile);
+	}
+	if (errfile != STDERR_FILENO)
+	{
+		dup2(errfile, STDERR_FILENO);
+		close(errfile);
+	}
+	ft_execute_test(p, var);
+	return (0);
+}
+
 int		fork_simple(t_process *p, t_var *var)
 {
 	pid_t pid;
@@ -188,35 +209,39 @@ int		fork_pipe(t_process *p, t_var *var)
 	pid = fork();
 	if (pid == 0)
 	{
+		//close(pfd[1]);
+		//dup2(pfd[0], 0);
+		//close(pfd[0]);
+		//ft_execute_test(p->next, var);
 		close(pfd[1]);
-		dup2(pfd[0], 0);
-		close(pfd[0]);
-		ft_execute_test(p->next, var);
+		launch_process(p->next, var, pfd[0], 1, 2);
 	}
 	else
 	{
+		//close(pfd[0]);
+		//dup2(pfd[1], 1);
+		//close(pfd[1]);
+		//ft_execute_test(p, var);
 		close(pfd[0]);
-		dup2(pfd[1], 1);
-		close(pfd[1]);
-		ft_execute_test(p, var);
+		launch_process(p, var, 0, pfd[1], 2);
 	}
 	return (0);
 }
 
-int		fork_redirect(t_process *p, t_var *var)
+int			fork_redirect(t_process *p, t_var *var, int infile, int outfile, int errfile)
 {
 	pid_t	pid;
-	int		fd;
+	//int		fd;
 
 	pid = fork();
 	if (p->next)
 	{
-		printf("%s\n", p->next->cmd[0]);
-		fd = open(p->next->cmd[0], O_CREAT);
+		//printf("%s\n", p->next->cmd[0]);
+		//fd = open(p->next->cmd[0], O_CREAT);
 	}
 	if (pid == 0)
 	{
-		ft_execute_test(p, var);
+		launch_process(p, var, infile, outfile, errfile);
 	}
 	else
 		wait(&pid);
@@ -226,17 +251,20 @@ int		fork_redirect(t_process *p, t_var *var)
 void		process_test(t_process *p, t_var *var)
 {
 	t_process *tmp;
+	int		fd;
 
 	tmp = p;
-
 	// ici pour redirection
 	while (tmp)
 	{
-		/*if (tmp->split == 'P')
+		if (tmp->split == 'P')
 		{
 			fork_pipe(p, var);
-		}*/
-		fork_redirect(tmp, var);
+		}
+		//fork_redirect_simple(tmp, var);
+		fd = open("test", O_RDWR);
+		//printf("ici, %d %d %d: %d\n", STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO, fd);
+		//fork_redirect(tmp, var, fd, 1, 2);
 		tmp = tmp->next;
 	}
 }
