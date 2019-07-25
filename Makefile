@@ -35,14 +35,15 @@ SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c double_quote.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c)
 
 SRC_EXEC = $(addprefix exec/, \
-				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c check_pid.c)
+				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c check_pid.c\
+				job_controll.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c env_replace.c replace.c tool.c var_replace.c quote.c alias_tools.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
-				ft_unset.c ft_fc.c tool.c)
+				ft_unset.c ft_fc.c tool.c ft_fg.c)
 
 SRC_MAIN = $(addprefix main/, main.c)
 
@@ -55,7 +56,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 

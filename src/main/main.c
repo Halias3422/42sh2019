@@ -36,12 +36,21 @@ int				main(int ac, char **av, char **env)
 	t_hist	*hist;
 	t_var	*my_env;
 	t_pos	pos;
+	pid_t	shell_pid;
 
 	char	*pwd;
 	pwd = NULL;
 
 	(void)ac;
 	(void)av;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
+	signal(SIGCHLD, SIG_IGN);
+	shell_pid = getpid();
+	tcsetpgrp(STDIN_FILENO, shell_pid);
 	my_env = init_env(env, &pos);
 	stock(my_env, 5);
 	hist = (t_hist *)malloc(sizeof(t_hist));

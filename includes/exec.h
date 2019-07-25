@@ -17,6 +17,7 @@
 # include "termcaps.h"
 # include <unistd.h>
 # include "builtin.h"
+# include <signal.h>
 
 typedef struct			s_lexeur t_lexeur;
 typedef struct			s_var t_var;
@@ -35,7 +36,7 @@ typedef struct			s_job
 {
 	struct s_job		*next;
 	t_process			*p;
-	pid_t				*pgid;
+	pid_t				pgid;
 	char				split;
 	char				status;
 }						t_job;
@@ -106,5 +107,8 @@ int			main_alias(t_process *p, t_var **var);
 int			main_unalias(t_process *p, t_var **var);
 
 void    	check_pid(int pid);
+
+void		put_foreground(t_job *j, int cont);
+void		put_background(t_job *j, int cont);
 
 #endif

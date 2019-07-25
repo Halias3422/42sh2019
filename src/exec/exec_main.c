@@ -109,6 +109,28 @@ int			main_exec_while(t_process *p, t_var *var)
 	return (0);
 }*/
 
+/*int		fork_pipe(t_process *p, t_var *var)
+{
+	pid_t pfd[2];
+	pid_t pid;
+
+	pipe(pfd);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(pfd[1]);
+		fork_simple(p->next, var, pfd[0], 1, 2, 0);
+		close(pfd[0]);
+	}
+	else
+	{
+		close(pfd[0]);
+		fork_simple(p, var, 0, pfd[1], 2, 0);
+		close(pfd[1]);
+	}
+	exit (0);
+}*/
+
 // new proposition
 
 int		ft_execute_function(char *path, char **arg, t_var *var)
@@ -169,6 +191,18 @@ int		ft_execute_test(t_process *p, t_var *var)
 
 int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errfile)
 {
+	pid_t pid;
+
+	pid = getpid();
+
+	//printf("-%d\n", pid);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTTOU, SIG_DFL);
+	signal(SIGCHLD, SIG_DFL);
+
 	if (infile != STDIN_FILENO)
 	{
 		dup2(infile, STDIN_FILENO);
@@ -185,95 +219,62 @@ int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errf
 		close(errfile);
 	}
 	ft_execute_test(p, var);
-	return (0);
+	exit (1);
 }
 
-int		fork_simple(t_process *p, t_var *var)
+int		fork_simple(t_job *j ,t_process *p, t_var *var, int infile, int outfile, int errfile, int foreground)
 {
 	pid_t pid;
 
 	pid = fork();
-	if (pid == 0)
-		ft_execute_test(p, var);
-	else
-		wait(&pid);
-	return (1);
-}
-
-int		fork_pipe(t_process *p, t_var *var)
-{
-	pid_t pfd[2];
-	pid_t pid;
-
-	pipe(pfd);
-	pid = fork();
-	if (pid == 0)
-	{
-		//close(pfd[1]);
-		//dup2(pfd[0], 0);
-		//close(pfd[0]);
-		//ft_execute_test(p->next, var);
-		close(pfd[1]);
-		launch_process(p->next, var, pfd[0], 1, 2);
-	}
-	else
-	{
-		//close(pfd[0]);
-		//dup2(pfd[1], 1);
-		//close(pfd[1]);
-		//ft_execute_test(p, var);
-		close(pfd[0]);
-		launch_process(p, var, 0, pfd[1], 2);
-	}
-	return (0);
-}
-
-int			fork_redirect(t_process *p, t_var *var, int infile, int outfile, int errfile)
-{
-	pid_t	pid;
-	//int		fd;
-
-	pid = fork();
-	if (p->next)
-	{
-		//printf("%s\n", p->next->cmd[0]);
-		//fd = open(p->next->cmd[0], O_CREAT);
-	}
 	if (pid == 0)
 	{
 		launch_process(p, var, infile, outfile, errfile);
 	}
 	else
-		wait(&pid);
+	{
+		p->pid = pid;
+		if (!j->pgid)
+			j->pgid = pid;
+		setpgid(pid, j->pgid);
+		//kill(pid, SIGSTOP);
+		printf("%d\n", j->pgid);
+		//waitpid(-1, &pid, SIGSTOP);
+		//kill(pid, SIGSTOP);
+		//kill(pid, SIGCONT);
+		//waitpid(-1, &pid, WNOHANG);
+		//kill(pid, SIGSTOP);
+		//wait(&status);
+	}
+	foreground = 0;
 	return (1);
 }
 
-void		process_test(t_process *p, t_var *var)
+void		launch_job(t_job *j, t_var *var, int foreground)
 {
 	t_process *tmp;
-	int		fd;
 
-	tmp = p;
-	// ici pour redirection
+	tmp = j->p;
 	while (tmp)
 	{
-		if (tmp->split == 'P')
+		/*if (tmp->split == 'P')
 		{
 			fork_pipe(p, var);
-		}
-		//fork_redirect_simple(tmp, var);
-		fd = open("test", O_RDWR);
-		//printf("ici, %d %d %d: %d\n", STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO, fd);
-		//fork_redirect(tmp, var, fd, 1, 2);
+		}*/
+		fork_simple(j, tmp, var, 0, 1, 2, foreground);
 		tmp = tmp->next;
 	}
+	put_foreground(j, 0);
+	//put_background(j, 0);
 }
 
 void		main_exec(t_job *j, t_var *var)
 {
+	t_job *next;
 	while (j)
 	{
-		process_test(j->p, var);
-		j = j->next;
+		next = j->next;
+		launch_job(j, var, 0);
+		j = next;
 	}
 }

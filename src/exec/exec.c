@@ -87,6 +87,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	t_job		*j;
 
 	j = malloc(sizeof(t_job));
+	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);

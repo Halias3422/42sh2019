@@ -30,7 +30,8 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"type", &ft_type},
 	{"export", &ft_export},
 	{"unset", &ft_unset},
-	{"fc", &ft_fc}
+	{"fc", &ft_fc},
+	{"fg", &ft_fg}
 };
 
 int		find_builtins(t_process *p, t_var *var)
