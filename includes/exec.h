@@ -30,6 +30,7 @@ typedef	struct			s_process
 	char				status;
 	char				split;
 	char				*token;
+	int					ret;
 }						t_process;
 
 typedef struct			s_job
@@ -40,6 +41,13 @@ typedef struct			s_job
 	char				split;
 	char				status;
 }						t_job;
+
+typedef struct			s_job_list
+{
+	struct s_job_list	*next;
+	t_job				*j;
+	char				status;
+}						t_job_list;
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -110,5 +118,6 @@ void    	check_pid(int pid);
 
 void		put_foreground(t_job *j, int cont);
 void		put_background(t_job *j, int cont);
+void		wait_job();
 
 #endif

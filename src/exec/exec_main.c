@@ -189,19 +189,20 @@ int		ft_execute_test(t_process *p, t_var *var)
 	return (0);
 }
 
-int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errfile)
+int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errfile, int foreground)
 {
 	pid_t pid;
 
 	pid = getpid();
 
-	//printf("-%d\n", pid);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTTOU, SIG_DFL);
+	signal(SIGTTOU, SIG_IGN);
 	signal(SIGCHLD, SIG_DFL);
+	foreground = 0;
+	tcsetpgrp(0, p->pid);
 
 	if (infile != STDIN_FILENO)
 	{
@@ -229,7 +230,7 @@ int		fork_simple(t_job *j ,t_process *p, t_var *var, int infile, int outfile, in
 	pid = fork();
 	if (pid == 0)
 	{
-		launch_process(p, var, infile, outfile, errfile);
+		launch_process(p, var, infile, outfile, errfile, foreground);
 	}
 	else
 	{
@@ -237,44 +238,64 @@ int		fork_simple(t_job *j ,t_process *p, t_var *var, int infile, int outfile, in
 		if (!j->pgid)
 			j->pgid = pid;
 		setpgid(pid, j->pgid);
-		//kill(pid, SIGSTOP);
-		printf("%d\n", j->pgid);
-		//waitpid(-1, &pid, SIGSTOP);
-		//kill(pid, SIGSTOP);
-		//kill(pid, SIGCONT);
-		//waitpid(-1, &pid, WNOHANG);
-		//kill(pid, SIGSTOP);
-		//wait(&status);
+		if (foreground == 0)
+		{
+			tcsetpgrp(0, j->pgid);
+			wait_job();
+			signal(SIGTTOU, SIG_IGN);
+			tcsetpgrp(0, getpid());
+			signal(SIGTTOU, SIG_DFL);
+		}
 	}
-	foreground = 0;
 	return (1);
 }
 
 void		launch_job(t_job *j, t_var *var, int foreground)
 {
 	t_process *tmp;
+	int infile;
+	int outfile;
+	int mypipe[2];
 
+	infile = 0;
 	tmp = j->p;
 	while (tmp)
 	{
-		/*if (tmp->split == 'P')
+		if (tmp->split == 'P')
 		{
-			fork_pipe(p, var);
-		}*/
-		fork_simple(j, tmp, var, 0, 1, 2, foreground);
+			pipe(mypipe);
+			outfile = mypipe[1];
+		}
+		else
+			outfile = 1;
+		fork_simple(j, tmp, var, infile, outfile, 2, foreground);
 		tmp = tmp->next;
+		if (infile != STDIN_FILENO)
+			close(infile);
+		if (outfile != STDOUT_FILENO)
+			close(outfile);
+		infile = mypipe[0];
 	}
-	put_foreground(j, 0);
-	//put_background(j, 0);
+	//if (j->split == '&')
+	//	put_background(j, 0);
+	//else
+	//	put_foreground(j, 0);
 }
 
 void		main_exec(t_job *j, t_var *var)
 {
 	t_job *next;
+	t_job *last;
+
 	while (j)
 	{
 		next = j->next;
-		launch_job(j, var, 0);
+		//printf("o %c %c\n", j->split, j->status);
+		if (j->split == '&')
+			launch_job(j, var, 1);
+		else
+			launch_job(j, var, 0);
+		last = j;
 		j = next;
 	}
 }

@@ -49,8 +49,12 @@ int				main(int ac, char **av, char **env)
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGCHLD, SIG_IGN);
+
+	// init job controll puttinf shell foreground
 	shell_pid = getpid();
+	setpgid(shell_pid, shell_pid);
 	tcsetpgrp(STDIN_FILENO, shell_pid);
+
 	my_env = init_env(env, &pos);
 	stock(my_env, 5);
 	hist = (t_hist *)malloc(sizeof(t_hist));
