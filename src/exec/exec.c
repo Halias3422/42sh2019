@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/19 03:36:12 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/20 00:01:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -115,7 +115,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	fill_process(j, res);
 	s = j;
 	add_number(j);
-	print_job(j);
+	// print_job(j);
 	main_exec(j, var);
 	free_all_job(s);
 	return (0);

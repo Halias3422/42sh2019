@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/17 08:37:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/20 00:01:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,6 @@ char	*replace(char *str, char c)
 	else
 		ar[2] = ft_strdup("");
 	ft_strjoin_free(&ar[0], ar[2]);
-//	ft_printf("0 = %s\n1 = %s\n2 = %s\n3 = %s\n", ar[0], ar[1], ar[2], ar[3]);
 	ft_strdel(&str);
 	ft_strdel(&ar[1]);
 	ft_strdel(&ar[2]);
@@ -79,7 +78,6 @@ void	need_replace_quote(char ***array, int i, int *j)
 		(*j)++;
 	while ((*array)[i][*j])
 	{
-		printf("|%d|\n", *j);
 		if ((*array)[i][*j] == c && (i == 0 ||
 		(*array)[i][(*j) - 1] != '\\'))
 			break ;
@@ -91,7 +89,6 @@ void	browse_ar(char ***array, int i, int j)
 {
 	while ((*array)[i][j])
 	{
-		printf("%s\n", (*array)[i]);
 		if (((*array)[i][j] == '\'' && (j == 0 ||
 		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
 		&& (j == 0 || (*array)[i][j - 1] != '\\')))

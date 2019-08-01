@@ -6,13 +6,14 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/04 20:10:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/18 09:20:12 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/07/31 16:16:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 #include "../../includes/termcaps.h"
+#include "../../includes/alias.h"
 
 char		*make_string(char **array)
 {
@@ -66,19 +67,19 @@ int			check_backslash_var(char *str)
 	return (0);
 }
 
-int			remove_env_while(char ***array, t_var *var, t_replace *replace)
+int			remove_env_while(char ***array, t_var *var, t_replace *replace, t_alias *alias)
 {
 	int		done;
 	int		i;
 
 	done = 0;
 	i = 0;
-	if (check_alias((*array)[0], var, replace) == 1 && (*array)[0][0] != '\\')
+	if (check_alias(alias->data, var, replace) == 1 && (*array)[0][0] != '\\')
 	{
 		done = 1;
 		(*array) = replace_alias(array, var, replace);
 	}
-	while ((*array)[i])
+	while (alias)
 	{
 		if ((*array)[i][0] != '\'')
 		{
@@ -101,13 +102,22 @@ char		**remove_env(t_var *start, char *str)
 {
 	char		**array;
 	t_replace	*replace;
+	t_alias		*alias;
 
 	init_replace(&replace);
 	get_replace(replace, 1);
 	array = split_space(str);
+	// int i = 0;
+	// while (array[i])
+	// {
+	// 	printf("array[%d]==%s\n", i, array[i]);
+	// 	i++;
+	// }
+	printf("%s\n", str);
+	alias = make_ar_to_list(&str);
 	while (1)
 	{
-		if (remove_env_while(&array, start, replace) == 0)
+		if (remove_env_while(&array, start, replace, alias) == 0)
 			break ;
 	}
 	del_back_slash(&array);
