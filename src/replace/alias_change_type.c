@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/12 06:55:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/31 17:05:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/01 16:27:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,17 +32,6 @@ char		**make_list_to_ar(t_alias *alias)
 	return (res);
 }
 
-int			count_length(char **array)
-{
-	int i;
-
-	i = 0;
-	while (array[i])
-		i++;
-	printf("i=%d\n", i);
-	return (i);
-}
-
 void		make_ar_to_list_while(int *i, char **str, t_alias **alias,
 t_alias *prev)
 {
@@ -54,7 +43,7 @@ t_alias *prev)
 		(*alias)->prev = prev;
 	(*alias)->data = ft_strdup(str[*i]);
 	prev = (*alias);
-	if (*i < count_length(str) && str[*i + 1])
+	if (str[*i + 1])
 	{
 		(*alias)->next = malloc(sizeof(t_alias));
 		(*alias) = (*alias)->next;
