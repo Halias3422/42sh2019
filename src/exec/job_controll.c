@@ -13,39 +13,80 @@
 
 #include "../../includes/exec.h"
 
-void		wait_job(pid_t pid)
+void		print_start_process(t_job *j)
+{
+	t_process *p;
+
+	p = j->p;
+	while (p)
+	{
+		ft_printf(" %d", p->pid);
+		p = p->next;
+	}
+	ft_putchar('\n');
+}
+
+void		check_zombie()
+{
+	int		status;
+	pid_t	pid;
+
+	pid = waitpid(WAIT_ANY, &status, WUNTRACED);
+	if (pid > 0)
+	{
+		if (WIFEXITED(status))
+		{
+			printf("%s %d\n", "finis", WEXITSTATUS(status));
+		}
+		else if (WIFSIGNALED(status))
+		{
+			printf("%s %d\n", "terminated", WTERMSIG(status));
+		}
+		else if (WSTOPSIG(status))
+		{
+			printf("%s\n", "stope");
+		}
+	}
+}
+
+void		wait_process(pid_t pid)
 {
 	int status;
 
 	waitpid(WAIT_ANY, &status, WUNTRACED);
-	/*if (WIFEXITED(status))
+	//waitpid(pid, &status, WUNTRACED);
+	if (WIFEXITED(status))
 	{
-		printf("%d\n", status);
+		printf("%s %d\n", "finis", WEXITSTATUS(status));
 	}
-	if (WIFSIGNALED(status))
+	else if (WIFSIGNALED(status))
 	{
-		printf("%s\n", "signal");
-	}*/
+		printf("%s %d\n", "terminated", WTERMSIG(status));
+	}
+	else if (WSTOPSIG(status))
+	{
+		printf("%s\n", "stope");
+	}
 	pid = 0;
 }
 
 void		put_foreground(t_job *j, int cont)
 {
-	tcsetpgrp(STDIN_FILENO, j->pgid);
-
 	if (cont)
 		kill(-j->pgid, SIGCONT);
 
-	wait_job(-j->pgid);
-	//int status;
-	//waitpid(WAIT_ANY, &status, WUNTRACED);
+	tcsetpgrp(0, j->pgid);
+	wait_process(j->pgid);
+	signal(SIGTTOU, SIG_IGN);
+	tcsetpgrp(0, getpid());
+	signal(SIGTTOU, SIG_DFL);
 }
 
 void		put_background(t_job *j, int cont)
 {
 	if (cont)
 		kill(j->pgid, SIGCONT);
-	kill(j->pgid, SIGSTOP);
+	//kill(j->pgid, SIGSTOP);
 	//printf("%d\n", j->pgid);
 	//kill(j->pgid, SIGSTOP);
 }

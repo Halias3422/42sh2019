@@ -241,7 +241,7 @@ int		fork_simple(t_job *j ,t_process *p, t_var *var, int infile, int outfile, in
 		if (foreground == 0)
 		{
 			tcsetpgrp(0, j->pgid);
-			wait_job();
+			wait_process(p->pid);
 			signal(SIGTTOU, SIG_IGN);
 			tcsetpgrp(0, getpid());
 			signal(SIGTTOU, SIG_DFL);
@@ -276,10 +276,8 @@ void		launch_job(t_job *j, t_var *var, int foreground)
 			close(outfile);
 		infile = mypipe[0];
 	}
-	//if (j->split == '&')
-	//	put_background(j, 0);
-	//else
-	//	put_foreground(j, 0);
+	if (j->split == '&')
+		print_start_process(j);
 }
 
 void		main_exec(t_job *j, t_var *var)
@@ -290,7 +288,6 @@ void		main_exec(t_job *j, t_var *var)
 	while (j)
 	{
 		next = j->next;
-		//printf("o %c %c\n", j->split, j->status);
 		if (j->split == '&')
 			launch_job(j, var, 1);
 		else
