@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_replace.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/15 04:37:03 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/05 11:23:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,21 +83,13 @@ char		*replace_var_to_data(char *str, t_var *env)
 	return (res);
 }
 
-char		**replace_var(t_var *env, char **str)
+void		replace_var(t_var *env, t_alias *alias)
 {
-	t_tvar	*var;
-	t_tvar	*start;
-	char	**res;
 
-	var = make_ar_to_list_var(str);
-	start = var;
-	while (var)
+	while (alias)
 	{
-		if (ft_strchr(var->data, '$'))
-			var->data = replace_var_to_data(var->data, env);
-		var = var->next;
+		if (ft_strchr(alias->data, '$'))
+			alias->data = replace_var_to_data(alias->data, env);
+		alias = alias->next;
 	}
-	var = start;
-	res = make_list_to_ar_var(var);
-	return (res);
 }

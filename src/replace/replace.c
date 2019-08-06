@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/07/04 20:10:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/01 16:28:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/06 11:04:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,49 +67,63 @@ int			check_backslash_var(char *str)
 	return (0);
 }
 
-int			remove_env_while(char ***array, t_var *var, t_replace *replace)
+int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 {
 	int		done;
 	int		i;
 
 	done = 0;
 	i = 0;
-	if (check_alias((*array)[0], var, replace) == 1 && (*array)[0][0] != '\\')
+	if (check_alias(alias->data, var, replace) == 1 && alias->data[0] != '\\')
 	{
 		done = 1;
-		(*array) = replace_alias(array, var, replace);
+		replace_alias(alias, var, replace);
 	}
-	while ((*array)[i])
+	while (alias)
 	{
-		if ((*array)[i][0] != '\'')
+		if (alias->data && alias->data[0] != '\'')
 		{
-			if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL &&
-			check_backslash_var((*array)[i]))
+			if (alias->data && ft_strstr(alias->data, "$") != NULL &&
+			check_backslash_var(alias->data))
 			{
 				done = 1;
-				(*array) = replace_var(var, (*array));
+				replace_var(var, alias);
 				break ;
 			}
 		}
-		i++;
+		alias = alias->next;
 	}
 	return (done);
 }
 
 // TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var. et tester les boucles
 
+static void		print_list(t_alias *alias)
+{
+	while (alias)
+	{
+		printf("alias->data = %s\n", alias->data);
+		alias = alias->next;
+	}
+}
+
 char		**remove_env(t_var *start, char *str)
 {
 	char		**array;
 	t_replace	*replace;
+	t_alias		*alias;
 
 	init_replace(&replace);
 	array = split_space(str);
+	alias = make_ar_to_list(array);
+	print_list(alias);
 	while (1)
 	{
-		if (remove_env_while(&array, start, replace) == 0)
+		if (remove_env_while(alias, start, replace) == 0)
 			break ;
 	}
+	//ft_free_tab(array);
+	array = make_list_to_ar(alias);
 	del_back_slash(&array);
 	remoove_quote(&array);
 	del_back_slash_end(&array);

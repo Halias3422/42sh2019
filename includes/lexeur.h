@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/18 08:50:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/05 11:24:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,6 +39,7 @@ enum e_token
 	T_SEMI,
 };
 
+typedef struct s_alias t_alias;
 typedef struct s_var t_var;
 
 typedef struct s_token
@@ -166,7 +167,7 @@ char		**remove_env(t_var *var, char *str);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-char		**replace_var(t_var *env, char **str);
+void		replace_var(t_var *env, t_alias *alias);
 char		*switch_word(char *str, char *tmp, int i);
 
 /*
@@ -211,7 +212,8 @@ int			cnt_size(char *str);
 void		free_replace(t_replace *replace);
 void		init_replace(t_replace **replace);
 void		*get_replace(void *stock, int i);
-char		**replace_alias(char ***array, t_var *var, t_replace *replace);
+void		replace_alias(t_alias *alias, t_var *var, t_replace *replace);
+// char		**replace_alias(char ***array, t_var *var, t_replace *replace);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

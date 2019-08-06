@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/19 03:09:04 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/06 11:09:37 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,31 +86,131 @@ int			replace_alias_last_part(t_alias *alias, int *ret)
 
 // boucles infines sur alias ls='ls -G'. (il faut gerer les boucles infinies et on est bon)
 
-char		**replace_alias(char ***array, t_var *var, t_replace *replace)
+static void		print_list(t_alias *alias)
 {
-	char		**res;
-	t_alias		*alias;
-	t_alias		*start;
+	int i = 0;
+	while (alias)
+	{
+		printf("alias->data = %s\n", alias->data);
+		alias = alias->next;
+		i++;
+		if (i >= 10)
+			__builtin_abort();		
+	}
+	puts("-------------------------------------------------------------------------------");
+}
+
+void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
+{
 	t_var		*s_var;
 	int			ret;
+	int			i = 0;
 
-	alias = make_ar_to_list(*array);
-	start = alias;
 	(void)replace;
-	alias = start;
+	puts("===============================================================================");
+	printf("function : replace_alias\n");
 	while (1)
 	{
 		s_var = var;
+		printf("avant :alias->data = %s\n", alias->data);
 		if (replace_alias_first_part(&s_var, alias) == 0)
+		{
+			printf("break 1 :alias->data = %s\n", alias->data);
 			break ;
+		}
+		print_list(alias);
 		ret = replace_alias_while(s_var, alias);
+		print_list(alias);
+		__builtin_abort();
 		if (replace_alias_last_part(alias, &ret) == 0)
+		{
+			printf("break 2 :alias->data = %s\n", alias->data);
 			break ;
+		}
 		alias->data = del_space(alias->data);
+		printf("apres :alias->data = %s\n", alias->data);
 		if (alias->next)
 			alias = alias->next;
+		i++;
+		if (i >= 10)
+			__builtin_abort();
 	}
 	alias->data = del_space(alias->data);
-	res = make_list_to_ar(start);
-	return (res);
 }
+
+// char		**replace_alias(char ***array, t_var *var, t_replace *replace)
+// {
+// 	char		**res;
+// 	t_alias		*alias;
+// 	t_alias		*start;
+// 	t_var		*s_var;
+// 	int			ret;
+
+// 	alias = make_ar_to_list(*array);
+// 	start = alias;
+// 	(void)replace;
+// 	alias = start;
+// 	while (1)
+// 	{
+// 		s_var = var;
+// 		if (replace_alias_first_part(&s_var, alias) == 0)
+// 			break ;
+// 		ret = replace_alias_while(s_var, alias);
+// 		if (replace_alias_last_part(alias, &ret) == 0)
+// 			break ;
+// 		alias->data = del_space(alias->data);
+// 		if (alias->next)
+// 			alias = alias->next;
+// 	}
+// 	alias->data = del_space(alias->data);
+// 	res = make_list_to_ar(start);
+// 	return (res);
+// }
+
+// static void		print_tab(char **array)
+// {
+// 	int i = 0;
+// 	static int j = 0;
+
+// 	while (array[i])
+// 	{
+// 		printf("array1[%d]=%s\t", i, array[i]);
+// 		i++;
+// 	}
+// 	puts("");
+// 	j++;
+// 	if (j == 5)
+// 	 	exit(1);
+// }
+
+// char		**replace_alias(char ***array, t_var *var, t_replace *replace)
+// {
+// 	// t_alias		*alias;
+// 	// t_alias		*start;
+// 	t_var		*s_var;
+// 	int			i;
+
+// 	// start = alias;
+// 	(void)replace;
+// 	// alias = start;
+// 	i = 0;
+// 	s_var = var;
+// 	while ((*array)[i])
+// 	{
+// 		while (s_var)
+// 		{
+// 			if (ft_strcmp(s_var->name, (*array)[i]) == 0)
+// 			{
+// 				ft_strdel(array[i]);
+// 				(*array)[i] = ft_strdup(s_var->data);
+// 				break ;
+// 			}
+// 			s_var = s_var->next;
+// 		}
+// 		(*array)[i] = del_space((*array)[i]);
+// 		i++;
+// 	}
+// 	print_tab(*array);
+// //	alias->data = del_space(alias->data);
+// 	return (*array);
+// }
