@@ -93,3 +93,9 @@ tags
 ft_select
 .DS_Store
 # End of https://www.gitignore.io/api/c,vim,visualstudiocode
+
+fifo
+
+signal
+
+test\.c

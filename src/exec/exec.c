@@ -14,7 +14,7 @@
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
 
-void		print_job(t_job *j)
+/*void		print_job(t_job *j)
 {
 	int		job;
 	int		i;
@@ -46,7 +46,7 @@ void		print_job(t_job *j)
 		j = j->next;
 	}
 	puts("");
-}
+}*/
 
 void		init_job(t_job *j)
 {

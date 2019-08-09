@@ -48,7 +48,7 @@ int				main(int ac, char **av, char **env)
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
-	signal(SIGCHLD, SIG_IGN);
+	//signal(SIGCHLD, SIG_IGN);
 
 	// init job controll puttinf shell foreground
 	shell_pid = getpid();
@@ -69,6 +69,7 @@ int				main(int ac, char **av, char **env)
 		ft_strdel(&pwd);
 		ans = termcaps42sh(&pos, hist);
 		tcsetattr(2, TCSANOW, &(pos.old_term));
+		job_notification();
 		if (ans == NULL)
 			break ;
 		if (ans && ft_strncmp("exit", ans, 4) == 0)

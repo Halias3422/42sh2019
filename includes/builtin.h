@@ -16,7 +16,7 @@
 
 # include "exec.h"
 
-# define LEN_BUILTIN_LIST 11
+# define LEN_BUILTIN_LIST 12
 
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
@@ -41,6 +41,7 @@ int				ft_export(t_process *p, t_var **ptr_var);
 int				ft_unset(t_process *p, t_var **ptr_var);
 int				ft_fc(t_process *p, t_var **var);
 int				ft_fg(t_process *p, t_var **var);
+int				ft_jobs(t_process *p, t_var **var);
 
 char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);

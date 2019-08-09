@@ -19,6 +19,9 @@
 # include "builtin.h"
 # include <signal.h>
 
+# define STOPED 1
+# define FINISHED 1
+
 typedef struct			s_lexeur t_lexeur;
 typedef struct			s_var t_var;
 
@@ -31,6 +34,8 @@ typedef	struct			s_process
 	char				split;
 	char				*token;
 	int					ret;
+	int					completed;
+	int					stoped;
 }						t_process;
 
 typedef struct			s_job
@@ -40,13 +45,13 @@ typedef struct			s_job
 	pid_t				pgid;
 	char				split;
 	char				status;
+	int					id;
 }						t_job;
 
 typedef struct			s_job_list
 {
 	struct s_job_list	*next;
 	t_job				*j;
-	char				status;
 }						t_job_list;
 
 /*
@@ -118,6 +123,15 @@ void    	check_pid(int pid);
 
 void		put_foreground(t_job *j, int cont);
 void		put_background(t_job *j, int cont);
-void		wait_job();
+//void		wait_job();
+void		wait_process(pid_t pid);
+void		print_start_process(t_job *j);
+void		check_zombie();
+void		print_job(t_job *j);
+void		add_job(t_job *j);
+void		remove_job(int id);
+void		set_job_status(pid_t id, char status);
+int			find_job_pgid(pid_t pgid);
+void		job_notification(void);
 
 #endif
