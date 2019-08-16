@@ -27,7 +27,7 @@ void		add_job(t_job *j)
 		job_list = start;
 		while (job_list->next != NULL)
 		{
-			++i;
+			i++;
 			job_list = job_list->next;
 		}
 		job_list->next = new_job(j, i);

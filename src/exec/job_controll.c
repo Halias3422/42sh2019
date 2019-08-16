@@ -13,12 +13,63 @@
 
 #include "../../includes/exec.h"
 
+int		mark_process_status(pid_t pid, int status)
+{
+	t_job_list	*job_list;
+	t_process	*process;
+
+	job_list = stock(NULL, 10);
+	if (pid > 0)
+	{
+		while (job_list)
+		{
+			process = job_list->j->p;
+			while (process)
+			{
+				if (process->pid == pid)
+				{
+					process->status = status;
+					if (WIFSTOPPED(status))
+					{
+						job_list->j->status = 's';
+						job_list->j->notified = 0;
+						process->stoped = STOPED;
+					}
+					else
+					{
+						job_list->j->status = 'f';
+						process->completed = FINISHED;
+						if (!process->builtin)
+						{
+							process->ret = WEXITSTATUS(status);
+						}
+						//if (WIFSIGNALED(signal))
+						//	ft_printf("%d: terminated by signal %d", pid, WTERMSIG(signal));
+					}
+				}
+				process = process->next;
+				return(0);
+			}
+			job_list = job_list->next;
+		}
+		return (-1);
+	}
+	else
+		return(-1);
+}
+
 void		print_job(t_job *j)
 {
 	t_process	*process;
 	int			i;
 
-	ft_printf("[%d] %d (%c) ",j->id , j->pgid, j->status);
+	ft_printf("[%d] %d	",j->id, j->pgid);
+	if (j->status == 'f')
+		ft_printf("Done	");
+	else if (j->status == 's')
+		ft_printf("Stopped	");
+	else
+		ft_printf("running	");
 	process = j->p;
 	while (process)
 	{
@@ -50,33 +101,13 @@ void		wait_process(pid_t pid)
 {
 	int		status;
 	pid_t	pid_test;
-	int		job_id;
+	pid = 0;
 
 	pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
-	if (pid_test > 0)
+	while (mark_process_status(pid_test, status))
 	{
-		if (WIFEXITED(status))
-		{
-			job_id = find_job_pgid(pid_test);
-			set_job_status(job_id, 'd');
-			//printf("%s %d %d\n", "finis", WEXITSTATUS(status), pid_test);
-		}
-		else if (WIFSIGNALED(status))
-		{
-			job_id = find_job_pgid(pid_test);
-			set_job_status(job_id, 'd');
-			//printf("%s %d\n", "terminated", WTERMSIG(status));
-		}
-		else if (WSTOPSIG(status))
-		{
-			job_id = find_job_pgid(pid_test);
-			set_job_status(job_id, 'd');
-			//printf("%s\n", "stope");
-		}
+		pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
 	}
-	else
-		printf("%s\n", "ok retour a 127 ???");
-	pid = 0;
 }
 
 void		put_foreground(t_job *j, int cont)

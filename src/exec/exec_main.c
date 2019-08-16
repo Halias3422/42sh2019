@@ -30,7 +30,7 @@ int		ft_execute_function(char *path, char **arg, t_var *var)
 	tab_var = split_env(var);
 	if (execve(path, arg, tab_var) == -1)
 		return (-1);
-	return (0);
+	return(0);
 }
 
 int		ft_test_path(t_process *p, t_var *var)
@@ -41,9 +41,7 @@ int		ft_test_path(t_process *p, t_var *var)
 	int		i;
 
 	if ((path_env = ft_get_val("PATH", var, ENVIRONEMENT)) == NULL)
-	{
 		return (-1);
-	}
 	path = ft_strsplit(path_env, ':');
 	i = 0;
 	while (path[i])
@@ -108,7 +106,7 @@ int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errf
 		close(errfile);
 	}
 	ft_execute_test(p, var);
-	exit(1);
+	return (1);
 }
 
 int		fork_simple(t_job *j, t_process *p, t_var *var, int infile, int outfile, int errfile, int foreground)
@@ -117,7 +115,10 @@ int		fork_simple(t_job *j, t_process *p, t_var *var, int infile, int outfile, in
 
 	pid = fork();
 	if (pid == 0)
+	{
 		launch_process(p, var, infile, outfile, errfile, foreground);
+		exit(0);
+	}
 	else
 	{
 		p->pid = pid;
@@ -145,9 +146,11 @@ void		launch_job(t_job *j, t_var *var, int foreground)
 
 	infile = 0;
 	tmp = j->p;
-
-	add_job(j);
-	set_job_status(j->id, 'r');
+	//if (j->split == '&')
+	//{
+		add_job(j);
+		set_job_status(j->id, 'r');
+	//}
 	while (tmp)
 	{
 		if (tmp->split == 'P')
@@ -158,12 +161,17 @@ void		launch_job(t_job *j, t_var *var, int foreground)
 		else
 			outfile = 1;
 		fork_simple(j, tmp, var, infile, outfile, 2, foreground);
-		tmp = tmp->next;
 		if (infile != STDIN_FILENO)
 			close(infile);
 		if (outfile != STDOUT_FILENO)
 			close(outfile);
 		infile = mypipe[0];
+		if (tmp->split == '|' && tmp->ret == 0)
+			tmp = tmp->next->next;
+		else if (tmp->split == '&' && tmp->ret != 0)
+			tmp = tmp->next->next;
+		else
+			tmp = tmp->next;
 	}
 	if (j->split == '&')
 		print_start_process(j);
@@ -173,17 +181,12 @@ void		launch_job(t_job *j, t_var *var, int foreground)
 
 void		main_exec(t_job *j, t_var *var)
 {
-	t_job *next;
-	t_job *last;
-
 	while (j)
 	{
-		next = j->next;
 		if (j->split == '&')
 			launch_job(j, var, 1);
 		else
 			launch_job(j, var, 0);
-		last = j;
-		j = next;
+		j = j->next;
 	}
 }

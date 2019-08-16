@@ -113,6 +113,9 @@ void		fill_process(t_job *j, t_lexeur **res)
 	j->p = malloc(sizeof(t_process));
 	start = j->p;
 	j->p->status = '\0';
+	j->p->builtin = 0;
+	j->p->stoped = 0;
+	j->p->completed = 0;
 	while (res[i])
 	{
 		if (fill_process_while(res, &j, &start, &i) == 0)

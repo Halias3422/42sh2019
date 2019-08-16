@@ -35,7 +35,7 @@ SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c double_quote.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c)
 
 SRC_EXEC = $(addprefix exec/, \
-				alias.c builtins.c exec_main.c exec.c option_exec.c process.c tools.c check_pid.c\
+				alias.c builtins.c exec_main.c exec.c process.c tools.c check_pid.c\
 				job_controll.c job_function.c job_notification.c)
 
 SRC_REP = $(addprefix replace/, \
