@@ -137,6 +137,28 @@ int		fork_simple(t_job *j, t_process *p, t_var *var, int infile, int outfile, in
 	return (1);
 }
 
+t_process	*get_and_or(t_process *p)
+{
+	t_process *p_next;
+
+	if (p->ret == 0 && p->split == '|')
+		return(p->next->next);
+	else if (p->ret != 0 && p->split == '&')
+		return(p->next->next);
+	return(p->next);
+
+	p_next = p;
+	while (p_next)
+	{
+		if (p->split == '|' && p_next->split == '&')
+			return p_next;
+		else if (p->split == '&' && p_next->split == '|')
+			return p_next;
+		p_next = p_next->next;
+	}
+	return (NULL);
+}
+
 void		launch_job(t_job *j, t_var *var, int foreground)
 {
 	t_process	*tmp;
@@ -166,12 +188,13 @@ void		launch_job(t_job *j, t_var *var, int foreground)
 		if (outfile != STDOUT_FILENO)
 			close(outfile);
 		infile = mypipe[0];
-		if (tmp->split == '|' && tmp->ret == 0)
+		/*if (tmp->split == '|' && tmp->ret == 0)
 			tmp = tmp->next->next;
 		else if (tmp->split == '&' && tmp->ret != 0)
 			tmp = tmp->next->next;
 		else
-			tmp = tmp->next;
+			tmp = tmp->next;*/
+		tmp = get_and_or(tmp);
 	}
 	if (j->split == '&')
 		print_start_process(j);
