@@ -1,58 +1,45 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   alias_tools.c                                    .::    .:/ .      .::   */
+/*   tool_list.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/06/08 17:32:27 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:01:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/08/18 18:06:47 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/08/18 18:07:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
-#include "../../includes/alias.h"
 
-char		check_last_char(t_alias *alias, int j)
+void		free_replace(t_replace *replace)
 {
-	int		i;
+	t_replace	*tmp;
 
-	i = 0;
-	while (j > 1)
+	while (replace)
 	{
-		alias = alias->next;
-		j--;
-	}
-	while (alias->data[i])
-		i++;
-	return (alias->data[i - 1]);
-}
-
-void		fill_list(char *str, t_alias *alias)
-{
-	ft_strdel(&alias->data);
-	alias->data = ft_strdup(str);
-}
-
-void		free_array(char ***array)
-{
-	int		i;
-
-	i = 0;
-	while ((*array)[i])
-	{
-		ft_strdel(&(*array)[i]);
-		i++;
+		ft_strdel(&replace->name);
+		tmp = replace;
+		replace = replace->next;
+		free(&tmp);
 	}
 }
 
-int			end(char **str)
+void		init_replace(t_replace **replace)
 {
-	int		i;
+	(*replace) = malloc(sizeof(t_replace));
+	(*replace)->name = ft_strdup("");
+	(*replace)->next = NULL;
+}
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i + 1);
+void		*get_replace(void *stock, int i)
+{
+	static t_replace *ret;
+
+	if (i == 1)
+		ret = stock;
+	if (i == 2)
+		return (ret);
+	return (NULL);
 }

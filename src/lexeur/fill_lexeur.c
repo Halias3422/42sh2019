@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/07 15:59:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 18:14:41 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,17 +73,12 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	i = 0;
 	j = 0;
 	while (buf[i])
-	{
-		//ft_printf("buf[%d] = _%s_\n", i, buf[i]);
 		i++;
-	}
 	array = malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])
 	{
 		k = 0;
-		if (buf[i + 1] && ft_strcmp(buf[i], "") == 0)
-			i++;
 		if ((tmp = find_fd(buf[i], 0)) != NULL)
 			array[j] = tmp;
 		else if (buf[i])
@@ -93,6 +88,5 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	}
 	array[j] = NULL;
 	check_redirection(&array);
-	del_back_slash(&array);
 	return (array);
 }

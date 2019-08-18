@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/06/10 11:01:24 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/08/18 18:11:21 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -32,14 +32,14 @@ SRC_LINE = $(addprefix line_edit/, \
 				token_heredoc_open.c token_init.c init_alias.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c double_quote.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c)
+				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c)
 
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c exec_main.c exec.c process.c tools.c check_pid.c\
 				job_controll.c job_function.c job_notification.c)
 
 SRC_REP = $(addprefix replace/, \
-				alias.c env_replace.c replace.c tool.c var_replace.c quote.c alias_tools.c)
+				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c alias_change_type.c alias_cnt.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \

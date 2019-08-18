@@ -3,16 +3,17 @@
 /*                                                              /             */
 /*   replace.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 17:31:33 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 18:05:34 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 #include "../../includes/termcaps.h"
+#include "../../includes/alias.h"
 
 char		*make_string(char **array)
 {
@@ -40,7 +41,8 @@ int			check_alias(char *array, t_var *var, t_replace *replace)
 	tmp_var = var;
 	i = 0;
 	r = replace;
-	while (tmp_var && (ft_strcmp(array, tmp_var->name) != 0))
+	while (tmp_var && ((ft_strcmp(array, tmp_var->name) != 0)
+	|| tmp_var->type != ALIAS))
 		tmp_var = tmp_var->next;
 	if (!tmp_var)
 		return (0);
@@ -53,50 +55,78 @@ int			check_alias(char *array, t_var *var, t_replace *replace)
 	return (1);
 }
 
-int			remove_env_while(char ***array, t_var *var, t_replace *replace)
+int			check_backslash_var(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '$')
+		i++;
+	if (i == 0 || str[i - 1] != '\\')
+		return (1);
+	return (0);
+}
+
+int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 {
 	int		done;
 	int		i;
 
 	done = 0;
 	i = 0;
-	if (check_alias((*array)[0], var, replace) == 1)
-		replace_alias(array, var, replace);
-	while ((*array)[i])
-		i++;
-	while ((*array)[i])
+	if (check_alias(alias->data, var, replace) == 1 && alias->data[0] != '\\')
 	{
-		if ((*array)[i] && ft_strstr((*array)[i], "$") != NULL)
+		done = 1;
+		replace_alias(alias, var, replace);
+	}
+	while (alias)
+	{
+		if (alias->data && alias->data[0] != '\'')
 		{
-			done = 1;
-			(*array)[i] = replace_env(var, (*array)[i], 0);
+			if (alias->data && ft_strstr(alias->data, "$") != NULL &&
+			check_backslash_var(alias->data))
+			{
+				done = 1;
+				replace_var(var, alias);
+				break ;
+			}
 		}
-		if ((*array)[i] && f_check_var(var, (*array)[i]) == 1)
-		{
-			done = 1;
-			(*array)[i] = replace_var(var, (*array)[i]);
-		}
-		if ((*array)[i])
-			i++;
+		alias = alias->next;
 	}
 	return (done);
 }
 
-// TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var.
+// TODO faire en sorte qu'on ne peut pas faire de boucle infinie comme bash on ne peut pas replace 2 fois une var. et tester les boucles
+
+static void		print_list(t_alias *alias)
+{
+	while (alias)
+	{
+		printf("alias->data = %s\n", alias->data);
+		alias = alias->next;
+	}
+}
 
 char		**remove_env(t_var *start, char *str)
 {
 	char		**array;
 	t_replace	*replace;
+	t_alias		*alias;
 
 	init_replace(&replace);
 	array = split_space(str);
+	alias = make_ar_to_list(array);
+	print_list(alias);
 	while (1)
 	{
-		if (remove_env_while(&array, start, replace) == 0)
+		if (remove_env_while(alias, start, replace) == 0)
 			break ;
 	}
+	//ft_free_tab(array);
+	array = make_list_to_ar(alias);
+	del_back_slash(&array);
 	remoove_quote(&array);
+	del_back_slash_end(&array);
 	ft_strdel(&str);
 	return (array);
 }

@@ -1,58 +1,56 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   alias_tools.c                                    .::    .:/ .      .::   */
+/*   free_file.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/06/08 17:32:27 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:01:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/08/18 18:04:12 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/08/18 18:04:29 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
+#include "../../includes/lexeur.h"
 
-char		check_last_char(t_alias *alias, int j)
+void		free_list_tvar(t_tvar *alias)
 {
-	int		i;
+	t_tvar		*tmp;
 
-	i = 0;
-	while (j > 1)
+	while (alias)
 	{
+		ft_strdel(&alias->data);
+		tmp = alias;
 		alias = alias->next;
-		j--;
+		free(tmp);
 	}
-	while (alias->data[i])
-		i++;
-	return (alias->data[i - 1]);
 }
 
-void		fill_list(char *str, t_alias *alias)
+void		free_list(t_alias *alias)
 {
-	ft_strdel(&alias->data);
-	alias->data = ft_strdup(str);
-}
+	t_alias		*tmp;
 
-void		free_array(char ***array)
-{
-	int		i;
-
-	i = 0;
-	while ((*array)[i])
+	while (alias)
 	{
-		ft_strdel(&(*array)[i]);
-		i++;
+		ft_strdel(&alias->data);
+		if (alias->prev)
+			free(alias->prev);
+		tmp = alias;
+		alias = alias->next;
+		free(tmp);
 	}
 }
 
-int			end(char **str)
+void		free_ar(char **str)
 {
 	int		i;
 
 	i = 0;
 	while (str[i])
+	{
+		ft_strdel(&str[i]);
 		i++;
-	return (i + 1);
+	}
+	free(str);
 }

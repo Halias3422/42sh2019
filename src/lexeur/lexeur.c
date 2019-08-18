@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/04 12:23:38 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 18:14:57 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -109,8 +109,6 @@ void		free_lexer(t_lexeur **array)
 
 	i = -1;
 	while (array[++i])
-	{
 		free(array[i]);
-	}
 	free(array);
 }
