@@ -77,6 +77,12 @@ int		ft_execute_test(t_process *p, t_var *var)
 	return (0);
 }
 
+void		signal_handler(pid_t pid)
+{
+	ft_putchar('\n');
+	pid = 0;
+}
+
 int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errfile, int foreground)
 {
 	pid_t pid;
@@ -86,7 +92,7 @@ int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errf
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTTOU, SIG_IGN);
+	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
 	foreground = 0;
 	tcsetpgrp(0, p->pid);
