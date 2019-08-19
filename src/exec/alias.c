@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/05 09:16:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 19:20:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,7 @@ void	add_list_alias(t_var **var, char *name, char *data)
 	t_var	*tmp;
 
 	start = (*var);
+	tmp = NULL;
 	while ((*var) && ft_strcmp((*var)->name, name) != 0)
 	{
 		tmp = (*var);
@@ -68,6 +69,7 @@ int		main_alias(t_process *p, t_var **var)
 	int		i;
 	int		k;
 
+	puts("alias");
 	k = 0;
 	if (!p->cmd[1])
 		return (1);

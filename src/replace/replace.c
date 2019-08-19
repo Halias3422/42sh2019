@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:05:34 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 19:17:02 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,7 +102,7 @@ static void		print_list(t_alias *alias)
 {
 	while (alias)
 	{
-		printf("alias->data = %s\n", alias->data);
+	//	printf("alias->data = %s\n", alias->data);
 		alias = alias->next;
 	}
 }
