@@ -15,6 +15,12 @@
 
 struct s_hist **ghist;
 
+void		signal_handler(pid_t pid)
+{
+	ft_putchar('\n');
+	pid = 0;
+}
+
 static void		resize_screen(t_pos *pos)
 {
 	int		len;

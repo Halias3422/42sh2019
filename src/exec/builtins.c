@@ -13,6 +13,7 @@
 
 #include "../../includes/exec.h"
 #include "../../includes/builtin.h"
+#include "../../includes/termcaps.h"
 
 /*
 ** TODO faire en sorte qu'on puisse exec un builtins au milieu d'autres

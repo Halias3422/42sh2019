@@ -35,7 +35,7 @@ SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c)
 
 SRC_EXEC = $(addprefix exec/, \
-				alias.c builtins.c exec_main.c exec.c process.c tools.c check_pid.c\
+				alias.c builtins.c exec_main.c exec.c process.c tools.c \
 				job_controll.c job_function.c job_notification.c)
 
 SRC_REP = $(addprefix replace/, \
@@ -43,7 +43,7 @@ SRC_REP = $(addprefix replace/, \
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
-				ft_unset.c ft_fc.c tool.c ft_fg.c ft_jobs.c)
+				ft_unset.c ft_fc.c tool.c ft_fg.c ft_bg.c ft_jobs.c)
 
 SRC_MAIN = $(addprefix main/, main.c)
 

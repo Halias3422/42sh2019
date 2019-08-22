@@ -12,8 +12,27 @@
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
-int		mark_process_status(pid_t pid, int status)
+void		process_status(t_process *process, t_job_list *job_list, int status)
+{
+	if (WIFSTOPPED(status))
+	{
+		job_list->j->status = 's';
+		process->stoped = STOPED;
+		job_list->j->notified = 0;
+		print_job(job_list->j);
+	}
+	else
+	{
+		job_list->j->status = 'f';
+		process->completed = FINISHED;
+		if (!process->builtin)
+			process->ret = WEXITSTATUS(status);
+	}
+}
+
+int			mark_process_status(pid_t pid, int status)
 {
 	t_job_list	*job_list;
 	t_process	*process;
@@ -29,33 +48,17 @@ int		mark_process_status(pid_t pid, int status)
 				if (process->pid == pid)
 				{
 					process->status = status;
-					if (WIFSTOPPED(status))
-					{
-						job_list->j->status = 's';
-						job_list->j->notified = 0;
-						process->stoped = STOPED;
-					}
-					else
-					{
-						job_list->j->status = 'f';
-						process->completed = FINISHED;
-						if (!process->builtin)
-						{
-							process->ret = WEXITSTATUS(status);
-						}
-						//if (WIFSIGNALED(signal))
-						//	ft_printf("%d: terminated by signal %d", pid, WTERMSIG(signal));
-					}
+					process_status(process, job_list, status);
 				}
 				process = process->next;
-				return(0);
+				return (0);
 			}
 			job_list = job_list->next;
 		}
 		return (-1);
 	}
 	else
-		return(-1);
+		return (-1);
 }
 
 void		print_job(t_job *j)
@@ -63,7 +66,7 @@ void		print_job(t_job *j)
 	t_process	*process;
 	int			i;
 
-	ft_printf("[%d] %d	",j->id, j->pgid);
+	ft_printf("[%d] %d	", j->id, j->pgid);
 	if (j->status == 'f')
 		ft_printf("Done	");
 	else if (j->status == 's')
@@ -85,7 +88,7 @@ void		print_job(t_job *j)
 
 void		print_start_process(t_job *j)
 {
-	t_process *p;
+	t_process	*p;
 
 	p = j->p;
 	ft_printf("[%d]", j->id);
@@ -99,30 +102,13 @@ void		print_start_process(t_job *j)
 
 void		wait_process(pid_t pid)
 {
-	int		status;
-	pid_t	pid_test;
-	pid = 0;
+	int			status;
+	pid_t		pid_test;
 
+	pid = 0;
 	pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
 	while (mark_process_status(pid_test, status))
 	{
 		pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
 	}
-}
-
-void		put_foreground(t_job *j, int cont)
-{
-	if (cont)
-		kill(-j->pgid, SIGCONT);
-	tcsetpgrp(0, j->pgid);
-	wait_process(j->pgid);
-	signal(SIGTTOU, SIG_IGN);
-	tcsetpgrp(0, getpid());
-	signal(SIGTTOU, SIG_DFL);
-}
-
-void		put_background(t_job *j, int cont)
-{
-	if (cont)
-		kill(j->pgid, SIGCONT);
 }

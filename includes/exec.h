@@ -14,10 +14,12 @@
 #ifndef EXEC_H
 # define EXEC_H
 
-# include "termcaps.h"
+//# include "termcaps.h"
 # include <unistd.h>
 # include "builtin.h"
 # include <signal.h>
+
+# include "../libft/includes/ft_str.h"
 
 # define STOPED 1
 # define FINISHED 1
@@ -103,6 +105,7 @@ int			use_execve_acces(char *tmp, char **res, t_var *l_var);
 
 int			find_builtins(t_process *p, t_var *var);
 void		cnf_print_error(char *str);
+void		ft_tabfree(char **res);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -121,11 +124,9 @@ int			main_option_exec(t_process **first, t_process **second, t_var *var);
 int			main_alias(t_process *p, t_var **var);
 int			main_unalias(t_process *p, t_var **var);
 
-void    	check_pid(int pid);
+void		put_foreground(t_job *j);
+void		put_background(t_job *j);
 
-void		put_foreground(t_job *j, int cont);
-void		put_background(t_job *j, int cont);
-//void		wait_job();
 void		wait_process(pid_t pid);
 void		print_start_process(t_job *j);
 void		check_zombie();
@@ -136,4 +137,9 @@ void		set_job_status(pid_t id, char status);
 int			find_job_pgid(pid_t pgid);
 void		job_notification(void);
 int			mark_process_status(pid_t pid, int status);
+void		signal_handler(pid_t pid);
+
+int			job_is_stoped(t_job *j);
+
+t_job		*find_job_by_id(char *argv);
 #endif

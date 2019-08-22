@@ -1,14 +1,15 @@
 #include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
 void		update_status(void)
 {
 	int		status;
 	pid_t	pid;
 
-	pid = waitpid(WAIT_ANY, &status, WUNTRACED|WNOHANG);
+	pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
 	while (!mark_process_status(pid, status))
 	{
-		pid = waitpid(WAIT_ANY, &status, WUNTRACED|WNOHANG);
+		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
 	}
 }
 

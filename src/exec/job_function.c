@@ -1,6 +1,7 @@
 #include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
-t_job_list		*new_job(t_job *j, int number)
+t_job_list	*new_job(t_job *j, int number)
 {
 	t_job_list *job_list;
 
@@ -46,7 +47,7 @@ void		remove_job(int id)
 	if (job_list->j->id == id)
 	{
 		stock(NULL, 9);
-		return;
+		return ;
 	}
 	while (job_list)
 	{
@@ -54,7 +55,7 @@ void		remove_job(int id)
 		{
 			last->next = job_list->next;
 			//free(job_list);
-			break;
+			break ;
 		}
 		last = job_list;
 		job_list = job_list->next;
@@ -62,7 +63,7 @@ void		remove_job(int id)
 	stock(start, 9);
 }
 
-int		find_job_pgid(pid_t pgid)
+int			find_job_pgid(pid_t pgid)
 {
 	t_job_list	*job_list;
 
@@ -76,20 +77,4 @@ int		find_job_pgid(pid_t pgid)
 		job_list = job_list->next;
 	}
 	return (-1);
-}
-
-void		set_job_status(pid_t id, char status)
-{
-	t_job_list	*job_list;
-
-	job_list = stock(NULL, 10);
-	while (job_list)
-	{
-		if (job_list->j->id == id)
-		{
-			job_list->j->status = status;
-			return ;
-		}
-		job_list = job_list->next;
-	}
 }

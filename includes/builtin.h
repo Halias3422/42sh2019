@@ -15,6 +15,7 @@
 # define BUILTIN_H
 
 # include "exec.h"
+#include "termcaps.h"
 
 # define LEN_BUILTIN_LIST 12
 

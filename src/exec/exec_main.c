@@ -12,33 +12,24 @@
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
-void		ft_tabfree(char **res)
+int			ft_execute_function(char *path, char **arg, t_var *var)
 {
-	int i;
-
-	i = -1;
-	while (res[++i])
-		free(res[i]);
-	free(res);
-}
-
-int		ft_execute_function(char *path, char **arg, t_var *var)
-{
-	char **tab_var;
+	char		**tab_var;
 
 	tab_var = split_env(var);
 	if (execve(path, arg, tab_var) == -1)
 		return (-1);
-	return(0);
+	return (0);
 }
 
-int		ft_test_path(t_process *p, t_var *var)
+int			ft_test_path(t_process *p, t_var *var)
 {
-	char	**path;
-	char	*path_env;
-	char	*tmp;
-	int		i;
+	char		**path;
+	char		*path_env;
+	char		*tmp;
+	int			i;
 
 	if ((path_env = ft_get_val("PATH", var, ENVIRONEMENT)) == NULL)
 		return (-1);
@@ -60,10 +51,10 @@ int		ft_test_path(t_process *p, t_var *var)
 	return (-1);
 }
 
-int		ft_execute_test(t_process *p, t_var *var)
+int			ft_execute_test(t_process *p, t_var *var)
 {
-	if (find_builtins(p, var) == 0)
-	{
+	//if (find_builtins(p, var) == 0)
+	//{
 		if (ft_strchr(p->cmd[0], '/') != 0)
 		{
 			ft_execute_function(p->cmd[0], p->cmd, var);
@@ -73,19 +64,14 @@ int		ft_execute_test(t_process *p, t_var *var)
 			if (ft_test_path(p, var) == -1)
 				printf("42sh: command not found: %s\n", p->cmd[0]);
 		}
-	}
+	//}
+	//exit(0);
 	return (0);
 }
 
-void		signal_handler(pid_t pid)
+int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errfile)
 {
-	ft_putchar('\n');
-	pid = 0;
-}
-
-int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errfile, int foreground)
-{
-	pid_t pid;
+	pid_t		pid;
 
 	pid = getpid();
 	signal(SIGINT, SIG_DFL);
@@ -94,7 +80,6 @@ int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errf
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
-	foreground = 0;
 	tcsetpgrp(0, p->pid);
 	if (infile != STDIN_FILENO)
 	{
@@ -112,26 +97,26 @@ int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errf
 		close(errfile);
 	}
 	ft_execute_test(p, var);
-	return (1);
+	exit(1);
+	//return (1);
 }
 
-int		fork_simple(t_job *j, t_process *p, t_var *var, int infile, int outfile, int errfile, int foreground)
+int			fork_simple(t_job *j, t_process *p, t_var *var, int infile, int outfile, int errfile)
 {
-	pid_t pid;
+	pid_t		pid;
+	if (find_builtins(p, var) != 0)
+		return (1);
 
 	pid = fork();
 	if (pid == 0)
-	{
-		launch_process(p, var, infile, outfile, errfile, foreground);
-		exit(0);
-	}
+		launch_process(p, var, infile, outfile, errfile);
 	else
 	{
 		p->pid = pid;
 		if (j->pgid == 0)
 			j->pgid = pid;
 		setpgid(pid, j->pgid);
-		if (foreground == 0)
+		if (j->split != '&')
 		{
 			tcsetpgrp(0, j->pgid);
 			wait_process(j->pgid);
@@ -145,27 +130,26 @@ int		fork_simple(t_job *j, t_process *p, t_var *var, int infile, int outfile, in
 
 t_process	*get_and_or(t_process *p)
 {
-	t_process *p_next;
+	t_process	*p_next;
 
 	if (p->ret == 0 && p->split == '|')
-		return(p->next->next);
+		return (p->next->next);
 	else if (p->ret != 0 && p->split == '&')
-		return(p->next->next);
-	return(p->next);
-
+		return (p->next->next);
+	return (p->next);
 	p_next = p;
 	while (p_next)
 	{
 		if (p->split == '|' && p_next->split == '&')
-			return p_next;
+			return (p_next);
 		else if (p->split == '&' && p_next->split == '|')
-			return p_next;
+			return (p_next);
 		p_next = p_next->next;
 	}
 	return (NULL);
 }
 
-void		launch_job(t_job *j, t_var *var, int foreground)
+void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*tmp;
 	int			infile;
@@ -174,11 +158,8 @@ void		launch_job(t_job *j, t_var *var, int foreground)
 
 	infile = 0;
 	tmp = j->p;
-	//if (j->split == '&')
-	//{
-		add_job(j);
-		set_job_status(j->id, 'r');
-	//}
+	add_job(j);
+	j->status = 'r';
 	while (tmp)
 	{
 		if (tmp->split == 'P')
@@ -188,22 +169,18 @@ void		launch_job(t_job *j, t_var *var, int foreground)
 		}
 		else
 			outfile = 1;
-		fork_simple(j, tmp, var, infile, outfile, 2, foreground);
+		fork_simple(j, tmp, var, infile, outfile, 2);
 		if (infile != STDIN_FILENO)
 			close(infile);
 		if (outfile != STDOUT_FILENO)
 			close(outfile);
 		infile = mypipe[0];
-		/*if (tmp->split == '|' && tmp->ret == 0)
-			tmp = tmp->next->next;
-		else if (tmp->split == '&' && tmp->ret != 0)
-			tmp = tmp->next->next;
-		else
-			tmp = tmp->next;*/
 		tmp = get_and_or(tmp);
 	}
 	if (j->split == '&')
 		print_start_process(j);
+	else if (job_is_stoped(j))
+		j->notified = 1;
 	else
 		remove_job(j->id);
 }
@@ -212,10 +189,7 @@ void		main_exec(t_job *j, t_var *var)
 {
 	while (j)
 	{
-		if (j->split == '&')
-			launch_job(j, var, 1);
-		else
-			launch_job(j, var, 0);
+		launch_job(j, var);
 		j = j->next;
 	}
 }

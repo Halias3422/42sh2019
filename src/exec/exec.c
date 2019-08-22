@@ -14,40 +14,6 @@
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
 
-/*void		print_job(t_job *j)
-{
-	int		job;
-	int		i;
-	int		process;
-	t_process	*start;
-
-	job = 0;
-	i = 0;
-	process = 0;
-	while (j)
-	{
-//		ft_printf("\n---jobs---[%d]->next: _%p_\tsplit: _%c_\n", job, j->next, j->split);
-		job++;
-		start = j->p;
-		while (j->p)
-		{
-//			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\n", process, j->p->next, j->p->split, j->p->token);
-			process++;
-			while (j->p->cmd[i])
-			{
-//				ft_printf("cmd[%d]-> _%s_\n", i, j->p->cmd[i]);
-				i++;
-			}
-			i = 0;
-			j->p = j->p->next;
-		}
-		j->p = start;
-		process = 0;
-		j = j->next;
-	}
-	puts("");
-}*/
-
 void		init_job(t_job *j)
 {
 	j->split = '\0';
