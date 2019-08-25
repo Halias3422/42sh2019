@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_fg.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
+/*   Updated: 2019/08/22 16:44:51 by husahuc     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "../../includes/termcaps.h"
 
-void		put_foreground(t_job *j)
+void	put_foreground(t_job *j)
 {
 	kill(-j->pgid, SIGCONT);
 	j->status = 'r';
@@ -11,13 +24,13 @@ void		put_foreground(t_job *j)
 	signal(SIGTTOU, SIG_DFL);
 }
 
-int				rerun_job(t_job *j)
+int		rerun_job(t_job *j)
 {
 	put_foreground(j);
 	return (0);
 }
 
-t_job		*find_job_by_id(char *argv)
+t_job	*find_job_by_id(char *argv)
 {
 	int			pid;
 	t_job_list	*job_list;
@@ -33,7 +46,7 @@ t_job		*find_job_by_id(char *argv)
 	return (NULL);
 }
 
-int				ft_fg(t_process *p, t_var **var)
+int		ft_fg(t_process *p, t_var **var)
 {
 	t_job		*job;
 

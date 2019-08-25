@@ -53,23 +53,17 @@ int			ft_test_path(t_process *p, t_var *var)
 
 int			ft_execute_test(t_process *p, t_var *var)
 {
-	//if (find_builtins(p, var) == 0)
-	//{
-		if (ft_strchr(p->cmd[0], '/') != 0)
-		{
-			ft_execute_function(p->cmd[0], p->cmd, var);
-		}
-		else
-		{
-			if (ft_test_path(p, var) == -1)
-				printf("42sh: command not found: %s\n", p->cmd[0]);
-		}
-	//}
-	//exit(0);
+	if (ft_strchr(p->cmd[0], '/') != 0)
+		ft_execute_function(p->cmd[0], p->cmd, var);
+	else
+	{
+		if (ft_test_path(p, var) == -1)
+			printf("42sh: command not found: %s\n", p->cmd[0]);
+	}
 	return (0);
 }
 
-int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errfile)
+int			launch_process(t_process *p, t_var *var)
 {
 	pid_t		pid;
 
@@ -81,35 +75,35 @@ int			launch_process(t_process *p, t_var *var, int infile, int outfile, int errf
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
 	tcsetpgrp(0, p->pid);
-	if (infile != STDIN_FILENO)
+	if (p->fd_in != STDIN_FILENO)
 	{
-		dup2(infile, STDIN_FILENO);
-		close(infile);
+		dup2(p->fd_in, STDIN_FILENO);
+		close(p->fd_in);
 	}
-	if (outfile != STDOUT_FILENO)
+	if (p->fd_out != STDOUT_FILENO)
 	{
-		dup2(outfile, STDOUT_FILENO);
-		close(outfile);
+		dup2(p->fd_out, STDOUT_FILENO);
+		close(p->fd_out);
 	}
-	if (errfile != STDERR_FILENO)
+	if (p->fd_error != STDERR_FILENO)
 	{
-		dup2(errfile, STDERR_FILENO);
-		close(errfile);
+		dup2(p->fd_error, STDERR_FILENO);
+		close(p->fd_error);
 	}
 	ft_execute_test(p, var);
 	exit(1);
-	//return (1);
 }
 
-int			fork_simple(t_job *j, t_process *p, t_var *var, int infile, int outfile, int errfile)
+int			fork_simple(t_job *j, t_process *p, t_var *var)
 {
 	pid_t		pid;
+
 	if (find_builtins(p, var) != 0)
 		return (1);
 
 	pid = fork();
 	if (pid == 0)
-		launch_process(p, var, infile, outfile, errfile);
+		launch_process(p, var);
 	else
 	{
 		p->pid = pid;
@@ -149,40 +143,59 @@ t_process	*get_and_or(t_process *p)
 	return (NULL);
 }
 
+int			redirect_job(t_process *p)
+{
+	if (p->split == 'f')
+	{
+		p->fd_out = open(p->file, O_CREAT | O_WRONLY);
+	}
+	else if (p->split == 'F')
+	{
+		p->fd_out = open(p->file, O_CREAT | O_WRONLY | O_APPEND);
+	}
+	else
+		p->fd_out = 1;
+	return (1);
+}
+
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*tmp;
 	int			infile;
-	int			outfile;
 	int			mypipe[2];
 
 	infile = 0;
 	tmp = j->p;
-	add_job(j);
+	if (j->p->builtin == 0)
+		add_job(j);
 	j->status = 'r';
 	while (tmp)
 	{
+		tmp->fd_in = infile;
 		if (tmp->split == 'P')
 		{
 			pipe(mypipe);
-			outfile = mypipe[1];
+			tmp->fd_out = mypipe[1];
 		}
 		else
-			outfile = 1;
-		fork_simple(j, tmp, var, infile, outfile, 2);
-		if (infile != STDIN_FILENO)
-			close(infile);
-		if (outfile != STDOUT_FILENO)
-			close(outfile);
+			tmp->fd_out = 1;
+		fork_simple(j, tmp, var);
+		if (tmp->fd_in != STDIN_FILENO)
+			close(tmp->fd_in);
+		if (tmp->fd_out != STDOUT_FILENO)
+			close(tmp->fd_out);
 		infile = mypipe[0];
 		tmp = get_and_or(tmp);
 	}
-	if (j->split == '&')
-		print_start_process(j);
-	else if (job_is_stoped(j))
-		j->notified = 1;
-	else
-		remove_job(j->id);
+	if (j->p->builtin != 1)
+	{
+		if (j->split == '&')
+			print_start_process(j);
+		else if (job_is_stoped(j))
+			j->notified = 1;
+		else
+			remove_job(j->id);
+	}
 }
 
 void		main_exec(t_job *j, t_var *var)

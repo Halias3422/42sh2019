@@ -20,7 +20,7 @@ void		process_status(t_process *process, t_job_list *job_list, int status)
 	{
 		job_list->j->status = 's';
 		process->stoped = STOPED;
-		job_list->j->notified = 0;
+		job_list->j->notified = 1;
 		print_job(job_list->j);
 	}
 	else

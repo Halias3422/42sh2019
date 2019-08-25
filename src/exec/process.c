@@ -85,6 +85,9 @@ int *i)
 	while (res[*i] && (res[*i]->word || res[*i]->redirection))
 		fill_cmd(res, j, &k, i);
 	(*j)->p->cmd[k] = NULL;
+
+	(*j)->p->builtin = test_builtin((*j)->p);
+
 	if (res[*i] && (res[*i]->token != 1 && res[*i]->token != 8 && res[*i]->token
 	!= 4 && res[*i]->token != 5 && res[*i]->token != 6 && res[*i]->token != 7))
 	{
@@ -113,7 +116,6 @@ void		fill_process(t_job *j, t_lexeur **res)
 	j->p = malloc(sizeof(t_process));
 	start = j->p;
 	j->p->status = '\0';
-	j->p->builtin = 0;
 	j->p->stoped = 0;
 	j->p->completed = 0;
 	while (res[i])

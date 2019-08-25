@@ -39,6 +39,10 @@ typedef	struct			s_process
 	int					completed;
 	int					stoped;
 	int					builtin;
+	int					fd_in;
+	int					fd_out;
+	int					fd_error;
+	char				*file;
 }						t_process;
 
 typedef struct			s_job
@@ -103,7 +107,6 @@ int			use_execve_acces(char *tmp, char **res, t_var *l_var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int			find_builtins(t_process *p, t_var *var);
 void		cnf_print_error(char *str);
 void		ft_tabfree(char **res);
 
@@ -126,6 +129,9 @@ int			main_unalias(t_process *p, t_var **var);
 
 void		put_foreground(t_job *j);
 void		put_background(t_job *j);
+
+int			test_builtin(t_process *p);
+int			find_builtins(t_process *p, t_var *var);
 
 void		wait_process(pid_t pid);
 void		print_start_process(t_job *j);

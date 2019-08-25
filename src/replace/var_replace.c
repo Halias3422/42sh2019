@@ -85,7 +85,6 @@ char		*replace_var_to_data(char *str, t_var *env)
 
 void		replace_var(t_var *env, t_alias *alias)
 {
-
 	while (alias)
 	{
 		if (ft_strchr(alias->data, '$'))

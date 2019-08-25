@@ -46,9 +46,21 @@ int		find_builtins(t_process *p, t_var *var)
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
 		{
 			p->ret = g_builtin_list[i].ptr_builtin(p, &var);
-			p->builtin = 1;
 			return (1);
 		}
+	}
+	return (0);
+}
+
+int		test_builtin(t_process *p)
+{
+	int i;
+
+	i = -1;
+	while (++i < LEN_BUILTIN_LIST)
+	{
+		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
+			return (1);
 	}
 	return (0);
 }
