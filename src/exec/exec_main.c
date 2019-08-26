@@ -153,6 +153,10 @@ int			redirect_job(t_process *p)
 	{
 		p->fd_out = open(p->file, O_CREAT | O_WRONLY | O_APPEND);
 	}
+	else if (p->split == '<')
+	{
+		p->fd_in = open(p->file, O_WRONLY);
+	}
 	else
 		p->fd_out = 1;
 	return (1);

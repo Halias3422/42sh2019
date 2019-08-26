@@ -99,3 +99,5 @@ fifo
 signal
 
 test\.c
+
+\.vscode/launch\.json
