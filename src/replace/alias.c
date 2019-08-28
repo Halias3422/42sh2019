@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/06 11:09:37 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/28 10:19:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,8 +94,8 @@ static void		print_list(t_alias *alias)
 		printf("alias->data = %s\n", alias->data);
 		alias = alias->next;
 		i++;
-		if (i >= 10)
-			__builtin_abort();		
+		// if (i >= 10)
+			// __builtin_abort();		
 	}
 	puts("-------------------------------------------------------------------------------");
 }
@@ -121,7 +121,7 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 		print_list(alias);
 		ret = replace_alias_while(s_var, alias);
 		print_list(alias);
-		__builtin_abort();
+		//__builtin_abort();
 		if (replace_alias_last_part(alias, &ret) == 0)
 		{
 			printf("break 2 :alias->data = %s\n", alias->data);
@@ -132,8 +132,8 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 		if (alias->next)
 			alias = alias->next;
 		i++;
-		if (i >= 10)
-			__builtin_abort();
+		// if (i >= 10)
+			// __builtin_abort();
 	}
 	alias->data = del_space(alias->data);
 }
