@@ -100,7 +100,6 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 
 	if (find_builtins(p, var) != 0)
 		return (1);
-
 	pid = fork();
 	if (pid == 0)
 		launch_process(p, var);
@@ -124,23 +123,13 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 
 t_process	*get_and_or(t_process *p)
 {
-	t_process	*p_next;
-
+	if (p->split != '|' && p->split != '&')
+		return (p->next);
 	if (p->ret == 0 && p->split == '|')
 		return (p->next->next);
 	else if (p->ret != 0 && p->split == '&')
 		return (p->next->next);
 	return (p->next);
-	p_next = p;
-	while (p_next)
-	{
-		if (p->split == '|' && p_next->split == '&')
-			return (p_next);
-		else if (p->split == '&' && p_next->split == '|')
-			return (p_next);
-		p_next = p_next->next;
-	}
-	return (NULL);
 }
 
 int			redirect_job(t_process *p)

@@ -25,7 +25,7 @@ int			ft_bg(t_process *p, t_var **var)
 
 	if (ft_tabclen(p->cmd) <= 1)
 	{
-		ft_printf("usage: bg %[job_id]");
+		ft_putstr_fd("usage: bg %[job_id]", p->fd_out);
 		return (1);
 	}
 	else
@@ -39,7 +39,7 @@ int			ft_bg(t_process *p, t_var **var)
 			return (0);
 		}
 		else
-			ft_printf("bg: job bot found");
+			ft_putstr_fd("bg: job bot found", p->fd_out);
 	}
 	var = NULL;
 	return (1);

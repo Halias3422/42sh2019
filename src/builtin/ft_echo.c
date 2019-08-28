@@ -23,10 +23,10 @@ int		ft_echo(t_process *p, t_var **var)
 	while (p->cmd[i] != NULL)
 	{
 		if (i != 1)
-			ft_putchar(' ');
-		ft_putstr(p->cmd[i]);
+			ft_putchar_fd(' ', p->fd_out);
+		ft_putstr_fd(p->cmd[i], p->fd_out);
 		i++;
 	}
-	ft_putchar('\n');
+	ft_putchar_fd('\n', p->fd_out);
 	return (0);
 }

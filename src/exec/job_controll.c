@@ -55,10 +55,8 @@ int			mark_process_status(pid_t pid, int status)
 			}
 			job_list = job_list->next;
 		}
-		return (-1);
 	}
-	else
-		return (-1);
+	return (-1);
 }
 
 void		print_job(t_job *j)
@@ -107,7 +105,7 @@ void		wait_process(pid_t pid)
 
 	pid = 0;
 	pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
-	while (mark_process_status(pid_test, status))
+	while (mark_process_status(pid_test, status) == 0)
 	{
 		pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
 	}
