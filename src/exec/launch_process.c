@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   exec_main.c                                      .::    .:/ .      .::   */
+/*   launch_process.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/30 11:29:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 14:23:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
+/*   Updated: 2019/08/29 18:55:29 by husahuc     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,9 +65,6 @@ int			ft_execute_test(t_process *p, t_var *var)
 
 int			launch_process(t_process *p, t_var *var)
 {
-	pid_t		pid;
-
-	pid = getpid();
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
@@ -119,95 +116,4 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 		}
 	}
 	return (1);
-}
-
-t_process	*get_and_or(t_process *p)
-{
-	if (p->split != '|' && p->split != 'A')
-		return (p->next);
-	if (p->split == '|' && p->ret != 0)
-		return (p->next);
-	else if (p->split == 'A' && p->ret == 0)
-		return (p->next);
-	return (p->next->next);
-}
-
-/*
-** file different, si < et > ?
-*/
-
-int			redirect_fd(t_process *p)
-{
-	p->file_out = p->cmd[1];
-	p->file_in = p->cmd[1];
-	p->split = 0;
-	if (p->split == 'f')
-		p->fd_out = open(p->file_out, O_CREAT | O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-	else if (p->split == 'F')
-		p->fd_out = open(p->file_out, O_CREAT | O_WRONLY | O_APPEND, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-	else if (p->split == '<')
-		p->fd_in = open(p->file_in, O_RDONLY);
-	else
-		p->fd_out = 1;
-	/*if (p->fd_in < 0)
-	{
-		ft_printf_err("42sh: %s: No such file or directory", p->file_in);
-		return (-1);
-	}
-	else if (p->fd_out < 0)
-	{
-		ft_printf_err("42sh: %s: No such file or directory", p->file_out);
-		return (-1);
-	}*/
-	return (1);
-}
-
-void		launch_job(t_job *j, t_var *var)
-{
-	t_process	*tmp;
-	int			infile;
-	int			mypipe[2];
-
-	infile = 0;
-	tmp = j->p;
-	if (j->p->builtin == 0)
-		add_job(j);
-	j->status = 'r';
-	while (tmp)
-	{
-		tmp->fd_in = infile;
-		if (tmp->split == 'P')
-		{
-			pipe(mypipe);
-			tmp->fd_out = mypipe[1];
-		}
-		else
-			redirect_fd(tmp);
-			//tmp->fd_out = 1;
-		fork_simple(j, tmp, var);
-		if (tmp->fd_in != STDIN_FILENO)
-			close(tmp->fd_in);
-		if (tmp->fd_out != STDOUT_FILENO)
-			close(tmp->fd_out);
-		infile = mypipe[0];
-		tmp = get_and_or(tmp);
-	}
-	if (j->p->builtin != 1)
-	{
-		if (j->split == '&')
-			print_start_process(j);
-		else if (job_is_stoped(j))
-			j->notified = 1;
-		else
-			remove_job(j->id);
-	}
-}
-
-void		main_exec(t_job *j, t_var *var)
-{
-	while (j)
-	{
-		launch_job(j, var);
-		j = j->next;
-	}
 }

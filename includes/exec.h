@@ -86,7 +86,7 @@ void		free_process(t_job *j);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		main_exec(t_job *j, t_var *var);
+void		launch_job(t_job *j, t_var *var);
 //int			solve_execve(char *path, char **arg, t_var *var);
 //int			main_exec_while(t_process *p, t_var *var);
 int		ft_test_path(t_process *p, t_var *var);
@@ -133,6 +133,8 @@ void		put_background(t_job *j);
 
 int			test_builtin(t_process *p);
 int			find_builtins(t_process *p, t_var *var);
+
+int			fork_simple(t_job *j, t_process *p, t_var *var);
 
 void		wait_process(pid_t pid);
 void		print_start_process(t_job *j);
