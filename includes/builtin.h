@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/25 09:03:13 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/29 08:23:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,7 +102,7 @@ void			prepare_s_flag(t_fc *fc, t_hist *hist);
 **		FC_EXECUTE_E_FLAG.C
 */
 
-void			prepare_e_flag(t_fc *fc, t_hist *hist);
+void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var);
 
 # define ARGUMENTS "cd: Too many arguments."
 # define CD_NO_HOME "cd: No HOME directory."

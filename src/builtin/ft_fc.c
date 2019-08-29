@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/25 09:06:41 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/29 08:24:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,6 +39,7 @@ static void		execute_fc_according_to_flags(t_fc *fc, t_var **var)
 {
 	t_hist	*hist;
 
+	(void)var;
 	hist = stock(NULL, 8);
 	while (hist && hist->next)
 		hist = hist->next;
@@ -61,7 +62,6 @@ int			ft_fc(t_process *p, t_var **var)
 	t_fc	fc;
 	int		i;
 
-	(void)var;
 /*	while (*var)
 	{
 		ft_printf("var->name = %s\n", (*var)->name);
