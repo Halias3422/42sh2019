@@ -105,8 +105,5 @@ void		wait_process(pid_t pid)
 
 	pid = 0;
 	pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
-	while (mark_process_status(pid_test, status) == 0)
-	{
-		pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
-	}
+	mark_process_status(pid_test, status);
 }

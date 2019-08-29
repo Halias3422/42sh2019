@@ -123,13 +123,13 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 
 t_process	*get_and_or(t_process *p)
 {
-	if (p->split != '|' && p->split != '&')
+	if (p->split != '|' && p->split != 'A')
 		return (p->next);
-	if (p->ret == 0 && p->split == '|')
-		return (p->next->next);
-	else if (p->ret != 0 && p->split == '&')
-		return (p->next->next);
-	return (p->next);
+	if (p->split == '|' && p->ret != 0)
+		return (p->next);
+	else if (p->split == 'A' && p->ret == 0)
+		return (p->next);
+	return (p->next->next);
 }
 
 int			redirect_job(t_process *p)
