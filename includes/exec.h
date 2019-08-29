@@ -42,7 +42,8 @@ typedef	struct			s_process
 	int					fd_in;
 	int					fd_out;
 	int					fd_error;
-	char				*file;
+	char				*file_out;
+	char				*file_in;
 }						t_process;
 
 typedef struct			s_job

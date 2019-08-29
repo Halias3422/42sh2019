@@ -25,6 +25,8 @@ void		process_status(t_process *process, t_job_list *job_list, int status)
 	}
 	else
 	{
+		if (WIFSIGNALED(status))
+			ft_printf_err("terminated by signal %d", WTERMSIG(status));
 		job_list->j->status = 'f';
 		process->completed = FINISHED;
 		if (!process->builtin)
