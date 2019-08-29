@@ -17,7 +17,7 @@
 # include "exec.h"
 #include "termcaps.h"
 
-# define LEN_BUILTIN_LIST 12
+# define LEN_BUILTIN_LIST 13
 
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
@@ -51,6 +51,8 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 
 int				verif_int(char *name);
 int				comp_num_operator(char *name1, char *type, char *name2);
+
+int		ft_exit(t_process *p, t_var **var);
 
 # define ARGUMENTS "cd: Too many arguments."
 # define CD_NO_HOME "cd: No HOME directory."
