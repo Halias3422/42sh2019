@@ -33,7 +33,7 @@ else
 pos.error = 0;
 */
 
-static int		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
+int		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
 {
 	int	res;
 
@@ -72,11 +72,6 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	job_notification();
 	if (ans == NULL)
 		return (1);
-	if (ans && ft_strncmp("exit", ans, 4) == 0)
-	{
-		exit_mode(&pos, hist, my_env);
-		return (1);
-	}
 	if (pos.error == 1)
 		error_handling(&pos, NULL, 0);
 	if ((check_error(ans)) != -1)

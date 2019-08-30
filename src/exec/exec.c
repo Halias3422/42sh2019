@@ -63,6 +63,5 @@ int			start_exec(t_lexeur **res, t_var *var)
 		launch_job(j, var);
 		j = j->next;
 	}
-	//main_exec(j, var);
 	return (0);
 }

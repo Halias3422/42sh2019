@@ -63,7 +63,8 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist)
 		else if (buf[0] == 4)
 		{
 			if (!pos->ans || !pos->ans[0])
-				return ("exit");
+				exit (0);
+				//return ("exit");
 		}
 		if (pos->max_co > 2)
 			hist = check_input(buf, pos, hist);
