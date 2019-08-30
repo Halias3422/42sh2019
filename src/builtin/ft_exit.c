@@ -6,7 +6,8 @@ int		ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
-	//p = NULL;
+	if (p->next != NULL)
+		return (0);
 	var = NULL;
 	status = ft_atoi(p->cmd[1]);
 	if (status < 0)

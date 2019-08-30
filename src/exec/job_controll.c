@@ -51,7 +51,7 @@ int			mark_process_status(pid_t pid, int status)
 				{
 					process->status = status;
 					process_status(process, job_list, status);
-					return(0);
+					return (0);
 				}
 				process = process->next;
 			}

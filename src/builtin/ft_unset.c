@@ -31,9 +31,9 @@ int			ft_unset(t_process *p, t_var **ptr_var)
 	while (p->cmd[++i])
 	{
 		if (ft_unset_var(p->cmd[i], ptr_var))
-			ft_printf("ok\n");
+			ft_printf("unset: %s deleted\n", p->cmd[i]);
 		else
-			ft_printf("not\n");
+			ft_printf("unset: can not unset: %s\n", p->cmd[i]);
 	}
 	return (0);
 }

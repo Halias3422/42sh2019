@@ -47,10 +47,9 @@ int			job_is_stoped(t_job *j)
 	p = j->p;
 	while (p)
 	{
+		printf("%c\n", p->stoped);
 		if (p->stoped == 0)
-		{
 			return (0);
-		}
 		p = p->next;
 	}
 	return (1);
