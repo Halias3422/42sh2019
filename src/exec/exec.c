@@ -6,48 +6,13 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/20 00:01:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 10:58:58 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
-
-void		print_job(t_job *j)
-{
-	int		job;
-	int		i;
-	int		process;
-	t_process	*start;
-
-	job = 0;
-	i = 0;
-	process = 0;
-	puts("\n------------------------  EXEC  ------------------------");
-	while (j)
-	{
-		ft_printf("\n---jobs---[%d]->next: _%p_\tsplit: _%c_\n", job, j->next, j->split);
-		job++;
-		start = j->p;
-		while (j->p)
-		{
-			ft_printf("--process--[%d]->next: _%p_\tsplit:_%c_\ttoken: |%s|\tredirection: _%s_\tfd_%d_\tnb: %d\n", process, j->p->next, j->p->split, j->p->token, j->p->redirection, j->p->fd, j->p->number);
-			process++;
-			while (j->p->cmd[i])
-			{
-				ft_printf("cmd[%d]-> _%s_\n", i, j->p->cmd[i]);
-				i++;
-			}
-			i = 0;
-			j->p = j->p->next;
-		}
-		j->p = start;
-		process = 0;
-		j = j->next;
-	}
-	puts("");
-}
 
 void		init_job(t_job *j)
 {
@@ -83,40 +48,20 @@ void		fill_job(t_job *j, t_lexeur **res)
 	j->next = NULL;
 }
 
-void		add_number(t_job *j)
-{
-	int			nb;
-	t_job		*s_job;
-	t_process	*s_process;
-
-	s_job = j;
-	while (s_job)
-	{
-		s_process = j->p;
-		nb = 0;
-		while (s_process)
-		{
-			s_process->number = nb;
-			nb++;
-			s_process = s_process->next;
-		}
-		s_job = s_job->next;
-	}
-}
-
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
-	t_job		*s;
 
 	j = malloc(sizeof(t_job));
+	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
-	s = j;
-	add_number(j);
-	// print_job(j);
-	main_exec(j, var);
-	free_all_job(s);
+
+	while (j)
+	{
+		launch_job(j, var);
+		j = j->next;
+	}
 	return (0);
 }

@@ -1,42 +1,22 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_job.c                                         .::    .:/ .      .::   */
+/*   double_quote.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/07/17 04:49:29 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/18 07:08:15 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/05/15 13:55:20 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/20 18:04:03 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-/*
-#include "../../includes/exec.h"
-#include "../../includes/builtin.h"
 
-char		*fill_str(t_process *p)
+#include "../../includes/lexeur.h"
+
+void		fill_lex_doudle_quote(char *buf, int *i, int *start)
 {
-	int			i;
-	char		*res;
-
-	i = 0;
-	res = ft_strdup(res);
-	while (p->cmd[i])
-	{
-		ft_strjoin_free(res, p->cmd[i]);
-		i++;
-	}
-	return (res);
+	(*i)++;
+	*start = *i;
+	while (buf[*i] && buf[*i] != '"')
+		(*i)++;
 }
-
-int			ft_job(t_process *p, t_var *var, t_job *j)
-{
-	char	**res;
-	char	*str;
-
-	str = fill_str(p);
-	res = ft_strsplit(str, ' ');
-
-	return (0);
-}
-*/

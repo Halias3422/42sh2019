@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/09 18:42:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/30 15:30:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,6 +14,12 @@
 #include "termcaps.h"
 
 struct s_hist **ghist;
+
+void		signal_handler(pid_t pid)
+{
+	ft_putchar('\n');
+	pid = 0;
+}
 
 static void		resize_screen(t_pos *pos)
 {
@@ -44,19 +50,12 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
-	char	*pwd;
-
-	while ((*ghist) && (*ghist)->next)
+	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
-	if (pos->ans)
-		ft_strdel(&pos->ans);
 	write(1, "\n", 1);
-	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-				pwd = getcwd(NULL, 1000));
+	pos->ans = ft_secure_free(pos->ans);
 	init_pos(pos);
-	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 	print_prompt(pos);
-	ft_strdel(&pwd);
 }
 
 static void		sighandler(int signum)
@@ -68,19 +67,6 @@ static void		sighandler(int signum)
 		resize_screen(pos);
 	if (signum == CTRL_C)
 		ctrl_c(pos);
-}
-
-void			sig_child_handlers(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTERM, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGTSTP, SIG_DFL);
-	signal(SIGWINCH, SIG_DFL);
-	signal(SIGUSR1, SIG_DFL);
-	signal(SIGHUP, SIG_DFL);
-	signal(SIGIO, SIG_DFL);
 }
 
 void			signal_list(void)

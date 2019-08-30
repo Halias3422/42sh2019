@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/08/06 09:53:50 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/06/10 11:01:37 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -64,7 +64,7 @@ SSRC_NAME = ft_bzero.c ft_isalpha.c ft_isascii.c ft_itoa.c ft_itoa_base.c\
 			ft_strsplit.c ft_free_tab.c get_next_line.c ft_putcolor.c ft_putcolor2.c ft_isspace.c\
 			ft_strncpy.c ft_strjoinf.c ft_strchr.c ft_strcapitalizer.c ft_copy_part_str.c\
 			ft_swap_let_string.c ft_strrev.c ft_secure_free.c ft_strndup.c\
-			ft_strstr_case_unsensitive.c ft_strncmp_case_unsensitive.c ft_strfsub.c
+			ft_strstr_case_unsensitive.c ft_strncmp_case_unsensitive.c
 
 UINC_NAME = ft_unix.h
 USRC_NAME = ft_terminal_h.c ft_terminal_w.c ft_file_exists.c ft_create_file.c\
@@ -125,7 +125,7 @@ PEINC = $(addprefix $(INC_PATH), $(PEINC_NAME))
 #  									FLAG                                       #
 # **************************************************************************** #
 
-FLAGS = -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address
 
 # **************************************************************************** #
 # 									REGLES                                     #

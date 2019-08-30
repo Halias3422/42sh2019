@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_replace.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/05 11:23:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/08/18 18:07:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,7 +85,6 @@ char		*replace_var_to_data(char *str, t_var *env)
 
 void		replace_var(t_var *env, t_alias *alias)
 {
-
 	while (alias)
 	{
 		if (ft_strchr(alias->data, '$'))

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_type.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 14:14:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 14:23:35 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 14:51:00 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,7 +87,7 @@ int				ft_type(t_process *p, t_var **var)
 		else if (is_alias(p->cmd[i], *var))
 			ret = 0;
 		else
-			ft_printf_err("%s not found\n", p->cmd[i]);
+			ft_printf("%s not found\n", p->cmd[i]);
 	}
 	return (ret);
 }

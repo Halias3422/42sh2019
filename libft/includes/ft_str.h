@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/03 15:18:39 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/07/15 14:38:35 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 10:10:23 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,6 +84,5 @@ char				*ft_strrev(char *str);
 void				*ft_secure_free(void *to_free);
 int					ft_strstr_case_unsensitive(char *str, char *tofind);
 int					ft_strncmp_case_unsensitive(char *s1, char *s2, size_t n);
-char				*ft_strfsub(char *s, unsigned int start, size_t len);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_test.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 14:21:30 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 11:01:41 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ int			comp_operator(char *name1, char *type, char *name2)
 		return (ft_strcmp(name1, name2) != 0) ? 0 : 1;
 	else if (type[0] != '-')
 	{
-		ft_printf_err("test: condition expected: %s\n", type);
+		ft_printf("test: condition expected: %s\n", type);
 		return (1);
 	}
 	else
@@ -63,17 +63,17 @@ int			simple_operator(char *type, char *name)
 
 	if (type[0] != '-')
 	{
-		ft_printf_err("test: unknown condition: %s\n", type);
+		ft_printf("test: unknown condition: %s\n", type);
 		return (2);
 	}
 	if (ft_strlen(type) < 2)
 	{
-		ft_printf_err("zsh: parse error: condition expected: %s\n", type);
+		ft_printf("42sh: parse error: condition expected: %s\n", type);
 		return (2);
 	}
 	if (!ft_strchr("ebcdfLpSgurwx", type[1]) || ft_strlen(type) > 2)
 	{
-		ft_printf_err("test: unknown condition: %s\n", type);
+		ft_printf("test: unknown condition: %s\n", type);
 		return (2);
 	}
 	if (stat(name, &s_type) == -1)
@@ -85,7 +85,7 @@ int			simple_operator(char *type, char *name)
 	return (test_simple_operator(type, s_type));
 }
 
-int			ft_test_argv(char **argv)
+int			ft_test_argv(char **argv, int fd_out)
 {
 	int i;
 	int inv;
@@ -106,7 +106,7 @@ int			ft_test_argv(char **argv)
 		i = comp_operator(argv[1], argv[2], argv[3]);
 	else
 	{
-		ft_printf_err("test: too many arguments");
+		ft_putstr_fd("test: too many arguments", fd_out);
 		return (2);
 	}
 	if (inv == 1)
@@ -119,6 +119,6 @@ int			ft_test(t_process *p, t_var **var)
 	int ret;
 
 	var = NULL;
-	ret = ft_test_argv(p->cmd);
+	ret = ft_test_argv(p->cmd, p->fd_out);
 	return (ret);
 }
