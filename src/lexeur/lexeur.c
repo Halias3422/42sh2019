@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:14:57 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/30 16:12:59 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 #include "../../includes/check_error.h"
 #include "../../includes/termcaps.h"
 
-t_token g_fill_token[10] =
+t_token g_fill_token[12] =
 {
 	{"&&", 2, T_AND},
 	{"&", 1, T_EXEC_SIM},
@@ -26,6 +26,8 @@ t_token g_fill_token[10] =
 	{"<<", 2, T_IN_D},
 	{"<", 1, T_IN_S},
 	{";", 1, T_SEMI},
+	{">&", 2, T_AG_FDO},
+	{"<&", 2, T_AG_FDI},
 	{NULL, 0, -1}
 };
 

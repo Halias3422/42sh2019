@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:01:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/30 17:05:12 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,7 +119,6 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 		print_list(alias);
 		ret = replace_alias_while(s_var, alias);
 		print_list(alias);
-		__builtin_abort();
 		if (replace_alias_last_part(alias, &ret) == 0)
 		{
 			printf("break 2 :alias->data = %s\n", alias->data);

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/30 17:22:48 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,14 +33,10 @@ void		fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 		(*j)->p->token = ft_strdup(ft_strjoin(">>", res[*i]->redirection));
 	else if (res[*i]->token == 5)
 		(*j)->p->token = ft_strdup(ft_strjoin(">", res[*i]->redirection));
-	else if (res[*i]->token == 6)
-		(*j)->p->token = ft_strdup(ft_strjoin("<<", res[*i]->redirection));
-	else if (res[*i]->token == 7)
-		(*j)->p->token = ft_strdup(ft_strjoin("<", res[*i]->redirection));
 	else
 	{
 		if (!res[*i]->redirection)
-			(*j)->p->token = ft_strdup("");
+			(*j)->p->token = NULL;
 		(*j)->p->cmd[*k] = ft_strdup(res[*i]->word);
 		(*k)++;
 	}

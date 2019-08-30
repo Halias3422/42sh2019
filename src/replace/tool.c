@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 19:11:32 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/30 18:39:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ void		split_space_find_number(char *str, int *i)
 void		split_space_basic(char *str, int *i)
 {
 	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
-	&& (find_token(str, *i) == -1) && (str[*i] < '0' || str[*i] > '9')))
+	&& (find_token(str, *i) == -1)))
 	{
 		if (str[*i] == '\'' && (*i == 0 || str[(*i) - 1] != '\\'))
 		{
@@ -66,22 +66,34 @@ void		basic_split_while(int *i, char *str, char **res, int *k)
 
 	while (str[*i] && ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == ' '))
 		(*i)++;
-	if (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '))
+	if (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' ' && find_token(str, *i) == -1))
 	{
 		start = *i;
-		if (str[*i] && ((str[*i] >= '0' && str[*i] <= '9') ||
-		(find_token(str, *i) >= 4 && find_token(str, *i) <= 7)))
+		if (str[*i] && ((str[*i] >= '0' && str[*i] <= '9') &&
+		(find_token(str, *i) == 9 && find_token(str, *i) == 10)))
+		{
+			//modifier la condition pour les >& et <& 
+			//TODO gerer les int collé avant les redirections les zapper
+			puts("oups");
 			split_space_find_number(str, i);
+		}
 		else
+		{
+			puts("okk");
 			split_space_basic(str, i);
+		}
 		res[*k] = ft_strsub(str, start, (*i) - start);
+		printf("\t=->>\tres[%d]: _%s_\n", *k, res[*k]);
+		(*k)++;
 	}
 	if (str[*i] && (ret = find_token(str, *i)) != -1)
 	{
 		res[*k] = ft_strsub(str, *i, g_fill_token[ret].size);
-		(*i) += g_fill_token[ret].size;
+		printf("\t=->>\tres[%d]: _%s_\n", *k, res[*k]);
+		(*i) += g_fill_token[ret].size - 1;
+		(*k)++;
 	}
-	(*k)++;
+	printf("str[%d]: _%c_\n", *i, str[*i]);
 	if (str[*i])
 		(*i)++;
 }
@@ -97,10 +109,9 @@ char		**split_space(char *str)
 	res = malloc(sizeof(char *) * (cnt_size(str) + 1));
 	while (str[i])
 	{
-		res[k] = NULL;
 		basic_split_while(&i, str, res, &k);
 	}
-	res[k] = 0;
+	res[k] = NULL;
 	return (res);
 }
 

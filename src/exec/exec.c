@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/30 16:08:36 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,12 +48,25 @@ void		fill_job(t_job *j, t_lexeur **res)
 	j->next = NULL;
 }
 
+void		print_res(t_lexeur **res)
+{
+	int		i;
+
+	i = 0;
+	while (res[i])
+	{
+		//printf("res[%d]:word -> _%s_\ttoken -> %d\tred -> _%s_\n", i, res[i]->word, res[i]->token, res[i]->redirection);
+		i++;
+	}
+}
+
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
 
 	j = malloc(sizeof(t_job));
 	j->pgid = 0;
+	print_res(res);
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
