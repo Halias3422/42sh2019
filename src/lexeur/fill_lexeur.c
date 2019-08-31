@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 16:08:42 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/31 11:33:46 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,7 @@ void		jump_space(char *buf, int *i)
 void		fill_struct(t_lexeur *res, char *word, enum e_token token,
 char *red)
 {
+	printf("red -> _%s_\tword: _%s_\ttoken: %d\n", red, word, token);
 	if (word)
 		res->word = ft_strdup(word);
 	else
@@ -36,19 +37,19 @@ char *red)
 	ft_strdel(&red);
 }
 
-t_lexeur	*fill_lex_redirection(char *buf, t_lexeur *res, int *i, int token)
+t_lexeur	*fill_lex_redirection(char **buf, t_lexeur *res, int *i, int token)
 {
-	if (token == 4 || token == 5 || token == 6 || token == 7)
+	if (token == 4 || token == 5)
 	{
-		fill_struct(res, NULL, token, fill_redirection(buf, i, token));
+		fill_struct(res, NULL, token, ft_strdup(buf[*i + 1]));
+		(*i)++;
 		return (res);
 	}
 	fill_struct(res, NULL, token, NULL);
-	*i += g_fill_token[token].size;
 	return (res);
 }
 
-t_lexeur	*fill_lex_while(char *buf, int *i, int token)
+t_lexeur	*fill_lex_while(char **buf, int *i, int token)
 {
 	t_lexeur	*res;
 
@@ -57,7 +58,7 @@ t_lexeur	*fill_lex_while(char *buf, int *i, int token)
 		return (fill_lex_redirection(buf, res, i, token));
 	else
 	{
-		fill_struct(res, buf, -1, NULL);
+		fill_struct(res, buf[*i], -1, NULL);
 		return (res);
 	}
 	return (NULL);
@@ -67,8 +68,8 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 {
 	int			i;
 	int			j;
-	int			k;
-	t_lexeur	*tmp;
+//	int			k;
+//	t_lexeur	*tmp;
 
 	i = 0;
 	j = 0;
@@ -81,15 +82,14 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	i = 0;
 	while (buf[i])
 	{
-		k = 0;
-		if ((tmp = find_fd(buf[i], 0)) != NULL)
-			array[j] = tmp;
-		else if (buf[i])
-			array[j] = fill_lex_while(buf[i], &k, find_token(buf[i], k));
+//		if ((tmp = find_fd(buf[i], 0)) != NULL)
+//			array[j] = tmp;
+		if (buf[i])
+			array[j] = fill_lex_while(buf, &i, find_token(buf[i], 0));
 		i++;
 		j++;
 	}
 	array[j] = NULL;
-	check_redirection(&array);
+//	check_redirection(&array);
 	return (array);
 }

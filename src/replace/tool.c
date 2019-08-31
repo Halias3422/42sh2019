@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 18:39:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/30 18:54:40 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,26 +74,19 @@ void		basic_split_while(int *i, char *str, char **res, int *k)
 		{
 			//modifier la condition pour les >& et <& 
 			//TODO gerer les int collé avant les redirections les zapper
-			puts("oups");
 			split_space_find_number(str, i);
 		}
 		else
-		{
-			puts("okk");
 			split_space_basic(str, i);
-		}
 		res[*k] = ft_strsub(str, start, (*i) - start);
-		printf("\t=->>\tres[%d]: _%s_\n", *k, res[*k]);
 		(*k)++;
 	}
 	if (str[*i] && (ret = find_token(str, *i)) != -1)
 	{
 		res[*k] = ft_strsub(str, *i, g_fill_token[ret].size);
-		printf("\t=->>\tres[%d]: _%s_\n", *k, res[*k]);
 		(*i) += g_fill_token[ret].size - 1;
 		(*k)++;
 	}
-	printf("str[%d]: _%c_\n", *i, str[*i]);
 	if (str[*i])
 		(*i)++;
 }
