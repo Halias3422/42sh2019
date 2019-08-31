@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 16:08:36 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/31 17:30:58 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,16 +48,31 @@ void		fill_job(t_job *j, t_lexeur **res)
 	j->next = NULL;
 }
 
-void		print_res(t_lexeur **res)
+void		print_exec(t_job *j)
 {
-	int		i;
+	int		i = 0;
+	t_job		*s_j;
+	t_process	*s_p;
 
-	i = 0;
-	while (res[i])
+	while (j)
 	{
-		//printf("res[%d]:word -> _%s_\ttoken -> %d\tred -> _%s_\n", i, res[i]->word, res[i]->token, res[i]->redirection);
-		i++;
+		s_j = j;
+		while (j->p)
+		{
+			s_p = j->p;
+			while (j->p->cmd[i])
+			{
+		//		printf("cmd[%d] _%s_\n", i, j->p->cmd[i]);
+				i++;
+			}
+		//	printf("token_%s_\tfile_out_%s_\n", j->p->token, j->p->file_out);
+			j->p = j->p->next;
+		}
+		i = 0;
+		j->p = s_p;
+		j = j->next;
 	}
+	j = s_j;
 }
 
 int			start_exec(t_lexeur **res, t_var *var)
@@ -66,11 +81,10 @@ int			start_exec(t_lexeur **res, t_var *var)
 
 	j = malloc(sizeof(t_job));
 	j->pgid = 0;
-	print_res(res);
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
-
+	print_exec(j);
 	while (j)
 	{
 		launch_job(j, var);

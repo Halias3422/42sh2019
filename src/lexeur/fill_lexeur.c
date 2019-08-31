@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/31 11:33:46 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/31 13:30:41 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,6 @@ void		jump_space(char *buf, int *i)
 void		fill_struct(t_lexeur *res, char *word, enum e_token token,
 char *red)
 {
-	printf("red -> _%s_\tword: _%s_\ttoken: %d\n", red, word, token);
 	if (word)
 		res->word = ft_strdup(word);
 	else
@@ -74,10 +73,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	i = 0;
 	j = 0;
 	while (buf[i])
-	{
-		printf("buf[%d]: _%s_\n", i, buf[i]);
 		i++;
-	}
 	array = malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])
