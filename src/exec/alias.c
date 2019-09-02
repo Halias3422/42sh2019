@@ -12,6 +12,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
 void	find_alias(t_process *p, t_var *var, int k)
 {

@@ -1,14 +1,28 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   job_notification.c                               .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
+/*   Updated: 2019/08/22 16:43:47 by husahuc     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
 void		update_status(void)
 {
 	int		status;
 	pid_t	pid;
 
-	pid = waitpid(WAIT_ANY, &status, WUNTRACED|WNOHANG);
+	pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
 	while (!mark_process_status(pid, status))
 	{
-		pid = waitpid(WAIT_ANY, &status, WUNTRACED|WNOHANG);
+		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
 	}
 }
 
@@ -34,7 +48,9 @@ int			job_is_stoped(t_job *j)
 	while (p)
 	{
 		if (p->stoped == 0)
+		{
 			return (0);
+		}
 		p = p->next;
 	}
 	return (1);

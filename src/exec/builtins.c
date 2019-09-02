@@ -13,6 +13,7 @@
 
 #include "../../includes/exec.h"
 #include "../../includes/builtin.h"
+#include "../../includes/termcaps.h"
 
 /*
 ** TODO faire en sorte qu'on puisse exec un builtins au milieu d'autres
@@ -32,7 +33,8 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"unset", &ft_unset},
 	{"fc", &ft_fc},
 	{"fg", &ft_fg},
-	{"jobs", &ft_jobs}
+	{"jobs", &ft_jobs},
+	{"exit", &ft_exit}
 };
 
 int		find_builtins(t_process *p, t_var *var)
@@ -45,9 +47,21 @@ int		find_builtins(t_process *p, t_var *var)
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
 		{
 			p->ret = g_builtin_list[i].ptr_builtin(p, &var);
-			p->builtin = 1;
 			return (1);
 		}
+	}
+	return (0);
+}
+
+int		test_builtin(t_process *p)
+{
+	int i;
+
+	i = -1;
+	while (++i < LEN_BUILTIN_LIST)
+	{
+		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
+			return (1);
 	}
 	return (0);
 }
