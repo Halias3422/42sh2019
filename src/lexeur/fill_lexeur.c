@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/31 13:30:41 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/02 10:03:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,6 +39,12 @@ char *red)
 t_lexeur	*fill_lex_redirection(char **buf, t_lexeur *res, int *i, int token)
 {
 	if (token == 4 || token == 5)
+	{
+		fill_struct(res, NULL, token, ft_strdup(buf[*i + 1]));
+		(*i)++;
+		return (res);
+	}
+	if (token == 7)
 	{
 		fill_struct(res, NULL, token, ft_strdup(buf[*i + 1]));
 		(*i)++;

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/31 17:29:44 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/02 10:16:55 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,13 +48,22 @@ void		fill_process_token(t_lexeur **res, t_job **j, int *i)
 	int		k;
 
 	k = *i;
-	while (res[*i + 1] && res[*i + 1]->redirection)
+	while (res[*i + 1] && res[*i + 1]->redirection && (res[*i]->token == 4 || res[*i]->token == 5))
 		(*i)++;
-	(*j)->p->file_out = ft_strdup(res[*i]->redirection);
+	if (res[*i]->token == 7)
+		(*j)->p->file_in = ft_strdup(res[*i]->redirection);
+	else
+		(*j)->p->file_in = NULL;
+	if (res[*i]->token == 4 || res[*i]->token == 5)
+		(*j)->p->file_out = ft_strdup(res[*i]->redirection);
+	else
+		(*j)->p->file_out = NULL;
 	if (res[*i]->token == 4)
 		(*j)->p->token = ft_strdup(">>");
 	else if (res[*i]->token == 5)
 		(*j)->p->token = ft_strdup(">");
+	else
+		(*j)->p->token = NULL;
 	(*i)++;//je saiis pas trop ca
 }
 
