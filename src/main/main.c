@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/10 11:17:17 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/31 16:09:12 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,22 +33,22 @@ else
 pos.error = 0;
 */
 
-int		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
-{
-	int	res;
+// int		exit_mode(t_pos *pos, t_hist *hist, t_var *var)
+// {
+// 	int	res;
 
-	res = 0;
-	if (ft_strlen(pos->ans) > 5)
-		res = ft_atoi(pos->ans + 5);
-	write_alias(var, pos);
-	free_env(var);
-	free(pos->prompt);
-	free_t_hist(hist);
-	free(pos->ans);
-	free(pos->path);
-	close(pos->history);
-	return (res);
-}
+// 	res = 0;
+// 	if (ft_strlen(pos->ans) > 5)
+// 		res = ft_atoi(pos->ans + 5);
+// 	//write_alias(var, pos);
+// 	free_env(var);
+// 	free(pos->prompt);
+// 	free_t_hist(hist);
+// 	free(pos->ans);
+// 	free(pos->path);
+// 	close(pos->history);
+// 	return (res);
+// }
 
 void			signal_main(void)
 {
@@ -67,7 +67,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
-	ans = termcaps42sh(&pos, hist);
+	ans = termcaps42sh(&pos, hist, my_env);
 	tcsetattr(2, TCSANOW, &(pos.old_term));
 	job_notification();
 	if (ans == NULL)

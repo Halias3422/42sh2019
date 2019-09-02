@@ -6,29 +6,12 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/29 09:16:52 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/05 08:48:48 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/31 16:00:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-
-void	write_alias(t_var *var, t_pos *pos)
-{
-	chdir(pos->path);
-	pos->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT , 0664);
-	while (var)
-	{
-		if (var->type == 2)
-		{
-			write(pos->alias, var->name, ft_strlen(var->name));
-			write(pos->alias, "=", 1);
-			write(pos->alias, var->data, ft_strlen(var->data));
-			write(pos->alias, "\n", 1);
-		}
-		var = var->next;
-	}
-}
 
 void	init_alias(t_var *var, t_pos *pos)
 {

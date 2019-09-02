@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 18:12:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/02 10:34:23 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,19 +67,19 @@ int			replace_alias_first_part(t_var **s_var, t_alias *alias)
 	return (1);
 }
 
-int			replace_alias_last_part(t_alias *alias, int *ret, t_replace *replace)
+int			replace_alias_last_part(t_alias *alias, int *ret, t_replace *replace, t_var *var)
 {
-	puts(replace->name);
-	printf("---%s--- et ---%d---\n", alias->data, *ret);
+	(void)replace;
 	if (alias->next && check_last_char(alias, (*ret)) == ' ')
 	{
 		while ((*ret) - 1)
 		{
 			alias = alias->next;
 			(*ret)--;
-			printf("---%s---\n", alias->data);
 		}
 	}
+	else if (replace_alias_first_part(&var, alias) == 1)
+		return (1);
 	else
 	{
 		alias->data = del_space(alias->data);
@@ -88,60 +88,33 @@ int			replace_alias_last_part(t_alias *alias, int *ret, t_replace *replace)
 	return (1);
 }
 
-// boucles infines sur alias ls='ls -G'. (il faut gerer les boucles infinies et on est bon)
-
-static void		print_list(t_alias *alias)
+void		change_alias(char **str, char *replace)
 {
-	int i = 0;
-	while (alias)
-	{
-		printf("alias->data = %s\n", alias->data);
-		alias = alias->next;
-		i++;
-		if (i >= 10)
-			__builtin_abort();		
-	}
+	ft_strdel(str);
+	(*str) = ft_strdup(replace);
 }
 
 void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 {
 	t_var		*s_var;
 	int			ret;
-	int			i = 0;
 
-	(void)replace;
-	puts("-----------------------------------------------------------------------------------");
-	printf("function : replace_alias\n");
 	while (1)
 	{
 		s_var = var;
-		printf("avant :alias->data = %s\n", alias->data);
-		printf("return = %d\n", replace_alias_first_part(&s_var, alias));
 		if (replace_alias_first_part(&s_var, alias) == 0)
-		{
-			printf("break 1 :alias->data = %s\n", alias->data);
 			break ;
-		}
-		print_list(alias);
 		ret = replace_alias_while(s_var, alias);
-		print_list(alias);
-		if (replace_alias_last_part(alias, &ret, replace) == 0)
-		{
-			printf("break 2 :alias->data = %s\n", alias->data);
-			break ;
-		}
-		alias->data = del_space(alias->data);
-		printf("apres :alias->data = %s\n", alias->data);
 		if (ft_strcmp(alias->data, replace->name) == 0)
 		{
-			printf("boucle infinie\n");
-			ft_strdel(&alias->data);
-			alias->data = ft_strdup(replace->name);
+			change_alias(&alias->data, replace->name);
 			break ;
 		}
+		if (replace_alias_last_part(alias, &ret, replace, var) == 0)
+			break ;
+		alias->data = del_space(alias->data);
 		if (alias->next)
 			alias = alias->next;
-		i++;
 	}
 	alias->data = del_space(alias->data);
 }
