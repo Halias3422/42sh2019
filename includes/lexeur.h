@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 16:13:05 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/03 13:20:00 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,8 @@ typedef struct s_lexeur
 {
 	char        	*word;
 	enum e_token	token;
-	char        	*redirection;
+	char        	*file_in;
+	char			*file_out;
 	int				fd;
 } t_lexeur;
 

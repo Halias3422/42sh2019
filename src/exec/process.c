@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/02 10:16:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/03 13:28:05 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ int			cnt_process(t_lexeur **res, int i)
 	int		nb;
 
 	nb = 0;
-	while (res[i] && (res[i]->word || res[i]->redirection))
+	while (res[i] && (res[i]->word || res[i]->file_in || res[i]->file_out))
 	{
 		i++;
 		nb++;
@@ -48,16 +48,13 @@ void		fill_process_token(t_lexeur **res, t_job **j, int *i)
 	int		k;
 
 	k = *i;
-	while (res[*i + 1] && res[*i + 1]->redirection && (res[*i]->token == 4 || res[*i]->token == 5))
+	while (res[*i + 1] && res[*i + 1]->file_out)
 		(*i)++;
-	if (res[*i]->token == 7)
-		(*j)->p->file_in = ft_strdup(res[*i]->redirection);
+	(*j)->p->file_out = ft_strdup(res[*i]->file_out);
+	if (res[*i]->file_in)
+		(*j)->p->file_in = ft_strdup(res[*i]->file_in);
 	else
 		(*j)->p->file_in = NULL;
-	if (res[*i]->token == 4 || res[*i]->token == 5)
-		(*j)->p->file_out = ft_strdup(res[*i]->redirection);
-	else
-		(*j)->p->file_out = NULL;
 	if (res[*i]->token == 4)
 		(*j)->p->token = ft_strdup(">>");
 	else if (res[*i]->token == 5)
@@ -96,12 +93,13 @@ int *i)
 	while (res[*i] && (res[*i]->word))
 		fill_cmd(res, j, &k, i);
 	(*j)->p->cmd[k] = NULL;
-	if (res[*i] && res[*i]->redirection)
+	if (res[*i])
 		fill_process_token(res, j, i);
 	else
 	{
 		(*j)->p->token = NULL;
 		(*j)->p->file_out = NULL;
+		(*j)->p->file_in = NULL;
 	}
 	(*j)->p->builtin = test_builtin((*j)->p);
 	if (res[*i] && (res[*i]->token == 0 && res[*i]->token == 2))

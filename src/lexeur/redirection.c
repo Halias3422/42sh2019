@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 17:01:39 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/31 11:22:41 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/03 13:08:03 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,6 @@ t_lexeur		*fill_all(t_lexeur ***array, int j)
 	t_lexeur	*res;
 
 	res = malloc(sizeof(t_lexeur));
-	res->redirection = NULL;
 	res->word = NULL;
 	res->token = (*array)[j]->token;
 	res->fd = (*array)[j]->fd;
@@ -45,7 +44,6 @@ void			replace_input(t_lexeur ***array,
 	{
 		res[j] = malloc(sizeof(t_lexeur));
 		res[j]->token = (*array)[*i]->token;
-		res[j]->redirection = ft_strdup("");
 		res[j]->word = ft_strdup((*array)[*i]->word);
 		res[j]->fd = (*array)[*i]->fd;
 	}
@@ -54,7 +52,7 @@ void			replace_input(t_lexeur ***array,
 	{
 		res[j] = malloc(sizeof(t_lexeur));
 		res[j]->token = (*array)[*i]->token;
-		res[j]->redirection = ft_strdup((*array)[*i + 1]->word);
+//		res[j]->redirection = ft_strdup((*array)[*i + 1]->word);
 		res[j]->word = NULL;
 		res[j]->fd = (*array)[*i]->fd;
 		(*i)++;
