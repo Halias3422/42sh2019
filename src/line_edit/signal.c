@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 15:30:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/02 13:11:41 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 struct s_hist **ghist;
 
-void		signal_handler(pid_t pid)
+void			signal_handler(pid_t pid)
 {
 	ft_putchar('\n');
 	pid = 0;

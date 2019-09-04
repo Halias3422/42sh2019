@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 18:00:13 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/02 11:35:36 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,12 +46,6 @@ int			check_alias(char *array, t_var *var, t_replace *replace)
 		tmp_var = tmp_var->next;
 	if (!tmp_var)
 		return (0);
-	// while (r)
-	// {
-	// 	if (ft_strcmp(r->name, tmp_var->name) == 0)
-	// 		return (0);
-	// 	r = r->next;
-	// }
 	return (1);
 }
 
@@ -93,14 +87,6 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	return (done);
 }
 
-// static void		print_list(t_alias *alias)
-// {
-// 	while (alias)
-// 	{
-// 		alias = alias->next;
-// 	}
-// }
-
 char		**remove_env(t_var *start, char *str)
 {
 	char		**array;
@@ -110,7 +96,6 @@ char		**remove_env(t_var *start, char *str)
 	init_replace(&replace);
 	array = split_space(str);
 	alias = make_ar_to_list(array);
-	//print_list(alias);
 	replace->name = ft_strdup(alias->data);
 	while (1)
 	{
