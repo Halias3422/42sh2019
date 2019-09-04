@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:25:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 14:29:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,8 @@ static int					check_if_ename_is_text_editor(t_fc *fc, char **paths)
 	i = 0;
 	if (fc->ename == NULL || (fc->ename[0] > '0' && fc->ename[0] < '9'))
 	{
-		fc->int_first = ft_atoi(fc->ename);
+		if (fc->ename != NULL)
+			fc->int_first = ft_atoi(fc->ename);
 		fc->ename = ft_strdup("/usr/bin/vim");
 		return (1);
 	}
@@ -37,6 +38,7 @@ static int					check_if_ename_is_text_editor(t_fc *fc, char **paths)
 					fc->ename = ft_secure_free(fc->ename);
 					fc->ename = ft_strdup(read->d_name);
 					fc->ename = ft_strjoinf(paths[i], fc->ename, 2);
+					closedir(dirp);
 					return (1);
 				}
 			}
@@ -49,10 +51,12 @@ static int					check_if_ename_is_text_editor(t_fc *fc, char **paths)
 
 static void			correct_int_first_and_int_last(t_fc *fc, t_hist *hist)
 {
+	if (ft_strlen(fc->flags) == 0 && ft_strlen(fc->ename) > 1 && ((fc->ename[0] > '1' && fc->ename[0] < '9') || (fc->ename[0] == '-' && fc->ename[1] > '0' && fc->ename[1] < '9')))
+		fc->int_first = ft_atoi(fc->ename);
 	if (fc->first_not_precised == 1 && fc->last_not_precised == 1)
 	{
-		fc->int_first = hist->cmd_no;
-		fc->int_last = hist->cmd_no;
+		fc->int_first = hist->cmd_no - 1;
+		fc->int_last = hist->cmd_no - 1;
 	}
 	else if (fc->first_not_precised == 1)
 		fc->int_first = hist->cmd_no;
@@ -172,6 +176,8 @@ void				exec_new_cmds(char **new_cmds, char **env, char **paths, char ** arg_tmp
 			start_exec(start_lex(my_env, new_cmds[i]), my_env);
 		i++;
 	}
+//	ft_free_tab(new_cmds);
+	free_env(my_env);
 }
 
 void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env, char **paths)
@@ -192,6 +198,7 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env, char **paths)
 		wait(&father);
 		new_cmds = recover_new_cmds_from_tmp(new_cmds, fd);
 		exec_new_cmds(new_cmds, env, paths, arg_tmp);
+		ft_free_tab(arg_tmp);
 		return ;
 	}
 	else if (father == 0)
@@ -199,6 +206,7 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env, char **paths)
 		if (execve(fc->ename, arg_tmp , env) == -1)
 		{
 			ft_printf("execve error");
+			ft_free_tab(arg_tmp);
 			return ;
 		}
 	}
@@ -239,4 +247,7 @@ void				prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var)
 		fd = fill_command_to_send_to_text_editor(fc, hist);
 		exec_ide_with_tmp_file(fc, fd, env, paths);
 	}
+	i = 0;
+		ft_free_tab(paths);
+		ft_free_tab(env);
 }

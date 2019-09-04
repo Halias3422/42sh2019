@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:25:54 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 15:04:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,14 +35,53 @@ static void		init_fc_struct(t_fc *fc)
 	fc->error = 0;
 }
 
-static void		execute_fc_according_to_flags(t_fc *fc, t_var **var)
+static void		free_fc_struct(t_fc *fc)
+{
+	free(fc->flags_model);
+	free(fc->flags);
+	free(fc->ename);
+	free(fc->str_first);
+	free(fc->str_last);
+}
+
+void			check_if_e_flag_induced(t_fc *fc, t_process *p, t_hist *hist)
+{
+	if (p->cmd[1] && ((p->cmd[1][0] > '0' && p->cmd[1][0] <= '9') || (p->cmd[1][1] && p->cmd[1][0] == '-' && p->cmd[1][1] > '0' && p->cmd[1][1] <= '9')))
+	{
+		fc->first_not_precised = 0;
+		fc->int_first = ft_atoi(p->cmd[1]);
+	}
+	else if (p->cmd[1])
+	{
+		fc->first_not_precised = 0;
+		fc->str_first = ft_strdup(p->cmd[1]);
+	}
+	if (p->cmd[1] && p->cmd[2] && ((p->cmd[2][0] > '0' && p->cmd[2][0] <= '9') || (p->cmd[2][1] && p->cmd[2][0] == '-' && p->cmd[2][1] > '0' && p->cmd[2][1] <= '9')))
+	{
+		fc->last_not_precised = 0;
+		fc->int_last = ft_atoi(p->cmd[2]);
+	}
+	else if (p->cmd[1] && p->cmd[2])
+	{
+		fc->last_not_precised = 0;
+		fc->str_last = ft_strdup(p->cmd[2]);
+	}
+	else if (!p->cmd[1])
+	{
+		fc->first_not_precised = 0;
+		fc->int_first = hist->cmd_no - 1;
+	}
+}
+
+static void		execute_fc_according_to_flags(t_fc *fc, t_var **var, t_process *p)
 {
 	t_hist	*hist;
-
 	(void)var;
 	hist = stock(NULL, 8);
 	while (hist && hist->next)
 		hist = hist->next;
+	if (ft_strlen(fc->flags) == 0)
+		check_if_e_flag_induced(fc, p, hist);
 	if (fc->int_first == 0)
 		fc->int_first = hist->cmd_no - 1;
 	if (fc->int_last == 0)
@@ -52,8 +91,8 @@ static void		execute_fc_according_to_flags(t_fc *fc, t_var **var)
 	if (ft_strchr(fc->flags, 'l') != NULL)
 		prepare_l_flag(fc, hist);
 	else if (ft_strchr(fc->flags, 's') != NULL)
-		prepare_s_flag(fc, hist);
-	else if (ft_strchr(fc->flags, 'e') != NULL)
+		prepare_s_flag(fc, hist, var);
+	else if (ft_strchr(fc->flags, 'e') != NULL || ft_strlen(fc->flags) == 0)
 		prepare_e_flag(fc, hist, var);
 }
 
@@ -67,8 +106,8 @@ int			ft_fc(t_process *p, t_var **var)
 	if (fc.error == 0)
 	{
 		get_str_args_of_fc(&fc, p, i, 0);
-		
-		execute_fc_according_to_flags(&fc, var);
+		execute_fc_according_to_flags(&fc, var, p);
 	}
+	free_fc_struct(&fc);
 	return (0);
 }

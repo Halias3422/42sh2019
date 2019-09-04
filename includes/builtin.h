@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 08:24:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 15:05:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,6 +82,7 @@ void			print_fc_usage(void);
 */
 
 void			get_str_args_of_fc(t_fc *fc, t_process *p, int i, int check);
+void			make_str_arg_into_int(t_fc *fc, t_hist *hist);
 
 /*
 **		FC_GET_FLAGS.C
@@ -100,7 +101,7 @@ void			prepare_l_flag(t_fc *fc, t_hist *hist);
 **		FC_EXECUTE_S_FLAG.C
 */
 
-void			prepare_s_flag(t_fc *fc, t_hist *hist);
+void			prepare_s_flag(t_fc *fc, t_hist *hist, t_var **var);
 
 /*
 **		FC_EXECUTE_E_FLAG.C

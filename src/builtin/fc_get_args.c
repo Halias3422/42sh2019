@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 18:16:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/25 07:41:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 15:22:03 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ static void		get_str_arg(t_process *p, char **str, int *is_str, int i)
 	*is_str = 1;
 }
 
-static void		make_str_arg_into_int(t_fc *fc, t_hist *hist)
+void		make_str_arg_into_int(t_fc *fc, t_hist *hist)
 {
 	int			check;
 
@@ -43,7 +43,7 @@ static void		make_str_arg_into_int(t_fc *fc, t_hist *hist)
 			}
 		}
 	}
-	while (hist->next->next)
+	while (hist && hist->next && hist->next->next)
 		hist = hist->next;
 	if (fc->last_is_str == 1)
 	{
