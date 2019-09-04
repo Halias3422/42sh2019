@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/03 13:28:05 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ int			cnt_process(t_lexeur **res, int i)
 	int		nb;
 
 	nb = 0;
-	while (res[i] && (res[i]->word || res[i]->redirection))
+	while (res[i] && (res[i]->word || res[i]->file_in || res[i]->file_out))
 	{
 		i++;
 		nb++;
@@ -29,21 +29,8 @@ int			cnt_process(t_lexeur **res, int i)
 
 void		fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 {
-	if (res[*i]->token == 4)
-		(*j)->p->token = ft_strdup(ft_strjoin(">>", res[*i]->redirection));
-	else if (res[*i]->token == 5)
-		(*j)->p->token = ft_strdup(ft_strjoin(">", res[*i]->redirection));
-	else if (res[*i]->token == 6)
-		(*j)->p->token = ft_strdup(ft_strjoin("<<", res[*i]->redirection));
-	else if (res[*i]->token == 7)
-		(*j)->p->token = ft_strdup(ft_strjoin("<", res[*i]->redirection));
-	else
-	{
-		if (!res[*i]->redirection)
-			(*j)->p->token = ft_strdup("");
-		(*j)->p->cmd[*k] = ft_strdup(res[*i]->word);
-		(*k)++;
-	}
+	(*j)->p->cmd[*k] = ft_strdup(res[*i]->word);
+	(*k)++;
 	(*i)++;
 }
 
@@ -54,6 +41,27 @@ void		change_job(t_job **j, t_process **start)
 	(*j) = (*j)->next;
 	(*j)->p = malloc(sizeof(t_process));
 	*start = (*j)->p;
+}
+
+void		fill_process_token(t_lexeur **res, t_job **j, int *i)
+{
+	int		k;
+
+	k = *i;
+	while (res[*i + 1] && res[*i + 1]->file_out)
+		(*i)++;
+	(*j)->p->file_out = ft_strdup(res[*i]->file_out);
+	if (res[*i]->file_in)
+		(*j)->p->file_in = ft_strdup(res[*i]->file_in);
+	else
+		(*j)->p->file_in = NULL;
+	if (res[*i]->token == 4)
+		(*j)->p->token = ft_strdup(">>");
+	else if (res[*i]->token == 5)
+		(*j)->p->token = ft_strdup(">");
+	else
+		(*j)->p->token = NULL;
+	(*i)++;//je saiis pas trop ca
 }
 
 void		fill_process_split(t_job **j, t_lexeur **res, int *i)
@@ -82,11 +90,19 @@ int *i)
 	k = 0;
 	fill_process_split(j, res, i);
 	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
-	while (res[*i] && (res[*i]->word || res[*i]->redirection))
+	while (res[*i] && (res[*i]->word))
 		fill_cmd(res, j, &k, i);
 	(*j)->p->cmd[k] = NULL;
-	if (res[*i] && (res[*i]->token != 1 && res[*i]->token != 8 && res[*i]->token
-	!= 4 && res[*i]->token != 5 && res[*i]->token != 6 && res[*i]->token != 7))
+	if (res[*i])
+		fill_process_token(res, j, i);
+	else
+	{
+		(*j)->p->token = NULL;
+		(*j)->p->file_out = NULL;
+		(*j)->p->file_in = NULL;
+	}
+	(*j)->p->builtin = test_builtin((*j)->p);
+	if (res[*i] && (res[*i]->token == 0 && res[*i]->token == 2))
 	{
 		(*j)->p->next = malloc(sizeof(t_process));
 		(*j)->p = (*j)->p->next;
@@ -95,12 +111,6 @@ int *i)
 	else if ((res[*i] && (*j)->next != NULL) && (res[*i]->token == 1 ||
 	res[*i]->token == 8))
 		change_job(j, start);
-	else
-	{
-		(*j)->p->next = NULL;
-		(*j)->p = *start;
-		return (0);
-	}
 	return (1);
 }
 
@@ -112,13 +122,17 @@ void		fill_process(t_job *j, t_lexeur **res)
 	i = 0;
 	j->p = malloc(sizeof(t_process));
 	start = j->p;
-	j->p->status = '\0';
 	while (res[i])
 	{
-		if (fill_process_while(res, &j, &start, &i) == 0)
-			break ;
-		i++;
+		j->p->status = '\0';
+		j->p->stoped = 0;
+		j->p->completed = 0;
+		fill_process_while(res, &j, &start, &i);
+		if (res[i])
+			i++;
 	}
+	j->p->next = NULL;
+	j->p = start;
 }
 
 void		free_process(t_job *j)

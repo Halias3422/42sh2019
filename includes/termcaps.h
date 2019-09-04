@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   termcaps.h                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 11:02:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/05 09:16:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,6 +90,7 @@ typedef struct		s_pos
 	int				let_nb;
 	int				let_nb_saved;
 	int				history;
+	int				alias;
 	int				history_mode;
 	int				history_loop;
 	char			*prompt;
@@ -107,6 +108,7 @@ typedef struct		s_pos
 	char			*toto;
 	int				replace_hist;
 	int				error;
+	char			*path;
 	struct termios	old_term;
 	struct termios	my_term;
 }					t_pos;
@@ -519,6 +521,12 @@ void		free_heredoc(t_tok *in);
 void		free_all_check_token(t_tok *in, t_tokench *tok);
 
 /*
+** init_alias.c
+*/
+void		init_alias(t_var *var, t_pos *pos);
+void		write_alias(t_var *var, t_pos *pos);
+
+/*
 *******************************************************************************
 ***							init_term.c										***
 *******************************************************************************
@@ -538,9 +546,10 @@ int						ft_put_c(int c);
 ***								env.c										***
 *******************************************************************************
 */
-t_var					*init_env(char **env);
+t_var					*init_env(char **env, t_pos *pos);
 char					*init_name(char *src);
-void					 free_env(t_var *ptr_env);
+void					free_env(t_var *ptr_env);
+char					*init_data(char *src);
 
 /*
 *******************************************************************************

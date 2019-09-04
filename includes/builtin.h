@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/29 08:23:40 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 08:24:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,9 +15,10 @@
 # define BUILTIN_H
 
 # include "exec.h"
+# include "termcaps.h"
 # include <dirent.h>
 
-# define LEN_BUILTIN_LIST 10
+# define LEN_BUILTIN_LIST 13
 # define TERM "42sh"
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
@@ -57,6 +58,8 @@ int				ft_set(t_process *p, t_var **ptr_var);
 int				ft_type(t_process *p, t_var **var);
 int				ft_export(t_process *p, t_var **ptr_var);
 int				ft_unset(t_process *p, t_var **ptr_var);
+int				ft_fg(t_process *p, t_var **var);
+int				ft_jobs(t_process *p, t_var **var);
 
 char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);
@@ -66,6 +69,7 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name);
 int				comp_num_operator(char *name1, char *type, char *name2);
 
+int				ft_exit(t_process *p, t_var **var);
 /*
 **		FT_FC.c
 */

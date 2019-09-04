@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 13:22:25 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/03 13:20:00 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,16 +37,16 @@ enum e_token
 	T_IN_D,
 	T_IN_S,
 	T_SEMI,
-	T_SUB,
-	T_ARITHMETIC,
-	T_HISTORY
+	T_AG_FDO,
+	T_AG_FDI,
 };
 
+typedef struct s_alias t_alias;
 typedef struct s_var t_var;
 
 typedef struct s_token
 {
-  const char    *name;
+  char    *name;
   int           size;
   enum e_token	token;
 } t_token;
@@ -55,7 +55,8 @@ typedef struct s_lexeur
 {
 	char        	*word;
 	enum e_token	token;
-	char        	*redirection;
+	char        	*file_in;
+	char			*file_out;
 	int				fd;
 } t_lexeur;
 
@@ -64,6 +65,12 @@ typedef struct s_already_replace
 	char						*name;
 	struct s_already_replace	*next;
 } t_replace;
+
+typedef struct s_temp_var
+{
+	char				*data;
+	struct s_temp_var	*next;
+} t_tvar;
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -75,7 +82,7 @@ t_lexeur	**start_lex(t_var *var, char *res);
 void		free_lexer(t_lexeur **array);
 int			find_token(char *buf, int i);
 int			cnt_wrd(char *buf);
-t_token     g_fill_token[10];
+t_token     g_fill_token[12];
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -94,7 +101,26 @@ void		jump_space(char *buf, int *i);
 
 void		fill_lex_solve_back_slash(char *buf, int *i, int *start);
 void		cnt_solve_back_slash(char *buf, int *i, int *cnt);
-void		del_back_slash(t_lexeur ***tabe);
+void		del_back_slash(char ***ar);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                             back_slash_end.c                               ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		del_back_slash_end(char ***ar);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                           back_slash_tools.c                               ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		cnt_solve_back_slash(char *buf, int *i, int *cnt);
+int			back_slash_count(char *str);
+int			del_back_slash_simple_quote(int *k, int j, char ***ar);
+int			del_back_slash_double_quote(int *k, int j, char ***ar);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -105,6 +131,14 @@ void		del_back_slash(t_lexeur ***tabe);
 char		*fill_redirection(char *buf, int *i, int token);
 t_lexeur	**find_input_redirection(t_lexeur ***tabe);
 t_lexeur	**check_redirection(t_lexeur ***tabe);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                 redirection.c                              ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void			free_ar_lexeur(t_lexeur ***array);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -136,7 +170,7 @@ char		**remove_env(t_var *var, char *str);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-char		*replace_env(t_var *env, char *str, int i);
+void		replace_var(t_var *env, t_alias *alias);
 char		*switch_word(char *str, char *tmp, int i);
 
 /*
@@ -147,13 +181,7 @@ char		*switch_word(char *str, char *tmp, int i);
 
 void        check_var(t_var *env, char **str);
 
-/*
-**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-**┃                                 var_replace.c                              ┃
-**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-*/
-
-char		*replace_var(t_var *env, char *str);
+char		**replace_env(t_var *env, char *str);
 int			f_check_var(t_var *env, char *str);
 
 /*
@@ -169,11 +197,32 @@ void		init_replace(t_replace **replace);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-**┃                                   tool.c                                   ┃
+**┃                               tool_cnt.c                                   ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
+void		cnt_size_simple_quote(int *i, int *nb, char *str);
+void		cnt_size_double_quote(int *i, int *nb, char *str);
+int			cnt_printable_char(int *nb, char *str, int *i);
+int			cnt_size(char *str);
 
-char		*replace_alias(char *array, t_var *var, t_replace *replace);
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                              tool_list.c                                   ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
 
+void		free_replace(t_replace *replace);
+void		init_replace(t_replace **replace);
+void		*get_replace(void *stock, int i);
+void		replace_alias(t_alias *alias, t_var *var, t_replace *replace);
+// char		**replace_alias(char ***array, t_var *var, t_replace *replace);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                   quote.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void   		remoove_quote(char ***array);
 #endif

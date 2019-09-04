@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:45:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 10:04:01 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 #include "../../includes/check_error.h"
 #include "../../includes/termcaps.h"
 
-t_token g_fill_token[10] =
+t_token g_fill_token[12] =
 {
 	{"&&", 2, T_AND},
 	{"&", 1, T_EXEC_SIM},
@@ -26,6 +26,8 @@ t_token g_fill_token[10] =
 	{"<<", 2, T_IN_D},
 	{"<", 1, T_IN_S},
 	{";", 1, T_SEMI},
+	{">&", 2, T_AG_FDO},
+	{"<&", 2, T_AG_FDI},
 	{NULL, 0, -1}
 };
 
@@ -92,8 +94,6 @@ int			cnt_wrd(char *buf)
 	return (cnt);
 }
 
-//TODO Make 'and "s
-
 t_lexeur	**start_lex(t_var *var, char *res)
 {
 	t_lexeur	**array;
@@ -111,8 +111,6 @@ void		free_lexer(t_lexeur **array)
 
 	i = -1;
 	while (array[++i])
-	{
 		free(array[i]);
-	}
 	free(array);
 }

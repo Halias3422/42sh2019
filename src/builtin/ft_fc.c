@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/29 08:24:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 10:25:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,13 +62,7 @@ int			ft_fc(t_process *p, t_var **var)
 	t_fc	fc;
 	int		i;
 
-/*	while (*var)
-	{
-		ft_printf("var->name = %s\n", (*var)->name);
-		ft_printf("var->data = %s\n\n", (*var)->data);
-		*var = (*var)->next;
-	}
-*/	init_fc_struct(&fc);
+	init_fc_struct(&fc);
 	i = determ_fc_flags(&fc, p, 0, 1);
 	if (fc.error == 0)
 	{

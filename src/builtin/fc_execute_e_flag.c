@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/29 13:27:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 10:25:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -113,8 +113,6 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd)
 	pwd = ft_strjoinf(pwd, "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
 	free(pwd);
-
-	ft_printf("fd = %d\n", fd);
 	while ((ret = get_next_line(fd, &line)))
 	{
 		if (ft_strlen(line) > 0)
@@ -159,30 +157,20 @@ char				*check_new_cmd_is_valid(char *new_cmds, char **paths)
 void				exec_new_cmds(char **new_cmds, char **env, char **paths, char ** arg_tmp)
 {
 	int				i;
-	pid_t			father;
+	t_var			*my_env;
 
-/* prevoir si nouvelle commande est un binaire existant ou non ou si c'est un builtin */
-
+	i = 0;
+	my_env = init_env(env, stock(NULL, 1));
+	(void)new_cmds;
+//	(void)env;
 	(void)paths;
-	father = fork();
+	(void)arg_tmp;
 	i = 0;
 	while (new_cmds[i])
 	{
-		if ((new_cmds[i] = check_new_cmd_is_valid(new_cmds[i], paths)) == 0)
-			return ;
-		if (father > 0)
-		{
-			wait(&father);
-			i++;
-		}
-		else if (father == 0)
-		{
-			if (execve(new_cmds[i], arg_tmp, env) == -1)
-			{
-				ft_printf("2eme execve error");
-				return ;
-			}
-		}
+		if ((check_error(new_cmds[i])) != -1)
+			start_exec(start_lex(my_env, new_cmds[i]), my_env);
+		i++;
 	}
 }
 
@@ -210,7 +198,7 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env, char **paths)
 	{
 		if (execve(fc->ename, arg_tmp , env) == -1)
 		{
-			ft_printf("execve error");	
+			ft_printf("execve error");
 			return ;
 		}
 	}
@@ -246,7 +234,6 @@ void				prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var)
 			fc->int_first = fc->int_last;
 			fc->int_last = swap;
 		}
-		//		cmds = ft_strnew(0);
 		while (hist->prev && hist->cmd_no + 1 > fc->int_first)
 			hist = hist->prev;
 		fd = fill_command_to_send_to_text_editor(fc, hist);

@@ -12,6 +12,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
 char	*ft_join_env(char *s1, char const *s2)
 {
@@ -80,22 +81,19 @@ char	*strjoin_path(char *s1, char *s2)
 	return (tmp);
 }
 
-int		use_execve_acces(char *tmp, char **res, t_var *l_var)
-{
-	if ((access(tmp, F_OK)) == 0)
-	{
-		if ((access(tmp, X_OK)) == -1)
-			ft_putstr("Permission denied.");
-		solve_execve(tmp, res, l_var);
-		ft_strdel(&tmp);
-		return (0);
-	}
-	return (1);
-}
-
 void	cnf_print_error(char *str)
 {
 	ft_putstr("42sh: \033[1;31merror: \033[0mcommand not found: ");
 	ft_putstr(str);
 	ft_putstr("\n");
+}
+
+void	ft_tabfree(char **res)
+{
+	int i;
+
+	i = -1;
+	while (res[++i])
+		free(res[i]);
+	free(res);
 }

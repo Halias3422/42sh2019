@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 09:27:30 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 15:53:17 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 08:59:03 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -217,10 +217,10 @@ void	print_hist(t_pos *pos, t_hist *hist)
 		if (i == 20)
 			break ;
 		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 77, i), 1, ft_putchar);
-		if (actual_hist == tmp->cmd_no)
-			ft_printf("cmd[%3d]    = {S.red.T.white.}%-35.35s/\n", i, tmp == NULL ? NULL : tmp->cmd);
-		else
-			ft_printf("cmd[%3d]    = %-35.35s/\n", i, tmp == NULL ? NULL : tmp->cmd);
+//		if (actual_hist == tmp->cmd_no)
+//			ft_printf("cmd[%3d]    = {S.red.T.white.}%-35.35s/\n", i, tmp == NULL ? NULL : tmp->cmd);
+//		else
+//			ft_printf("cmd[%3d]    = %-35.35s/\n", i, tmp == NULL ? NULL : tmp->cmd);
 		i++;
 		tmp = tmp->next;
 	}

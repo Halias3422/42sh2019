@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_echo.c                                        .::    .:/ .      .::   */
+/*   redirection_tools.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/01/26 15:00:57 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/16 15:12:54 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/08/18 18:15:37 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/03 13:08:15 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
-#include "../../includes/exec.h"
+#include "../../includes/lexeur.h"
 
-int		ft_echo(t_process *p, t_var **var)
+void			free_ar_lexeur(t_lexeur ***array)
 {
-	int i;
+	int		i;
 
-	i = 1;
-	var = NULL;
-	while (p->cmd[i] != NULL)
+	i = 0;
+	while ((*array)[i])
 	{
-		if (i != 1)
-			ft_putchar_fd(' ', p->fd_out);
-		ft_putstr_fd(p->cmd[i], p->fd_out);
+		ft_strdel(&(*array)[i]->word);
+	//	ft_strdel(&(*array)[i]->redirection);
 		i++;
 	}
-	ft_putchar_fd('\n', p->fd_out);
-	return (0);
+	free((*array));
 }

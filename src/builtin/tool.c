@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 11:13:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/08 17:23:29 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,9 @@ char		*ft_get_val(char *name, t_var *var, int type)
 	return (NULL);
 }
 
-// pointeur su premier element
+/*
+** pointeur su premier element
+*/
 
 void		remove_item_var(t_var *var)
 {

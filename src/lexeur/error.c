@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   error.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:15:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/30 19:38:15 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 18:14:02 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,13 +16,13 @@
 
 int		print_error(int token)
 {
-	ft_putstr("\n\t42sh: syntax ");
+	ft_putstr("42sh: syntax ");
 	ft_putstr(ERROR);
 	ft_putstr("error");
 	ft_putstr(WHITE);
 	ft_putstr(" near unexpected token `");
 	ft_putstr(g_fill_token[token].name);
-	ft_putstr("'\n\n");
+	ft_putstr("'\n");
 	return (-1);
 }
 
