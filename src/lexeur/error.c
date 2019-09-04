@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:15:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/03 18:49:43 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 17:24:17 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,18 @@ int		check_double_token(char *str, int i, int token)
 	return (0);
 }
 
+int		ft_check_is_null(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
+		i++;
+	if (!str[i])
+		return (0);
+	return (1);
+}
+
 int		check_error(char *str)
 {
 	int		i;
@@ -65,6 +77,8 @@ int		check_error(char *str)
 
 	i = 0;
 	if (ft_strcmp(str, "") == 0)
+		return (-1);
+	if (ft_check_is_null(str) == 0)
 		return (-1);
 	while (str[i])
 	{

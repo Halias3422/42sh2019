@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/03 19:40:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 13:02:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,19 +18,19 @@
 t_token g_fill_token[12] =
 {
 	{"&&", 2, T_AND},
-	{">>", 2, T_OUT_D},
-	{"||", 2, T_OR},
-	{"<<", 2, T_IN_D},
-	{">&", 2, T_AG_FDO},
-	{"<&", 2, T_AG_FDI},
 	{"&", 1, T_EXEC_SIM},
+	{"||", 2, T_OR},
 	{"|", 1, T_PIPE},
+	{">>", 2, T_OUT_D},
+	{">&", 2, T_AG_FDO},
 	{">", 1, T_OUT_S},
+	{"<<", 2, T_IN_D},
+	{"<&", 2, T_AG_FDI},
 	{"<", 1, T_IN_S},
 	{";", 1, T_SEMI},
 	{NULL, 0, -1}
 };
-//recoder find_token
+
 int			find_token(char *buf, int i)
 {
 	int	k;
@@ -38,7 +38,7 @@ int			find_token(char *buf, int i)
 	int	token;
 
 	token = 0;
-	while (g_fill_token[token].name != NULL)
+	while (g_fill_token[token].name)
 	{
 		k = i;
 		j = 0;

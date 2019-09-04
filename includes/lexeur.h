@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/03 19:37:48 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 13:02:31 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,14 +29,14 @@
 enum e_token
 {
 	T_AND,
-	T_OUT_D,
-	T_OR,
-	T_IN_D,
-	T_AG_FDO,
-	T_AG_FDI,
 	T_EXEC_SIM,
+	T_OR,
 	T_PIPE,
+	T_OUT_D,
+	T_AG_FDO,
 	T_OUT_S,
+	T_IN_D,
+	T_AG_FDI,
 	T_IN_S,
 	T_SEMI,
 };
