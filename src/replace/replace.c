@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/02 11:35:36 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 10:44:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,12 @@ int			check_alias(char *array, t_var *var, t_replace *replace)
 		tmp_var = tmp_var->next;
 	if (!tmp_var)
 		return (0);
+	// while (r)
+	// {
+	// 	if (ft_strcmp(r->name, tmp_var->name) == 0)
+	// 		return (0);
+	// 	r = r->next;
+	// }
 	return (1);
 }
 
@@ -87,25 +93,42 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	return (done);
 }
 
-char		**remove_env(t_var *start, char *str)
+// static void		print_list(t_alias *alias)
+// {
+// 	while (alias)
+// 	{
+// 		alias = alias->next;
+// 	}
+// }
+
+char		**start_split(t_var *start, char *str)
 {
-	char		**array;
+	char		**ar;
 	t_replace	*replace;
 	t_alias		*alias;
+	int			i = 0;
 
 	init_replace(&replace);
-	array = split_space(str);
-	alias = make_ar_to_list(array);
+	ar = split_space(str);
+	puts("--split--");
+	while (ar[i])
+	{
+		printf("tmp[%d]: _%s_\n", i, ar[i]);
+		i++;
+	}
+	puts("---------");
+	alias = make_ar_to_list(ar);
+	//print_list(alias);
 	replace->name = ft_strdup(alias->data);
 	while (1)
 	{
 		if (remove_env_while(alias, start, replace) == 0)
 			break ;
 	}
-	array = make_list_to_ar(alias);
-	del_back_slash(&array);
-	remoove_quote(&array);
-	del_back_slash_end(&array);
+	ar = make_list_to_ar(alias);
+	del_back_slash(&ar);
+	remoove_quote(&ar);
+	del_back_slash_end(&ar);
 	ft_strdel(&str);
-	return (array);
+	return (ar);
 }

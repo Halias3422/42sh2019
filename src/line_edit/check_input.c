@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/02 11:02:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 10:41:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,7 @@ static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {
-	if (buf[0] < 27)
+	if (buf[0] == 4)
 		return (hist);
 	if (buf[0] != 226 && buf[0] != 195)
 		selection_check(pos, (char*)buf);
