@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/31 16:09:12 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 18:39:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,11 +75,8 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 		return (1);
 	if (pos.error == 1)
 		error_handling(&pos, NULL, 0);
-	if ((check_error(ans)) != -1)
-	{
-		if ((lex = start_lex(my_env, ans)) != NULL)
-			start_exec(lex, my_env);
-	}
+	if ((lex = start_lex(my_env, ans)) != NULL)
+		start_exec(lex, my_env);
 	else
 		pos.ans = ft_secure_free(pos.ans);
 	pos.error = 0;

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 13:02:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 17:50:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,6 @@ int			find_token(char *buf, int i)
 	}
 	return (g_fill_token[token].token);
 }
-
 
 void		cnt_wrd_while(char *buf, int *i, int *cnt, int token)
 {
