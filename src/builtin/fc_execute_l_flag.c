@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 18:30:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/25 07:35:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 10:15:18 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,9 +24,6 @@ static void		print_l_flag(t_fc *fc, t_hist *hist)
 			ft_printf("	%s\n", hist->cmd);
 			fc->int_first += 1;
 			hist = hist->next;
-//			if (fc->int_first == fc->int_last && (fc->first_not_precised == 2 ||
-//						fc->last_not_precised == 2 < 0))
-//				break ;
 		}
 	}
 	else if (fc->int_first > fc->int_last)
@@ -47,12 +44,16 @@ static void		print_l_flag(t_fc *fc, t_hist *hist)
 
 static void		correct_int_first_and_int_last(t_fc *fc, t_hist *hist)
 {
+	if (fc->int_first >= hist->cmd_no)
+		fc->int_first = hist->cmd_no - 1;
+	if (fc->int_last >= hist->cmd_no)
+		fc->int_last = hist->cmd_no - 1;
 	if (fc->first_not_precised == 1 && fc->last_not_precised == 1)
 	{
 		fc->int_first = hist->cmd_no - 15;
 		if (fc->int_first < 0)
 			fc->int_first = 0;
-		fc->int_last = hist->cmd_no;
+		fc->int_last = hist->cmd_no - 1;
 	}
 	else if (fc->first_not_precised == 1)
 		fc->int_first = hist->cmd_no;
@@ -70,9 +71,9 @@ static void		correct_int_first_and_int_last(t_fc *fc, t_hist *hist)
 	}
 }
 
-void		prepare_l_flag(t_fc *fc, t_hist *hist)
+void			prepare_l_flag(t_fc *fc, t_hist *hist)
 {
-	int		swap;
+	int			swap;
 
 	correct_int_first_and_int_last(fc, hist);
 	if (ft_strchr(fc->flags, 'r') != NULL)

@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 18:16:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 15:22:03 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 14:30:18 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,25 @@ static void		get_str_arg(t_process *p, char **str, int *is_str, int i)
 {
 	*str = ft_strdup(p->cmd[i]);
 	*is_str = 1;
+}
+
+void		make_str_last_into_int(t_fc *fc, t_hist *hist)
+{
+	while (hist && hist->next && hist->next->next)
+		hist = hist->next;
+	if (fc->last_is_str == 1)
+	{
+		while (hist->prev)
+		{
+			hist = hist->prev;
+			if (ft_strncmp(fc->str_last, hist->cmd,
+						ft_strlen(fc->str_last)) == 0)
+			{
+				fc->int_last = hist->cmd_no + 1;
+				break ;
+			}
+		}
+	}
 }
 
 void		make_str_arg_into_int(t_fc *fc, t_hist *hist)
@@ -43,23 +62,13 @@ void		make_str_arg_into_int(t_fc *fc, t_hist *hist)
 			}
 		}
 	}
-	while (hist && hist->next && hist->next->next)
-		hist = hist->next;
-	if (fc->last_is_str == 1)
-	{
-		while (hist->prev)
-		{
-			hist = hist->prev;
-			if (ft_strncmp(fc->str_last, hist->cmd,
-						ft_strlen(fc->str_last)) == 0)
-			{
-				fc->int_last = hist->cmd_no + 1;
-				break ;
-			}
-		}
-	}
+	make_str_last_into_int(fc, hist);
 	if ((fc->int_first == -1 || fc->int_last == -1) && fc->error++ == 0)
+	{
+		remove_cmd_from_hist(hist);
+		overwrite_history_file(hist);
 		ft_printf_err("%s: fc: history specification out of range\n", TERM);
+	}
 }
 
 static void		check_if_str_args_need_correction(t_fc *fc, int check)
@@ -86,6 +95,7 @@ void		get_str_args_of_fc(t_fc *fc, t_process *p, int i, int check)
 	&& p->cmd[i] && (find_flags_order(fc, 'e', '\0', 0) == ft_strlen(fc->flags)
 		- 1 || find_flags_order(fc, 's', '\0', 0) == ft_strlen(fc->flags) - 1))
 		fc->ename = ft_strdup(p->cmd[i++]);
+
 	while (p->cmd[i] && check < 2)
 	{
 		if (((p->cmd[i][0] >= '0' && p->cmd[i][0] <= '9') || (p->cmd[i][1]

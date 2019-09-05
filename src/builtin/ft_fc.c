@@ -6,18 +6,12 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 15:04:40 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 13:44:23 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
-
-void		print_fc_usage(void)
-{
-	write(2, "fc: usage: fc [-e ename] [-nlr] [first] [last]", 46);
-	write(2, " or fc -s [pat=rep] [cmd]\n", 26);
-}
 
 static void		init_fc_struct(t_fc *fc)
 {
@@ -46,7 +40,9 @@ static void		free_fc_struct(t_fc *fc)
 
 void			check_if_e_flag_induced(t_fc *fc, t_process *p, t_hist *hist)
 {
-	if (p->cmd[1] && ((p->cmd[1][0] > '0' && p->cmd[1][0] <= '9') || (p->cmd[1][1] && p->cmd[1][0] == '-' && p->cmd[1][1] > '0' && p->cmd[1][1] <= '9')))
+	if (p->cmd[1] && ((p->cmd[1][0] > '0' && p->cmd[1][0] <= '9') ||
+		(p->cmd[1][1] && p->cmd[1][0] == '-' && p->cmd[1][1] > '0' &&
+		p->cmd[1][1] <= '9')))
 	{
 		fc->first_not_precised = 0;
 		fc->int_first = ft_atoi(p->cmd[1]);
@@ -56,7 +52,9 @@ void			check_if_e_flag_induced(t_fc *fc, t_process *p, t_hist *hist)
 		fc->first_not_precised = 0;
 		fc->str_first = ft_strdup(p->cmd[1]);
 	}
-	if (p->cmd[1] && p->cmd[2] && ((p->cmd[2][0] > '0' && p->cmd[2][0] <= '9') || (p->cmd[2][1] && p->cmd[2][0] == '-' && p->cmd[2][1] > '0' && p->cmd[2][1] <= '9')))
+	if (p->cmd[1] && p->cmd[2] && ((p->cmd[2][0] > '0' && p->cmd[2][0] <= '9')
+		|| (p->cmd[2][1] && p->cmd[2][0] == '-' && p->cmd[2][1] > '0' &&
+		p->cmd[2][1] <= '9')))
 	{
 		fc->last_not_precised = 0;
 		fc->int_last = ft_atoi(p->cmd[2]);
@@ -73,10 +71,10 @@ void			check_if_e_flag_induced(t_fc *fc, t_process *p, t_hist *hist)
 	}
 }
 
-static void		execute_fc_according_to_flags(t_fc *fc, t_var **var, t_process *p)
+static void		execute_fc_according_to_flags(t_fc *fc, t_var **var,
+				t_process *p)
 {
 	t_hist	*hist;
-	(void)var;
 	hist = stock(NULL, 8);
 	while (hist && hist->next)
 		hist = hist->next;
@@ -106,8 +104,12 @@ int			ft_fc(t_process *p, t_var **var)
 	if (fc.error == 0)
 	{
 		get_str_args_of_fc(&fc, p, i, 0);
-		execute_fc_according_to_flags(&fc, var, p);
+		if (fc.error == 0)
+			execute_fc_according_to_flags(&fc, var, p);
 	}
 	free_fc_struct(&fc);
+	if (fc.error == 0)
 	return (0);
+	else
+		return (1);
 }

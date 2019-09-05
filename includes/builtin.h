@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 15:05:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 15:04:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,19 @@ int				ft_exit(t_process *p, t_var **var);
 
 int				ft_fc(t_process *p, t_var **var);
 void			print_fc_usage(void);
+void			place_new_cmds_in_history(char **new_cmds, t_hist *hist);
+void			overwrite_history_file(t_hist *hist);
+void			remove_cmd_from_hist(t_hist *hist);
+
+/*
+**		FC_TOOLS.C
+*/
+
+void			remove_cmd_from_hist(t_hist *hist);
+char			*get_program_pwd(char *pwd, int i);
+void			overwrite_history_file(t_hist *hist);
+void			place_new_cmds_in_history(char **new_cmds, t_hist *hist);
+void			print_fc_usage(void);
 
 /*
 **		FC_GET_ARGS.C
@@ -107,7 +120,19 @@ void			prepare_s_flag(t_fc *fc, t_hist *hist, t_var **var);
 **		FC_EXECUTE_E_FLAG.C
 */
 
+void			send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env);
+void			exec_ide_with_tmp_file(t_fc *fc, int fd, char **env);
+void			exec_new_cmds(char **new_cmds, char **env);
+char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
+				int ret);
+
+/*
+**		FC_PREPARE_E_FLAG.C
+*/
+
 void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var);
+void			correct_int_first_and_int_last(t_fc *fc, t_hist *hist);
+char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 
 # define ARGUMENTS "cd: Too many arguments."
 # define CD_NO_HOME "cd: No HOME directory."

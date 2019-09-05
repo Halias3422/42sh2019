@@ -6,77 +6,16 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 14:29:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 15:02:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-static int					check_if_ename_is_text_editor(t_fc *fc, char **paths)
+static int			fill_command_to_send_to_text_editor(t_fc *fc, t_hist *hist,
+					int fd)
 {
-	DIR				*dirp;
-	struct dirent	*read;
-	int				i;
-
-	i = 0;
-	if (fc->ename == NULL || (fc->ename[0] > '0' && fc->ename[0] < '9'))
-	{
-		if (fc->ename != NULL)
-			fc->int_first = ft_atoi(fc->ename);
-		fc->ename = ft_strdup("/usr/bin/vim");
-		return (1);
-	}
-		while (paths[i])
-		{
-			paths[i] = free_strjoin(paths[i], "/");
-			dirp = opendir(paths[i]);
-			while ((read = readdir(dirp)) != NULL)
-			{
-				if (ft_strcmp(fc->ename, read->d_name) == 0)
-				{
-					fc->ename = ft_secure_free(fc->ename);
-					fc->ename = ft_strdup(read->d_name);
-					fc->ename = ft_strjoinf(paths[i], fc->ename, 2);
-					closedir(dirp);
-					return (1);
-				}
-			}
-			closedir(dirp);
-			i++;
-		}
-		ft_printf_err("42sh: command not found: %s\n", fc->ename);
-	return (0);
-}
-
-static void			correct_int_first_and_int_last(t_fc *fc, t_hist *hist)
-{
-	if (ft_strlen(fc->flags) == 0 && ft_strlen(fc->ename) > 1 && ((fc->ename[0] > '1' && fc->ename[0] < '9') || (fc->ename[0] == '-' && fc->ename[1] > '0' && fc->ename[1] < '9')))
-		fc->int_first = ft_atoi(fc->ename);
-	if (fc->first_not_precised == 1 && fc->last_not_precised == 1)
-	{
-		fc->int_first = hist->cmd_no - 1;
-		fc->int_last = hist->cmd_no - 1;
-	}
-	else if (fc->first_not_precised == 1)
-		fc->int_first = hist->cmd_no;
-	else if (fc->last_not_precised == 1)
-		fc->int_last = fc->int_first;
-	if (fc->int_first < 0)
-		fc->int_first = (hist->cmd_no + fc->int_first);
-	if (fc->int_last < 0)
-		fc->int_last = (hist->cmd_no + fc->int_last);
-}
-
-static int			fill_command_to_send_to_text_editor(t_fc *fc, t_hist *hist)
-{
-	char			*pwd;
-	int			fd;
-
-	pwd = getcwd(NULL, 255);
-	pwd = ft_strjoinf(pwd, "/.tmp", 1);
-	fd = open(pwd, O_RDWR | O_TRUNC | O_CREAT, 0666);
-	free(pwd);
 	if (fc->int_first <= fc->int_last)
 	{
 		while (fc->int_first <= fc->int_last && hist->next->next)
@@ -95,98 +34,75 @@ static int			fill_command_to_send_to_text_editor(t_fc *fc, t_hist *hist)
 			write(fd, "\n", 1);
 			hist = hist->prev;
 			fc->int_first -= 1;
-		}	
+		}
 	}
 	return (fd);
 }
 
-char				**recover_new_cmds_from_tmp(char **new_cmds, int fd)
+char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
+					int ret)
 {
-	int			ret;
-	char			*line;
-	int			i;
+	char		*line;
 	t_hist		*hist;
+	char		*pwd;
 
 	hist = stock(NULL, 8);
-	i = 0;
-	new_cmds = (char**)malloc(sizeof(char*) * (hist->cmd_no * 2));
-	ret = 1;
+	new_cmds = (char**)malloc(sizeof(char*) * ((hist->cmd_no + 1) * 2));
 	line = NULL;
-
-	char	*pwd = getcwd(NULL, 255);
+	pwd = getcwd(NULL, 255);
 	pwd = ft_strjoinf(pwd, "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
-	free(pwd);
 	while ((ret = get_next_line(fd, &line)))
 	{
 		if (ft_strlen(line) > 0)
 		{
 			new_cmds[i] = ft_strnew(0);
-			new_cmds[i] = ft_strjoinf(new_cmds[i], line, 3);		
+			new_cmds[i] = ft_strjoinf(new_cmds[i], line, 3);
 			i++;
 		}
 	}
 	new_cmds[i] = NULL;
+	unlink(pwd);
+	free(pwd);
 	return (new_cmds);
 }
 
-char				*check_new_cmd_is_valid(char *new_cmds, char **paths)
-{
-	int				i;
-	DIR				*dirp;
-	struct dirent	*read;
 
-	i = 0;
-	while (paths[i])
-	{
-		paths[i] = free_strjoin(paths[i], "/");
-		dirp = opendir(paths[i]);
-		while ((read = readdir(dirp)) != NULL)
-		{
-			if (ft_strcmp(new_cmds, read->d_name) == 0)
-			{
-				new_cmds = ft_secure_free(new_cmds);
-				new_cmds = ft_strdup(read->d_name);
-				new_cmds = ft_strjoinf(paths[i], new_cmds, 2);
-				return (new_cmds);
-			}
-		}
-		closedir(dirp);
-		i++;
-	}
-	ft_printf_err("ici 42sh: command not found: %s\n", new_cmds);
-	return (0);
-}
-
-void				exec_new_cmds(char **new_cmds, char **env, char **paths, char ** arg_tmp)
+void				exec_new_cmds(char **new_cmds, char **env)
 {
 	int				i;
 	t_var			*my_env;
+	char			*tmp_cmd;
+	t_hist			*hist;
 
+	hist = stock(NULL, 8);
 	i = 0;
 	my_env = init_env(env, stock(NULL, 1));
-	(void)new_cmds;
-//	(void)env;
-	(void)paths;
-	(void)arg_tmp;
 	i = 0;
 	while (new_cmds[i])
 	{
+		tmp_cmd = ft_strdup(new_cmds[i]);
 		if ((check_error(new_cmds[i])) != -1)
-			start_exec(start_lex(my_env, new_cmds[i]), my_env);
+		{
+			ft_printf("%s\n", tmp_cmd);
+			start_exec(start_lex(my_env, tmp_cmd), my_env);
+		}
 		i++;
 	}
-//	ft_free_tab(new_cmds);
 	free_env(my_env);
+	place_new_cmds_in_history(new_cmds, hist);
 }
 
-void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env, char **paths)
+void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env)
 {
 	char			**arg_tmp;
 	pid_t			father;
 	char			**new_cmds;
+	int				i;
+	int				ret;
 
-	(void)paths;
+	i = 0;
+	ret = 1;
 	father = fork();
 	arg_tmp = (char**)malloc(sizeof(char*) * 3);
 	arg_tmp[0] = ft_strdup(fc->ename);
@@ -196,45 +112,26 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env, char **paths)
 	if (father > 0)
 	{
 		wait(&father);
-		new_cmds = recover_new_cmds_from_tmp(new_cmds, fd);
-		exec_new_cmds(new_cmds, env, paths, arg_tmp);
+		new_cmds = recover_new_cmds_from_tmp(new_cmds, fd, i, ret);
+		exec_new_cmds(new_cmds, env);
 		ft_free_tab(arg_tmp);
 		return ;
 	}
 	else if (father == 0)
-	{
-		if (execve(fc->ename, arg_tmp , env) == -1)
-		{
-			ft_printf("execve error");
-			ft_free_tab(arg_tmp);
-			return ;
-		}
-	}
+		execve(fc->ename, arg_tmp , env);
 }
 
-void				prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var)
-{
-	int			swap;
-	int			fd;
-	char		**env;
-	int			i;
-	char		**paths;
 
-	env = split_env(*var);
-	paths = NULL;
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp("PATH=", env[i], 5) == 0)
-		{
-			paths = ft_strsplit(env[i] + 5, ':');
-			break ;
-		}
-		i++;
-	}
-	fd = 1;
-	if (check_if_ename_is_text_editor(fc, paths) == 1)
-	{
+void				send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env)
+{
+	int				swap;
+	char			*pwd;
+	int				fd;
+
+	pwd = getcwd(NULL, 255);
+	pwd = ft_strjoinf(pwd, "/.tmp", 1);
+	fd = open(pwd, O_RDWR | O_TRUNC | O_CREAT, 0666);
+	free(pwd);
 		correct_int_first_and_int_last(fc, hist);
 		if (ft_strchr(fc->flags, 'r') != NULL)
 		{
@@ -244,10 +141,7 @@ void				prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var)
 		}
 		while (hist->prev && hist->cmd_no + 1 > fc->int_first)
 			hist = hist->prev;
-		fd = fill_command_to_send_to_text_editor(fc, hist);
-		exec_ide_with_tmp_file(fc, fd, env, paths);
-	}
-	i = 0;
-		ft_free_tab(paths);
-		ft_free_tab(env);
+		fill_command_to_send_to_text_editor(fc, hist, fd);
+		exec_ide_with_tmp_file(fc, fd, env);
 }
+
