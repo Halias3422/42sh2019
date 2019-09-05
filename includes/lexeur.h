@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 13:02:31 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 17:35:03 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,7 @@ typedef struct s_var t_var;
 
 typedef struct s_token
 {
-  char    *name;
+  char    		*name;
   int           size;
   enum e_token	token;
 } t_token;
