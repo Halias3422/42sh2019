@@ -32,7 +32,8 @@ SRC_LINE = $(addprefix line_edit/, \
 				token_heredoc_open.c token_init.c init_alias.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c)
+				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c \
+				error_lex.c)
 
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \

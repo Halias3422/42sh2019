@@ -61,8 +61,9 @@ void			signal_main(void)
 
 int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 {
-	char	*pwd;
-	char	*ans;
+	char		*pwd;
+	char		*ans;
+	t_lexeur	**lex;
 
 	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = getcwd(NULL, 1000));
@@ -75,7 +76,10 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	if (pos.error == 1)
 		error_handling(&pos, NULL, 0);
 	if ((check_error(ans)) != -1)
-		start_exec(start_lex(my_env, ans), my_env);
+	{
+		if ((lex = start_lex(my_env, ans)) != NULL)
+			start_exec(lex, my_env);
+	}
 	else
 		pos.ans = ft_secure_free(pos.ans);
 	pos.error = 0;

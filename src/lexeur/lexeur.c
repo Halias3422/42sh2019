@@ -102,7 +102,11 @@ t_lexeur	**start_lex(t_var *var, char *res)
 
 	array = NULL;
 	tmp = start_split(var, res);
+	//if (error_lex(tmp))
+	//	return (NULL);
 	array = fill_lex(tmp, array);
+	if (error_lex(array))
+		return (NULL);
 	return (array);
 }
 
@@ -114,4 +118,9 @@ void		free_lexer(t_lexeur **array)
 	while (array[++i])
 		free(array[i]);
 	free(array);
+}
+
+void	print_lexer(t_lexeur *lex)
+{
+	ft_printf_err("%s\n", g_fill_token[lex->token].name);
 }
