@@ -225,4 +225,6 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace);
 */
 
 void   		remoove_quote(char ***array);
+
+void		print_lexer(t_lexeur *lex);
 #endif
