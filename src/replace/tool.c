@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 21:25:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 11:43:04 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,6 @@ int			check_token_after_number(char *str, int i)
 			ret = find_token(str, i);
 			if (ret == 4 || ret == 5 || ret == 6 || ret == 8 || ret == 9)
 				return (0);
-
 		}
 	}
 	return (1);
@@ -92,7 +91,6 @@ void		basic_split_while(int *i, char *str, char **res, int *k)
 	int		start;
 	int		ret;
 
-	while (str)
 	while (str[*i] && ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == ' '))
 		(*i)++;
 	if (str[*i])
