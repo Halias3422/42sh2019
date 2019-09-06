@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/05 13:06:48 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 16:05:25 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,19 +106,10 @@ char		**start_split(t_var *start, char *str)
 	char		**ar;
 	t_replace	*replace;
 	t_alias		*alias;
-	int			i = 0;
 
 	init_replace(&replace);
 	ar = split_space(str);
-	puts("--split--");
-	while (ar[i])
-	{
-		printf("tmp[%d]: _%s_\n", i, ar[i]);
-		i++;
-	}
-	puts("---------");
 	alias = make_ar_to_list(ar);
-	//print_list(alias);
 	replace->name = ft_strdup(alias->data);
 	while (1)
 	{

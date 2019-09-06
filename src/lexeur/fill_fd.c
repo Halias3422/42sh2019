@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 09:44:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:14:23 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 17:01:03 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ t_lexeur	*fill_fd(int fd, int token)
 	res = malloc(sizeof(t_lexeur));
 	res->word = NULL;
 	res->token = token;
-	res->fd = fd;
+	res->fd_in = fd;
 	res->redirection = NULL;
 	return (res);
 }
@@ -46,6 +46,7 @@ t_lexeur	*find_fd(char *buf, int i)
 	int			start;
 	int			token;
 
+	puts("find_fd");
 	if (check_fd(buf, i))
 		return (NULL);
 	while (buf[i])

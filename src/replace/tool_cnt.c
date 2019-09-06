@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:06:16 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 17:28:46 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 17:04:01 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,6 +73,5 @@ int			cnt_size(char *str)
 			i += g_fill_token[ret].size;
 		}
 	}
-	printf("nb: _%d_\n", nb);
 	return (nb);
 }

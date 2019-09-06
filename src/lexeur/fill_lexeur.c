@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:14:41 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 17:01:17 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ char *red)
 		res->redirection = ft_strdup(red);
 	else
 		res->redirection = NULL;
-	res->fd = -1;
+	res->fd_in = -1;
 	ft_strdel(&word);
 	ft_strdel(&red);
 }
@@ -52,6 +52,7 @@ t_lexeur	*fill_lex_while(char *buf, int *i, int token)
 {
 	t_lexeur	*res;
 
+	puts("while");
 	res = malloc(sizeof(t_lexeur));
 	if (buf[*i] && token != -1)
 		return (fill_lex_redirection(buf, res, i, token));
@@ -68,6 +69,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	int			i;
 	int			j;
 	int			k;
+	int			t = 0;
 	t_lexeur	*tmp;
 
 	i = 0;
@@ -79,14 +81,24 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	while (buf[i])
 	{
 		k = 0;
-		if ((tmp = find_fd(buf[i], 0)) != NULL)
-			array[j] = tmp;
-		else if (buf[i])
-			array[j] = fill_lex_while(buf[i], &k, find_token(buf[i], k));
-		i++;
-		j++;
+		if (!(ft_strcmp(buf[i], "")))
+			i++;
+		if (buf[i])
+		{
+			if ((tmp = find_fd(buf[i], 0)) != NULL)
+				array[j] = tmp;
+			else if (buf[i])
+				array[j] = fill_lex_while(buf[i], &k, find_token(buf[i], k));
+			i++;
+			j++;
+		}
 	}
 	array[j] = NULL;
+	while (array[t])
+	{
+		printf("array[%d]:\tword -> _%s_\ttoken ->%d\tred -> _%s_\tfd_in %d fd_out %d\n", t, array[t]->word, array[t]->token, array[t]->redirection, array[t]->fd_in, array[t]->fd_out);
+		t++;
+	}
 	check_redirection(&array);
 	return (array);
 }
