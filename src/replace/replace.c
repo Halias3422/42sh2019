@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:44:08 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/05 08:50:32 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,32 +93,15 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	return (done);
 }
 
-// static void		print_list(t_alias *alias)
-// {
-// 	while (alias)
-// 	{
-// 		alias = alias->next;
-// 	}
-// }
-
 char		**start_split(t_var *start, char *str)
 {
 	char		**ar;
 	t_replace	*replace;
 	t_alias		*alias;
-	int			i = 0;
 
 	init_replace(&replace);
 	ar = split_space(str);
-	puts("--split--");
-	while (ar[i])
-	{
-		printf("tmp[%d]: _%s_\n", i, ar[i]);
-		i++;
-	}
-	puts("---------");
 	alias = make_ar_to_list(ar);
-	//print_list(alias);
 	replace->name = ft_strdup(alias->data);
 	while (1)
 	{

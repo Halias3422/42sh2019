@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 19:20:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 13:27:40 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,6 +102,29 @@ int		error_unlias(char *str)
 	return (1);
 }
 
+void	delete_alias(t_var **var)
+{
+	t_var *prev;
+	t_var *next;
+
+	prev = NULL;
+	while (*var)
+	{
+		next = (*var)->next;
+		if ((*var)->type == ALIAS)
+		{
+			ft_strdel(&(*var)->data);
+			ft_strdel(&(*var)->name);
+			if (prev)
+				prev->next = next;
+			free(*var);
+		}
+		else
+			prev = (*var);
+		(*var) = next;
+	}
+}
+
 int		main_unalias(t_process *p, t_var **var)
 {
 	t_var	*start;
@@ -113,6 +136,11 @@ int		main_unalias(t_process *p, t_var **var)
 	start = (*var);
 	while (p->cmd[k])
 	{
+		if (ft_strcmp(p->cmd[k], "-a") == 0)
+		{
+			delete_alias(var);
+			return (1);
+		}
 		while (*var && ft_strcmp(p->cmd[k], (*var)->name) != 0)
 		{
 			last = (*var);
