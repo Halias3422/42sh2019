@@ -6,14 +6,14 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 13:14:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/05 14:31:36 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 13:42:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-void		remove_cmd_from_hist(t_hist *hist)
+void			remove_cmd_from_hist(t_hist *hist)
 {
 	while (hist && hist->next && hist->next->next)
 		hist = hist->next;
@@ -21,7 +21,7 @@ void		remove_cmd_from_hist(t_hist *hist)
 	hist->next = NULL;
 }
 
-char		*get_program_pwd(char *pwd, int i)
+char			*get_program_pwd(char *pwd, int i)
 {
 	t_var		*var;
 	char		**env;
@@ -42,14 +42,15 @@ char		*get_program_pwd(char *pwd, int i)
 	ft_free_tab(env);
 	return (pwd);
 }
+
 void			overwrite_history_file(t_hist *hist)
 {
-	char	*pwd;
-	int		i;
-	int		fd;
+	char		*pwd;
+	int			i;
+	int			fd;
 
 	i = 0;
-	pwd = ft_strnew(0);
+	pwd = NULL;
 	pwd = get_program_pwd(pwd, i);
 	if (pwd == NULL)
 		return ;
@@ -67,7 +68,7 @@ void			overwrite_history_file(t_hist *hist)
 
 void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
 {
-	int		i;
+	int			i;
 
 	while (hist->next->next)
 		hist = hist->next;
@@ -76,8 +77,8 @@ void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
 	i = 0;
 	while (new_cmds[i])
 	{
-		if (ft_strlen(new_cmds[i]) > 0 && ft_strcmp(new_cmds[i],
-					hist->prev->cmd) != 0)
+		if (ft_strlen(new_cmds[i]) > 0 && (!hist->prev || ft_strcmp(new_cmds[i],
+					hist->prev->cmd) != 0))
 		{
 			hist->cmd = ft_strdup(new_cmds[i]);
 			hist = add_list_back_hist(hist);
@@ -94,5 +95,3 @@ void			print_fc_usage(void)
 	write(2, "fc: usage: fc [-e ename] [-nlr] [first] [last]", 46);
 	write(2, " or fc -s [pat=rep] [cmd]\n", 26);
 }
-
-

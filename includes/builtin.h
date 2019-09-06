@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/05 15:04:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 13:08:09 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,10 +75,8 @@ int				ft_exit(t_process *p, t_var **var);
 */
 
 int				ft_fc(t_process *p, t_var **var);
-void			print_fc_usage(void);
-void			place_new_cmds_in_history(char **new_cmds, t_hist *hist);
-void			overwrite_history_file(t_hist *hist);
-void			remove_cmd_from_hist(t_hist *hist);
+void			check_if_e_flag_induced(t_fc *fc, t_process *p, t_hist *hist);
+void			induced_e_flag_check_first_arg(t_fc *fc, t_process *p);
 
 /*
 **		FC_TOOLS.C
@@ -93,9 +91,11 @@ void			print_fc_usage(void);
 /*
 **		FC_GET_ARGS.C
 */
-
 void			get_str_args_of_fc(t_fc *fc, t_process *p, int i, int check);
+void			circle_through_cmd_args(t_fc *fc, t_process *p, int i,
+				int check);
 void			make_str_arg_into_int(t_fc *fc, t_hist *hist);
+void			make_str_last_into_int(t_fc *fc, t_hist *hist);
 
 /*
 **		FC_GET_FLAGS.C
@@ -109,6 +109,13 @@ int				find_flags_order(t_fc *fc, char let_a, char let_b, int usage);
 */
 
 void			prepare_l_flag(t_fc *fc, t_hist *hist);
+void			inverse_first_and_last_if_flag_r(t_fc *fc);
+
+/*
+**		FC_S_REPLACE_PATTERN.C
+*/
+
+char			*replace_cmd_content_with_ename(t_fc *fc, char *tmp_cmd);
 
 /*
 **		FC_EXECUTE_S_FLAG.C
@@ -130,8 +137,9 @@ char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 **		FC_PREPARE_E_FLAG.C
 */
 
-void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var);
-void			correct_int_first_and_int_last(t_fc *fc, t_hist *hist);
+void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
+void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
+				t_hist *hist);
 char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 
 # define ARGUMENTS "cd: Too many arguments."

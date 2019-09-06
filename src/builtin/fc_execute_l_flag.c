@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 18:30:58 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/05 10:15:18 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 13:08:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,20 +71,23 @@ static void		correct_int_first_and_int_last(t_fc *fc, t_hist *hist)
 	}
 }
 
-void			prepare_l_flag(t_fc *fc, t_hist *hist)
+void			inverse_first_and_last_if_flag_r(t_fc *fc)
 {
 	int			swap;
 
+	swap = fc->int_first;
+	fc->int_first = fc->int_last;
+	fc->int_last = swap;
+	swap = fc->first_is_str;
+	fc->first_is_str = fc->last_is_str;
+	fc->last_is_str = swap;
+}
+
+void			prepare_l_flag(t_fc *fc, t_hist *hist)
+{
 	correct_int_first_and_int_last(fc, hist);
 	if (ft_strchr(fc->flags, 'r') != NULL)
-	{
-		swap = fc->int_first;
-		fc->int_first = fc->int_last;
-		fc->int_last = swap;
-		swap = fc->first_is_str;
-		fc->first_is_str = fc->last_is_str;
-		fc->last_is_str = swap;
-	}
+		inverse_first_and_last_if_flag_r(fc);
 	while (hist->prev && hist->cmd_no + 1 > fc->int_first)
 		hist = hist->prev;
 	print_l_flag(fc, hist);

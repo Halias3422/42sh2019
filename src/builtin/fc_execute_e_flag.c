@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/05 15:02:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 13:38:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static int			fill_command_to_send_to_text_editor(t_fc *fc, t_hist *hist,
 {
 	if (fc->int_first <= fc->int_last)
 	{
-		while (fc->int_first <= fc->int_last && hist->next->next)
+		while (fc->int_first <= fc->int_last && hist->next && hist->next->next)
 		{
 			write(fd, hist->cmd, ft_strlen(hist->cmd));
 			write(fd, "\n", 1);
@@ -30,8 +30,11 @@ static int			fill_command_to_send_to_text_editor(t_fc *fc, t_hist *hist,
 	{
 		while (fc->int_first >= fc->int_last && hist)
 		{
-			write(fd, hist->cmd, ft_strlen(hist->cmd));
-			write(fd, "\n", 1);
+			if (hist->next && hist->next->next)
+			{
+				write(fd, hist->cmd, ft_strlen(hist->cmd));
+				write(fd, "\n", 1);
+			}
 			hist = hist->prev;
 			fc->int_first -= 1;
 		}
@@ -42,9 +45,9 @@ static int			fill_command_to_send_to_text_editor(t_fc *fc, t_hist *hist,
 char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 					int ret)
 {
-	char		*line;
-	t_hist		*hist;
-	char		*pwd;
+	char			*line;
+	t_hist			*hist;
+	char			*pwd;
 
 	hist = stock(NULL, 8);
 	new_cmds = (char**)malloc(sizeof(char*) * ((hist->cmd_no + 1) * 2));
@@ -66,7 +69,6 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 	free(pwd);
 	return (new_cmds);
 }
-
 
 void				exec_new_cmds(char **new_cmds, char **env)
 {
@@ -118,13 +120,11 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env)
 		return ;
 	}
 	else if (father == 0)
-		execve(fc->ename, arg_tmp , env);
+		execve(fc->ename, arg_tmp, env);
 }
-
 
 void				send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env)
 {
-	int				swap;
 	char			*pwd;
 	int				fd;
 
@@ -132,16 +132,11 @@ void				send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env)
 	pwd = ft_strjoinf(pwd, "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_TRUNC | O_CREAT, 0666);
 	free(pwd);
-		correct_int_first_and_int_last(fc, hist);
-		if (ft_strchr(fc->flags, 'r') != NULL)
-		{
-			swap = fc->int_first;
-			fc->int_first = fc->int_last;
-			fc->int_last = swap;
-		}
-		while (hist->prev && hist->cmd_no + 1 > fc->int_first)
-			hist = hist->prev;
-		fill_command_to_send_to_text_editor(fc, hist, fd);
-		exec_ide_with_tmp_file(fc, fd, env);
+	correct_int_first_and_int_last_for_e_flag(fc, hist);
+	if (ft_strchr(fc->flags, 'r') != NULL)
+		inverse_first_and_last_if_flag_r(fc);
+	while (hist->prev && hist->cmd_no + 1 > fc->int_first)
+		hist = hist->prev;
+	fill_command_to_send_to_text_editor(fc, hist, fd);
+	exec_ide_with_tmp_file(fc, fd, env);
 }
-
