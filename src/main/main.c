@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:38:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 08:47:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 		pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
+	tcsetattr(2, TCSANOW, &(pos.old_term));
 	job_notification();
 	if (ans == NULL)
 		return (1);

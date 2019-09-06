@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/05 10:01:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 08:38:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ void		split_space_find_number(char *str, int *i)
 	if (str[*i])
 	{
 		ret = find_token(str, *i);
-		printf("ret -> %d\tname_%s_\n", ret, g_fill_token[ret].name);
+		// printf("ret -> %d\tname_%s_\n", ret, g_fill_token[ret].name);
 		if (str[*i] && (ret == 1 || ret == 8 || ret == 9))
 			return ;
 			//*i += (g_fill_token[ret].size - 1);
