@@ -1,7 +1,8 @@
+/*
 #include "../../includes/check_error.h"
 #include "../../includes/lexeur.h"
 
-/*
+
 int			error_before_lexer(char **str)
 {
 	int	i;
@@ -27,7 +28,7 @@ int			error_before_lexer(char **str)
 	return (0);
 }
 */
-
+/*
 int			token_verification(t_lexeur *lex)
 {
 	if (lex->word != NULL)
@@ -56,3 +57,4 @@ int			error_lex(t_lexeur **lex)
 	lex = NULL;
 	return (0);
 }
+*/

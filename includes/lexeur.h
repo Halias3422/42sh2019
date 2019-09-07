@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 16:49:21 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/07 20:44:46 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,9 +57,8 @@ typedef struct s_lexeur
 	char        	*word;
 	enum e_token	token;
 	char        	*redirection;
-	int				fd_in;
-	int				fd_out;
-	int				fd;
+	char			*fd_in;
+	char			*fd_out;
 } t_lexeur;
 
 typedef struct s_already_replace
@@ -94,6 +93,12 @@ t_token     g_fill_token[12];
 
 t_lexeur	**fill_lex(char **buf, t_lexeur **tabe);
 void		jump_space(char *buf, int *i);
+char		*get_fd_in(char	*str);
+void		fill_struct_in(t_lexeur *res, char *fd_in, enum e_token token, char *red);
+void		fill_struct_out(t_lexeur *res, char *fd_in, enum e_token token, char *fd_out);
+void		fill_struct(t_lexeur *res, char *word, enum e_token token, char *red);
+t_lexeur	*fill_lex_redirection(char **buf, int *i, enum e_token token);
+t_lexeur	*fill_lex_while(char *buf, int *i, int token);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -130,7 +135,7 @@ int			del_back_slash_double_quote(int *k, int j, char ***ar);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-char		*fill_redirection(char *buf, int *i, int token);
+char		*fill_redirection(char **buf, int *i);
 t_lexeur	**find_input_redirection(t_lexeur ***tabe);
 t_lexeur	**check_redirection(t_lexeur ***tabe);
 

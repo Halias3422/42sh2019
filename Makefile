@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/08/18 18:11:21 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/07 20:39:21 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -32,7 +32,7 @@ SRC_LINE = $(addprefix line_edit/, \
 				token_heredoc_open.c token_init.c init_alias.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_fd.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c \
+				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c \
 				error_lex.c)
 
 SRC_EXEC = $(addprefix exec/, \

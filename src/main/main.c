@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/05 18:39:56 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/07 15:39:06 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,10 +63,9 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 {
 	char		*pwd;
 	char		*ans;
-	t_lexeur	**lex;
 
 	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = getcwd(NULL, 1000));
+	pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
 	tcsetattr(2, TCSANOW, &(pos.old_term));
@@ -75,8 +74,8 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 		return (1);
 	if (pos.error == 1)
 		error_handling(&pos, NULL, 0);
-	if ((lex = start_lex(my_env, ans)) != NULL)
-		start_exec(lex, my_env);
+	if ((check_error(ans)) != -1)
+		start_exec(start_lex(my_env, ans), my_env);
 	else
 		pos.ans = ft_secure_free(pos.ans);
 	pos.error = 0;

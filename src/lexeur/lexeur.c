@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/05 17:50:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/07 15:37:58 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,8 +104,6 @@ t_lexeur	**start_lex(t_var *var, char *res)
 	//if (error_lex(tmp))
 	//	return (NULL);
 	array = fill_lex(tmp, array);
-	if (error_lex(array))
-		return (NULL);
 	return (array);
 }
 
