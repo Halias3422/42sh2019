@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 17:01:39 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/07 20:47:19 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/08 18:50:49 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,10 +15,15 @@
 
 char			*fill_redirection(char **buf, int *i)
 {
+	char	*res;
+
+	printf("buf[%d]: _%s_\n", *i, buf[*i]);
 	if (buf[*i + 1])
 	{
 		(*i)++;
-		return (ft_strdup(buf[*i + 1]));
+		res = ft_strdup(buf[*i]);
+		printf("res -> _%s_\n", res);
+		return (res);
 	}
 	return (NULL);
 }

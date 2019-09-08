@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/08 16:25:00 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/08 18:54:18 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,14 +87,20 @@ int *i, enum e_token token)
 	res = malloc(sizeof(t_lexeur));
 	if (token == 4 || token == 6 || token == 9)
 	{
+		puts("-- >>, > or < --");
 		fill_struct_fd_in(res, get_fd_in(buf[*i]), token,
 		fill_redirection(buf, i));
+		if (res->redirection)
+			(*i)++;
 		return (res);
 	}
 	if (token == 5 || token == 8)
 	{
+		puts("-- >& or <& --");
 		fill_struct_fd_out(res, get_fd_in(buf[*i]), token,
 		fill_redirection(buf, i));
+		if (res->redirection)
+			(*i)++;
 		return (res);
 	}
 	return (NULL);
@@ -150,7 +156,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	while (buf[i])
 	{
 		k = 0;
-		if (ft_strcmp(buf[i], "") == 0)
+		if (!(ft_strcmp(buf[i], "")))
 			i++;
 		if (buf[i])
 		{
