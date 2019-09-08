@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/07 20:48:54 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/08 16:25:00 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,7 +105,10 @@ t_lexeur	*fill_lex_while(char *buf, int *i, int token)
 	t_lexeur	*res;
 
 	res = malloc(sizeof(t_lexeur));
-	fill_struct(res, buf, token, NULL);
+	if (token == -1)
+		fill_struct(res, buf, token, NULL);
+	else
+		fill_struct(res, NULL, token, NULL);
 	(*i)++;
 	return (res);
 }
@@ -147,7 +150,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	while (buf[i])
 	{
 		k = 0;
-		if (!(ft_strcmp(buf[i], "")))
+		if (ft_strcmp(buf[i], "") == 0)
 			i++;
 		if (buf[i])
 		{
@@ -156,7 +159,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 			if (token != -1)
 				array[j] = fill_lex_redirection(buf, &i, token);
 			else
-				array[j] = fill_lex_while(buf[i], &k, find_token(buf[i], k));
+				array[j] = fill_lex_while(buf[i], &i, find_token(buf[i], k));
 			j++;
 		}
 	}
