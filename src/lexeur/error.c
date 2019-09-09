@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
 /*   error.c                                          .::    .:/ .      .::   */
@@ -30,8 +30,10 @@ int		first_check(char *str, int i, int token)
 {
 	int		j;
 
+	printf("-------------------------------first check-------------------------------\n");
 	j = 0;
 	jump_space(str, &j);
+	printf("i = %d et j = %d\n", i, j);
 	if (j == i)
 		return (print_error(token));
 	return (0);
@@ -39,8 +41,10 @@ int		first_check(char *str, int i, int token)
 
 int		second_check(char *str, int i, int token)
 {
+	printf("-------------------------------second check-------------------------------\n");
 	i += g_fill_token[token].size;
 	jump_space(str, &i);
+	printf("str[%d]=%c\n", i, str[i]);
 	if (!str[i])
 		return (print_error(token));
 	return (0);
@@ -50,9 +54,11 @@ int		check_double_token(char *str, int i, int token)
 {
 	int		token2;
 
+	printf("-------------------------------check double token-------------------------------\n");
 	i += g_fill_token[token].size;
 	jump_space(str, &i);
 	token2 = find_token(str, i);
+	printf("token2 = %d\n", token2);
 	if (token2 != -1)
 		return (print_error(token2));
 	return (0);
@@ -61,25 +67,36 @@ int		check_double_token(char *str, int i, int token)
 int		check_error(char *str)
 {
 	int		i;
-//	int		token;
+	int		token;
 
 	i = 0;
 	if (ft_strcmp(str, "") == 0)
 		return (-1);
 	while (str[i])
 	{
-//		jump_space(str, &i);
-//		token = find_token(str, i);
-//		if (token == 0 || token == 2 || token == 3 || token == 1 || token == 8)
-//			if (first_check(str, i, token))
-//				return (-1);
-//		if (token == 4 || token == 5 || token == 6 || token == 7)
-//			if (second_check(str, i, token))
-//				return (-1);
-//		if (token != -1)
-//			if (check_double_token(str, i, token))
-//				return (-1);
-//		if (str[i])
+		jump_space(str, &i);
+		token = find_token(str, i);
+		if (token == 2 || token == 0)
+			if (first_check(str, i, token))
+				return (-1);
+		if (token == 9 || token == 8 || token == 4 || token == 5)
+			if (second_check(str, i, token))
+				return (-1);
+		printf("i = %d|\tlen = %d|\tstr[i] = %c|\ttoken = %d\n", i, ft_strlen(str), str[i], token);
+		// // if (token == 10 || token == 2 || token == 3 || token == 1 || token == 8 || token == 9)
+		// if (token != -1 && token != 9 && token != 3)
+		// 	if (first_check(str, i, token))
+		// 		return (-1);
+		// // if (token == 4 || token == 5 || token == 6 || token == 7)
+		// if (token != -1)
+		// 	if (second_check(str, i, token))
+		// 		return (-1);
+		if (token != -1)
+			if (check_double_token(str, i, token))
+				return (-1);
+		if (token != -1)
+				i += g_fill_token[token].size;
+		else
 			i++;
 	}
 	return (0);
