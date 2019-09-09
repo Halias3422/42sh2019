@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 08:37:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 15:04:22 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,8 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 	char		**tab_var;
 
 	tab_var = split_env(var);
+
+	check_path_hash(tab_var, path, arg);
 	if (execve(path, arg, tab_var) == -1)
 		return (-1);
 	return (0);

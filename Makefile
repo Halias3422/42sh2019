@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/09 09:33:32 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/09 13:38:03 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -49,7 +49,9 @@ SRC_BUILTIN = $(addprefix builtin/, \
 
 SRC_MAIN = $(addprefix main/, main.c)
 
-SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN)
+SRC_HASH = $(addprefix hash/, hash.c)
+
+SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HASH)
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = termcaps.h
@@ -91,6 +93,7 @@ $(OBJ_PATH):
 	@mkdir -p obj/builtin 2> /dev/null
 	@mkdir -p obj/main 2> /dev/null
 	@mkdir -p obj/ft_printf 2> /dev/null
+	@mkdir -p obj/hash 2> /dev/null
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 	@gcc $(FLAG) -g -I $(INC_PATH) -o $@ -c $<

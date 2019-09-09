@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_strjoinf.c                                    .::    .:/ .      .::   */
+/*   hash.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/03/28 14:29:47 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 13:32:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/09/09 13:31:38 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/09 15:45:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_str.h"
+#ifndef HASH_H
+# define HASH_H
 
-char	*ft_strjoinf(char *s1, char *s2, int mode)
+#include "termcaps.h"
+
+typedef struct		s_hash
 {
-	char	*tmp;
+	char			*path;
+	char			*exec;
+	int				hit;
+	struct s_hash	*next;
+}					t_hash;
 
-	tmp = ft_strjoin(s1, s2);
-	if (mode == 1 || mode == 3)
-		free(s1);
-	if (mode == 2 || mode == 3)
-		free(s2);
-	return (tmp);
-}
+void	fill_hash_table(char **tab_var, char *path, char **arg);
+void	check_path_hash(char **tab_var, char *path, char **arg);
+
+#endif

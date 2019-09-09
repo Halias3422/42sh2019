@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/06 10:54:44 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 11:04:18 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 13:07:58 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,24 +17,24 @@ char		*fill_new_cmd(char *tmp_cmd, char *model, char *replace)
 {
 	char	*new_tmp;
 	int		i;
-	int		j;
+	char	*tmp;
 
 	i = 0;
-	j = 0;
 	new_tmp = ft_strnew(0);
 	while (tmp_cmd[i])
 	{
-		if (tmp_cmd[i] == model[0] && ft_strncmp(tmp_cmd + i, model,
-					ft_strlen(model)) == 0)
+		if (tmp_cmd[i] == model[0] && ft_strncmp(tmp_cmd + i, model, ft_strlen(model)) == 0)
 		{
-			new_tmp = ft_strjoinf(new_tmp, ft_copy_part_str(tmp_cmd + j,
-						(i - 1) - j, 0), 1);
 			new_tmp = ft_strjoinf(new_tmp, replace, 1);
-			j = i + ft_strlen(model);
+			i += ft_strlen(model);
 		}
-		i++;
+		else
+		{
+			tmp = ft_strndup(tmp_cmd + i, 1);
+			new_tmp = ft_strjoinf(new_tmp, tmp, 3);
+			i++;
+		}
 	}
-	new_tmp = ft_strjoinf(new_tmp, tmp_cmd + j, 1);
 	return (new_tmp);
 }
 

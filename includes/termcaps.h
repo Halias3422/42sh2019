@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/07 14:55:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 13:37:01 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@
 # include <curses.h>
 # include <dirent.h>
 # include "lexeur.h"
+# include "hash.h"
 
 /*
 ** color **
