@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 17:01:39 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:45:22 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 18:15:13 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,6 @@ char			*fill_redirection(char *buf, int *i, int token)
 	int		j;
 
 	*i += g_fill_token[token].size;
-	jump_space(buf, i);
 	start = *i;
 	if (token == 4 || token == 5)
 	{
@@ -42,48 +41,36 @@ t_lexeur		*fill_all(t_lexeur ***array, int j)
 	t_lexeur	*res;
 
 	res = malloc(sizeof(t_lexeur));
-	if ((*array)[j]->redirection)
-		res->redirection = ft_strdup((*array)[j]->redirection);
-	else
-		res->redirection = NULL;
-	if ((*array)[j]->word)
-		res->word = ft_strdup((*array)[j]->word);
-	else
-		res->word = NULL;
+	res->redirection = NULL;
+	res->word = NULL;
 	res->token = (*array)[j]->token;
 	res->fd = (*array)[j]->fd;
 	return (res);
 }
 
 void			replace_input(t_lexeur ***array,
-				t_lexeur ***res, int *i, int *j)
+				t_lexeur **res, int *i, int j)
 {
-	if (!(*array)[0]->word)
+	if ((*array)[*i]->word)
 	{
-		(*res)[*j] = malloc(sizeof(t_lexeur));
-		(*res)[*j]->token = (*array)[*i + 1]->token;
-		(*res)[*j]->redirection = ft_strdup("");
-		(*res)[*j]->word = NULL;
-		(*res)[*j]->fd = (*array)[*i + 1]->fd;
-		(*i)++;
+		res[j] = malloc(sizeof(t_lexeur));
+		res[j]->token = (*array)[*i]->token;
+		res[j]->redirection = ft_strdup("");
+		res[j]->word = ft_strdup((*array)[*i]->word);
+		res[j]->fd = (*array)[*i]->fd;
 	}
-	else if ((*array)[*i + 1] && ((*array)[*i + 1]->token == 6
-	|| (*array)[*i + 1]->token == 7))
+	else if ((*array)[*i]->token == 6
+	|| (*array)[*i]->token == 7)
 	{
-		(*res)[*j] = malloc(sizeof(t_lexeur));
-		(*res)[*j]->token = (*array)[*i + 1]->token;
-		(*res)[*j]->redirection = ft_strdup((*array)[*i]->word);
-		(*res)[*j]->word = NULL;
-		(*res)[*j]->fd = (*array)[*i + 1]->fd;
+		res[j] = malloc(sizeof(t_lexeur));
+		res[j]->token = (*array)[*i]->token;
+		res[j]->redirection = ft_strdup((*array)[*i + 1]->word);
+		res[j]->word = NULL;
+		res[j]->fd = (*array)[*i]->fd;
 		(*i)++;
 	}
 	else
-	{
-		(*res)[*j] = (*array)[*i];
-		(*res)[*j] = fill_all(array, *i);
-	}
-	(*i)++;
-	(*j)++;
+		res[j] = fill_all(array, *i);
 }
 
 t_lexeur		**find_input_redirection(t_lexeur ***array)
@@ -100,9 +87,12 @@ t_lexeur		**find_input_redirection(t_lexeur ***array)
 	j = 0;
 	while ((*array)[i])
 	{
-		replace_input(array, &res, &i, &j);
+		replace_input(array, res, &i, j);
+		i++;
+		j++;
 	}
 	res[j] = NULL;
+	free_ar_lexeur(array);
 	return (res);
 }
 

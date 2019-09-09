@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 10:42:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,6 +85,7 @@ int *i)
 	while (res[*i] && (res[*i]->word || res[*i]->redirection))
 		fill_cmd(res, j, &k, i);
 	(*j)->p->cmd[k] = NULL;
+	(*j)->p->builtin = test_builtin((*j)->p);
 	if (res[*i] && (res[*i]->token != 1 && res[*i]->token != 8 && res[*i]->token
 	!= 4 && res[*i]->token != 5 && res[*i]->token != 6 && res[*i]->token != 7))
 	{
@@ -113,6 +114,8 @@ void		fill_process(t_job *j, t_lexeur **res)
 	j->p = malloc(sizeof(t_process));
 	start = j->p;
 	j->p->status = '\0';
+	j->p->stoped = 0;
+	j->p->completed = 0;
 	while (res[i])
 	{
 		if (fill_process_while(res, &j, &start, &i) == 0)

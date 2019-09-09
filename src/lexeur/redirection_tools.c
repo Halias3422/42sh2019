@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   check_pid.c                                      .::    .:/ .      .::   */
+/*   redirection_tools.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/06/08 14:23:39 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/10 11:23:12 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/08/18 18:15:37 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/08/18 18:16:03 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../includes/lexeur.h"
 
-void	check_pid(int pid)
+void			free_ar_lexeur(t_lexeur ***array)
 {
-	if (pid == 11)
-		ft_printf("Process killed by a segfault : 11\n");
-	else if (pid == 10)
-		ft_printf("Bus error: 10\n");
-	else if (pid == 6)
-		ft_printf("Abort : 6\n");
+	int		i;
+
+	i = 0;
+	while ((*array)[i])
+	{
+		ft_strdel(&(*array)[i]->word);
+		ft_strdel(&(*array)[i]->redirection);
+		i++;
+	}
+	free((*array));
 }

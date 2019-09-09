@@ -6,12 +6,13 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/05 09:16:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 13:07:22 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
 void	find_alias(t_process *p, t_var *var, int k)
 {
@@ -40,6 +41,7 @@ void	add_list_alias(t_var **var, char *name, char *data)
 	t_var	*tmp;
 
 	start = (*var);
+	tmp = NULL;
 	while ((*var) && ft_strcmp((*var)->name, name) != 0)
 	{
 		tmp = (*var);
@@ -87,6 +89,7 @@ int		main_alias(t_process *p, t_var **var)
 			ft_strdel(&name);
 		}
 	}
+	stock(*var, 5);
 	return (1);
 }
 
@@ -97,6 +100,29 @@ int		error_unlias(char *str)
 	ft_putstr(str);
 	ft_putstr(": not found\n");
 	return (1);
+}
+
+void	delete_alias(t_var **var)
+{
+	t_var *prev;
+	t_var *next;
+
+	prev = NULL;
+	while (*var)
+	{
+		next = (*var)->next;
+		if ((*var)->type == ALIAS)
+		{
+			ft_strdel(&(*var)->data);
+			ft_strdel(&(*var)->name);
+			if (prev)
+				prev->next = next;
+			free(*var);
+		}
+		else
+			prev = (*var);
+		(*var) = next;
+	}
 }
 
 int		main_unalias(t_process *p, t_var **var)
@@ -110,6 +136,11 @@ int		main_unalias(t_process *p, t_var **var)
 	start = (*var);
 	while (p->cmd[k])
 	{
+		if (ft_strcmp(p->cmd[k], "-a") == 0)
+		{
+			delete_alias(var);
+			return (1);
+		}
 		while (*var && ft_strcmp(p->cmd[k], (*var)->name) != 0)
 		{
 			last = (*var);

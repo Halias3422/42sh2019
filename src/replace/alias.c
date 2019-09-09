@@ -6,114 +6,123 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 17:33:09 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 08:31:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
+#include "../../includes/alias.h"
 
-char		**fill_alias_solo(int i, char *str, char ***array)
+void		replace_alias_while_fill(char *tmp, int *j, int *i, t_alias *alias)
 {
-	char	**res;
+	int		t;
+	int		s;
 
-	res = malloc(sizeof(char *) * (cnt_array((*array)) + 1));
-	fill_array(&res, array);
-	ft_strdel(&res[i]);
-	res[i] = ft_strdup(str);
-	ft_strdel(&str);
-	free_array(array);
-	return (res);
+	s = *j;
+	while (tmp[*j] && ((tmp[*j] < 9 || tmp[*j] > 13) && tmp[*j] != ' '))
+		(*j)++;
+	t = *j;
+	while (tmp[t] && ((tmp[t] >= 9 && tmp[t] <= 13) || tmp[t] == ' '))
+		t++;
+	if (tmp[t])
+		fill_alias_multiple(ft_strsub(tmp, s, (*j) - s), alias, i);
+	else
+		fill_alias_multiple(ft_strsub(tmp, s, t - s), alias, i);
 }
 
-void		fill_alias_multiple(int i, char *str, char ***array)
-{
-	i = 0;
-	str = NULL;
-	array = NULL;
-// TODO replace  i eme alias dans array.
-}
-
-void		replace_alias_while(int ind, t_var *var, char ***array)
+int			replace_alias_while(t_var *var, t_alias *alias)
 {
 	char	*tmp;
 	int		j;
 	int		i;
-	int		t;
-	int		s;
 
 	j = 0;
 	i = 0;
 	tmp = ft_strdup(var->data);
+	if (!check_simple_or_multiple(tmp))
+	{
+		while (tmp[j])
+			j++;
+		fill_alias_solo(ft_strsub(tmp, 0, j), alias);
+		return (1);
+	}
 	while (tmp[j])
 	{
-		s = j;
-		while (tmp[j] && ((tmp[j] < 9 || tmp[j] > 13) && tmp[j] != ' '))
-			j++;
-		t = j;
-		while (tmp[t] && ((tmp[t] >= 9 && tmp[t] <= 13) || tmp[t] == ' '))
-			t++;
-		if (!tmp[t])
-		{
-			(*array) = fill_alias_solo(ind, ft_strsub(tmp, s, t - s), array);
-			break ;
-		}
-		fill_alias_multiple(i, ft_strsub(tmp, s, i - s), array);
-		j++;
+		replace_alias_while_fill(tmp, &j, &i, alias);
+		jump_space(tmp, &j);
 	}
 	ft_strdel(&tmp);
+	return (i);
 }
 
-char		*del_space(char *str)
+int			replace_alias_first_part(t_var **s_var, t_alias *alias)
 {
-	int		i;
-	int		s;
-	char	*tmp;
-	char	*res;
+	while ((*s_var) && (ft_strcmp(alias->data, (*s_var)->name) != 0 ||
+	(*s_var)->type != ALIAS))
+		(*s_var) = (*s_var)->next;
+	if (!(*s_var))
+		return (0);
+	return (1);
+}
 
-	i = 0;
-	res = ft_strdup("");
-	while (str[i])
+int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var)
+{
+	if (alias->next && check_last_char(alias, (*ret)) == ' ')
 	{
-		jump_space(str, &i);
-		s = i;
-		while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
-			i++;
-		tmp = ft_strsub(str, s, i - s);
-		ft_strjoin_free(&res, tmp);
-		ft_strdel(&tmp);
-		if (str[i])
-			i++;
+		while ((*ret) - 1)
+		{
+			alias = alias->next;
+			(*ret)--;
+		}
 	}
-	ft_strdel(&str);
-	return (res);
+	else if (replace_alias_first_part(&var, alias) == 1)
+		return (1);
+	else
+	{
+		alias->data = del_space(alias->data);
+		return (0);
+	}
+	return (1);
 }
 
-void		replace_alias(char ***array, t_var *var, t_replace *replace)
+int			check_tok(t_alias *alias, t_var *var, t_replace *replace)
 {
-	int			i;
-	t_replace	*tmp_r;
-	t_var		*tmp_v;
+	t_alias *tmp;
 
-	tmp_r = replace;
-	tmp_v = var;
-	i = 0;
+	tmp = alias;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->data, "&&") == 0 || ft_strcmp(tmp->data, "||") == 0
+			|| ft_strcmp(tmp->data, ";") == 0 || ft_strcmp(tmp->data, "|") == 0)
+		{
+			replace_alias(tmp->next, var, replace);
+			return (0);
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
+{
+	t_var		*s_var;
+	int			ret;
+
 	while (1)
 	{
-		while (var && (ft_strcmp((*array)[i], var->name) != 0 ||
-		var->type != ALIAS))
-			var = var->next;
-		if (!var)
-			return ;
-		replace_alias_while(i, var, array);
-		if ((*array)[i + 1] && check_last_char((*array)[i]) == ' ')
-			i++;
-		else
-		{
-			(*array)[i] = del_space((*array)[i]);
+		s_var = var;
+		if (replace_alias_first_part(&s_var, alias) == 0)
 			break ;
-		}
-		var = tmp_v;
-		(*array)[i - 1] = del_space((*array)[i - 1]);
+		ret = replace_alias_while(s_var, alias);
+		if (ft_strcmp(alias->data, replace->name) == 0)
+			break ;
+		if (replace_alias_last_part(alias, &ret, var) == 0)
+			break ;
+		alias->data = del_space(alias->data);
+		if (alias->next)
+			alias = alias->next;
 	}
+	check_tok(alias, var, replace);
+	alias->data = del_space(alias->data);
 }

@@ -68,7 +68,7 @@ int			simple_operator(char *type, char *name)
 	}
 	if (ft_strlen(type) < 2)
 	{
-		ft_printf("zsh: parse error: condition expected: %s\n", type);
+		ft_printf("42sh: parse error: condition expected: %s\n", type);
 		return (2);
 	}
 	if (!ft_strchr("ebcdfLpSgurwx", type[1]) || ft_strlen(type) > 2)
@@ -85,7 +85,7 @@ int			simple_operator(char *type, char *name)
 	return (test_simple_operator(type, s_type));
 }
 
-int			ft_test_argv(char **argv)
+int			ft_test_argv(char **argv, int fd_out)
 {
 	int i;
 	int inv;
@@ -106,7 +106,7 @@ int			ft_test_argv(char **argv)
 		i = comp_operator(argv[1], argv[2], argv[3]);
 	else
 	{
-		ft_printf("test: too many arguments");
+		ft_putstr_fd("test: too many arguments", fd_out);
 		return (2);
 	}
 	if (inv == 1)
@@ -119,6 +119,6 @@ int			ft_test(t_process *p, t_var **var)
 	int ret;
 
 	var = NULL;
-	ret = ft_test_argv(p->cmd);
+	ret = ft_test_argv(p->cmd, p->fd_out);
 	return (ret);
 }

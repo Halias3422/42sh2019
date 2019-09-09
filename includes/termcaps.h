@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/07 08:35:59 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 13:37:01 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,6 @@
 # include "exec.h"
 # include "check_error.h"
 # include "builtin.h"
-# include "hach.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <term.h>
@@ -31,6 +30,7 @@
 # include <curses.h>
 # include <dirent.h>
 # include "lexeur.h"
+# include "hash.h"
 
 /*
 ** color **
@@ -312,7 +312,7 @@ void				signal_list(void);
 ** START_TERMCAPS
 */
 
-char				*termcaps42sh(t_pos *pos, t_hist *hist);
+char				*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var);
 void				print_prompt(t_pos *pos);
 
 /*
@@ -525,7 +525,6 @@ void		free_all_check_token(t_tok *in, t_tokench *tok);
 ** init_alias.c
 */
 void		init_alias(t_var *var, t_pos *pos);
-void		write_alias(t_var *var, t_pos *pos);
 
 /*
 *******************************************************************************
