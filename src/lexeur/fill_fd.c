@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 09:44:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/03 13:07:21 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 18:14:23 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,7 @@ t_lexeur	*fill_fd(int fd, int token)
 	res->word = NULL;
 	res->token = token;
 	res->fd = fd;
+	res->redirection = NULL;
 	return (res);
 }
 

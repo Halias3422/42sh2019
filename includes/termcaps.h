@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/05 09:16:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/07 14:55:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -311,7 +311,7 @@ void				signal_list(void);
 ** START_TERMCAPS
 */
 
-char				*termcaps42sh(t_pos *pos, t_hist *hist);
+char				*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var);
 void				print_prompt(t_pos *pos);
 
 /*
@@ -524,7 +524,6 @@ void		free_all_check_token(t_tok *in, t_tokench *tok);
 ** init_alias.c
 */
 void		init_alias(t_var *var, t_pos *pos);
-void		write_alias(t_var *var, t_pos *pos);
 
 /*
 *******************************************************************************
