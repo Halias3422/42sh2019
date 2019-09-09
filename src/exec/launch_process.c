@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   launch_process.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/29 18:55:29 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 08:37:57 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,7 +58,7 @@ int			ft_execute_test(t_process *p, t_var *var)
 	else
 	{
 		if (ft_test_path(p, var) == -1)
-			printf("42sh: command not found: %s\n", p->cmd[0]);
+			ft_printf("42sh: command not found: %s\n", p->cmd[0]);
 	}
 	return (0);
 }

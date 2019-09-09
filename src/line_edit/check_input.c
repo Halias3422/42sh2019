@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   check_input.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/31 16:22:15 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/09/09 08:41:00 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/09 09:05:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,6 +31,8 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 
 static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 {
+	if (buf[0] < 32 && buf[0] != 18 && buf[0] != 10 && buf[0] != 9)
+		return (hist);
 	if (buf[0] == 9 && pos->is_complete == 1 && pos->ctrl_search_history == 0)
 		input_is_tab(pos);
 	else if (buf[0] == 127)
@@ -48,8 +50,6 @@ static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {
-	if (buf[0] == 4)
-		return (hist);
 	if (buf[0] != 226 && buf[0] != 195)
 		selection_check(pos, (char*)buf);
 	if (buf[0] == 27)

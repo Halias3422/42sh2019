@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   control_search_history_calcul_pos.c              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/27 13:40:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 12:41:24 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/02 12:24:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ static void	calcul_len_of_ctrl_prompt(t_pos *pos, t_ctrl_hist *ctrl)
 	{
 		if (ctrl->act_co == pos->max_co - 1 ||
 			(i >= 21 && i - 21 < ft_strlen(pos->ans) &&
-			 pos->ans[i - 21] == '\n'))
+			pos->ans[i - 21] == '\n'))
 		{
 			ctrl->act_co = 0;
 			ctrl->act_li += 1;

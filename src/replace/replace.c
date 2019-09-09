@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 18:00:13 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/07 14:44:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,34 +93,27 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	return (done);
 }
 
-// static void		print_list(t_alias *alias)
-// {
-// 	while (alias)
-// 	{
-// 		alias = alias->next;
-// 	}
-// }
-
-char		**remove_env(t_var *start, char *str)
+char		**start_split(t_var *start, char *str)
 {
-	char		**array;
+	char		**ar;
 	t_replace	*replace;
 	t_alias		*alias;
 
 	init_replace(&replace);
-	array = split_space(str);
-	alias = make_ar_to_list(array);
-	//print_list(alias);
+	ar = split_space(str);
+	alias = make_ar_to_list(ar);
 	replace->name = ft_strdup(alias->data);
 	while (1)
 	{
 		if (remove_env_while(alias, start, replace) == 0)
 			break ;
 	}
-	array = make_list_to_ar(alias);
-	del_back_slash(&array);
-	remoove_quote(&array);
-	del_back_slash_end(&array);
+	free_replace(replace);
+	// ft_free_tab(ar);
+	ar = make_list_to_ar(alias);
+	del_back_slash(&ar);
+	remoove_quote(&ar);
+	del_back_slash_end(&ar);
 	ft_strdel(&str);
-	return (array);
+	return (ar);
 }

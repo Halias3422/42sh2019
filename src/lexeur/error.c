@@ -1,12 +1,12 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
 /*   error.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:15:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:14:02 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/04 10:41:43 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,16 +70,26 @@ int		check_error(char *str)
 	{
 		jump_space(str, &i);
 		token = find_token(str, i);
-		if (token == 0 || token == 2 || token == 3 || token == 1 || token == 8)
+		if (token == 2 || token == 0)
 			if (first_check(str, i, token))
 				return (-1);
-		if (token == 4 || token == 5 || token == 6 || token == 7)
+		if (token == 9 || token == 8 || token == 4 || token == 5)
 			if (second_check(str, i, token))
 				return (-1);
+		// // if (token == 10 || token == 2 || token == 3 || token == 1 || token == 8 || token == 9)
+		// if (token != -1 && token != 9 && token != 3)
+		// 	if (first_check(str, i, token))
+		// 		return (-1);
+		// // if (token == 4 || token == 5 || token == 6 || token == 7)
+		// if (token != -1)
+		// 	if (second_check(str, i, token))
+		// 		return (-1);
 		if (token != -1)
 			if (check_double_token(str, i, token))
 				return (-1);
-		if (str[i])
+		if (token != -1)
+				i += g_fill_token[token].size;
+		else
 			i++;
 	}
 	return (0);

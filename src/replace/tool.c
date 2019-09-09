@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 19:11:32 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 10:11:58 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,20 +18,20 @@ void		split_space_find_number(char *str, int *i)
 	int		ret;
 
 	ret = 0;
-	if (((ret) = find_token(str, *i)) != -1)
+	while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
+		(*i)++;
+	if (str[*i])
 	{
-		(*i) += g_fill_token[ret].size;
-		while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
+		ret = find_token(str, *i);
+		if (str[*i] && (ret == 1 || ret == 8 || ret == 9))
+			return ;
+			//*i += (g_fill_token[ret].size - 1);
+		if (ret == 4 || ret == 5)
+		{
 			(*i)++;
-	}
-	else
-	{
-		while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
-			(*i)++;
-		if (str[*i])
-			ret = find_token(str, *i);
-		if (str[*i] && ((ret) >= 4 && (ret) <= 7))
-			*i += g_fill_token[ret].size;
+			while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
+				(*i)++;
+		}
 	}
 }
 
@@ -66,24 +66,21 @@ void		basic_split_while(int *i, char *str, char **res, int *k)
 
 	while (str[*i] && ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == ' '))
 		(*i)++;
-	if (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '))
+	if (str[*i])
 	{
 		start = *i;
-		if (str[*i] && ((str[*i] >= '0' && str[*i] <= '9') ||
-		(find_token(str, *i) >= 4 && find_token(str, *i) <= 7)))
+		ret = find_token(str, *i);
+		if (str[*i] && ((str[*i] >= '0' && str[*i] <= '9')))
 			split_space_find_number(str, i);
 		else
 			split_space_basic(str, i);
 		res[*k] = ft_strsub(str, start, (*i) - start);
 	}
-	if (str[*i] && (ret = find_token(str, *i)) != -1)
-	{
-		res[*k] = ft_strsub(str, *i, g_fill_token[ret].size);
-		(*i) += g_fill_token[ret].size;
-	}
-	(*k)++;
-	if (str[*i])
-		(*i)++;
+	if (str[*i] && (ret = find_token(str, *i)) != -1)			//
+	{															//
+		ft_strjoin_free(&res[*k], ft_strsub(str, *i, g_fill_token[ret].size));	//Cette partie rajoute les tokens dans le tableau.
+		(*i) += g_fill_token[ret].size;							//
+	}															//
 }
 
 char		**split_space(char *str)
@@ -97,8 +94,10 @@ char		**split_space(char *str)
 	res = malloc(sizeof(char *) * (cnt_size(str) + 1));
 	while (str[i])
 	{
-		res[k] = NULL;
 		basic_split_while(&i, str, res, &k);
+		k++;
+		if (str[i])
+			i++;
 	}
 	res[k] = 0;
 	return (res);

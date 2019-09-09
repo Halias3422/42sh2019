@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_set.c                                         .::    .:/ .      .::   */
+/*   ft_strfsub.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 13:10:50 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/07/15 14:37:32 by mjalenqu     #+#   ##    ##    #+#       */
+/*   Updated: 2019/07/15 14:37:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
-#include "../../includes/exec.h"
+#include "ft_str.h"
 
-int		ft_set(t_process *p, t_var **ptr_var)
+char	*ft_strfsub(char *s, unsigned int start, size_t len)
 {
-	t_var *var;
+	char	*str;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
-	var = *ptr_var;
-	if (p->cmd[1])
-		return (1);
-	while (var)
+	i = start;
+	j = 0;
+	k = 0;
+	if (s == NULL)
+		return (NULL);
+	if (!(str = malloc(sizeof(*str) * (len + 1))))
+		return (NULL);
+	while (s[i] && k++ < len)
 	{
-		ft_printf("%s=%s\n", var->name, var->data);
-		var = var->next;
+		str[j++] = s[i++];
 	}
-	return (1);
+	str[j] = '\0';
+	ft_strdel(&s);
+	return (str);
 }

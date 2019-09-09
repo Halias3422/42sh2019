@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/02 10:34:23 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 08:31:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,13 +63,11 @@ int			replace_alias_first_part(t_var **s_var, t_alias *alias)
 		(*s_var) = (*s_var)->next;
 	if (!(*s_var))
 		return (0);
-	
 	return (1);
 }
 
-int			replace_alias_last_part(t_alias *alias, int *ret, t_replace *replace, t_var *var)
+int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var)
 {
-	(void)replace;
 	if (alias->next && check_last_char(alias, (*ret)) == ' ')
 	{
 		while ((*ret) - 1)
@@ -88,10 +86,22 @@ int			replace_alias_last_part(t_alias *alias, int *ret, t_replace *replace, t_va
 	return (1);
 }
 
-void		change_alias(char **str, char *replace)
+int			check_tok(t_alias *alias, t_var *var, t_replace *replace)
 {
-	ft_strdel(str);
-	(*str) = ft_strdup(replace);
+	t_alias *tmp;
+
+	tmp = alias;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->data, "&&") == 0 || ft_strcmp(tmp->data, "||") == 0
+			|| ft_strcmp(tmp->data, ";") == 0 || ft_strcmp(tmp->data, "|") == 0)
+		{
+			replace_alias(tmp->next, var, replace);
+			return (0);
+		}
+		tmp = tmp->next;
+	}
+	return (1);
 }
 
 void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
@@ -106,15 +116,13 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 			break ;
 		ret = replace_alias_while(s_var, alias);
 		if (ft_strcmp(alias->data, replace->name) == 0)
-		{
-			change_alias(&alias->data, replace->name);
 			break ;
-		}
-		if (replace_alias_last_part(alias, &ret, replace, var) == 0)
+		if (replace_alias_last_part(alias, &ret, var) == 0)
 			break ;
 		alias->data = del_space(alias->data);
 		if (alias->next)
 			alias = alias->next;
 	}
+	check_tok(alias, var, replace);
 	alias->data = del_space(alias->data);
 }

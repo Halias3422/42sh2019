@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/06/10 11:01:37 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/09 09:33:35 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -125,7 +125,7 @@ PEINC = $(addprefix $(INC_PATH), $(PEINC_NAME))
 #  									FLAG                                       #
 # **************************************************************************** #
 
-FLAGS = -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address
+FLAGS = -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 
 # **************************************************************************** #
 # 									REGLES                                     #
@@ -148,27 +148,27 @@ $(OBJ_PATH):
 
 $(SOBJ_PATH)%.o: $(SSRC_PATH)%.c $(SINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@echo "$(LIGHT_RED).\c"
 
 $(UOBJ_PATH)%.o: $(USRC_PATH)%.c $(UINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@echo "$(LIGHT_RED).\c"
 
 $(IOBJ_PATH)%.o: $(ISRC_PATH)%.c $(IINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@echo "$(LIGHT_RED).\c"
 
 $(MOBJ_PATH)%.o: $(MSRC_PATH)%.c $(MINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@echo "$(LIGHT_RED).\c"
 
 $(POBJ_PATH)%.o: $(PSRC_PATH)%.c $(PINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@echo "$(LIGHT_RED).\c"
 
 $(PEOBJ_PATH)%.o: $(PESRC_PATH)%.c $(PEINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@echo "$(LIGHT_RED).\c"
 
 clean: 
 	@rm -rf $(OBJ_PATH)

@@ -6,17 +6,17 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/31 16:12:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 09:37:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static void	 write_alias(t_var *var, t_pos *p)
+static void		write_alias(t_var *var, t_pos *p)
 {
 	chdir(p->path);
-	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT , 0664);
+	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	while (var)
 	{
 		if (var->type == 2)
@@ -82,13 +82,16 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 			if (!pos->ans || !pos->ans[0])
 			{
 				write_alias(var, pos);
-				exit (0);
+				exit(0);
 			}
 		}
 		if (pos->max_co > 2)
 			hist = check_input(buf, pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1 && pos->replace_hist == 0)
+		{
+			stock(hist, 7);
 			return (returning_ans(pos));
+		}
 		pos->replace_hist = 0;
 		ft_bzero(buf, 8);
 	}
