@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/08 18:54:18 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 14:29:39 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void		jump_space(char *buf, int *i)
 		(*i)++;
 }
 
-char		*get_fd_in(char	*str)
+char		*get_fd_in(char *str)
 {
 	char	*fd_in;
 	int		i;
@@ -32,6 +32,24 @@ char		*get_fd_in(char	*str)
 	else
 		fd_in = NULL;
 	return (fd_in);
+}
+
+char		*get_fd_out(char *str)
+{
+	char	*fd_out;
+	int		i;
+	int		start;
+
+	i = 0;
+	while (str[i] && (str[i] != '&'))
+		i++;
+	i++;
+	jump_space(str, &i);
+	start = i;
+	while (str[i])
+		i++;
+	fd_out = ft_strsub(str, start, i - start);
+	return (fd_out);
 }
 
 void		fill_struct_fd_in(t_lexeur *res, char *fd_in, enum e_token token,
@@ -87,7 +105,6 @@ int *i, enum e_token token)
 	res = malloc(sizeof(t_lexeur));
 	if (token == 4 || token == 6 || token == 9)
 	{
-		puts("-- >>, > or < --");
 		fill_struct_fd_in(res, get_fd_in(buf[*i]), token,
 		fill_redirection(buf, i));
 		if (res->redirection)
@@ -96,11 +113,9 @@ int *i, enum e_token token)
 	}
 	if (token == 5 || token == 8)
 	{
-		puts("-- >& or <& --");
 		fill_struct_fd_out(res, get_fd_in(buf[*i]), token,
-		fill_redirection(buf, i));
-		if (res->redirection)
-			(*i)++;
+		get_fd_out(buf[*i]));
+		(*i)++;
 		return (res);
 	}
 	return (NULL);
@@ -147,10 +162,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	i = 0;
 	j = 0;
 	while (buf[i])
-	{
-		printf("buf[%d] : _%s_\n", i, buf[i]);
 		i++;
-	}
 	array = malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])
@@ -161,7 +173,6 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 		if (buf[i])
 		{
 			token = check_token_for_redirection(buf[i]);
-			printf("token: %d\n", token);
 			if (token != -1)
 				array[j] = fill_lex_redirection(buf, &i, token);
 			else

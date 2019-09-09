@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 17:42:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,6 +74,18 @@ void		fill_process_split(t_job **j, t_lexeur **res, int *i)
 		(*j)->p->split = '\0';
 }
 
+void		fill_process_file(t_process *p, t_lexeur **res, int i)
+{
+	if (res[i]->fd_in)
+		p->file_in = ft_strdup(res[i]->fd_in);
+	else
+		p->file_in = NULL;
+	if (res[i]->fd_out)
+		p->file_out = ft_strdup(res[i]->fd_out);
+	else
+		p->file_out = NULL;
+}
+
 int			fill_process_while(t_lexeur **res, t_job **j, t_process **start,
 int *i)
 {
@@ -82,21 +94,19 @@ int *i)
 	k = 0;
 	fill_process_split(j, res, i);
 	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
-	while (res[*i] && (res[*i]->word || res[*i]->redirection))
+	while (res[*i] && (res[*i]->word))
 		fill_cmd(res, j, &k, i);
 	(*j)->p->cmd[k] = NULL;
-
 	(*j)->p->builtin = test_builtin((*j)->p);
-
-	if (res[*i] && (res[*i]->token != 1 && res[*i]->token != 8 && res[*i]->token
-	!= 4 && res[*i]->token != 5 && res[*i]->token != 6 && res[*i]->token != 7))
+	fill_process_file((*j)->p, res, *i);
+	if (res[*i] && (res[*i]->token == 0 && res[*i]->token == 2))
 	{
 		(*j)->p->next = malloc(sizeof(t_process));
 		(*j)->p = (*j)->p->next;
 		(*j)->p->status = '\0';
 	}
 	else if ((res[*i] && (*j)->next != NULL) && (res[*i]->token == 1 ||
-	res[*i]->token == 8))
+	res[*i]->token == 10))
 		change_job(j, start);
 	else
 	{
@@ -115,11 +125,13 @@ void		fill_process(t_job *j, t_lexeur **res)
 	i = 0;
 	j->p = malloc(sizeof(t_process));
 	start = j->p;
-	j->p->status = '\0';
-	j->p->stoped = 0;
-	j->p->completed = 0;
 	while (res[i])
 	{
+		j->p->file_in = NULL;
+		j->p->file_out = NULL;
+		j->p->status = '\0';
+		j->p->stoped = 0;
+		j->p->completed = 0;
 		if (fill_process_while(res, &j, &start, &i) == 0)
 			break ;
 		i++;

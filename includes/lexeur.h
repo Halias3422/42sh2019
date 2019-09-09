@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/07 20:44:46 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 13:41:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -138,6 +138,7 @@ int			del_back_slash_double_quote(int *k, int j, char ***ar);
 char		*fill_redirection(char **buf, int *i);
 t_lexeur	**find_input_redirection(t_lexeur ***tabe);
 t_lexeur	**check_redirection(t_lexeur ***tabe);
+char		*get_fd_out(char *str);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
