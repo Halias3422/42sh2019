@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 13:38:54 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 07:38:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,10 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 	char			*pwd;
 
 	hist = stock(NULL, 8);
-	new_cmds = (char**)malloc(sizeof(char*) * ((hist->cmd_no + 1) * 2));
+	if (hist->cmd_no > 20)
+		new_cmds = (char**)malloc(sizeof(char*) * ((hist->cmd_no + 1) * 2));
+	else
+		new_cmds = (char**)malloc(sizeof(char*) * 50 + 1);
 	line = NULL;
 	pwd = getcwd(NULL, 255);
 	pwd = ft_strjoinf(pwd, "/.tmp", 1);
