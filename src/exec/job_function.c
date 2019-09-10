@@ -59,6 +59,7 @@ void		remove_job(int id)
 	job_list = start;
 	if (job_list->j->id == id)
 	{
+		free(job_list);
 		stock(NULL, 9);
 		return ;
 	}
@@ -67,6 +68,7 @@ void		remove_job(int id)
 		if (job_list->j->id == id)
 		{
 			last->next = job_list->next;
+			free(job_list);
 			break ;
 		}
 		last = job_list;

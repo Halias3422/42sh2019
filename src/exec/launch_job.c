@@ -87,6 +87,7 @@ void		launch_job(t_job *j, t_var *var)
 	j->status = 'r';
 	while (p)
 	{
+		p->fd_error = 2;
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{

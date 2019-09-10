@@ -20,7 +20,10 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 
 	tab_var = split_env(var);
 	if (execve(path, arg, tab_var) == -1)
+	{
+		ft_tabfree(tab_var);
 		return (-1);
+	}
 	return (0);
 }
 
