@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:15:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 17:22:24 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 17:36:54 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,10 +70,10 @@ int		check_error(char *str)
 	{
 		jump_space(str, &i);
 		token = find_token(str, i);
-		if (token == 2 || token == 0)
+		if (token == 4 || token == 0 || token == 1 || token == 10)
 			if (first_check(str, i, token))
 				return (-1);
-		if (token == 9 || token == 8 || token == 4 || token == 5)
+		if (token == 9 || token == 6 || token == 8 || token == 5)
 			if (second_check(str, i, token))
 				return (-1);
 		// // if (token == 10 || token == 2 || token == 3 || token == 1 || token == 8 || token == 9)
