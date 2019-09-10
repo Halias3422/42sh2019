@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:01:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/06 08:31:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ int			replace_alias_first_part(t_var **s_var, t_alias *alias)
 	return (1);
 }
 
-int			replace_alias_last_part(t_alias *alias, int *ret)
+int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var)
 {
 	if (alias->next && check_last_char(alias, (*ret)) == ' ')
 	{
@@ -76,6 +76,8 @@ int			replace_alias_last_part(t_alias *alias, int *ret)
 			(*ret)--;
 		}
 	}
+	else if (replace_alias_first_part(&var, alias) == 1)
+		return (1);
 	else
 	{
 		alias->data = del_space(alias->data);
@@ -84,54 +86,43 @@ int			replace_alias_last_part(t_alias *alias, int *ret)
 	return (1);
 }
 
-// boucles infines sur alias ls='ls -G'. (il faut gerer les boucles infinies et on est bon)
-
-static void		print_list(t_alias *alias)
+int			check_tok(t_alias *alias, t_var *var, t_replace *replace)
 {
-	int i = 0;
-	while (alias)
+	t_alias *tmp;
+
+	tmp = alias;
+	while (tmp)
 	{
-		printf("alias->data = %s\n", alias->data);
-		alias = alias->next;
-		i++;
-		if (i >= 10)
-			__builtin_abort();		
+		if (ft_strcmp(tmp->data, "&&") == 0 || ft_strcmp(tmp->data, "||") == 0
+			|| ft_strcmp(tmp->data, ";") == 0 || ft_strcmp(tmp->data, "|") == 0)
+		{
+			replace_alias(tmp->next, var, replace);
+			return (0);
+		}
+		tmp = tmp->next;
 	}
+	return (1);
 }
 
 void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 {
 	t_var		*s_var;
 	int			ret;
-	int			i = 0;
 
-	(void)replace;
-	printf("function : replace_alias\n");
 	while (1)
 	{
 		s_var = var;
-		printf("avant :alias->data = %s\n", alias->data);
 		if (replace_alias_first_part(&s_var, alias) == 0)
-		{
-			printf("break 1 :alias->data = %s\n", alias->data);
 			break ;
-		}
-		print_list(alias);
 		ret = replace_alias_while(s_var, alias);
-		print_list(alias);
-		__builtin_abort();
-		if (replace_alias_last_part(alias, &ret) == 0)
-		{
-			printf("break 2 :alias->data = %s\n", alias->data);
+		if (ft_strcmp(alias->data, replace->name) == 0)
 			break ;
-		}
+		if (replace_alias_last_part(alias, &ret, var) == 0)
+			break ;
 		alias->data = del_space(alias->data);
-		printf("apres :alias->data = %s\n", alias->data);
 		if (alias->next)
 			alias = alias->next;
-		i++;
-		if (i >= 10)
-			__builtin_abort();
 	}
+	check_tok(alias, var, replace);
 	alias->data = del_space(alias->data);
 }

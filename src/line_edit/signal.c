@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/10 13:30:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/07 10:40:42 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,11 +50,16 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
+	char	*pwd;
+
 	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	init_pos(pos);
+	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+		pwd = getcwd(NULL, 1000));
+	ft_strdel(&pwd);
 	print_prompt(pos);
 }
 

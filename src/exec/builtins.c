@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtins.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:59:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 11:19:46 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,8 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"fc", &ft_fc},
 	{"fg", &ft_fg},
 	{"jobs", &ft_jobs},
-	{"exit", &ft_exit}
+	{"exit", &ft_exit},
+	{"hash", &ft_hash},
 };
 
 int		find_builtins(t_process *p, t_var *var)
