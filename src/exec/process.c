@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 15:14:02 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 17:25:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,6 @@ int			cnt_process(t_lexeur **res, int i)
 
 void		change_job(t_job **j, t_process **start)
 {
-	puts("change job");
 	(*j)->p->next = NULL;
 	(*j)->p = *start;
 	(*j) = (*j)->next;

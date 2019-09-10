@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 13:41:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 17:24:05 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,6 @@ enum e_token
 	T_IN_S,
 	T_SEMI,
 };
-
 
 typedef struct s_alias t_alias;
 typedef struct s_var t_var;

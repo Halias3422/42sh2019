@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_strjoin_free.c                                .::    .:/ .      .::   */
+/*   ft_strfsub.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/03/02 11:16:43 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/30 17:36:58 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/07/15 14:37:32 by mjalenqu     #+#   ##    ##    #+#       */
+/*   Updated: 2019/07/15 14:37:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_str.h"
 
-void	ft_strjoin_free(char **s1, const char *s2)
+char	*ft_strfsub(char *s, unsigned int start, size_t len)
 {
-	char *ret;
+	char	*str;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
-	if (!(ret = malloc(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2) + 1))))
+	i = start;
+	j = 0;
+	k = 0;
+	if (s == NULL)
+		return (NULL);
+	if (!(str = malloc(sizeof(*str) * (len + 1))))
+		return (NULL);
+	while (s[i] && k++ < len)
 	{
-		ft_strdel(s1);
-		return ;
+		str[j++] = s[i++];
 	}
-	ret[0] = '\0';
-	ret = ft_strcat(ret, *s1);
-	ret = ft_strcat(ret, (char *)s2);
-	ft_strdel(s1);
-	*s1 = ret;
+	str[j] = '\0';
+	ft_strdel(&s);
+	return (str);
 }
