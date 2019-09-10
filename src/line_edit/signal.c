@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   signal.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:42:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 17:45:32 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,11 @@ struct s_hist **ghist;
 
 void		signal_handler(pid_t pid)
 {
-	ft_putchar('\n');
+	char	*pwd;
+
+	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+		pwd = getcwd(NULL, 1000));
+	ft_strdel(&pwd);
 	pid = 0;
 }
 
@@ -50,11 +54,16 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
+	char	*pwd;
+
 	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	init_pos(pos);
+	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+		pwd = getcwd(NULL, 1000));
+	ft_strdel(&pwd);
 	print_prompt(pos);
 }
 

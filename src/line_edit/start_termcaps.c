@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   start_termcaps.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:41:21 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 17:45:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,7 +88,10 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 		if (pos->max_co > 2)
 			hist = check_input(buf, pos, hist);
 		if (buf[0] == 10 && pos->is_complete == 1 && pos->replace_hist == 0)
+		{
+			stock(hist, 7);
 			return (returning_ans(pos));
+		}
 		pos->replace_hist = 0;
 		ft_bzero(buf, 8);
 	}
