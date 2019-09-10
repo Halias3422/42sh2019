@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:15:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:41:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 08:49:07 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,7 @@ int		check_error(char *str)
 				return (-1);
 		if (token != -1)
 				i += g_fill_token[token].size;
-		else
+		else if (str[i] != '\0')
 			i++;
 	}
 	return (0);

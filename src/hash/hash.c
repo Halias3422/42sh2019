@@ -6,97 +6,129 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 15:56:36 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 15:14:36 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/hash.h"
 
-char	*cut_last_slash(char *path)
+static char			*complete_hash_table(t_hash *tmp, char *arg, char *path)
 {
-	int		i;
-
-	i = ft_strlen(path);
-	while (i > 0 && path[i] != '/')
-		i--;
-	if (i != 0)
-		path[i + 1] = '\0';
-	return (path);
+	while (tmp->next != NULL && tmp->exec != NULL && ft_strcmp(arg, tmp->exec)
+			!= 0)
+		tmp = tmp->next;
+	if (tmp->exec != NULL && ft_strcmp(arg, tmp->exec) == 0)
+		tmp->hit += 1;
+	else
+		init_single_link(tmp, arg, path);
+	return (tmp->path);
 }
 
-void	check_path_hash(char **tab_var, char *path, char **arg)
+void				read_hash_table(t_hash **hash)
 {
-	DIR				*dirp;
-	struct dirent	*read;
-	char			*tmp_path;
+	int				i;
+	t_hash			*tmp;
 
-	tmp_path = ft_strdup(path);
-	tmp_path = cut_last_slash(tmp_path);
-	dirp = opendir(tmp_path);
-	if (dirp == NULL)
-		return ;
-	while ((read = readdir(dirp)) != NULL)
-	{
-		if (ft_strcmp(arg[0], read->d_name) == 0)
-		{
-			closedir(dirp);
-			fill_hash_table(tab_var, tmp_path, arg);
-			free(tmp_path);
-			return ;
-		}
-	}
-	free(tmp_path);
-	closedir(dirp);
-	return ;
-}
-
-unsigned short    hash_str(char *str)
-{
-	int        i;
-	unsigned short    sum;
-
-	sum = 0;
 	i = 0;
-	while (str[i])
+	while (i < NB_KEY)
 	{
-		sum += str[i] * (3 + i);
+		tmp = hash[i];
+		while (tmp != NULL)
+		{
+			if (tmp->path != NULL)
+				ft_printf("key[%d] -- path = %s -- cmd = %s -- hit = %d\n",
+						i, tmp->path, tmp->exec, tmp->hit);
+			tmp = tmp->next;
+		}
 		i++;
 	}
-	return (sum % 100);
 }
 
-t_hash		**stock_hash(t_hash **to_stock, int usage)
+static char			*search_exec_in_table(t_hash *hash, char *arg)
 {
-	static t_hash	**stock_t_hash = NULL;
-
-	if (usage == 0)
-		stock_t_hash = to_stock;
-	else if (usage == 1)
-		return (stock_t_hash);
+	while (hash)
+	{
+		if (hash != NULL && hash->exec != NULL &&
+				ft_strcmp(hash->exec, arg) == 0)
+		{
+			hash->hit += 1;
+			return (hash->path);
+		}
+		hash = hash->next;
+	}
 	return (NULL);
 }
 
-void		fill_hash_table(char **tab_var, char *path, char **arg)
+char				*fill_hash_table(char *path, char **arg)
 {
-	t_hash **hash;
-	int		key;
+	t_hash			**hash;
+	int				key;
+	char			*ans;
 
+	ans = NULL;
 	hash = NULL;
 	hash = stock_hash(hash, 1);
+	key = get_key_of_exec(arg[0]);
 	if (hash == NULL)
 	{
-		ft_printf("cest NULLL\n");
 		hash = (t_hash**)malloc(sizeof(t_hash*) * 100);
+		init_hash_links(hash);
 		stock_hash(hash, 0);
 	}
 	else
-		ft_printf("cest plus NLUL\n");
-	(void)tab_var;
-	(void)path;
-	(void)arg;
-	ft_printf("contenu de arg %T\npath = %s\n", arg, path);
-	key = hash_str(arg[0]);
-	ft_printf("cle = %d\n", key);
+		ans = search_exec_in_table(hash[key], arg[0]);
+	if (ans != NULL)
+		return (ans);
+	ans = complete_hash_table(hash[key], arg[0], path);
+	return (ans);
+}
 
+char				*absolute_path(char *path)
+{
+	char	*tmp;
+
+	tmp = path;
+	if (path[0] == '.')
+		path = ft_strjoin(getcwd(NULL, 1000), path + 1);
+	if (access(path, F_OK) == -1)
+		ft_printf("42sh: %s: command not found\n", tmp);
+	else if (access(path, X_OK) == -1)
+		ft_printf("42sh: %s: permission denied\n", tmp);
+	else
+		return (path);
+	return (NULL);
+}
+
+char				*check_path_hash(char **tab_var, char **arg,
+					int i, char *ans)
+{
+	char			**paths;
+
+	if (arg[0][0] == '/' || arg[0][0] == '.')
+		return (absolute_path(arg[0]));
+	paths = get_ide_paths(tab_var);
+	while (paths[++i])
+	{
+		paths[i] = ft_strjoinf(paths[i], "/", 1);
+		paths[i] = ft_strjoinf(paths[i], arg[0], 1);
+		if (access(paths[i], F_OK) == 0)
+		{
+			if (access(paths[i], X_OK) == 0)
+			{
+				ans = fill_hash_table(paths[i], arg);
+				ft_free_tab(paths);
+				return (ans);
+			}
+			else
+			{
+				ft_printf("42sh: %s: permission denied\n", arg[0]);
+				ft_free_tab(paths);
+				return (NULL);
+			}
+		}
+	}
+	ft_printf("42sh: %s: command not found\n", arg[0]);
+	ft_free_tab(paths);
+	return (NULL);
 }

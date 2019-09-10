@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/06 10:54:44 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 13:07:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 13:56:22 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,8 @@ char		*fill_new_cmd(char *tmp_cmd, char *model, char *replace)
 	new_tmp = ft_strnew(0);
 	while (tmp_cmd[i])
 	{
-		if (tmp_cmd[i] == model[0] && ft_strncmp(tmp_cmd + i, model, ft_strlen(model)) == 0)
+		if (tmp_cmd[i] == model[0] && ft_strncmp(tmp_cmd + i, model,
+					ft_strlen(model)) == 0)
 		{
 			new_tmp = ft_strjoinf(new_tmp, replace, 1);
 			i += ft_strlen(model);
