@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 15:28:51 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 15:14:25 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,17 @@ void		print_exec(t_job *j)
 				printf("cmd[%d]: _%s_\n", i, j->p->cmd[i]);
 				i++;
 			}
-			printf("file_out: _%s_\tfile_in: _%s_\n", j->p->file_out, j->p->file_in);
+			printf("split _%c_\t", j->p->split);
+			printf("file_out: _%s_\tfile_in: _%s_\t", j->p->file_out, j->p->file_in);
+			printf("token: _%s_\n", j->p->token);
+			if (j->p->redirect)
+			{
+				while (j->p->redirect)
+				{
+					printf("redirect fd_in : _%s_\tfd_out : _%s_\n", j->p->redirect->fd_in, j->p->redirect->fd_out);
+					j->p->redirect = j->p->redirect->next;
+				}
+			}
 			j->p = j->p->next;
 		}
 		j->p = sp;

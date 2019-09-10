@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 16:35:42 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 10:32:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,8 +30,8 @@ typedef struct			s_var t_var;
 
 typedef	struct			s_redirect
 {
-	int					fd_in;
-	int					fd_out;
+	char				*fd_in;
+	char				*fd_out;
 	struct s_redirect	*next;
 }						t_redirect;
 
@@ -88,6 +88,7 @@ int		start_exec(t_lexeur **res, t_var *var);
 
 void		fill_process(t_job *j, t_lexeur **res);
 void		free_process(t_job *j);
+void		fill_token(t_process *p, t_lexeur **res, int *i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
