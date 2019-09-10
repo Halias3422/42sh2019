@@ -70,7 +70,7 @@ int		check_error(char *str)
 	{
 		jump_space(str, &i);
 		token = find_token(str, i);
-		if (token == 2 || token == 0)
+		if (token == 2 || token == 0 || token == 6)
 			if (first_check(str, i, token))
 				return (-1);
 		if (token == 9 || token == 8 || token == 4 || token == 5)
