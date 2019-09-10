@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 08:47:03 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 09:05:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,22 @@ int				check_entry(void)
 	return (0);
 }
 
+int				check_ans(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (ft_isspace(str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 {
 	char	*pwd;
@@ -47,6 +63,8 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	job_notification();
 	if (ans == NULL)
 		return (1);
+	if (check_ans(ans) == 1)
+		return (0);
 	if (pos.error == 1)
 		error_handling(&pos, NULL, 0);
 	if ((check_error(ans)) != -1)
