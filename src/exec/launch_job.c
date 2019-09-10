@@ -29,7 +29,7 @@ int			redirect_fd(t_process *p)
 {
 	p->file_out = p->cmd[1];
 	p->file_in = p->cmd[1];
-	p->split = 0;
+	//p->split = 0;
 	if (p->split == 'f')
 		p->fd_out = open(p->file_out, O_CREAT | O_WRONLY,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
