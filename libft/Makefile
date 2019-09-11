@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/11 09:07:53 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/11 09:03:33 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -148,7 +148,6 @@ $(OBJ_PATH):
 
 $(SOBJ_PATH)%.o: $(SSRC_PATH)%.c $(SINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-
 	@echo "$(DARK_BLUE).\c"
 
 $(UOBJ_PATH)%.o: $(USRC_PATH)%.c $(UINC)
