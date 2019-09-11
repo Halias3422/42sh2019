@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 08:25:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 10:15:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,7 +98,7 @@ int				main(int ac, char **av, char **env)
 	ghist = &hist;
 	while (1)
 	{
-		if (main_loop(pos, my_env, hist) != 0)
+		if (main_loop(pos, stock(NULL, 6), hist) != 0)
 			break ;
 	}
 }
