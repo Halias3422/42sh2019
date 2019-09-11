@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 13:06:06 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 13:22:47 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -151,6 +151,8 @@ int *i)
 	while (res[*i] && res[*i]->word)
 		fill_cmd(res, j, &k, i);
 	(*j)->p->cmd[k] = NULL;
+//	printf("k %d\n", k);
+//	printf("cmd[k] -> _%s_\n", (*j)->p->cmd[k]);
 	(*j)->p->builtin = test_builtin((*j)->p);
 //	if (res[*i] && (res[*i]->fd_in || res[*i]->fd_out))
 //		fill_process_file((*j)->p, res, *i);
@@ -168,7 +170,10 @@ int *i)
 	}
 	else if ((res[*i] && (*j)->next != NULL) && (res[*i]->token == 1 ||
 	res[*i]->token == 10))
+	{
+//		puts("CHNAGE DE JOB");
 		change_job(j, start);
+	}
 	else
 	{
 		(*j)->p->next = NULL;

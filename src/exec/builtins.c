@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtins.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:59:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 13:17:05 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,8 @@ int		find_builtins(t_process *p, t_var *var)
 	int i;
 
 	i = -1;
+	if (!p->cmd[0])
+		return (0);
 	while (++i < LEN_BUILTIN_LIST)
 	{
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
@@ -58,6 +60,8 @@ int		test_builtin(t_process *p)
 	int i;
 
 	i = -1;
+	if (!p->cmd[0])
+		return (0);
 	while (++i < LEN_BUILTIN_LIST)
 	{
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)

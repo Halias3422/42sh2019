@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 17:27:03 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 13:22:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,7 @@ int			ft_test_path(t_process *p, t_var *var)
 	i = 0;
 	while (path[i])
 	{
+
 		tmp = strjoin_path(path[i], p->cmd[0]);
 		if (ft_execute_function(tmp, p->cmd, var) == 0)
 		{
@@ -53,7 +54,7 @@ int			ft_test_path(t_process *p, t_var *var)
 
 int			ft_execute_test(t_process *p, t_var *var)
 {
-	if (ft_strchr(p->cmd[0], '/') != 0)
+	if (p->cmd[0] && (ft_strchr(p->cmd[0], '/') != 0))
 		ft_execute_function(p->cmd[0], p->cmd, var);
 	else
 	{
@@ -95,6 +96,8 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 {
 	pid_t		pid;
 
+	if (!p->cmd[0])
+		return (-1);
 	if (find_builtins(p, var) != 0)
 		return (1);
 	pid = fork();
