@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 09:41:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 13:07:22 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,6 @@ int		main_alias(t_process *p, t_var **var)
 	int		i;
 	int		k;
 
-	puts("alias");
 	k = 0;
 	if (!p->cmd[1])
 		return (1);

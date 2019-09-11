@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+#include "lexeur.h"
 
 # define ERROR "\033[1;31m"
 # define WHITE "\033[0m"
@@ -31,5 +32,6 @@
 */
 
 int			check_error(char *str);
-
+int			error_before_lexer(char **str);
+int			error_lex(t_lexeur **lex);
 #endif

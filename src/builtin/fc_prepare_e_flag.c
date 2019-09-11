@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 14:02:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 13:39:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 07:28:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,7 +95,7 @@ static int		check_if_ename_is_text_editor(t_fc *fc, char **paths, int i)
 	return (0);
 }
 
-static	char	**get_ide_paths(char **env)
+char			**get_ide_paths(char **env)
 {
 	int				i;
 	char			**paths;

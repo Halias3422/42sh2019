@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 09:05:24 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 10:15:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,14 +52,13 @@ int				check_ans(char *str)
 
 int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 {
-	char	*pwd;
-	char	*ans;
+	char		*pwd;
+	char		*ans;
 
 	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = getcwd(NULL, 1000));
+	pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
-	tcsetattr(2, TCSANOW, &(pos.old_term));
 	job_notification();
 	if (ans == NULL)
 		return (1);
@@ -99,7 +98,7 @@ int				main(int ac, char **av, char **env)
 	ghist = &hist;
 	while (1)
 	{
-		if (main_loop(pos, my_env, hist) != 0)
+		if (main_loop(pos, stock(NULL, 6), hist) != 0)
 			break ;
 	}
 }
