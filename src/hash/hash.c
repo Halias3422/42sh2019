@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 15:14:36 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 10:43:49 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,11 +104,14 @@ char				*check_path_hash(char **tab_var, char **arg,
 					int i, char *ans)
 {
 	char			**paths;
+	t_hash			**hash;
 
 	if (arg[0][0] == '/' || arg[0][0] == '.')
 		return (absolute_path(arg[0]));
+	if ((hash = stock_hash(NULL, 1)) != NULL && (ans = search_exec_in_table(hash[get_key_of_exec(arg[0])], arg[0])) != NULL)
+		return (ans);
 	paths = get_ide_paths(tab_var);
-	while (paths[++i])
+	while (paths != NULL && paths[++i])
 	{
 		paths[i] = ft_strjoinf(paths[i], "/", 1);
 		paths[i] = ft_strjoinf(paths[i], arg[0], 1);
