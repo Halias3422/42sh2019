@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 10:32:24 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 15:00:49 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,7 @@ typedef	struct			s_redirect
 {
 	char				*fd_in;
 	char				*fd_out;
+	char				*token;
 	struct s_redirect	*next;
 }						t_redirect;
 
