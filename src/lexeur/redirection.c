@@ -6,36 +6,27 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 17:01:39 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:15:13 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 17:27:21 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 
-char			*fill_redirection(char *buf, int *i, int token)
+char			*fill_redirection(char **buf, int *i)
 {
-	char	*red;
-	int		start;
-	int		j;
+	char	*res;
 
-	*i += g_fill_token[token].size;
-	start = *i;
-	if (token == 4 || token == 5)
+	if (buf[*i + 1])
 	{
-		while (buf[*i] && ((buf[*i] < 9 || buf[*i] > 13) && buf[*i] != ' '))
-		{
-			j = *i;
-			if (find_token(buf, j) != -1)
-				break ;
-			(*i)++;
-		}
-		red = ft_strsub(buf, start, *i - start);
-		return (red);
+		(*i)++;
+		res = ft_strdup(buf[*i]);
+		return (res);
 	}
 	return (NULL);
 }
 
+/*
 t_lexeur		*fill_all(t_lexeur ***array, int j)
 {
 	t_lexeur	*res;
@@ -109,3 +100,4 @@ t_lexeur		**check_redirection(t_lexeur ***array)
 	}
 	return ((*array));
 }
+*/

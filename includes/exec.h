@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 14:26:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 10:32:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,14 @@
 typedef struct			s_lexeur t_lexeur;
 typedef struct			s_var t_var;
 
+
+typedef	struct			s_redirect
+{
+	char				*fd_in;
+	char				*fd_out;
+	struct s_redirect	*next;
+}						t_redirect;
+
 typedef	struct			s_process
 {
 	struct s_process	*next;
@@ -44,6 +52,7 @@ typedef	struct			s_process
 	int					fd_error;
 	char				*file_out;
 	char				*file_in;
+	t_redirect			*redirect;
 }						t_process;
 
 typedef struct			s_job
@@ -79,6 +88,7 @@ int		start_exec(t_lexeur **res, t_var *var);
 
 void		fill_process(t_job *j, t_lexeur **res);
 void		free_process(t_job *j);
+void		fill_token(t_process *p, t_lexeur **res, int *i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
