@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 10:57:10 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 13:06:06 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -146,6 +146,8 @@ int *i)
 	k = 0;
 	fill_process_split(j, res, i);
 	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
+//	if (res[*i])
+//		printf("AVANT CMD res[%d] : _%s_\n", *i, res[*i]->word);
 	while (res[*i] && res[*i]->word)
 		fill_cmd(res, j, &k, i);
 	(*j)->p->cmd[k] = NULL;
@@ -156,8 +158,8 @@ int *i)
 		fill_token((*j)->p, res, i);
 	if (res[*i])
 		(*j)->p->redirect = fill_agregator(NULL, res, i);
-	if (res[*i])
-		printf("res[%d]: _%d_\n", *i, res[*i]->token);
+//	if (res[*i])
+//		printf("res[%d]: _%d_\n", *i, res[*i]->token);
 	if (res[*i] && (res[*i]->token == 0 || res[*i]->token == 3))
 	{
 		(*j)->p->next = malloc(sizeof(t_process));
@@ -166,9 +168,7 @@ int *i)
 	}
 	else if ((res[*i] && (*j)->next != NULL) && (res[*i]->token == 1 ||
 	res[*i]->token == 10))
-	{
 		change_job(j, start);
-	}
 	else
 	{
 		(*j)->p->next = NULL;

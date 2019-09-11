@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:07:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 11:35:54 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,7 @@ char		*replace_var_to_data(char *str, t_var *env)
 	if (str[i] == '{')
 		s = i + 1;
 	while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
-	&& str[i] != '"' && str[i] != '\''))
+	&& str[i] != '"' && str[i] != '\'' && str[i] != '\\'))
 		if (find_second_char(str, &i) == 0)
 			break ;
 	name = ft_strsub(str, s, i - s);

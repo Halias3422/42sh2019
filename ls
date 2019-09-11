@@ -1,0 +1,12 @@
+21sh
+Makefile
+README.md
+dfg
+includes
+libft
+ls
+obj
+src
+test
+toto
+toto2
