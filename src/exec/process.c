@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 17:25:56 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 10:57:10 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -156,8 +156,9 @@ int *i)
 		fill_token((*j)->p, res, i);
 	if (res[*i])
 		(*j)->p->redirect = fill_agregator(NULL, res, i);
-	//printf("res[%d]: _%d_\n", *i, res[*i]->token);
-	if (res[*i] && (res[*i]->token == 0 && res[*i]->token == 2))
+	if (res[*i])
+		printf("res[%d]: _%d_\n", *i, res[*i]->token);
+	if (res[*i] && (res[*i]->token == 0 || res[*i]->token == 3))
 	{
 		(*j)->p->next = malloc(sizeof(t_process));
 		(*j)->p = (*j)->p->next;
