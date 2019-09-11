@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/10 17:44:23 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/11 09:03:33 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,10 +18,10 @@ NAME = libft.a
 BLUE=\033[0;38;5;123m
 LIGHT_PINK = \033[0;38;5;200m
 PINK = \033[0;38;5;198m
-DARK_BLUE = \033[0;38;5;110m
+DARK_BLUE = \033[1;38;5;110m
 GREEN = \033[0;38;5;111m
 LIGHT_GREEN = \033[1;38;5;121m
-LIGHT_RED = \033[1;31;5;121m
+LIGHT_RED = \033[0;38;5;110m
 FLASH_GREEN = \033[33;32m
 # **************************************************************************** #
 #									PATH                                       #
@@ -135,7 +135,7 @@ all : $(OBJ_PATH) $(NAME)
 
 $(NAME): $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
 	@ar rcs $(NAME) $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
-	@echo "\n\033[0m"
+	@echo "\tlibft loaded\n\033[0m"
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH) 2> /dev/null
@@ -148,27 +148,27 @@ $(OBJ_PATH):
 
 $(SOBJ_PATH)%.o: $(SSRC_PATH)%.c $(SINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(UOBJ_PATH)%.o: $(USRC_PATH)%.c $(UINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(IOBJ_PATH)%.o: $(ISRC_PATH)%.c $(IINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(MOBJ_PATH)%.o: $(MSRC_PATH)%.c $(MINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(POBJ_PATH)%.o: $(PSRC_PATH)%.c $(PINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 $(PEOBJ_PATH)%.o: $(PESRC_PATH)%.c $(PEINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_RED).\c"
+	@echo "$(DARK_BLUE).\c"
 
 clean: 
 	@rm -rf $(OBJ_PATH)

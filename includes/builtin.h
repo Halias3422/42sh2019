@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 13:08:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 13:50:19 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,13 +16,15 @@
 
 # include "exec.h"
 # include "termcaps.h"
+# include "hash.h"
 # include <dirent.h>
 
-# define LEN_BUILTIN_LIST 13
+# define LEN_BUILTIN_LIST 14
 # define TERM "42sh"
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
 typedef struct	s_hist t_hist;
+typedef struct	s_hash t_hash;
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -137,10 +139,29 @@ char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 **		FC_PREPARE_E_FLAG.C
 */
 
+char			**get_ide_paths(char **env);
 void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist);
 char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
+
+/*
+**	FT_HASH_C
+*/
+
+int				ft_hash(t_process *p, t_var **var);
+void			exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
+				t_var **var);
+void			print_path_hash(t_hash **hash, char **cmd);
+void			print_part_of_hash_table(t_hash **hash, char **cmd);
+
+/*
+**	HASH_D_FLAG_C
+*/
+
+void			remove_selected_entry_hash(t_hash **hash, char **cmd);
+void			delete_middle_link(t_hash *tmp);
+void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 
 # define ARGUMENTS "cd: Too many arguments."
 # define CD_NO_HOME "cd: No HOME directory."

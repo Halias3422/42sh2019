@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 13:14:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 13:42:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/09 11:06:53 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,7 @@ void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
 {
 	int			i;
 
-	while (hist->next->next)
+	while (hist && hist->next && hist->next->next)
 		hist = hist->next;
 	hist->cmd = NULL;
 	hist->next = NULL;

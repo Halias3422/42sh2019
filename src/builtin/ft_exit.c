@@ -43,6 +43,9 @@ int		ft_exit(t_process *p, t_var **var)
 	if (status < 0)
 		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
 	else
+	{
+		free_hash_table();
 		ft_printf("exit\n");
+	}
 	exit(status);
 }
