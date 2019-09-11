@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 13:19:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 15:19:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,7 @@ static void		check_expansion_and_token(t_pos *pos, t_hist *hist)
 	t_tok		in;
 	t_tokench	tok;
 
-	check_history_expansion(pos, pos->ans, hist);
+	check_history_expansion(pos, ft_strdup(pos->ans), hist);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	init_tok(&in);
 	check_token(pos, &in, &tok);

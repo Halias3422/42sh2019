@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 13:35:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 15:21:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,11 +70,11 @@ t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
 	hist = get_expansion_type(expansion, hist, &new_ans, i);
 	if (j != *i)
 		return (no_expansion_found(&expansion, &new_ans, hist));
-	if (new_ans != NULL && ans != NULL)
+		if (new_ans != NULL && ans != NULL)
 		new_ans = filling_ans_with_new_ans(pos, new_ans, ans, end_exp);
-	else
-		new_ans = new_ans_not_valid(ans, new_ans, i);
-	expansion = ft_secure_free(expansion);
+		else
+		new_ans = new_ans_not_valid(ans, new_ans, i, pos);
+		expansion = ft_secure_free(expansion);
 	pos->is_expansion = 1;
 	return (hist);
 }
@@ -120,7 +120,7 @@ t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist)
 	{
 		while (hist->next != NULL)
 			hist = hist->next;
-		if (ans[i] == '!' && (i - 1 < 0 || ans[i - 1] != '!') &&
+		if (ans[i] == '!' && (i == 0 || (i > 1 && ans[i - 1] != '!')) &&
 				check_if_inside_symbols(ans, i) == 0)
 		{
 			j = i;

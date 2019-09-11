@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/23 12:41:43 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 13:34:12 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/09/11 14:27:42 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/11 15:22:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,8 +45,11 @@ char			*filling_ans_with_new_ans(t_pos *pos, char *new_ans, char **ans,
 	return (new_ans);
 }
 
-char			*new_ans_not_valid(char **ans, char *new_ans, int *i)
+char			*new_ans_not_valid(char **ans, char *new_ans, int *i,
+				t_pos *pos)
 {
+	if (pos->ans)
+		ft_printf("\n42sh: %s: event not found", pos->ans);
 	*ans = ft_secure_free(*ans);
 	new_ans = ft_secure_free(new_ans);
 	*i += 1;

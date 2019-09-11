@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 13:34:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 14:03:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -453,7 +453,8 @@ int				get_expansion_length(char *ans, int i);
 
 t_hist			*no_expansion_found(char **expansion, char **new_ans,
 				t_hist *hist);
-char			*new_ans_not_valid(char **ans, char *new_ans, int *i);
+char			*new_ans_not_valid(char **ans, char *new_ans, int *i,
+				t_pos *pos);
 char			*filling_ans_with_new_ans(t_pos *pos, char *new_ans, char **ans,
 				int end_exp);
 int				check_if_inside_symbols(char *ans, int i);
