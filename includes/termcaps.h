@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 13:37:01 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 13:34:09 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,6 +112,7 @@ typedef struct		s_pos
 	char			*path;
 	struct termios	old_term;
 	struct termios	my_term;
+	int				is_expansion;
 }					t_pos;
 
 typedef struct		s_htab
@@ -455,6 +456,7 @@ t_hist			*no_expansion_found(char **expansion, char **new_ans,
 char			*new_ans_not_valid(char **ans, char *new_ans, int *i);
 char			*filling_ans_with_new_ans(t_pos *pos, char *new_ans, char **ans,
 				int end_exp);
+int				check_if_inside_symbols(char *ans, int i);
 
 /*
 **HISTORY_EXPANSION_TYPES.C

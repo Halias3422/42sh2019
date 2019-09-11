@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 13:41:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 13:35:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,8 @@ int				get_expansion_length(char *ans, int i)
 	not_double = 0;
 	check = 0;
 	j = i;
-	while (ans[j] && (ans[j] < 9 || ans[j] > 13) && ans[j] != 32 && check < 2)
+	while (ans[j] && (ans[j] < 9 || ans[j] > 13) && ans[j] != 32 &&
+			ans[j] != 34 && ans[j] != 96 && check < 2)
 	{
 		if (ans[j] != '!')
 			not_double += 1;
@@ -59,14 +60,11 @@ t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
 	char		*expansion;
 
 	expansion = get_expansion_content(*ans, *i);
-	j = 0;
+	j = -1;
 	end_exp = get_expansion_length(*ans, *i);
 	new_ans = ft_strnew(*i);
-	while (j < *i)
-	{
+	while (++j < *i)
 		new_ans[j] = ans[0][j];
-		j++;
-	}
 	new_ans[j] = '\0';
 	j = *i;
 	hist = get_expansion_type(expansion, hist, &new_ans, i);
@@ -77,6 +75,7 @@ t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
 	else
 		new_ans = new_ans_not_valid(ans, new_ans, i);
 	expansion = ft_secure_free(expansion);
+	pos->is_expansion = 1;
 	return (hist);
 }
 
@@ -117,17 +116,17 @@ t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist)
 	j = 0;
 	if (ft_strchr(ans, '!') == NULL)
 		return (hist);
-	while (ans && ans[i])
+	while (ans && i < ft_strlen(ans) && ans[i])
 	{
-		if (ans[i] == '!')
+		while (hist->next != NULL)
+			hist = hist->next;
+		if (ans[i] == '!' && (i - 1 < 0 || ans[i - 1] != '!') &&
+				check_if_inside_symbols(ans, i) == 0)
 		{
 			j = i;
 			hist = replace_expansion_by_value(pos, &ans, hist, &i);
-			if (ans != NULL && ans[j] && ans[j + 1] && ans[j + 1] == '!')
-				i = j + 2;
 		}
-		else
-			i += 1;
+		i += 1;
 	}
 	hist = exit_history_expansion(hist, ans, pos);
 	if (pos->error == 1)
