@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/11 08:26:43 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/11 09:07:23 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -80,10 +80,12 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME) : $(OBJ_PATH) $(OBJ) Makefile
+	@echo  "\t42sh loaded\n"
 	@make -C libft
 	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
 	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]"
+	@./21sh
 
 $(OBJ_PATH):
 	@mkdir -p obj 2> /dev/null
@@ -98,6 +100,7 @@ $(OBJ_PATH):
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 	@gcc $(FLAG) -g -I $(INC_PATH) -o $@ -c $<
+	@echo "$(LIGHT_GREEN).\c"
 
 clean:
 	@make -C libft/ clean
