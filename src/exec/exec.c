@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 15:23:37 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 15:57:09 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -163,7 +163,7 @@ int			find_equal(char *str)
 	int	i;
 
 	i = 0;
-	printf("str = %s\n", str);
+	// printf("str = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '=')
