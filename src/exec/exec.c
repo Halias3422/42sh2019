@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 15:23:37 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 16:20:32 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -154,7 +154,14 @@ void		add_env_temp(t_var **var, char *str)
 
 int			check_cmd(char *str)
 {
-	(void)str;
+	int	i;
+
+	i = 0;
+	jump_space(str, &i);
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	if (!(str[i]))
+		return ()
 	return (1);
 }
 
@@ -181,7 +188,7 @@ int			check_exec_var(t_lexeur **res, t_var *var)
 	// printf("word = %s\tredirect = %s\tfd_in = %s\tfd_out = %s\n", (*res)->word, (*res)->redirection, (*res)->fd_in, (*res)->fd_out);
 	while (res[i])
 	{
-		if (find_equal(res[i]->word))
+		if (res[i] && res[i]->word && find_equal(res[i]->word))
 		{
 			if (check_cmd(res[i]->word) == 1)
 				add_env_temp(&var, res[i]->word);
@@ -195,19 +202,20 @@ int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
 
-	// if (check_exec_var(res, var) == 0)
-		// return (0);
+	if (check_exec_var(res, var) == 0)
+		return (0);
 	j = malloc(sizeof(t_job));
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
 	//print_exec(j);
+	free_lexer(res);
 	while (j)
 	{
 		launch_job(j, var);
 		j = j->next;
 	}
-	free_lexer(res);
+	free_parseur(j);
 	return (0);
 }
