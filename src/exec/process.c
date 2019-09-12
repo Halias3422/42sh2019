@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 10:07:12 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 10:11:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,7 +101,8 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 	tmp = NULL;
 	while (res[t])
 	{
-		if (res[t]->token == 10 || res[t]->token == 1)
+		if (res[t] && (res[t]->token != 4 && res[t]->token != 5 &&
+		res[t]->token != 8 && res[t]->token != 6 && res[t]->token != 9))
 			break;
 		if (res[t] && (res[t]->token == 4 || res[t]->token == 5 ||
 		res[t]->token == 8 || res[t]->token == 6 || res[t]->token == 9))
@@ -110,7 +111,6 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 			{
 				tmp = malloc(sizeof(t_redirect));
 				p = tmp;
-				printf("FIRST res[%d] redirect-> %s\n", t, res[t]->redirection);
 				if (res[t]->token != 4 && res[t]->token != 6 && res[t]->token != 9)
 				{
 					tmp->fd_in = (res[t]->fd_in) ? ft_strdup(res[t]->fd_in) : NULL;
