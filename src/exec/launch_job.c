@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   launch_job.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/29 18:52:02 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 14:49:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ t_process	*get_and_or(t_process *p)
 
 int			redirect_fd(t_process *p)
 {
-	p->file_out = p->cmd[1];
+	/*p->file_out = p->cmd[1];
 	p->file_in = p->cmd[1];
 	p->split = 0;
 	if (p->split == 'f')
@@ -49,7 +49,8 @@ int			redirect_fd(t_process *p)
 	{
 		ft_printf_err("42sh: %s: No such file or directory", p->file_out);
 		return (-1);
-	}
+	}*/
+	p->fd_out = 1;
 	return (1);
 }
 

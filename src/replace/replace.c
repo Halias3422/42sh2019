@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 12:37:48 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 14:47:17 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,7 +101,6 @@ char		**start_split(t_var *start, char *str)
 
 	init_replace(&replace);
 	ar = split_space(str);
-	printf("var = %p\n", start);
 	if (!start)
 		return (ar);
 	alias = make_ar_to_list(ar);

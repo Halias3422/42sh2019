@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 09:55:04 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 14:56:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,8 +34,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"fc", &ft_fc},
 	{"fg", &ft_fg},
 	{"jobs", &ft_jobs},
-	{"exit", &ft_exit},
-	{"hash", &ft_hash},
+	{"exit", &ft_exit}
 };
 
 int		find_builtins(t_process *p, t_var *var)
@@ -43,6 +42,8 @@ int		find_builtins(t_process *p, t_var *var)
 	int i;
 
 	i = -1;
+	if (!p->cmd[0])
+		return (0);
 	while (++i < LEN_BUILTIN_LIST)
 	{
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
@@ -59,6 +60,8 @@ int		test_builtin(t_process *p)
 	int i;
 
 	i = -1;
+	if (!p->cmd[0])
+		return (0);
 	while (++i < LEN_BUILTIN_LIST)
 	{
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
