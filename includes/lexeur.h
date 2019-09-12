@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 14:43:41 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 16:01:36 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -233,6 +233,7 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace);
 */
 
 void   		remoove_quote(char ***array);
+int			check_tok(t_alias *alias, t_var *var, t_replace *replace);
 
 void		print_lexer(t_lexeur *lex);
 #endif
