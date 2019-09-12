@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 17:27:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 14:51:57 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -156,6 +156,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	int			i;
 	int			j;
 	int			k;
+	int			t = 0;
 	int			token;
 
 	i = 0;
@@ -180,6 +181,11 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 		}
 	}
 	array[j] = NULL;
+	while (array[t])
+	{
+		printf("array[%d]:\tword -> _%s_\ttoken ->%d\tred -> _%s_\tfd_in _%s_ fd_out _%s_\n", t, array[t]->word, array[t]->token, array[t]->redirection, array[t]->fd_in, array[t]->fd_out);
+		t++;
+	}
 //	check_redirection(&array);
 	return (array);
 }
