@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   input_is_entry.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 15:19:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/12 08:11:25 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,6 @@ t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 	{
 		entry_is_complete(pos, hist);
 		pos->was_incomplete = 0;
-	}
+	}		
 	return (hist);
 }

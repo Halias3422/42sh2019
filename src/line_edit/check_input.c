@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 17:45:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 08:11:00 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,8 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 	{
 		if (hist->cmd != NULL)
 			ft_strdel(&hist->cmd);
+		if (!hist->prev || (hist->prev &&
+					ft_strcmp(hist->prev->cmd, pos->ans) != 0))
 		hist->cmd = ft_strdup(pos->ans);
 	}
 	if (pos->ans[0] == '\0' || (pos->is_complete == 0 && pos->let_nb > 0 &&
