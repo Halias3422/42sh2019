@@ -50,6 +50,7 @@ int			redirect_fd(t_process *p)
 		ft_printf_err("42sh: %s: No such file or directory", p->file_out);
 		return (-1);
 	}*/
+	//launch_redirection(p);
 	p->fd_out = 1;
 	return (1);
 }
