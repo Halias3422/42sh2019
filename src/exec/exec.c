@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 17:44:39 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 14:12:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,10 +85,64 @@ void		print_exec(t_job *j)
 	j = sj;
 }
 
+void		add_env_temp(t_var **var, char *str)
+{
+	t_var	*start;
+ 
+	start = malloc(sizeof(t_var));
+	start->name = init_name(str);
+	start->data = init_data(str);
+	start->type = TEMP;
+	start->next = (*var);
+	(*var) = start;
+	stock((*var), 5);
+}
+
+int			check_cmd(char *str)
+{
+	(void)str;
+	return (1);
+}
+
+int			find_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	printf("str = %s\n", str);
+	while (str[i])
+	{
+		if (str[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int			check_exec_var(t_lexeur **res, t_var *var)
+{
+	int	i;
+
+	i = 0;
+	// printf("word = %s\tredirect = %s\tfd_in = %s\tfd_out = %s\n", (*res)->word, (*res)->redirection, (*res)->fd_in, (*res)->fd_out);
+	while (res[i])
+	{
+		if (find_equal(res[i]->word))
+		{
+			if (check_cmd(res[i]->word) == 1)
+				add_env_temp(&var, res[i]->word);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
 
+	// if (check_exec_var(res, var) == 0)
+		// return (0);
 	j = malloc(sizeof(t_job));
 	j->pgid = 0;
 	init_job(j);
