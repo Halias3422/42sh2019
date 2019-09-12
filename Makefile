@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/12 08:20:46 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/12 15:14:27 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -22,14 +22,15 @@ SRC_LINE = $(addprefix line_edit/, \
 				calcul_line.c check_error.c check_input.c control_search_history_calcul_pos.c\
 				control_search_history.c control_search_history_calcul_lines.c \
 				copy_tools.c copy.c cut.c env.c escape_code.c ft_errno.c\
-				history_expansion_free.c history_expansion.c history_expansions_types.c\
+				history_expansion.c history_expansion_types.c\
+				history_expansion_calculate.c\
 				history.c initialisation_stock.c input_is_entry.c tools.c\
 				input_is_printable_char.c input_is_remove_char.c jump_up_down.c jump.c\
 				move_through_history.c print_ans.c search_in_history.c signal.c tab_key_var.c\
 				start_termcaps.c tab_key.c tab_key_all_path.c tab_key_auto_complete.c tab_key_current_dir.c\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
 				token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
-				token_heredoc_open.c token_init.c init_alias.c debug.c)
+				token_heredoc_open.c token_init.c init_alias.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c \
@@ -62,7 +63,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra #-O3 -g3 -fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/22 18:04:42 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/29 12:56:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 15:04:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ char			*copy_beginning_str(char *str, int i)
 
 	dest = NULL;
 	j = 0;
-	if (!(dest = (char*)malloc(sizeof(char) * i + 1)))
+		if (!(dest = (char*)malloc(sizeof(char) * i + 2)))
 		return (NULL);
 	while (j <= i)
 	{

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 10:32:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 15:10:52 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -439,42 +439,32 @@ void	jump_up(t_pos *pos);
 /*
 ** HISTORY_EXPANSION.C
 */
-
-t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist);
-t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos,
-				char *original_ans);
-t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
-				t_hist *hist, int *i);
-char			*get_expansion_content(char *ans, int i);
-int				get_expansion_length(char *ans, int i);
-
-/*
-**HISTORY_EXPANSION_FREE.C
-*/
-
-char			*stock_original_ans(char *ans, int usage);
-t_hist			*no_expansion_found(char **expansion, char **new_ans,
-				t_hist *hist);
-char			*new_ans_not_valid(char **ans, char *new_ans, int *i,
-				t_pos *pos);
-char			*filling_ans_with_new_ans(t_pos *pos, char *new_ans, char **ans,
-				int end_exp);
+t_hist			*check_history_expansion(t_pos *pos, t_hist *hist, int i,
+				int error);
+t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos);
+int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
+				int error);
 int				check_if_inside_symbols(char *ans, int i);
 
 /*
-**HISTORY_EXPANSION_TYPES.C
+** HISTORY_EXPANSION_TYPES.C
 */
 
-t_hist			*get_expansion_type(char *expansion, t_hist *hist,
-				char **new_ans, int *i);
-t_hist			*double_exclamation_expansion(char **new_ans, t_hist *hist,
+int				double_exclamation_expansion(char **new_ans, t_hist *hist);
+int				number_expansion(char **new_ans, t_hist *hist, char *expansion);
+int				negative_number_expansion(char **new_ans, t_hist *hist,
 				char *expansion);
-t_hist			*word_finding_expansion(char **new_ans, t_hist *hist,
+int				word_finding_expansion(char **new_ans, t_hist *hist,
 				char *expansion);
-t_hist			*negative_number_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
-t_hist			*number_expansion(char **new_ans, t_hist *hist,
-				char *expansion, t_pos *pos);
+int				get_expansion_value(char *expansion, t_hist *hist,
+				char **new_ans);
+
+/*
+** HISTORY_EXPANSION_CALCULATE.C
+*/
+
+char			*get_expansion_content(char *ans, int i);
+int				get_expansion_length(char *ans, int i);
 
 /*
 ** token_init.c
