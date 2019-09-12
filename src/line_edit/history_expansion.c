@@ -6,78 +6,52 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 13:41:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 15:13:17 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-int				get_expansion_length(char *ans, int i)
+int				check_if_inside_symbols(char *ans, int i)
 {
 	int			j;
-	int			check;
-	int			not_double;
+	int			check_anti;
+	int			check_single;
+	int			check_double;
 
-	not_double = 0;
-	check = 0;
-	j = i;
-	while (ans[j] && (ans[j] < 9 || ans[j] > 13) && ans[j] != 32 && check < 2)
-	{
-		if (ans[j] != '!')
-			not_double += 1;
-		if (ans[j] == '!' && not_double > 0)
-			break ;
-		else if (ans[j] == '!')
-			check += 1;
-		j++;
-	}
-	return (j);
-}
-
-char			*get_expansion_content(char *ans, int i)
-{
-	char		*new_ans;
-	int			j;
-	int			k;
-
-	k = 0;
-	j = get_expansion_length(ans, i);
-	new_ans = ft_strnew(j - i);
-	while (i < j)
-		new_ans[k++] = ans[i++];
-	new_ans[k] = '\0';
-	return (new_ans);
-}
-
-t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
-				t_hist *hist, int *i)
-{
-	char		*new_ans;
-	int			end_exp;
-	int			j;
-	char		*expansion;
-
-	expansion = get_expansion_content(*ans, *i);
+	check_anti = 0;
+	check_single = 0;
+	check_double = 0;
 	j = 0;
-	end_exp = get_expansion_length(*ans, *i);
-	new_ans = ft_strnew(*i);
-	while (j < *i)
+	while (ans && ans[j] && j < i)
 	{
-		new_ans[j] = ans[0][j];
+		if (ans[j] == 39)
+			check_single += 1;
 		j++;
 	}
-	new_ans[j] = '\0';
-	j = *i;
-	hist = get_expansion_type(expansion, hist, &new_ans, i);
-	if (j != *i)
-		return (no_expansion_found(&expansion, &new_ans, hist));
-	if (new_ans != NULL && ans != NULL)
-		new_ans = filling_ans_with_new_ans(pos, new_ans, ans, end_exp);
-	else
-		new_ans = new_ans_not_valid(ans, new_ans, i);
+	if ((check_single % 2) == 1)
+		return (-1);
+	return (0);
+}
+
+int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
+				int error)
+{
+	char		*expansion;
+	int			end_exp;
+	char		*new_ans;
+
+	expansion = get_expansion_content(pos->ans, i);
+	end_exp = get_expansion_length(pos->ans, i);
+	new_ans = ft_copy_part_str(pos->ans, i - 1, 0);
+	error = get_expansion_value(expansion, hist, &new_ans);
+	new_ans = ft_strjoinf(new_ans, pos->ans + i + ft_strlen(expansion), 1);
+	pos->ans = ft_secure_free(pos->ans);
+	pos->ans = ft_strdup(new_ans);
+	new_ans = ft_secure_free(new_ans);
 	expansion = ft_secure_free(expansion);
-	return (hist);
+	return (error);
 }
 
 t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos)
@@ -108,29 +82,30 @@ t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos)
 	return (hist);
 }
 
-t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist)
+t_hist			*check_history_expansion(t_pos *pos, t_hist *hist, int i,
+				int error)
 {
-	int			i;
-	int			j;
+	char		*original_ans;
 
-	i = 0;
-	j = 0;
-	if (ft_strchr(ans, '!') == NULL)
+	if (ft_strchr(pos->ans, '!') == NULL)
 		return (hist);
-	while (ans && ans[i])
+	original_ans = ft_strdup(pos->ans);
+	while (pos->ans && pos->ans[i])
 	{
-		if (ans[i] == '!')
+		if (pos->ans[i] == '!' && (i == 0 || (i > 0 && pos->ans[i - 1] != '!'))
+			&& check_if_inside_symbols(pos->ans, i) == 0)
+			error = replace_expansion_by_value(pos, hist, i, error);
+		if (error == -1)
 		{
-			j = i;
-			hist = replace_expansion_by_value(pos, &ans, hist, &i);
-			if (ans != NULL && ans[j] && ans[j + 1] && ans[j + 1] == '!')
-				i = j + 2;
+			ft_printf("\n42sh: %s: event not found", original_ans);
+			pos->error = 1;
+			pos->ans = ft_secure_free(pos->ans);
+			pos->ans = ft_strdup(original_ans);
+			pos->ans = ft_strnew(0);
+			break ;
 		}
-		else
-			i += 1;
+		i++;
 	}
-	hist = exit_history_expansion(hist, ans, pos);
-	if (pos->error == 1)
-		pos->replace_hist = 0;
+	free(original_ans);
 	return (hist);
 }

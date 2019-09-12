@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/12 14:43:08 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/12 15:27:23 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -22,7 +22,8 @@ SRC_LINE = $(addprefix line_edit/, \
 				calcul_line.c check_error.c check_input.c control_search_history_calcul_pos.c\
 				control_search_history.c control_search_history_calcul_lines.c \
 				copy_tools.c copy.c cut.c env.c escape_code.c ft_errno.c\
-				history_expansion_free.c history_expansion.c history_expansions_types.c\
+				history_expansion.c history_expansion_types.c\
+				history_expansion_calculate.c\
 				history.c initialisation_stock.c input_is_entry.c tools.c\
 				input_is_printable_char.c input_is_remove_char.c jump_up_down.c jump.c\
 				move_through_history.c print_ans.c search_in_history.c signal.c tab_key_var.c\
@@ -80,7 +81,7 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME) : $(OBJ_PATH) $(OBJ) Makefile
-	@echo  "\t42sh loaded\n"
+	@echo  "\n42sh loaded"
 	@make -C libft
 	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include

@@ -6,14 +6,14 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 08:40:32 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 16:12:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 09:47:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static int	verif_token(char *str)
+int			verif_token(char *str)
 {
 	if (ft_strncmp(str, "&&", 2) == 0)
 		return (1);
@@ -109,5 +109,6 @@ void		check_token(t_pos *pos, t_tok *in, t_tokench *tok)
 			in->i++;
 	}
 	pos->is_complete = check_in(pos, in);
+	pos->is_complete = check_in_2(pos);
 	free_all_check_token(in, tok);
 }

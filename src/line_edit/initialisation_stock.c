@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 16:18:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/11 13:36:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,6 +94,7 @@ static void		init_classic_var(t_pos *pos)
 	pos->was_incomplete = 0;
 	pos->start_select = -1;
 	pos->ctrl_hist_cmd = ft_strnew(0);
+	pos->is_expansion = 0;
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;

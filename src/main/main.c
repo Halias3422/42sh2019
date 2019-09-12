@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 14:46:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 15:27:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,7 +93,7 @@ int				main(int ac, char **av, char **env)
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);
 	pos.is_complete = 1;
-	pos.prompt = NULL;
+	pos.prompt = ft_strdup("$ ");
 	hist = create_history(&pos, hist);
 	ghist = &hist;
 	while (1)
