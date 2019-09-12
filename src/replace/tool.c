@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 16:07:29 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 09:12:09 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,7 +85,7 @@ void		split_space_basic(char *str, int *i)
 			(*i)++;
 	}
 }
-/*
+
 int		search_agregator(char *str, int i)
 {
 	int		token;
@@ -104,7 +104,6 @@ void	split_agregator(char *str, int *i)
 {
 	while (str[*i] && (find_token(str, *i) != 5 && find_token(str, *i) != 8))
 		(*i)++;
-	printf("str[%d]: _%c_\n", *i, str[*i]);
 	(*i) += 2;
 	if (str[*i] && ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == ' '))
 	{
@@ -113,7 +112,7 @@ void	split_agregator(char *str, int *i)
 	}
 	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '))
 		(*i)++;
-}*/
+}
 
 int		basic_split_while(int *i, char *str, char **res, int *k)
 {
@@ -128,6 +127,8 @@ int		basic_split_while(int *i, char *str, char **res, int *k)
 		ret = find_token(str, *i);
 		if (str[*i] && ((str[*i] >= '0' && str[*i] <= '9') || (ret == 5 || ret == 8)))
 			split_space_find_number(str, i);
+		else if (search_agregator(str, *i))
+			split_agregator(str, i);
 		else
 			split_space_basic(str, i);
 		res[*k] = ft_strsub(str, start, (*i) - start);

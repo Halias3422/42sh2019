@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 11:28:39 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 09:19:36 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,22 +61,21 @@ void		print_exec(t_job *j)
 		while (j->p)
 		{
 			i = 0;
+			puts("-----------------------------------------------------------------------");
 			while (j->p->cmd[i])
 			{
 				printf("cmd[%d]: _%s_\n", i, j->p->cmd[i]);
 				i++;
 			}
-			printf("split _%c_\t", j->p->split);
-			printf("file_out: _%s_\tfile_in: _%s_\t", j->p->file_out, j->p->file_in);
-			printf("token: _%s_\n", j->p->token);
 			if (j->p->redirect)
 			{
 				while (j->p->redirect)
 				{
-					printf("redirect fd_in : _%s_\tfd_out : _%s_\n", j->p->redirect->fd_in, j->p->redirect->fd_out);
+					printf("redirect fd_in : _%s_\tfd_out : _%s_\ttoken: _%s_\tfd %d\n", j->p->redirect->fd_in, j->p->redirect->fd_out, j->p->redirect->token, j->p->redirect->fd);
 					j->p->redirect = j->p->redirect->next;
 				}
 			}
+			puts("-----------------------------------------------------------------------");
 			j->p = j->p->next;
 		}
 		j->p = sp;
