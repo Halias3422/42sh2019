@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 09:19:36 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 10:26:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,6 +101,43 @@ void		free_lexeur(t_lexeur **res)
 	free(res);
 }
 
+void		free_parseur(t_job *j)
+{
+	t_redirect	*red_tmp;
+	t_process	*pro_tmp;
+	t_job		*j_tmp;
+	int			i;
+
+	while (j)
+	{
+		while (j->p)
+		{
+			while (j->p->redirect)
+			{
+				ft_strdel(&j->p->redirect->fd_in);
+				ft_strdel(&j->p->redirect->fd_out);
+				ft_strdel(&j->p->redirect->token);
+				red_tmp = j->p->redirect;
+				j->p->redirect = j->p->redirect->next;
+				free(red_tmp);
+			}
+			i = 0;
+			while (j->p->cmd[i])
+			{
+				ft_strdel(&j->p->cmd[i]);
+				i++;
+			}
+			free(j->p->cmd);
+			pro_tmp = j->p;
+			j->p = j->p->next;
+			free(pro_tmp);
+		}
+		j_tmp = j;
+		j = j->next;
+		free(j_tmp);
+	}
+}
+
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
@@ -117,5 +154,6 @@ int			start_exec(t_lexeur **res, t_var *var)
 		launch_job(j, var);
 		j = j->next;
 	}
+	free_parseur(j);
 	return (0);
 }
