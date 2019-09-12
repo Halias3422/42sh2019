@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 10:36:54 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 10:20:09 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,8 +79,7 @@ t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
 	return (hist);
 }
 
-t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos,
-				char *original_ans)
+t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos)
 {
 	int			len;
 
@@ -105,7 +104,6 @@ t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos,
 	len = get_len_with_lines(pos) / pos->max_co;
 	if (pos->start_li + len > pos->max_li)
 		pos->start_li -= (pos->start_li + len - pos->max_li);
-	free(original_ans);
 	return (hist);
 }
 
@@ -113,12 +111,10 @@ t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist)
 {
 	int			i;
 	int			j;
-	char		*original_ans;
 
-	original_ans = ft_strdup(pos->ans);
-	stock_original_ans(original_ans, 0);
 	i = 0;
 	j = 0;
+	ft_printf("pos->ans = %p, et ans = %p\n", pos->ans, ans);
 	if (ft_strchr(ans, '!') == NULL)
 		return (hist);
 	while (ans && i < ft_strlen(ans) && ans[i])
@@ -133,7 +129,7 @@ t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist)
 		}
 		i += 1;
 	}
-	hist = exit_history_expansion(hist, ans, pos, original_ans);
+	hist = exit_history_expansion(hist, ans, pos);
 	if (pos->error == 1)
 		pos->replace_hist = 0;
 	return (hist);

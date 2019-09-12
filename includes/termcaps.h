@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 14:03:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 10:32:58 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -441,7 +441,8 @@ void	jump_up(t_pos *pos);
 */
 
 t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist);
-t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos);
+t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos,
+				char *original_ans);
 t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
 				t_hist *hist, int *i);
 char			*get_expansion_content(char *ans, int i);
@@ -451,6 +452,7 @@ int				get_expansion_length(char *ans, int i);
 **HISTORY_EXPANSION_FREE.C
 */
 
+char			*stock_original_ans(char *ans, int usage);
 t_hist			*no_expansion_found(char **expansion, char **new_ans,
 				t_hist *hist);
 char			*new_ans_not_valid(char **ans, char *new_ans, int *i,
@@ -478,56 +480,58 @@ t_hist			*number_expansion(char **new_ans, t_hist *hist,
 ** token_init.c
 */
 
-t_tokench	*add_list_back_tok_next(t_tokench *tok);
-void		maj_token(t_tokench *tok, char *c);
-void		init_tok(t_tok *in);
+t_tokench		*add_list_back_tok_next(t_tokench *tok);
+void			maj_token(t_tokench *tok, char *c);
+void			init_tok(t_tok *in);
 
 /*
 ** token.c
 */
 
-void	check_token(t_pos *pos, t_tok *in, t_tokench *tok);
-void	init_tok(t_tok *in);
+int				verif_token(char *str);
+void			check_token(t_pos *pos, t_tok *in, t_tokench *tok);
+void			init_tok(t_tok *in);
 
 /*
 ** token_check_open.c
 */
 
-void		check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
+void			check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_check_close.c
 */
 
-int			check_close_nothing(t_pos *pos, t_tok *in);
-int			check_close_nothing2(t_pos *pos, t_tok *in);
-int			check_close_tree(t_pos *pos, t_tok *in);
-void		check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
-t_tokench	*check_close(t_tokench *tok, char *c, t_tok *in);
+int				check_close_nothing(t_pos *pos, t_tok *in);
+int				check_close_nothing2(t_pos *pos, t_tok *in);
+int				check_close_tree(t_pos *pos, t_tok *in);
+void			check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
+t_tokench		*check_close(t_tokench *tok, char *c, t_tok *in);
 
 /*
 ** token_heredoc_open.c
 */
 
-void		check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
+void			check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_heredoc_close.c
 */
 
-void		heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
+void			heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_free.c
 */
 
-void		free_heredoc(t_tok *in);
-void		free_all_check_token(t_tok *in, t_tokench *tok);
+void			free_heredoc(t_tok *in);
+void			free_all_check_token(t_tok *in, t_tokench *tok);
+int				check_in_2(t_pos *pos);
 
 /*
 ** init_alias.c
 */
-void		init_alias(t_var *var, t_pos *pos);
+void			init_alias(t_var *var, t_pos *pos);
 
 /*
 *******************************************************************************

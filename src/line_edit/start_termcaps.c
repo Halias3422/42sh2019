@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 08:11:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 09:01:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,8 +40,6 @@ static int		start_termcaps(t_pos *pos, char *buf)
 {
 	int				ret;
 
-	if (pos->prompt == NULL)
-		pos->prompt = ft_strdup("$ ");
 	init_terminfo(pos);
 	ret = check_term();
 	if (ret == -1)

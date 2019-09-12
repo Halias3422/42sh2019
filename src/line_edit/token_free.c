@@ -6,14 +6,34 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:33:05 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 14:35:03 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 09:45:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-void		free_heredoc(t_tok *in)
+int				check_in_2(t_pos *pos)
+{
+	int			i;
+	int			nb;
+
+	i = 0;
+	nb = 0;
+	while (pos->ans && pos->ans[i] != '\0')
+	{
+		if (pos->ans[i] > 32 && pos->ans[i] < 127)
+		{
+			if (verif_token(&pos->ans[i]) > 0 && nb == 0)
+				return (1);
+			nb++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+void			free_heredoc(t_tok *in)
 {
 	if (in->herestr != NULL)
 	{
@@ -27,7 +47,7 @@ void		free_heredoc(t_tok *in)
 	}
 }
 
-static void	free_tok(t_tokench *tok)
+static void		free_tok(t_tokench *tok)
 {
 	t_tokench	*tmp;
 
@@ -51,7 +71,7 @@ static void	free_tok(t_tokench *tok)
 	free(tok);
 }
 
-void		free_all_check_token(t_tok *in, t_tokench *tok)
+void			free_all_check_token(t_tok *in, t_tokench *tok)
 {
 	free(in->dquote_d);
 	free_heredoc(in);
