@@ -27,7 +27,7 @@ t_process	*get_and_or(t_process *p)
 
 int			redirect_fd(t_process *p)
 {
-	p->file_out = p->cmd[1];
+	/*p->file_out = p->cmd[1];
 	p->file_in = p->cmd[1];
 	p->split = 0;
 	if (p->split == 'f')
@@ -49,7 +49,9 @@ int			redirect_fd(t_process *p)
 	{
 		ft_printf_err("42sh: %s: No such file or directory", p->file_out);
 		return (-1);
-	}
+	}*/
+	//launch_redirection(p);
+	p->fd_out = 1;
 	return (1);
 }
 

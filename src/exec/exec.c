@@ -111,7 +111,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
-	print_exec(j);
+	//print_exec(j);
 	free_lexeur(res);
 	while (j)
 	{

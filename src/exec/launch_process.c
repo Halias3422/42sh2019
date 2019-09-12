@@ -64,6 +64,32 @@ int			ft_execute_test(t_process *p, t_var *var)
 	return (0);
 }
 
+int			launch_redirection(t_process *p)
+{
+	int	fd_in;
+	int	fd_out;
+
+	while (p->redirect)
+	{
+		fd_in = ft_atoi(p->redirect->fd_in);
+		if (!p->redirect->fd_in)
+			fd_in = 1;
+		if (ft_strcmp(p->redirect->fd_out, "-") == 0)
+		{
+			close(fd_in);
+		}
+		else
+		{
+			fd_in = ft_atoi(p->redirect->fd_in);
+			fd_out = ft_atoi(p->redirect->fd_out);
+			if (fd_in > 0 && fd_out > 0)
+				dup2(fd_out, fd_in);
+		}
+		p->redirect = p->redirect->next;
+	}
+	return (1);
+}
+
 int			launch_process(t_process *p, t_var *var)
 {
 	signal(SIGINT, SIG_DFL);
@@ -73,6 +99,7 @@ int			launch_process(t_process *p, t_var *var)
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
 	tcsetpgrp(0, p->pid);
+	//launch_redirection(p);
 	if (p->fd_in != STDIN_FILENO)
 	{
 		dup2(p->fd_in, STDIN_FILENO);
@@ -88,6 +115,9 @@ int			launch_process(t_process *p, t_var *var)
 		dup2(p->fd_error, STDERR_FILENO);
 		close(p->fd_error);
 	}
+	launch_redirection(p);
+	if (!p->cmd[0])
+		exit(1);
 	ft_execute_test(p, var);
 	exit(1);
 }
@@ -96,8 +126,6 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 {
 	pid_t		pid;
 
-	if (!p->cmd[0])
-		return (-1);
 	if (find_builtins(p, var) != 0)
 		return (1);
 	pid = fork();
