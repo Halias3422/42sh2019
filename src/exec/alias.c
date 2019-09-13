@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 13:07:22 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/18 19:20:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,6 +70,7 @@ int		main_alias(t_process *p, t_var **var)
 	int		i;
 	int		k;
 
+	puts("alias");
 	k = 0;
 	if (!p->cmd[1])
 		return (1);
@@ -89,7 +90,6 @@ int		main_alias(t_process *p, t_var **var)
 			ft_strdel(&name);
 		}
 	}
-	stock(*var, 5);
 	return (1);
 }
 
@@ -100,29 +100,6 @@ int		error_unlias(char *str)
 	ft_putstr(str);
 	ft_putstr(": not found\n");
 	return (1);
-}
-
-void	delete_alias(t_var **var)
-{
-	t_var *prev;
-	t_var *next;
-
-	prev = NULL;
-	while (*var)
-	{
-		next = (*var)->next;
-		if ((*var)->type == ALIAS)
-		{
-			ft_strdel(&(*var)->data);
-			ft_strdel(&(*var)->name);
-			if (prev)
-				prev->next = next;
-			free(*var);
-		}
-		else
-			prev = (*var);
-		(*var) = next;
-	}
 }
 
 int		main_unalias(t_process *p, t_var **var)
@@ -136,11 +113,6 @@ int		main_unalias(t_process *p, t_var **var)
 	start = (*var);
 	while (p->cmd[k])
 	{
-		if (ft_strcmp(p->cmd[k], "-a") == 0)
-		{
-			delete_alias(var);
-			return (1);
-		}
 		while (*var && ft_strcmp(p->cmd[k], (*var)->name) != 0)
 		{
 			last = (*var);

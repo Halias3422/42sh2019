@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 15:13:17 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 07:31:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,34 +52,6 @@ int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 	new_ans = ft_secure_free(new_ans);
 	expansion = ft_secure_free(expansion);
 	return (error);
-}
-
-t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos)
-{
-	int			len;
-
-	while (hist->next)
-		hist = hist->next;
-	if (ans != NULL)
-	{
-		pos->ans = ft_strnew(ft_strlen(ans));
-		pos->ans = ft_strcpy(pos->ans, ans);
-	}
-	if (ans != NULL && pos->replace_hist > 0)
-	{
-		clean_at_start(pos);
-		print_ans(pos, 0, pos->len_prompt);
-		pos->let_nb = ft_strlen(pos->ans);
-		pos->history_mode = 0;
-	}
-	if (ans != NULL)
-		ans = ft_secure_free(ans);
-	else
-		pos->ans = ft_strnew(0);
-	len = get_len_with_lines(pos) / pos->max_co;
-	if (pos->start_li + len > pos->max_li)
-		pos->start_li -= (pos->start_li + len - pos->max_li);
-	return (hist);
 }
 
 t_hist			*check_history_expansion(t_pos *pos, t_hist *hist, int i,

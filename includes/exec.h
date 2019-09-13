@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 10:32:24 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 14:51:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,6 +32,8 @@ typedef	struct			s_redirect
 {
 	char				*fd_in;
 	char				*fd_out;
+	int					fd;
+	char				*token;
 	struct s_redirect	*next;
 }						t_redirect;
 
@@ -42,7 +44,6 @@ typedef	struct			s_process
 	pid_t				pid;
 	char				status;
 	char				split;
-	char				*token;
 	int					ret;
 	int					completed;
 	int					stoped;
@@ -50,8 +51,6 @@ typedef	struct			s_process
 	int					fd_in;
 	int					fd_out;
 	int					fd_error;
-	char				*file_out;
-	char				*file_in;
 	t_redirect			*redirect;
 }						t_process;
 
