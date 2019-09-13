@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 11:26:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:43:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -482,6 +482,13 @@ void			check_token(t_pos *pos, t_tok *in, t_tokench *tok);
 void			init_tok(t_tok *in);
 
 /*
+** TOKEN_CHECK_C
+*/
+
+int		check_in_2(t_pos *pos);
+int		check_in_3(t_pos *pos);
+
+/*
 ** token_check_open.c
 */
 
@@ -515,7 +522,6 @@ void			heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
 
 void			free_heredoc(t_tok *in);
 void			free_all_check_token(t_tok *in, t_tokench *tok);
-int				check_in_2(t_pos *pos);
 
 /*
 ** init_alias.c

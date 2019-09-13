@@ -6,32 +6,12 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:33:05 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 09:27:59 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:42:22 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-
-int				check_in_2(t_pos *pos)
-{
-	int			i;
-	int			nb;
-
-	i = 0;
-	nb = 0;
-	while (pos->ans && pos->ans[i] != '\0')
-	{
-		if (pos->ans[i] > 32 && pos->ans[i] < 127)
-		{
-			if (verif_token(&pos->ans[i]) > 0 && nb == 0)
-				return (1);
-			nb++;
-		}
-		i++;
-	}
-	return (1);
-}
 
 void			free_heredoc(t_tok *in)
 {
