@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 15:06:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 15:06:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:35:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,8 @@ int				get_expansion_value(char *expansion, t_hist *hist,
 		return (double_exclamation_expansion(new_ans, hist));
 	else if (expansion[1] >= 48 && expansion[1] <= 57)
 		return (number_expansion(new_ans, hist, expansion));
-	else if (expansion[1] == '-' && expansion[2] >= 47 && expansion[2] <= 57)
+	else if (expansion[1] == '-' && expansion[2] && expansion[2] >= 47 &&
+			expansion[2] <= 57)
 		return (negative_number_expansion(new_ans, hist, expansion));
 	else if (expansion[1] && expansion[1] != '!' &&
 		(expansion[1] < 9 || expansion[1] > 13) && expansion[1] != 32)

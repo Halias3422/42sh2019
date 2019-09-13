@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 15:10:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:26:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -439,9 +439,8 @@ void	jump_up(t_pos *pos);
 /*
 ** HISTORY_EXPANSION.C
 */
-t_hist			*check_history_expansion(t_pos *pos, t_hist *hist, int i,
+void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 				int error);
-t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos);
 int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 				int error);
 int				check_if_inside_symbols(char *ans, int i);
@@ -521,7 +520,8 @@ int				check_in_2(t_pos *pos);
 /*
 ** init_alias.c
 */
-void			init_alias(t_var *var, t_pos *pos);
+void			init_alias(t_var *var, t_pos *pos, char *line);
+void	write_alias(t_var *var, t_pos *p);
 
 /*
 *******************************************************************************
