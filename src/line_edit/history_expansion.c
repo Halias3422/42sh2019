@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 08:46:47 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:34:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,8 +48,8 @@ int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 	error = get_expansion_value(expansion, hist, &new_ans);
 	if (error == -1)
 	{
-	new_ans = ft_secure_free(new_ans);
-	expansion = ft_secure_free(expansion);
+		new_ans = ft_secure_free(new_ans);
+		expansion = ft_secure_free(expansion);
 		return (error);
 	}
 	new_ans = ft_strjoinf(new_ans, pos->ans + i + ft_strlen(expansion), 1);
@@ -60,18 +60,18 @@ int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 	return (error);
 }
 
-t_hist			*check_history_expansion(t_pos *pos, t_hist *hist, int i,
+void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 				int error)
 {
 	char		*original_ans;
 
-	if (pos->error == 2)
-		pos->error = 0;
 	if (ft_strchr(pos->ans, '!') == NULL)
-		return (hist);
+		return ;
 	original_ans = ft_strdup(pos->ans);
 	while (pos->ans && pos->ans[i])
 	{
+		while (hist && hist->next)
+			hist = hist->next;
 		if (pos->ans[i] == '!' && (i == 0 || (i > 0 && pos->ans[i - 1] != '!'
 		&& pos->ans[i - 1] != 92)) && check_if_inside_symbols(pos->ans, i) == 0)
 			error = replace_expansion_by_value(pos, hist, i, error);
@@ -80,11 +80,12 @@ t_hist			*check_history_expansion(t_pos *pos, t_hist *hist, int i,
 			ft_printf("\n42sh: %s: event not found", original_ans);
 			pos->error = 2;
 			pos->ans = ft_secure_free(pos->ans);
-			pos->ans = ft_strdup(original_ans);
+			pos->ans = ft_strnew(0);
 			break ;
 		}
 		i++;
 	}
 	free(original_ans);
-	return (hist);
+	if (error != -1)
+		ft_printf("\n%s", pos->ans);
 }
