@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 14:58:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 09:32:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@
 # include "hash.h"
 # include <dirent.h>
 
-# define LEN_BUILTIN_LIST 13
+# define LEN_BUILTIN_LIST 14
 # define TERM "42sh"
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
