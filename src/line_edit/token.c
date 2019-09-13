@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 08:40:32 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 09:47:13 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:42:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,5 +110,6 @@ void		check_token(t_pos *pos, t_tok *in, t_tokench *tok)
 	}
 	pos->is_complete = check_in(pos, in);
 	pos->is_complete = check_in_2(pos);
+	pos->is_complete = check_in_3(pos);
 	free_all_check_token(in, tok);
 }
