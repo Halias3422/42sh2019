@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 15:27:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 08:49:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 		return (0);
 	if (pos.error == 1)
 		error_handling(&pos, NULL, 0);
-	if ((check_error(ans)) != -1)
+	if ((check_error(ans)) != -1 && pos.error != 2)
 		start_exec(start_lex(my_env, ans), my_env);
 	else
 		pos.ans = ft_secure_free(pos.ans);

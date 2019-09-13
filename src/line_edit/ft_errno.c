@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/24 07:19:15 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 15:07:28 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 08:42:41 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,7 @@ void			error_handling(t_pos *pos, char *variable, int err)
 {
 	static t_hist	*err_list;
 
+	ft_printf("err = %d pos->err = %d\n", err, pos->error);
 	if (err_list == NULL)
 	{
 		err_list = add_list_back_hist(err_list);
