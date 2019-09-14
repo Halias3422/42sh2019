@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 15:43:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/14 11:26:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,8 +18,7 @@ static void	print_env(t_var **var)
 	while (*var)
 	{
 		ft_printf("%s=", (*var)->name);
-		ft_printf("%s", (*var)->data);
-		ft_printf(", {T.cyan.}type = %d{eoc}\n", (*var)->type);
+		ft_printf("%s\n", (*var)->data);
 		(*var) = (*var)->next;
 	}
 }
