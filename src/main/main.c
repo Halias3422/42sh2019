@@ -43,7 +43,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
-	job_notification();
+	job_notification(my_env);
 	if (ans == NULL)
 		return (1);
 	if (pos.error == 1)

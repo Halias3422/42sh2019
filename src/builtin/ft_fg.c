@@ -13,20 +13,20 @@
 
 #include "../../includes/termcaps.h"
 
-void	put_foreground(t_job *j)
+void	put_foreground(t_job *j, t_var **var)
 {
 	kill(-j->pgid, SIGCONT);
 	j->status = 'r';
 	tcsetpgrp(0, j->pgid);
-	wait_process(j->pgid);
+	wait_process(j->pgid, *var);
 	signal(SIGTTOU, SIG_IGN);
 	tcsetpgrp(0, getpid());
 	signal(SIGTTOU, SIG_DFL);
 }
 
-int		rerun_job(t_job *j)
+int		rerun_job(t_job *j, t_var **var)
 {
-	put_foreground(j);
+	put_foreground(j, var);
 	return (0);
 }
 
@@ -60,12 +60,11 @@ int		ft_fg(t_process *p, t_var **var)
 		job = find_job_by_id(p->cmd[1]);
 		if (job != NULL)
 		{
-			rerun_job(job);
+			rerun_job(job, var);
 			return (0);
 		}
 		else
 			ft_putstr_fd("fg: job bot found", p->fd_out);
 	}
-	var = NULL;
 	return (1);
 }

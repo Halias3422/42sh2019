@@ -66,15 +66,17 @@ int			ft_execute_test(t_process *p, t_var *var)
 
 int			launch_redirection(t_process *p)
 {
+	t_redirect	*redirect;
 	int			fd_in;
 	int			fd_out;
-	t_redirect	*redirect;
 
 	redirect = p->redirect;
 	while (redirect)
 	{
-		fd_in = ft_atoi(redirect->fd_in);
-		fd_out = ft_atoi(redirect->fd_out);
+		fd_in = ft_atoi(p->redirect->fd_in);
+		if (!p->redirect->fd_in)
+			fd_in = 1;
+		fd_out = ft_atoi(p->redirect->fd_out);
 		if (ft_strcmp(redirect->token, ">") == 0)
 			p->fd_out = open(redirect->fd_out, O_CREAT | O_WRONLY,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
@@ -82,7 +84,37 @@ int			launch_redirection(t_process *p)
 			p->fd_out = open(redirect->fd_out, O_CREAT | O_WRONLY | O_APPEND,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		else if (ft_strcmp(redirect->token, "<") == 0)
-			p->fd_in = open(redirect->fd_out, O_RDONLY);
+		{
+			if ((p->fd_in = open(redirect->fd_out, O_RDONLY)) < 0)
+			{
+				ft_printf_err("42sh: no such file or directory: %s\n", redirect->fd_out);
+				return (0);
+			}
+		}
+		/*else if (ft_strcmp(p->redirect->token, ">&") == 0)
+		{
+			if (ft_strcmp(p->redirect->fd_out, "-") == 0)
+				close(fd_in);
+			else if (fd_in > 0 && fd_out > 0)
+			{
+				if (dup2(fd_out, fd_in) == -1)
+					printf("%s\n", "cela ne marche pas");
+			}
+			else
+				ft_printf_err("ceci ne marche pas");
+		}
+		else if (ft_strcmp(p->redirect->token, "<&") == 0)
+		{
+			if (ft_strcmp(p->redirect->fd_out, "-") == 0)
+				close(fd_in);
+			else if (fd_in > 0 && fd_out > 0)
+			{
+				if (dup2(fd_in, fd_out) == -1)
+					printf("%s\n", "cela ne marche pas");
+			}
+			else
+				ft_printf_err("ceci ne marche pas");
+		}*/
 		redirect = redirect->next;
 	}
 	return (1);
@@ -95,6 +127,7 @@ int			launch_duplication(t_process *p)
 
 	while (p->redirect)
 	{
+		//printf("%s %s\n", p->redirect->fd_in, p->redirect->fd_out);
 		fd_in = ft_atoi(p->redirect->fd_in);
 		if (!p->redirect->fd_in)
 			fd_in = 1;
@@ -104,13 +137,24 @@ int			launch_duplication(t_process *p)
 			if (ft_strcmp(p->redirect->fd_out, "-") == 0)
 				close(fd_in);
 			else if (fd_in > 0 && fd_out > 0)
-				dup2(fd_out, fd_in);
+			{
+				if (dup2(fd_out, fd_in) == -1)
+					printf("%s\n", "cela ne marche pas");
+			}
 			else
 				ft_printf_err("ceci ne marche pas");
 		}
 		else if (ft_strcmp(p->redirect->token, "<&") == 0)
 		{
-			printf("%s\n", "pas encore");
+			if (ft_strcmp(p->redirect->fd_out, "-") == 0)
+				close(fd_in);
+			else if (fd_in > 0 && fd_out > 0)
+			{
+				if (dup2(fd_in, fd_out) == -1)
+					printf("%s\n", "cela ne marche pas");
+			}
+			else
+				ft_printf_err("ceci ne marche pas");
 		}
 		p->redirect = p->redirect->next;
 	}
@@ -126,7 +170,10 @@ int			launch_process(t_process *p, t_var *var)
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
 	tcsetpgrp(0, p->pid);
-	launch_redirection(p);
+	//launch_duplication(p);
+	if (!launch_redirection(p))
+		exit(1);
+	launch_duplication(p);
 	if (p->fd_in != STDIN_FILENO)
 	{
 		dup2(p->fd_in, STDIN_FILENO);
@@ -142,7 +189,7 @@ int			launch_process(t_process *p, t_var *var)
 		dup2(p->fd_error, STDERR_FILENO);
 		close(p->fd_error);
 	}
-	launch_duplication(p);
+	//launch_duplication(p);
 	if (!p->cmd[0])
 		exit(1);
 	ft_execute_test(p, var);
@@ -167,7 +214,7 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 		if (j->split != '&')
 		{
 			tcsetpgrp(0, j->pgid);
-			wait_process(j->pgid);
+			wait_process(j->pgid, var);
 			signal(SIGTTOU, SIG_IGN);
 			tcsetpgrp(0, getpid());
 			signal(SIGTTOU, SIG_DFL);

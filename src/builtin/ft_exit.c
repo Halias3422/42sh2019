@@ -27,6 +27,8 @@ int		ft_exit(t_process *p, t_var **var)
 	int	status;
 
 	write_alias(*var);
+	if (p->next != NULL)
+		return (0);
 	status = ft_atoi(p->cmd[1]);
 	if (status < 0)
 		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);

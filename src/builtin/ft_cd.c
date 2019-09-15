@@ -29,6 +29,7 @@ int		ft_change_dir(char *path, t_var **var, char *old)
 {
 	char	path_pwd[1000];
 
+	printf("%s\n", path);
 	if (chdir(path) == -1)
 	{
 		if (access(path, F_OK))
@@ -68,7 +69,15 @@ int		ft_cd(t_process *p, t_var **var)
 	char	path_pwd[1000];
 	char	*path;
 	char	*buf;
+	int		option;
 
+	option = 0;
+	if (ft_tabclen(p->cmd) >= 2 && (ft_strcmp(p->cmd[1], "-L") == 0
+		|| ft_strcmp(p->cmd[1], "-P") == 0))
+	{
+		option = (ft_strcmp(p->cmd[1], "-L") == 0) ? 1 : 2;
+		p->cmd += 1;
+	}
 	if (ft_tabclen(p->cmd) > 2)
 	{
 		ft_putendl_fd(ARGUMENTS, p->fd_out);
