@@ -164,4 +164,6 @@ void		signal_handler(pid_t pid);
 int			job_is_stoped(t_job *j);
 
 t_job		*find_job_by_id(char *argv);
+
+int			launch_redirection(t_process *p);
 #endif

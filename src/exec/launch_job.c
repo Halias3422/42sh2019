@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 13:51:26 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 14:20:19 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,7 @@ int			redirect_fd(t_process *p)
 		ft_printf_err("42sh: %s: No such file or directory", p->file_out);
 		return (-1);
 	}*/
+	//launch_redirection(p);
 	p->fd_out = 1;
 	return (1);
 }
