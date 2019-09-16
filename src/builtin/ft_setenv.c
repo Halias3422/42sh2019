@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/14 11:26:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 10:01:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,7 @@ static int	setenv_rules(t_process *p)
 	}
 	if (p->cmd[1] && ft_strcmp(p->cmd[1], "-u") == 0)
 	{
-		ft_printf("42sh: setenv: usage: setenv [NAME=data]\n");
+		ft_printf("42sh: setenv: usage: setenv [NAME=data, NAME, =NAME]\n");
 		return (0);
 	}
 	return (1);
