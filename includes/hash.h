@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:31:38 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 13:41:01 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 09:47:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,5 +43,13 @@ void				free_hash_table(void);
 void				init_hash_links(t_hash **hash);
 t_hash				**stock_hash(t_hash **to_stock, int usage);
 unsigned short		get_key_of_exec(char *str);
+
+/*
+**	HASH_PATH_C
+*/
+
+char				*absolute_path(char *path);
+char				*path_found(char **paths, int i, char *ans, char **arg);
+char				*path_denied(char **paths, char **arg);
 
 #endif
