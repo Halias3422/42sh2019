@@ -37,7 +37,6 @@ int			ft_test_path(t_process *p, t_var *var)
 	i = 0;
 	while (path[i])
 	{
-
 		tmp = strjoin_path(path[i], p->cmd[0]);
 		if (ft_execute_function(tmp, p->cmd, var) == 0)
 		{
@@ -91,7 +90,7 @@ int			launch_redirection(t_process *p)
 				return (0);
 			}
 		}
-		/*else if (ft_strcmp(p->redirect->token, ">&") == 0)
+		else if (ft_strcmp(p->redirect->token, ">&") == 0)
 		{
 			if (ft_strcmp(p->redirect->fd_out, "-") == 0)
 				close(fd_in);
@@ -114,7 +113,7 @@ int			launch_redirection(t_process *p)
 			}
 			else
 				ft_printf_err("ceci ne marche pas");
-		}*/
+		}
 		redirect = redirect->next;
 	}
 	return (1);
@@ -138,6 +137,7 @@ int			launch_duplication(t_process *p)
 				close(fd_in);
 			else if (fd_in > 0 && fd_out > 0)
 			{
+				dup2(fd_out, fd_in);
 				if (dup2(fd_out, fd_in) == -1)
 					printf("%s\n", "cela ne marche pas");
 			}
@@ -170,10 +170,8 @@ int			launch_process(t_process *p, t_var *var)
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
 	tcsetpgrp(0, p->pid);
-	//launch_duplication(p);
 	if (!launch_redirection(p))
 		exit(1);
-	launch_duplication(p);
 	if (p->fd_in != STDIN_FILENO)
 	{
 		dup2(p->fd_in, STDIN_FILENO);
@@ -189,6 +187,8 @@ int			launch_process(t_process *p, t_var *var)
 		dup2(p->fd_error, STDERR_FILENO);
 		close(p->fd_error);
 	}
+	if (!launch_redirection(p))
+		exit(1);
 	//launch_duplication(p);
 	if (!p->cmd[0])
 		exit(1);
