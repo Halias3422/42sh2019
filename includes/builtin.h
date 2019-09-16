@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 09:32:32 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/14 11:16:16 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@
 # include "hash.h"
 # include <dirent.h>
 
-# define LEN_BUILTIN_LIST 14
+# define LEN_BUILTIN_LIST 16
 # define TERM "42sh"
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
@@ -162,6 +162,18 @@ void			print_part_of_hash_table(t_hash **hash, char **cmd);
 void			remove_selected_entry_hash(t_hash **hash, char **cmd);
 void			delete_middle_link(t_hash *tmp);
 void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
+
+/*
+** FT_SETENV_C
+*/
+
+int				ft_setenv(t_process *p, t_var **var);
+
+/*
+** FT_UNSETENV_C
+*/
+
+int				ft_unsetenv(t_process *p, t_var **var);
 
 # define ARGUMENTS "cd: Too many arguments."
 # define CD_NO_HOME "cd: No HOME directory."

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 13:22:07 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 08:25:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,47 +24,7 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 	return (0);
 }
 
-int			ft_test_path(t_process *p, t_var *var)
-{
-	char		**path;
-	char		*path_env;
-	char		*tmp;
-	int			i;
-
-	if ((path_env = ft_get_val("PATH", var, ENVIRONEMENT)) == NULL)
-		return (-1);
-	path = ft_strsplit(path_env, ':');
-	i = 0;
-	while (path[i])
-	{
-
-		tmp = strjoin_path(path[i], p->cmd[0]);
-		if (ft_execute_function(tmp, p->cmd, var) == 0)
-		{
-			ft_tabfree(path);
-			return (0);
-		}
-		i++;
-		ft_strdel(&tmp);
-	}
-	ft_strdel(&tmp);
-	ft_tabfree(path);
-	return (-1);
-}
-
-int			ft_execute_test(t_process *p, t_var *var)
-{
-	if (p->cmd[0] && (ft_strchr(p->cmd[0], '/') != 0))
-		ft_execute_function(p->cmd[0], p->cmd, var);
-	else
-	{
-		if (ft_test_path(p, var) == -1)
-			ft_printf("42sh: command not found: %s\n", p->cmd[0]);
-	}
-	return (0);
-}
-
-int			launch_process(t_process *p, t_var *var)
+int			launch_process(t_process *p, t_var *var, char *path)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -88,35 +48,42 @@ int			launch_process(t_process *p, t_var *var)
 		dup2(p->fd_error, STDERR_FILENO);
 		close(p->fd_error);
 	}
-	ft_execute_test(p, var);
+	ft_execute_function(path, p->cmd, var);
 	exit(1);
 }
+
+void		update_pid(t_process *p, t_job *j, pid_t pid)
+{
+	p->pid = pid;
+	if (j->pgid == 0)
+		j->pgid = pid;
+	setpgid(pid, j->pgid);
+	if (j->split != '&')
+	{
+		tcsetpgrp(0, j->pgid);
+		wait_process(j->pgid);
+		signal(SIGTTOU, SIG_IGN);
+		tcsetpgrp(0, getpid());
+		signal(SIGTTOU, SIG_DFL);
+	}
+}
+
 
 int			fork_simple(t_job *j, t_process *p, t_var *var)
 {
 	pid_t		pid;
+	char		*cmd_path;
 
-	if (!p->cmd[0])
-		return (-1);
 	if (find_builtins(p, var) != 0)
 		return (1);
+	if ((cmd_path = check_path_hash(split_env(var), p->cmd, -1, NULL)) == NULL)
+		return (0);
 	pid = fork();
 	if (pid == 0)
-		launch_process(p, var);
+		launch_process(p, var, cmd_path);
 	else
-	{
-		p->pid = pid;
-		if (j->pgid == 0)
-			j->pgid = pid;
-		setpgid(pid, j->pgid);
-		if (j->split != '&')
-		{
-			tcsetpgrp(0, j->pgid);
-			wait_process(j->pgid);
-			signal(SIGTTOU, SIG_IGN);
-			tcsetpgrp(0, getpid());
-			signal(SIGTTOU, SIG_DFL);
-		}
-	}
+		update_pid(p, j, pid);
+//	free(cmd_path);
 	return (1);
 }
+

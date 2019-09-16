@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 10:43:49 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 09:37:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,6 +100,20 @@ char				*absolute_path(char *path)
 	return (NULL);
 }
 
+char				*path_found(char **paths, int i, char *ans, char **arg)
+{
+	ans = fill_hash_table(paths[i], arg);
+	ft_free_tab(paths);
+	return (ans);
+}
+
+char				*path_denied(char **paths, char **arg)
+{
+	ft_printf("42sh: %s: permission denied\n", arg[0]);
+	ft_free_tab(paths);
+	return (NULL);
+}
+
 char				*check_path_hash(char **tab_var, char **arg,
 					int i, char *ans)
 {
@@ -108,7 +122,8 @@ char				*check_path_hash(char **tab_var, char **arg,
 
 	if (arg[0][0] == '/' || arg[0][0] == '.')
 		return (absolute_path(arg[0]));
-	if ((hash = stock_hash(NULL, 1)) != NULL && (ans = search_exec_in_table(hash[get_key_of_exec(arg[0])], arg[0])) != NULL)
+	if ((hash = stock_hash(NULL, 1)) != NULL &&
+	(ans = search_exec_in_table(hash[get_key_of_exec(arg[0])], arg[0])) != NULL)
 		return (ans);
 	paths = get_ide_paths(tab_var);
 	while (paths != NULL && paths[++i])
@@ -118,17 +133,9 @@ char				*check_path_hash(char **tab_var, char **arg,
 		if (access(paths[i], F_OK) == 0)
 		{
 			if (access(paths[i], X_OK) == 0)
-			{
-				ans = fill_hash_table(paths[i], arg);
-				ft_free_tab(paths);
-				return (ans);
-			}
+				return (path_found(paths, i, ans, arg));
 			else
-			{
-				ft_printf("42sh: %s: permission denied\n", arg[0]);
-				ft_free_tab(paths);
-				return (NULL);
-			}
+				return (path_denied(paths, arg));
 		}
 	}
 	ft_printf("42sh: %s: command not found\n", arg[0]);

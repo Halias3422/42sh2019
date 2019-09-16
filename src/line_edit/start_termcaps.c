@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 11:37:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 09:18:07 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,11 +39,13 @@ static char		*returning_ans(t_pos *pos)
 	return (pos->ans);
 }
 
-static char		*termcaps42sh_loop(t_pos *pos, t_hist *hist, t_var *var,
+static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 				unsigned char buf[9])
 {
 	int				ret;
 
+	print_info(pos);
+	print_hist(pos, *hist);
 	ret = read(0, buf, 1);
 	if (buf[0] == 137)
 		return (NULL);
@@ -58,7 +60,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist *hist, t_var *var,
 		}
 	}
 	if (pos->max_co > 2)
-		hist = check_input(buf, pos, hist);
+		*hist = check_input(buf, pos, *hist);
 	if (buf[0] == 10 && pos->is_complete == 1 && pos->replace_hist == 0)
 	{
 		stock(hist, 7);
@@ -82,7 +84,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	signal_list();
 	while (1)
 	{
-		if ((ans = termcaps42sh_loop(pos, hist, var, buf)) != NULL)
+		if ((ans = termcaps42sh_loop(pos, &hist, var, buf)) != NULL)
 			return (ans);
 	}
 	return (NULL);

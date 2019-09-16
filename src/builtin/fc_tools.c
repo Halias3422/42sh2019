@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 13:14:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 11:06:53 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 09:09:21 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,6 +88,16 @@ void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
 	hist->next = NULL;
 	ft_free_tab(new_cmds);
 	overwrite_history_file(hist);
+
+/*
+	while (hist->prev)
+		hist = hist->prev;
+	while (hist->next)
+	{
+		ft_printf("cmd = %s\n", hist->cmd);
+		hist = hist->next;
+	}
+	*/
 }
 
 void			print_fc_usage(void)

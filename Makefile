@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/13 11:44:13 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/16 09:08:41 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -30,7 +30,7 @@ SRC_LINE = $(addprefix line_edit/, \
 				start_termcaps.c tab_key.c tab_key_all_path.c tab_key_auto_complete.c tab_key_current_dir.c\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
 				token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
-				token_heredoc_open.c token_init.c token_check.c init_alias.c)
+				token_heredoc_open.c token_init.c token_check.c init_alias.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c \
@@ -48,7 +48,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				ft_unset.c ft_fc.c tool.c ft_fg.c ft_bg.c ft_jobs.c ft_exit.c fc_get_args.c \
 				fc_get_flags.c fc_execute_l_flag.c fc_execute_s_flag.c fc_execute_e_flag.c \
 				fc_tools.c fc_prepare_e_flag.c fc_s_replace_pattern.c ft_hash.c \
-				hash_d_flag.c)
+				hash_d_flag.c ft_setenv.c ft_unsetenv.c)
 
 SRC_MAIN = $(addprefix main/, main.c)
 
@@ -63,7 +63,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 #-g3 -fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 
@@ -81,11 +81,12 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME) : $(OBJ_PATH) $(OBJ) Makefile
-	@echo  "\n42sh loaded"
+	@echo  "\n$(LIGHT_GREEN)42sh loaded$(RESET)"
 	@make -C libft
 	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
-	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]"
+	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]$(YELLOW)"
+
 #	@./21sh
 
 $(OBJ_PATH):
@@ -112,5 +113,32 @@ fclean: clean
 	@make -C libft/ fclean
 	@rm -rf $(NAME)
 	@echo "./$(NAME)\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]\n"
+
+batman: $(NAME)
+	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "
+	@echo "                .o888888888'                          '888888888o. "
+	@echo "             .o888888888'            .   .              '888888888o. "
+	@echo "          .o8888888888~             /8   8\              ~8888888888o. "
+	@echo "        .{88888888888.              8\___/8               .88888888888}. "
+	@echo "       o8888888888888              .8888888.               8888888888888o "
+	@echo "      888888888888888              888888888               888888888888888 "
+	@echo "     o888888888888888.             o8888888o              .888888888888888o "
+	@echo "     88888888     8888.           o{8888888}o            .888888    8888888 "
+	@echo "    ^8888888  88  88888.         J88888888888L          .88888  8888  88888^ "
+	@echo "    !888888  888  8888888oo..oo88888888888888888oo..oo88888888888888  88888! "
+	@echo "    {88888  8888  888888888888888888888888888888888888888888888888  8888888} "
+	@echo "    688888          88888888888888888888888888888888888888888888  888888888? "
+	@echo "    '88888888888  88888888888888888888888888888888888888888888  88888888888' "
+	@echo "     o8888888888  8888888888888888888888888888888888888888888         8888o "
+	@echo "      88888888888888;'~'^Y8887^''o88888888888o''^Y8887^'~';888888888888888 "
+	@echo "      '88888888888'       '8'     '888888888'    '8'       '888888888888' "
+	@echo "       !8888888887         !       '8888888'      !         V888888888! "
+	@echo "        ^o888888!                   '88888'                  !888888o^ "
+	@echo "          ^88888'                    88888                   '88888^ "
+	@echo "            'o888'                   ^888'                  '888o' "
+	@echo "              ~888.                   888                  .888~ "
+	@echo "                '8;.                  '8'                 .;8' "
+	@echo "                   '.                  !                 .' $(RESET)"
+
 
 re : fclean all

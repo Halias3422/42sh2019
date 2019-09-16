@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/13 10:58:00 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/16 08:15:50 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -125,7 +125,7 @@ PEINC = $(addprefix $(INC_PATH), $(PEINC_NAME))
 #  									FLAG                                       #
 # **************************************************************************** #
 
-FLAGS = -Wall -Werror -Wextra -O3 #-g3 -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 
 # **************************************************************************** #
 # 									REGLES                                     #
@@ -135,7 +135,7 @@ all : $(OBJ_PATH) $(NAME)
 
 $(NAME): $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
 	@ar rcs $(NAME) $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
-	@echo "\nlibft loaded\033[0m"
+	@echo "\n$(DARK_BLUE)libft loaded\033[0m"
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH) 2> /dev/null

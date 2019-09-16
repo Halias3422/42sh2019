@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 11:45:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:57:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	char		*pwd;
 	char		*ans;
 
-	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 	pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
