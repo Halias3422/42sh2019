@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 13:51:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 13:53:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -273,10 +273,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 		launch_job(j, var);
 		j = j->next;
 	}
-<<<<<<< HEAD
 	free_parseur(j);
-=======
 	free_lexer(res);
->>>>>>> 2b7afc5ed611c3b6e588fad7845ab5e351535b96
 	return (0);
 }
