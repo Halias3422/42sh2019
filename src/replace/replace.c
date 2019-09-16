@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   replace.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 17:23:50 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/12 16:01:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,7 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	i = 0;
 	if (check_alias(alias->data, var, replace) == 1 && alias->data[0] != '\\')
 		replace_alias(alias, var, replace);
+		check_tok(alias, var, replace);
 	while (alias)
 	{
 		if (alias->data && alias->data[0] != '\'')
@@ -93,14 +94,6 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	return (done);
 }
 
-// static void		print_list(t_alias *alias)
-// {
-// 	while (alias)
-// 	{
-// 		alias = alias->next;
-// 	}
-// }
-
 char		**start_split(t_var *start, char *str)
 {
 	char		**ar;
@@ -109,6 +102,8 @@ char		**start_split(t_var *start, char *str)
 
 	init_replace(&replace);
 	ar = split_space(str);
+	if (!start)
+		return (ar);
 	alias = make_ar_to_list(ar);
 	replace->name = ft_strdup(alias->data);
 	while (1)

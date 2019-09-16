@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/31 16:09:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 15:43:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@
 # include <curses.h>
 # include <dirent.h>
 # include "lexeur.h"
+# include "hash.h"
 
 /*
 ** color **
@@ -111,6 +112,7 @@ typedef struct		s_pos
 	char			*path;
 	struct termios	old_term;
 	struct termios	my_term;
+	int				is_expansion;
 }					t_pos;
 
 typedef struct		s_htab
@@ -437,93 +439,95 @@ void	jump_up(t_pos *pos);
 /*
 ** HISTORY_EXPANSION.C
 */
+void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
+				int error);
+int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
+				int error);
+int				check_if_inside_symbols(char *ans, int i);
 
-t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist);
-t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos);
-t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
-				t_hist *hist, int *i);
+/*
+** HISTORY_EXPANSION_TYPES.C
+*/
+
+int				double_exclamation_expansion(char **new_ans, t_hist *hist);
+int				number_expansion(char **new_ans, t_hist *hist, char *expansion);
+int				negative_number_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+int				word_finding_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+int				get_expansion_value(char *expansion, t_hist *hist,
+				char **new_ans);
+
+/*
+** HISTORY_EXPANSION_CALCULATE.C
+*/
+
 char			*get_expansion_content(char *ans, int i);
 int				get_expansion_length(char *ans, int i);
-
-/*
-**HISTORY_EXPANSION_FREE.C
-*/
-
-t_hist			*no_expansion_found(char **expansion, char **new_ans,
-				t_hist *hist);
-char			*new_ans_not_valid(char **ans, char *new_ans, int *i);
-char			*filling_ans_with_new_ans(t_pos *pos, char *new_ans, char **ans,
-				int end_exp);
-
-/*
-**HISTORY_EXPANSION_TYPES.C
-*/
-
-t_hist			*get_expansion_type(char *expansion, t_hist *hist,
-				char **new_ans, int *i);
-t_hist			*double_exclamation_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
-t_hist			*word_finding_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
-t_hist			*negative_number_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
-t_hist			*number_expansion(char **new_ans, t_hist *hist,
-				char *expansion, t_pos *pos);
 
 /*
 ** token_init.c
 */
 
-t_tokench	*add_list_back_tok_next(t_tokench *tok);
-void		maj_token(t_tokench *tok, char *c);
-void		init_tok(t_tok *in);
+t_tokench		*add_list_back_tok_next(t_tokench *tok);
+void			maj_token(t_tokench *tok, char *c);
+void			init_tok(t_tok *in);
 
 /*
 ** token.c
 */
 
-void	check_token(t_pos *pos, t_tok *in, t_tokench *tok);
-void	init_tok(t_tok *in);
+int				verif_token(char *str);
+void			check_token(t_pos *pos, t_tok *in, t_tokench *tok);
+void			init_tok(t_tok *in);
+
+/*
+** TOKEN_CHECK_C
+*/
+
+int		check_in_2(t_pos *pos);
+int		check_in_3(t_pos *pos);
 
 /*
 ** token_check_open.c
 */
 
-void		check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
+void			check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_check_close.c
 */
 
-int			check_close_nothing(t_pos *pos, t_tok *in);
-int			check_close_nothing2(t_pos *pos, t_tok *in);
-int			check_close_tree(t_pos *pos, t_tok *in);
-void		check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
-t_tokench	*check_close(t_tokench *tok, char *c, t_tok *in);
+int				check_close_nothing(t_pos *pos, t_tok *in);
+int				check_close_nothing2(t_pos *pos, t_tok *in);
+int				check_close_tree(t_pos *pos, t_tok *in);
+void			check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
+t_tokench		*check_close(t_tokench *tok, char *c, t_tok *in);
 
 /*
 ** token_heredoc_open.c
 */
 
-void		check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
+void			check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_heredoc_close.c
 */
 
-void		heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
+void			heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_free.c
 */
 
-void		free_heredoc(t_tok *in);
-void		free_all_check_token(t_tok *in, t_tokench *tok);
+void			free_heredoc(t_tok *in);
+void			free_all_check_token(t_tok *in, t_tokench *tok);
 
 /*
 ** init_alias.c
 */
-void		init_alias(t_var *var, t_pos *pos);
+void			init_alias(t_var *var, t_pos *pos, char *line);
+void	write_alias(t_var *var, t_pos *p);
 
 /*
 *******************************************************************************

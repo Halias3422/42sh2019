@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/02 12:25:59 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/16 09:53:50 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,10 +18,10 @@ NAME = libft.a
 BLUE=\033[0;38;5;123m
 LIGHT_PINK = \033[0;38;5;200m
 PINK = \033[0;38;5;198m
-DARK_BLUE = \033[0;38;5;110m
+DARK_BLUE = \033[1;38;5;110m
 GREEN = \033[0;38;5;111m
 LIGHT_GREEN = \033[1;38;5;121m
-LIGHT_RED = \033[1;31;5;121m
+LIGHT_RED = \033[0;38;5;110m
 FLASH_GREEN = \033[33;32m
 # **************************************************************************** #
 #									PATH                                       #
@@ -125,7 +125,7 @@ PEINC = $(addprefix $(INC_PATH), $(PEINC_NAME))
 #  									FLAG                                       #
 # **************************************************************************** #
 
-FLAGS = -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address
+FLAGS = -Wall -Werror -Wextra -O3 #-g3 -fsanitize=address
 
 # **************************************************************************** #
 # 									REGLES                                     #
@@ -135,7 +135,7 @@ all : $(OBJ_PATH) $(NAME)
 
 $(NAME): $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
 	@ar rcs $(NAME) $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
-	@echo "\n\033[0m"
+	@echo "\n$(DARK_BLUE)libft loaded\033[0m"
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH) 2> /dev/null

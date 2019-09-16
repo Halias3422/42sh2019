@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:39:29 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/10 17:46:34 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,6 +86,24 @@ int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var)
 	return (1);
 }
 
+int			check_tok(t_alias *alias, t_var *var, t_replace *replace)
+{
+	t_alias *tmp;
+
+	tmp = alias;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->data, "&&") == 0 || ft_strcmp(tmp->data, "||") == 0
+			|| ft_strcmp(tmp->data, ";") == 0 || ft_strcmp(tmp->data, "|") == 0)
+		{
+			replace_alias(tmp->next, var, replace);
+			return (0);
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
 void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 {
 	t_var		*s_var;
@@ -105,5 +123,6 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 		if (alias->next)
 			alias = alias->next;
 	}
+	check_tok(alias, var, replace);
 	alias->data = del_space(alias->data);
 }

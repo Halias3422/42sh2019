@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   check_input.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 10:41:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:09:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,9 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 	{
 		if (hist->cmd != NULL)
 			ft_strdel(&hist->cmd);
-		hist->cmd = ft_strdup(pos->ans);
+		if (!hist->prev || (hist->prev &&
+					ft_strcmp(hist->prev->cmd, pos->ans) != 0))
+			hist->cmd = ft_strdup(pos->ans);
 	}
 	if (pos->ans[0] == '\0' || (pos->is_complete == 0 && pos->let_nb > 0 &&
 		pos->ans[pos->let_nb - 1] == '\n' && pos->act_co == pos->len_prompt))
@@ -31,6 +33,8 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 
 static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 {
+	if (buf[0] < 32 && buf[0] != 18 && buf[0] != 10 && buf[0] != 9)
+		return (hist);
 	if (buf[0] == 9 && pos->is_complete == 1 && pos->ctrl_search_history == 0)
 		input_is_tab(pos);
 	else if (buf[0] == 127)
@@ -48,8 +52,6 @@ static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {
-	if (buf[0] == 4)
-		return (hist);
 	if (buf[0] != 226 && buf[0] != 195)
 		selection_check(pos, (char*)buf);
 	if (buf[0] == 27)

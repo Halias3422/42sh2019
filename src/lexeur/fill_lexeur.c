@@ -3,10 +3,14 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
+<<<<<<< HEAD
 /*   Updated: 2019/09/12 09:17:14 by mdelarbr    ###    #+. /#+    ###.fr     */
+=======
+/*   Updated: 2019/09/12 15:57:16 by mjalenqu    ###    #+. /#+    ###.fr     */
+>>>>>>> 2b7afc5ed611c3b6e588fad7845ab5e351535b96
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -156,6 +160,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	int			i;
 	int			j;
 	int			k;
+	int			t = 0;
 	int			token;
 
 	i = 0;
@@ -180,6 +185,11 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 		}
 	}
 	array[j] = NULL;
+	while (array[t])
+	{
+		// printf("array[%d]:\tword -> _%s_\ttoken ->%d\tred -> _%s_\tfd_in _%s_ fd_out _%s_\n", t, array[t]->word, array[t]->token, array[t]->redirection, array[t]->fd_in, array[t]->fd_out);
+		t++;
+	}
 //	check_redirection(&array);
 	return (array);
 }
