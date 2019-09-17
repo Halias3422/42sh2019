@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 15:51:10 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 16:48:25 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -148,21 +148,33 @@ int				check_moove_index(t_lexeur **res, int *t)
 	return (0);
 }
 
-t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
+t_redirect			*init_var(int *done, int *t, int *i)
+{
+	(*done) = 0;
+	(*t) = *i;
+	return (NULL);
+}
+
+int					check_token_in_condition(t_lexeur **res, int t)
+{
+	if (res[t] && (res[t]->token == 4 || res[t]->token == 5 ||
+	res[t]->token == 8 || res[t]->token == 6 || res[t]->token == 9))
+		return (1);
+	return (0);
+}
+
+t_redirect			*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 {
 	int			t;
 	int			done;
 	t_redirect	*tmp;
 
-	done = 0;
-	t = *i;
-	tmp = NULL;
+	tmp = init_var(&done, &t, i);
 	while (res[t])
 	{
 		if (check_moove_index(res, &t))
 			break ;
-		if (res[t] && (res[t]->token == 4 || res[t]->token == 5 ||
-		res[t]->token == 8 || res[t]->token == 6 || res[t]->token == 9))
+		if (res[t] && (check_token_in_condition(res, t)))
 		{
 			if (!tmp)
 			{
@@ -174,8 +186,7 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 				fill_ag_next(tmp, res, &t);
 			done++;
 		}
-		if (res[t])
-			t++;
+		t += (res[t]) ? 1 : 0;
 	}
 	(*i) += done;
 	return (p);
