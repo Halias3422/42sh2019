@@ -3,14 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-<<<<<<< HEAD
-#    Updated: 2019/09/12 10:18:35 by mdelarbr    ###    #+. /#+    ###.fr      #
-=======
-#    Updated: 2019/09/16 09:53:37 by vde-sain    ###    #+. /#+    ###.fr      #
->>>>>>> 2b7afc5ed611c3b6e588fad7845ab5e351535b96
+#    Updated: 2019/09/16 14:28:43 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -67,7 +63,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 #-g3 -fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 
