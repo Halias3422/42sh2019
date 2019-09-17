@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 14:48:33 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 18:14:44 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,42 +47,6 @@ void		fill_job(t_job *j, t_lexeur **res)
 	}
 	j->next = NULL;
 }
-
-// void		print_exec(t_job *j)
-// {
-// 	t_job			*sj;
-// 	t_process		*sp;
-// 	int			i;
-
-// 	sj = j;
-// 	while (j)
-// 	{
-// 		sp = j->p;
-// 		while (j->p)
-// 		{
-// 			i = 0;
-// 			puts("-----------------------------------------------------------------------");
-// 			while (j->p->cmd[i])
-// 			{
-// 				printf("cmd[%d]: _%s_\n", i, j->p->cmd[i]);
-// 				i++;
-// 			}
-// 			if (j->p->redirect)
-// 			{
-// 				while (j->p->redirect)
-// 				{
-// 					printf("redirect fd_in : _%s_\tfd_out : _%s_\ttoken: _%s_\tfd %d\n", j->p->redirect->fd_in, j->p->redirect->fd_out, j->p->redirect->token, j->p->redirect->fd);
-// 					j->p->redirect = j->p->redirect->next;
-// 				}
-// 			}
-// 			puts("-----------------------------------------------------------------------");
-// 			j->p = j->p->next;
-// 		}
-// 		j->p = sp;
-// 		j = j->next;
-// 	}
-// 	j = sj;
-// }
 
 void		free_lexeur(t_lexeur **res)
 {
@@ -138,25 +102,6 @@ void		free_parseur(t_job *j)
 	}
 }
 
-// static void		print_jobs(t_job *j)
-// {
-// 	int	i = 0;
-// 	while (j->p->cmd[i])
-// 	{
-// 		printf("cmd[%d] = %s\n", i, j->p->cmd[i]);
-// 		i++;
-// 	}
-// }
-
-// void		print_env(t_var *var)
-// {
-// 	while (var)
-// 	{
-// 		printf("var = %s=%s\n", var->name, var->data);
-// 		var = var->next;
-// 	}
-// }
-
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
@@ -169,8 +114,6 @@ int			start_exec(t_lexeur **res, t_var *var)
 	free_lexeur(res);
 	while (j)
 	{
-		// print_jobs(j);
-		// print_env(var);
 		launch_job(j, var);
 		j = j->next;
 	}

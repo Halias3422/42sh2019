@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 14:47:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 18:14:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -117,12 +117,6 @@ int		basic_split_while(int *i, char *str, char **res, int *k)
 		(*i) += g_fill_token[ret].size;
 	}
 	return (1);
-//	if (str[*i] && number == 1)
-//	{
-//		puts("other");
-//		ft_strjoin_free(&res[*k], ft_strsub(str, *i, g_fill_token[ret].size));
-//		(*i) += g_fill_token[ret].size;
-//	}
 }
 
 char		**split_space(char *str)
