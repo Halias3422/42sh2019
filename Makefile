@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/16 09:53:37 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/17 11:14:38 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -30,7 +30,8 @@ SRC_LINE = $(addprefix line_edit/, \
 				start_termcaps.c tab_key.c tab_key_all_path.c tab_key_auto_complete.c tab_key_current_dir.c\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
 				token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
-				token_heredoc_open.c token_init.c token_check.c init_alias.c)
+				token_heredoc_open.c token_init.c token_check.c init_alias.c check_for_tilde.c\
+				tab_key_auto_complete_tilde.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c \
@@ -48,7 +49,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				ft_unset.c ft_fc.c tool.c ft_fg.c ft_bg.c ft_jobs.c ft_exit.c fc_get_args.c \
 				fc_get_flags.c fc_execute_l_flag.c fc_execute_s_flag.c fc_execute_e_flag.c \
 				fc_tools.c fc_prepare_e_flag.c fc_s_replace_pattern.c ft_hash.c \
-				hash_d_flag.c ft_setenv.c ft_unsetenv.c)
+				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c)
 
 SRC_MAIN = $(addprefix main/, main.c)
 
@@ -63,7 +64,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 #-g3 -fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 

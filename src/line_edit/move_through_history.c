@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/24 07:42:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 09:14:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 13:38:50 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,7 +63,6 @@ static t_hist	*go_back_down_in_history(t_hist *hist, t_pos *pos)
 
 static t_hist	*go_back_in_history(t_hist *hist, t_pos *pos)
 {
-	pos->debug += 10;
 	if (hist->prev == NULL && hist->cmd == NULL)
 		return (hist);
 	if (hist && hist->prev != NULL)

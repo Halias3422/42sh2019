@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:21:44 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 10:31:32 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 11:12:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,9 +84,14 @@ t_htab		*get_intelligent_match(t_htab *htab, char *name)
 	return (new);
 }
 
-void		auto_complete(t_pos *pos, t_htab *htab, char *name)
+void		auto_complete(t_pos *pos, t_htab *htab, char *name,
+			char *old_pos_ans)
 {
-	reduce_ans(pos, name);
+	pos->ans = check_for_tilde(pos->ans, stock(NULL, 6), pos->let_nb, 1);
+	if (ft_strcmp(old_pos_ans, pos->ans) == 0)
+		reduce_ans(pos, name);
+	else
+		reduce_ans_for_tilde(pos, name);
 	input_is_a_string_of_printable_char(pos, htab->content);
 	while (pos->ans[pos->let_nb] && pos->ans[pos->let_nb] != 32 &&
 			pos->ans[pos->let_nb] != '&' && pos->ans[pos->let_nb] != '|' &&
@@ -106,6 +111,7 @@ void		auto_complete(t_pos *pos, t_htab *htab, char *name)
 	print_ans(pos, 0, pos->start_co);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
+	free(old_pos_ans);
 }
 
 t_htab		*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name)
@@ -126,7 +132,7 @@ t_htab		*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name)
 		htab = get_intelligent_match(htab, name);
 	adjust_lenght_max(htab);
 	if (htab->content_no == 0)
-		auto_complete(pos, htab, name);
+		auto_complete(pos, htab, name, ft_strdup(pos->ans));
 	else
 		prepare_to_print_htab(pos, htab);
 	return (htab);

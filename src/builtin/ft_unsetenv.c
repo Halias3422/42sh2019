@@ -6,22 +6,12 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 15:50:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/14 11:38:15 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 08:50:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
-
-static void	print_env(t_var **var)
-{
-	while (*var)
-	{
-		ft_printf("%s=", (*var)->name);
-		ft_printf("%s\n", (*var)->data);
-		(*var) = (*var)->next;
-	}
-}
 
 static int	element_already_exists_and_remove(char *element, t_var *var)
 {
