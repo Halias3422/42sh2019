@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 15:48:10 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 21:51:09 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ void		fill_job(t_job *j, t_lexeur **res)
 	j->next = NULL;
 }
 
+/*
 void		print_exec(t_job *j)
 {
 	t_job			*sj;
@@ -84,11 +85,12 @@ void		print_exec(t_job *j)
  	}
  	j = sj;
  }
+*/
 
 void		add_env_temp(t_var **var, char *str)
 {
 	t_var	*start;
- 
+
 	start = malloc(sizeof(t_var));
 	start->name = init_name(str);
 	start->data = init_data(str);
@@ -109,7 +111,6 @@ int			find_equal(char *str)
 	int	i;
 
 	i = 0;
-	// printf("str = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '=')
@@ -124,7 +125,6 @@ int			check_exec_var(t_lexeur **res, t_var *var)
 	int	i;
 
 	i = 0;
-	// printf("word = %s\tredirect = %s\tfd_in = %s\tfd_out = %s\n", (*res)->word, (*res)->redirection, (*res)->fd_in, (*res)->fd_out);
 	while (res[i])
 	{
 		if (find_equal(res[i]->word))
@@ -195,14 +195,12 @@ int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
 
-	// if (check_exec_var(res, var) == 0)
-		// return (0);
 	j = malloc(sizeof(t_job));
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
-	print_exec(j);
+//	print_exec(j);
 	free_lexeur(res);
 	while (j)
 	{
