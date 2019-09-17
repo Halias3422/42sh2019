@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 14:51:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 17:56:34 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -160,4 +160,10 @@ void		signal_handler(pid_t pid);
 int			job_is_stoped(t_job *j);
 
 t_job		*find_job_by_id(char *argv);
+
+void		free_lexeur(t_lexeur **res);
+char		**check_exec_var(char **cmd, t_var **var);
+void		free_temp(t_var **var);
+int			check_cmd(char **str);
+int			find_equal(char *str);
 #endif

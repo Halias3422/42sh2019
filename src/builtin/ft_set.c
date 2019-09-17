@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/04 13:10:50 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 17:45:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,12 +18,15 @@ int		ft_set(t_process *p, t_var **ptr_var)
 {
 	t_var *var;
 
-	var = *ptr_var;
+	// var = *ptr_var;
+	(void)ptr_var;
+	var = stock(NULL, 6);
 	if (p->cmd[1])
 		return (1);
 	while (var)
 	{
-		ft_printf("%s=%s\n", var->name, var->data);
+		if (var->type != ALIAS)
+			ft_printf("%s=%s\n", var->name, var->data);
 		var = var->next;
 	}
 	return (1);
