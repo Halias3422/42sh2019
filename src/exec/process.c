@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 15:28:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 15:51:10 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,13 +100,15 @@ void			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	else
 	{
 		tmp->fd_in = NULL;
-		tmp->fd_out = (res[*t]->redirection) ? ft_strdup(res[*t]->redirection) : NULL;
+		tmp->fd_out = (res[*t]->redirection) ? ft_strdup(res[*t]->redirection)
+		: NULL;
 	}
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 0;
 	else
 		tmp->fd = 0;
-	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name) : NULL;
+	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
+	: NULL;
 	tmp->next = NULL;
 }
 
@@ -124,14 +126,26 @@ void			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	else
 	{
 		tmp->fd_in = NULL;
-		tmp->fd_out = (res[*t]->redirection) ? ft_strdup(res[*t]->redirection) : NULL;
+		tmp->fd_out = (res[*t]->redirection) ? ft_strdup(res[*t]->redirection)
+		: NULL;
 	}
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 0;
 	else
 		tmp->fd = 0;
-	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name) : NULL;
+	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
+	: NULL;
 	tmp->next = NULL;
+}
+
+int				check_moove_index(t_lexeur **res, int *t)
+{
+	while (res[*t] && res[*t]->word)
+		(*t)++;
+	if (res[*t] && (res[*t]->token != 4 && res[*t]->token != 5 &&
+	res[*t]->token != 8 && res[*t]->token != 6 && res[*t]->token != 9))
+		return (1);
+	return (0);
 }
 
 t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
@@ -145,10 +159,7 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 	tmp = NULL;
 	while (res[t])
 	{
-		while (res[t] && res[t]->word)
-			t++;
-		if (res[t] && (res[t]->token != 4 && res[t]->token != 5 &&
-		res[t]->token != 8 && res[t]->token != 6 && res[t]->token != 9))
+		if (check_moove_index(res, &t))
 			break ;
 		if (res[t] && (res[t]->token == 4 || res[t]->token == 5 ||
 		res[t]->token == 8 || res[t]->token == 6 || res[t]->token == 9))
@@ -179,8 +190,9 @@ void		fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 
 void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i)
 {
-	while (res[i] && ((res[i]->word) || (res[i]->token == 4 || res[i]->token == 5 || res[i]->token == 6
-	|| res[i]->token == 7 || res[i]->token == 8 || res[i]->token == 9)))
+	while (res[i] && ((res[i]->word) || (res[i]->token == 4 ||
+	res[i]->token == 5 || res[i]->token == 6 || res[i]->token == 7
+	|| res[i]->token == 8 || res[i]->token == 9)))
 	{
 		if (res[i]->word)
 		{
@@ -191,23 +203,28 @@ void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i)
 	}
 }
 
+void		fill_process_first_part(t_job **j, t_lexeur **res, int *i, int k)
+{
+	fill_process_split(j, res, i);
+	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
+	while (res[*i] && res[*i]->word)
+		fill_cmd(res, j, &k, i);
+	fill_all_cmd(res, j, &k, *i);
+	(*j)->p->cmd[k] = NULL;
+	(*j)->p->builtin = test_builtin((*j)->p);
+}
+
 int			fill_process_while(t_lexeur **res, t_job **j, t_process **start,
 int *i)
 {
 	int		k;
 
 	k = 0;
-	fill_process_split(j, res, i);
-	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
-	puts("while");
-	while (res[*i] && res[*i]->word)
-		fill_cmd(res, j, &k, i);
-	fill_all_cmd(res, j, &k, *i);
-	(*j)->p->cmd[k] = NULL;
-	(*j)->p->builtin = test_builtin((*j)->p);
+	fill_process_first_part(j, res, i, k);
 	if (res[*i])
 		(*j)->p->redirect = fill_agregator(NULL, res, i);
-	if (res[*i] && (res[*i]->token == 0 || res[*i]->token == 3))
+	if (res[*i] && (res[*i]->token == 0 || res[*i]->token == 2
+	|| res[*i]->token == 3))
 	{
 		(*j)->p->next = malloc(sizeof(t_process));
 		(*j)->p = (*j)->p->next;
