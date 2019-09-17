@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 14:21:58 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 17:49:16 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,6 +88,30 @@ int		start_exec(t_lexeur **res, t_var *var);
 void		fill_process(t_job *j, t_lexeur **res);
 void		free_process(t_job *j);
 void		fill_token(t_process *p, t_lexeur **res, int *i);
+
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            process_tool.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+int						cnt_process(t_lexeur **res, int i);
+void					change_job(t_job **j, t_process **start);
+int						check_moove_index(t_lexeur **res, int *t);
+t_redirect				*init_var(int *done, int *t, int *i);
+int						check_token_in_condition(t_lexeur **res, int t);
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            process_fill.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		fill_process_split(t_job **j, t_lexeur **res, int *i);
+void		fill_token(t_process *p, t_lexeur **res, int *i);
+void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
+void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
+void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
