@@ -6,14 +6,14 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 10:01:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 10:36:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 
-static void	print_env(t_var **var)
+void		print_env(t_var **var)
 {
 	while (*var)
 	{

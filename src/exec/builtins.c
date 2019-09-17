@@ -37,7 +37,8 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"exit", &ft_exit},
 	{"hash", &ft_hash},
 	{"setenv", &ft_setenv},
-	{"unsetenv", &ft_unsetenv}
+	{"unsetenv", &ft_unsetenv},
+	{"env", &ft_env}
 };
 
 int		find_builtins(t_process *p, t_var *var)
