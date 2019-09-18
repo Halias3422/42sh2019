@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 09:18:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 13:40:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,8 +44,6 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 {
 	int				ret;
 
-	print_info(pos);
-	print_hist(pos, *hist);
 	ret = read(0, buf, 1);
 	if (buf[0] == 137)
 		return (NULL);

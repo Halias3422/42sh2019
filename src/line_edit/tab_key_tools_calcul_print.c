@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:44:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 10:18:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 13:36:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ void			prepare_to_print_htab(t_pos *pos, t_htab *htab)
 	get_cursor_info(pos, &pos->start_li, &pos->start_co, 0);
 	print_prompt(pos);
 	write(1, pos->ans, ft_strlen(pos->ans));
-	len = go_to_let_nb(pos);
+	len = get_len_with_lines(pos);
 	pos->act_li = pos->start_li + len / pos->max_co;
 	pos->act_co = len % pos->max_co;
 	while (pos->act_li > pos->max_li)
@@ -99,5 +99,8 @@ void			prepare_to_print_htab(t_pos *pos, t_htab *htab)
 		pos->act_li -= 1;
 		pos->start_li -= 1;
 	}
+	len = go_to_let_nb(pos);
+	pos->act_li = pos->start_li + len / pos->max_co;
+	pos->act_co = len % pos->max_co;
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
 }
