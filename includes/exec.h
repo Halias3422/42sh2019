@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 09:37:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 11:30:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -165,9 +165,9 @@ void		put_foreground(t_job *j);
 void		put_background(t_job *j);
 
 int			test_builtin(t_process *p);
-int			find_builtins(t_process *p, t_var *var);
+int			find_builtins(t_process *p, t_var **var);
 
-int			fork_simple(t_job *j, t_process *p, t_var *var);
+int			fork_simple(t_job *j, t_process *p, t_var **var);
 
 void		wait_process(pid_t pid);
 void		print_start_process(t_job *j);

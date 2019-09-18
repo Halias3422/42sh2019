@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 15:49:17 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:41:55 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 11:23:52 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,7 @@ int			ft_unset(t_process *p, t_var **ptr_var)
 		if (!(ft_unset_var(p->cmd[i], ptr_var)))
 			ft_printf("{B.T.red.}%s{eoc} not found\n", p->cmd[i]);
 	}
+	printf("unset var = %p\n", *ptr_var);
 	stock(*ptr_var, 5);
 	return (0);
 }
