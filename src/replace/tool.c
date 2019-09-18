@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 13:52:13 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 14:07:44 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,10 +62,21 @@ int			check_token_after_number(char *str, int i)
 	return (1);
 }
 
+int			double_check(char *str, int i)
+{
+	if (find_token(str, i) != -1)
+	{
+		if (i != 0 && str[i - 1] == '\\')
+			return (1);
+		return (0);
+	}
+	return (1);
+}
+
 void		split_space_basic(char *str, int *i)
 {
 	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
-	&& (find_token(str, *i) == -1)))
+	&& (double_check(str, *i))))
 	{
 		if (str[*i] == '\'' && (*i == 0 || str[(*i) - 1] != '\\'))
 		{
@@ -142,18 +153,13 @@ int		basic_split_while(int *i, char *str, char **res, int *k)
 		(*i) += g_fill_token[ret].size;
 	}
 	return (1);
-//	if (str[*i] && number == 1)
-//	{
-//		puts("other");
-//		ft_strjoin_free(&res[*k], ft_strsub(str, *i, g_fill_token[ret].size));
-//		(*i) += g_fill_token[ret].size;
-//	}
 }
 
 char		**split_space(char *str)
 {
 	int		i;
 	int		k;
+	int		o = 0;
 	char	**res;
 
 	i = 0;
@@ -163,10 +169,13 @@ char		**split_space(char *str)
 	{
 		if (basic_split_while(&i, str, res, &k) == 1)
 			k++;
-//		if (str[i])
-//			i++;
 	}
-	res[k] = 0;//attetion a ls ;ls
+	res[k] = 0;
+	while (res[o])
+	{
+		printf("str[%d]: _%s_\n", o, res[o]);
+		o++;
+	}
 	return (res);
 }
 

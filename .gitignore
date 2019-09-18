@@ -92,6 +92,7 @@ tags
 21sh
 ft_select
 .DS_Store
+.tmp
 # End of https://www.gitignore.io/api/c,vim,visualstudiocode
 
 fifo

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 10:33:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 10:02:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -181,6 +181,13 @@ int				ft_unsetenv(t_process *p, t_var **var);
 */
 
 int				ft_env(t_process *p, t_var **var);
+
+/*
+**	FT_ENV_I_FLAG_C
+*/
+
+int				go_through_process_cmd(t_process *p, t_var **new_env,
+				t_var **head, int ret);
 
 /*
 **	FT_ENV_TOOLS_C

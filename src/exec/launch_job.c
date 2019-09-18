@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 14:20:19 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 12:51:18 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,6 +89,8 @@ void		launch_job(t_job *j, t_var *var)
 	j->status = 'r';
 	while (p)
 	{
+		if (find_equal(p->cmd[0]) == 1)
+			p->cmd = check_exec_var(p->cmd, &var);
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{
@@ -97,10 +99,11 @@ void		launch_job(t_job *j, t_var *var)
 		}
 		else
 			redirect_fd(p);
-		fork_simple(j, p, var);
+		fork_simple(j, p, &var);
 		close_fd(p);
 		infile = mypipe[0];
 		p = get_and_or(p);
+		free_temp(&var);
 	}
 	alert_job(j);
 }

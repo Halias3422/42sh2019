@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 17:49:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 11:30:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -165,9 +165,9 @@ void		put_foreground(t_job *j);
 void		put_background(t_job *j);
 
 int			test_builtin(t_process *p);
-int			find_builtins(t_process *p, t_var *var);
+int			find_builtins(t_process *p, t_var **var);
 
-int			fork_simple(t_job *j, t_process *p, t_var *var);
+int			fork_simple(t_job *j, t_process *p, t_var **var);
 
 void		wait_process(pid_t pid);
 void		print_start_process(t_job *j);
@@ -185,5 +185,10 @@ int			job_is_stoped(t_job *j);
 
 t_job		*find_job_by_id(char *argv);
 
+void		free_lexeur(t_lexeur **res);
+char		**check_exec_var(char **cmd, t_var **var);
+void		free_temp(t_var **var);
+int			check_cmd(char **str);
+int			find_equal(char *str);
 int			launch_redirection(t_process *p);
 #endif

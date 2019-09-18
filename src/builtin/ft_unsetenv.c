@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_unsetenv.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 15:50:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 08:50:42 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 10:04:15 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,16 +18,20 @@ static int	element_already_exists_and_remove(char *element, t_var *var)
 	t_var	*tmp;
 
 	tmp = var;
-	while (var != NULL && ft_strcmp(element, var->name) != 0)
-		var = var->next;
+	while (var != NULL)
+	{
+		while (var != NULL && ft_strcmp(element, var->name) != 0)
+			var = var->next;
+		if (var != NULL && var->type != ENVIRONEMENT)
+			var = var->next;
+		else
+			break;
+	}
 	if (var == NULL)
 		return (0);
-	while (ft_strcmp(tmp->next->name, var->name) != 0)
+	while (tmp && tmp->next && ft_strcmp(tmp->next->name, var->name) != 0)
 		tmp = tmp->next;
-	free(var->data);
-	free(var->name);
 	var = var->next;
-	free(tmp->next);
 	tmp->next = var;
 	return (1);
 }

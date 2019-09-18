@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   launch_process.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 14:20:23 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 11:30:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,7 +69,7 @@ void		update_pid(t_process *p, t_job *j, pid_t pid)
 }
 
 
-int			fork_simple(t_job *j, t_process *p, t_var *var)
+int			fork_simple(t_job *j, t_process *p, t_var **var)
 {
 	pid_t		pid;
 	char		*cmd_path;
@@ -78,11 +78,11 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 		return (-1);
 	if (find_builtins(p, var) != 0)
 		return (1);
-	if ((cmd_path = check_path_hash(split_env(var), p->cmd, -1, NULL)) == NULL)
+	if ((cmd_path = check_path_hash(split_env(*var), p->cmd, -1, NULL)) == NULL)
 		return (0);
 	pid = fork();
 	if (pid == 0)
-		launch_process(p, var, cmd_path);
+		launch_process(p, *var, cmd_path);
 	else
 		update_pid(p, j, pid);
 //	free(cmd_path);

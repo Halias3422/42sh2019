@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 13:53:04 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 13:50:31 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,11 +121,25 @@ int *i, enum e_token token)
 	return (NULL);
 }
 
+int			check_bs_token(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && find_token(str, i) != -1)
+		i++;
+	if (i != 0 && str[i - 1] == '\\')
+		return (1);
+	return (0);
+}
+
 t_lexeur	*fill_lex_while(char *buf, int *i, int token)
 {
 	t_lexeur	*res;
 
 	res = malloc(sizeof(t_lexeur));
+	if (token != -1 && check_bs_token(buf))
+		token = -1;
 	if (token == -1)
 		fill_struct(res, buf, token, NULL);
 	else
@@ -144,7 +158,8 @@ int			check_token_for_redirection(char *str)
 	while (str[i])
 	{
 		token = find_token(str, i);
-		if (token == 4 || token == 5 || token == 6 || token == 8 || token == 9)
+		if (token == 4 || token == 5 || token == 6 || token == 8
+		|| token == 9)
 			return (token);
 		i++;
 	}
@@ -156,7 +171,6 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	int			i;
 	int			j;
 	int			k;
-	int			t = 0;
 	int			token;
 
 	i = 0;
@@ -181,11 +195,5 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 		}
 	}
 	array[j] = NULL;
-	while (array[t])
-	{
-		// printf("array[%d]:\tword -> _%s_\ttoken ->%d\tred -> _%s_\tfd_in _%s_ fd_out _%s_\n", t, array[t]->word, array[t]->token, array[t]->redirection, array[t]->fd_in, array[t]->fd_out);
-		t++;
-	}
-//	check_redirection(&array);
 	return (array);
 }
