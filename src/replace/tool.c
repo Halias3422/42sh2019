@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 14:07:44 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 17:47:40 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -159,7 +159,6 @@ char		**split_space(char *str)
 {
 	int		i;
 	int		k;
-	int		o = 0;
 	char	**res;
 
 	i = 0;
@@ -171,11 +170,6 @@ char		**split_space(char *str)
 			k++;
 	}
 	res[k] = 0;
-	while (res[o])
-	{
-		printf("str[%d]: _%s_\n", o, res[o]);
-		o++;
-	}
 	return (res);
 }
 

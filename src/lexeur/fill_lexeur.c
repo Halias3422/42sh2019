@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:50:31 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 17:47:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,25 +121,33 @@ int *i, enum e_token token)
 	return (NULL);
 }
 
-int			check_bs_token(char *str)
+char		*change_buf(char *buf)
 {
-	int	i;
+	char	*res;
+	int		i;
+	int		j;
 
-	i = 0;
-	while (str[i] && find_token(str, i) != -1)
+	i = 1;
+	j = 0;
+	res = malloc(sizeof(ft_strlen(buf)));
+	while (buf[i])
+	{
+		res[j] = buf[i];
 		i++;
-	if (i != 0 && str[i - 1] == '\\')
-		return (1);
-	return (0);
+		j++;
+	}
+	res[j] = '\0';
+	ft_strdel(&buf);
+	return (res);
 }
 
 t_lexeur	*fill_lex_while(char *buf, int *i, int token)
 {
 	t_lexeur	*res;
 
+	if (buf[0] == '\\' && find_token(buf, 1) != -1)
+		buf = change_buf(buf);
 	res = malloc(sizeof(t_lexeur));
-	if (token != -1 && check_bs_token(buf))
-		token = -1;
 	if (token == -1)
 		fill_struct(res, buf, token, NULL);
 	else
