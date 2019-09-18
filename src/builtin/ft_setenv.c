@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:51:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 14:08:29 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,32 +26,76 @@ void		print_env(t_var **var)
 	}
 }
 
-static int	element_already_exists_and_replace(char **element, t_var *var)
+void		add_setenv(t_var **var, char *name, char *data)
 {
-	while (var != NULL && ft_strcmp(element[0], var->name) != 0)
-		var = var->next;
-	if (var == NULL)
-		return (0);
-	free(var->data);
-	free(var->name);
-	var->name = element[0];
-	var->data = element[1];
-	return (1);
+	t_var	*start;
+
+	start = malloc(sizeof(t_var));
+	start->name = name;
+	start->data = data;
+	start->type = ENVIRONEMENT;
+	start->next = (*var);
+	(*var) = start;
 }
 
-static void	add_var_to_env(t_var *var, char **element)
+void		add_var_to_env(t_var **var, char *name, char *data)
 {
-	t_var		*new;
+	t_var	*prev;
 
-	while (var->next != NULL)
-		var = var->next;
-	new = (t_var*)malloc(sizeof(t_var));
-	new->name = element[0];
-	new->data = element[1];
-	new->type = ENVIRONEMENT;
-	new->next = NULL;
-	var->next = new;
+	if (!(*var))
+	{
+		add_setenv(var, name, data);
+		stock(*var, 5);
+		return ;
+	}
+	while (*var)
+	{
+		if (ft_strcmp(name, (*var)->name) == 0)
+			break ;
+		prev = (*var);
+		(*var) = (*var)->next;
+	}
+	if (!(*var))
+	{
+		(*var) = malloc(sizeof(t_var));
+		prev->next = (*var);
+		(*var)->next = NULL;
+		(*var)->name = name;
+		(*var)->data = data;
+		(*var)->type = ENVIRONEMENT;
+		return ;
+	}
+	ft_strdel(&(*var)->data);
+	ft_strdel(&name);
+	(*var)->data = data;
 }
+
+// static int	element_already_exists_and_replace(char **element, t_var *var)
+// {
+// 	while (var != NULL && ft_strcmp(element[0], var->name) != 0)
+// 		var = var->next;
+// 	if (var == NULL)
+// 		return (0);
+// 	free(var->data);
+// 	free(var->name);
+// 	var->name = element[0];
+// 	var->data = element[1];
+// 	return (1);
+// }
+
+// static void	add_var_to_env(t_var *var, char **element)
+// {
+// 	t_var		*new;
+
+// 	while (var->next != NULL)
+// 		var = var->next;
+// 	new = (t_var*)malloc(sizeof(t_var));
+// 	new->name = element[0];
+// 	new->data = element[1];
+// 	new->type = ENVIRONEMENT;
+// 	new->next = NULL;
+// 	var->next = new;
+// }
 
 static int	setenv_rules(t_process *p)
 {
@@ -70,28 +114,32 @@ static int	setenv_rules(t_process *p)
 
 int			ft_setenv(t_process *p, t_var **var)
 {
-	char		**new_element;
+	char		*name;
+	char		*data;
 
 	if (p->cmd[1])
 	{
 		if (setenv_rules(p) == 0)
 			return (0);
-		new_element = ft_strsplit(p->cmd[1], '=');
-		if ((new_element[1] && new_element[2]) || (new_element[0] == NULL &&
-					new_element[1] == NULL) || p->cmd[1][0] == '=')
-		{
-			ft_tabfree(new_element);
-			ft_printf("42sh: setenv: bad parameters, use -u for usage\n");
-			return (0);
-		}
-		if (element_already_exists_and_replace(new_element, *var) == 1)
-		{
-			free(new_element);
-			print_env(var);
-			return (1);
-		}
-		add_var_to_env(*var, new_element);
-		free(new_element);
+		name = init_name(p->cmd[1]);
+		data = init_data(p->cmd[1]);
+		add_var_to_env(var, name, data);
+	// 	new_element = ft_strsplit(p->cmd[1], '=');
+	// 	if ((new_element[1] && new_element[2]) || (new_element[0] == NULL &&
+	// 				new_element[1] == NULL) || p->cmd[1][0] == '=')
+	// 	{
+	// 		ft_tabfree(new_element);
+	// 		ft_printf("42sh: setenv: bad parameters, use -u for usage\n");
+	// 		return (0);
+	// 	}
+	// 	if (element_already_exists_and_replace(new_element, *var) == 1)
+	// 	{
+	// 		free(new_element);
+	// 		print_env(var);
+	// 		return (1);
+	// 	}
+	// 	add_var_to_env(*var, new_element);
+	// 	free(new_element);
 	}
 	print_env(var);
 	return (1);
