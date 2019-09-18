@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "exec.h": "c",
+        "lexeur.h": "c",
+        "hash.h": "c",
+        "termcaps.h": "c"
+    }
+}

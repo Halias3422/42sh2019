@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_setenv.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 10:36:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 10:04:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,8 +17,11 @@ void		print_env(t_var **var)
 {
 	while (*var)
 	{
-		ft_printf("%s=", (*var)->name);
-		ft_printf("%s\n", (*var)->data);
+		if ((*var)->type == ENVIRONEMENT)
+		{
+			ft_printf("%s=", (*var)->name);
+			ft_printf("%s\n", (*var)->data);
+		}
 		(*var) = (*var)->next;
 	}
 }
@@ -74,7 +77,8 @@ int			ft_setenv(t_process *p, t_var **var)
 		if (setenv_rules(p) == 0)
 			return (0);
 		new_element = ft_strsplit(p->cmd[1], '=');
-		if (new_element[1] && new_element[2])
+		if ((new_element[1] && new_element[2]) || (new_element[0] == NULL &&
+					new_element[1] == NULL) || p->cmd[1][0] == '=')
 		{
 			ft_tabfree(new_element);
 			ft_printf("42sh: setenv: bad parameters, use -u for usage\n");
