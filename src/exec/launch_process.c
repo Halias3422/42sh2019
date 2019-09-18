@@ -136,6 +136,7 @@ int			launch_process(t_process *p, t_var *var)
 		dup2(p->fd_error, STDERR_FILENO);
 		close(p->fd_error);
 	}
+	launch_redirection(p);
 	if (!p->cmd[0])
 		exit(1);
 	ft_execute_test(p, var);
@@ -146,7 +147,7 @@ int			fork_simple(t_job *j, t_process *p, t_var *var)
 {
 	pid_t		pid;
 
-	launch_redirection(p);
+	//launch_redirection(p);
 	if (find_builtins(p, var) != 0)
 		return (1);
 	pid = fork();
