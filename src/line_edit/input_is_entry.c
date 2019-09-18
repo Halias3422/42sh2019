@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   input_is_entry.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 13:41:50 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/13 11:27:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,8 @@ static t_hist	*entry_is_incomplete(t_pos *pos, t_hist *hist, char *buf)
 
 static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
 {
+	if (pos->is_expansion-- > 0)
+		return (hist);
 	while (hist->next)
 		hist = hist->next;
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
@@ -51,7 +53,8 @@ static void		check_expansion_and_token(t_pos *pos, t_hist *hist)
 	t_tok		in;
 	t_tokench	tok;
 
-	check_history_expansion(pos, pos->ans, hist);
+	(void)hist;
+	check_history_expansion(pos, hist, 0, 0);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	init_tok(&in);
 	check_token(pos, &in, &tok);

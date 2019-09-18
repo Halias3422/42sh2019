@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 18:14:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 08:37:31 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,6 +106,8 @@ int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
 
+	// if (check_exec_var(res, var) == 0)
+		// return (0);
 	j = malloc(sizeof(t_job));
 	j->pgid = 0;
 	init_job(j);

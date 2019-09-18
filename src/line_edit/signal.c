@@ -3,21 +3,21 @@
 /*                                                              /             */
 /*   signal.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/10 17:45:32 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 08:34:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-struct s_hist **ghist;
+struct s_hist	**ghist;
 
-void		signal_handler(pid_t pid)
+void			signal_handler(pid_t pid)
 {
-	char	*pwd;
+	char		*pwd;
 
 	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = getcwd(NULL, 1000));
@@ -27,7 +27,7 @@ void		signal_handler(pid_t pid)
 
 static void		resize_screen(t_pos *pos)
 {
-	int		len;
+	int			len;
 
 	check_term();
 	pos->max_co = tgetnum("co");
@@ -54,7 +54,7 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
-	char	*pwd;
+	char		*pwd;
 
 	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
@@ -69,7 +69,7 @@ static void		ctrl_c(t_pos *pos)
 
 static void		sighandler(int signum)
 {
-	t_pos *pos;
+	t_pos		*pos;
 
 	pos = stock(NULL, 1);
 	if (signum == RESIZING)

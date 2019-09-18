@@ -2,7 +2,7 @@
 #include "../../includes/builtin.h"
 #include "../../includes/exec.h"
 
-static void	 write_alias(t_var *var)
+static void	 write_alias_on_exit(t_var *var)
 {
 	t_pos *p;
 
@@ -37,7 +37,7 @@ int		ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
-	write_alias(*var);
+	write_alias_on_exit(*var);
 	free_pos();
 	status = ft_atoi(p->cmd[1]);
 	if (status < 0)

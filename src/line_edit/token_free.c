@@ -6,14 +6,14 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:33:05 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 14:35:03 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/13 11:42:22 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-void		free_heredoc(t_tok *in)
+void			free_heredoc(t_tok *in)
 {
 	if (in->herestr != NULL)
 	{
@@ -27,7 +27,7 @@ void		free_heredoc(t_tok *in)
 	}
 }
 
-static void	free_tok(t_tokench *tok)
+static void		free_tok(t_tokench *tok)
 {
 	t_tokench	*tmp;
 
@@ -51,7 +51,7 @@ static void	free_tok(t_tokench *tok)
 	free(tok);
 }
 
-void		free_all_check_token(t_tok *in, t_tokench *tok)
+void			free_all_check_token(t_tok *in, t_tokench *tok)
 {
 	free(in->dquote_d);
 	free_heredoc(in);
