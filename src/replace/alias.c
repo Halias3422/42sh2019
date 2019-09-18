@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 18:19:35 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 08:24:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,9 +63,12 @@ int			replace_alias_first_part(t_var **s_var, t_alias *alias, t_replace *replace
 		(*s_var) = (*s_var)->next;
 	if (!(*s_var))
 		return (0);
-	replace->next = malloc(sizeof(replace));
-	replace->next->name = ft_strdup(alias->data);
-	replace->next->next = NULL;
+	while (replace->next)
+		replace = replace->next;
+	replace->next = malloc(sizeof(t_replace));
+	replace = replace->next;
+	replace->name = ft_strdup(alias->data);
+	replace->next = NULL;
 	return (1);
 }
 
@@ -96,8 +99,8 @@ int			check_tok(t_alias *alias, t_var *var, t_replace *replace)
 	tmp = alias;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->data, "&&") == 0 || ft_strcmp(tmp->data, "||") == 0
-			|| ft_strcmp(tmp->data, ";") == 0 || ft_strcmp(tmp->data, "|") == 0)
+		if (tmp && tmp->next && (ft_strcmp(tmp->data, "&&") == 0 || ft_strcmp(tmp->data, "||") == 0
+			|| ft_strcmp(tmp->data, ";") == 0 || ft_strcmp(tmp->data, "|") == 0))
 		{
 			replace_alias(tmp->next, var, replace);
 			return (0);
@@ -111,6 +114,7 @@ int			check_boucle(t_alias *alias, t_replace *replace)
 {
 	while (replace)
 	{
+		printf("alias = %s\treplace = %s\n", alias->data, replace->name);
 		if (ft_strcmp(alias->data, replace->name) == 0)
 			return (0);
 		replace = replace->next;

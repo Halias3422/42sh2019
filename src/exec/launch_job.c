@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 14:51:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 19:21:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,6 +88,7 @@ void		launch_job(t_job *j, t_var *var)
 	j->status = 'r';
 	while (p)
 	{
+		if (find_equal(p->cmd[0]) == 1)
 		p->cmd = check_exec_var(p->cmd, &var);
 		p->fd_in = infile;
 		if (p->split == 'P')

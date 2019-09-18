@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 17:57:34 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 19:22:36 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,6 @@ void		add_env_temp(t_var **var, char *str, int type)
 	start->name = init_name(str);
 	start->data = init_data(str);
 	start->type = type;
-	printf("type = %d\n", type);
 	start->next = (*var);
 	(*var) = start;
 }
@@ -44,7 +43,6 @@ char		**remove_tab(char **src, int j)
 		if (i == j)
 			i++;
 		res[k] = ft_strdup(src[i]);
-		printf("res[%d] = %s\n", k, res[k]);
 		i++;
 		k++;
 	}

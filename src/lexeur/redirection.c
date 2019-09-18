@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 17:01:39 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 14:46:50 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 19:23:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,12 +17,10 @@ char			*fill_redirection(char **buf, int *i)
 {
 	char	*res;
 
-	printf("buf[%d]: _%s_\n", *i, buf[*i]);
 	if (buf[*i + 1])
 	{
 		(*i)++;
 		res = ft_strdup(buf[*i]);
-		printf("res -> _%s_\n", res);
 		return (res);
 	}
 	return (NULL);

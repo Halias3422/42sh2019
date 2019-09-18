@@ -11,7 +11,7 @@ static void	 write_alias(t_var *var)
 	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT , 0664);
 	while (var)
 	{
-		if (var->type == 2)
+		if (var->type == ALIAS)
 		{
 			write(p->alias, var->name, ft_strlen(var->name));
 			write(p->alias, "=", 1);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 18:14:08 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 19:22:29 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ int		print_alias(t_var *var)
 	while (var)
 	{
 		if (var->type == ALIAS)
-			printf("%s=%s\n", var->name, var->data);
+			ft_printf("%s=%s\n", var->name, var->data);
 		var = var->next;
 	}
 	return (0);
