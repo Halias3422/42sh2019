@@ -54,7 +54,14 @@ int			ft_test_path(t_process *p, t_var *var)
 int			ft_execute_test(t_process *p, t_var *var)
 {
 	if (p->cmd[0] && (ft_strchr(p->cmd[0], '/') != 0))
-		ft_execute_function(p->cmd[0], p->cmd, var);
+	{
+		if (access(p->cmd[0], F_OK))
+			ft_printf_err("42sh: %s: No such file or directory\n", p->cmd[0]);
+		else if (access(p->cmd[0], X_OK))
+			ft_printf_err("42sh: %s: Permission denied\n", p->cmd[0]);
+		else if (ft_execute_function(p->cmd[0], p->cmd, var))
+			ft_printf_err("42sh: %s: No such file or directory\n", p->cmd[0]);
+	}
 	else
 	{
 		if (ft_test_path(p, var) == -1)
