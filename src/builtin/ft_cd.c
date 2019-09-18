@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_cd.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 14:27:36 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/20 14:13:35 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 15:37:37 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,12 @@ int		ft_change_dir(char *path, t_var **var, char *old)
 
 int		ft_cd_special(char *name, char *path_pwd, t_var **var, int fd_out)
 {
-	if (ft_get_val(name, *var, ENVIRONEMENT) == NULL)
+	char	*tmp;
+
+	tmp = ft_get_val(name, *var, TEMP);
+	if (!tmp)
+		tmp = ft_get_val(name, *var, ENVIRONEMENT);
+	if (tmp == NULL)
 	{
 		if (ft_strcmp(name, "HOME") == 0)
 			ft_putendl_fd(CD_NO_HOME, fd_out);
@@ -56,10 +61,7 @@ int		ft_cd_special(char *name, char *path_pwd, t_var **var, int fd_out)
 			ft_putendl_fd(CD_NO_ENV, fd_out);
 	}
 	else
-	{
-		return (ft_change_dir(ft_strdup(ft_get_val(name, *var, 0)),
-			var, path_pwd));
-	}
+		return (ft_change_dir(ft_strdup(tmp), var, path_pwd));
 	return (1);
 }
 

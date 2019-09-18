@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   replace.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 16:01:55 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 10:29:12 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,12 +46,6 @@ int			check_alias(char *array, t_var *var, t_replace *replace)
 		tmp_var = tmp_var->next;
 	if (!tmp_var)
 		return (0);
-	// while (r)
-	// {
-	// 	if (ft_strcmp(r->name, tmp_var->name) == 0)
-	// 		return (0);
-	// 	r = r->next;
-	// }
 	return (1);
 }
 
@@ -63,6 +57,12 @@ int			check_backslash_var(char *str)
 	while (str[i] && str[i] != '$')
 		i++;
 	if (i == 0 || str[i - 1] != '\\')
+	{
+		if (i == 0 && !str[i + 1])
+			return (0);
+		return (1);
+	}
+	if (!str[i + 1] || (str[i + 1] && str[i + 1] == ' '))
 		return (1);
 	return (0);
 }
@@ -76,7 +76,7 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	i = 0;
 	if (check_alias(alias->data, var, replace) == 1 && alias->data[0] != '\\')
 		replace_alias(alias, var, replace);
-		check_tok(alias, var, replace);
+	check_tok(alias, var, replace);
 	while (alias)
 	{
 		if (alias->data && alias->data[0] != '\'')

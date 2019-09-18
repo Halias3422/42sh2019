@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   env.c                                            .::    .:/ .      .::   */
+/*   ft_env.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 08:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 09:48:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 14:55:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,14 @@ t_var			*place_new_entry_in_tmp_env(char **new_env_entry,
 	int			name_len;
 
 	name_len = ft_strlen(new_env_entry[0]);
+	if (var == NULL)
+	{
+		var = add_list_back_env(NULL);
+		var->name = ft_strdup(new_env_entry[0]);
+		var->data = ft_strdup(new_env_entry[1]);
+		var->type = ENVIRONEMENT;
+		var->next = NULL;
+	}
 	head = var;
 	while (var && var->next && ft_strcmp(new_env_entry[0], var->name) != 0)
 		var = var->next;
