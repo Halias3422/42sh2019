@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:03:20 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/21 16:38:33 by husahuc     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ void		print_job(t_job *j)
 	t_process	*process;
 	int			i;
 
-//	ft_printf("[%d] %d	", j->id, j->pgid);
+	ft_printf("[%d] %d	", j->id, j->pgid);
 	if (j->status == 'f')
 		ft_printf("Done	");
 	else if (j->status == 's')
@@ -91,7 +91,7 @@ void		print_start_process(t_job *j)
 	t_process	*p;
 
 	p = j->p;
-//	ft_printf("[%d]", j->id);
+	ft_printf("[%d]", j->id);
 	while (p)
 	{
 		ft_printf(" %d", p->pid);

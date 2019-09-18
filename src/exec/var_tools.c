@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:57:40 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:06:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 12:39:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,6 @@ void		free_temp(t_var **var)
 	t_var *next;
 
 	tmp = (*var);
-//	printf("var = %p\n", (*var));
 	while (*var)
 	{
 		if ((*var)->type == TEMP)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:05:18 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 12:39:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,11 +55,9 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 	var = *ptr_var;
 	if (ft_strcmp(name, (var)->name) == 0 && (var)->type == type)
 	{
-//		printf("ptr_var = %p && ptr_var->next = %p\n", *ptr_var, (*ptr_var)->next);
 		buf = (*ptr_var)->next;
 		remove_item_var(ptr_var);
 		(*ptr_var) = buf;
-//		printf("ptr_var = %p\n", *ptr_var);
 		return (1);
 	}
 	while (var != NULL)

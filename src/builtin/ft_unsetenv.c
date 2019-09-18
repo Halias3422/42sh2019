@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 15:50:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:35:18 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 15:05:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,8 +50,7 @@ int			ft_unsetenv(t_process *p, t_var **var)
 			return (0);
 		if (remove_list_var(var, ENVIRONEMENT, p->cmd[1]) == 1)
 		{
-			print_env(*var);
-			printf("env = %p\n", *var);
+			stock(*var, 5);
 			return (1);
 		}
 		else

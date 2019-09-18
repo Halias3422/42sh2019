@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:04:59 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 12:39:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,9 +99,7 @@ void		launch_job(t_job *j, t_var *var)
 		}
 		else
 			redirect_fd(p);
-//		printf("job var = %p\n", var);
 		fork_simple(j, p, &var); 
-//		printf("job var2 = %p\n", var);
 		close_fd(p);
 		infile = mypipe[0];
 		p = get_and_or(p);
