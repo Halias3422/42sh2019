@@ -3,26 +3,26 @@
 /*                                                              /             */
 /*   ft_setenv.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 09:38:00 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 13:37:36 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 
-void		print_env(t_var **var)
+void		print_env(t_var *var)
 {
-	while (*var)
+	while (var)
 	{
-		if ((*var)->type == ENVIRONEMENT)
+		if (var->type == ENVIRONEMENT)
 		{
-			ft_printf("%s=", (*var)->name);
-			ft_printf("%s\n", (*var)->data);
+			ft_printf("%s=", var->name);
+			ft_printf("%s\n", var->data);
 		}
-		(*var) = (*var)->next;
+		var = var->next;
 	}
 }
 
@@ -72,7 +72,7 @@ int			ft_setenv(t_process *p, t_var **var)
 {
 	char		**new_element;
 
-	if (p->cmd[1])
+	if (*var != NULL && p->cmd[1])
 	{
 		if (setenv_rules(p) == 0)
 			return (0);
@@ -87,12 +87,14 @@ int			ft_setenv(t_process *p, t_var **var)
 		if (element_already_exists_and_replace(new_element, *var) == 1)
 		{
 			free(new_element);
-			print_env(var);
+			print_env(*var);
 			return (1);
 		}
 		add_var_to_env(*var, new_element);
 		free(new_element);
 	}
-	print_env(var);
+	if (*var == NULL)
+		return (0);
+	print_env(*var);
 	return (1);
 }
