@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:34:55 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 09:35:45 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void			signal_handler(pid_t pid)
 {
 	char		*pwd;
 
-	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	pid = 0;
@@ -61,7 +61,7 @@ static void		ctrl_c(t_pos *pos)
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	init_pos(pos);
-	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	print_prompt(pos);

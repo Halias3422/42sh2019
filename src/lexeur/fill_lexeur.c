@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:35:36 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 09:36:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ char		*get_fd_in(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+	while (str[i] && (str[i] != '<' && str[i] != '>'))
 		i++;
 	if (i != 0)
 		fd_in = ft_strsub(str, 0, i);

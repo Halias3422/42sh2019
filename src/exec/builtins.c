@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:36:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 09:36:40 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,8 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"exit", &ft_exit},
 	{"hash", &ft_hash},
 	{"setenv", &ft_setenv},
-	{"unsetenv", &ft_unsetenv}
+	{"unsetenv", &ft_unsetenv},
+	{"env", &ft_env}
 };
 
 int		find_builtins(t_process *p, t_var *var)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:35:26 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 09:36:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,4 +105,9 @@ t_lexeur	**start_lex(t_var *var, char *res)
 	//	return (NULL);
 	array = fill_lex(tmp, array);
 	return (array);
+}
+
+void	print_lexer(t_lexeur *lex)
+{
+	ft_printf_err("%s\n", g_fill_token[lex->token].name);
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:34:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 09:39:31 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,7 +114,6 @@ int			check_boucle(t_alias *alias, t_replace *replace)
 {
 	while (replace)
 	{
-		printf("alias = %s\treplace = %s\n", alias->data, replace->name);
 		if (ft_strcmp(alias->data, replace->name) == 0)
 			return (0);
 		replace = replace->next;

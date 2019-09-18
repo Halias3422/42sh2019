@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:42:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 09:37:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,6 +89,30 @@ void		fill_process(t_job *j, t_lexeur **res);
 void		free_process(t_job *j);
 void		fill_token(t_process *p, t_lexeur **res, int *i);
 
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            process_tool.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+int						cnt_process(t_lexeur **res, int i);
+void					change_job(t_job **j, t_process **start);
+int						check_moove_index(t_lexeur **res, int *t);
+t_redirect				*init_var(int *done, int *t, int *i);
+int						check_token_in_condition(t_lexeur **res, int t);
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            process_fill.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		fill_process_split(t_job **j, t_lexeur **res, int *i);
+void		fill_token(t_process *p, t_lexeur **res, int *i);
+void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
+void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
+void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
+
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                 exec_main.c                                ┃
@@ -166,4 +190,5 @@ char		**check_exec_var(char **cmd, t_var **var);
 void		free_temp(t_var **var);
 int			check_cmd(char **str);
 int			find_equal(char *str);
+int			launch_redirection(t_process *p);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:42:45 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 09:36:58 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -378,9 +378,17 @@ t_htab			*fill_new_htab(t_htab *htab, t_htab *neww, int match);
 int			wildcard_match(char *s1, char *s2);
 
 t_htab			*get_current_match(t_htab *htab, char *name, int wildcard);
-void			auto_complete(t_pos *pos, t_htab *htab, char *name);
+void			auto_complete(t_pos *pos, t_htab *htab, char *name,
+				char *old_pos_ans);
 t_htab			*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name);
 t_htab			*get_intelligent_match(t_htab *htab, char *name);
+
+/*
+** TAB_KEY_AUTO_COMPLETE_FOR_TILDE_C
+*/
+
+void			reduce_ans_for_tilde(t_pos *pos, char *name);
+int				get_length_of_home_env(t_var *env);
 
 /*
 ** TAB_KEY_SORT
@@ -619,7 +627,12 @@ void					get_right_coordinates_not_found(t_pos *pos, t_ctrl_hist
 						*ctrl);
 void					get_pos_coordinates_right_again(t_pos *pos);
 
+/*
+** CHECK_FOR_TILDE_C
+*/
 
+char					*check_for_tilde(char *ans, t_var *env, int i,
+						int usage);
 
 
 void					check_copy(unsigned char *buf, t_pos *pos);
