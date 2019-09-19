@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 18:07:25 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 14:21:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -165,7 +165,8 @@ int			check_token_for_redirection(char *str)
 	i = 0;
 	while (str[i])
 	{
-		token = find_token(str, i);
+		if (i == 0 || str[i - 1] != '\\')
+			token = find_token(str, i);
 		if (token == 4 || token == 5 || token == 6 || token == 8
 		|| token == 9)
 			return (token);
@@ -194,7 +195,6 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 			i++;
 		if (buf[i])
 		{
-			printf("buf[%d] _%s_\n", i, buf[i]);
 			token = check_token_for_redirection(buf[i]);
 			if (token != -1)
 				array[j] = fill_lex_redirection(buf, &i, token);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 12:27:51 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 13:45:03 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -641,6 +641,6 @@ void					check_copy(unsigned char *buf, t_pos *pos);
 ** CHECK_BACKSLASH_C
 */
 
-char					*check_backslash(char *ans, t_hist *hist);
+char					*check_backslash(t_pos *pos, t_hist *hist);
 
 #endif
