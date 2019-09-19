@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:37:17 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 17:34:06 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -163,7 +163,7 @@ char		**split_space(char *str)
 
 	i = 0;
 	k = 0;
-	res = malloc(sizeof(char *) * (cnt_size(str) + 1));
+	res = malloc(sizeof(char *) * (ft_strlen(str) + 1));
 	while (str[i])
 	{
 		if (basic_split_while(&i, str, res, &k) == 1)
