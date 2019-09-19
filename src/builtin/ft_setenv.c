@@ -6,23 +6,23 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 14:08:29 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 14:47:35 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 
-void		print_env(t_var **var)
+void		print_env(t_var *var)
 {
-	while (*var)
+	while (var)
 	{
-		if ((*var)->type == ENVIRONEMENT)
+		if (var->type == ENVIRONEMENT)
 		{
-			ft_printf("%s=", (*var)->name);
-			ft_printf("%s\n", (*var)->data);
+			ft_printf("%s=", var->name);
+			ft_printf("%s\n", var->data);
 		}
-		(*var) = (*var)->next;
+		var = var->next;
 	}
 }
 
@@ -141,6 +141,6 @@ int			ft_setenv(t_process *p, t_var **var)
 	// 	add_var_to_env(*var, new_element);
 	// 	free(new_element);
 	}
-	print_env(var);
+	print_env(*var);
 	return (1);
 }
