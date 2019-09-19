@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 11:30:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 13:44:49 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -191,4 +191,5 @@ void		free_temp(t_var **var);
 int			check_cmd(char **str);
 int			find_equal(char *str);
 int			launch_redirection(t_process *p);
+void		remove_item_var(t_var **var);
 #endif
