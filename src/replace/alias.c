@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 09:39:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:06:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,65 +14,24 @@
 #include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
 
-void		replace_alias_while_fill(char *tmp, int *j, int *i, t_alias *alias)
+int		replace_alias_first_part(t_var **var, t_alias *alias, t_replace *r)
 {
-	int		t;
-	int		s;
-
-	s = *j;
-	while (tmp[*j] && ((tmp[*j] < 9 || tmp[*j] > 13) && tmp[*j] != ' '))
-		(*j)++;
-	t = *j;
-	while (tmp[t] && ((tmp[t] >= 9 && tmp[t] <= 13) || tmp[t] == ' '))
-		t++;
-	if (tmp[t])
-		fill_alias_multiple(ft_strsub(tmp, s, (*j) - s), alias, i);
-	else
-		fill_alias_multiple(ft_strsub(tmp, s, t - s), alias, i);
-}
-
-int			replace_alias_while(t_var *var, t_alias *alias)
-{
-	char	*tmp;
-	int		j;
-	int		i;
-
-	j = 0;
-	i = 0;
-	tmp = ft_strdup(var->data);
-	if (!check_simple_or_multiple(tmp))
-	{
-		while (tmp[j])
-			j++;
-		fill_alias_solo(ft_strsub(tmp, 0, j), alias);
-		return (1);
-	}
-	while (tmp[j])
-	{
-		replace_alias_while_fill(tmp, &j, &i, alias);
-		jump_space(tmp, &j);
-	}
-	ft_strdel(&tmp);
-	return (i);
-}
-
-int			replace_alias_first_part(t_var **s_var, t_alias *alias, t_replace *replace)
-{
-	while ((*s_var) && (ft_strcmp(alias->data, (*s_var)->name) != 0 ||
-	(*s_var)->type != ALIAS))
-		(*s_var) = (*s_var)->next;
-	if (!(*s_var))
+	while ((*var) && (ft_strcmp(alias->data, (*var)->name) != 0 ||
+	(*var)->type != ALIAS))
+		(*var) = (*var)->next;
+	if (!(*var))
 		return (0);
-	while (replace->next)
-		replace = replace->next;
-	replace->next = malloc(sizeof(t_replace));
-	replace = replace->next;
-	replace->name = ft_strdup(alias->data);
-	replace->next = NULL;
+	while (r->next)
+		r = r->next;
+	r->next = malloc(sizeof(t_replace));
+	r = r->next;
+	r->name = ft_strdup(alias->data);
+	r->next = NULL;
 	return (1);
 }
 
-int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var, t_replace *replace)
+int		replace_alias_last_part(t_alias *alias, int *ret,
+								t_var *var, t_replace *replace)
 {
 	if (alias->next && check_last_char(alias, (*ret)) == ' ')
 	{
@@ -92,15 +51,16 @@ int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var, t_replace *r
 	return (1);
 }
 
-int			check_tok(t_alias *alias, t_var *var, t_replace *replace)
+int		check_tok(t_alias *alias, t_var *var, t_replace *replace)
 {
 	t_alias *tmp;
 
 	tmp = alias;
 	while (tmp)
 	{
-		if (tmp && tmp->next && (ft_strcmp(tmp->data, "&&") == 0 || ft_strcmp(tmp->data, "||") == 0
-			|| ft_strcmp(tmp->data, ";") == 0 || ft_strcmp(tmp->data, "|") == 0))
+		if (tmp && tmp->next && (ft_strcmp(tmp->data, "&&") == 0
+			|| ft_strcmp(tmp->data, "||") == 0 || ft_strcmp(tmp->data, ";") == 0
+					|| ft_strcmp(tmp->data, "|") == 0))
 		{
 			replace_alias(tmp->next, var, replace);
 			return (0);
@@ -110,7 +70,7 @@ int			check_tok(t_alias *alias, t_var *var, t_replace *replace)
 	return (1);
 }
 
-int			check_boucle(t_alias *alias, t_replace *replace)
+int		check_boucle(t_alias *alias, t_replace *replace)
 {
 	while (replace)
 	{
@@ -121,7 +81,7 @@ int			check_boucle(t_alias *alias, t_replace *replace)
 	return (1);
 }
 
-void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
+void	replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 {
 	t_var		*s_var;
 	int			ret;

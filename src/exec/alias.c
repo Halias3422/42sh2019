@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 11:10:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 08:26:33 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,32 +35,48 @@ void	find_alias(t_process *p, t_var *var, int k)
 	ft_putstr("'\n");
 }
 
-void	add_list_alias(t_var **var, char *name, char *data)
+void		add_alias(t_var **var, char *name, char *data)
 {
 	t_var	*start;
-	t_var	*tmp;
 
-	start = (*var);
-	tmp = NULL;
-	while ((*var) && ft_strcmp((*var)->name, name) != 0)
+	start = malloc(sizeof(t_var));
+	start->name = name;
+	start->data = data;
+	start->type = ALIAS;
+	start->next = (*var);
+	(*var) = start;
+}
+
+void		add_list_alias(t_var **var, char *name, char *data)
+{
+	t_var	*prev;
+
+	if (!(*var))
 	{
-		tmp = (*var);
-		(*var) = (*var)->next;
-	}
-	if ((*var))
-	{
-		ft_strdel(&(*var)->data);
-		(*var)->data = ft_strdup(data);
-		(*var) = start;
+		add_alias(var, name, data);
+		stock(*var, 5);
 		return ;
 	}
-	(*var) = tmp;
-	(*var)->next = malloc(sizeof(t_var));
-	(*var)->next->name = ft_strdup(name);
-	(*var)->next->data = ft_strdup(data);
-	(*var)->next->type = ALIAS;
-	(*var)->next->next = NULL;
-	(*var) = start;
+	while (*var)
+	{
+		if (ft_strcmp(name, (*var)->name) == 0)
+			break ;
+		prev = (*var);
+		(*var) = (*var)->next;
+	}
+	if (!(*var))
+	{
+		(*var) = malloc(sizeof(t_var));
+		prev->next = (*var);
+		(*var)->next = NULL;
+		(*var)->name = name;
+		(*var)->data = data;
+		(*var)->type = ALIAS;
+		return ;
+	}
+	ft_strdel(&(*var)->data);
+	ft_strdel(&name);
+	(*var)->data = data;
 }
 
 int		print_alias(t_var *var)
@@ -82,6 +98,8 @@ int		main_alias(t_process *p, t_var **var)
 	int		k;
 
 	k = 0;
+	if (!(*var))
+		return (1);
 	if (!p->cmd[1])
 		return (print_alias(*var));
 	while (p->cmd[++k])
@@ -96,8 +114,6 @@ int		main_alias(t_process *p, t_var **var)
 			name = ft_strsub(p->cmd[k], 0, i);
 			data = ft_strsub(p->cmd[k], i + 1, ft_strlen(p->cmd[k]) - (i + 1));
 			add_list_alias(var, name, data);
-			ft_strdel(&data);
-			ft_strdel(&name);
 		}
 	}
 	return (1);
@@ -123,6 +139,24 @@ int		main_unalias(t_process *p, t_var **var)
 	start = (*var);
 	while (p->cmd[k])
 	{
+		if (*var && ft_strcmp(p->cmd[k], (*var)->name) == 0)
+		{
+			if (!(*var)->next)
+			{
+				ft_strdel(&(*var)->name);
+				ft_strdel(&(*var)->data);
+				free(*var);
+				(*var) = NULL;
+				stock(*var, 5);
+				return (1);
+			}
+			(*var) = (*var)->next;
+			ft_strdel(&start->name);
+			ft_strdel(&start->data);
+			free(start);
+			stock(*var, 5);
+			return (1);
+		}
 		while (*var && ft_strcmp(p->cmd[k], (*var)->name) != 0)
 		{
 			last = (*var);
@@ -138,5 +172,6 @@ int		main_unalias(t_process *p, t_var **var)
 		free(tmp);
 		k++;
 	}
+	stock(*var, 5);
 	return (1);
 }

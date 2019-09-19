@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 11:34:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:21:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,7 +77,7 @@ void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 			error = replace_expansion_by_value(pos, hist, i, error);
 		if (error == -1)
 		{
-			ft_printf("\n42sh: %s: event not found", original_ans);
+			ft_printf_err("\n42sh: %s: event not found", original_ans);
 			pos->error = 2;
 			pos->ans = ft_secure_free(pos->ans);
 			pos->ans = ft_strnew(0);

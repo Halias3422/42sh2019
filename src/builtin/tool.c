@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 12:53:43 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 13:26:34 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,10 +33,6 @@ char		*ft_get_val(char *name, t_var *var, int type)
 	}
 	return (NULL);
 }
-
-/*
-** pointeur su premier element
-*/
 
 void		remove_item_var(t_var **var)
 {
