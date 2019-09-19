@@ -3,112 +3,86 @@
 /*                                                              /             */
 /*   env_replace.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.42.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:41:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 15:11:50 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/28 13:26:09 by husahuc     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 #include "../../includes/termcaps.h"
-#include "../../includes/alias.h"
 
-// char	*switch_word(char *str, char *tmp, int i)
-// {
-// 	char	*res;
-// 	int		j;
-// 	int		k;
-
-// 	j = 0;
-// 	while (j < i)
-// 		j++;
-// 	res = ft_strsub(str, 0, j);
-// 	if (ft_strcmp(tmp, "") == 0)
-// 		return (res);
-// 	ft_strjoin_free(&res, tmp);
-// 	k = j;
-// 	while (str[k] && ((str[k] < 9 && str[k] > 13) || str[k] != ' '))
-// 		k++;
-// 	j = k;
-// 	while (str[j])
-// 		j++;
-// 	ft_strjoin_free(&res, ft_strsub(str, k, j - k));
-// 	ft_strdel(&str);
-// 	return (res);
-// }
-
-// char	*replace_while(t_var *env, char *ar[4])
-// {
-// 	t_var	*start;
-
-// 	start = env;
-// 	while (start)
-// 	{
-// 		if (ft_strcmp(ar[0], start->name) == 0 && start->type == ENVIRONEMENT)
-// 		{
-// 			ar[2] = ft_strjoin(ar[1], start->data);
-// 			ft_strjoin_free(&ar[2], ar[3]);
-// 			ft_strdel(&ar[0]);
-// 			ft_strdel(&ar[1]);
-// 			return (ar[2]);
-// 		}
-// 		start = start->next;
-// 	}
-// 	return (ft_strdup(ar[1]));
-// }
-
-// char	*replace_env(t_var *env, char *str, int i)
-// {
-// 	int		s;
-// 	char	*ar[5];
-
-// 	s = i;
-// 	ar[3] = ft_strdup("");
-// 	while (str[i] && str[i] != '$')
-// 		i++;
-// 	ar[1] = ft_strsub(str, s, i - s);
-// 	i++;
-// 	s = i;
-// 	while (str[i] && str[i] != '$' && str[i] != '"' &&
-// 	(str[i] < 9 || str[i] > 13) && str[i] != ' ')
-// 		i++;
-// 	ar[0] = ft_strsub(str, s, i - s);
-// 	if (str[i])
-// 	{
-// 		s = i;
-// 		while (str[i])
-// 			i++;
-// 		ar[3] = ft_strsub(str, s, i - s);
-// 	}
-// 	ar[2] = replace_while(env, ar);
-// 	ft_strdel(&ar[0]);
-// 	ft_strdel(&ar[1]);
-// 	return (ar[2]);
-// }
-
-int		replace_alias_while(t_var *var, t_alias *alias)
+char		*switch_word(char *str, char *tmp, int i)
 {
-	char	*tmp;
+	char	*res;
 	int		j;
-	int		i;
+	int		k;
 
 	j = 0;
-	i = 0;
-	tmp = ft_strdup(var->data);
-	if (!check_simple_or_multiple(tmp))
+	while (j < i)
+		j++;
+	res = ft_strsub(str, 0, j);
+	if (ft_strcmp(tmp, "") == 0)
+		return (res);
+	ft_strjoin_free(&res, tmp);
+	k = j;
+	while (str[k] && ((str[k] < 9 && str[k] > 13) || str[k] != ' '))
+		k++;
+	j = k;
+	while (str[j])
+		j++;
+	ft_strjoin_free(&res, ft_strsub(str, k, j - k));
+	ft_strdel(&str);
+	return (res);
+}
+
+char		*replace_while(t_var *env, char *ar[4])
+{
+	t_var	*start;
+
+	start = env;
+	while (start)
 	{
-		while (tmp[j])
-			j++;
-		fill_alias_solo(ft_strsub(tmp, 0, j), alias);
-		return (1);
+		if (ft_strcmp(ar[0], start->name) == 0 && start->type == ENVIRONEMENT)
+		{
+			ar[2] = ft_strjoin(ar[1], start->data);
+			ft_strjoin_free(&ar[2], ar[3]);
+			ft_strdel(&ar[0]);
+			ft_strdel(&ar[1]);
+			return (ar[2]);
+		}
+		start = start->next;
 	}
-	while (tmp[j])
+	return (ft_strdup(ar[1]));
+}
+
+char		*replace_env(t_var *env, char *str, int i)
+{
+	int		s;
+	char	*ar[5];
+
+	s = i;
+	ar[3] = ft_strdup("");
+	while (str[i] && str[i] != '$')
+		i++;
+	ar[1] = ft_strsub(str, s, i - s);
+	i++;
+	s = i;
+	while (str[i] && str[i] != '$' && str[i] != '"' &&
+	(str[i] < 9 || str[i] > 13) && str[i] != ' ')
+		i++;
+	ar[0] = ft_strsub(str, s, i - s);
+	if (str[i])
 	{
-		replace_alias_while_fill(tmp, &j, &i, alias);
-		jump_space(tmp, &j);
+		s = i;
+		while (str[i])
+			i++;
+		ar[3] = ft_strsub(str, s, i - s);
 	}
-	ft_strdel(&tmp);
-	return (i);
+	ar[2] = replace_while(env, ar);
+	ft_strdel(&ar[0]);
+	ft_strdel(&ar[1]);
+	return (ar[2]);
 }

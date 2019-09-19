@@ -6,23 +6,23 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 08:20:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 14:08:29 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 
-void		print_env(t_var *var)
+void		print_env(t_var **var)
 {
-	while (var)
+	while (*var)
 	{
-		if (var->type == ENVIRONEMENT)
+		if ((*var)->type == ENVIRONEMENT)
 		{
-			ft_printf("%s=", var->name);
-			ft_printf("%s\n", var->data);
+			ft_printf("%s=", (*var)->name);
+			ft_printf("%s\n", (*var)->data);
 		}
-		var = var->next;
+		(*var) = (*var)->next;
 	}
 }
 
@@ -101,7 +101,7 @@ static int	setenv_rules(t_process *p)
 {
 	if (p->cmd[1] && p->cmd[2])
 	{
-		ft_printf_err("42sh: setenv: too much arguments, use -u for usage\n");
+		ft_printf("42sh: setenv: too much arguments, use -u for usage\n");
 		return (0);
 	}
 	if (p->cmd[1] && ft_strcmp(p->cmd[1], "-u") == 0)
@@ -124,7 +124,23 @@ int			ft_setenv(t_process *p, t_var **var)
 		name = init_name(p->cmd[1]);
 		data = init_data(p->cmd[1]);
 		add_var_to_env(var, name, data);
+	// 	new_element = ft_strsplit(p->cmd[1], '=');
+	// 	if ((new_element[1] && new_element[2]) || (new_element[0] == NULL &&
+	// 				new_element[1] == NULL) || p->cmd[1][0] == '=')
+	// 	{
+	// 		ft_tabfree(new_element);
+	// 		ft_printf("42sh: setenv: bad parameters, use -u for usage\n");
+	// 		return (0);
+	// 	}
+	// 	if (element_already_exists_and_replace(new_element, *var) == 1)
+	// 	{
+	// 		free(new_element);
+	// 		print_env(var);
+	// 		return (1);
+	// 	}
+	// 	add_var_to_env(*var, new_element);
+	// 	free(new_element);
 	}
-	print_env(*var);
+	print_env(var);
 	return (1);
 }

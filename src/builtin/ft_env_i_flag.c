@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 08:25:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 15:12:53 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ static int		fill_new_env(t_process *p, int i, t_var **new_env,
 		if ((new_env_var[0] == NULL && new_env_var[1] == NULL) || p->cmd[i][0] == '=')
 		{
 			ft_free_tab(new_env_var);
-			ft_printf_err("42sh: env: invalid argument");
+			ft_printf("42sh: env: invalid argument");
 			return (-2);
 		}
 		if (*new_env == NULL)
@@ -77,7 +77,7 @@ int		go_through_process_cmd(t_process *p, t_var **new_env,
 				if (ret == -2)
 					return (-1);
 				*new_env = *head;
-				print_env(*new_env);
+				print_env(new_env);
 				break ;
 			}
 		}

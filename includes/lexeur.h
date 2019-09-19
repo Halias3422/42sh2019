@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 07:09:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 08:43:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -197,10 +197,6 @@ int			f_check_var(t_var *env, char *str);
 **┃                                   tool.c                                   ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
-int			search_agregator(char *str, int i);
-void		split_space_basic(char *str, int *i);
-int			check_token_after_number(char *str, int i);
-void		split_space_find_number(char *str, int *i);
 
 char		**split_space(char *str);
 void		list_add(t_replace **replace, char *array);
@@ -228,17 +224,7 @@ void		free_replace(t_replace *replace);
 void		init_replace(t_replace **replace);
 void		*get_replace(void *stock, int i);
 void		replace_alias(t_alias *alias, t_var *var, t_replace *replace);
-int			replace_alias_while(t_var *var, t_alias *alias);
-
-/*
-**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-**┃                              tool_bis.c                                    ┃
-**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-*/
-int			basic_split_while(int *i, char *str, char **res, int *k);
-char		**split_space(char *str);
-void		list_add(t_replace **replace, char *array);
-void		split_agregator(char *str, int *i);
+// char		**replace_alias(char ***array, t_var *var, t_replace *replace);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -250,10 +236,4 @@ void   		remoove_quote(char ***array);
 int			check_tok(t_alias *alias, t_var *var, t_replace *replace);
 
 void		print_lexer(t_lexeur *lex);
-void		replace_alias_while_fill(char *tmp, int *j, int *i, t_alias *alias);
-int			check_boucle(t_alias *alias, t_replace *replace);
-int			check_tok(t_alias *alias, t_var *var, t_replace *replace);
-int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var,
-			t_replace *replace);
-int			replace_alias_first_part(t_var **var, t_alias *alias, t_replace *r);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 07:22:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 13:49:02 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,7 @@ int				check_entry(void)
 
 	if (ioctl(0, TIOCGWINSZ, &w) == -1)
 	{
-		ft_printf_err("Entry is not a tty\nExit\n");
+		ft_printf("Entry is not a tty\nExit\n");
 		exit(0);
 	}
 	return (0);
@@ -59,6 +59,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
+	ans = check_backslash(&pos, hist);
 	ans = check_for_tilde(ans, my_env, 0, 0);
 	job_notification();
 	if (ans == NULL)
