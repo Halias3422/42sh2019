@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 14:21:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 15:05:21 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,24 +121,26 @@ int *i, enum e_token token)
 	return (NULL);
 }
 
-char		*change_buf(char *buf)
+char        *change_buf(char *buf)
 {
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 1;
-	j = 0;
-	res = malloc(sizeof(ft_strlen(buf)));
-	while (buf[i])
-	{
-		res[j] = buf[i];
-		i++;
-		j++;
-	}
-	res[j] = '\0';
-	ft_strdel(&buf);
-	return (res);
+    char    *res;
+    int     i;
+    int     j;
+    i = 0;
+    j = 0;
+    res = malloc(sizeof(char) * (ft_strlen(buf) + 1));
+    while (buf[i])
+    {
+        if (buf[i] == '\\' && buf[i + 1])
+            i++;
+        res[j] = buf[i];
+        if (buf[i])
+            i++;
+        j++;
+    }
+    res[j] = '\0';
+    ft_strdel(&buf);
+    return (res);
 }
 
 t_lexeur	*fill_lex_while(char *buf, int *i, int token)
