@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 10:02:36 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 10:04:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:21:55 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,8 +53,8 @@ int		check_in_3(t_pos *pos)
 	if (check > 0)
 	{
 		pos->error = 2;
-		ft_printf("\n42sh: syntax {T.red.B.}error{eoc} ");
-		ft_printf("near unexpected token `${'\n");
+		ft_printf_err("\n42sh: syntax {T.red.B.}error{eoc} ");
+		ft_printf_err("near unexpected token `${'\n");
 		return (1);
 	}
 	if (pos->is_complete == 1)

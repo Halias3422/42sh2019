@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 10:02:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:22:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,7 @@ int				check_entry(void)
 
 	if (ioctl(0, TIOCGWINSZ, &w) == -1)
 	{
-		ft_printf("Entry is not a tty\nExit\n");
+		ft_printf_err("Entry is not a tty\nExit\n");
 		exit(0);
 	}
 	return (0);

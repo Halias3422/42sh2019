@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 15:10:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:09:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -253,6 +253,7 @@ void		print_lexer(t_lexeur *lex);
 void		replace_alias_while_fill(char *tmp, int *j, int *i, t_alias *alias);
 int			check_boucle(t_alias *alias, t_replace *replace);
 int			check_tok(t_alias *alias, t_var *var, t_replace *replace);
-int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var, t_replace *replace);
+int			replace_alias_last_part(t_alias *alias, int *ret, t_var *var,
+			t_replace *replace);
 int			replace_alias_first_part(t_var **var, t_alias *alias, t_replace *r);
 #endif

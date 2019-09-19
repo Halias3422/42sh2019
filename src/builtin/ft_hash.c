@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/10 11:18:33 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 10:04:07 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:16:25 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ void		exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
 	else if (flag == 'd')
 		remove_selected_entry_hash(hash, cmd);
 	else
-		ft_printf("42sh: hash: bad parameter\n");
+		ft_printf_err("42sh: hash: bad parameter\n");
 }
 
 int			ft_hash(t_process *p, t_var **var)
@@ -90,7 +90,7 @@ int			ft_hash(t_process *p, t_var **var)
 	hash = stock_hash(NULL, 1);
 	if (hash == NULL)
 	{
-		ft_printf("42sh: hash: hash table not set\n");
+		ft_printf_err("42sh: hash: hash table not set\n");
 		return (0);
 	}
 	if (!p->cmd[1])

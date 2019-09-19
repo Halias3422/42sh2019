@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 14:39:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:17:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,11 +70,38 @@ void		add_var_to_env(t_var **var, char *name, char *data)
 	(*var)->data = data;
 }
 
+// static int	element_already_exists_and_replace(char **element, t_var *var)
+// {
+// 	while (var != NULL && ft_strcmp(element[0], var->name) != 0)
+// 		var = var->next;
+// 	if (var == NULL)
+// 		return (0);
+// 	free(var->data);
+// 	free(var->name);
+// 	var->name = element[0];
+// 	var->data = element[1];
+// 	return (1);
+// }
+
+// static void	add_var_to_env(t_var *var, char **element)
+// {
+// 	t_var		*new;
+
+// 	while (var->next != NULL)
+// 		var = var->next;
+// 	new = (t_var*)malloc(sizeof(t_var));
+// 	new->name = element[0];
+// 	new->data = element[1];
+// 	new->type = ENVIRONEMENT;
+// 	new->next = NULL;
+// 	var->next = new;
+// }
+
 static int	setenv_rules(t_process *p)
 {
 	if (p->cmd[1] && p->cmd[2])
 	{
-		ft_printf("42sh: setenv: too much arguments, use -u for usage\n");
+		ft_printf_err("42sh: setenv: too much arguments, use -u for usage\n");
 		return (0);
 	}
 	if (p->cmd[1] && ft_strcmp(p->cmd[1], "-u") == 0)

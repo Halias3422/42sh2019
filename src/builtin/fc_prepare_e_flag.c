@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 14:02:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 09:38:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:52:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -113,7 +113,7 @@ char			**get_ide_paths(char **env)
 		i++;
 	}
 	if (paths == NULL)
-		ft_printf("42sh: PATH environment not set\n");
+		ft_printf_err("42sh: PATH environment not set\n");
 	return (paths);
 }
 

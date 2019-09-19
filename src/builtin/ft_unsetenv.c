@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 15:50:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:48:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:19:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,18 +51,17 @@ int			ft_unsetenv(t_process *p, t_var **var)
 		if (remove_list_var(var, ENVIRONEMENT, p->cmd[1]) == 1)
 		{
 			stock(*var, 5);
-			printf("env = %p\n", *var);
 			return (1);
 		}
 		else
 		{
-			ft_printf("42sh: unsetenv: var %s not found\n", p->cmd[1]);
+			ft_printf_err("42sh: unsetenv: var %s not found\n", p->cmd[1]);
 			return (0);
 		}
 	}
 	else if (*var == NULL)
-		ft_printf("42sh: unsetenv: environment not set\n");
+		ft_printf_err("42sh: unsetenv: environment not set\n");
 	else
-		ft_printf("42sh: unsetenv: bad parameters, use -u for usage\n");
+		ft_printf_err("42sh: unsetenv: bad parameters, use -u for usage\n");
 	return (0);
 }
