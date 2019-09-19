@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   launch_job.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:21:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 15:57:48 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,7 @@ void		launch_job(t_job *j, t_var *var)
 	j->status = 'r';
 	while (p)
 	{
-		if (find_equal(p->cmd[0]) == 1)
+		if (p->cmd[0] && find_equal(p->cmd[0]) == 1)
 			p->cmd = check_exec_var(p->cmd, &var);
 		p->fd_in = infile;
 		if (p->split == 'P')
