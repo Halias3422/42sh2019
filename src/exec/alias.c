@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 13:31:51 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 08:21:03 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -147,6 +147,7 @@ int		main_unalias(t_process *p, t_var **var)
 				ft_strdel(&(*var)->data);
 				free(*var);
 				(*var) = NULL;
+				stock(*var, 5);
 				return (1);
 			}
 			(*var) = (*var)->next;
