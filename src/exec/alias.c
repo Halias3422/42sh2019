@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 08:26:33 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 14:01:59 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,8 +98,6 @@ int		main_alias(t_process *p, t_var **var)
 	int		k;
 
 	k = 0;
-	if (!(*var))
-		return (1);
 	if (!p->cmd[1])
 		return (print_alias(*var));
 	while (p->cmd[++k])
@@ -128,6 +126,34 @@ int		error_unlias(char *str)
 	return (1);
 }
 
+int		check_a(t_process *p, t_var **var)
+{
+	t_var *next;
+	t_var *prev;
+	t_var *start;
+
+	start = (*var);
+	prev = NULL;
+	printf("var = %p\n", *var);
+	if (!p->cmd[1] || (ft_strcmp(p->cmd[1], "-a") != 0))
+		return (0);
+	while (*var)
+	{
+		if ((*var)->type == ALIAS)
+		{
+			prev->next = (*var)->next;
+			next = (*var)->next;
+			remove_item_var(var);
+			(*var) = next;
+		}
+		prev = (*var);
+		(*var) = (*var)->next;
+	}
+	printf("var = %p\n", *var);
+	stock(start, 5);
+	return (1);
+}
+
 int		main_unalias(t_process *p, t_var **var)
 {
 	t_var	*start;
@@ -137,6 +163,8 @@ int		main_unalias(t_process *p, t_var **var)
 
 	k = 1;
 	start = (*var);
+	if (check_a(p, var) == 1)
+		return (1);
 	while (p->cmd[k])
 	{
 		if (*var && ft_strcmp(p->cmd[k], (*var)->name) == 0)
