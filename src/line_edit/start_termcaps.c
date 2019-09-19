@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 08:10:59 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 13:19:09 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 		*hist = check_input(buf, pos, *hist);
 	if (buf[0] == 10 && pos->is_complete == 1 && pos->replace_hist == 0)
 	{
-		stock(hist, 7);
+		stock(*hist, 7);
 		return (returning_ans(pos));
 	}
 	pos->replace_hist = 0;
@@ -79,6 +79,8 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	ghist = &hist;
 	start_termcaps(pos, (char*)buf);
 	print_prompt(pos);
+	print_info(pos);
+	print_hist(pos, hist);
 	signal_list();
 	while (1)
 	{
