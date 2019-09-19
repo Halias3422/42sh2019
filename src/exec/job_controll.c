@@ -104,12 +104,11 @@ void		print_start_process(t_job *j)
 	ft_putchar('\n');
 }
 
-void		wait_process(pid_t pid, t_var **var)
+void		wait_process(t_var **var)
 {
 	int			status;
 	pid_t		pid_test;
 
-	pid = 0;
 	pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
 	mark_process_status(pid_test, status, var);
 }

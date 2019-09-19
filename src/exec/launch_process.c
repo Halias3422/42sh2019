@@ -62,13 +62,12 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 	if (j->split != '&')
 	{
 		tcsetpgrp(0, j->pgid);
-		wait_process(j->pgid, var);
+		wait_process(var);
 		signal(SIGTTOU, SIG_IGN);
 		tcsetpgrp(0, getpid());
 		signal(SIGTTOU, SIG_DFL);
 	}
 }
-
 
 int			fork_simple(t_job *j, t_process *p, t_var **var)
 {
