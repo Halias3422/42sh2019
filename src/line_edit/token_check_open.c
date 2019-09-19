@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   token_check_open.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:22:08 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 14:26:28 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:33:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,9 +57,6 @@ static int	check_nothing2(t_pos *pos, t_tok *in)
 
 static int	check_tree_c(t_pos *pos, t_tok *in)
 {
-	int	mode;
-
-	mode = 0;
 	if (pos->ans[in->i] == 34)
 	{
 		if (in->i != 0)

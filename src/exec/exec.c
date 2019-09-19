@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 10:39:09 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:18:41 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,10 +23,8 @@ void		init_job(t_job *j)
 void		fill_job(t_job *j, t_lexeur **res)
 {
 	int			i;
-	int			k;
 
 	i = 0;
-	k = 0;
 	while (res[i])
 	{
 		if (res[i]->token == 1 || res[i]->token == 10)

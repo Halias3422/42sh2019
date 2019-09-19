@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   get_fc_args.c                                    .::    .:/ .      .::   */
+/*   fc_get_args.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 18:16:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 13:39:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:48:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,9 +34,6 @@ void			make_str_last_into_int(t_fc *fc, t_hist *hist)
 
 void			make_str_arg_into_int(t_fc *fc, t_hist *hist)
 {
-	int			check;
-
-	check = 0;
 	if (fc->first_is_str == 1)
 	{
 		while (hist->prev)

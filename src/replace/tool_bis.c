@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 14:13:15 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 14:27:45 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 15:15:41 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ void	list_add(t_replace **replace, char *array)
 	(*replace) = start;
 }
 
-char	**split_space(char *str)
+char		**split_space(char *str)
 {
 	int		i;
 	int		k;

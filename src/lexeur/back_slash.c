@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   back_slash.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:12:07 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:26:51 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,6 +54,14 @@ char		*solve_back_slash(char *str)
 
 int			del_back_slash_browse(char ***ar, int *j, int *k)
 {
+	int		token;
+
+	if ((*ar)[*j][*k] == '\\' && ((*ar)[*j][*k + 1]) &&
+	(token = find_token((*ar)[*j], *k + 1) != -1))
+	{
+		(*k) += g_fill_token[token].size + 1;
+		return (1);
+	}
 	if ((*ar)[*j][*k] == '\'' && (*k == 0 || (*ar)[*j][*k - 1] != '\\'))
 		if (del_back_slash_simple_quote(k, *j, ar))
 			return (1);
@@ -76,11 +84,9 @@ void		del_back_slash(char ***ar)
 {
 	int		j;
 	int		k;
-	int		start;
 
 	j = 0;
 	k = 0;
-	start = 0;
 	while ((*ar)[j])
 	{
 		while ((*ar)[j][k])

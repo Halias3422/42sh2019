@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_bg.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 08:07:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:54:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@ int			ft_bg(t_process *p, t_var **var)
 {
 	t_job		*job;
 
+	stock(*var, 5);
 	if (ft_tabclen(p->cmd) <= 1)
 	{
 		ft_putstr_fd("usage: bg %[job_id]", p->fd_out);
@@ -41,6 +42,5 @@ int			ft_bg(t_process *p, t_var **var)
 		else
 			ft_putstr_fd("bg: job bot found", p->fd_out);
 	}
-	var = NULL;
 	return (1);
 }

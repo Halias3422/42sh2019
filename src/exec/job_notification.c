@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   job_notification.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/22 16:43:47 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:26:00 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ void		update_status(void)
 	pid_t	pid;
 
 	pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
-	while (!mark_process_status(pid, status))
+	while (!mark_process_status(pid, status, stock(NULL, 6)))
 	{
 		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
 	}

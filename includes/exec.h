@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:44:49 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:31:12 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -169,7 +169,7 @@ int			find_builtins(t_process *p, t_var **var);
 
 int			fork_simple(t_job *j, t_process *p, t_var **var);
 
-void		wait_process(pid_t pid);
+void		wait_process(t_var **var);
 void		print_start_process(t_job *j);
 void		check_zombie();
 void		print_job(t_job *j);
@@ -178,8 +178,8 @@ void		remove_job(int id);
 void		set_job_status(pid_t id, char status);
 int			find_job_pgid(pid_t pgid);
 void		job_notification(void);
-int			mark_process_status(pid_t pid, int status);
-void		signal_handler(pid_t pid);
+int			mark_process_status(pid_t pid, int status, t_var **var);
+void		signal_handler();
 
 int			job_is_stoped(t_job *j);
 

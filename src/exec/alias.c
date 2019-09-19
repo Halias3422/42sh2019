@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 14:06:26 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:18:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,6 +51,7 @@ void		add_list_alias(t_var **var, char *name, char *data)
 {
 	t_var	*prev;
 
+	prev = NULL;
 	if (!(*var))
 	{
 		add_alias(var, name, data);
@@ -128,28 +129,33 @@ int		error_unlias(char *str)
 
 int		check_a(t_process *p, t_var **var)
 {
-	t_var *next;
-	t_var *prev;
-	t_var *start;
+	t_var	*start;
+	t_var	*tmp;
 
 	start = (*var);
-	prev = NULL;
-	printf("var = %p\n", *var);
 	if (!p->cmd[1] || (ft_strcmp(p->cmd[1], "-a") != 0))
 		return (0);
+	while (start && start->type == ALIAS)
+	{
+		*var = start->next;
+		free(start->data);
+		free(start->name);
+		free(start);
+		start = *var;
+	}
 	while (*var)
 	{
-		if ((*var)->type == ALIAS)
+		if ((*var)->next && (*var)->next->type == ALIAS)
 		{
-			prev->next = (*var)->next;
-			next = (*var)->next;
-			remove_item_var(var);
-			(*var) = next;
+			tmp = (*var)->next->next;
+			free((*var)->next->data);
+			free((*var)->next->name);
+			free((*var)->next);
+			(*var)->next = tmp;
 		}
-		prev = (*var);
-		(*var) = (*var)->next;
+		else
+			*var = (*var)->next;
 	}
-	printf("var = %p\n", *var);
 	stock(start, 5);
 	return (1);
 }
@@ -162,6 +168,7 @@ int		main_unalias(t_process *p, t_var **var)
 	int		k;
 
 	k = 1;
+	last = NULL;
 	start = (*var);
 	if (check_a(p, var) == 1)
 		return (1);

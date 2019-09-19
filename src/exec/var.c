@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 12:37:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:26:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,7 @@ void		add_env(t_var **var, char *str)
 	t_var	*prev;
 	char	*name;
 
+	prev = NULL;
 	name = init_name(str);
 	if (!(*var))
 	{

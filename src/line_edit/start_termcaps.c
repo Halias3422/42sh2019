@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:49:12 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:32:32 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 	int				ret;
 
 	ret = read(0, buf, 1);
-	if (buf[0] == 137)
+	if (ret > 0 && buf[0] == 137)
 		return (NULL);
 	if (buf[0] == 27 || buf[0] == 226 || buf[0] == 195)
 		ret = read(0, buf + 1, 8);
