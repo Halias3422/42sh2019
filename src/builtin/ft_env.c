@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 08:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 08:24:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:03:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ int				regular_env_process_cmd(t_process *p, t_var *var, int i)
 	head = var;
 	new_cmd = ft_strnew(0);
 	if (!p->cmd[i])
-		print_env(var);
+		print_env(&var);
 	while (p->cmd[i])
 	{
 		new_cmd = ft_strjoinf(new_cmd, p->cmd[i], 1);
@@ -141,7 +141,7 @@ int				ft_env(t_process *p, t_var **var)
 	head = NULL;
 	new_env = NULL;
 	if (!p->cmd[1])
-		print_env(*var);
+		print_env(var);
 	else if (p->cmd[1] && (ft_strcmp(p->cmd[1], "-") == 0 ||
 				ft_strcmp(p->cmd[1], "-i") == 0 ||
 				ft_strcmp(p->cmd[1], "--ignore-environment") == 0))
