@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/16 08:28:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 11:30:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,6 +89,30 @@ void		fill_process(t_job *j, t_lexeur **res);
 void		free_process(t_job *j);
 void		fill_token(t_process *p, t_lexeur **res, int *i);
 
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            process_tool.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+int						cnt_process(t_lexeur **res, int i);
+void					change_job(t_job **j, t_process **start);
+int						check_moove_index(t_lexeur **res, int *t);
+t_redirect				*init_var(int *done, int *t, int *i);
+int						check_token_in_condition(t_lexeur **res, int t);
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            process_fill.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		fill_process_split(t_job **j, t_lexeur **res, int *i);
+void		fill_token(t_process *p, t_lexeur **res, int *i);
+void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
+void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
+void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
+
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                 exec_main.c                                ┃
@@ -141,9 +165,9 @@ void		put_foreground(t_job *j);
 void		put_background(t_job *j);
 
 int			test_builtin(t_process *p);
-int			find_builtins(t_process *p, t_var *var);
+int			find_builtins(t_process *p, t_var **var);
 
-int			fork_simple(t_job *j, t_process *p, t_var *var);
+int			fork_simple(t_job *j, t_process *p, t_var **var);
 
 void		wait_process(pid_t pid);
 void		print_start_process(t_job *j);
@@ -160,4 +184,11 @@ void		signal_handler(pid_t pid);
 int			job_is_stoped(t_job *j);
 
 t_job		*find_job_by_id(char *argv);
+
+void		free_lexeur(t_lexeur **res);
+char		**check_exec_var(char **cmd, t_var **var);
+void		free_temp(t_var **var);
+int			check_cmd(char **str);
+int			find_equal(char *str);
+int			launch_redirection(t_process *p);
 #endif

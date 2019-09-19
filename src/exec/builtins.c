@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/14 11:15:21 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 11:29:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,10 +37,11 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"exit", &ft_exit},
 	{"hash", &ft_hash},
 	{"setenv", &ft_setenv},
-	{"unsetenv", &ft_unsetenv}
+	{"unsetenv", &ft_unsetenv},
+	{"env", &ft_env}
 };
 
-int		find_builtins(t_process *p, t_var *var)
+int		find_builtins(t_process *p, t_var **var)
 {
 	int i;
 
@@ -51,7 +52,7 @@ int		find_builtins(t_process *p, t_var *var)
 	{
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
 		{
-			p->ret = g_builtin_list[i].ptr_builtin(p, &var);
+			p->ret = g_builtin_list[i].ptr_builtin(p, var);
 			return (1);
 		}
 	}

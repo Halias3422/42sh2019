@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 11:57:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 12:25:42 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,6 +59,8 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	pwd = getcwd(NULL, 1000));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
+	ans = check_backslash(ans, hist);
+	ans = check_for_tilde(ans, my_env, 0, 0);
 	job_notification();
 	if (ans == NULL)
 		return (1);

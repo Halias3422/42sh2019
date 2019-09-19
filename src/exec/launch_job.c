@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/12 14:49:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 12:39:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,7 @@ int			redirect_fd(t_process *p)
 		ft_printf_err("42sh: %s: No such file or directory", p->file_out);
 		return (-1);
 	}*/
+	//launch_redirection(p);
 	p->fd_out = 1;
 	return (1);
 }
@@ -88,6 +89,8 @@ void		launch_job(t_job *j, t_var *var)
 	j->status = 'r';
 	while (p)
 	{
+		if (find_equal(p->cmd[0]) == 1)
+			p->cmd = check_exec_var(p->cmd, &var);
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{
@@ -96,10 +99,11 @@ void		launch_job(t_job *j, t_var *var)
 		}
 		else
 			redirect_fd(p);
-		fork_simple(j, p, var);
+		fork_simple(j, p, &var); 
 		close_fd(p);
 		infile = mypipe[0];
 		p = get_and_or(p);
+		free_temp(&var);
 	}
 	alert_job(j);
 }

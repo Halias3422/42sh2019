@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/15 13:30:27 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:44:33 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 12:54:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -127,11 +127,14 @@ t_hist		*control_search_history(t_pos *pos, t_hist *hist,
 	if (buf[0] == 10)
 	{
 		hist = exiting_control_mode(pos, hist);
+		while (hist->next)
+			hist = hist->next;
+		hist->cmd = ft_strdup(pos->ans);
+		hist->next = add_list_back_hist(hist);
 		return (hist);
 	}
 	clean_at_start(pos);
-	write(1, "(reverse-i-search)`", 19);
-	ft_printf("%s': ", pos->ans);
+	ft_printf("(reverse-i-search)`%s': ", pos->ans);
 	while (hist->next)
 		hist = hist->next;
 	hist = search_occurence_in_history(pos, hist, &ctrl);
