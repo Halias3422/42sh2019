@@ -70,48 +70,6 @@ int			ft_execute_test(t_process *p, t_var *var)
 	return (0);
 }
 
-/*int			launch_duplication(t_process *p)
-{
-	int	fd_in;
-	int	fd_out;
-
-	while (p->redirect)
-	{
-		//printf("%s %s\n", p->redirect->fd_in, p->redirect->fd_out);
-		fd_in = ft_atoi(p->redirect->fd_in);
-		if (!p->redirect->fd_in)
-			fd_in = 1;
-		fd_out = ft_atoi(p->redirect->fd_out);
-		if (ft_strcmp(p->redirect->token, ">&") == 0)
-		{
-			if (ft_strcmp(p->redirect->fd_out, "-") == 0)
-				close(fd_in);
-			else if (fd_in > 0 && fd_out > 0)
-			{
-				dup2(fd_out, fd_in);
-				if (dup2(fd_out, fd_in) == -1)
-					printf("%s\n", "cela ne marche pas");
-			}
-			else
-				ft_printf_err("ceci ne marche pas");
-		}
-		else if (ft_strcmp(p->redirect->token, "<&") == 0)
-		{
-			if (ft_strcmp(p->redirect->fd_out, "-") == 0)
-				close(fd_in);
-			else if (fd_in > 0 && fd_out > 0)
-			{
-				if (dup2(fd_in, fd_out) == -1)
-					printf("%s\n", "cela ne marche pas");
-			}
-			else
-				ft_printf_err("ceci ne marche pas");
-		}
-		p->redirect = p->redirect->next;
-	}
-	return (0);
-}*/
-
 int			launch_process(t_process *p, t_var *var)
 {
 	signal(SIGINT, SIG_DFL);
@@ -139,15 +97,20 @@ int			launch_process(t_process *p, t_var *var)
 	launch_redirection(p);
 	if (!p->cmd[0])
 		exit(1);
-	ft_execute_test(p, var);
-	exit(1);
+	//if (find_builtins(p, var) != 0)
+	//	exit(1);
+	else
+	{
+		ft_execute_test(p, var);
+		exit(1);
+	}
+	return (1);
 }
 
 int			fork_simple(t_job *j, t_process *p, t_var *var)
 {
 	pid_t		pid;
 
-	//launch_redirection(p);
 	if (find_builtins(p, var) != 0)
 		return (1);
 	pid = fork();
