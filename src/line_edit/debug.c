@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/30 09:27:30 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 08:00:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 08:06:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,13 @@ void	print_info(t_pos *pos)
 		ft_printf("{S.white.T.grey.}pos->ans  = %-80.80s/{eoc}\n", pos->ans);
 
 		tputs(tgoto(tgetstr("cm", NULL), 0, 3), 1, ft_putchar);
-				ft_printf("{S.white.T.grey.}name  = %-40.40s/{eoc}\n", pos->saved_ans);
+				ft_printf("{S.white.T.grey.}saved  = %-40.40s/{eoc}\n", pos->saved_ans);
+		tputs(tgoto(tgetstr("cm", NULL), 0, 5), 1, ft_putchar);
+		ft_printf("{S.white.T.grey.}debug1 = %-80.80s/{eoc}\n", pos->debugchar);
+
+		tputs(tgoto(tgetstr("cm", NULL), 0, 6), 1, ft_putchar);
+				ft_printf("{S.white.T.grey.}debug2 = %-40.40s/{eoc}\n", pos->debugchar2);
+
 
 		tputs(tgoto(tgetstr("cm", NULL), pos->max_co - 17, 0), 1, ft_putchar);
 		ft_printf("act_co    = %03d/\n", pos->act_co);

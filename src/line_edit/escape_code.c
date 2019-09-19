@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:36:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 08:10:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,5 @@ t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 		input_is_delete(pos);
 	if (ft_strcmp(buf + 1, "[D") == 0 || ft_strcmp(buf + 1, "[C") == 0)
 		pos->ans_printed = 1;
-	pos->saved_ans = ft_secure_free(pos->saved_ans);
-	pos->saved_ans = ft_strdup(pos->ans);
 	return (hist);
 }
