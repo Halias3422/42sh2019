@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:19:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 13:49:12 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,8 +79,6 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	ghist = &hist;
 	start_termcaps(pos, (char*)buf);
 	print_prompt(pos);
-	print_info(pos);
-	print_hist(pos, hist);
 	signal_list();
 	while (1)
 	{
