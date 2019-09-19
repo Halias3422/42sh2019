@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 17:47:24 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 18:07:25 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -194,6 +194,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 			i++;
 		if (buf[i])
 		{
+			printf("buf[%d] _%s_\n", i, buf[i]);
 			token = check_token_for_redirection(buf[i]);
 			if (token != -1)
 				array[j] = fill_lex_redirection(buf, &i, token);
