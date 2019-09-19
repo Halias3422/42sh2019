@@ -48,6 +48,7 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		dup2(p->fd_error, STDERR_FILENO);
 		close(p->fd_error);
 	}
+	launch_redirection(p);
 	ft_execute_function(path, p->cmd, var);
 	exit(1);
 }
@@ -88,4 +89,3 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 //	free(cmd_path);
 	return (1);
 }
-
