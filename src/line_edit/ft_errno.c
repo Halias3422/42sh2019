@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/24 07:19:15 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 08:42:41 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 07:21:09 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ void			error_printing(t_hist *err_list, t_pos *pos)
 	{
 		message = finding_error_message(message, err_list->cmd_no);
 		if (err_list->cmd != NULL)
-			ft_printf("42sh: %s: %s\n", err_list->cmd, message);
+			ft_printf_err("42sh: %s: %s\n", err_list->cmd, message);
 		if (err_list->next == NULL)
 			break ;
 		err_list = err_list->next;
@@ -50,7 +50,6 @@ void			error_handling(t_pos *pos, char *variable, int err)
 {
 	static t_hist	*err_list;
 
-	ft_printf("err = %d pos->err = %d\n", err, pos->error);
 	if (err_list == NULL)
 	{
 		err_list = add_list_back_hist(err_list);
