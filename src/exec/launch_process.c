@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 11:30:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 08:51:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,6 +68,7 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 		signal(SIGTTOU, SIG_DFL);
 	}
 }
+
 
 int			fork_simple(t_job *j, t_process *p, t_var **var)
 {

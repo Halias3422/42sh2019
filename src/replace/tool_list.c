@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:06:47 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/07 14:41:46 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:39:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,12 +17,13 @@ void		free_replace(t_replace *replace)
 {
 	t_replace	*tmp;
 
+	tmp = NULL;
 	while (replace)
 	{
 		ft_strdel(&replace->name);
-		tmp = replace;
-		replace = replace->next;
-		free(&tmp);
+		tmp = replace->next;
+		free(replace);
+		replace = tmp;
 	}
 }
 
@@ -30,7 +31,6 @@ void		init_replace(t_replace **replace)
 {
 	(*replace) = malloc(sizeof(t_replace));
 	(*replace)->name = NULL;
-	// (*replace)->name = ft_strdup("");
 	(*replace)->next = NULL;
 }
 

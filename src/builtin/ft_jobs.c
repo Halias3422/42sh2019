@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_jobs.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:34 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/22 16:44:36 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:54:07 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,9 +55,6 @@ void		print_ft_job(t_job *j, int option)
 
 int				ft_jobs_option(char **cmd)
 {
-	int i;
-
-	i = 0;
 	if (ft_tabclen(cmd) > 1)
 	{
 		if (cmd[1][0] == '-')
@@ -78,6 +75,7 @@ int				ft_jobs(t_process *p, t_var **var)
 	t_job_list	*job_list;
 	int			option;
 
+	stock(*var, 5);
 	option = ft_jobs_option(p->cmd);
 	job_list = stock(NULL, 10);
 	while (job_list != NULL)
@@ -86,6 +84,5 @@ int				ft_jobs(t_process *p, t_var **var)
 		job_list = job_list->next;
 	}
 	p = NULL;
-	var = NULL;
 	return (0);
 }

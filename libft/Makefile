@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/19 13:36:37 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/20 09:34:02 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -147,27 +147,27 @@ $(OBJ_PATH):
 	@mkdir -p $(PEOBJ_PATH) 2> /dev/null
 
 $(SOBJ_PATH)%.o: $(SSRC_PATH)%.c $(SINC)
-	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
+	@gcc-9 $(FLAGS) -I $(INC_PATH) -o $@ -c $<
 	@echo "$(DARK_BLUE).\c"
 
 $(UOBJ_PATH)%.o: $(USRC_PATH)%.c $(UINC)
-	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
+	@gcc-9 $(FLAGS) -I $(INC_PATH) -o $@ -c $<
 	@echo "$(DARK_BLUE).\c"
 
 $(IOBJ_PATH)%.o: $(ISRC_PATH)%.c $(IINC)
-	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
+	@gcc-9 $(FLAGS) -I $(INC_PATH) -o $@ -c $<
 	@echo "$(DARK_BLUE).\c"
 
 $(MOBJ_PATH)%.o: $(MSRC_PATH)%.c $(MINC)
-	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
+	@gcc-9 $(FLAGS) -I $(INC_PATH) -o $@ -c $<
 	@echo "$(DARK_BLUE).\c"
 
 $(POBJ_PATH)%.o: $(PSRC_PATH)%.c $(PINC)
-	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
+	@gcc-9 $(FLAGS) -I $(INC_PATH) -o $@ -c $<
 	@echo "$(DARK_BLUE).\c"
 
 $(PEOBJ_PATH)%.o: $(PESRC_PATH)%.c $(PEINC)
-	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
+	@gcc-9 $(FLAGS) -I $(INC_PATH) -o $@ -c $<
 	@echo "$(DARK_BLUE).\c"
 
 clean: 

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 10:03:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 09:31:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,10 +91,16 @@ char				*check_path_hash(char **tab_var, char **arg,
 	t_hash			**hash;
 
 	if (ft_strchr(arg[0], '/') != 0)
+	{
+		ft_free_tab(tab_var);
 		return (absolute_path(arg[0]));
+	}
 	if ((hash = stock_hash(NULL, 1)) != NULL &&
 	(ans = search_exec_in_table(hash[get_key_of_exec(arg[0])], arg[0])) != NULL)
+	{
+		ft_free_tab(tab_var);
 		return (ans);
+	}
 	paths = get_ide_paths(tab_var);
 	while (paths != NULL && paths[++i])
 	{
@@ -103,12 +109,19 @@ char				*check_path_hash(char **tab_var, char **arg,
 		if (access(paths[i], F_OK) == 0)
 		{
 			if (access(paths[i], X_OK) == 0)
+			{
+				ft_free_tab(tab_var);
 				return (path_found(paths, i, ans, arg));
+			}
 			else
+			{
+				ft_free_tab(tab_var);
 				return (path_denied(paths, arg));
+			}
 		}
 	}
 	ft_printf("42sh: %s: command not found\n", arg[0]);
 	ft_free_tab(paths);
+	ft_free_tab(tab_var);
 	return (NULL);
 }

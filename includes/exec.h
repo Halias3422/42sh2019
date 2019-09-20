@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:44:49 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 08:48:44 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -161,7 +161,7 @@ int			main_option_exec(t_process **first, t_process **second, t_var *var);
 int			main_alias(t_process *p, t_var **var);
 int			main_unalias(t_process *p, t_var **var);
 
-void		put_foreground(t_job *j, t_var **var);
+void		put_foreground(t_job *j);
 void		put_background(t_job *j);
 
 int			test_builtin(t_process *p);
@@ -177,9 +177,9 @@ void		add_job(t_job *j);
 void		remove_job(int id);
 void		set_job_status(pid_t id, char status);
 int			find_job_pgid(pid_t pgid);
-void		job_notification(t_var **var);
+void		job_notification(void);
 int			mark_process_status(pid_t pid, int status, t_var **var);
-void		signal_handler(pid_t pid);
+void		signal_handler();
 
 int			job_is_stoped(t_job *j);
 

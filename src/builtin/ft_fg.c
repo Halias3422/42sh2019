@@ -3,30 +3,30 @@
 /*                                                              /             */
 /*   ft_fg.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/22 16:44:51 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:54:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-void	put_foreground(t_job *j, t_var **var)
+void	put_foreground(t_job *j)
 {
 	kill(-j->pgid, SIGCONT);
 	j->status = 'r';
 	tcsetpgrp(0, j->pgid);
-	wait_process(var);
+	wait_process(stock(NULL, 6));
 	signal(SIGTTOU, SIG_IGN);
 	tcsetpgrp(0, getpid());
 	signal(SIGTTOU, SIG_DFL);
 }
 
-int		rerun_job(t_job *j, t_var **var)
+int		rerun_job(t_job *j)
 {
-	put_foreground(j, var);
+	put_foreground(j);
 	return (0);
 }
 
@@ -50,6 +50,7 @@ int		ft_fg(t_process *p, t_var **var)
 {
 	t_job		*job;
 
+	stock(*var, 5);
 	if (ft_tabclen(p->cmd) <= 1)
 	{
 		ft_putstr_fd("usage: fg %[job_id]", p->fd_out);
@@ -60,12 +61,11 @@ int		ft_fg(t_process *p, t_var **var)
 		job = find_job_by_id(p->cmd[1]);
 		if (job != NULL)
 		{
-			rerun_job(job, var);
+			rerun_job(job);
 			return (0);
 		}
 		else
 			ft_putstr_fd("fg: job bot found", p->fd_out);
 	}
-	var = NULL;
 	return (1);
 }

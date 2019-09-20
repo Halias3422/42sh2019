@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:26:34 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 08:49:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,6 +49,7 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 	t_var *pres;
 
 	var = *ptr_var;
+	pres = NULL;
 	if (ft_strcmp(name, (var)->name) == 0 && (var)->type == type)
 	{
 		buf = (*ptr_var)->next;
