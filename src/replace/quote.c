@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:04:47 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 11:15:37 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,7 +92,18 @@ void	browse_ar(char ***array, int i, int j)
 		if (((*array)[i][j] == '\'' && (j == 0 ||
 		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
 		&& (j == 0 || (*array)[i][j - 1] != '\\')))
-			need_replace_quote(array, i, &j);
+		{
+			if (find_token((*array)[i], j + 1) == -1)
+				need_replace_quote(array, i, &j);
+			else
+			{
+				j++;
+				while ((*array)[i][j] && (*array)[i][j] != '\'')
+					j++;
+				if ((*array)[i][j])
+					j++;
+			}
+		}
 		else
 		{
 			if (j < ft_strlen((*array)[i]))

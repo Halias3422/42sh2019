@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 14:21:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 11:14:51 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,9 +85,28 @@ char *fd_out)
 	ft_strdel(&fd_out);
 }
 
+char		*ft_del_simple_quote(char *word)
+{
+	int		i;
+	char	*res;
+
+	i = 1;
+	if (word[0] == '\'' && find_token(word, 1) != -1)
+	{
+		while (word[i] && word[i] != '\'')
+			i++;
+		res = ft_strsub(word, 1, i - 1);
+	}
+	else
+		res = ft_strdup(word);
+	ft_strdel(&word);
+	return (res);
+}
+
 void		fill_struct(t_lexeur *res, char *word, enum e_token token,
 char *red)
 {
+	word = ft_del_simple_quote(word);
 	res->word = ft_strdup(word);
 	res->token = token;
 	res->redirection = NULL;
