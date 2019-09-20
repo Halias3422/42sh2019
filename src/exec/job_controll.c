@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 16:21:13 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 14:58:09 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,8 @@
 void		process_status(t_process *process, t_job_list *job_list, int status,
 			t_var **var)
 {
+	char *tmp;
+
 	if (WIFSTOPPED(status))
 	{
 		job_list->j->status = 's';
@@ -33,7 +35,9 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 		if (!process->builtin)
 		{
 			process->ret = WEXITSTATUS(status);
-			add_list_env(var, LOCAL, "?", ft_itoa(process->ret));
+			tmp = ft_itoa(process->ret);
+			add_list_env(var, LOCAL, "?", tmp);
+			ft_strdel(&tmp);
 		}
 	}
 }

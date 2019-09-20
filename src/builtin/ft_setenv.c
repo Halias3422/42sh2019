@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 08:49:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 15:28:23 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -113,35 +113,24 @@ static int	setenv_rules(t_process *p)
 	return (1);
 }
 
-int			ft_setenv(t_process *p, t_var **var)
+int         ft_setenv(t_process *p, t_var **var)
 {
-	char		*name;
-	char		*data;
-
-	if (p->cmd[1])
-	{
-		if (setenv_rules(p) == 0)
-			return (0);
-		name = init_name(p->cmd[1]);
-		data = init_data(p->cmd[1]);
-		add_var_to_env(var, name, data);
-	// 	new_element = ft_strsplit(p->cmd[1], '=');
-	// 	if ((new_element[1] && new_element[2]) || (new_element[0] == NULL &&
-	// 				new_element[1] == NULL) || p->cmd[1][0] == '=')
-	// 	{
-	// 		ft_tabfree(new_element);
-	// 		ft_printf("42sh: setenv: bad parameters, use -u for usage\n");
-	// 		return (0);
-	// 	}
-	// 	if (element_already_exists_and_replace(new_element, *var) == 1)
-	// 	{
-	// 		free(new_element);
-	// 		print_env(var);
-	// 		return (1);
-	// 	}
-	// 	add_var_to_env(*var, new_element);
-	// 	free(new_element);
-	}
-	print_env(var);
-	return (1);
+    char        *name;
+    char        *data;
+    if (p->cmd[1])
+    {
+        if (setenv_rules(p) == 0)
+            return (0);
+        name = init_name(p->cmd[1]);
+        if (name[0] == '\0')
+        {
+            ft_strdel(&name);
+            ft_printf("42sh: setenv: bad parameters, use -u for usage\n");
+            return (0);
+        }
+        data = init_data(p->cmd[1]);
+        add_var_to_env(var, name, data);
+    }
+    print_env(var);
+    return (1);
 }
