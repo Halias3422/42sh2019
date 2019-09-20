@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 11:14:51 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 16:37:31 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ char		*ft_del_simple_quote(char *word)
 	char	*res;
 
 	i = 1;
-	if (word[0] == '\'' && find_token(word, 1) != -1)
+	if (word[0] == '\'')
 	{
 		while (word[i] && word[i] != '\'')
 			i++;
@@ -106,7 +106,8 @@ char		*ft_del_simple_quote(char *word)
 void		fill_struct(t_lexeur *res, char *word, enum e_token token,
 char *red)
 {
-	word = ft_del_simple_quote(word);
+	if (word)
+		word = ft_del_simple_quote(word);
 	res->word = ft_strdup(word);
 	res->token = token;
 	res->redirection = NULL;
@@ -146,13 +147,16 @@ char		*change_buf(char *buf)
 	int		i;
 	int		j;
 
-	i = 1;
+	i = 0;
 	j = 0;
-	res = malloc(sizeof(ft_strlen(buf)));
+	res = malloc(sizeof(char) * (ft_strlen(buf) + 1));
 	while (buf[i])
 	{
+		if (buf[i] == '\\' && buf[i + 1])
+			i++;
 		res[j] = buf[i];
-		i++;
+		if (buf[i])
+			i++;
 		j++;
 	}
 	res[j] = '\0';
@@ -184,12 +188,19 @@ int			check_token_for_redirection(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (str[i] && str[i] == '\'')
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+		}
 		if (i == 0 || str[i - 1] != '\\')
 			token = find_token(str, i);
 		if (token == 4 || token == 5 || token == 6 || token == 8
 		|| token == 9)
 			return (token);
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (-1);
 }

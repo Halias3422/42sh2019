@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 11:15:37 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 16:37:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,6 +74,8 @@ void	need_replace_quote(char ***array, int i, int *j)
 
 	c = (*array)[i][*j];
 	(*array)[i] = replace((*array)[i], c);
+	if (!ft_strcmp((*array)[i], ""))
+		return ;
 	if ((*array)[i][*j])
 		(*j)++;
 	while ((*array)[i][*j])
@@ -85,6 +87,20 @@ void	need_replace_quote(char ***array, int i, int *j)
 	}
 }
 
+int		check_red(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (find_token(str, i) != -1)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	browse_ar(char ***array, int i, int j)
 {
 	while ((*array)[i][j])
@@ -93,7 +109,8 @@ void	browse_ar(char ***array, int i, int j)
 		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
 		&& (j == 0 || (*array)[i][j - 1] != '\\')))
 		{
-			if (find_token((*array)[i], j + 1) == -1)
+			if ((find_token((*array)[i], j + 1) == -1) &&
+			check_red((*array)[i]))
 				need_replace_quote(array, i, &j);
 			else
 			{
@@ -111,6 +128,8 @@ void	browse_ar(char ***array, int i, int j)
 			else
 				j = ft_strlen((*array)[i]);
 		}
+		if (!ft_strcmp((*array)[i], ""))
+			break ;
 	}
 }
 
