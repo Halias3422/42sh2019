@@ -16,10 +16,15 @@
 
 static int	fd_right(char *path)
 {
-	if (access(path, X_OK) == -1)
-		ft_printf("42sh: %s: Permission denied", path);
-	else if (opendir(path) != NULL)
-		ft_printf("42sh: %s: Is a directory", path);
+	if (access(path, F_OK) != -1)
+	{
+		if (opendir(path) != NULL)
+			ft_printf("42sh: %s: Is a directory", path);
+		else if (access(path, R_OK) == -1)
+			ft_printf("42sh: %s: Permission denied", path);
+		else
+			return (1);
+	}
 	else
 		return (1);
 	return (0);
@@ -107,7 +112,7 @@ int			launch_redirection(t_process *p)
 		fd_out = ft_atoi(redirect->fd_out);
 		if (redirection_file(redirect) == 0)
 			return (0);
-		if (duplication(redirect, fd_in, fd_out))
+		if (duplication(redirect, fd_in, fd_out) == 0)
 			return (0);
 		redirect = redirect->next;
 	}

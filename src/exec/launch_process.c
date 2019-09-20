@@ -50,6 +50,7 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	}
 	if (!launch_redirection(p))
 		exit(1);
+	//launch_redirection(p);
 	ft_execute_function(path, p->cmd, var);
 	exit(1);
 }
