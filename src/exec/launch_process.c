@@ -81,7 +81,10 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	if (find_builtins(p, var) != 0)
 		return (1);
 	if ((cmd_path = check_path_hash(split_env(*var), p->cmd, -1, NULL)) == NULL)
+	{
+		add_list_env(var, LOCAL, "?", "127");
 		return (0);
+	}
 	pid = fork();
 	if (pid == 0)
 		launch_process(p, *var, cmd_path);
