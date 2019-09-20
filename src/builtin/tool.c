@@ -76,7 +76,6 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 	t_var	*var;
 	t_var	*last;
 
-	type = 0;
 	var = *ptr_var;
 	if (!var)
 		return;
@@ -84,8 +83,8 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 	{
 		if (ft_strcmp(name, var->name) == 0 && type == var->type)
 		{
-			free(var->data);
-			var->data = data;
+			ft_strdel(&var->data);
+			var->data = ft_strdup(data);
 			return ;
 		}
 		last = var;
