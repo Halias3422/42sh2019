@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tab_key_struct.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:50:36 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 10:33:53 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 13:18:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,7 +80,7 @@ void			free_htab(t_htab *htab)
 	while (htab)
 	{
 		htab = htab->next;
-		free(tmp->content);
+		ft_strdel(&tmp->content);
 		free(tmp);
 		tmp = htab;
 	}

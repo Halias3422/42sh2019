@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fc_execute_e_flag.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 11:07:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 13:04:39 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,7 +69,7 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 	}
 	new_cmds[i] = NULL;
 	unlink(pwd);
-	free(pwd);
+	ft_strdel(&pwd);
 	return (new_cmds);
 }
 
@@ -134,7 +134,7 @@ void				send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env)
 	pwd = getcwd(NULL, 255);
 	pwd = ft_strjoinf(pwd, "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_TRUNC | O_CREAT, 0666);
-	free(pwd);
+	ft_strdel(&pwd);
 	correct_int_first_and_int_last_for_e_flag(fc, hist);
 	if (ft_strchr(fc->flags, 'r') != NULL)
 		inverse_first_and_last_if_flag_r(fc);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/20 08:39:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 08:39:49 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 13:15:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ void	replace_last_hist(t_hist *hist, char *ans)
 	while (hist->next)
 		hist = hist->next;
 	hist = hist->prev;
-	free(hist->cmd);
+	ft_strdel(&hist->cmd);
 	hist->cmd = ft_strnew(ft_strlen(ans));
 	hist->cmd = ft_strcpy(hist->cmd, ans);
 }

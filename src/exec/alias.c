@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 08:50:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 14:17:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -138,8 +138,8 @@ int		check_a(t_process *p, t_var **var)
 	while (start && start->type == ALIAS)
 	{
 		*var = start->next;
-		free(start->data);
-		free(start->name);
+		ft_strdel(&start->data);
+		ft_strdel(&start->name);
 		free(start);
 		start = *var;
 	}
@@ -148,8 +148,8 @@ int		check_a(t_process *p, t_var **var)
 		if ((*var)->next && (*var)->next->type == ALIAS)
 		{
 			tmp = (*var)->next->next;
-			free((*var)->next->data);
-			free((*var)->next->name);
+			ft_strdel(&(*var)->next->data);
+			ft_strdel(&(*var)->next->name);
 			free((*var)->next);
 			(*var)->next = tmp;
 		}
@@ -192,14 +192,12 @@ int		main_unalias(t_process *p, t_var **var)
 		}
 		while (*var && ft_strcmp(p->cmd[k], (*var)->name) != 0)
 		{
-			printf("boucle = %p\n", *var);
 			last = (*var);
 			(*var) = (*var)->next;
 		}
 		if (!(*var))
 			return (error_unlias(p->cmd[k]));
 		last->next = (*var)->next;
-		printf("unalias1 = %p\n", *var);
 		tmp = (*var);
 		(*var) = start;
 		ft_strdel(&tmp->name);
@@ -207,6 +205,5 @@ int		main_unalias(t_process *p, t_var **var)
 		free(tmp);
 		k++;
 	}
-	printf("unalias2 = %p\n", *var);
 	return (1);
 }

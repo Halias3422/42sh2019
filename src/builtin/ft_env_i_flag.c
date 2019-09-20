@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_env_i_flag.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 15:12:53 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 13:07:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,7 @@ static void		interpret_env_cmd(t_process *p, int i, char *new_cmd,
 	if (check_error(new_cmd) != -1)
 		start_exec(start_lex(head, new_cmd), head);
 	else
-		free(new_cmd);
+		ft_strdel(&new_cmd);
 }
 
 int		go_through_process_cmd(t_process *p, t_var **new_env,

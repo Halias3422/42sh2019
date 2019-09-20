@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 09:30:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 13:16:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,7 @@ void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 		}
 		i++;
 	}
-	free(original_ans);
+	ft_strdel(&original_ans);
 	if (error != -1)
 		ft_printf("\n%s", pos->ans);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   tab_key_tools_calcul.c                           .::    .:/ .      .::   */
+/*   tab_key_tools_calcul_print.c                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:44:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 13:36:12 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/20 13:18:41 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,10 +29,10 @@ int				is_a_directory(char *path, t_pos *pos)
 	ft_strncpy(to_open, path + i, word_index - i + 1);
 	if ((dirp = opendir(to_open)) == NULL)
 	{
-		free(to_open);
+		ft_strdel(&to_open);
 		return (0);
 	}
-	free(to_open);
+	ft_strdel(&to_open);
 	closedir(dirp);
 	return (1);
 }

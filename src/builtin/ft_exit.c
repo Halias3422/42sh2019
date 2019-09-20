@@ -50,8 +50,12 @@ void	free_hist(t_hist *hist)
 
 int		ft_exit(t_process *p, t_var **var)
 {
+	t_hist	*tmp;
+	t_hist	*hist;
 	int	status;
 
+	hist = stock(NULL, 8);
+	tmp = hist;
 	write_alias_on_exit(*var);
 	free_pos();
 	status = ft_atoi(p->cmd[1]);
@@ -59,7 +63,16 @@ int		ft_exit(t_process *p, t_var **var)
 		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
 	else
 	{
-		free_hist(*ghist);
+		while (hist)
+		{
+			tmp = hist;
+			printf("%s\n", hist->cmd);
+			ft_strdel(&hist->cmd);
+			hist = hist->next;
+			free(tmp);
+		}
+		// free_t_hist(*ghist);
+		// free_env(*var);
 		free_hash_table();
 		ft_printf("exit\n");
 	}
