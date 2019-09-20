@@ -33,6 +33,21 @@ void			free_pos()
 	ft_strdel(&pos->saved_ans);
 }
 
+void	free_hist(t_hist *hist)
+{
+	t_hist *tmp;
+
+	tmp = hist;
+	while (hist)
+	{
+		tmp = hist->next;
+		ft_strdel(&hist->cmd);
+		free(hist);
+		hist = tmp;
+	}
+	hist = NULL;
+}
+
 int		ft_exit(t_process *p, t_var **var)
 {
 	int	status;
@@ -44,6 +59,7 @@ int		ft_exit(t_process *p, t_var **var)
 		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
 	else
 	{
+		free_hist(*ghist);
 		free_hash_table();
 		ft_printf("exit\n");
 	}
