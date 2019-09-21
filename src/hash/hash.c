@@ -90,7 +90,7 @@ char				*check_path_hash(char **tab_var, char **arg,
 	char			**paths;
 	t_hash			**hash;
 
-	if (arg[0][0] == '/' || arg[0][0] == '.')
+	if (ft_strchr(arg[0], '/') != 0)
 		return (absolute_path(arg[0]));
 	if ((hash = stock_hash(NULL, 1)) != NULL &&
 	(ans = search_exec_in_table(hash[get_key_of_exec(arg[0])], arg[0])) != NULL)

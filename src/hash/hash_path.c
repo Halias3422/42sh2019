@@ -27,7 +27,8 @@ char				*absolute_path(char *path)
 		closedir(file);
 	}
 	if (access(path, F_OK) == -1)
-		ft_printf("42sh: %s: command not found\n", tmp);
+		ft_printf("42sh: %s: No such file or directory", tmp);
+		//ft_printf("42sh: %s: command not found\n", tmp);
 	else if (access(path, X_OK) == -1)
 		ft_printf("42sh: %s: permission denied\n", tmp);
 	else

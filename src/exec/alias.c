@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 14:06:26 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/21 13:11:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -128,28 +128,33 @@ int		error_unlias(char *str)
 
 int		check_a(t_process *p, t_var **var)
 {
-	t_var *next;
-	t_var *prev;
-	t_var *start;
+	t_var	*start;
+	t_var	*tmp;
 
 	start = (*var);
-	prev = NULL;
-	printf("var = %p\n", *var);
 	if (!p->cmd[1] || (ft_strcmp(p->cmd[1], "-a") != 0))
 		return (0);
+	while (start && start->type == ALIAS)
+	{
+		*var = start->next;
+		free(start->data);
+		free(start->name);
+		free(start);
+		start = *var;
+	}
 	while (*var)
 	{
-		if ((*var)->type == ALIAS)
+		if ((*var)->next && (*var)->next->type == ALIAS)
 		{
-			prev->next = (*var)->next;
-			next = (*var)->next;
-			remove_item_var(var);
-			(*var) = next;
+			tmp = (*var)->next->next;
+			free((*var)->next->data);
+			free((*var)->next->name);
+			free((*var)->next);
+			(*var)->next = tmp;
 		}
-		prev = (*var);
-		(*var) = (*var)->next;
+		else
+			*var = (*var)->next;
 	}
-	printf("var = %p\n", *var);
 	stock(start, 5);
 	return (1);
 }
@@ -185,14 +190,12 @@ int		main_unalias(t_process *p, t_var **var)
 		}
 		while (*var && ft_strcmp(p->cmd[k], (*var)->name) != 0)
 		{
-			printf("boucle = %p\n", *var);
 			last = (*var);
 			(*var) = (*var)->next;
 		}
 		if (!(*var))
 			return (error_unlias(p->cmd[k]));
 		last->next = (*var)->next;
-		printf("unalias1 = %p\n", *var);
 		tmp = (*var);
 		(*var) = start;
 		ft_strdel(&tmp->name);
@@ -200,6 +203,5 @@ int		main_unalias(t_process *p, t_var **var)
 		free(tmp);
 		k++;
 	}
-	printf("unalias2 = %p\n", *var);
 	return (1);
 }

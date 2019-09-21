@@ -14,7 +14,8 @@
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
 
-void		process_status(t_process *process, t_job_list *job_list, int status)
+void		process_status(t_process *process, t_job_list *job_list, int status,
+			t_var **var)
 {
 	if (WIFSTOPPED(status))
 	{
@@ -30,11 +31,14 @@ void		process_status(t_process *process, t_job_list *job_list, int status)
 		job_list->j->status = 'f';
 		process->completed = FINISHED;
 		if (!process->builtin)
+		{
 			process->ret = WEXITSTATUS(status);
+			add_list_env(var, LOCAL, "?", ft_itoa(process->ret));
+		}
 	}
 }
 
-int			mark_process_status(pid_t pid, int status)
+int			mark_process_status(pid_t pid, int status, t_var **var)
 {
 	t_job_list	*job_list;
 	t_process	*process;
@@ -50,7 +54,7 @@ int			mark_process_status(pid_t pid, int status)
 				if (process->pid == pid)
 				{
 					process->status = status;
-					process_status(process, job_list, status);
+					process_status(process, job_list, status, var);
 					return(0);
 				}
 				process = process->next;
@@ -100,12 +104,11 @@ void		print_start_process(t_job *j)
 	ft_putchar('\n');
 }
 
-void		wait_process(pid_t pid)
+void		wait_process(t_var **var)
 {
 	int			status;
 	pid_t		pid_test;
 
-	pid = 0;
 	pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
-	mark_process_status(pid_test, status);
+	mark_process_status(pid_test, status, var);
 }

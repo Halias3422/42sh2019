@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 16:37:31 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/21 17:09:10 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -141,7 +141,7 @@ int *i, enum e_token token)
 	return (NULL);
 }
 
-char		*change_buf(char *buf)
+char        *change_buf(char *buf)
 {
 	char	*res;
 	int		i;
