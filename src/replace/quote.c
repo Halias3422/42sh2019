@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 16:37:43 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/21 14:20:44 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,9 @@ void	need_replace_quote(char ***array, int i, int *j)
 
 	c = (*array)[i][*j];
 	(*array)[i] = replace((*array)[i], c);
-	if (!ft_strcmp((*array)[i], ""))
+	if (!(*array) && !ft_strcmp((*array)[i], ""))
+		return ;
+	if (*j > ft_strlen((*array)[i]))
 		return ;
 	if ((*array)[i][*j])
 		(*j)++;
@@ -128,7 +130,8 @@ void	browse_ar(char ***array, int i, int j)
 			else
 				j = ft_strlen((*array)[i]);
 		}
-		if (!ft_strcmp((*array)[i], ""))
+		return ;
+		if (!ft_strcmp((*array)[i], "") && j > ft_strlen((*array)[i]))
 			break ;
 	}
 }
