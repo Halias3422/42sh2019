@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 15:18:54 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/21 13:11:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -190,14 +190,12 @@ int		main_unalias(t_process *p, t_var **var)
 		}
 		while (*var && ft_strcmp(p->cmd[k], (*var)->name) != 0)
 		{
-			printf("boucle = %p\n", *var);
 			last = (*var);
 			(*var) = (*var)->next;
 		}
 		if (!(*var))
 			return (error_unlias(p->cmd[k]));
 		last->next = (*var)->next;
-		printf("unalias1 = %p\n", *var);
 		tmp = (*var);
 		(*var) = start;
 		ft_strdel(&tmp->name);
@@ -205,6 +203,5 @@ int		main_unalias(t_process *p, t_var **var)
 		free(tmp);
 		k++;
 	}
-	printf("unalias2 = %p\n", *var);
 	return (1);
 }

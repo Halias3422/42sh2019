@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 17:47:29 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/21 13:50:57 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,6 +102,7 @@ t_lexeur	**start_lex(t_var *var, char *res)
 	array = NULL;
 	tmp = start_split(var, res);
 	array = fill_lex(tmp, array);
+	//ft_free_tab(tmp);
 	return (array);
 }
 
