@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 17:33:04 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/21 17:43:03 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,10 +87,38 @@ t_token     g_fill_token[12];
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            lexeur_tool.c                                   ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+
+char		*get_fd_in(char *str);
+char		*get_fd_out(char *str);
+void		fill_struct_fd_in(t_lexeur *res, char *fd_in, enum e_token token,
+char *red);
+void		fill_struct_fd_out(t_lexeur *res, char *fd_in, enum e_token token,
+char *fd_out);
+char		*ft_del_simple_quote(char *word);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                               lexeur_struct.c                              ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		fill_struct(t_lexeur *res, char *word, enum e_token token,
+char *red);
+t_lexeur	*fill_lex_while(char *buf, int *i, int token);
+t_lexeur	*fill_lex_redirection(char **buf,
+int *i, enum e_token token);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                 fill_lexeur.c                              ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
+char		*change_buf(char *buf);
 t_lexeur	**fill_lex(char **buf, t_lexeur **tabe);
 void		jump_space(char *buf, int *i);
 char		*get_fd_in(char	*str);

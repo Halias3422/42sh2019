@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/21 17:09:51 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/21 17:38:28 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -34,7 +34,8 @@ SRC_LINE = $(addprefix line_edit/, \
 				tab_key_auto_complete_tilde.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c)
+				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
+				lexeur_struct.c)
 
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
