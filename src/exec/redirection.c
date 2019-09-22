@@ -123,7 +123,7 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 	if (ft_strcmp(redirect->token, ">") == 0)
 	{
 		if (fd_right(redirect->fd_out))
-			p->fd_out = open(redirect->fd_out, O_CREAT | O_RDWR,
+			p->fd_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
