@@ -50,28 +50,20 @@ void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
 	int			infile;
-	int			mypipe[2];
+	//int			mypipe[2];
 
 	infile = 0;
 	p = j->p;
 	if (j->p->builtin == 0)
 		add_job(j);
 	j->status = 'r';
+	before_redirection(p);
 	while (p)
 	{
 		if (p->cmd[0] && find_equal(p->cmd[0]) == 1)
 			p->cmd = check_exec_var(p->cmd, &var);
-		p->fd_in = infile;
-		if (p->split == 'P')
-		{
-			pipe(mypipe);
-			p->fd_out = mypipe[1];
-		}
-		else
-			p->fd_out = 1;
 		fork_simple(j, p, &var);
 		close_fd(p);
-		infile = mypipe[0];
 		p = get_and_or(p);
 		free_temp(&var);
 	}

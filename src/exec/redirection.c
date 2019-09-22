@@ -65,7 +65,7 @@ static int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 	return (2);
 }
 
-static int	redirection_file(t_redirect *redirect)
+static int	redirection_file(t_process *p, t_redirect *redirect)
 {
 	int			fd_in;
 
@@ -73,15 +73,14 @@ static int	redirection_file(t_redirect *redirect)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(open(redirect->fd_out, O_CREAT | O_WRONLY,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH), STDOUT_FILENO);
+		dup2(p->fd_out, STDOUT_FILENO);
+		close(p->fd_out);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(open(redirect->fd_out, O_CREAT | O_WRONLY | O_APPEND,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH), STDOUT_FILENO);
+		dup2(p->fd_out, STDOUT_FILENO);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
@@ -110,11 +109,70 @@ int			launch_redirection(t_process *p)
 		if (!redirect->fd_in)
 			fd_in = 1;
 		fd_out = ft_atoi(redirect->fd_out);
-		if (redirection_file(redirect) == 0)
+		if (redirection_file(p, redirect) == 0)
 			return (0);
 		if (duplication(redirect, fd_in, fd_out) == 0)
 			return (0);
 		redirect = redirect->next;
 	}
 	return (1);
+}
+
+void		before_redirection_file(t_redirect *redirect, t_process *p)
+{
+	if (ft_strcmp(redirect->token, ">") == 0)
+	{
+		if (fd_right(redirect->fd_out))
+			p->fd_out = open(redirect->fd_out, O_CREAT | O_RDWR,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	}
+	if (ft_strcmp(redirect->token, ">>") == 0)
+	{
+		if (fd_right(redirect->fd_out))
+			p->fd_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_APPEND,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	}
+	if (ft_strcmp(redirect->token, "<") == 0)
+	{
+		if ((p->fd_in = open(redirect->fd_out, O_RDONLY)) < 0)
+		{
+			ft_printf_err("42sh: no such file or directory: %s\n",
+				redirect->fd_out);
+		}
+	}
+	redirect = redirect->next;
+}
+
+void		before_redirection(t_process *p)
+{
+	t_redirect	*redirect;
+	int			infile;
+	int			mypipe[2];
+
+	infile = 0;
+	while (p)
+	{
+		p->fd_error = STDERR_FILENO;
+		p->fd_in = infile;
+		if (p->split == 'P')
+		{
+			pipe(mypipe);
+			p->fd_out = mypipe[1];
+			infile = mypipe[0];
+		}
+		else
+		{
+			p->fd_out = 1;
+			infile = 0;
+		}
+		redirect = p->redirect;
+		while (redirect)
+		{
+			before_redirection_file(redirect, p);
+			redirect = redirect->next;
+		}
+		if (p->split == 'P' && p->fd_out != mypipe[1])
+			close(mypipe[1]);
+		p = get_and_or(p);
+	}
 }

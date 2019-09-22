@@ -192,4 +192,7 @@ int			check_cmd(char **str);
 int			find_equal(char *str);
 int			launch_redirection(t_process *p);
 void		remove_item_var(t_var **var);
+
+void		before_redirection(t_process *p);
+t_process	*get_and_or(t_process *p);
 #endif
