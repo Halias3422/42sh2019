@@ -51,6 +51,8 @@ typedef	struct			s_process
 	int					fd_in;
 	int					fd_out;
 	int					fd_error;
+	int					file_in;
+	int					file_out;
 	t_redirect			*redirect;
 }						t_process;
 

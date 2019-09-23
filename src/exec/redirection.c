@@ -67,31 +67,26 @@ static int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 
 static int	redirection_file(t_process *p, t_redirect *redirect)
 {
-	int			fd_in;
+	//int			fd_in;
 
 	if (ft_strcmp(redirect->token, ">") == 0)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(p->fd_out, STDOUT_FILENO);
-		close(p->fd_out);
+		dup2(p->file_out, STDOUT_FILENO);
+		close(p->file_out);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(p->fd_out, STDOUT_FILENO);
+		dup2(p->file_out, STDOUT_FILENO);
+		close(p->file_out);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
-		if ((fd_in = open(redirect->fd_out, O_RDONLY)) < 0)
-		{
-			ft_printf_err("42sh: no such file or directory: %s\n",
-				redirect->fd_out);
-			return (0);
-		}
-		else
-			dup2(fd_in, STDIN_FILENO);
+		dup2(p->file_in, STDIN_FILENO);
+		close(p->file_in);
 	}
 	return (1);
 }
@@ -123,22 +118,27 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 	if (ft_strcmp(redirect->token, ">") == 0)
 	{
 		if (fd_right(redirect->fd_out))
-			p->fd_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
+			p->file_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
 		if (fd_right(redirect->fd_out))
-			p->fd_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_APPEND,
+			p->file_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_APPEND,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
-		if ((p->fd_in = open(redirect->fd_out, O_RDONLY)) < 0)
+		if ((p->file_in = open(redirect->fd_out, O_RDONLY)) < 0)
 		{
 			ft_printf_err("42sh: no such file or directory: %s\n",
 				redirect->fd_out);
 		}
+		/*else
+		{
+			dup2(p->file_in, STDIN_FILENO);
+			close(p->file_in);
+		}*/
 	}
 	redirect = redirect->next;
 }
