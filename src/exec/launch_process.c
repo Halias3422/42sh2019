@@ -43,11 +43,6 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
-	if (p->fd_error != STDERR_FILENO)
-	{
-		dup2(p->fd_error, STDERR_FILENO);
-		close(p->fd_error);
-	}
 	if (!launch_redirection(p))
 		exit(1);
 	//launch_redirection(p);

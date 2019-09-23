@@ -134,11 +134,6 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 			ft_printf_err("42sh: no such file or directory: %s\n",
 				redirect->fd_out);
 		}
-		/*else
-		{
-			dup2(p->file_in, STDIN_FILENO);
-			close(p->file_in);
-		}*/
 	}
 	redirect = redirect->next;
 }

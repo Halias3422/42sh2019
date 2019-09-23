@@ -61,6 +61,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	ans = termcaps42sh(&pos, hist, my_env);
 	ans = check_backslash(&pos, hist);
 	ans = check_for_tilde(ans, my_env, 0, 0);
+	tcsetattr(2, TCSANOW, &(pos.old_term));
 	job_notification(&my_env);
 	if (ans == NULL)
 		return (1);
