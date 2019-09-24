@@ -45,7 +45,6 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	}
 	if (!launch_redirection(p))
 		exit(1);
-	//launch_redirection(p);
 	ft_execute_function(path, p->cmd, var);
 	exit(1);
 }
@@ -77,7 +76,7 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 		return (1);
 	if ((cmd_path = check_path_hash(split_env(*var), p->cmd, -1, NULL)) == NULL)
 	{
-		add_list_env(var, LOCAL, "?", "127");
+		add_list_env(var, LOCAL, "?", ft_strdup("127"));
 		return (0);
 	}
 	pid = fork();
