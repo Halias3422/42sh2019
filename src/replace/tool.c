@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 15:24:15 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 19:03:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ int		search_agregator(char *str, int i)
 
 void	split_agregator(char *str, int *i)
 {
+	puts("here");
 	while (str[*i] && (find_token(str, *i) != 5 && find_token(str, *i) != 8))
 		(*i)++;
 	(*i) += 2;
@@ -37,7 +38,8 @@ void	split_agregator(char *str, int *i)
 		while (str[*i] && ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == ' '))
 			(*i)++;
 	}
-	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '))
+	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
+	&& (find_token(str, *i) == -1)))
 		(*i)++;
 }
 
