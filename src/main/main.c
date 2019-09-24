@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/23 16:37:00 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 16:18:46 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	ans = termcaps42sh(&pos, hist, my_env);
 	ans = check_backslash(&pos, hist);
 	ans = check_for_tilde(ans, my_env, 0, 0);
-	tcsetattr(2, TCSANOW, &(pos.old_term));
+	tcsetattr(0, TCSANOW, &(pos.old_term));
 	job_notification(&my_env);
 	if (ans == NULL)
 		return (1);
