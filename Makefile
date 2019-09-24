@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/24 12:34:41 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/24 15:24:24 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -29,8 +29,8 @@ SRC_LINE = $(addprefix line_edit/, \
 				move_through_history.c print_ans.c search_in_history.c signal.c tab_key_var.c\
 				start_termcaps.c tab_key.c tab_key_all_path.c tab_key_auto_complete.c tab_key_current_dir.c\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
-				token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
-				token_heredoc_open.c token_init.c token_check.c init_alias.c check_for_tilde.c\
+				 init_alias.c check_for_tilde.c token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
+				token_heredoc_open.c token_init.c token_check.c\
 				tab_key_auto_complete_tilde.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
@@ -43,8 +43,8 @@ SRC_EXEC = $(addprefix exec/, \
 				process_tool.c redirection.c)
 
 SRC_REP = $(addprefix replace/, \
-				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c alias_change_type.c alias_cnt.c \
-				alias_replace.c)
+				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
+				alias_change_type.c alias_cnt.c alias_replace.c tool_split.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
