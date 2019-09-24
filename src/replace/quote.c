@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:04:47 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/21 14:20:44 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,6 +74,10 @@ void	need_replace_quote(char ***array, int i, int *j)
 
 	c = (*array)[i][*j];
 	(*array)[i] = replace((*array)[i], c);
+	if (!(*array) && !ft_strcmp((*array)[i], ""))
+		return ;
+	if (*j > ft_strlen((*array)[i]))
+		return ;
 	if ((*array)[i][*j])
 		(*j)++;
 	while ((*array)[i][*j])
@@ -85,6 +89,20 @@ void	need_replace_quote(char ***array, int i, int *j)
 	}
 }
 
+int		check_red(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (find_token(str, i) != -1)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	browse_ar(char ***array, int i, int j)
 {
 	while ((*array)[i][j])
@@ -92,7 +110,19 @@ void	browse_ar(char ***array, int i, int j)
 		if (((*array)[i][j] == '\'' && (j == 0 ||
 		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
 		&& (j == 0 || (*array)[i][j - 1] != '\\')))
-			need_replace_quote(array, i, &j);
+		{
+			if ((find_token((*array)[i], j + 1) == -1) &&
+			check_red((*array)[i]))
+				need_replace_quote(array, i, &j);
+			else
+			{
+				j++;
+				while ((*array)[i][j] && (*array)[i][j] != '\'')
+					j++;
+				if ((*array)[i][j])
+					j++;
+			}
+		}
 		else
 		{
 			if (j < ft_strlen((*array)[i]))
@@ -100,6 +130,9 @@ void	browse_ar(char ***array, int i, int j)
 			else
 				j = ft_strlen((*array)[i]);
 		}
+		return ;
+		if (!ft_strcmp((*array)[i], "") && j > ft_strlen((*array)[i]))
+			break ;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_tools.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:57:40 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 15:58:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/21 17:44:46 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,8 @@ int			find_equal(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if (str[i] == '=')
