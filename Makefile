@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/23 16:48:45 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/24 15:08:54 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -29,8 +29,8 @@ SRC_LINE = $(addprefix line_edit/, \
 				move_through_history.c print_ans.c search_in_history.c signal.c tab_key_var.c\
 				start_termcaps.c tab_key.c tab_key_all_path.c tab_key_auto_complete.c tab_key_current_dir.c\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
-				token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
-				token_heredoc_open.c token_init.c token_check.c init_alias.c check_for_tilde.c\
+				 init_alias.c check_for_tilde.c token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
+				token_heredoc_open.c token_init.c token_check.c\
 				tab_key_auto_complete_tilde.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 15:05:21 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 12:26:32 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,7 +93,7 @@ char *red)
 	res->redirection = NULL;
 	res->fd_in = NULL;
 	res->fd_out = NULL;
-	ft_strdel(&word);
+	// ft_strdel(&word);
 	ft_strdel(&red);
 }
 
