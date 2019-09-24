@@ -19,9 +19,9 @@ static int	fd_right(char *path)
 	if (access(path, F_OK) != -1)
 	{
 		if (opendir(path) != NULL)
-			ft_printf("42sh: %s: Is a directory", path);
+			ft_printf_err("42sh: %s: Is a directory", path);
 		else if (access(path, R_OK) == -1)
-			ft_printf("42sh: %s: Permission denied", path);
+			ft_printf_err("42sh: %s: Permission denied", path);
 		else
 			return (1);
 	}
@@ -39,12 +39,12 @@ static int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 		else if (fd_in > 0 && fd_out > 0)
 		{
 			if (dup2(fd_out, fd_in) == -1)
-				printf("%s\n", "cela ne marche pas");
+				ft_printf_err("42sh: duplication not working\n");
 			else
 				return (1);
 		}
 		else
-			ft_printf_err("ceci ne marche pas");
+			ft_printf_err("42sh: file number expected");
 		return (0);
 	}
 	if (ft_strcmp(redirect->token, "<&") == 0)
@@ -53,13 +53,15 @@ static int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 			close(fd_in);
 		else if (fd_in > 0 && fd_out > 0)
 		{
-			if (dup2(fd_in, fd_out) == -1)
-				printf("%s\n", "cela ne marche pas");
+			if (fd_out > STDERR_FILENO)
+				ft_printf_err("42sh: %d: bad file descriptor", fd_out);
+			else if (dup2(fd_in, fd_out) == -1)
+				ft_printf_err("42sh: duplication not working\n");
 			else
 				return (1);
 		}
 		else
-			ft_printf_err("ceci ne marche pas");
+			ft_printf_err("42sh: file number expected");
 		return (0);
 	}
 	return (2);
@@ -67,8 +69,6 @@ static int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 
 static int	redirection_file(t_process *p, t_redirect *redirect)
 {
-	//int			fd_in;
-
 	if (ft_strcmp(redirect->token, ">") == 0)
 	{
 		if (!fd_right(redirect->fd_out))
@@ -85,6 +85,8 @@ static int	redirection_file(t_process *p, t_redirect *redirect)
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
+		if (!fd_right(redirect->fd_out) || !ft_file_exists(redirect->fd_out))
+			return (0);
 		dup2(p->file_in, STDIN_FILENO);
 		close(p->file_in);
 	}
