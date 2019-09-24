@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/21 13:50:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 15:04:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 #include "../../includes/check_error.h"
 #include "../../includes/termcaps.h"
 
-t_token g_fill_token[12] =
+t_token			g_fill_token[12] =
 {
 	{"&&", 2, T_AND},
 	{"&", 1, T_EXEC_SIM},
@@ -31,7 +31,7 @@ t_token g_fill_token[12] =
 	{NULL, 0, -1}
 };
 
-int			find_token(char *buf, int i)
+int				find_token(char *buf, int i)
 {
 	int	k;
 	int	j;
@@ -56,7 +56,7 @@ int			find_token(char *buf, int i)
 	return (g_fill_token[token].token);
 }
 
-void		cnt_wrd_while(char *buf, int *i, int *cnt, int token)
+void			cnt_wrd_while(char *buf, int *i, int *cnt, int token)
 {
 	if (buf[*i] && (token != -1))
 	{
@@ -77,7 +77,7 @@ void		cnt_wrd_while(char *buf, int *i, int *cnt, int token)
 		(*i)++;
 }
 
-int			cnt_wrd(char *buf)
+int				cnt_wrd(char *buf)
 {
 	int		i;
 	int		cnt;
@@ -94,7 +94,7 @@ int			cnt_wrd(char *buf)
 	return (cnt);
 }
 
-t_lexeur	**start_lex(t_var *var, char *res)
+t_lexeur		**start_lex(t_var *var, char *res)
 {
 	t_lexeur	**array;
 	char		**tmp;
