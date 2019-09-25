@@ -79,7 +79,7 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 	var = *ptr_var;
 	if (!var)
 		return;
-	while (var != NULL)
+	while (var->next != NULL)
 	{
 		if (ft_strcmp(name, var->name) == 0 && type == var->type)
 		{

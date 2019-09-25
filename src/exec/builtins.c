@@ -89,7 +89,7 @@ int		find_builtins(t_process *p, t_var **var)
 		{
 			builtin_redirection(p);
 			p->ret = g_builtin_list[i].ptr_builtin(p, var);
-			add_list_env(var, LOCAL, "?", ft_itoa(p->ret));
+			add_list_env(var, LOCAL, ft_strdup("?"), ft_itoa(p->ret));
 			return (1);
 		}
 	}
