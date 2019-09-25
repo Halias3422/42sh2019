@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_tools.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:57:40 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/21 17:44:46 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 10:32:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,4 +69,14 @@ int			check_cmd(char **str)
 		i++;
 	}
 	return (0);
+}
+
+void		add_local(t_var **var, char *str, t_var *prev)
+{
+	(*var) = malloc(sizeof(t_var));
+	prev->next = (*var);
+	(*var)->next = NULL;
+	(*var)->name = init_name(str);
+	(*var)->data = init_data(str);
+	(*var)->type = LOCAL;
 }

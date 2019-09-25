@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   back_slash.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 16:15:38 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 09:06:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ int			del_back_slash_browse(char ***ar, int *j, int *k)
 	if ((*ar)[*j][*k] == '"' && (*k == 0 || (*ar)[*j][*k - 1] != '\\'))
 		if (del_back_slash_double_quote(k, *j, ar))
 			return (1);
-	if ((*ar)[*j][*k + 1] && (*ar)[*j][*k] == '\\')
+	if ((*ar)[*j][*k] && (*ar)[*j][*k + 1] && (*ar)[*j][*k] == '\\')
 	{
 		if ((*ar)[*j][*k + 1] != '\'' && (*ar)[*j][*k + 1] != '"')
 		{

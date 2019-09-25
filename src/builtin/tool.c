@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/21 13:11:12 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 10:05:45 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,7 +84,7 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 		if (ft_strcmp(name, var->name) == 0 && type == var->type)
 		{
 			ft_strdel(&var->data);
-			var->data = ft_strdup(data);
+			var->data = data;
 			return ;
 		}
 		last = var;

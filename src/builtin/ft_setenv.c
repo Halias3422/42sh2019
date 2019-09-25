@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/21 10:56:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 09:13:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,9 +95,14 @@ int			ft_setenv(t_process *p, t_var **var)
 		if (setenv_rules(p) == 0)
 			return (0);
 		name = init_name(p->cmd[1]);
+		if (scan_name_for_undesired_symbols(name) == -1)
+		{
+			name = ft_secure_free(name);
+			ft_printf_err("42sh: setenv: invalid name parameter\n");
+			return (0);
+		}
 		data = init_data(p->cmd[1]);
 		add_var_to_env(var, name, data);
 	}
-	print_env(var);
 	return (1);
 }
