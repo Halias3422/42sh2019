@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 10:30:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 16:29:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,7 @@ void		add_env(t_var **var, char *str)
 	t_var	*prev;
 	char	*name;
 
+	prev = NULL;
 	name = init_name(str);
 	if (!(*var))
 	{
@@ -71,7 +72,12 @@ void		add_env(t_var **var, char *str)
 	}
 	if (!(*var))
 	{
-		add_local(var, str, prev);
+		(*var) = malloc(sizeof(t_var));
+		prev->next = (*var);
+		(*var)->next = NULL;
+		(*var)->name = name;
+		(*var)->data = init_data(str);
+		(*var)->type = LOCAL;
 		return ;
 	}
 	ft_strdel(&(*var)->data);
@@ -79,10 +85,25 @@ void		add_env(t_var **var, char *str)
 	(*var)->data = init_data(str);
 }
 
+void		remoove_all_quote(char **str)
+{
+	char **al;
+	
+	al = malloc(sizeof(char *) * 3);
+	al[2] = 0;
+	al[0] = init_name(*str);
+	al[1] = init_data(*str);
+	remoove_quote(&al);
+	ft_strdel(&(*str));
+	(*str) = ft_strjoin(al[0], "=");
+	ft_strjoin_free(str, al[1]);
+}
+
 int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 {
 	if (cmd[i] && find_equal(cmd[i]))
 	{
+		remoove_all_quote(&cmd[i]);
 		if (check_cmd(cmd) == 1)
 		{
 			add_env_temp(var, cmd[i], TEMP);
