@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 16:06:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 09:10:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,4 +55,19 @@ char				*path_denied(char **paths, char **arg)
 	ft_printf("42sh: %s: permission denied\n", arg[0]);
 	ft_free_tab(paths);
 	return (NULL);
+}
+
+int					scan_name_for_undesired_symbols(char *str)
+{
+	int				i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (((ft_isalpha(str[i]) == 0) || (str[i] < '0' && str[i] > '9')) &&
+				(str[i] != 45 && str[i] != 95))
+			return (-1);
+		i++;
+	}
+	return (0);
 }
