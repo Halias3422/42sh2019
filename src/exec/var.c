@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 12:37:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 09:56:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,7 +101,11 @@ char		**check_exec_var(char **cmd, t_var **var)
 				tmp = remove_tab(cmd, i);
 			}
 			else
+			{
 				add_env(var, cmd[i]);
+				ft_free_tab(cmd);
+				return (NULL);
+			}
 		}
 		i++;
 	}
