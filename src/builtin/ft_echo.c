@@ -23,12 +23,12 @@ int		ft_echo_simple(t_process *p, t_var **var)
 	while (p->cmd[i] != NULL)
 	{
 		if (i != 1)
-			ft_putchar_fd(' ', p->fd_out);
-		ft_putstr_fd(p->cmd[i], p->fd_out);
+			ft_putchar(' ');
+		ft_putstr(p->cmd[i]);
 		i++;
 	}
-	ft_putchar_fd('\n', p->fd_out);
-	return (0);
+	ft_putchar('\n');
+	return (1);
 }
 
 int		ft_echo_no_line(t_process *p, t_var **var)
@@ -40,11 +40,11 @@ int		ft_echo_no_line(t_process *p, t_var **var)
 	while (p->cmd[i] != NULL)
 	{
 		if (i != 2)
-			ft_putchar_fd(' ', p->fd_out);
-		ft_putstr_fd(p->cmd[i], p->fd_out);
+			ft_putchar(' ');
+		ft_putstr(p->cmd[i]);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int		ft_echo(t_process *p, t_var **var)
@@ -52,7 +52,7 @@ int		ft_echo(t_process *p, t_var **var)
 	if (p->fd_in < 0)
 	{
 		ft_printf("42sh: echo: write error: Bad file descriptor\n");
-		return (1);
+		return (0);
 	}
 	if (p->cmd[1])
 	{
