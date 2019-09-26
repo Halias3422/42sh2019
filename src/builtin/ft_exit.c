@@ -33,11 +33,20 @@ void			free_pos()
 	ft_strdel(&pos->saved_ans);
 }
 
+int		error_exit(int i)
+{
+	if (i == 1)
+		ft_printf_err("42sh: exit: {B.T.red.}error{eoc}: Too many arguments\n");
+	return (1);
+}
+
 int		ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
 	status = ft_atoi(p->cmd[1]);
+	if (p->cmd && p->cmd[1] && p->cmd[2])
+		return (error_exit(1));		
 	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
 		return (status);
 	if (status < 0)
