@@ -79,7 +79,7 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 
 	if (!p->cmd[0])
 		return (-1);
-	if (j->split != '&')
+	if (j->split != '&' && is_builtin_modify(p))
 	{
 		if (find_builtins(p, var) != 0)
 			return (1);

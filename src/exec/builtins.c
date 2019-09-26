@@ -22,26 +22,26 @@
 
 const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 {
-	{"test", &ft_test},
-	{"alias", &main_alias},
-	{"unalias", &main_unalias},
-	{"set", &ft_set},
-	{"echo", &ft_echo},
-	{"cd", &ft_cd},
-	{"type", &ft_type},
-	{"export", &ft_export},
-	{"unset", &ft_unset},
-	{"fc", &ft_fc},
-	{"fg", &ft_fg},
-	{"jobs", &ft_jobs},
-	{"exit", &ft_exit},
-	{"hash", &ft_hash},
-	{"setenv", &ft_setenv},
-	{"unsetenv", &ft_unsetenv},
-	{"env", &ft_env}
+	{"test", &ft_test, 0},
+	{"alias", &main_alias, 1},
+	{"unalias", &main_unalias, 1},
+	{"set", &ft_set, 1},
+	{"echo", &ft_echo, 0},
+	{"cd", &ft_cd, 1},
+	{"type", &ft_type, 0},
+	{"export", &ft_export, 1},
+	{"unset", &ft_unset, 1},
+	{"fc", &ft_fc, 1},
+	{"fg", &ft_fg, 1},
+	{"jobs", &ft_jobs, 1},
+	{"exit", &ft_exit, 1},
+	{"hash", &ft_hash, 1},
+	{"setenv", &ft_setenv, 1},
+	{"unsetenv", &ft_unsetenv, 1},
+	{"env", &ft_env, 0}
 };
 
-void	builtin_redirection(t_process *p)
+/*void	builtin_redirection(t_process *p)
 {
 	t_redirect	*redirect;
 	int			fd_in;
@@ -74,6 +74,25 @@ void	builtin_redirection(t_process *p)
 		}
 		redirect = redirect->next;
 	}
+}*/
+
+int		is_builtin_modify(t_process *p)
+{
+	int i;
+
+	i = -1;
+	if (!p->cmd[0])
+		return (0);
+	while (++i < LEN_BUILTIN_LIST)
+	{
+		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
+		{
+			if (g_builtin_list[i].modify_data == 1)
+				return (1);
+			return (0);
+		}
+	}
+	return (0);
 }
 
 int		find_builtins(t_process *p, t_var **var)
@@ -87,7 +106,6 @@ int		find_builtins(t_process *p, t_var **var)
 	{
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
 		{
-			builtin_redirection(p);
 			p->ret = g_builtin_list[i].ptr_builtin(p, var);
 			add_list_env(var, LOCAL, ft_strdup("?"), ft_itoa(p->ret));
 			return (1);

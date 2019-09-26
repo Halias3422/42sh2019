@@ -38,12 +38,12 @@ int			ft_export(t_process *p, t_var **ptr_var)
 	int i;
 
 	i = 0;
+
 	while (p->cmd[++i])
 	{
-		if (ft_export_env(p->cmd[i], ptr_var))
-			ft_printf("ok\n");
-		else
-			ft_printf("not\n");
+		if (!ft_export_env(p->cmd[i], ptr_var))
+			ft_printf("42sh: no matches found: %s", p->cmd[i]);
 	}
+	print_env(ptr_var);
 	return (0);
 }

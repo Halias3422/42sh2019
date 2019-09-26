@@ -29,6 +29,7 @@ typedef struct	s_builtin
 {
 	const char	*name;
 	int			(*ptr_builtin)(t_process*, t_var**);
+	int			modify_data;
 }				t_builtin;
 
 typedef struct	s_fc
