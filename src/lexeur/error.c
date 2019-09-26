@@ -69,19 +69,24 @@ int		check_error(char *str)
 	while (str[i])
 	{
 		jump_space(str, &i);
-		token = find_token(str, i);
-		if (token == 4 || token == 0 || token == 1 || token == 10 || token == 2 || token == 3 || token == 7)
-			if (first_check(str, i, token))
-				return (-1);
-		if (token == 9 || token == 6 || token == 8 || token == 5 || token == 4 || token == 7)
-			if (second_check(str, i, token))
-				return (-1);
-		if (token != -1)
-			if (check_double_token(str, i, token))
-				return (-1);
-		if (token != -1)
-				i += g_fill_token[token].size;
-		else if (str[i] != '\0')
+		if (i == 0 || str[i - 1] != '\\')
+		{
+			token = find_token(str, i);
+			if (token == 4 || token == 0 || token == 1 || token == 10 || token == 2 || token == 3 || token == 7)
+				if (first_check(str, i, token))
+					return (-1);
+			if (token == 9 || token == 6 || token == 8 || token == 5 || token == 4 || token == 7)
+				if (second_check(str, i, token))
+					return (-1);
+			if (token != -1)
+				if (check_double_token(str, i, token))
+					return (-1);
+			if (token != -1)
+					i += g_fill_token[token].size;
+			else if (str[i] != '\0')
+				i++;
+		}
+		else
 			i++;
 	}
 	return (0);
