@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 12:37:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 16:29:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,7 @@ void		add_env(t_var **var, char *str)
 	t_var	*prev;
 	char	*name;
 
+	prev = NULL;
 	name = init_name(str);
 	if (!(*var))
 	{
@@ -84,6 +85,40 @@ void		add_env(t_var **var, char *str)
 	(*var)->data = init_data(str);
 }
 
+void		remoove_all_quote(char **str)
+{
+	char **al;
+	
+	al = malloc(sizeof(char *) * 3);
+	al[2] = 0;
+	al[0] = init_name(*str);
+	al[1] = init_data(*str);
+	remoove_quote(&al);
+	ft_strdel(&(*str));
+	(*str) = ft_strjoin(al[0], "=");
+	ft_strjoin_free(str, al[1]);
+}
+
+int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
+{
+	if (cmd[i] && find_equal(cmd[i]))
+	{
+		remoove_all_quote(&cmd[i]);
+		if (check_cmd(cmd) == 1)
+		{
+			add_env_temp(var, cmd[i], TEMP);
+			*tmp = remove_tab(cmd, i);
+		}
+		else
+		{
+			add_env(var, cmd[i]);
+			ft_free_tab(cmd);
+			return (-1);
+		}
+	}
+	return (0);
+}
+
 char		**check_exec_var(char **cmd, t_var **var)
 {
 	int		i;
@@ -93,16 +128,8 @@ char		**check_exec_var(char **cmd, t_var **var)
 	tmp = NULL;
 	while (cmd[i])
 	{
-		if (cmd[i] && find_equal(cmd[i]))
-		{
-			if (check_cmd(cmd) == 1)
-			{
-				add_env_temp(var, cmd[i], TEMP);
-				tmp = remove_tab(cmd, i);
-			}
-			else
-				add_env(var, cmd[i]);
-		}
+		if (local_or_env(var, cmd, i, &tmp) == -1)
+			return (NULL);
 		i++;
 	}
 	if (tmp != NULL)

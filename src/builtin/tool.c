@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 12:39:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 10:05:45 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,10 +33,6 @@ char		*ft_get_val(char *name, t_var *var, int type)
 	}
 	return (NULL);
 }
-
-/*
-** pointeur su premier element
-*/
 
 void		remove_item_var(t_var **var)
 {
@@ -77,18 +73,26 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 
 void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 {
-	t_var *var;
+	t_var	*var;
+	t_var	*last;
 
-	type = 0;
 	var = *ptr_var;
+	if (!var)
+		return;
 	while (var != NULL)
 	{
-		if (ft_strcmp(name, var->name) == 0)
+		if (ft_strcmp(name, var->name) == 0 && type == var->type)
 		{
-			free(var->data);
+			ft_strdel(&var->data);
 			var->data = data;
 			return ;
 		}
+		last = var;
 		var = var->next;
 	}
+	last->next = malloc(sizeof(t_var));
+	last->next->name = name;
+	last->next->data = data;
+	last->next->type = type;
+	last->next->next = NULL;
 }

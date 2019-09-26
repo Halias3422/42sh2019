@@ -43,16 +43,13 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
-	if (p->fd_error != STDERR_FILENO)
-	{
-		dup2(p->fd_error, STDERR_FILENO);
-		close(p->fd_error);
-	}
+	if (!launch_redirection(p))
+		exit(1);
 	ft_execute_function(path, p->cmd, var);
 	exit(1);
 }
 
-void		update_pid(t_process *p, t_job *j, pid_t pid)
+void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 {
 	p->pid = pid;
 	if (j->pgid == 0)
@@ -61,13 +58,12 @@ void		update_pid(t_process *p, t_job *j, pid_t pid)
 	if (j->split != '&')
 	{
 		tcsetpgrp(0, j->pgid);
-		wait_process(j->pgid);
+		wait_process(var);
 		signal(SIGTTOU, SIG_IGN);
 		tcsetpgrp(0, getpid());
 		signal(SIGTTOU, SIG_DFL);
 	}
 }
-
 
 int			fork_simple(t_job *j, t_process *p, t_var **var)
 {
@@ -79,13 +75,15 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	if (find_builtins(p, var) != 0)
 		return (1);
 	if ((cmd_path = check_path_hash(split_env(*var), p->cmd, -1, NULL)) == NULL)
+	{
+		add_list_env(var, LOCAL, "?", ft_strdup("127"));
 		return (0);
+	}
 	pid = fork();
 	if (pid == 0)
 		launch_process(p, *var, cmd_path);
 	else
-		update_pid(p, j, pid);
-//	free(cmd_path);
+		update_pid(p, j, pid, var);
+	//free(cmd_path);
 	return (1);
 }
-

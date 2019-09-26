@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 14:27:36 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 15:37:37 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/26 09:22:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,7 @@ int		ft_cd(t_process *p, t_var **var)
 	char	*path;
 	char	*buf;
 
+	ft_printf("fd->out = %d\n", p->fd_out);
 	if (ft_tabclen(p->cmd) > 2)
 	{
 		ft_putendl_fd(ARGUMENTS, p->fd_out);

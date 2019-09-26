@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/19 14:50:33 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/26 08:22:55 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -29,20 +29,22 @@ SRC_LINE = $(addprefix line_edit/, \
 				move_through_history.c print_ans.c search_in_history.c signal.c tab_key_var.c\
 				start_termcaps.c tab_key.c tab_key_all_path.c tab_key_auto_complete.c tab_key_current_dir.c\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
-				token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
-				token_heredoc_open.c token_init.c token_check.c init_alias.c check_for_tilde.c\
-				tab_key_auto_complete_tilde.c check_backslash.c debug.c)
+				 init_alias.c check_for_tilde.c token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
+				token_heredoc_open.c token_init.c token_check.c\
+				tab_key_auto_complete_tilde.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c \
-				error_lex.c)
+				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
+				lexeur_struct.c)
 
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
-				job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c process_tool.c)
+				job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
+				process_tool.c redirection.c alias_tools.c)
 
 SRC_REP = $(addprefix replace/, \
-				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c alias_change_type.c alias_cnt.c)
+				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
+				alias_change_type.c alias_cnt.c alias_replace.c tool_split.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
@@ -52,7 +54,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
 				ft_env_i_flag.c)
 
-SRC_MAIN = $(addprefix main/, main.c)
+SRC_MAIN = $(addprefix main/, main.c check_backslash.c)
 
 SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
 
@@ -65,7 +67,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined
 FLAG_END = -lcurses
 NORME = norminette
 

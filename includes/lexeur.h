@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:43:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 15:22:09 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,6 +75,27 @@ typedef struct s_temp_var
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                             tool_split.c                                   ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		token_8_and_5(int *i, int ret, char *str);
+void		split_space_find_number(char *str, int *i);
+int			check_token_after_number(char *str, int i);
+int			double_check(char *str, int i);
+void		split_space_basic(char *str, int *i);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                             alias_replace.c                                ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		replace_alias_while_fill(char *tmp, int *j, int *i, t_alias *alias);
+int			replace_alias_while(t_var *var, t_alias *alias);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                 lexeur.c                                   ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
@@ -87,10 +108,38 @@ t_token     g_fill_token[12];
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            lexeur_tool.c                                   ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+
+char		*get_fd_in(char *str);
+char		*get_fd_out(char *str);
+void		fill_struct_fd_in(t_lexeur *res, char *fd_in, enum e_token token,
+char *red);
+void		fill_struct_fd_out(t_lexeur *res, char *fd_in, enum e_token token,
+char *fd_out);
+char		*ft_del_simple_quote(char *word);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                               lexeur_struct.c                              ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		fill_struct(t_lexeur *res, char *word, enum e_token token,
+char *red);
+t_lexeur	*fill_lex_while(char *buf, int *i, int token);
+t_lexeur	*fill_lex_redirection(char **buf,
+int *i, enum e_token token);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                 fill_lexeur.c                              ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
+char		*change_buf(char *buf);
 t_lexeur	**fill_lex(char **buf, t_lexeur **tabe);
 void		jump_space(char *buf, int *i);
 char		*get_fd_in(char	*str);
@@ -212,7 +261,6 @@ void		init_replace(t_replace **replace);
 void		cnt_size_simple_quote(int *i, int *nb, char *str);
 void		cnt_size_double_quote(int *i, int *nb, char *str);
 int			cnt_printable_char(int *nb, char *str, int *i);
-int			cnt_size(char *str);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

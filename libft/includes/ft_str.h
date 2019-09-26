@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/03 15:18:39 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:10:23 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 08:59:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ typedef struct		s_stock
 }					t_stock;
 
 void				ft_bzero(void *elem, int i);
-void				ft_isalpha(int c);
+int					ft_isalpha(int c);
 void				ft_isascii(int c);
 int					ft_isspace(int c);
 char				*ft_itoa(int i);
