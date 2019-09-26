@@ -27,15 +27,14 @@ t_process	*get_and_or(t_process *p)
 
 void		alert_job(t_job *j)
 {
-	if (j->p->builtin != 1)
-	{
-		if (j->split == '&')
-			print_start_process(j);
-		else if (job_is_stoped(j))
-			j->notified = 1;
-		else
-			remove_job(j->id);
-	}
+	if (j->p->builtin == 1 && j->split != '&')
+		return ;
+	if (j->split == '&')
+		print_start_process(j);
+	else if (job_is_stoped(j))
+		j->notified = 1;
+	else
+		remove_job(j->id);
 }
 
 void		close_fd(t_process *p)
@@ -50,11 +49,10 @@ void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
 	int			infile;
-	//int			mypipe[2];
 
 	infile = 0;
 	p = j->p;
-	if (j->p->builtin == 0)
+	if (j->p->builtin == 0 || j->split == '&')
 		add_job(j);
 	j->status = 'r';
 	before_redirection(p);

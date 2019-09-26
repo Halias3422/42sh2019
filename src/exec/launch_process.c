@@ -43,7 +43,14 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
+	if (p->fd_error != STDERR_FILENO)
+	{
+		dup2(p->fd_error, STDERR_FILENO);
+		close(p->fd_error);
+	}
 	if (!launch_redirection(p))
+		exit(1);
+	if (find_builtins(p, &var) != 0)
 		exit(1);
 	ft_execute_function(path, p->cmd, var);
 	exit(1);
@@ -72,11 +79,14 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 
 	if (!p->cmd[0])
 		return (-1);
-	if (find_builtins(p, var) != 0)
-		return (1);
+	if (j->split != '&' && is_builtin_modify(p))
+	{
+		if (find_builtins(p, var) != 0)
+			return (1);
+	}
 	if ((cmd_path = check_path_hash(split_env(*var), p->cmd, -1, NULL)) == NULL)
 	{
-		add_list_env(var, LOCAL, "?", ft_strdup("127"));
+		add_list_env(var, LOCAL, ft_strdup("?"), ft_strdup("127"));
 		return (0);
 	}
 	pid = fork();

@@ -49,6 +49,11 @@ int		ft_echo_no_line(t_process *p, t_var **var)
 
 int		ft_echo(t_process *p, t_var **var)
 {
+	if (p->fd_in < 0)
+	{
+		ft_printf("42sh: echo: write error: Bad file descriptor\n");
+		return (1);
+	}
 	if (p->cmd[1])
 	{
 		if (ft_strcmp(p->cmd[1], "-n") == 0)
