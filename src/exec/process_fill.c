@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 17:14:10 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 15:06:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,14 +14,16 @@
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
 
-void		fill_process_split(t_job **j, t_lexeur **res, int *i)
+void		fill_process_split(t_job **j, t_lexeur **res, int i)
 {
 	int		k;
 
-	k = (*i);
+	k = i;
 	while (res[k] && (res[k]->word || (res[k]->token == 4 ||
 	res[k]->token == 5 || res[k]->token == 6 || res[k]->token == 7)))
+	{
 		k++;
+	}
 	if (res[k] && res[k]->token == 0)
 		(*j)->p->split = 'A';
 	else if (res[k] && res[k]->token == 2)

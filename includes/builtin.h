@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 10:02:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/26 19:32:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,6 @@ typedef struct	s_fc
 	int			error;
 }				t_fc;
 
-
 extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 
 # include <sys/types.h>
@@ -55,7 +54,6 @@ extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 
 int				ft_test(t_process *p, t_var **var);
 int				ft_echo(t_process *p, t_var **var);
-int				ft_cd(t_process *p, t_var **var);
 int				ft_set(t_process *p, t_var **ptr_var);
 int				ft_type(t_process *p, t_var **var);
 int				ft_export(t_process *p, t_var **ptr_var);
@@ -167,6 +165,7 @@ void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 ** FT_SETENV_C
 */
 
+void			add_var_to_env(t_var **var, char *name, char *data);
 int				ft_setenv(t_process *p, t_var **var);
 void			print_env(t_var **var);
 
@@ -193,15 +192,37 @@ int				go_through_process_cmd(t_process *p, t_var **new_env,
 **	FT_ENV_TOOLS_C
 */
 
-void		free_new_env(t_var *head);
-t_var		*init_t_var(t_var *ne);
-t_var		*add_list_back_env(t_var *env);
+void			free_new_env(t_var *head);
+t_var			*init_t_var(t_var *ne);
+t_var			*add_list_back_env(t_var *env);
 
-# define ARGUMENTS "cd: Too many arguments."
-# define CD_NO_HOME "cd: No HOME directory."
-# define CD_NO_OLDPWD "cd: No OLDPWD directory"
-# define CD_NO_ENV "cd: No ENV variable directory"
-# define CD_NO_FILE "No such file or directory"
-# define CD_NO_RIGHTS "permission denied"
+/*
+**	FT_CD_C
+*/
+
+int				get_cd_option(char **cmd, int *i, int ret);
+char			*fill_new_path(char ***tmp, char *new_path, char *cmd,
+				t_var **var);
+char			*get_path(char *cmd, t_var **var, char *new_path, int option);
+void			replace_pwd_vars_in_env(t_var **var, char *new_path,
+				int option);
+int				ft_cd(t_process *p, t_var **var);
+
+/*
+**	FT_CD_PREPARE_DATA_C
+*/
+
+char			*move_to_home_dir(t_var **var);
+char			*move_to_oldpwd(t_var **var);
+char			*replace_double_dot_by_real_path(char *path);
+char			*go_to_absolute_path(char *cmd, t_var **var);
+char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
+
+/*
+**	FT_CD_VERIF_C
+*/
+
+char			*verif_p_option_path(char *new_path);
+int				verif_path(char *path);
 
 #endif

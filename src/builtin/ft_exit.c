@@ -37,9 +37,9 @@ int		ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
-	write_alias_on_exit(*var);
-	free_pos();
 	status = ft_atoi(p->cmd[1]);
+	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
+		return (status);
 	if (status < 0)
 		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
 	else
@@ -47,5 +47,7 @@ int		ft_exit(t_process *p, t_var **var)
 		free_hash_table();
 		ft_printf("exit\n");
 	}
+	write_alias_on_exit(*var);
+	free_pos();
 	exit(status);
 }
