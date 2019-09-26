@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 10:53:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/26 08:28:35 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,6 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 
 	while (1)
 	{
-		puts("passe");
 		s_var = var;
 		if (replace_alias_first_part(&s_var, alias, replace) == 0)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:45:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/25 17:04:40 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -485,7 +485,7 @@ void			init_tok(t_tok *in);
 ** token.c
 */
 
-int				verif_token(char *str);
+int				verif_token(char *str, int j);
 void			check_token(t_pos *pos, t_tok *in, t_tokench *tok);
 void			init_tok(t_tok *in);
 
