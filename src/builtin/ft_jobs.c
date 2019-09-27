@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:34 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:24:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 11:03:21 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,6 @@ int				ft_jobs(t_process *p, t_var **var)
 	t_job_list	*job_list;
 	int			option;
 
-	stock(*var, 5);
 	option = ft_jobs_option(p->cmd);
 	job_list = stock(NULL, 10);
 	while (job_list != NULL)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:22:46 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 11:04:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -118,7 +118,7 @@ int			ft_test(t_process *p, t_var **var)
 {
 	int ret;
 
-	stock(*var, 5);
+	var = NULL;
 	ret = ft_test_argv(p->cmd, p->fd_out);
 	return (ret);
 }

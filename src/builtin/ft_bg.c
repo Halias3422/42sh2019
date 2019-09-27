@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:23:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 11:03:43 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,6 @@ int			ft_bg(t_process *p, t_var **var)
 {
 	t_job		*job;
 
-	stock(*var, 5);
 	if (ft_tabclen(p->cmd) <= 1)
 	{
 		ft_putstr_fd("usage: bg %[job_id]", p->fd_out);
