@@ -58,5 +58,6 @@ int		ft_exit(t_process *p, t_var **var)
 	}
 	write_alias_on_exit(*var);
 	free_pos();
+	free_t_hist(stock(NULL, 8));
 	exit(status);
 }

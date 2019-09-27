@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 13:34:20 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 14:49:58 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,7 +100,6 @@ void		free_alias(t_alias *alias)
 		free(alias);
 		alias = tmp;
 	}
-	printf("tmp=%p\talias=%p\n", tmp, alias);
 	free(alias);
 	alias = NULL;
 }
