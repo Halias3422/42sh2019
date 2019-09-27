@@ -40,15 +40,20 @@ void		alert_job(t_job *j)
 void		close_fd(t_process *p)
 {
 	if (p->fd_in != STDIN_FILENO)
+	{
 		close(p->fd_in);
+	}
 	if (p->fd_out != STDOUT_FILENO)
+	{
 		close(p->fd_out);
+	}
 }
 
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
 	int			infile;
+	int			mypipe[2];
 
 	infile = 0;
 	p = j->p;
@@ -58,6 +63,18 @@ void		launch_job(t_job *j, t_var *var)
 	before_redirection(p);
 	while (p)
 	{
+		p->fd_in = infile;
+		if (p->split == 'P')
+		{
+			pipe(mypipe);
+			p->fd_out = mypipe[1];
+			infile = mypipe[0];
+		}
+		else
+		{
+			p->fd_out = 1;
+			infile = 0;
+		}
 		if (p->cmd[0] && find_equal(p->cmd[0]) == 1)
 			if ((p->cmd = check_exec_var(p->cmd, &var)) == NULL)
 				return ;

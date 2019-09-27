@@ -73,14 +73,14 @@ static int	redirection_file(t_process *p, t_redirect *redirect)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(p->file_out, redirect->fd);
+		dup2(redirect->open_out, redirect->fd);
 		close(p->file_out);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(p->file_out, STDOUT_FILENO);
+		dup2(p->file_out, redirect->fd);
 		close(p->file_out);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
@@ -120,8 +120,10 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 	if (ft_strcmp(redirect->token, ">") == 0)
 	{
 		if (fd_right(redirect->fd_out))
-			p->file_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
+		{
+			redirect->open_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		}
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
@@ -143,33 +145,18 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 void		before_redirection(t_process *p)
 {
 	t_redirect	*redirect;
-	int			infile;
-	int			mypipe[2];
 
-	infile = 0;
 	while (p)
 	{
 		p->fd_error = STDERR_FILENO;
-		p->fd_in = infile;
-		if (p->split == 'P')
-		{
-			pipe(mypipe);
-			p->fd_out = mypipe[1];
-			infile = mypipe[0];
-		}
-		else
-		{
-			p->fd_out = 1;
-			infile = 0;
-		}
+		p->fd_in = 0;
+		p->fd_out = 1;
 		redirect = p->redirect;
 		while (redirect)
 		{
 			before_redirection_file(redirect, p);
 			redirect = redirect->next;
 		}
-		//if (p->split == 'P' && p->fd_out != mypipe[1])
-		//	close(mypipe[1]);
 		p = get_and_or(p);
 	}
 }

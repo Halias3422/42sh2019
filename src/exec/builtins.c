@@ -41,41 +41,6 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"env", &ft_env, 0}
 };
 
-/*void	builtin_redirection(t_process *p)
-{
-	t_redirect	*redirect;
-	int			fd_in;
-	int			fd_out;
-
-	redirect = p->redirect;
-	while (redirect)
-	{
-		fd_in = ft_atoi(redirect->fd_in);
-		if (!redirect->fd_in)
-			fd_in = 1;
-		fd_out = ft_atoi(redirect->fd_out);
-		if (ft_strcmp(redirect->token, ">") == 0)
-			p->fd_out = p->file_out;
-		if (ft_strcmp(redirect->token, ">>") == 0)
-			p->fd_out = p->file_out;
-		if (ft_strcmp(redirect->token, "<") == 0)
-			p->fd_in = p->file_in;
-		if (ft_strcmp(redirect->token, ">&") == 0)
-		{
-			if (ft_strcmp(redirect->fd_out, "-") == 0)
-				p->fd_in = -1;
-			else if (fd_in > 0 && fd_out > 0)
-			{
-				if (dup2(fd_out, fd_in) == -1)
-					ft_printf_err("42sh: duplication not working\n");
-			}
-			else
-				ft_printf_err("42sh: file number expected");
-		}
-		redirect = redirect->next;
-	}
-}*/
-
 int		is_builtin_modify(t_process *p)
 {
 	int i;
