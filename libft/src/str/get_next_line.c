@@ -6,14 +6,14 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 08:43:18 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/14 11:39:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 18:16:32 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_str.h"
 
-char	*get_line(char *str, char **line)
+static char		*get_line(char *str, char **line)
 {
 	char		*temp;
 	int			i;
@@ -34,7 +34,7 @@ char	*get_line(char *str, char **line)
 	return (*line);
 }
 
-int		get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
 	static char	*str[255];
 	char		buf[BUFF_SIZE + 1];
@@ -51,7 +51,7 @@ int		get_next_line(const int fd, char **line)
 		if ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 		{
 			buf[ret] = '\0';
-			temp = ft_strjoin(str[fd], buf);
+			temp = ft_strjoinf(str[fd], buf, 0);
 			free(str[fd]);
 			str[fd] = temp;
 		}

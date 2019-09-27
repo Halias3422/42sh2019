@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/03 15:18:39 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 08:59:47 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 18:20:25 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,13 @@ typedef struct		s_stock
 	int				fd;
 	struct s_stock	*next;
 }					t_stock;
+
+typedef struct		s_gnlist
+{
+	int				fd;
+	char			*str;
+	struct s_gnlist	*next;
+}					t_gnlist;
 
 void				ft_bzero(void *elem, int i);
 int					ft_isalpha(int c);
@@ -74,6 +81,7 @@ void				ft_put_space(int i);
 char				**ft_strsplit(const char *str, char c);
 void				ft_free_tab(char **tabe);
 int					get_next_line(int fd, char **line);
+int					get_next_line_mono_fd(const int fd, char **line);
 void				*ft_memset(void *mem, int c, size_t l);
 char				*ft_strjoinf(char *s1, char *s2, int mode);
 char				*ft_strchr(const char *s, int c);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:15:26 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 14:10:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,42 +63,37 @@ void		free_lexeur(t_lexeur **res)
 	free(res);
 }
 
-void		free_parseur(t_job *j)
-{
-	t_redirect	*red_tmp;
-	t_process	*pro_tmp;
-	t_job		*j_tmp;
-	int			i;
+// void		free_parseur(t_job *j)
+// {
+// 	t_redirect	*red_tmp;
+// 	t_process	*pro_tmp;
+// 	t_job		*j_tmp;
 
-	while (j)
-	{
-		while (j->p)
-		{
-			while (j->p->redirect)
-			{
-				ft_strdel(&j->p->redirect->fd_in);
-				ft_strdel(&j->p->redirect->fd_out);
-				ft_strdel(&j->p->redirect->token);
-				red_tmp = j->p->redirect;
-				j->p->redirect = j->p->redirect->next;
-				free(red_tmp);
-			}
-			i = 0;
-			while (j->p->cmd[i])
-			{
-				ft_strdel(&j->p->cmd[i]);
-				i++;
-			}
-			free(j->p->cmd);
-			pro_tmp = j->p;
-			j->p = j->p->next;
-			free(pro_tmp);
-		}
-		j_tmp = j;
-		j = j->next;
-		free(j_tmp);
-	}
-}
+// 	while (j)
+// 	{
+// 		while (j->p)
+// 		{
+// 			while (j->p->redirect)
+// 			{
+// 				ft_strdel(&j->p->redirect->fd_in);
+// 				ft_strdel(&j->p->redirect->fd_out);
+// 				ft_strdel(&j->p->redirect->token);
+// 				red_tmp = j->p->redirect;
+// 				j->p->redirect = j->p->redirect->next;
+// 				free(red_tmp);
+// 			}
+// 			ft_free_tab(j->p->cmd);
+// 			pro_tmp = j->p;
+// 			j->p = j->p->next;
+// 			free(pro_tmp);
+// 		}
+// 		free(pro_tmp);
+// 		j_tmp = j;
+// 		j = j->next;
+// 		free(j_tmp);
+// 	}
+// 	free(j_tmp);
+// }
 
 void		print_j(t_job *j)
 {
@@ -114,6 +109,36 @@ void		print_j(t_job *j)
 			pt = pt->next;
 		}
 		jt = jt->next;
+	}
+}
+
+void		free_jobs(t_job *j)
+{
+	t_job		*job;
+	t_process	*pro;
+	t_redirect	*red;
+
+	while (j)
+	{
+		while (j->p)
+		{
+			while (j->p->redirect)
+			{
+				ft_strdel(&j->p->redirect->fd_out);
+				ft_strdel(&j->p->redirect->fd_in);
+				ft_strdel(&j->p->redirect->token);
+				red = j->p->redirect;
+				j->p->redirect = j->p->redirect->next;
+				free(red);
+			}
+			ft_free_tab(j->p->cmd);
+			pro = j->p;
+			j->p = j->p->next;
+			free(pro);
+		}
+		job = j;
+		j = j->next;
+		free(job);
 	}
 }
 
@@ -138,6 +163,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 		launch_job(j, var);
 		j = j->next;
 	}
-	free_parseur(j);
+	// free_parseur(j);
+	free_jobs(j);
 	return (0);
 }

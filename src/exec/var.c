@@ -6,11 +6,12 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/26 13:57:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 17:25:00 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
+#include "../../includes/termcaps.h"
 #include "lexeur.h"
 #include "exec.h"
 
