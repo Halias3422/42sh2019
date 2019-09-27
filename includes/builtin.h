@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 13:27:45 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 14:14:59 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -223,6 +223,7 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 **	FT_CD_VERIF_C
 */
 
+char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path);
 int				verif_path(char *path, int mute);
 

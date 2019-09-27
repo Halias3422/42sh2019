@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 13:31:02 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 13:48:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,16 +15,10 @@
 
 int		get_cd_option(char **cmd, int *i, int ret, int j)
 {
-	while (cmd[++(*i)])
+	while (cmd[++(*i)] && ft_strcmp(cmd[*i], "--") != 0)
 	{
 		j = 0;
-		if (ft_strcmp(cmd[*i], "--") == 0)
-		{
-			if (cmd[*i + 1])
-				*i += 2;
-			return (0);
-		}
-		else if (cmd[*i][0] == '-' && cmd[*i][1])
+		if (cmd[*i][0] == '-' && cmd[*i][1])
 		{
 			while (cmd[*i][++j])
 			{
@@ -38,6 +32,8 @@ int		get_cd_option(char **cmd, int *i, int ret, int j)
 			}
 		}
 	}
+	if (cmd[*i] && ft_strcmp(cmd[*i], "--") == 0)
+		*i += 2;
 	return (ret);
 }
 
@@ -71,7 +67,7 @@ char	*move_to_new_dir(char *cmd, t_var **var, char *new_path)
 
 char	*get_path(char *cmd, t_var **var, char *new_path, int option)
 {
-	if (cmd == NULL || (cmd && cmd[0] == '~') || ft_strcmp(cmd, "cd") == 0)
+	if (ft_strcmp(cmd, "--") == 0 || (cmd && cmd[0] == '~') || ft_strcmp(cmd, "cd") == 0)
 		new_path = move_to_home_dir(var);
 	else if (ft_strcmp(cmd, "-") == 0)
 		new_path = move_to_oldpwd(var);

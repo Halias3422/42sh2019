@@ -6,12 +6,23 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:11:29 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 13:11:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 14:14:23 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
+
+char			*print_pwd(t_var *var)
+{
+	char	*pwd;
+
+	pwd = ft_get_val("PWD", var, ENVIRONEMENT);
+	if (pwd != NULL && verif_path(pwd, 0) != 0)
+		return (ft_strdup(pwd));
+	else
+		return (getcwd(NULL, 1000));
+}
 
 char	*verif_p_option_path(char *new_path)
 {
@@ -58,10 +69,11 @@ int		verif_path(char *path, int mute)
 	DIR		*file;
 	int		i;
 
+	file = NULL;
 	i = ft_strlen(path) - 2;
 	while (i > 0 && path[i] != '/')
 		i--;
-	if ((file = opendir(path)) == NULL)
+	if (path == NULL || (path != NULL && (file = opendir(path)) == NULL))
 	{
 		print_cd_error(path, i, mute, 0);
 		return (0);
