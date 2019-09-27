@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 11:14:17 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 11:50:07 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,31 +77,31 @@ void		free_name_and_data(char *name, char *data)
 	ft_strdel(&data);
 }
 
-void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
+void        add_list_env(t_var **ptr_var, int type, char *name, char *data)
 {
-	t_var	*var;
-	t_var	*last;
+    t_var    *var;
+    t_var    *last;
 
-	var = *ptr_var;
-	last = NULL;
-	if (!var)
-		return ;
-	while (var->next != NULL)
-	{
-		if (ft_strcmp(name, var->name) == 0 && type == var->type)
-		{
-			ft_strdel(&var->data);
-			var->data = ft_strdup(data);
-			free_name_and_data(name, data);
-			return ;
-		}
-		last = var;
-		var = var->next;
-	}
-	last = malloc(sizeof(t_var));
-	last->name = ft_strdup(name);
-	last->data = ft_strdup(data);
-	last->type = type;
-	last->next = NULL;
-	free_name_and_data(name, data);
+    var = *ptr_var;
+    if (!var)
+        return ;
+    while (var != NULL)
+    {
+        if (ft_strcmp(name, var->name) == 0 && type == var->type)
+        {
+            ft_strdel(&var->data);
+            var->data = ft_strdup(data);
+            free_name_and_data(name, data);
+            return ;
+        }
+        if (var->next == NULL)
+            last = var;
+        var = var->next;
+    }
+    last->next = malloc(sizeof(t_var));
+    last->next->name = ft_strdup(name);
+    last->next->data = ft_strdup(data);
+    last->next->type = type;
+    last->next->next = NULL;
+    free_name_and_data(name, data);
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 16:05:47 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 13:40:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,6 +90,7 @@ char                *check_path_hash(char **tab_var, char **arg,
     char            **paths;
     t_hash          **hash;
     int             denied;
+	
     denied = 0;
     if (ft_strchr(arg[0], '/') != 0)
         return (absolute_path(arg[0]));
