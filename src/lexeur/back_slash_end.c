@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   back_slash_end.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:12:52 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:13:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:15:58 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,11 +75,9 @@ void		del_back_slash_end(char ***ar)
 {
 	int		j;
 	int		k;
-	int		start;
 
 	j = 0;
 	k = 0;
-	start = 0;
 	while ((*ar)[j])
 	{
 		while ((*ar)[j][k])

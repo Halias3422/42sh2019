@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 10:05:45 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:23:33 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,6 +49,7 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 	t_var *pres;
 
 	var = *ptr_var;
+	pres = NULL;
 	if (ft_strcmp(name, (var)->name) == 0 && (var)->type == type)
 	{
 		buf = (*ptr_var)->next;
@@ -77,6 +78,7 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 	t_var	*last;
 
 	var = *ptr_var;
+	last = NULL;
 	if (!var)
 		return;
 	while (var->next != NULL)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 10:13:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:15:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,9 +48,7 @@ void		close_fd(t_process *p)
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
-	int			infile;
 
-	infile = 0;
 	p = j->p;
 	if (j->p->builtin == 0 || j->split == '&')
 		add_job(j);

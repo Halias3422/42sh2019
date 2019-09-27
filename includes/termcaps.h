@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 17:04:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:14:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -190,6 +190,8 @@ typedef struct		s_tok
 	int				mode;
 	int				nb_quote;
 	int				nb_dquote;
+	int				testtoken;
+	int				doubletoken;
 	char			*dquote_d;
 }					t_tok;
 

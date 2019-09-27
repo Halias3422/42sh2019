@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 15:00:57 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 08:15:20 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:23:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ int		ft_echo_simple(t_process *p, t_var **var)
 	int i;
 
 	i = 1;
-	var = NULL;
+	stock(*var, 5);
 	while (p->cmd[i] != NULL)
 	{
 		if (i != 1)
@@ -36,7 +36,7 @@ int		ft_echo_no_line(t_process *p, t_var **var)
 	int i;
 
 	i = 2;
-	var = NULL;
+	stock(*var, 5);
 	while (p->cmd[i] != NULL)
 	{
 		if (i != 2)

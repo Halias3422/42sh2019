@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/25 15:57:47 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 16:18:29 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:15:39 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,6 +60,7 @@ void		add_list_alias(t_var **var, char *name, char *data)
 {
 	t_var	*prev;
 
+	prev = NULL;
 	if (!(*var))
 	{
 		add_alias(var, name, data);

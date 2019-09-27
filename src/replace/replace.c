@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/26 09:18:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:21:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,15 +32,11 @@ char		*make_string(char **array)
 	return (res);
 }
 
-int			check_alias(char *array, t_var *var, t_replace *replace)
+int			check_alias(char *array, t_var *var)
 {
-	int			i;
-	t_replace	*r;
 	t_var		*tmp_var;
 
 	tmp_var = var;
-	i = 0;
-	r = replace;
 	while (tmp_var && ((ft_strcmp(array, tmp_var->name) != 0)
 	|| tmp_var->type != ALIAS))
 		tmp_var = tmp_var->next;
@@ -70,11 +66,9 @@ int			check_backslash_var(char *str)
 int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 {
 	int		done;
-	int		i;
 
 	done = 0;
-	i = 0;
-	if (check_alias(alias->data, var, replace) == 1 && alias->data[0] != '\\')
+	if (check_alias(alias->data, var) == 1 && alias->data[0] != '\\')
 		replace_alias(alias, var, replace);
 	check_tok(alias, var, replace);
 	while (alias)
