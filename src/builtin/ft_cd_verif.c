@@ -6,14 +6,14 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:11:29 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 14:14:23 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 16:48:02 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 
-char			*print_pwd(t_var *var)
+char		*print_pwd(t_var *var)
 {
 	char	*pwd;
 
@@ -24,7 +24,7 @@ char			*print_pwd(t_var *var)
 		return (getcwd(NULL, 1000));
 }
 
-char	*verif_p_option_path(char *new_path)
+char		*verif_p_option_path(char *new_path)
 {
 	int		i;
 	char	**split_path;
@@ -50,21 +50,21 @@ char	*verif_p_option_path(char *new_path)
 	return (new_path);
 }
 
-void	print_cd_error(char *path, int i, int mute, int usage)
+void		print_cd_error(char *path, int i, int mute, int usage)
 {
 	if (mute)
 	{
 		if (usage == 0)
-			ft_printf_err("42sh: cd: %s: is not a directory\n", path + i + 1);
+			ft_printf_err("42sh: cd: %s: is not a directory\n", path + i);
 		if (usage == 1)
 			ft_printf_err("42sh: cd: %s: No such file or directory",
 			path + i + 1);
 		if (usage == 2)
-			ft_printf_err("42sh: cd: %s: permission denied\n", path + i + 1);
+			ft_printf_err("42sh: cd: %s: permission denied\n", path + i);
 	}
 }
 
-int		verif_path(char *path, int mute)
+int			verif_path(char *path, int mute)
 {
 	DIR		*file;
 	int		i;
