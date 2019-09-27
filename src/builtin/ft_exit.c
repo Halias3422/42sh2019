@@ -33,48 +33,30 @@ void			free_pos()
 	ft_strdel(&pos->saved_ans);
 }
 
-void	free_hist(t_hist *hist)
+int		error_exit(int i)
 {
-	t_hist *tmp;
-
-	tmp = hist;
-	while (hist)
-	{
-		tmp = hist->next;
-		ft_strdel(&hist->cmd);
-		free(hist);
-		hist = tmp;
-	}
-	hist = NULL;
+	if (i == 1)
+		ft_printf_err("42sh: exit: {B.T.red.}error{eoc}: Too many arguments\n");
+	return (1);
 }
 
 int		ft_exit(t_process *p, t_var **var)
 {
-	t_hist	*tmp;
-	t_hist	*hist;
 	int	status;
 
-	hist = stock(NULL, 8);
-	tmp = hist;
-	write_alias_on_exit(*var);
-	free_pos();
 	status = ft_atoi(p->cmd[1]);
+	if (p->cmd && p->cmd[1] && p->cmd[2])
+		return (error_exit(1));		
+	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
+		return (status);
 	if (status < 0)
 		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
 	else
 	{
-		while (hist)
-		{
-			tmp = hist;
-			printf("%s\n", hist->cmd);
-			ft_strdel(&hist->cmd);
-			hist = hist->next;
-			free(tmp);
-		}
-		// free_t_hist(*ghist);
-		// free_env(*var);
 		free_hash_table();
 		ft_printf("exit\n");
 	}
+	write_alias_on_exit(*var);
+	free_pos();
 	exit(status);
 }

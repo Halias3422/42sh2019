@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:08:47 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:08:57 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/23 09:59:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,4 +81,5 @@ void		fill_alias_multiple(char *str, t_alias *alias, int *i);
 int			cnt_list_var(t_tvar *var);
 char		**make_list_to_ar_var(t_tvar *alias);
 t_tvar		*make_ar_to_list_var(char **str);
+
 #endif

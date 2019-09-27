@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 15:37:27 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:16:13 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,6 +60,10 @@ t_var	*init_env(char **env, t_pos *pos)
 			new = new->next;
 		}
 	}
+	new->next = malloc(sizeof(t_var));
+	new = new->next;
+	new->name = ft_strdup("?");
+	new->data = ft_strdup("0");
 	new->next = NULL;
 	init_alias(save, pos, NULL);
 	return (save);
@@ -72,8 +76,8 @@ void	free_env(t_var *env)
 	while (env)
 	{
 		buf = env->next;
-		ft_strdel(&env->name);
-		ft_strdel(&env->data);
+		free(env->name);
+		free(env->data);
 		free(env);
 		env = buf;
 	}

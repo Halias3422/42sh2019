@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   job_notification.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 16:26:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/08/22 16:43:47 by husahuc     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,13 +14,13 @@
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
 
-void		update_status(void)
+void		update_status(t_var **var)
 {
 	int		status;
 	pid_t	pid;
 
 	pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
-	while (!mark_process_status(pid, status, stock(NULL, 6)))
+	while (!mark_process_status(pid, status, var))
 	{
 		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
 	}
@@ -61,7 +61,7 @@ void		free_job(t_job_list *j)
 	free(j);
 }
 
-void		job_notification(void)
+void		job_notification(t_var **var)
 {
 	t_job_list	*job_list;
 	t_job_list	*last;
@@ -69,7 +69,7 @@ void		job_notification(void)
 	t_job_list	*next;
 
 	last = NULL;
-	update_status();
+	update_status(var);
 	first_job = stock(NULL, 10);
 	job_list = first_job;
 	while (job_list)

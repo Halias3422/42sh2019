@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:51:07 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 14:52:14 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/26 17:34:55 by bjuarez     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,6 +63,8 @@ void		init_tok(t_tok *in)
 	in->heredoc = 0;
 	in->herestr = NULL;
 	in->fullheredoc = NULL;
+	in->testtoken = 0;
+	in->doubletoken = 0;
 	in->i = 0;
 	in->n = 0;
 	in->mode = 0;

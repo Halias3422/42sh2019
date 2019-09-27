@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 15:01:04 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 15:04:18 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,6 @@ void			fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 void			fill_process_first_part(t_job **j, t_lexeur **res,
 int *i, int k)
 {
-	fill_process_split(j, res, i);
 	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
 	while (res[*i] && res[*i]->word)
 		fill_cmd(res, j, &k, i);
@@ -74,6 +73,7 @@ int *i)
 	if (res[*i] && (res[*i]->token == 0 || res[*i]->token == 2
 	|| res[*i]->token == 3))
 	{
+		fill_process_split(j, res, *i);
 		(*j)->p->next = malloc(sizeof(t_process));
 		(*j)->p = (*j)->p->next;
 		(*j)->p->status = '\0';
@@ -104,6 +104,7 @@ void			fill_process(t_job *j, t_lexeur **res)
 		j->p->stoped = 0;
 		j->p->completed = 0;
 		j->p->redirect = NULL;
+		j->p->split = '\0';
 		if (fill_process_while(res, &j, &start, &i) == 0)
 			break ;
 		i++;

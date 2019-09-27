@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   check_backslash.c                                .::    .:/ .      .::   */
+/*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/09/20 08:39:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 15:37:20 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/19 13:46:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ void	replace_last_hist(t_hist *hist, char *ans)
 	while (hist->next)
 		hist = hist->next;
 	hist = hist->prev;
-	ft_strdel(&hist->cmd);
+	free(hist->cmd);
 	hist->cmd = ft_strnew(ft_strlen(ans));
 	hist->cmd = ft_strcpy(hist->cmd, ans);
 }

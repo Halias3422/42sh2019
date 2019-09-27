@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 08:48:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 10:02:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ typedef struct	s_builtin
 {
 	const char	*name;
 	int			(*ptr_builtin)(t_process*, t_var**);
+	int			modify_data;
 }				t_builtin;
 
 typedef struct	s_fc

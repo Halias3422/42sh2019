@@ -14,7 +14,23 @@
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
 
-static void	duplication(t_redirect *redirect, int fd_in, int fd_out)
+static int	fd_right(char *path)
+{
+	if (access(path, F_OK) != -1)
+	{
+		if (opendir(path) != NULL)
+			ft_printf_err("42sh: %s: Is a directory", path);
+		else if (access(path, R_OK) == -1)
+			ft_printf_err("42sh: %s: Permission denied", path);
+		else
+			return (1);
+	}
+	else
+		return (1);
+	return (0);
+}
+
+static int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 {
 	if (ft_strcmp(redirect->token, ">&") == 0)
 	{
@@ -23,10 +39,13 @@ static void	duplication(t_redirect *redirect, int fd_in, int fd_out)
 		else if (fd_in > 0 && fd_out > 0)
 		{
 			if (dup2(fd_out, fd_in) == -1)
-				printf("%s\n", "cela ne marche pas");
+				ft_printf_err("42sh: duplication not working\n");
+			else
+				return (1);
 		}
 		else
-			ft_printf_err("ceci ne marche pas");
+			ft_printf_err("42sh: file number expected");
+		return (0);
 	}
 	if (ft_strcmp(redirect->token, "<&") == 0)
 	{
@@ -34,38 +53,42 @@ static void	duplication(t_redirect *redirect, int fd_in, int fd_out)
 			close(fd_in);
 		else if (fd_in > 0 && fd_out > 0)
 		{
-			if (dup2(fd_in, fd_out) == -1)
-				printf("%s\n", "cela ne marche pas");
+			if (fd_out > STDERR_FILENO)
+				ft_printf_err("42sh: %d: bad file descriptor", fd_out);
+			else if (dup2(fd_in, fd_out) == -1)
+				ft_printf_err("42sh: duplication not working\n");
+			else
+				return (1);
 		}
 		else
-			ft_printf_err("ceci ne marche pas");
+			ft_printf_err("42sh: file number expected");
+		return (0);
 	}
+	return (2);
 }
 
-static int	redirection_file(t_redirect *redirect)
+static int	redirection_file(t_process *p, t_redirect *redirect)
 {
-	int			fd_in;
-
 	if (ft_strcmp(redirect->token, ">") == 0)
 	{
-		dup2(open(redirect->fd_out, O_CREAT | O_WRONLY,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH), STDOUT_FILENO);
+		if (!fd_right(redirect->fd_out))
+			return (0);
+		dup2(p->file_out, redirect->fd);
+		close(p->file_out);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
-		dup2(open(redirect->fd_out, O_CREAT | O_WRONLY | O_APPEND,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH), STDOUT_FILENO);
+		if (!fd_right(redirect->fd_out))
+			return (0);
+		dup2(p->file_out, STDOUT_FILENO);
+		close(p->file_out);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
-		if ((fd_in = open(redirect->fd_out, O_RDONLY)) < 0)
-		{
-			ft_printf_err("42sh: no such file or directory: %s\n",
-				redirect->fd_out);
+		if (!fd_right(redirect->fd_out) || !ft_file_exists(redirect->fd_out))
 			return (0);
-		}
-		else
-			dup2(fd_in, STDIN_FILENO);
+		dup2(p->file_in, STDIN_FILENO);
+		close(p->file_in);
 	}
 	return (1);
 }
@@ -83,10 +106,70 @@ int			launch_redirection(t_process *p)
 		if (!redirect->fd_in)
 			fd_in = 1;
 		fd_out = ft_atoi(redirect->fd_out);
-		if (redirection_file(redirect) == 0)
+		if (redirection_file(p, redirect) == 0)
 			return (0);
-		duplication(redirect, fd_in, fd_out);
+		if (duplication(redirect, fd_in, fd_out) == 0)
+			return (0);
 		redirect = redirect->next;
 	}
 	return (1);
+}
+
+void		before_redirection_file(t_redirect *redirect, t_process *p)
+{
+	if (ft_strcmp(redirect->token, ">") == 0)
+	{
+		if (fd_right(redirect->fd_out))
+			p->file_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	}
+	if (ft_strcmp(redirect->token, ">>") == 0)
+	{
+		if (fd_right(redirect->fd_out))
+			p->file_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_APPEND,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	}
+	if (ft_strcmp(redirect->token, "<") == 0)
+	{
+		if ((p->file_in = open(redirect->fd_out, O_RDONLY)) < 0)
+		{
+			ft_printf_err("42sh: no such file or directory: %s\n",
+				redirect->fd_out);
+		}
+	}
+	redirect = redirect->next;
+}
+
+void		before_redirection(t_process *p)
+{
+	t_redirect	*redirect;
+	int			infile;
+	int			mypipe[2];
+
+	infile = 0;
+	while (p)
+	{
+		p->fd_error = STDERR_FILENO;
+		p->fd_in = infile;
+		if (p->split == 'P')
+		{
+			pipe(mypipe);
+			p->fd_out = mypipe[1];
+			infile = mypipe[0];
+		}
+		else
+		{
+			p->fd_out = 1;
+			infile = 0;
+		}
+		redirect = p->redirect;
+		while (redirect)
+		{
+			before_redirection_file(redirect, p);
+			redirect = redirect->next;
+		}
+		//if (p->split == 'P' && p->fd_out != mypipe[1])
+		//	close(mypipe[1]);
+		p = get_and_or(p);
+	}
 }

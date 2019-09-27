@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 15:00:57 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 16:53:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:23:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,44 +14,50 @@
 #include "../../includes/builtin.h"
 #include "../../includes/exec.h"
 
-int		ft_echo_simple(t_process *p)
+int		ft_echo_simple(t_process *p, t_var **var)
 {
 	int i;
 
 	i = 1;
+	stock(*var, 5);
 	while (p->cmd[i] != NULL)
 	{
 		if (i != 1)
-			ft_putchar_fd(' ', p->fd_out);
-		ft_putstr_fd(p->cmd[i], p->fd_out);
+			ft_putchar(' ');
+		ft_putstr(p->cmd[i]);
 		i++;
 	}
-	ft_putchar_fd('\n', p->fd_out);
-	return (0);
+	ft_putchar('\n');
+	return (1);
 }
 
-int		ft_echo_no_line(t_process *p)
+int		ft_echo_no_line(t_process *p, t_var **var)
 {
 	int i;
 
 	i = 2;
+	stock(*var, 5);
 	while (p->cmd[i] != NULL)
 	{
 		if (i != 2)
-			ft_putchar_fd(' ', p->fd_out);
-		ft_putstr_fd(p->cmd[i], p->fd_out);
+			ft_putchar(' ');
+		ft_putstr(p->cmd[i]);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int		ft_echo(t_process *p, t_var **var)
 {
-	stock(*var, 5);
+	if (p->fd_in < 0)
+	{
+		ft_printf("42sh: echo: write error: Bad file descriptor\n");
+		return (0);
+	}
 	if (p->cmd[1])
 	{
 		if (ft_strcmp(p->cmd[1], "-n") == 0)
-			return (ft_echo_no_line(p));
+			return (ft_echo_no_line(p, var));
 	}
-	return (ft_echo_simple(p));
+	return (ft_echo_simple(p, var));
 }

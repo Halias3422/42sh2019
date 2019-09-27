@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   check_for_tilde.c                                .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 10:19:33 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 13:21:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/16 14:35:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,7 @@ char		*replace_tilde_by_home(char *ans, int i, char *home)
 	new_ans = ft_copy_part_str(ans, i - 1, 0);
 	new_ans = ft_strjoinf(new_ans, home, 1);
 	new_ans = ft_strjoinf(new_ans, ans + i + 1, 1);
-	ft_strdel(&ans);
+	free(ans);
 	return (new_ans);
 }
 

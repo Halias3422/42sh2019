@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tab_key_auto_complete.c                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:21:44 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 13:17:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 11:12:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -111,7 +111,7 @@ void		auto_complete(t_pos *pos, t_htab *htab, char *name,
 	print_ans(pos, 0, pos->start_co);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
 	tputs(tgoto(tgetstr("cm", NULL), pos->act_co, pos->act_li), 1, ft_putchar);
-	ft_strdel(&old_pos_ans);
+	free(old_pos_ans);
 }
 
 t_htab		*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name)

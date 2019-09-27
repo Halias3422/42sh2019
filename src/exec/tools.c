@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tools.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 10:55:32 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 13:14:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/29 10:58:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,6 +94,6 @@ void	ft_tabfree(char **res)
 
 	i = -1;
 	while (res[++i])
-		ft_strdel(&res[i]);
+		free(res[i]);
 	free(res);
 }

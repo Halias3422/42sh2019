@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 09:31:03 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 16:05:47 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,44 +84,29 @@ char				*fill_hash_table(char *path, char **arg)
 	return (ans);
 }
 
-char				*check_path_hash(char **tab_var, char **arg,
-					int i, char *ans)
+char                *check_path_hash(char **tab_var, char **arg,
+                    int i, char *ans)
 {
-	char			**paths;
-	t_hash			**hash;
-
-	if (ft_strchr(arg[0], '/') != 0)
-	{
-		ft_free_tab(tab_var);
-		return (absolute_path(arg[0]));
-	}
-	if ((hash = stock_hash(NULL, 1)) != NULL &&
-	(ans = search_exec_in_table(hash[get_key_of_exec(arg[0])], arg[0])) != NULL)
-	{
-		ft_free_tab(tab_var);
-		return (ans);
-	}
-	paths = get_ide_paths(tab_var);
-	while (paths != NULL && paths[++i])
-	{
-		paths[i] = ft_strjoinf(paths[i], "/", 1);
-		paths[i] = ft_strjoinf(paths[i], arg[0], 1);
-		if (access(paths[i], F_OK) == 0)
-		{
-			if (access(paths[i], X_OK) == 0)
-			{
-				ft_free_tab(tab_var);
-				return (path_found(paths, i, ans, arg));
-			}
-			else
-			{
-				ft_free_tab(tab_var);
-				return (path_denied(paths, arg));
-			}
-		}
-	}
-	ft_printf("42sh: %s: command not found\n", arg[0]);
-	ft_free_tab(paths);
-	ft_free_tab(tab_var);
-	return (NULL);
+    char            **paths;
+    t_hash          **hash;
+    int             denied;
+    denied = 0;
+    if (ft_strchr(arg[0], '/') != 0)
+        return (absolute_path(arg[0]));
+    if ((hash = stock_hash(NULL, 1)) != NULL &&
+    (ans = search_exec_in_table(hash[get_key_of_exec(arg[0])], arg[0])) != NULL)
+        return (ans);
+    paths = get_ide_paths(tab_var);
+    while (paths != NULL && paths[++i])
+    {
+        paths[i] = ft_strjoinf(paths[i], "/", 1);
+        paths[i] = ft_strjoinf(paths[i], arg[0], 1);
+        if (access(paths[i], F_OK) == 0 && access(paths[i], X_OK) == 0)
+            return (path_found(paths, i, ans, arg));
+        else if (access(paths[i], F_OK) == 0 && access(paths[i], X_OK) != 0)
+            denied += 1;
+    }
+    if (denied != 0)
+        return (path_denied(paths, arg));
+    return (path_not_found(paths, arg));
 }

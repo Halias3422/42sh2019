@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 15:37:04 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:21:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -120,6 +120,7 @@ char		**start_split(t_var *start, char *str)
 		if (remove_env_while(alias, start, replace) == 0)
 			break ;
 	}
+	// ft_free_tab(ar);
 	ar = make_list_to_ar(alias);
 	free_replace(replace);
 	free_alias(alias);

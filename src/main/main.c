@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 13:32:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 10:12:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,11 @@ void			signal_main(void)
 
 int				check_entry(void)
 {
-	struct winsize w;
+	struct winsize	w;
+	char			*s;
 
+	if (!(s = malloc(sizeof(char) * 10000000)))
+		exit(0);
 	if (ioctl(0, TIOCGWINSZ, &w) == -1)
 	{
 		ft_printf("Entry is not a tty\nExit\n");
@@ -61,7 +64,8 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	ans = termcaps42sh(&pos, hist, my_env);
 	ans = check_backslash(&pos, hist);
 	ans = check_for_tilde(ans, my_env, 0, 0);
-	job_notification();
+	tcsetattr(0, TCSANOW, &(pos.old_term));
+	job_notification(&my_env);
 	if (ans == NULL)
 		return (1);
 	if (check_ans(ans) == 1 && pos.error != 2)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 15:38:34 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:24:48 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,33 +71,6 @@ void		add_var_to_env(t_var **var, char *name, char *data)
 	(*var)->data = data;
 }
 
-// static int	element_already_exists_and_replace(char **element, t_var *var)
-// {
-// 	while (var != NULL && ft_strcmp(element[0], var->name) != 0)
-// 		var = var->next;
-// 	if (var == NULL)
-// 		return (0);
-// 	free(var->data);
-// 	free(var->name);
-// 	var->name = element[0];
-// 	var->data = element[1];
-// 	return (1);
-// }
-
-// static void	add_var_to_env(t_var *var, char **element)
-// {
-// 	t_var		*new;
-
-// 	while (var->next != NULL)
-// 		var = var->next;
-// 	new = (t_var*)malloc(sizeof(t_var));
-// 	new->name = element[0];
-// 	new->data = element[1];
-// 	new->type = ENVIRONEMENT;
-// 	new->next = NULL;
-// 	var->next = new;
-// }
-
 static int	setenv_rules(t_process *p)
 {
 	if (p->cmd[1] && p->cmd[2])
@@ -113,24 +86,28 @@ static int	setenv_rules(t_process *p)
 	return (1);
 }
 
-int         ft_setenv(t_process *p, t_var **var)
+int			ft_setenv(t_process *p, t_var **var)
 {
-    char        *name;
-    char        *data;
-    if (p->cmd[1])
-    {
-        if (setenv_rules(p) == 0)
-            return (0);
-        name = init_name(p->cmd[1]);
-        if (name[0] == '\0')
-        {
-            ft_strdel(&name);
-            ft_printf("42sh: setenv: bad parameters, use -u for usage\n");
-            return (0);
-        }
-        data = init_data(p->cmd[1]);
-        add_var_to_env(var, name, data);
-    }
-    print_env(var);
-    return (1);
+	char		**al;
+
+	al = NULL;
+	if (p->cmd[1])
+	{
+		al = malloc(sizeof(char *) * 3);
+		al[0] = init_name(p->cmd[1]);
+		al[1] = init_data(p->cmd[1]);
+		al[2] = 0;
+		remoove_quote(&al);
+		if (setenv_rules(p) == 0)
+			return (0);
+		if (scan_name_for_undesired_symbols(al[0]) == -1)
+		{
+			ft_free_tab(al);
+			ft_printf_err("42sh: setenv: invalid name parameter\n");
+			return (0);
+		}
+		add_var_to_env(var, al[0], al[1]);
+	}
+	free(al);
+	return (1);
 }

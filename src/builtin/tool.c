@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 15:39:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:23:33 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,8 +36,8 @@ char		*ft_get_val(char *name, t_var *var, int type)
 
 void		remove_item_var(t_var **var)
 {
-	ft_strdel(&(*var)->name);
-	ft_strdel(&(*var)->data);
+	free((*var)->name);
+	free((*var)->data);
 	free(*var);
 	*var = NULL;
 }
@@ -77,11 +77,11 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 	t_var	*var;
 	t_var	*last;
 
-	type = 0;
 	var = *ptr_var;
+	last = NULL;
 	if (!var)
 		return;
-	while (var != NULL)
+	while (var->next != NULL)
 	{
 		if (ft_strcmp(name, var->name) == 0 && type == var->type)
 		{

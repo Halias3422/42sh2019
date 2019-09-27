@@ -6,79 +6,13 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 15:38:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:15:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
-
-void	find_alias(t_process *p, t_var *var, int k)
-{
-	t_var	*tmp;
-
-	tmp = var;
-	while (tmp && ft_strcmp(p->cmd[k], tmp->name))
-		tmp = tmp->next;
-	if (!tmp)
-	{
-		ft_putstr("21sh: alias: ");
-		ft_putstr(p->cmd[k]);
-		ft_putstr(": not found\n");
-		return ;
-	}
-	ft_putstr("alias ");
-	ft_putstr(tmp->name);
-	ft_putstr("='");
-	ft_putstr(tmp->data);
-	ft_putstr("'\n");
-}
-
-void		add_alias(t_var **var, char *name, char *data)
-{
-	t_var	*start;
-
-	start = malloc(sizeof(t_var));
-	start->name = name;
-	start->data = data;
-	start->type = ALIAS;
-	start->next = (*var);
-	(*var) = start;
-}
-
-void		add_list_alias(t_var **var, char *name, char *data)
-{
-	t_var	*prev;
-
-	prev = NULL;
-	if (!(*var))
-	{
-		add_alias(var, name, data);
-		stock(*var, 5);
-		return ;
-	}
-	while (*var)
-	{
-		if (ft_strcmp(name, (*var)->name) == 0)
-			break ;
-		prev = (*var);
-		(*var) = (*var)->next;
-	}
-	if (!(*var))
-	{
-		(*var) = malloc(sizeof(t_var));
-		prev->next = (*var);
-		(*var)->next = NULL;
-		(*var)->name = name;
-		(*var)->data = data;
-		(*var)->type = ALIAS;
-		return ;
-	}
-	ft_strdel(&(*var)->data);
-	ft_strdel(&name);
-	(*var)->data = data;
-}
 
 int		print_alias(t_var *var)
 {
@@ -93,8 +27,7 @@ int		print_alias(t_var *var)
 
 int		main_alias(t_process *p, t_var **var)
 {
-	char	*name;
-	char	*data;
+	char	**al;
 	int		i;
 	int		k;
 
@@ -103,17 +36,19 @@ int		main_alias(t_process *p, t_var **var)
 		return (print_alias(*var));
 	while (p->cmd[++k])
 	{
+		al = malloc(sizeof(char *) * 3);
+		al[2] = 0;
+		al[0] = init_name(p->cmd[k]);
+		al[1] = init_data(p->cmd[k]);
+		remoove_quote(&al);
 		i = 0;
 		while (p->cmd[k][i] && p->cmd[k][i] != '=')
 			i++;
 		if (i == 0 || !p->cmd[k][i])
 			find_alias(p, (*var), k);
 		else
-		{
-			name = ft_strsub(p->cmd[k], 0, i);
-			data = ft_strsub(p->cmd[k], i + 1, ft_strlen(p->cmd[k]) - (i + 1));
-			add_list_alias(var, name, data);
-		}
+			add_list_alias(var, al[0], al[1]);
+		ft_free_tab(al);
 	}
 	return (1);
 }
@@ -138,8 +73,8 @@ int		check_a(t_process *p, t_var **var)
 	while (start && start->type == ALIAS)
 	{
 		*var = start->next;
-		ft_strdel(&start->data);
-		ft_strdel(&start->name);
+		free(start->data);
+		free(start->name);
 		free(start);
 		start = *var;
 	}
@@ -148,8 +83,8 @@ int		check_a(t_process *p, t_var **var)
 		if ((*var)->next && (*var)->next->type == ALIAS)
 		{
 			tmp = (*var)->next->next;
-			ft_strdel(&(*var)->next->data);
-			ft_strdel(&(*var)->next->name);
+			free((*var)->next->data);
+			free((*var)->next->name);
 			free((*var)->next);
 			(*var)->next = tmp;
 		}
@@ -168,8 +103,8 @@ int		main_unalias(t_process *p, t_var **var)
 	int		k;
 
 	k = 1;
-	last = NULL;
 	start = (*var);
+	last = NULL;
 	if (check_a(p, var) == 1)
 		return (1);
 	while (p->cmd[k])

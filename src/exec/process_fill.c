@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 17:14:10 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/24 15:06:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,14 +14,16 @@
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
 
-void		fill_process_split(t_job **j, t_lexeur **res, int *i)
+void		fill_process_split(t_job **j, t_lexeur **res, int i)
 {
 	int		k;
 
-	k = (*i);
+	k = i;
 	while (res[k] && (res[k]->word || (res[k]->token == 4 ||
 	res[k]->token == 5 || res[k]->token == 6 || res[k]->token == 7)))
+	{
 		k++;
+	}
 	if (res[k] && res[k]->token == 0)
 		(*j)->p->split = 'A';
 	else if (res[k] && res[k]->token == 2)
@@ -72,9 +74,9 @@ void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 		: NULL;
 	}
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
-		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 0;
+		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	else
-		tmp->fd = 0;
+		tmp->fd = 1;
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
@@ -100,7 +102,7 @@ void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 0;
 	else
-		tmp->fd = 0;
+		tmp->fd = 1;
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;

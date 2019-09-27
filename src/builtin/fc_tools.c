@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 13:14:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 13:04:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/18 08:41:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,7 @@ void			overwrite_history_file(t_hist *hist)
 	if (pwd == NULL)
 		return ;
 	fd = open(pwd, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	ft_strdel(&pwd);
+	free(pwd);
 	while (hist->prev)
 		hist = hist->prev;
 	while (hist->next)

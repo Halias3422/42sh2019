@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:34 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 16:54:07 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:24:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,5 +84,6 @@ int				ft_jobs(t_process *p, t_var **var)
 		job_list = job_list->next;
 	}
 	p = NULL;
+	var = NULL;
 	return (0);
 }

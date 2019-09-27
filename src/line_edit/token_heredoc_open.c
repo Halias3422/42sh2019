@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:36:04 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 15:10:20 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/26 17:28:18 by bjuarez     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,6 +39,25 @@ static void	find_word_heredoc(t_pos *pos, t_tok *in, int k, int l)
 	in->herestr[l] = '\0';
 }
 
+static void	test_heredoc(t_tok *in)
+{
+	int		i;
+
+	i = 0;
+	while (in->herestr[i] != '\0')
+	{
+		if (in->herestr[i] == '<' && in->herestr[i + 1] == '<')
+			in->testtoken = 1;
+		if (in->herestr[i] == '>' && in->herestr[i + 1] == '>')
+			in->testtoken = 1;
+		if (in->herestr[i] == '<')
+			in->testtoken = 1;
+		if (in->herestr[i] == '>')
+			in->testtoken = 1;
+		i++;
+	}
+}
+
 static void	heredoc_0(t_pos *pos, t_tok *in, t_tokench *tok)
 {
 	if (in->heredoc == 0 && pos->ans[in->i] == '<'
@@ -60,6 +79,7 @@ static void	heredoc_0(t_pos *pos, t_tok *in, t_tokench *tok)
 			in->fullheredoc = ft_strdup("<< ");
 			in->fullheredoc = ft_strjoinf(in->fullheredoc, in->herestr, 1);
 			maj_token(tok, "<<");
+			test_heredoc(in);
 			in->heredoc = 1;
 		}
 	}
