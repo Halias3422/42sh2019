@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:23:33 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 11:14:17 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,6 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 	t_var *pres;
 
 	var = *ptr_var;
-	pres = NULL;
 	if (ft_strcmp(name, (var)->name) == 0 && (var)->type == type)
 	{
 		buf = (*ptr_var)->next;
@@ -72,6 +71,12 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 	return (0);
 }
 
+void		free_name_and_data(char *name, char *data)
+{
+	ft_strdel(&name);
+	ft_strdel(&data);
+}
+
 void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 {
 	t_var	*var;
@@ -80,21 +85,23 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 	var = *ptr_var;
 	last = NULL;
 	if (!var)
-		return;
+		return ;
 	while (var->next != NULL)
 	{
 		if (ft_strcmp(name, var->name) == 0 && type == var->type)
 		{
 			ft_strdel(&var->data);
-			var->data = data;
+			var->data = ft_strdup(data);
+			free_name_and_data(name, data);
 			return ;
 		}
 		last = var;
 		var = var->next;
 	}
-	last->next = malloc(sizeof(t_var));
-	last->next->name = name;
-	last->next->data = data;
-	last->next->type = type;
-	last->next->next = NULL;
+	last = malloc(sizeof(t_var));
+	last->name = ft_strdup(name);
+	last->data = ft_strdup(data);
+	last->type = type;
+	last->next = NULL;
+	free_name_and_data(name, data);
 }
