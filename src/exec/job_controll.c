@@ -33,7 +33,7 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 		if (!process->builtin)
 		{
 			process->ret = WEXITSTATUS(status);
-			add_list_env(var, LOCAL, "?", ft_itoa(process->ret));
+			add_list_env(var, LOCAL, ft_strdup("?"), ft_itoa(process->ret));
 		}
 	}
 }

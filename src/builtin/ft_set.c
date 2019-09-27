@@ -18,9 +18,9 @@ int		ft_set(t_process *p, t_var **ptr_var)
 {
 	t_var *var;
 
-	// var = *ptr_var;
+	var = *ptr_var;
 	(void)ptr_var;
-	var = stock(NULL, 6);
+	//var = stock(NULL, 6);
 	if (p->cmd[1])
 		return (1);
 	while (var)
@@ -29,5 +29,5 @@ int		ft_set(t_process *p, t_var **ptr_var)
 			ft_printf("%s=%s\n", var->name, var->data);
 		var = var->next;
 	}
-	return (1);
+	return (0);
 }

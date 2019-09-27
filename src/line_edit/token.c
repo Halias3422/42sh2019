@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 08:40:32 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 08:50:24 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 08:22:00 by bjuarez     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,8 +42,6 @@ static int	find_last_token(char *ans)
 	while (j >= 0 && (ans[j] <= 32 || ans[j] > 126))
 		j--;
 	j--;
-/*	if (j > 0 && ans[j - 1] == 92)
-		return (0);*/
 	if (j >= 0 && (check = verif_token(ans, j)) != 0)
 		return (check);
 	return (0);
@@ -74,7 +72,7 @@ static int	check_in(t_pos *pos, t_tok *in)
 	int		p;
 
 	p = ft_strlen(pos->ans);
-	if (in->heredoc == 1)
+	if (in->heredoc == 1 && in->testtoken == 0)
 		return (0);
 	if (in->quote == 1)
 		return (0);

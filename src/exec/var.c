@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 16:29:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/26 13:57:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,22 +31,28 @@ char		**remove_tab(char **src, int j)
 	char	**res;
 	int		i;
 	int		k;
+	int		len;
 
 	i = 0;
 	k = 0;
-	while (src[i])
-		i++;
-	res = malloc(sizeof(char*) * i);
+	len = 0;
+	while (src[len])
+		len++;
+	if (len == 1)
+		return (NULL);
+	res = malloc(sizeof(char*) * len);
 	i = 0;
 	while (src[i])
 	{
 		if (i == j)
 			i++;
+		if (i > len)
+			break ;
 		res[k] = ft_strdup(src[i]);
 		i++;
 		k++;
 	}
-	res[k] = NULL;
+	res[len - 1] = NULL;
 	return (res);
 }
 
@@ -111,7 +117,11 @@ int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 		}
 		else
 		{
-			add_env(var, cmd[i]);
+			while (cmd[i])
+			{
+				add_env(var, cmd[i]);
+				i++;
+			}
 			ft_free_tab(cmd);
 			return (-1);
 		}

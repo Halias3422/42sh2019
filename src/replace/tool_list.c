@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool_list.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:06:47 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/23 16:09:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:20:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,12 +17,13 @@ void		free_replace(t_replace *replace)
 {
 	t_replace	*tmp;
 
+	tmp = NULL;
 	while (replace)
 	{
 		ft_strdel(&replace->name);
-		tmp = replace;
-		replace = replace->next;
-		free(&tmp);
+		tmp = replace->next;
+		free(replace);
+		replace = tmp;
 	}
 }
 

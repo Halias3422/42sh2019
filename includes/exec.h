@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 16:14:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:17:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -191,7 +191,7 @@ void		set_job_status(pid_t id, char status);
 int			find_job_pgid(pid_t pgid);
 void		job_notification(t_var **var);
 int			mark_process_status(pid_t pid, int status, t_var **var);
-void		signal_handler(pid_t pid);
+void		signal_handler();
 
 int			job_is_stoped(t_job *j);
 
@@ -208,4 +208,6 @@ void		remove_item_var(t_var **var);
 
 void		before_redirection(t_process *p);
 t_process	*get_and_or(t_process *p);
+
+int		is_builtin_modify(t_process *p);
 #endif

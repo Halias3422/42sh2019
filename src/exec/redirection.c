@@ -73,7 +73,7 @@ static int	redirection_file(t_process *p, t_redirect *redirect)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(p->file_out, STDOUT_FILENO);
+		dup2(p->file_out, redirect->fd);
 		close(p->file_out);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
@@ -168,8 +168,8 @@ void		before_redirection(t_process *p)
 			before_redirection_file(redirect, p);
 			redirect = redirect->next;
 		}
-		if (p->split == 'P' && p->fd_out != mypipe[1])
-			close(mypipe[1]);
+		//if (p->split == 'P' && p->fd_out != mypipe[1])
+		//	close(mypipe[1]);
 		p = get_and_or(p);
 	}
 }
