@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:10:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 13:13:28 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 16:47:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,4 +86,3 @@ char	*fill_new_path(char ***tmp, char *new_path, char *cmd, t_var **var)
 	new_path = ft_strdup("/");
 	return (new_path);
 }
-

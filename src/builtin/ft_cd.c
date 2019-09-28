@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 13:48:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 16:43:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,9 +31,11 @@ int		get_cd_option(char **cmd, int *i, int ret, int j)
 				}
 			}
 		}
+		else
+			break ;
 	}
 	if (cmd[*i] && ft_strcmp(cmd[*i], "--") == 0)
-		*i += 2;
+		*i += 1;
 	return (ret);
 }
 
@@ -67,7 +69,7 @@ char	*move_to_new_dir(char *cmd, t_var **var, char *new_path)
 
 char	*get_path(char *cmd, t_var **var, char *new_path, int option)
 {
-	if (ft_strcmp(cmd, "--") == 0 || (cmd && cmd[0] == '~') || ft_strcmp(cmd, "cd") == 0)
+	if (cmd == NULL || ft_strcmp(cmd, "--") == 0 || (cmd && cmd[0] == '~'))
 		new_path = move_to_home_dir(var);
 	else if (ft_strcmp(cmd, "-") == 0)
 		new_path = move_to_oldpwd(var);
@@ -126,7 +128,7 @@ int		ft_cd(t_process *p, t_var **var)
 		ft_printf_err("cd: usage: cd [-L|-P] [dir]\n");
 		return (1);
 	}
-	if ((new_path = get_path(p->cmd[i - 1], var, new_path, option)) == NULL)
+	if ((new_path = get_path(p->cmd[i], var, new_path, option)) == NULL)
 		return (1);
 	if (verif_path(new_path, 1) == 0)
 		return (1);

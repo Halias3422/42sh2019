@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 14:14:59 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 17:47:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,11 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name);
 int				comp_num_operator(char *name1, char *type, char *name2);
 
+/*
+**	FT_EXIT_C
+*/
+
+void			free_env_list(t_var *var);
 int				ft_exit(t_process *p, t_var **var);
 /*
 **		FT_FC.c

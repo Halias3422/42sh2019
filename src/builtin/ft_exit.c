@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/27 17:46:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 #include "../../includes/exec.h"
@@ -40,6 +52,22 @@ int		error_exit(int i)
 	return (1);
 }
 
+void	free_env_list(t_var *var)
+{
+	t_var	*tmp;
+
+	if (!var)
+		return ;
+	while (var)
+	{
+		tmp = var;
+		var = var->next;
+		free(tmp->name);
+		free(tmp->data);
+		free(tmp);
+	}
+}
+
 int		ft_exit(t_process *p, t_var **var)
 {
 	int	status;
@@ -59,5 +87,6 @@ int		ft_exit(t_process *p, t_var **var)
 	write_alias_on_exit(*var);
 	free_pos();
 	free_t_hist(stock(NULL, 8));
+	free_env_list(*var);
 	exit(status);
 }

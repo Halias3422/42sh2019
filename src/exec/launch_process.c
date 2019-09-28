@@ -76,31 +76,23 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 {
 	pid_t		pid;
 	char		*cmd_path;
-	char		**env;
 
 	if (!p->cmd[0])
 		return (-1);
-	env = split_env(*var);
 	if (j->split != '&' && is_builtin_modify(p))
 	{
 		if (find_builtins(p, var) != 0)
-		{
-			ft_free_tab(env);
 			return (1);
-		}
 	}
-	if ((cmd_path = check_path_hash(env, p->cmd, -1, NULL)) == NULL)
+	if ((cmd_path = check_path_hash(var, p->cmd, -1, NULL)) == NULL)
 	{
 		add_list_env(var, LOCAL, ft_strdup("?"), ft_strdup("127"));
-		ft_free_tab(env);
 		return (0);
 	}
-	ft_free_tab(env);
 	pid = fork();
 	if (pid == 0)
 		launch_process(p, *var, cmd_path);
 	else
 		update_pid(p, j, pid, var);
-	//free(cmd_path);
 	return (1);
 }
