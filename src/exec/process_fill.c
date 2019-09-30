@@ -74,9 +74,9 @@ void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 		: NULL;
 	}
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
-		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 0;
+		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	else
-		tmp->fd = 0;
+		tmp->fd = 1;
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
@@ -102,7 +102,7 @@ void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 0;
 	else
-		tmp->fd = 0;
+		tmp->fd = 1;
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;

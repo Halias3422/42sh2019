@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/26 19:32:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 17:47:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ typedef struct	s_builtin
 {
 	const char	*name;
 	int			(*ptr_builtin)(t_process*, t_var**);
+	int			modify_data;
 }				t_builtin;
 
 typedef struct	s_fc
@@ -46,6 +47,7 @@ typedef struct	s_fc
 	int			last_not_precised;
 	int			error;
 }				t_fc;
+
 
 extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 
@@ -69,6 +71,11 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name);
 int				comp_num_operator(char *name1, char *type, char *name2);
 
+/*
+**	FT_EXIT_C
+*/
+
+void			free_env_list(t_var *var);
 int				ft_exit(t_process *p, t_var **var);
 /*
 **		FT_FC.c
@@ -165,7 +172,6 @@ void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 ** FT_SETENV_C
 */
 
-void			add_var_to_env(t_var **var, char *name, char *data);
 int				ft_setenv(t_process *p, t_var **var);
 void			print_env(t_var **var);
 
@@ -192,15 +198,15 @@ int				go_through_process_cmd(t_process *p, t_var **new_env,
 **	FT_ENV_TOOLS_C
 */
 
-void			free_new_env(t_var *head);
-t_var			*init_t_var(t_var *ne);
-t_var			*add_list_back_env(t_var *env);
+void		free_new_env(t_var *head);
+t_var		*init_t_var(t_var *ne);
+t_var		*add_list_back_env(t_var *env);
 
 /*
 **	FT_CD_C
 */
 
-int				get_cd_option(char **cmd, int *i, int ret);
+int				get_cd_option(char **cmd, int *i, int ret, int j);
 char			*fill_new_path(char ***tmp, char *new_path, char *cmd,
 				t_var **var);
 char			*get_path(char *cmd, t_var **var, char *new_path, int option);
@@ -222,7 +228,8 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 **	FT_CD_VERIF_C
 */
 
+char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path);
-int				verif_path(char *path);
+int				verif_path(char *path, int mute);
 
 #endif

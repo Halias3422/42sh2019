@@ -6,25 +6,21 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/26 19:49:18 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 16:43:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 
-int		get_cd_option(char **cmd, int *i, int ret)
+int		get_cd_option(char **cmd, int *i, int ret, int j)
 {
-	int		j;
-
-	while (cmd[*i])
+	while (cmd[++(*i)] && ft_strcmp(cmd[*i], "--") != 0)
 	{
-		j = 1;
-		if (ft_strcmp(cmd[*i], "--") == 0)
-			return (0);
-		else if (cmd[*i][0] == '-' && cmd[*i][1])
+		j = 0;
+		if (cmd[*i][0] == '-' && cmd[*i][1])
 		{
-			while (cmd[*i][j])
+			while (cmd[*i][++j])
 			{
 				if (cmd[*i][j] == 'L' || cmd[*i][j] == 'P')
 					ret = cmd[*i][j];
@@ -33,29 +29,47 @@ int		get_cd_option(char **cmd, int *i, int ret)
 					ft_printf_err("42sh: cd: %c: invalid option\n", cmd[*i][j]);
 					return (-1);
 				}
-				j++;
 			}
 		}
-		++(*i);
+		else
+			break ;
 	}
+	if (cmd[*i] && ft_strcmp(cmd[*i], "--") == 0)
+		*i += 1;
 	return (ret);
 }
 
-char	*fill_new_path(char ***tmp, char *new_path, char *cmd, t_var **var)
+char	*move_to_new_dir(char *cmd, t_var **var, char *new_path)
 {
-	if (cmd[0] != '/')
-		new_path = go_to_absolute_path(cmd, var);
-	else
-		new_path = ft_strdup(cmd);
-	*tmp = ft_strsplit(new_path, '/');
-	new_path = ft_secure_free(new_path);
-	new_path = ft_strdup("/");
+	int			i;
+	char		**tmp;
+
+	i = 0;
+	new_path = fill_new_path(&tmp, new_path, cmd, var);
+	while (tmp[i])
+	{
+		if (ft_strcmp(tmp[i], "..") == 0)
+			new_path = replace_double_dot_by_real_path(new_path);
+		else if (ft_strcmp(tmp[i], ".") != 0)
+		{
+			new_path = ft_strjoinf(new_path, tmp[i], 1);
+			if (verif_path(new_path, 1) == 0)
+			{
+				ft_free_tab(tmp);
+				free(new_path);
+				return (NULL);
+			}
+			new_path = ft_strjoinf(new_path, "/", 1);
+		}
+		i++;
+	}
+	ft_free_tab(tmp);
 	return (new_path);
 }
 
 char	*get_path(char *cmd, t_var **var, char *new_path, int option)
 {
-	if (cmd == NULL || (cmd && cmd[0] == '~') || ft_strcmp(cmd, "cd") == 0)
+	if (cmd == NULL || ft_strcmp(cmd, "--") == 0 || (cmd && cmd[0] == '~'))
 		new_path = move_to_home_dir(var);
 	else if (ft_strcmp(cmd, "-") == 0)
 		new_path = move_to_oldpwd(var);
@@ -81,17 +95,18 @@ void	replace_pwd_vars_in_env(t_var **var, char *new_path, int option)
 	{
 		tmp = ft_strnew(1000);
 		tmp = getcwd(tmp, 1000);
+		new_path = ft_secure_free(new_path);
 	}
 	else
-		tmp = ft_strdup(new_path);
+		tmp = new_path;
 	if (ft_get_val("PWD", *var, ENVIRONEMENT) != NULL)
 	{
 		tmp_pwd = ft_strdup(ft_get_val("PWD", *var, ENVIRONEMENT));
-		add_list_env(var, ENVIRONEMENT, "OLDPWD", tmp_pwd);
+		add_list_env(var, ENVIRONEMENT, ft_strdup("OLDPWD"), tmp_pwd);
 	}
 	else
-		add_list_env(var, ENVIRONEMENT, "OLDPWD", tmp);
-	add_list_env(var, ENVIRONEMENT, "PWD", tmp);
+		add_list_env(var, ENVIRONEMENT, ft_strdup("OLDPWD"), ft_strdup(tmp));
+	add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), tmp);
 }
 
 int		ft_cd(t_process *p, t_var **var)
@@ -99,21 +114,25 @@ int		ft_cd(t_process *p, t_var **var)
 	int		option;
 	int		i;
 	char	*new_path;
+	char	pwd[1000];
 
 	new_path = NULL;
-	(void)var;
-	i = 1;
-	if ((option = get_cd_option(p->cmd, &i, 0)) == -1)
+	i = 0;
+	if (verif_path(ft_get_val("PWD", *var, ENVIRONEMENT), 0) == 0)
+	{
+		getcwd(pwd, 1000);
+		add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), ft_strdup(pwd));
+	}
+	if ((option = get_cd_option(p->cmd, &i, 0, 0)) == -1)
 	{
 		ft_printf_err("cd: usage: cd [-L|-P] [dir]\n");
 		return (1);
 	}
-	if ((new_path = get_path(p->cmd[i - 1], var, new_path, option)) == NULL)
+	if ((new_path = get_path(p->cmd[i], var, new_path, option)) == NULL)
 		return (1);
-	if (verif_path(new_path) == 0)
+	if (verif_path(new_path, 1) == 0)
 		return (1);
 	chdir(new_path);
 	replace_pwd_vars_in_env(var, new_path, option);
-	new_path = ft_secure_free(new_path);
 	return (0);
 }

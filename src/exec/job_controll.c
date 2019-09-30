@@ -6,7 +6,7 @@
 /*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/21 16:38:33 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 17:35:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 		if (!process->builtin)
 		{
 			process->ret = WEXITSTATUS(status);
-			add_list_env(var, LOCAL, "?", ft_itoa(process->ret));
+			add_list_env(var, LOCAL, ft_strdup("?"), ft_itoa(process->ret));
 		}
 	}
 }

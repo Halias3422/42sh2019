@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 11:15:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 15:36:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,19 +24,13 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 	return (0);
 }
 
-void			signal_background(pid_t pid)
-{
-	ft_printf("\n");
-	pid = 0;
-}
-
 int			launch_process(t_process *p, t_var *var, char *path)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
-	signal(SIGTTOU, &signal_background);
+	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
 	tcsetpgrp(0, p->pid);
 	if (p->fd_in != STDIN_FILENO)
@@ -49,7 +43,14 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
+	if (p->fd_error != STDERR_FILENO)
+	{
+		dup2(p->fd_error, STDERR_FILENO);
+		close(p->fd_error);
+	}
 	if (!launch_redirection(p))
+		exit(1);
+	if (find_builtins(p, &var) != 0)
 		exit(1);
 	ft_execute_function(path, p->cmd, var);
 	exit(1);
@@ -78,11 +79,14 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 
 	if (!p->cmd[0])
 		return (-1);
-	if (find_builtins(p, var) != 0)
-		return (1);
-	if ((cmd_path = check_path_hash(split_env(*var), p->cmd, -1, NULL)) == NULL)
+	if (j->split != '&' && is_builtin_modify(p))
 	{
-		add_list_env(var, LOCAL, "?", ft_strdup("127"));
+		if (find_builtins(p, var) != 0)
+			return (1);
+	}
+	if ((cmd_path = check_path_hash(var, p->cmd, -1, NULL)) == NULL)
+	{
+		add_list_env(var, LOCAL, ft_strdup("?"), ft_strdup("127"));
 		return (0);
 	}
 	pid = fork();
@@ -90,6 +94,5 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 		launch_process(p, *var, cmd_path);
 	else
 		update_pid(p, j, pid, var);
-	//free(cmd_path);
 	return (1);
 }

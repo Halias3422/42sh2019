@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   replace.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 15:24:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 14:49:58 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,15 +32,11 @@ char		*make_string(char **array)
 	return (res);
 }
 
-int			check_alias(char *array, t_var *var, t_replace *replace)
+int			check_alias(char *array, t_var *var)
 {
-	int			i;
-	t_replace	*r;
 	t_var		*tmp_var;
 
 	tmp_var = var;
-	i = 0;
-	r = replace;
 	while (tmp_var && ((ft_strcmp(array, tmp_var->name) != 0)
 	|| tmp_var->type != ALIAS))
 		tmp_var = tmp_var->next;
@@ -70,11 +66,9 @@ int			check_backslash_var(char *str)
 int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 {
 	int		done;
-	int		i;
 
 	done = 0;
-	i = 0;
-	if (check_alias(alias->data, var, replace) == 1 && alias->data[0] != '\\')
+	if (check_alias(alias->data, var) == 1 && alias->data[0] != '\\')
 		replace_alias(alias, var, replace);
 	check_tok(alias, var, replace);
 	while (alias)
@@ -106,6 +100,7 @@ void		free_alias(t_alias *alias)
 		free(alias);
 		alias = tmp;
 	}
+	free(alias);
 	alias = NULL;
 }
 
@@ -126,7 +121,6 @@ char		**start_split(t_var *start, char *str)
 		if (remove_env_while(alias, start, replace) == 0)
 			break ;
 	}
-	// ft_free_tab(ar);
 	ar = make_list_to_ar(alias);
 	free_replace(replace);
 	free_alias(alias);
