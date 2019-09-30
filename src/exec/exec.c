@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 09:26:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 10:48:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -145,6 +145,7 @@ void		free_jobs(t_job *j)
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
+	t_job		*start;
 
 	if (!res[0])
 	{
@@ -152,6 +153,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 		return (0);
 	}
 	j = malloc(sizeof(t_job));
+	start = j;
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
@@ -164,6 +166,6 @@ int			start_exec(t_lexeur **res, t_var *var)
 		j = j->next;
 	}
 	// free_parseur(j);
-	free_jobs(j);
+	free_jobs(start);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:25:00 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 10:45:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,6 +104,7 @@ void		remoove_all_quote(char **str)
 	ft_strdel(&(*str));
 	(*str) = ft_strjoin(al[0], "=");
 	ft_strjoin_free(str, al[1]);
+	ft_free_tab(al);
 }
 
 int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
