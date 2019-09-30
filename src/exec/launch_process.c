@@ -40,10 +40,11 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	}
 	if (p->fd_out != STDOUT_FILENO)
 	{
-		//printf("|%d:%s\n", p->fd_out, p->cmd[0]);
 		dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
+	if (path == NULL)
+		exit(1);
 	if (!launch_redirection(p))
 		exit(1);
 	if (find_builtins(p, &var) != 0)
@@ -83,7 +84,6 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	if ((cmd_path = check_path_hash(split_env(*var), p->cmd, -1, NULL)) == NULL)
 	{
 		add_list_env(var, LOCAL, ft_strdup("?"), ft_strdup("127"));
-		return (0);
 	}
 	pid = fork();
 	if (pid < 0)
