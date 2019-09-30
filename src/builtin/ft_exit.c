@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:46:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 09:27:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,10 +74,11 @@ int		ft_exit(t_process *p, t_var **var)
 
 	status = ft_atoi(p->cmd[1]);
 	if (p->cmd && p->cmd[1] && p->cmd[2])
-		return (error_exit(1));		
+		return (error_exit(1));
 	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
 		return (status);
-	if (status < 0)
+	if (status < 0 || (p->cmd[1] && (p->cmd[1][0] < '0' || p->cmd[1][0] > '9')
+				&& (status = 255)))
 		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
 	else
 	{
