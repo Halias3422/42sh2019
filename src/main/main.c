@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:20:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 14:09:41 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,7 @@ int				check_ans(char *str)
 			return (0);
 		i++;
 	}
+	ft_strdel(&str);
 	return (1);
 }
 
@@ -62,6 +63,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 		pwd = print_pwd(my_env));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
+	ft_printf("pos ans = >%s<\n", pos.ans);
 	ans = check_backslash(&pos, hist);
 	ans = check_for_tilde(ans, my_env, 0, 0);
 	tcsetattr(0, TCSANOW, &(pos.old_term));

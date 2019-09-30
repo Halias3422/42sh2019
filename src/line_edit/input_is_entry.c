@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 11:27:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 18:29:00 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,14 +50,16 @@ static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
 
 static void		check_expansion_and_token(t_pos *pos, t_hist *hist)
 {
-	t_tok		in;
-	t_tokench	tok;
+///	t_tok		in;
+//	t_tokench	tok;
 
-	(void)hist;
 	check_history_expansion(pos, hist, 0, 0);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
-	init_tok(&in);
-	check_token(pos, &in, &tok);
+//	init_tok(&in);
+//	check_token(pos, &in, &tok);
+	pos->is_complete = token_margarine(pos->ans);
+	if (ft_strchr(pos->ans, '<') != NULL && pos->is_complete == 1)
+		check_for_heredoc(pos);
 }
 
 t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)

@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:36:04 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/26 17:28:18 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 09:00:34 by bjuarez     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,14 +47,18 @@ static void	test_heredoc(t_tok *in)
 	while (in->herestr[i] != '\0')
 	{
 		if (in->herestr[i] == '<' && in->herestr[i + 1] == '<')
-			in->testtoken = 1;
+			break ;
 		if (in->herestr[i] == '>' && in->herestr[i + 1] == '>')
-			in->testtoken = 1;
+			break ;
 		if (in->herestr[i] == '<')
-			in->testtoken = 1;
-		if (in->herestr[i] == '>')
-			in->testtoken = 1;
+			break ;
+		if (in->herestr[i] == '<')
+			break ;
 		i++;
+	}
+	if (in->herestr[i] == '<' || in->herestr[i] == '>')
+	{
+		in->testtoken = 1;
 	}
 }
 

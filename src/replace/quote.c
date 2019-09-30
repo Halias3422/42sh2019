@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 16:12:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 14:18:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -130,7 +130,6 @@ void	browse_ar(char ***array, int i, int j)
 			else
 				j = ft_strlen((*array)[i]);
 		}
-		return ;
 		if (!ft_strcmp((*array)[i], "") && j > ft_strlen((*array)[i]))
 			break ;
 	}

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 18:32:16 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/28 12:19:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 	pwd = ft_strjoinf(pwd, "/.history", 1);
 	pos->history = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
 	free(pwd);
-	while ((ret = get_next_line_mono_fd(pos->history, &line)))
+	while ((ret = get_next_line(pos->history, &line)))
 	{
 		if (ft_strlen(line) > 0)
 		{

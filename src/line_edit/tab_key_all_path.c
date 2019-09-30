@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 17:39:51 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/11 09:36:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 11:09:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,6 +88,7 @@ t_htab			*looking_for_all(t_pos *pos, t_htab *htab, char **name)
 
 	i = 0;
 	j = 0;
+	ft_strdel(name);
 	*name = get_name(pos, i, j);
 	env = stock(NULL, 6);
 	if ((all_path = ft_strsplit(get_env_path(env), ':')) == NULL)

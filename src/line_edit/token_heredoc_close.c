@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:59:11 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 15:11:55 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 09:00:43 by bjuarez     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,9 +60,12 @@ static int	heredoc_1_mode0(t_pos *pos, t_tok *in)
 {
 	if (ft_strncmp(&pos->ans[in->n], in->herestr, ft_strlen(in->herestr)) == 0)
 	{
-		if (ft_strncmp(&pos->ans[in->n - 3], in->fullheredoc,
+		if ((in->n - 3) >= 0 && ft_strncmp(&pos->ans[in->n - 3], in->fullheredoc,
 		ft_strlen(in->fullheredoc)) == 0)
 			in->n -= 3;
+		else if (ft_strncmp(&pos->ans[0], in->fullheredoc,
+		ft_strlen(in->fullheredoc)) == 0)
+			in->n = 0;
 	}
 	if (ft_strncmp(&pos->ans[in->n], in->fullheredoc,
 	ft_strlen(in->fullheredoc)) == 0)

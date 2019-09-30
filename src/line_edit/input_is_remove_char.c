@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/29 08:12:16 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/06 09:43:28 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 12:43:19 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,10 +31,8 @@ static void		remove_char_ans(t_pos *pos)
 	swap = ft_strnew(pos->let_nb);
 	swap = ft_strncpy(swap, pos->ans, pos->let_nb - 1);
 	if (pos->let_nb < pos->len_ans)
-	{
 		swap = ft_strjoinf(swap, pos->ans + pos->let_nb, 1);
-		free(pos->ans);
-	}
+	ft_strdel(&pos->ans);
 	pos->ans = swap;
 }
 

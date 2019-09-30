@@ -6,7 +6,7 @@
 /*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 08:40:32 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 08:22:00 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 13:03:35 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,17 +15,17 @@
 
 int			verif_token(char *str, int i)
 {
-	if (i > 0 && ft_strncmp(&str[i - 1], "\\&&", 2) == 0)
+	if (i > 0 && str[i - 1] == 92 && str[i] == '&' && str[i + 1] == '&')
 		return (0);
-	if (i > 0 && ft_strncmp(&str[i - 1], "\\||", 2) == 0)
+	if (i > 0 && str[i - 1] == 92 && str[i] == '|' && str[i + 1] == '|')
 		return (3);
-	if (ft_strncmp(&str[i], "\\|", 1) == 0)
+	if (i > 0 && str[i - 1] == 92 && str[i] == '|')
 		return (0);
-	if (ft_strncmp(&str[i], "&&", 2) == 0)
+	if (str[i] == '&' && str[i + 1] == '&')
 		return (1);
-	if (ft_strncmp(&str[i], "||", 2) == 0)
+	if (str[i] == '|' && str[i + 1] == '|')
 		return (2);
-	if (ft_strncmp(&str[i + 1], "|", 1) == 0)
+	if (str[i + 1] == '|')
 		return (3);
 	return (0);
 }
@@ -80,8 +80,8 @@ static int	check_in(t_pos *pos, t_tok *in)
 		return (0);
 	if (in->bquote == 1)
 		return (0);
-	if (find_last_token(pos->ans) < 4 && find_last_token(pos->ans) > 0
-			&& in->quote != 1 && in->dquote != 1 && in->bquote != 1)
+	if (find_last_token(pos->ans) > 0 && in->quote != 1 &&
+			in->dquote != 1 && in->bquote != 1)
 		return (0);
 	if (pos->ans && p > 0)
 	{
