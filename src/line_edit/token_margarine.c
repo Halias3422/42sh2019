@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/30 13:04:30 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 16:04:36 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 23:24:25 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,17 +103,21 @@ int		token_margarine(char *ans)
 			i = double_quote(ans, i + 1);
 		else if (ans[i] == 39  && (i == 0 || (i > 0 && ans[i - 1] != 92)))
 			i = simple_quote(ans, i + 1);
-		else if (ans[i] == '$' && ans[i + 1] == '{'  && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+		else if (ans[i] == '$' && ans[i + 1] == '{'  && (i == 0 || (i > 0 &&
+						ans[i - 1] != 92)))
 			i = brace_param(ans, i + 2);
-		else if (ans[i] == '&' && ans[i + 1] == '&'  && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+		else if (ans[i] == '&' && ans[i + 1] == '&'  && (i == 0 || (i > 0 &&
+						ans[i - 1] != 92)))
 			i = double_token(ans, i + 2);
-		else if (ans[i] == '|' && ans[i + 1] == '|'  && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+		else if (ans[i] == '|' && ans[i + 1] == '|'  && (i == 0 || (i > 0 &&
+						ans[i - 1] != 92)))
 			i = double_token(ans, i + 2);
 		else if (ans[i] == '|' && (i == 0 || (i > 0 && ans[i - 1] != 92)))
 			i = simple_pipe(ans, i + 1);
 		if (i <= -1)
 			return (0);
-		i++;
+		if (i < ft_strlen(ans))
+			i++;
 	}
 	return (1);
 }

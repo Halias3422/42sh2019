@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/30 15:41:35 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/30 23:10:12 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,7 +18,7 @@ SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
 
-SRC_LINE = $(addprefix line_edit/, token_margarine.c token_heredoc_margarine.c\
+SRC_LINE = $(addprefix line_edit/, token_margarine.c token_heredoc_margarine.c token_heredoc_creation_margarine.c\
 				calcul_line.c check_error.c check_input.c control_search_history_calcul_pos.c\
 				control_search_history.c control_search_history_calcul_lines.c \
 				copy_tools.c copy.c cut.c env.c escape_code.c ft_errno.c\
@@ -67,7 +67,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined
 FLAG_END = -lcurses
 NORME = norminette
 

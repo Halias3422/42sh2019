@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 18:21:21 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 23:16:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,13 +73,6 @@
 # define CTRL_C		2
 
 extern struct s_hist **ghist;
-
-typedef struct		s_herdoc
-{
-	struct s_herdoc	*next;
-	struct s_herdoc *prev;
-	char			 *cmd;
-}					t_herdoc;
 
 typedef struct		s_pos
 {
@@ -210,10 +203,14 @@ typedef struct			s_tokench
 	struct s_tokench	*prev;
 }						t_tokench;
 
-
-int				token_margarine(char *ans);
-void			check_for_heredoc(t_pos *pos);
-
+typedef struct			s_heredoc
+{
+	char				*to_find;
+	int					current_index;
+	char				*content;
+	struct s_heredoc	*next;
+	struct s_heredoc	*prev;
+}						t_heredoc;
 
 char	*check_path_hash(t_var **var, char **arg, int i, char *ans);
 void	print_info(t_pos *pos);
@@ -657,5 +654,34 @@ void					check_copy(unsigned char *buf, t_pos *pos);
 */
 
 char					*check_backslash(t_pos *pos, t_hist *hist);
+
+/*
+**	TOKEN_MARGARINE_C
+*/
+
+int		token_margarine(char *ans);
+int		simple_pipe(char *ans, int i);
+int		double_token(char *ans, int i);
+int		brace_param(char *ans, int i);
+int		simple_quote(char *ans, int i);
+int		double_quote(char *ans, int i);
+
+/*
+**	TOKEN_HEREDOC_MARGARINE_C
+*/
+
+void			check_for_heredoc(t_pos *pos);
+void			search_for_heredocs_in_ans(t_pos *pos, int i, int open,
+				t_heredoc **hdoc);
+void			free_hdoc(t_heredoc *hdoc);
+int				fill_hdoc_content(t_heredoc *hdoc, char *ans, int i);
+int				heredoc_found(t_pos *pos, int i, t_heredoc **hdoc);
+
+/*
+**	TOKEN_HEREDOC_CREATION_MARGARINE_C
+*/
+
+t_heredoc		*add_list_back_heredoc(t_heredoc *heredoc);
+void			init_t_heredoc(t_heredoc *hdoc);
 
 #endif
