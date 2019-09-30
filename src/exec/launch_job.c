@@ -37,16 +37,22 @@ void		alert_job(t_job *j)
 		remove_job(j->id);
 }
 
-/*void		close_fd(t_process *p)
+/*void		after_redirection(t_job *j, t_var **var)
 {
-	if (p->fd_in != STDIN_FILENO)
+	t_process *p;
+	int			status;
+
+	p = j->p;
+	while (p)
 	{
-		close(p->fd_in);
+		if (p->split == 'P')
+		{
+			waitpid(p->pid, &status, WUNTRACED);
+			//wait_process(var);
+		}
+		p = p->next;
 	}
-	if (p->fd_out != STDOUT_FILENO)
-	{
-		close(p->fd_out);
-	}
+	var = NULL;
 }*/
 
 void		launch_job(t_job *j, t_var *var)
@@ -82,9 +88,9 @@ void		launch_job(t_job *j, t_var *var)
 			//infile = 0;
 		}
 		//fork_simple(j, p, &var);
-		//close_fd(p);
 		p = get_and_or(p);
 		//free_temp(&var);
 	}
+	//after_redirection(j, &var);
 	alert_job(j);
 }

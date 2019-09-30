@@ -59,6 +59,8 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 	if (j->pgid == 0)
 		j->pgid = pid;
 	setpgid(pid, j->pgid);
+	p->ret = 0;
+	//if (j->split != '&')
 	if (p->split != 'P' && j->split != '&')
 	{
 		tcsetpgrp(0, j->pgid);
@@ -66,6 +68,8 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 		signal(SIGTTOU, SIG_IGN);
 		tcsetpgrp(0, getpid());
 		signal(SIGTTOU, SIG_DFL);
+		if (p->fd_in != 0)
+			close(p->fd_in);
 	}
 }
 
@@ -91,7 +95,9 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	if (pid == 0)
 		launch_process(p, *var, cmd_path);
 	else
+	{
 		update_pid(p, j, pid, var);
+	}
 	//free(cmd_path);
 	return (1);
 }

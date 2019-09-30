@@ -32,7 +32,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"export", &ft_export, 1},
 	{"unset", &ft_unset, 1},
 	{"fc", &ft_fc, 1},
-	{"fg", &ft_fg, 1},
+	{"fg", &ft_fg, 0},
 	{"jobs", &ft_jobs, 1},
 	{"exit", &ft_exit, 1},
 	{"hash", &ft_hash, 1},
@@ -73,6 +73,7 @@ int		find_builtins(t_process *p, t_var **var)
 		{
 			p->ret = g_builtin_list[i].ptr_builtin(p, var);
 			add_list_env(var, LOCAL, ft_strdup("?"), ft_itoa(p->ret));
+			//printf("|%d\n", p->ret);
 			return (1);
 		}
 	}
