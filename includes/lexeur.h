@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 15:22:09 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 15:02:38 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -282,6 +282,8 @@ void		replace_alias(t_alias *alias, t_var *var, t_replace *replace);
 
 void   		remoove_quote(char ***array);
 int			check_tok(t_alias *alias, t_var *var, t_replace *replace);
+void		free_alias(t_alias *alias);
+int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace);
 
 void		print_lexer(t_lexeur *lex);
 #endif

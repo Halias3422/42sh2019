@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 10:43:48 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 15:22:23 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -116,11 +116,6 @@ char		**start_split(t_var *start, char *str)
 		return (ar);
 	alias = make_ar_to_list(ar);
 	replace->name = ft_strdup(alias->data);
-	while (1)
-	{
-		if (remove_env_while(alias, start, replace) == 0)
-			break ;
-	}
 	ar = make_list_to_ar(alias);
 	free_replace(replace);
 	free_alias(alias);

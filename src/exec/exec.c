@@ -6,13 +6,14 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 10:48:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 15:31:34 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
+#include "../../includes/alias.h"
 
 void		init_job(t_job *j)
 {
@@ -142,10 +143,43 @@ void		free_jobs(t_job *j)
 	}
 }
 
+static void		print_alias(t_alias *al)
+{
+	puts("---------");
+	while (al)
+	{
+		printf("%s\n", al->data);
+		al = al->next;
+	}
+	puts("---------");
+}
+
+void		replace_job(t_process **p, t_var *var)
+{
+	t_alias		*al;
+	t_replace	*r;
+
+	init_replace(&r);
+	if (!(*p) || !((*p)->cmd))
+		return ;
+	al = make_ar_to_list((*p)->cmd);
+	print_alias(al);
+	r->name = ft_strdup(al->data);
+	while (1)
+	{
+		if (remove_env_while(al, var, r) == 0)
+			break ;
+	}
+	(*p)->cmd = make_list_to_ar(al);
+	free_replace(r);
+	free_alias(al);
+}
+
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
 	t_job		*start;
+	t_process	*tmp;
 
 	if (!res[0])
 	{
@@ -162,10 +196,16 @@ int			start_exec(t_lexeur **res, t_var *var)
 	print_j(j);
 	while (j)
 	{
+		tmp = j->p;
+		while (tmp)
+		{
+			replace_job(&tmp, var);
+			tmp = tmp->next;
+		}
 		launch_job(j, var);
 		j = j->next;
 	}
 	// free_parseur(j);
-	free_jobs(start);
+	// free_jobs(start);
 	return (0);
 }
