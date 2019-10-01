@@ -37,24 +37,6 @@ void		alert_job(t_job *j)
 		remove_job(j->id);
 }
 
-/*void		after_redirection(t_job *j, t_var **var)
-{
-	t_process *p;
-	int			status;
-
-	p = j->p;
-	while (p)
-	{
-		if (p->split == 'P')
-		{
-			waitpid(p->pid, &status, WUNTRACED);
-			//wait_process(var);
-		}
-		p = p->next;
-	}
-	var = NULL;
-}*/
-
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
@@ -75,6 +57,7 @@ void		launch_job(t_job *j, t_var *var)
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{
+			//p = test_redirection(j, p, &var);
 			pipe(mypipe);
 			p->fd_out = mypipe[1];
 			fork_simple(j, p, &var);
@@ -91,6 +74,5 @@ void		launch_job(t_job *j, t_var *var)
 		p = get_and_or(p);
 		//free_temp(&var);
 	}
-	//after_redirection(j, &var);
 	alert_job(j);
 }

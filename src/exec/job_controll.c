@@ -114,3 +114,12 @@ void		wait_process(t_var **var)
 	pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
 	mark_process_status(pid_test, status, var);
 }
+
+void		wait_process_pid(int pid,t_var **var)
+{
+	int			status;
+	pid_t		pid_test;
+
+	pid_test = waitpid(pid, &status, WUNTRACED);
+	mark_process_status(pid_test, status, var);
+}

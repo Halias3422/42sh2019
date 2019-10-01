@@ -204,4 +204,6 @@ void		before_redirection(t_process *p);
 t_process	*get_and_or(t_process *p);
 
 int		is_builtin_modify(t_process *p);
+
+void		wait_process_pid(int pid,t_var **var);
 #endif
