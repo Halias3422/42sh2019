@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/24 15:24:24 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/09/30 16:33:24 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -31,7 +31,7 @@ SRC_LINE = $(addprefix line_edit/, \
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
 				 init_alias.c check_for_tilde.c token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
 				token_heredoc_open.c token_init.c token_check.c\
-				tab_key_auto_complete_tilde.c debug.c)
+				tab_key_auto_complete_tilde.c check_backslash.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
@@ -40,21 +40,21 @@ SRC_LEX = $(addprefix lexeur/, \
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
 				job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
-				process_tool.c redirection.c)
+				process_tool.c redirection.c alias_tools.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
 				alias_change_type.c alias_cnt.c alias_replace.c tool_split.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
-				ft_test.c ft_test_int.c ft_echo.c ft_cd.c ft_set.c ft_type.c ft_export.c \
+				ft_test.c ft_test_int.c ft_echo.c ft_set.c ft_type.c ft_export.c \
 				ft_unset.c ft_fc.c tool.c ft_fg.c ft_bg.c ft_jobs.c ft_exit.c fc_get_args.c \
 				fc_get_flags.c fc_execute_l_flag.c fc_execute_s_flag.c fc_execute_e_flag.c \
 				fc_tools.c fc_prepare_e_flag.c fc_s_replace_pattern.c ft_hash.c \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
-				ft_env_i_flag.c)
+				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c)
 
-SRC_MAIN = $(addprefix main/, main.c check_backslash.c)
+SRC_MAIN = $(addprefix main/, main.c)
 
 SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
 

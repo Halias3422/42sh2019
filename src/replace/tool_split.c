@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 19:05:12 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 14:07:49 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ void		split_space_find_number(char *str, int *i)
 			while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' ')
 				(*i)++;
 		}
-		if (str[*i] && (ret == 4 || ret == 6 || ret == 9))
+		if (str[*i] && (ret == 4 || ret == 6 || ret == 9 || ret == 7))
 		{
 			(*i) += g_fill_token[ret].size;
 			return ;

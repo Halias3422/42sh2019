@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:45:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 17:34:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -190,6 +190,8 @@ typedef struct		s_tok
 	int				mode;
 	int				nb_quote;
 	int				nb_dquote;
+	int				testtoken;
+	int				doubletoken;
 	char			*dquote_d;
 }					t_tok;
 
@@ -201,6 +203,8 @@ typedef struct			s_tokench
 	struct s_tokench	*prev;
 }						t_tokench;
 
+
+char	*check_path_hash(t_var **var, char **arg, int i, char *ans);
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
 int		got_a_wildcard(char *name);
@@ -485,7 +489,7 @@ void			init_tok(t_tok *in);
 ** token.c
 */
 
-int				verif_token(char *str);
+int				verif_token(char *str, int j);
 void			check_token(t_pos *pos, t_tok *in, t_tokench *tok);
 void			init_tok(t_tok *in);
 

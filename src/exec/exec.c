@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 15:05:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 15:47:23 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,10 +23,8 @@ void		init_job(t_job *j)
 void		fill_job(t_job *j, t_lexeur **res)
 {
 	int			i;
-	int			k;
 
 	i = 0;
-	k = 0;
 	while (res[i])
 	{
 		if (res[i]->token == 1 || res[i]->token == 10)
@@ -65,12 +63,73 @@ void		free_lexeur(t_lexeur **res)
 	free(res);
 }
 
-void		free_parseur(t_job *j)
+// void		free_parseur(t_job *j)
+// {
+// 	t_redirect	*red_tmp;
+// 	t_process	*pro_tmp;
+// 	t_job		*j_tmp;
+
+// 	while (j)
+// 	{
+// 		while (j->p)
+// 		{
+// 			while (j->p->redirect)
+// 			{
+// 				ft_strdel(&j->p->redirect->fd_in);
+// 				ft_strdel(&j->p->redirect->fd_out);
+// 				ft_strdel(&j->p->redirect->token);
+// 				red_tmp = j->p->redirect;
+// 				j->p->redirect = j->p->redirect->next;
+// 				free(red_tmp);
+// 			}
+// 			ft_free_tab(j->p->cmd);
+// 			pro_tmp = j->p;
+// 			j->p = j->p->next;
+// 			free(pro_tmp);
+// 		}
+// 		free(pro_tmp);
+// 		j_tmp = j;
+// 		j = j->next;
+// 		free(j_tmp);
+// 	}
+// 	free(j_tmp);
+// }
+
+void		print_j(t_job *j)
 {
-	t_redirect	*red_tmp;
-	t_process	*pro_tmp;
-	t_job		*j_tmp;
+	t_job	*jt;
+	t_process *pt;
 	int			i;
+
+	jt = j;
+//	puts("------------------------");
+	while (jt)
+	{
+		pt = j->p;
+		while (pt)
+		{
+			i = 0;
+			while (pt->cmd[i])
+			{
+//				printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
+				i++;
+			}
+//			if (pt->redirect)
+//				printf("fd: %d\n", pt->redirect->fd);
+//			if (pt->redirect)
+//				printf("content: _%s_\n", pt->redirect->heredoc_content);
+			pt = pt->next;
+		}
+		jt = jt->next;
+	}
+//	puts("------------------------");
+}
+
+void		free_jobs(t_job *j)
+{
+	t_job		*job;
+	t_process	*pro;
+	t_redirect	*red;
 
 	while (j)
 	{
@@ -78,50 +137,28 @@ void		free_parseur(t_job *j)
 		{
 			while (j->p->redirect)
 			{
-				ft_strdel(&j->p->redirect->fd_in);
 				ft_strdel(&j->p->redirect->fd_out);
+				ft_strdel(&j->p->redirect->fd_in);
 				ft_strdel(&j->p->redirect->token);
-				red_tmp = j->p->redirect;
+				red = j->p->redirect;
 				j->p->redirect = j->p->redirect->next;
-				free(red_tmp);
+				free(red);
 			}
-			i = 0;
-			while (j->p->cmd[i])
-			{
-				ft_strdel(&j->p->cmd[i]);
-				i++;
-			}
-			free(j->p->cmd);
-			pro_tmp = j->p;
+			ft_free_tab(j->p->cmd);
+			pro = j->p;
 			j->p = j->p->next;
-			free(pro_tmp);
+			free(pro);
 		}
-		j_tmp = j;
+		job = j;
 		j = j->next;
-		free(j_tmp);
-	}
-}
-
-void		print_j(t_job *j)
-{
-	t_job	*jt;
-	t_process *pt;
-
-	jt = j;
-	while (jt)
-	{
-		pt = j->p;
-		while (pt)
-		{
-			pt = pt->next;
-		}
-		jt = jt->next;
+		free(job);
 	}
 }
 
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
+	t_job		*start;
 
 	if (!res[0])
 	{
@@ -129,6 +166,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 		return (0);
 	}
 	j = malloc(sizeof(t_job));
+	start = j;
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
@@ -140,6 +178,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 		launch_job(j, var);
 		j = j->next;
 	}
-	free_parseur(j);
+	// free_parseur(j);
+	free_jobs(start);
 	return (0);
 }

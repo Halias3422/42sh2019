@@ -71,6 +71,26 @@ char			is_function(char *function, t_var **var)
 	return (0);
 }
 
+static void		print_list(t_var *var)
+{
+	int		i;
+	char	*path_env;
+	char	**path;
+
+	ft_printf("liste des builtin:\n");
+	i = 0;
+	ft_printf("%s",g_builtin_list[i].name);
+	while (++i < LEN_BUILTIN_LIST)
+		ft_printf(" ,%s", g_builtin_list[i].name);
+	path_env = ft_get_val("PATH", var, ENVIRONEMENT);
+	path = ft_strsplit(path_env,':');
+	i = -1;
+	ft_printf("\nliste des path de commandes:\n");
+	while (path[++i])
+		ft_printf("%s\n", path[i]);
+	var = NULL;
+}
+
 int				ft_type(t_process *p, t_var **var)
 {
 	int i;
@@ -78,6 +98,11 @@ int				ft_type(t_process *p, t_var **var)
 
 	i = 0;
 	ret = 1;
+	if (ft_tabclen(p->cmd) > 1 && ft_strcmp(p->cmd[1], "-l") == 0)
+	{
+		print_list(*var);
+		return (0);
+	}
 	while (p->cmd[++i])
 	{
 		if (is_builtin(p->cmd[i]))

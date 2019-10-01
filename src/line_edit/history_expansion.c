@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   history_expansion.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 07:21:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:16:35 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,13 +16,9 @@
 int				check_if_inside_symbols(char *ans, int i)
 {
 	int			j;
-	int			check_anti;
 	int			check_single;
-	int			check_double;
 
-	check_anti = 0;
 	check_single = 0;
-	check_double = 0;
 	j = 0;
 	while (ans && ans[j] && j < i)
 	{
@@ -39,11 +35,9 @@ int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 				int error)
 {
 	char		*expansion;
-	int			end_exp;
 	char		*new_ans;
 
 	expansion = get_expansion_content(pos->ans, i);
-	end_exp = get_expansion_length(pos->ans, i);
 	new_ans = ft_copy_part_str(pos->ans, i - 1, 0);
 	error = get_expansion_value(expansion, hist, &new_ans);
 	if (error == -1)

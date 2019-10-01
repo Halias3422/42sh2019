@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 10:03:07 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 14:20:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,14 +15,9 @@
 
 struct s_hist	**ghist;
 
-void			signal_handler(pid_t pid)
+void			signal_handler()
 {
-	char		*pwd;
-
-	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = getcwd(NULL, 1000));
-	ft_strdel(&pwd);
-	pid = 0;
+	ft_printf("\n");
 }
 
 static void		resize_screen(t_pos *pos)
@@ -62,7 +57,7 @@ static void		ctrl_c(t_pos *pos)
 	pos->ans = ft_secure_free(pos->ans);
 	init_pos(pos);
 	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = getcwd(NULL, 1000));
+		pwd = print_pwd(stock(NULL, 6)));
 	ft_strdel(&pwd);
 	print_prompt(pos);
 }

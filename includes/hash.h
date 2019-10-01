@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:31:38 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 16:06:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 17:32:24 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,10 +27,9 @@ typedef struct		s_hash
 }					t_hash;
 
 /*
-**	HASH_C
+**	HASH_C fichier check_path_hash dans termcaps.h
 */
 
-char				*check_path_hash(char **tab_var, char **arg, int i, char *ans);
 char				*fill_hash_table(char *path, char **arg);
 void				read_hash_table(t_hash **hash);
 
@@ -52,4 +51,6 @@ char				*absolute_path(char *path);
 char				*path_found(char **paths, int i, char *ans, char **arg);
 char				*path_denied(char **paths, char **arg);
 char                *path_not_found(char **paths, char **arg);
+int					scan_name_for_undesired_symbols(char *str);
+
 #endif

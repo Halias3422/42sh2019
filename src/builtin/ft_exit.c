@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_exit.c                                        .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/09/30 09:27:24 by vde-sain    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 #include "../../includes/exec.h"
@@ -33,14 +45,40 @@ void			free_pos()
 	ft_strdel(&pos->saved_ans);
 }
 
+int		error_exit(int i)
+{
+	if (i == 1)
+		ft_printf_err("42sh: exit: {B.T.red.}error{eoc}: Too many arguments\n");
+	return (1);
+}
+
+void	free_env_list(t_var *var)
+{
+	t_var	*tmp;
+
+	if (!var)
+		return ;
+	while (var)
+	{
+		tmp = var;
+		var = var->next;
+		free(tmp->name);
+		free(tmp->data);
+		free(tmp);
+	}
+}
+
 int		ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
 	status = ft_atoi(p->cmd[1]);
+	if (p->cmd && p->cmd[1] && p->cmd[2])
+		return (error_exit(1));
 	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
 		return (status);
-	if (status < 0)
+	if (status < 0 || (p->cmd[1] && (p->cmd[1][0] < '0' || p->cmd[1][0] > '9')
+				&& (status = 255)))
 		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
 	else
 	{
@@ -49,5 +87,7 @@ int		ft_exit(t_process *p, t_var **var)
 	}
 	write_alias_on_exit(*var);
 	free_pos();
+	free_t_hist(stock(NULL, 8));
+	free_env_list(*var);
 	exit(status);
 }

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 15:05:13 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 13:34:38 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ char		*change_buf(char *buf)
 		j++;
 	}
 	res[j] = '\0';
-	ft_strdel(&buf);
+	// ft_strdel(&buf);
 	return (res);
 }
 

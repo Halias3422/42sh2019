@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 16:18:46 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 11:30:46 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,11 @@ void			signal_main(void)
 
 int				check_entry(void)
 {
-	struct winsize w;
+	struct winsize	w;
+	char			*s;
 
+	if (!(s = malloc(sizeof(char) * 10000000)))
+		exit(0);
 	if (ioctl(0, TIOCGWINSZ, &w) == -1)
 	{
 		ft_printf("Entry is not a tty\nExit\n");
@@ -47,6 +50,7 @@ int				check_ans(char *str)
 			return (0);
 		i++;
 	}
+	ft_strdel(&str);
 	return (1);
 }
 
@@ -56,7 +60,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	char		*ans;
 
 	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-	pwd = getcwd(NULL, 1000));
+		pwd = print_pwd(my_env));
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
 	ans = check_backslash(&pos, hist);

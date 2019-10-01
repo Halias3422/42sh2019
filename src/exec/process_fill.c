@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 15:06:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 14:11:28 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,8 +60,45 @@ void		fill_token(t_process *p, t_lexeur **res, int *i)
 		p->redirect->token = NULL;
 }
 
+char		*get_content(char *tag, t_lexeur **res, int *t)
+{
+	char	*content;
+
+	(*t)++;
+	content = NULL;
+	while (res[*t] && ft_strcmp(res[*t]->word, tag))
+	{
+		if (!content)
+			content = ft_strdup(res[*t]->word);
+		else
+			ft_strjoin_free(&content, res[*t]->word);
+		if (res[*t + 1] && ft_strcmp(res[*t + 1]->word, tag))
+			ft_strjoin_free(&content, "\n");
+		(*t)++;
+	}
+	(*t)++;
+	printf("CONTENT: _%s_\n", content);
+	return (content);
+}
+
+void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
+{
+	int		i;
+
+	i = 0;
+	tmp->token = ft_strdup(g_fill_token[res[*t]->token].name);
+	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
+	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
+	tmp->heredoc_content = get_content(res[*t]->redirection, res, t);
+	tmp->fd_out = NULL;
+	tmp->next = NULL;
+}
+
 void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 {
+	tmp->heredoc_content = NULL;
+	if (res[*t]->token == 9)
+		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
 	{
 		tmp->fd_in = (res[*t]->fd_in) ? ft_strdup(res[*t]->fd_in) : NULL;
@@ -74,9 +111,9 @@ void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 		: NULL;
 	}
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
-		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 0;
+		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	else
-		tmp->fd = 0;
+		tmp->fd = 1;
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
@@ -88,6 +125,9 @@ void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 		tmp = tmp->next;
 	tmp->next = malloc(sizeof(t_redirect));
 	tmp = tmp->next;
+	tmp->heredoc_content = NULL;
+	if (res[*t]->token == 7)
+		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
 	{
 		tmp->fd_in = (res[*t]->fd_in) ? ft_strdup(res[*t]->fd_in) : NULL;
@@ -102,7 +142,7 @@ void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 0;
 	else
-		tmp->fd = 0;
+		tmp->fd = 1;
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
