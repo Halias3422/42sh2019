@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 12:53:53 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 16:42:59 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,9 +56,10 @@ static void		ctrl_c(t_pos *pos)
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	pos->saved_ans = ft_secure_free(pos->saved_ans);
-	init_pos(pos);
 	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = print_pwd(stock(NULL, 6)));
+	init_pos(pos);
+	pos->is_complete = 1;
 	ft_strdel(&pwd);
 	print_prompt(pos);
 }

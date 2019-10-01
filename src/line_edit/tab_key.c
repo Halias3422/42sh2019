@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 11:18:58 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 18:06:44 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,7 +99,6 @@ void			input_is_tab(t_pos *pos)
 		return ;
 	path = get_full_path(pos);
 	name = get_correct_path(path);
-	ft_printf("name = '%s'\n", name);
 	if (usage == 0 && path[0] != '.' && path[0] != '/')
 		htab = looking_for_all(pos, htab, &name);
 	else if (usage == 1 || (usage == 0 && (path[0] == '.' || path[0] == '/')))
