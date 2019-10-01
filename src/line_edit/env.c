@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/21 10:54:03 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 17:40:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,10 +18,8 @@ char	*init_data(char *src)
 {
 	char	*dest;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	while (src[i] && src[i] != '=')
 		i++;
 	i++;
@@ -33,10 +31,8 @@ char	*init_name(char *src)
 {
 	char	*dest;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	while (src[i] && src[i] != '=')
 		i++;
 	dest = ft_strsub(src, 0, i);
@@ -68,6 +64,7 @@ t_var	*init_env(char **env, t_pos *pos)
 	new = new->next;
 	new->name = ft_strdup("?");
 	new->data = ft_strdup("0");
+	new->type = -1;
 	new->next = NULL;
 	init_alias(save, pos, NULL);
 	return (save);

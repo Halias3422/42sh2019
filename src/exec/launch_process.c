@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 11:30:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 15:36:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,7 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 		if (find_builtins(p, var) != 0)
 			return (1);
 	}
-	if ((cmd_path = check_path_hash(split_env(*var), p->cmd, -1, NULL)) == NULL)
+	if ((cmd_path = check_path_hash(var, p->cmd, -1, NULL)) == NULL)
 	{
 		add_list_env(var, LOCAL, ft_strdup("?"), ft_strdup("127"));
 	}

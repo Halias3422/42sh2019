@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias_replace.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 09:48:21 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 15:24:01 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 09:57:54 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,6 +45,7 @@ int			replace_alias_while(t_var *var, t_alias *alias)
 		while (tmp[j])
 			j++;
 		fill_alias_solo(ft_strsub(tmp, 0, j), alias);
+		ft_strdel(&tmp);
 		return (1);
 	}
 	while (tmp[j])

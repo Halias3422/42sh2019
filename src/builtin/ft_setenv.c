@@ -6,23 +6,23 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 09:13:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 14:39:09 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 
-void		print_env(t_var **var)
+void		print_env(t_var *var)
 {
-	while (*var)
+	while (var)
 	{
-		if ((*var)->type == ENVIRONEMENT)
+		if (var->type == ENVIRONEMENT)
 		{
-			ft_printf("%s=", (*var)->name);
-			ft_printf("%s\n", (*var)->data);
+			ft_printf("%s=", var->name);
+			ft_printf("%s\n", var->data);
 		}
-		(*var) = (*var)->next;
+		var = var->next;
 	}
 }
 
@@ -42,6 +42,7 @@ void		add_var_to_env(t_var **var, char *name, char *data)
 {
 	t_var	*prev;
 
+	prev = NULL;
 	if (!(*var))
 	{
 		add_setenv(var, name, data);
@@ -87,22 +88,26 @@ static int	setenv_rules(t_process *p)
 
 int			ft_setenv(t_process *p, t_var **var)
 {
-	char		*name;
-	char		*data;
+	char		**al;
 
+	al = NULL;
 	if (p->cmd[1])
 	{
+		al = malloc(sizeof(char *) * 3);
+		al[0] = init_name(p->cmd[1]);
+		al[1] = init_data(p->cmd[1]);
+		al[2] = 0;
+		remoove_quote(&al);
 		if (setenv_rules(p) == 0)
 			return (0);
-		name = init_name(p->cmd[1]);
-		if (scan_name_for_undesired_symbols(name) == -1)
+		if (scan_name_for_undesired_symbols(al[0]) == -1)
 		{
-			name = ft_secure_free(name);
+			ft_free_tab(al);
 			ft_printf_err("42sh: setenv: invalid name parameter\n");
 			return (0);
 		}
-		data = init_data(p->cmd[1]);
-		add_var_to_env(var, name, data);
+		add_var_to_env(var, al[0], al[1]);
 	}
+	free(al);
 	return (1);
 }

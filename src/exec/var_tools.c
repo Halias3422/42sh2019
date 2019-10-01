@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:57:40 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 10:32:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/26 13:54:47 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,7 +63,7 @@ int			check_cmd(char **str)
 	{
 		if (find_equal(str[i]) == 1)
 		{
-			if (str[i + 1])
+			if (str[i + 1] && find_equal(str[i + 1]) != 1)
 				return (1);
 		}
 		i++;
@@ -71,12 +71,12 @@ int			check_cmd(char **str)
 	return (0);
 }
 
-void		add_local(t_var **var, char *str, t_var *prev)
+void		add_local(t_var **var, char *str, t_var *prev, int type)
 {
 	(*var) = malloc(sizeof(t_var));
 	prev->next = (*var);
 	(*var)->next = NULL;
 	(*var)->name = init_name(str);
 	(*var)->data = init_data(str);
-	(*var)->type = LOCAL;
+	(*var)->type = type;
 }

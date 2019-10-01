@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 08:43:18 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/14 11:39:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/28 12:11:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,7 @@ int		get_next_line(const int fd, char **line)
 			str[fd] = temp;
 		}
 	}
+	buf[ret] = '\0';
 	if (ret < 0)
 		return (-1);
 	if ((*line = get_line(str[fd], line)) == NULL)

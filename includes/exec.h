@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 10:31:15 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 09:17:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -167,6 +167,16 @@ int			main_option_exec(t_process **first, t_process **second, t_var *var);
 int			main_alias(t_process *p, t_var **var);
 int			main_unalias(t_process *p, t_var **var);
 
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                    alias.c                                 ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+void		add_alias(t_var **var, char *name, char *data);
+void		find_alias(t_process *p, t_var *var, int k);
+void		add_list_alias(t_var **var, char *name, char *data);
+
+
 void		put_foreground(t_job *j, t_var **var);
 void		put_background(t_job *j);
 
@@ -185,14 +195,14 @@ void		set_job_status(pid_t id, char status);
 int			find_job_pgid(pid_t pgid);
 void		job_notification(t_var **var);
 int			mark_process_status(pid_t pid, int status, t_var **var);
-void		signal_handler(pid_t pid);
+void		signal_handler();
 
 int			job_is_stoped(t_job *j);
 
 t_job		*find_job_by_id(char *argv);
 
 void		free_lexeur(t_lexeur **res);
-void		add_local(t_var **var, char *str, t_var *prev);
+void		add_local(t_var **var, char *str, t_var *prev, int type);
 char		**check_exec_var(char **cmd, t_var **var);
 void		free_temp(t_var **var);
 int			check_cmd(char **str);

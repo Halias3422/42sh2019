@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 15:23:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 11:01:18 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 13:31:21 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,22 +14,34 @@
 #include "../../includes/builtin.h"
 #include "../../includes/exec.h"
 
-int			ft_export_env(char *name, t_var **ptr_var)
+static void		export_var(t_process *p, t_var **var)
 {
-	t_var *var;
+	t_var	*tmp;
+	int		i;
 
-	var = *ptr_var;
-	if (ft_get_val(name, var, LOCAL) == NULL)
-		return (0);
-	while (var)
+	i = 1;
+	while (p->cmd[i])
 	{
-		if (ft_strcmp(name, var->name) == 0 && var->type == LOCAL)
+		tmp = *var;
+		if (find_equal(p->cmd[i]) == 1)
+			ft_setenv(p, var);
+		else
 		{
-			var->type = ENVIRONEMENT;
-			return (1);
+			while (tmp)
+			{
+				if (ft_strcmp(p->cmd[i], tmp->name) == 0)
+					tmp->type = ENVIRONEMENT;
+				tmp = tmp->next;
+			}
 		}
-		var = var->next;
+		i++;
 	}
+}
+
+static int			print_error(int status)
+{
+	if (status == 1)
+		ft_printf_err("42sh: export: {B.T.red.}error{eoc}: Argument required\n");
 	return (0);
 }
 

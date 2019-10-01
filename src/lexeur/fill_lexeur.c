@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 15:23:50 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 09:50:49 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ char		*change_buf(char *buf)
 		j++;
 	}
 	res[j] = '\0';
-	ft_strdel(&buf);
+	// ft_strdel(&buf);
 	return (res);
 }
 

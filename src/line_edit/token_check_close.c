@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   token_check_close.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 14:26:46 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/22 14:55:57 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/19 16:32:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,9 +83,6 @@ void		check_mode_1_2(t_tok *in, t_tokench *tok, char *c)
 
 t_tokench	*check_close(t_tokench *tok, char *c, t_tok *in)
 {
-	int	check;
-
-	check = 0;
 	while (tok && in->mode != 5)
 	{
 		check_mode_1_2(in, tok, c);
