@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 15:31:34 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 13:03:29 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -143,17 +143,6 @@ void		free_jobs(t_job *j)
 	}
 }
 
-static void		print_alias(t_alias *al)
-{
-	puts("---------");
-	while (al)
-	{
-		printf("%s\n", al->data);
-		al = al->next;
-	}
-	puts("---------");
-}
-
 void		replace_job(t_process **p, t_var *var)
 {
 	t_alias		*al;
@@ -163,7 +152,6 @@ void		replace_job(t_process **p, t_var *var)
 	if (!(*p) || !((*p)->cmd))
 		return ;
 	al = make_ar_to_list((*p)->cmd);
-	print_alias(al);
 	r->name = ft_strdup(al->data);
 	while (1)
 	{
