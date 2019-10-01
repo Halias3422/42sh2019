@@ -45,38 +45,13 @@ static int			print_error(int status)
 	return (0);
 }
 
-void		print_p(t_var **ptr_var)
+int				ft_export(t_process *p, t_var **var)
 {
-	t_var	*var;
-
-	var = *ptr_var;
-	while (var != NULL)
-	{
-		if (var->type == ENVIRONEMENT)
-		{
-			if (var->name && var->data)
-				ft_printf("export %s=%s\n", var->name, var->data);
-			else if (var->name)
-				ft_printf("export %s\n", var->name);
-		}
-		var = var->next;
-	}
-}
-
-int			ft_export(t_process *p, t_var **ptr_var)
-{
-	int i;
-
-	i = 0;
-	if (ft_tabclen(p->cmd) > 1 && ft_strcmp(p->cmd[1], "-p") == 0)
-	{
-		print_p(ptr_var);
-		return (0);
-	}
-	while (p->cmd[++i])
-	{
-		if (!ft_export_env(p->cmd[i], ptr_var))
-			ft_printf("42sh: no matches found: %s", p->cmd[i]);
-	}
+	if (!(p->cmd[1]))
+		return (print_error(1));
+	else if (ft_strcmp(p->cmd[1], "-p") == 0)
+		print_env(*var);
+	else
+		export_var(p, var);
 	return (0);
 }
