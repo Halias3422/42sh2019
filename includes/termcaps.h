@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 08:53:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 10:35:07 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -680,17 +680,16 @@ int		double_quote(char *ans, int i);
 */
 
 void			check_for_heredoc(t_pos *pos, int i, char open);
-t_heredoc		*search_for_heredocs_in_ans(t_pos *pos, int i, int open,
-				t_heredoc *hdoc);
-int				fill_hdoc_content(t_heredoc *hdoc, char *ans, int i, int j);
-int				heredoc_found(t_pos *pos, int i, t_heredoc **hdoc, int j);
+void			search_for_heredocs_in_ans(t_pos *pos, int i, int open);
+int				fill_hdoc_content(t_pos *pos, char *ans, int i, int j);
+int				heredoc_found(t_pos *pos, int i, int j);
 
 /*
 **	HEREDOC_SEND_VALID_ANS_C
 */
 
-void			remake_pos_ans(t_heredoc *hdoc, t_pos *pos);
-int				fill_ans_heredoc(t_heredoc **hdoc, t_pos *pos, int i, int j);
+void			remake_pos_ans(t_pos *pos);
+int				fill_ans_heredoc(t_pos *pos, int i, int j);
 
 /*
 **	HEREDOC_TOOLS_C
