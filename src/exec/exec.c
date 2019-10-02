@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 08:58:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 09:04:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,17 +100,30 @@ void		print_j(t_job *j)
 {
 	t_job	*jt;
 	t_process *pt;
+	int			i;
 
 	jt = j;
+//	puts("------------------------");
 	while (jt)
 	{
 		pt = j->p;
 		while (pt)
 		{
+			i = 0;
+			while (pt->cmd[i])
+			{
+//				printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
+				i++;
+			}
+//			if (pt->redirect)
+//				printf("fd: %d\n", pt->redirect->fd);
+//			if (pt->redirect)
+//				printf("content: _%s_\n", pt->redirect->heredoc_content);
 			pt = pt->next;
 		}
 		jt = jt->next;
 	}
+//	puts("------------------------");
 }
 
 void		free_jobs(t_job *j)

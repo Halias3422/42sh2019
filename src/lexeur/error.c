@@ -67,7 +67,7 @@ int		check_error(char *str)
 		if (i == 0 || str[i - 1] != '\\')
 		{
 			token = find_token(str, i);
-			if (token == 4 || token == 0 || token == 1 || token == 10 || token == 2 || token == 3 || token == 7)
+			if (token == 4 || token == 0 || token == 1 || token == 10 || token == 2 || token == 3)
 				if (first_check(str, i, token))
 					return (-1);
 			if (token == 9 || token == 6 || token == 8 || token == 5 || token == 4 || token == 7)

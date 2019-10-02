@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 15:04:18 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 15:47:32 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,14 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 	return (p);
 }
 
+void			add_heredoc(char *tag, t_lexeur **res, int *i)
+{
+	(*i)++;
+	while (res[*i] && !ft_strcmp(res[*i]->word, tag))
+		(*i)++;
+	(*i)++;
+}
+
 void			fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 {
 	(*j)->p->cmd[*k] = ft_strdup(res[*i]->word);
@@ -53,6 +61,12 @@ void			fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 void			fill_process_first_part(t_job **j, t_lexeur **res,
 int *i, int k)
 {
+	if (res[*i]->token == 9)
+	{
+		(*j)->p->cmd = malloc(sizeof(char *) * 1);
+		(*j)->p->cmd[0] = NULL;
+		return ;
+	}
 	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
 	while (res[*i] && res[*i]->word)
 		fill_cmd(res, j, &k, i);
@@ -98,6 +112,12 @@ void			fill_process(t_job *j, t_lexeur **res)
 	i = 0;
 	j->p = malloc(sizeof(t_process));
 	start = j->p;
+	while (res[i])
+	{
+//		printf("res[%d]: word -> _%s_\t token -> %d\tred_in: _%s_\tred_out: _%s_\tred: _%s_\n", i, res[i]->word, res[i]->token, res[i]->fd_in, res[i]->fd_out, res[i]->redirection);
+		i++;
+	}
+	i = 0;
 	while (res[i])
 	{
 		j->p->status = '\0';
