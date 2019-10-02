@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   initialisation_stock.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:36:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:15:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,6 +94,7 @@ static void		init_classic_var(t_pos *pos)
 	pos->was_incomplete = 0;
 	pos->start_select = -1;
 	pos->ctrl_hist_cmd = ft_strnew(0);
+	pos->is_expansion = 0;
 	pos->debug = 0;
 	pos->debug2 = 0;
 	pos->debug3 = 0;
@@ -104,6 +105,9 @@ static void		init_classic_var(t_pos *pos)
 	pos->ctrl_search_history = 0;
 	pos->debugchar = NULL;
 	pos->debugchar2 = NULL;
+	pos->active_heredoc = 0;
+	pos->ans_heredoc = NULL;
+	pos->hdoc = NULL;
 }
 
 void			init_pos(t_pos *pos)

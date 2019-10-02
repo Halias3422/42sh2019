@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   job_function.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/22 16:43:32 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:00:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,7 +67,7 @@ void		remove_job(int id)
 		if (job_list->j->id == id)
 		{
 			last->next = job_list->next;
-			//free(job_list);
+		//	free(job_list);
 			break ;
 		}
 		last = job_list;

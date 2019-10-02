@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias_cnt.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:03:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:03:32 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:01:54 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,8 @@ void		fill_alias_solo(char *str, t_alias *alias)
 	char	*tmp;
 
 	tmp = alias->data;
+	// if (alias->data != NULL)
+	ft_strdel(&alias->data);
 	alias->data = ft_strdup(str);
 	ft_strdel(&tmp);
 	ft_strdel(&str);

@@ -6,14 +6,14 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 10:55:32 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 10:58:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 17:08:35 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
-
+/*
 char	*ft_join_env(char *s1, char const *s2)
 {
 	char	*dest;
@@ -42,10 +42,10 @@ char	*ft_join_env(char *s1, char const *s2)
 	dest[i] = '\0';
 	return (dest);
 }
-
+*/
 char	**split_env(t_var *var)
 {
-	char	*tmp;
+//	char	*tmp;
 	char	**array;
 	t_var	*save;
 	int		i;
@@ -64,9 +64,13 @@ char	**split_env(t_var *var)
 	array[i] = 0;
 	while (i--)
 	{
-		tmp = ft_strdup(save->name);
-		array[j++] = ft_join_env(tmp, save->data);
-		ft_strdel(&tmp);
+//		tmp = ft_strdup(save->name);
+//		array[j++] = ft_join_env(tmp, save->data);
+//		ft_strdel(&tmp);
+		array[j] = ft_strjoinf(save->name, "=", 0);
+		array[j] = ft_strjoinf(array[j], save->data, 1);
+//		array[j] = ft_strjoinf(array[j], "P", 1);
+		j++;
 		save = save->next;
 	}
 	return (array);

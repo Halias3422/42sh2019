@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 15:27:39 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/08 17:23:29 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 16:19:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,15 +34,12 @@ char		*ft_get_val(char *name, t_var *var, int type)
 	return (NULL);
 }
 
-/*
-** pointeur su premier element
-*/
-
-void		remove_item_var(t_var *var)
+void		remove_item_var(t_var **var)
 {
-	free(var->name);
-	free(var->data);
-	free(var);
+	free((*var)->name);
+	free((*var)->data);
+	free(*var);
+	*var = NULL;
 }
 
 int			remove_list_var(t_var **ptr_var, int type, char *name)
@@ -54,9 +51,9 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 	var = *ptr_var;
 	if (ft_strcmp(name, (var)->name) == 0 && (var)->type == type)
 	{
-		buf = var->next;
-		remove_item_var(var);
-		ptr_var = &buf;
+		buf = (*ptr_var)->next;
+		remove_item_var(ptr_var);
+		(*ptr_var) = buf;
 		return (1);
 	}
 	while (var != NULL)
@@ -64,7 +61,7 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 		if (ft_strcmp(name, var->name) == 0 && var->type == type)
 		{
 			buf = var->next;
-			remove_item_var(var);
+			remove_item_var(&var);
 			pres->next = buf;
 			return (1);
 		}
@@ -74,20 +71,37 @@ int			remove_list_var(t_var **ptr_var, int type, char *name)
 	return (0);
 }
 
-void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
+void		free_name_and_data(char *name, char *data)
 {
-	t_var *var;
+	ft_strdel(&name);
+	ft_strdel(&data);
+}
 
-	type = 0;
-	var = *ptr_var;
-	while (var != NULL)
-	{
-		if (ft_strcmp(name, var->name) == 0)
-		{
-			free(var->data);
-			var->data = data;
-			return ;
-		}
-		var = var->next;
-	}
+void        add_list_env(t_var **ptr_var, int type, char *name, char *data)
+{
+    t_var    *var;
+    t_var    *last;
+
+    var = *ptr_var;
+    if (!var)
+        return ;
+    while (var != NULL)
+    {
+        if (ft_strcmp(name, var->name) == 0 && type == var->type)
+        {
+            ft_strdel(&var->data);
+            var->data = ft_strdup(data);
+            free_name_and_data(name, data);
+            return ;
+        }
+        if (var->next == NULL)
+            last = var;
+        var = var->next;
+    }
+    last->next = malloc(sizeof(t_var));
+    last->next->name = ft_strdup(name);
+    last->next->data = ft_strdup(data);
+    last->next->type = type;
+    last->next->next = NULL;
+    free_name_and_data(name, data);
 }

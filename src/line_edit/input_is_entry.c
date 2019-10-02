@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   input_is_entry.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/24 07:21:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 13:41:50 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/01 18:51:17 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,8 +22,20 @@ static t_hist	*entry_is_incomplete(t_pos *pos, t_hist *hist, char *buf)
 	return (hist);
 }
 
+static void		write_in_history_file(t_pos *pos)
+{
+	if (pos->active_heredoc == 0)
+		write(pos->history, pos->ans, ft_strlen(pos->ans));
+	else
+		write(pos->history, pos->ans_heredoc_save,
+		ft_strlen(pos->ans_heredoc_save));
+	write(pos->history, "\n", 1);
+}
+
 static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
 {
+	if (pos->is_expansion-- > 0)
+		return (hist);
 	while (hist->next)
 		hist = hist->next;
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
@@ -34,13 +46,13 @@ static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
 		hist->cmd = ft_secure_free(hist->cmd);
 		return (hist->prev);
 	}
-	write(pos->history, pos->ans, ft_strlen(pos->ans));
-	write(pos->history, "\n", 1);
+	write_in_history_file(pos);
 	while (hist->next)
 		hist = hist->next;
 	if (hist->cmd)
 		hist->cmd = ft_secure_free(hist->cmd);
-	hist->cmd = ft_strdup(pos->ans);
+	hist->cmd = pos->active_heredoc == 0 ? ft_strdup(pos->ans) :
+		ft_strdup(pos->ans_heredoc_save);
 	hist = add_list_back_hist(hist);
 	hist = hist->prev;
 	return (hist);
@@ -48,13 +60,13 @@ static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
 
 static void		check_expansion_and_token(t_pos *pos, t_hist *hist)
 {
-	t_tok		in;
-	t_tokench	tok;
-
-	check_history_expansion(pos, pos->ans, hist);
+	check_history_expansion(pos, hist, 0, 0);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
-	init_tok(&in);
-	check_token(pos, &in, &tok);
+	if (pos->active_heredoc == 0)
+		pos->is_complete = token(pos->ans);
+	if (ft_strchr(pos->ans, '<') != NULL && (pos->is_complete == 1 ||
+		pos->active_heredoc == 1))
+		check_for_heredoc(pos, 0, -1);
 }
 
 t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)

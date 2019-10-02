@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tab_key.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/06 10:56:02 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 08:54:43 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,14 +99,14 @@ void			input_is_tab(t_pos *pos)
 		return ;
 	path = get_full_path(pos);
 	name = get_correct_path(path);
-	if (usage == 0 && path[0] != '.')
+	if (usage == 0 && path[0] != '.' && path[0] != '/')
 		htab = looking_for_all(pos, htab, &name);
-	else if (usage == 1 || (usage == 0 && path[0] == '.'))
+	else if (usage == 1 || (usage == 0 && (path[0] == '.' || path[0] == '/')))
 		htab = looking_for_current(pos, htab, &path, &name);
 	else if (usage == 2)
 		htab = looking_for_var(pos, htab, &name);
 	if (htab && name == NULL && (usage == 1 || usage == 2 ||
-		(usage == 0 && path[0] == '.')))
+		(usage == 0 && (path[0] == '.' || path[0] == '/'))))
 		prepare_to_print_htab(pos, htab);
 	else if (htab)
 		htab = prepare_auto_complete(pos, htab, name);

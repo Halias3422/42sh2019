@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_replace.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:07:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:02:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ char		*get_the_data(char *name, t_var *env)
 		start = start->next;
 	if (!start)
 		return (ft_strdup(""));
-	return (start->data);
+	return (ft_strdup(start->data));
 }
 
 int			find_second_char(char *str, int *i)
@@ -46,9 +46,9 @@ char		*fill_res(char *str, int *i, char *tmp, int *s)
 	char	*res;
 
 	if (str[*s] && str[(*s) - 1] && str[(*s) - 1] == '{')
-		res = ft_strjoin(ft_strsub(str, 0, (*s) - 2), tmp);
+		res = ft_strjoinf(ft_strsub(str, 0, (*s) - 2), tmp, 3);
 	else
-		res = ft_strjoin(ft_strsub(str, 0, (*s) - 1), tmp);
+		res = ft_strjoinf(ft_strsub(str, 0, (*s) - 1), tmp, 3);
 	if (str[*s] && str[(*s) - 1] && str[(*s) - 1] == '{')
 		(*i)++;
 	*s = *i;
@@ -73,13 +73,16 @@ char		*replace_var_to_data(char *str, t_var *env)
 	if (str[i] == '{')
 		s = i + 1;
 	while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
-	&& str[i] != '"' && str[i] != '\''))
+	&& str[i] != '"' && str[i] != '\'' && str[i] != '\\' && str[i] != ':'))
 		if (find_second_char(str, &i) == 0)
 			break ;
 	name = ft_strsub(str, s, i - s);
 	tmp = get_the_data(name, env);
+	ft_strdel(&name);
 	res = fill_res(str, &i, tmp, &s);
-	ft_strjoin_free(&res, ft_strsub(str, s, i - s));
+	res = ft_strjoinf(res, ft_strsub(str, s, i - s), 3);
+	// ft_strdel(&tmp);
+	ft_strdel(&str);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/23 14:15:31 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 13:53:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/30 11:17:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ t_htab			*looking_for_var(t_pos *pos, t_htab *htab, char **name)
 {
 	t_var	*var;
 
+	ft_strdel(name);
 	*name = get_var_name(pos->ans, pos->let_nb);
 	var = stock(NULL, 6);
 	while (var)

@@ -6,28 +6,23 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/07 10:40:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 13:24:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-struct s_hist **ghist;
+struct s_hist	**ghist;
 
-void		signal_handler(pid_t pid)
+void			signal_handler()
 {
-	char	*pwd;
-
-	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = getcwd(NULL, 1000));
-	ft_strdel(&pwd);
-	pid = 0;
+	ft_printf("\n");
 }
 
 static void		resize_screen(t_pos *pos)
 {
-	int		len;
+	int			len;
 
 	check_term();
 	pos->max_co = tgetnum("co");
@@ -54,22 +49,32 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
-	char	*pwd;
+	char		*pwd;
 
+	print_hist(pos, *ghist);
 	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
+	if (pos->active_heredoc == 1)
+	{
+		(*ghist)->cmd = ft_secure_free((*ghist)->cmd);
+		ft_printf("1 = %s 2  = %s \n", pos->ans_heredoc_save, pos->ans_heredoc);
+		pos->ans_heredoc_save = ft_secure_free(pos->ans_heredoc_save);
+		pos->ans_heredoc = ft_secure_free(pos->ans_heredoc);
+	}
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
+	pos->saved_ans = ft_secure_free(pos->saved_ans);
+	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+		pwd = print_pwd(stock(NULL, 6)));
 	init_pos(pos);
-	ft_printf("\n{T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = getcwd(NULL, 1000));
+	pos->is_complete = 1;
 	ft_strdel(&pwd);
 	print_prompt(pos);
 }
 
 static void		sighandler(int signum)
 {
-	t_pos *pos;
+	t_pos		*pos;
 
 	pos = stock(NULL, 1);
 	if (signum == RESIZING)

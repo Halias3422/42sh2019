@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/18 18:14:41 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:00:59 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,56 +19,73 @@ void		jump_space(char *buf, int *i)
 		(*i)++;
 }
 
-void		fill_struct(t_lexeur *res, char *word, enum e_token token,
-char *red)
+char		*change_buf(char *buf)
 {
-	if (word)
-		res->word = ft_strdup(word);
-	else
-		res->word = NULL;
-	res->token = token;
-	if (red)
-		res->redirection = ft_strdup(red);
-	else
-		res->redirection = NULL;
-	res->fd = -1;
-	ft_strdel(&word);
-	ft_strdel(&red);
-}
+	char	*res;
+	int		i;
+	int		j;
 
-t_lexeur	*fill_lex_redirection(char *buf, t_lexeur *res, int *i, int token)
-{
-	if (token == 4 || token == 5 || token == 6 || token == 7)
+	i = 0;
+	j = 0;
+	res = malloc(sizeof(char) * (ft_strlen(buf) + 1));
+	while (buf[i])
 	{
-		fill_struct(res, NULL, token, fill_redirection(buf, i, token));
-		return (res);
+		if (buf[i] == '\\' && buf[i + 1])
+			i++;
+		res[j] = buf[i];
+		if (buf[i])
+			i++;
+		j++;
 	}
-	fill_struct(res, NULL, token, NULL);
-	*i += g_fill_token[token].size;
+	res[j] = '\0';
+	// ft_strdel(&buf);
 	return (res);
 }
 
-t_lexeur	*fill_lex_while(char *buf, int *i, int token)
+int			check_token_for_redirection(char *str)
 {
-	t_lexeur	*res;
+	int		i;
+	int		token;
 
-	res = malloc(sizeof(t_lexeur));
-	if (buf[*i] && token != -1)
-		return (fill_lex_redirection(buf, res, i, token));
-	else
+	token = 0;
+	i = 0;
+	while (str[i])
 	{
-		fill_struct(res, buf, -1, NULL);
-		return (res);
+		if (str[i] && str[i] == '\'')
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+		}
+		if (i == 0 || str[i - 1] != '\\')
+			token = find_token(str, i);
+		if (token == 4 || token == 5 || token == 6 || token == 8
+		|| token == 9)
+			return (token);
+		if (str[i])
+			i++;
 	}
-	return (NULL);
+	return (-1);
+}
+
+void		fill_lex_exist(char **buf, int *i, int *j, t_lexeur **array)
+{
+	int		token;
+	int		k;
+
+	k = 0;
+	token = check_token_for_redirection(buf[*i]);
+	if (token != -1)
+		array[*j] = fill_lex_redirection(buf, i, token);
+	else
+		array[*j] = fill_lex_while(buf[*i], i, find_token(buf[*i], k));
+	(*j)++;
 }
 
 t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 {
 	int			i;
 	int			j;
-	int			k;
-	t_lexeur	*tmp;
 
 	i = 0;
 	j = 0;
@@ -78,15 +95,11 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	i = 0;
 	while (buf[i])
 	{
-		k = 0;
-		if ((tmp = find_fd(buf[i], 0)) != NULL)
-			array[j] = tmp;
-		else if (buf[i])
-			array[j] = fill_lex_while(buf[i], &k, find_token(buf[i], k));
-		i++;
-		j++;
+		if (!(ft_strcmp(buf[i], "")))
+			i++;
+		if (buf[i])
+			fill_lex_exist(buf, &i, &j, array);
 	}
 	array[j] = NULL;
-	check_redirection(&array);
 	return (array);
 }

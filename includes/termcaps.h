@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/07 14:55:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:28:30 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@
 # include <curses.h>
 # include <dirent.h>
 # include "lexeur.h"
+# include "hash.h"
 
 /*
 ** color **
@@ -73,6 +74,15 @@
 
 extern struct s_hist **ghist;
 
+typedef struct			s_heredoc
+{
+	char				*to_find;
+	int					current_index;
+	char				*content;
+	struct s_heredoc	*next;
+	struct s_heredoc	*prev;
+}						t_heredoc;
+
 typedef struct		s_pos
 {
 	int				act_co;
@@ -88,30 +98,34 @@ typedef struct		s_pos
 	int				was_incomplete;
 	int				len_ans;
 	int				let_nb;
-	int				let_nb_saved;
-	int				history;
-	int				alias;
-	int				history_mode;
-	int				history_loop;
-	char			*prompt;
-	int				len_prompt;
-	int				start_select;
-	char			debug;
-	int				debug2;
-	int				debug3;
-	int				debug4;
-	int				debug5;
-    char            *debugchar;
-	char			*debugchar2;
-	int				ctrl_search_history;
-	char			*ctrl_hist_cmd;
-	char			*toto;
-	int				replace_hist;
-	int				error;
-	char			*path;
-	struct termios	old_term;
-	struct termios	my_term;
-}					t_pos;
+	int					let_nb_saved;
+	int					history;
+	int					alias;
+	int					history_mode;
+	int					history_loop;
+	char				*prompt;
+	int					len_prompt;
+	int					start_select;
+	char				debug;
+	int					debug2;
+	int					debug3;
+	int					debug4;
+	int					debug5;
+    char				*debugchar;
+	char				*debugchar2;
+	int					ctrl_search_history;
+	char				*ctrl_hist_cmd;
+	int					replace_hist;
+	int					error;
+	char				*path;
+	struct termios		old_term;
+	struct termios		my_term;
+	int					is_expansion;
+	int					active_heredoc;
+	char				*ans_heredoc;
+	char				*ans_heredoc_save;
+	struct s_heredoc	*hdoc;
+}						t_pos;
 
 typedef struct		s_htab
 {
@@ -188,6 +202,8 @@ typedef struct		s_tok
 	int				mode;
 	int				nb_quote;
 	int				nb_dquote;
+	int				testtoken;
+	int				doubletoken;
 	char			*dquote_d;
 }					t_tok;
 
@@ -199,6 +215,7 @@ typedef struct			s_tokench
 	struct s_tokench	*prev;
 }						t_tokench;
 
+char	*check_path_hash(t_var **var, char **arg, int i, char *ans);
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
 int		got_a_wildcard(char *name);
@@ -376,9 +393,17 @@ t_htab			*fill_new_htab(t_htab *htab, t_htab *neww, int match);
 int			wildcard_match(char *s1, char *s2);
 
 t_htab			*get_current_match(t_htab *htab, char *name, int wildcard);
-void			auto_complete(t_pos *pos, t_htab *htab, char *name);
+void			auto_complete(t_pos *pos, t_htab *htab, char *name,
+				char *old_pos_ans);
 t_htab			*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name);
 t_htab			*get_intelligent_match(t_htab *htab, char *name);
+
+/*
+** TAB_KEY_AUTO_COMPLETE_FOR_TILDE_C
+*/
+
+void			reduce_ans_for_tilde(t_pos *pos, char *name);
+int				get_length_of_home_env(t_var *env);
 
 /*
 ** TAB_KEY_SORT
@@ -437,93 +462,95 @@ void	jump_up(t_pos *pos);
 /*
 ** HISTORY_EXPANSION.C
 */
+void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
+				int error);
+int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
+				int error);
+int				check_if_inside_symbols(char *ans, int i);
 
-t_hist			*check_history_expansion(t_pos *pos, char *ans, t_hist *hist);
-t_hist			*exit_history_expansion(t_hist *hist, char *ans, t_pos *pos);
-t_hist			*replace_expansion_by_value(t_pos *pos, char **ans,
-				t_hist *hist, int *i);
+/*
+** HISTORY_EXPANSION_TYPES.C
+*/
+
+int				double_exclamation_expansion(char **new_ans, t_hist *hist);
+int				number_expansion(char **new_ans, t_hist *hist, char *expansion);
+int				negative_number_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+int				word_finding_expansion(char **new_ans, t_hist *hist,
+				char *expansion);
+int				get_expansion_value(char *expansion, t_hist *hist,
+				char **new_ans);
+
+/*
+** HISTORY_EXPANSION_CALCULATE.C
+*/
+
 char			*get_expansion_content(char *ans, int i);
 int				get_expansion_length(char *ans, int i);
-
-/*
-**HISTORY_EXPANSION_FREE.C
-*/
-
-t_hist			*no_expansion_found(char **expansion, char **new_ans,
-				t_hist *hist);
-char			*new_ans_not_valid(char **ans, char *new_ans, int *i);
-char			*filling_ans_with_new_ans(t_pos *pos, char *new_ans, char **ans,
-				int end_exp);
-
-/*
-**HISTORY_EXPANSION_TYPES.C
-*/
-
-t_hist			*get_expansion_type(char *expansion, t_hist *hist,
-				char **new_ans, int *i);
-t_hist			*double_exclamation_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
-t_hist			*word_finding_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
-t_hist			*negative_number_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
-t_hist			*number_expansion(char **new_ans, t_hist *hist,
-				char *expansion, t_pos *pos);
 
 /*
 ** token_init.c
 */
 
-t_tokench	*add_list_back_tok_next(t_tokench *tok);
-void		maj_token(t_tokench *tok, char *c);
-void		init_tok(t_tok *in);
+t_tokench		*add_list_back_tok_next(t_tokench *tok);
+void			maj_token(t_tokench *tok, char *c);
+void			init_tok(t_tok *in);
 
 /*
 ** token.c
 */
 
-void	check_token(t_pos *pos, t_tok *in, t_tokench *tok);
-void	init_tok(t_tok *in);
+int				verif_token(char *str, int j);
+void			check_token(t_pos *pos, t_tok *in, t_tokench *tok);
+void			init_tok(t_tok *in);
+
+/*
+** TOKEN_CHECK_C
+*/
+
+int		check_in_2(t_pos *pos);
+int		check_in_3(t_pos *pos);
 
 /*
 ** token_check_open.c
 */
 
-void		check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
+void			check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_check_close.c
 */
 
-int			check_close_nothing(t_pos *pos, t_tok *in);
-int			check_close_nothing2(t_pos *pos, t_tok *in);
-int			check_close_tree(t_pos *pos, t_tok *in);
-void		check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
-t_tokench	*check_close(t_tokench *tok, char *c, t_tok *in);
+int				check_close_nothing(t_pos *pos, t_tok *in);
+int				check_close_nothing2(t_pos *pos, t_tok *in);
+int				check_close_tree(t_pos *pos, t_tok *in);
+void			check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
+t_tokench		*check_close(t_tokench *tok, char *c, t_tok *in);
 
 /*
 ** token_heredoc_open.c
 */
 
-void		check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
+void			check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_heredoc_close.c
 */
 
-void		heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
+void			heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
 
 /*
 ** token_free.c
 */
 
-void		free_heredoc(t_tok *in);
-void		free_all_check_token(t_tok *in, t_tokench *tok);
+void			free_heredoc(t_tok *in);
+void			free_all_check_token(t_tok *in, t_tokench *tok);
 
 /*
 ** init_alias.c
 */
-void		init_alias(t_var *var, t_pos *pos);
+void			init_alias(t_var *var, t_pos *pos, char *line);
+void	write_alias(t_var *var, t_pos *p);
 
 /*
 *******************************************************************************
@@ -545,7 +572,7 @@ int						ft_put_c(int c);
 ***								env.c										***
 *******************************************************************************
 */
-t_var					*init_env(char **env, t_pos *pos);
+t_var					*init_env(char **env, t_pos *pos, char **av);
 char					*init_name(char *src);
 void					free_env(t_var *ptr_env);
 char					*init_data(char *src);
@@ -615,9 +642,69 @@ void					get_right_coordinates_not_found(t_pos *pos, t_ctrl_hist
 						*ctrl);
 void					get_pos_coordinates_right_again(t_pos *pos);
 
+/*
+** CHECK_FOR_TILDE_C
+*/
 
+char					*check_for_tilde(char *ans, t_var *env, int i,
+						int usage);
 
 
 void					check_copy(unsigned char *buf, t_pos *pos);
+
+/*
+** CHECK_BACKSLASH_C
+*/
+
+char					*check_backslash(t_pos *pos, t_hist *hist);
+
+/*
+**	TOKEN_C
+*/
+
+int		token_condition(char *ans, int i);
+int		token(char *ans);
+
+/*
+**	TOKEN_CONDITIONS_C
+*/
+
+int		simple_pipe(char *ans, int i);
+int		double_token(char *ans, int i);
+int		brace_param(char *ans, int i);
+int		simple_quote(char *ans, int i);
+int		double_quote(char *ans, int i);
+
+/*
+**	HEREDOC_C
+*/
+
+void			check_for_heredoc(t_pos *pos, int i, char open);
+void			search_for_heredocs_in_ans(t_pos *pos, int i, int open);
+int				fill_hdoc_content(t_pos *pos, char *ans, int i, int j);
+int				heredoc_found(t_pos *pos, int i, int j);
+
+/*
+**	HEREDOC_SEND_VALID_ANS_C
+*/
+
+void			remake_pos_ans(t_pos *pos);
+int				fill_ans_heredoc(t_pos *pos, int i, int j);
+
+/*
+**	HEREDOC_TOOLS_C
+*/
+
+char			*remove_backslash(char *ans);
+int				going_to_heredoc_end(t_pos *pos, int i);
+void			free_hdoc(t_heredoc *hdoc);
+t_heredoc		*add_list_back_heredoc(t_heredoc *heredoc);
+void			init_t_heredoc(t_heredoc *hdoc);
+
+/*
+**	INIT_SPECIAL_PARAMS_C
+*/
+
+void		init_spe_params(t_var *save, t_pos *pos, char **av);
 
 #endif

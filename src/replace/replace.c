@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/07 14:44:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:02:09 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,26 +32,16 @@ char		*make_string(char **array)
 	return (res);
 }
 
-int			check_alias(char *array, t_var *var, t_replace *replace)
+int			check_alias(char *array, t_var *var)
 {
-	int			i;
-	t_replace	*r;
 	t_var		*tmp_var;
 
 	tmp_var = var;
-	i = 0;
-	r = replace;
 	while (tmp_var && ((ft_strcmp(array, tmp_var->name) != 0)
 	|| tmp_var->type != ALIAS))
 		tmp_var = tmp_var->next;
 	if (!tmp_var)
 		return (0);
-	// while (r)
-	// {
-	// 	if (ft_strcmp(r->name, tmp_var->name) == 0)
-	// 		return (0);
-	// 	r = r->next;
-	// }
 	return (1);
 }
 
@@ -63,6 +53,12 @@ int			check_backslash_var(char *str)
 	while (str[i] && str[i] != '$')
 		i++;
 	if (i == 0 || str[i - 1] != '\\')
+	{
+		if (i == 0 && !str[i + 1])
+			return (0);
+		return (1);
+	}
+	if (!str[i + 1] || (str[i + 1] && str[i + 1] == ' '))
 		return (1);
 	return (0);
 }
@@ -70,12 +66,11 @@ int			check_backslash_var(char *str)
 int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 {
 	int		done;
-	int		i;
 
 	done = 0;
-	i = 0;
-	if (check_alias(alias->data, var, replace) == 1 && alias->data[0] != '\\')
+	if (check_alias(alias->data, var) == 1 && alias->data[0] != '\\')
 		replace_alias(alias, var, replace);
+	check_tok(alias, var, replace);
 	while (alias)
 	{
 		if (alias->data && alias->data[0] != '\'')
@@ -93,6 +88,22 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	return (done);
 }
 
+void		free_alias(t_alias *alias)
+{
+	t_alias *tmp;
+
+	tmp = alias;
+	while (alias)
+	{
+		tmp = alias->next;
+		ft_strdel(&alias->data);
+		free(alias);
+		alias = tmp;
+	}
+	free(alias);
+	alias = NULL;
+}
+
 char		**start_split(t_var *start, char *str)
 {
 	char		**ar;
@@ -101,16 +112,13 @@ char		**start_split(t_var *start, char *str)
 
 	init_replace(&replace);
 	ar = split_space(str);
+	if (!start)
+		return (ar);
 	alias = make_ar_to_list(ar);
 	replace->name = ft_strdup(alias->data);
-	while (1)
-	{
-		if (remove_env_while(alias, start, replace) == 0)
-			break ;
-	}
-	free_replace(replace);
-	// ft_free_tab(ar);
 	ar = make_list_to_ar(alias);
+	free_replace(replace);
+	free_alias(alias);
 	del_back_slash(&ar);
 	remoove_quote(&ar);
 	del_back_slash_end(&ar);

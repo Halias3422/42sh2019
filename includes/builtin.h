@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtin.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 13:08:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:02:37 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,17 +16,20 @@
 
 # include "exec.h"
 # include "termcaps.h"
+# include "hash.h"
 # include <dirent.h>
 
-# define LEN_BUILTIN_LIST 13
+# define LEN_BUILTIN_LIST 17
 # define TERM "42sh"
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
 typedef struct	s_hist t_hist;
+typedef struct	s_hash t_hash;
 typedef struct	s_builtin
 {
 	const char	*name;
 	int			(*ptr_builtin)(t_process*, t_var**);
+	int			modify_data;
 }				t_builtin;
 
 typedef struct	s_fc
@@ -53,7 +56,6 @@ extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 
 int				ft_test(t_process *p, t_var **var);
 int				ft_echo(t_process *p, t_var **var);
-int				ft_cd(t_process *p, t_var **var);
 int				ft_set(t_process *p, t_var **ptr_var);
 int				ft_type(t_process *p, t_var **var);
 int				ft_export(t_process *p, t_var **ptr_var);
@@ -69,6 +71,11 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name);
 int				comp_num_operator(char *name1, char *type, char *name2);
 
+/*
+**	FT_EXIT_C
+*/
+
+void			free_env_list(t_var *var);
 int				ft_exit(t_process *p, t_var **var);
 /*
 **		FT_FC.c
@@ -137,16 +144,92 @@ char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 **		FC_PREPARE_E_FLAG.C
 */
 
+char			**get_ide_paths(char **env);
 void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist);
 char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 
-# define ARGUMENTS "cd: Too many arguments."
-# define CD_NO_HOME "cd: No HOME directory."
-# define CD_NO_OLDPWD "cd: No OLDPWD directory"
-# define CD_NO_ENV "cd: No ENV variable directory"
-# define CD_NO_FILE "No such file or directory"
-# define CD_NO_RIGHTS "permission denied"
+/*
+**	FT_HASH_C
+*/
+
+int				ft_hash(t_process *p, t_var **var);
+void			exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
+				t_var **var);
+void			print_path_hash(t_hash **hash, char **cmd);
+void			print_part_of_hash_table(t_hash **hash, char **cmd);
+
+/*
+**	HASH_D_FLAG_C
+*/
+
+void			remove_selected_entry_hash(t_hash **hash, char **cmd);
+void			delete_middle_link(t_hash *tmp);
+void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
+
+/*
+** FT_SETENV_C
+*/
+
+int				ft_setenv(t_process *p, t_var **var);
+void			print_env(t_var *var);
+
+/*
+** FT_UNSETENV_C
+*/
+
+int				ft_unsetenv(t_process *p, t_var **var);
+
+/*
+**	FT_ENV_C
+*/
+
+int				ft_env(t_process *p, t_var **var);
+
+/*
+**	FT_ENV_I_FLAG_C
+*/
+
+int				go_through_process_cmd(t_process *p, t_var **new_env,
+				t_var **head, int ret);
+
+/*
+**	FT_ENV_TOOLS_C
+*/
+
+void		free_new_env(t_var *head);
+t_var		*init_t_var(t_var *ne);
+t_var		*add_list_back_env(t_var *env);
+
+/*
+**	FT_CD_C
+*/
+
+int				get_cd_option(char **cmd, int *i, int ret, int j);
+char			*fill_new_path(char ***tmp, char *new_path, char *cmd,
+				t_var **var);
+char			*get_path(char *cmd, t_var **var, char *new_path, int option);
+void			replace_pwd_vars_in_env(t_var **var, char *new_path,
+				int option);
+int				ft_cd(t_process *p, t_var **var);
+
+/*
+**	FT_CD_PREPARE_DATA_C
+*/
+
+char			*move_to_home_dir(t_var **var);
+char			*move_to_oldpwd(t_var **var);
+char			*replace_double_dot_by_real_path(char *path);
+char			*go_to_absolute_path(char *cmd, t_var **var);
+char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
+
+/*
+**	FT_CD_VERIF_C
+*/
+
+char			*print_pwd(t_var *var);
+char			*verif_p_option_path(char *new_path, int i, int absolute);
+int				verif_path(char *path, int mute);
 
 #endif

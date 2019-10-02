@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/09 07:38:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:35:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,7 @@ void				exec_new_cmds(char **new_cmds, char **env)
 
 	hist = stock(NULL, 8);
 	i = 0;
-	my_env = init_env(env, stock(NULL, 1));
+	my_env = init_env(env, stock(NULL, 1), NULL);
 	i = 0;
 	while (new_cmds[i])
 	{

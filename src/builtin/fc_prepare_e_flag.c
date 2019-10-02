@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 14:02:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 13:39:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/17 09:38:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,9 @@ static int		check_if_ename_is_text_editor(t_fc *fc, char **paths, int i)
 	DIR				*dirp;
 	struct dirent	*read;
 
-	while (paths[i])
+	if (paths == NULL)
+		return (-1);
+	while (paths[++i])
 	{
 		paths[i] = free_strjoin(paths[i], "/");
 		dirp = opendir(paths[i]);
@@ -87,7 +89,6 @@ static int		check_if_ename_is_text_editor(t_fc *fc, char **paths, int i)
 				return (1);
 			}
 		}
-		i++;
 		closedir(dirp);
 	}
 	fc->error = 1;
@@ -95,7 +96,7 @@ static int		check_if_ename_is_text_editor(t_fc *fc, char **paths, int i)
 	return (0);
 }
 
-static	char	**get_ide_paths(char **env)
+char			**get_ide_paths(char **env)
 {
 	int				i;
 	char			**paths;
@@ -111,6 +112,8 @@ static	char	**get_ide_paths(char **env)
 		}
 		i++;
 	}
+	if (paths == NULL)
+		ft_printf("42sh: PATH environment not set\n");
 	return (paths);
 }
 
@@ -131,7 +134,7 @@ void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i)
 		fc->ename = ft_strdup("/usr/bin/vim");
 		send_e_flag_to_exec(fc, hist, env);
 	}
-	else if (check_if_ename_is_text_editor(fc, paths, i) == 1)
+	else if (check_if_ename_is_text_editor(fc, paths, i - 1) == 1)
 		send_e_flag_to_exec(fc, hist, env);
 	ft_free_tab(paths);
 	ft_free_tab(env);
