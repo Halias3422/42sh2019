@@ -74,14 +74,14 @@ static int	redirection_file(t_process *p, t_redirect *redirect)
 		if (!fd_right(redirect->fd_out))
 			return (0);
 		dup2(redirect->open_out, redirect->fd);
-		close(p->file_out);
+		close(redirect->open_out);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(p->file_out, redirect->fd);
-		close(p->file_out);
+		dup2(redirect->open_out, redirect->fd);
+		close(redirect->open_out);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
@@ -140,7 +140,7 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
 		if (fd_right(redirect->fd_out))
-			p->file_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_APPEND,
+			redirect->open_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_APPEND,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
