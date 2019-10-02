@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   job_notification.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/22 16:43:47 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 15:57:05 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,7 @@ void		job_notification(t_var **var)
 				last->next = next;
 			else
 				first_job = next;
-			free_job(job_list);
+			//free_job(job_list);
 		}
 		else if (job_is_stoped(job_list->j) && !job_list->j->notified)
 		{
