@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 15:47:32 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:59:09 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,12 +112,6 @@ void			fill_process(t_job *j, t_lexeur **res)
 	i = 0;
 	j->p = malloc(sizeof(t_process));
 	start = j->p;
-	while (res[i])
-	{
-//		printf("res[%d]: word -> _%s_\t token -> %d\tred_in: _%s_\tred_out: _%s_\tred: _%s_\n", i, res[i]->word, res[i]->token, res[i]->fd_in, res[i]->fd_out, res[i]->redirection);
-		i++;
-	}
-	i = 0;
 	while (res[i])
 	{
 		j->p->status = '\0';

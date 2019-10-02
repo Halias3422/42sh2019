@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 09:19:04 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:59:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,7 +86,6 @@ int		ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
-	printf("p->split = '%c'\tp->fd_in=%d\n", p->split, p->fd_in);
 	status = ft_atoi(p->cmd[1]);
 	if (p->cmd && p->cmd[1] && p->cmd[2])
 		return (error_exit(1));

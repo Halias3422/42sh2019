@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 08:57:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 13:00:00 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,6 @@ int		find_builtins(t_process *p, t_var **var)
 		{
 			p->ret = g_builtin_list[i].ptr_builtin(p, var);
 			add_list_env(var, LOCAL, ft_strdup("?"), ft_itoa(p->ret));
-			//printf("|%d\n", p->ret);
 			return (1);
 		}
 	}
