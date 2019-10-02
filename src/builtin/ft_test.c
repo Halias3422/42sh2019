@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 14:13:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 09:23:41 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,8 @@ int			test_simple_operator(char *type, struct stat s_type)
 		return ((s_type.st_mode & S_IFMT) == S_IFIFO) ? 0 : 1;
 	if (ft_strcmp(type, "-S") == 0)
 		return ((s_type.st_mode & S_IFMT) == S_IFSOCK) ? 0 : 1;
+	if (ft_strcmp(type, "-s") == 0)
+		return (s_type.st_size > 0 ? 0 : 1);
 	if (ft_strcmp(type, "-g") == 0)
 		return (s_type.st_mode & S_ISGID) ? 0 : 1;
 	if (ft_strcmp(type, "-u") == 0)
