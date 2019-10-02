@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:48:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 19:45:54 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,9 @@ int			check_alias(char *array, t_var *var)
 	tmp_var = var;
 	while (tmp_var && ((ft_strcmp(array, tmp_var->name) != 0)
 	|| tmp_var->type != ALIAS))
+	{
 		tmp_var = tmp_var->next;
+	}
 	if (!tmp_var)
 		return (0);
 	return (1);

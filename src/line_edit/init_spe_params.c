@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   init_spe_params.c                                .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/02 18:07:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:42:12 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 19:45:39 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,24 +38,18 @@ void		init_spe_params(t_var *var, t_pos *pos, char **av)
 	i = 0;
 	(void)pos;
 	spe = ft_strdup("0?$!_");
-	while (var->next)
-		var = var->next;
+	while (save->next)
+		save = save->next;
 	while (spe[i])
 	{
-		var->next = (t_var*)malloc(sizeof(t_var));
-		var = var->next;
-		var->name = ft_strnew(1);
-		var->name[0] = spe[i];
-		var->next = NULL;
-		var->data = get_spe_param_data(spe[i], av, save);
-		var->type = 4;
-		ft_printf("var->data = %s\n", var->data);
+		save->next = (t_var*)malloc(sizeof(t_var));
+		save = save->next;
+		save->name = ft_strnew(1);
+		save->name[0] = spe[i];
+		save->next = NULL;
+		save->data = get_spe_param_data(spe[i], av, var);
+		save->type = 4;
 		i++;
 	}
-//	while (save->next)
-//	{
-//		ft_printf("save->name = [%s] -- save->data = [%s] -- save->type = [%d]\n", save->name, save->data, save->type);
-//		save = save->next;
-//	}
 	ft_strdel(&spe);
 }
