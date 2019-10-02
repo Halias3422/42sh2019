@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 13:25:51 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 17:51:31 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,6 +60,26 @@ void		fill_token(t_process *p, t_lexeur **res, int *i)
 		p->redirect->token = NULL;
 }
 
+char		*add_space_content(char *content)
+{
+	char 	*res;
+	int		i;
+
+	i = 0;
+	res = malloc(sizeof(char) * (ft_strlen(content) + 1));
+	while (content[i])
+	{
+		if (content[i] == -1)
+			res[i] = ' ';
+		else
+			res[i] = content[i];
+		i++;
+	}
+	res[i] = '\0';
+	ft_strdel(&content);
+	return (res);
+}
+
 char		*get_content(char *tag, t_lexeur **res, int *t)
 {
 	char	*content;
@@ -77,7 +97,8 @@ char		*get_content(char *tag, t_lexeur **res, int *t)
 		(*t)++;
 	}
 	(*t)++;
-	printf("CONTENT: _%s_\n", content);
+//	printf("CONTENT: _%s_\n", content);
+	content = add_space_content(content);
 	return (content);
 }
 
@@ -156,8 +177,7 @@ void			go_next_heredoc(t_lexeur **res, int *i)
 {
 	char	*tag;
 
-	(*i)++;
-	tag = ft_strdup(res[*i]->word);
+	tag = ft_strdup(res[*i]->redirection);
 	(*i)++;
 	while (res[*i])
 	{
@@ -166,7 +186,7 @@ void			go_next_heredoc(t_lexeur **res, int *i)
 		(*i)++;
 	}
 	if (res[*i])
-		printf("res[%d]: _%s_\n", *i, res[*i]->word);
+		(*i)++;
 	ft_strdel(&tag);
 }
 
