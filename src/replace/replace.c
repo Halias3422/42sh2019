@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 19:45:54 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 20:00:46 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,36 @@ int			check_backslash_var(char *str)
 	return (0);
 }
 
+int			check_spe(t_alias *alias, t_var *var)
+{
+	char	*tmp;
+	char	*ret;
+	int		i;
+
+	tmp = NULL;
+	ret = NULL;
+	while (alias)
+	{
+		i = 0;
+		while (alias->data[i])
+		{
+			if (alias->data[i] == '$' && alias->data[i + 1] == '_' && ( i == 0 || alias->data[i - 1] != '\\'))
+				{
+					tmp = ft_strdup(ft_get_val("_", var, SPE));
+					ret = ft_strsub(alias->data, 0, i);
+					ret = ft_strjoinf(ret, tmp, 3);
+					ret = ft_strjoinf(ret, ft_strsub(alias->data, i + 2, ft_strlen(alias->data)), 3);
+					ft_strdel(&alias->data);
+					alias->data = ft_strdup(ret);
+					ft_strdel(&ret);
+				}
+			i++;
+		}
+		alias = alias->next;
+	}
+	return (0);
+}
+
 int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 {
 	int		done;
@@ -72,6 +102,7 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	done = 0;
 	if (check_alias(alias->data, var) == 1 && alias->data[0] != '\\')
 		replace_alias(alias, var, replace);
+	check_spe(alias, var);
 	check_tok(alias, var, replace);
 	while (alias)
 	{
