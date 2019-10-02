@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 08:53:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:05:26 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,7 @@
 # define LOCAL 1
 # define ALIAS 2
 # define TEMP 3
+# define SPE 4
 
 enum e_token
 {
