@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 10:35:07 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:54:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -572,7 +572,7 @@ int						ft_put_c(int c);
 ***								env.c										***
 *******************************************************************************
 */
-t_var					*init_env(char **env, t_pos *pos);
+t_var					*init_env(char **env, t_pos *pos, char **av);
 char					*init_name(char *src);
 void					free_env(t_var *ptr_env);
 char					*init_data(char *src);
@@ -700,5 +700,11 @@ int				going_to_heredoc_end(t_pos *pos, int i);
 void			free_hdoc(t_heredoc *hdoc);
 t_heredoc		*add_list_back_heredoc(t_heredoc *heredoc);
 void			init_t_heredoc(t_heredoc *hdoc);
+
+/*
+**	INIT_SPECIAL_PARAMS_C
+*/
+
+void		init_spe_params(t_var *save, t_pos *pos, char **av);
 
 #endif

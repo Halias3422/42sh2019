@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/24 13:41:03 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/06 10:59:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:35:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ static void		exec_s_flag(t_fc *fc, t_hist *hist, t_var **var)
 		tmp_cmd = replace_cmd_content_with_ename(fc, tmp_cmd);
 	cmd[0] = ft_strdup(tmp_cmd);
 	env = split_env(*var);
-	my_env = init_env(env, stock(NULL, 1));
+	my_env = init_env(env, stock(NULL, 1), NULL);
 	ft_printf("%s\n", tmp_cmd);
 	if ((check_error(hist->cmd)) != -1)
 		start_exec(start_lex(my_env, tmp_cmd), my_env);

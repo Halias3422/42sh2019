@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 08:54:27 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:48:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,8 +51,16 @@ static void		ctrl_c(t_pos *pos)
 {
 	char		*pwd;
 
+	print_hist(pos, *ghist);
 	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
+	if (pos->active_heredoc == 1)
+	{
+		(*ghist)->cmd = ft_secure_free((*ghist)->cmd);
+		ft_printf("1 = %s 2  = %s \n", pos->ans_heredoc_save, pos->ans_heredoc);
+		pos->ans_heredoc_save = ft_secure_free(pos->ans_heredoc_save);
+		pos->ans_heredoc = ft_secure_free(pos->ans_heredoc);
+	}
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	pos->saved_ans = ft_secure_free(pos->saved_ans);
