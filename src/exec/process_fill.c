@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 17:51:31 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:12:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,6 +108,7 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 
 	i = 0;
 	tmp->token = ft_strdup(g_fill_token[res[*t]->token].name);
+	printf("tmp->token: _%s_\n", tmp->token);
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->heredoc_content = get_content(res[*t]->redirection, res, t);
@@ -118,7 +119,7 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 {
 	tmp->heredoc_content = NULL;
-	if (res[*t]->token == 9)
+	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
 	{
@@ -196,7 +197,7 @@ void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i)
 	res[i]->token == 5 || res[i]->token == 6 || res[i]->token == 7
 	|| res[i]->token == 8 || res[i]->token == 9)))
 	{
-		if (res[i]->token == 9)
+		if (res[i]->token == 7)
 			go_next_heredoc(res, &i);
 		if (res[i] && res[i]->word)
 		{
