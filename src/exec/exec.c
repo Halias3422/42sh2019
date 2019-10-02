@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:52:34 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 20:15:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -146,6 +146,31 @@ void		replace_job(t_process **p, t_var *var)
 	free_alias(al);
 }
 
+void		save_spe_param(char **cmd, t_var *var)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+		i++;
+	while (var->next)
+	{
+		if (var->type == SPE && ft_strcmp(var->name, "_") == 0)
+			break ;
+		var = var->next;
+	}
+	if (!(var->next))
+	{
+		var->next = malloc(sizeof(t_var));
+		var = var->next;
+		var->name = ft_strdup("_");
+		var->next = NULL;
+	}
+	else
+		ft_strdel(&var->data);
+	var->data = ft_strdup(cmd[i - 1]);
+}
+
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
@@ -173,6 +198,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 			tmp = tmp->next;
 		}
 		launch_job(j, var);
+		save_spe_param(j->p->cmd, var);
 		j = j->next;
 	}
 	// free_parseur(j);
