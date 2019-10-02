@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:34:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:02:52 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,6 +74,15 @@
 
 extern struct s_hist **ghist;
 
+typedef struct			s_heredoc
+{
+	char				*to_find;
+	int					current_index;
+	char				*content;
+	struct s_heredoc	*next;
+	struct s_heredoc	*prev;
+}						t_heredoc;
+
 typedef struct		s_pos
 {
 	int				act_co;
@@ -89,31 +98,34 @@ typedef struct		s_pos
 	int				was_incomplete;
 	int				len_ans;
 	int				let_nb;
-	int				let_nb_saved;
-	int				history;
-	int				alias;
-	int				history_mode;
-	int				history_loop;
-	char			*prompt;
-	int				len_prompt;
-	int				start_select;
-	char			debug;
-	int				debug2;
-	int				debug3;
-	int				debug4;
-	int				debug5;
-    char            *debugchar;
-	char			*debugchar2;
-	int				ctrl_search_history;
-	char			*ctrl_hist_cmd;
-	char			*toto;
-	int				replace_hist;
-	int				error;
-	char			*path;
-	struct termios	old_term;
-	struct termios	my_term;
-	int				is_expansion;
-}					t_pos;
+	int					let_nb_saved;
+	int					history;
+	int					alias;
+	int					history_mode;
+	int					history_loop;
+	char				*prompt;
+	int					len_prompt;
+	int					start_select;
+	char				debug;
+	int					debug2;
+	int					debug3;
+	int					debug4;
+	int					debug5;
+    char				*debugchar;
+	char				*debugchar2;
+	int					ctrl_search_history;
+	char				*ctrl_hist_cmd;
+	int					replace_hist;
+	int					error;
+	char				*path;
+	struct termios		old_term;
+	struct termios		my_term;
+	int					is_expansion;
+	int					active_heredoc;
+	char				*ans_heredoc;
+	char				*ans_heredoc_save;
+	struct s_heredoc	*hdoc;
+}						t_pos;
 
 typedef struct		s_htab
 {
@@ -202,7 +214,6 @@ typedef struct			s_tokench
 	struct s_tokench	*next;
 	struct s_tokench	*prev;
 }						t_tokench;
-
 
 char	*check_path_hash(t_var **var, char **arg, int i, char *ans);
 void	print_info(t_pos *pos);
@@ -646,5 +657,48 @@ void					check_copy(unsigned char *buf, t_pos *pos);
 */
 
 char					*check_backslash(t_pos *pos, t_hist *hist);
+
+/*
+**	TOKEN_C
+*/
+
+int		token_condition(char *ans, int i);
+int		token(char *ans);
+
+/*
+**	TOKEN_CONDITIONS_C
+*/
+
+int		simple_pipe(char *ans, int i);
+int		double_token(char *ans, int i);
+int		brace_param(char *ans, int i);
+int		simple_quote(char *ans, int i);
+int		double_quote(char *ans, int i);
+
+/*
+**	HEREDOC_C
+*/
+
+void			check_for_heredoc(t_pos *pos, int i, char open);
+void			search_for_heredocs_in_ans(t_pos *pos, int i, int open);
+int				fill_hdoc_content(t_pos *pos, char *ans, int i, int j);
+int				heredoc_found(t_pos *pos, int i, int j);
+
+/*
+**	HEREDOC_SEND_VALID_ANS_C
+*/
+
+void			remake_pos_ans(t_pos *pos);
+int				fill_ans_heredoc(t_pos *pos, int i, int j);
+
+/*
+**	HEREDOC_TOOLS_C
+*/
+
+char			*remove_backslash(char *ans);
+int				going_to_heredoc_end(t_pos *pos, int i);
+void			free_hdoc(t_heredoc *hdoc);
+t_heredoc		*add_list_back_heredoc(t_heredoc *heredoc);
+void			init_t_heredoc(t_heredoc *hdoc);
 
 #endif

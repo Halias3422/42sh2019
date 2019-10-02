@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/09/30 14:20:50 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/02 12:02:23 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,7 +18,7 @@ SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
 
-SRC_LINE = $(addprefix line_edit/, \
+SRC_LINE = $(addprefix line_edit/,\
 				calcul_line.c check_error.c check_input.c control_search_history_calcul_pos.c\
 				control_search_history.c control_search_history_calcul_lines.c \
 				copy_tools.c copy.c cut.c env.c escape_code.c ft_errno.c\
@@ -29,9 +29,9 @@ SRC_LINE = $(addprefix line_edit/, \
 				move_through_history.c print_ans.c search_in_history.c signal.c tab_key_var.c\
 				start_termcaps.c tab_key.c tab_key_all_path.c tab_key_auto_complete.c tab_key_current_dir.c\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
-				 init_alias.c check_for_tilde.c token.c token_check_close.c token_check_open.c token_free.c token_heredoc_close.c\
-				token_heredoc_open.c token_init.c token_check.c\
-				tab_key_auto_complete_tilde.c check_backslash.c debug.c)
+				 init_alias.c check_for_tilde.c \
+				tab_key_auto_complete_tilde.c check_backslash.c \
+				token.c token_conditions.c heredoc.c heredoc_send_valid_ans.c heredoc_tools.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \

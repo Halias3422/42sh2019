@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 15:36:16 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:00:31 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
-	tcsetpgrp(0, p->pid);
+	//tcsetpgrp(0, p->pid);
 	if (p->fd_in != STDIN_FILENO)
 	{
 		dup2(p->fd_in, STDIN_FILENO);
@@ -43,11 +43,8 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
-	if (p->fd_error != STDERR_FILENO)
-	{
-		dup2(p->fd_error, STDERR_FILENO);
-		close(p->fd_error);
-	}
+	if (path == NULL)
+		exit(1);
 	if (!launch_redirection(p))
 		exit(1);
 	if (find_builtins(p, &var) != 0)
@@ -58,17 +55,25 @@ int			launch_process(t_process *p, t_var *var, char *path)
 
 void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 {
+	int status;
+
 	p->pid = pid;
 	if (j->pgid == 0)
 		j->pgid = pid;
 	setpgid(pid, j->pgid);
-	if (j->split != '&')
+	p->ret = 0;
+	if (p->split != 'P' && j->split != '&')
 	{
 		tcsetpgrp(0, j->pgid);
-		wait_process(var);
+		wait_process_pid(p->pid, var);
 		signal(SIGTTOU, SIG_IGN);
 		tcsetpgrp(0, getpid());
 		signal(SIGTTOU, SIG_DFL);
+		if (p->fd_in != 0)
+		{
+			waitpid(WAIT_ANY, &status, WNOHANG);
+			close(p->fd_in);
+		}
 	}
 }
 
@@ -87,9 +92,10 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	if ((cmd_path = check_path_hash(var, p->cmd, -1, NULL)) == NULL)
 	{
 		add_list_env(var, LOCAL, ft_strdup("?"), ft_strdup("127"));
-		return (0);
 	}
 	pid = fork();
+	if (pid < 0)
+		return (-1);
 	if (pid == 0)
 		launch_process(p, *var, cmd_path);
 	else

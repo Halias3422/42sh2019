@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 14:20:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 12:03:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,9 +55,11 @@ static void		ctrl_c(t_pos *pos)
 		*ghist = (*ghist)->next;
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
-	init_pos(pos);
+	pos->saved_ans = ft_secure_free(pos->saved_ans);
 	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = print_pwd(stock(NULL, 6)));
+	init_pos(pos);
+	pos->is_complete = 1;
 	ft_strdel(&pwd);
 	print_prompt(pos);
 }

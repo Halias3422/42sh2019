@@ -3,117 +3,52 @@
 /*                                                              /             */
 /*   token.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: bjuarez <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/04/09 08:40:32 by bjuarez      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 08:22:00 by bjuarez     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/01 18:30:42 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/02 08:55:42 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "termcaps.h"
+#include "../../includes/termcaps.h"
 
-int			verif_token(char *str, int i)
+int		token_condition(char *ans, int i)
 {
-	if (i > 0 && ft_strncmp(&str[i - 1], "\\&&", 2) == 0)
-		return (0);
-	if (i > 0 && ft_strncmp(&str[i - 1], "\\||", 2) == 0)
-		return (3);
-	if (ft_strncmp(&str[i], "\\|", 1) == 0)
-		return (0);
-	if (ft_strncmp(&str[i], "&&", 2) == 0)
-		return (1);
-	if (ft_strncmp(&str[i], "||", 2) == 0)
-		return (2);
-	if (ft_strncmp(&str[i + 1], "|", 1) == 0)
-		return (3);
-	return (0);
+	if (ans[i] == '"' && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+		i = double_quote(ans, i + 1);
+	else if (ans[i] == 39 && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+		i = simple_quote(ans, i + 1);
+	else if (ans[i] == '$' && ans[i + 1] == '{' && (i == 0 || (i > 0 &&
+					ans[i - 1] != 92)))
+		i = brace_param(ans, i + 2);
+	else if (ans[i] == '&' && ans[i + 1] == '&' && (i == 0 || (i > 0 &&
+					ans[i - 1] != 92)))
+		i = double_token(ans, i + 2);
+	else if (ans[i] == '|' && ans[i + 1] == '|' && (i == 0 || (i > 0 &&
+					ans[i - 1] != 92)))
+		i = double_token(ans, i + 2);
+	else if (ans[i] == '|' && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+		i = simple_pipe(ans, i + 1);
+	return (i);
 }
 
-static int	find_last_token(char *ans)
+int		token(char *ans)
 {
-	int j;
-	int check;
+	int		i;
+	int		ret;
 
-	j = 0;
-	check = 0;
-	while (ans[j])
-		j++;
-	while (j >= 0 && (ans[j] <= 32 || ans[j] > 126))
-		j--;
-	j--;
-	if (j >= 0 && (check = verif_token(ans, j)) != 0)
-		return (check);
-	return (0);
-}
-
-static void	check_close_token(t_pos *pos, t_tok *in, t_tokench *tok)
-{
-	if (check_close_nothing(pos, in) == 1 && in->mode != 5)
+	i = 0;
+	ret = 1;
+	while (ans[i])
 	{
-		in->mode = 1;
-		tok = check_close(tok, "`", in);
+		i = token_condition(ans, i);
+		if (i <= -1)
+			return (0);
+		if (i < ft_strlen(ans))
+			i++;
 	}
-	if (check_close_nothing2(pos, in) == 1 && in->mode != 5)
-	{
-		in->mode = 1;
-		check_close(tok, "'", in);
-	}
-	if (check_close_tree(pos, in) == 1 && in->mode != 5 && in->bquote != 1)
-	{
-		in->mode = 2;
-		check_close(tok, in->dquote_d, in);
-	}
-	in->mode = 0;
-}
-
-static int	check_in(t_pos *pos, t_tok *in)
-{
-	int		p;
-
-	p = ft_strlen(pos->ans);
-	if (in->heredoc == 1 && in->testtoken == 0)
+	if (ans && ft_strlen(ans) > 0 && ans[ft_strlen(ans) - 1] == 92)
 		return (0);
-	if (in->quote == 1)
-		return (0);
-	if (in->dquote > 0)
-		return (0);
-	if (in->bquote == 1)
-		return (0);
-	if (find_last_token(pos->ans) < 4 && find_last_token(pos->ans) > 0
-			&& in->quote != 1 && in->dquote != 1 && in->bquote != 1)
-		return (0);
-	if (pos->ans && p > 0)
-	{
-		if (pos->ans[p - 1] == 92)
-		{
-			if (p == 1)
-				return (0);
-			if (p > 1 && pos->ans[p - 2] != 92)
-				return (0);
-		}
-	}
 	return (1);
-}
-
-void		check_token(t_pos *pos, t_tok *in, t_tokench *tok)
-{
-	tok = NULL;
-	in->i = 0;
-	tok = add_list_back_tok_next(tok);
-	tok->prev = NULL;
-	while (pos->ans && pos->is_complete != -1 && pos->ans[in->i] != '\0')
-	{
-		while (tok && tok->next != NULL)
-			tok = tok->next;
-		check_first_token(pos, in, tok);
-		check_close_token(pos, in, tok);
-		check_heredoc(pos, in, tok);
-		if (pos->ans[in->i] != '\0')
-			in->i++;
-	}
-	pos->is_complete = check_in(pos, in);
-	pos->is_complete = check_in_2(pos);
-	pos->is_complete = check_in_3(pos);
-	free_all_check_token(in, tok);
 }

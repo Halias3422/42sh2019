@@ -79,11 +79,11 @@ static void		print_list(t_var *var)
 
 	ft_printf("liste des builtin:\n");
 	i = 0;
-	ft_printf("%s",g_builtin_list[i].name);
+	ft_printf("%s", g_builtin_list[i].name);
 	while (++i < LEN_BUILTIN_LIST)
 		ft_printf(" ,%s", g_builtin_list[i].name);
 	path_env = ft_get_val("PATH", var, ENVIRONEMENT);
-	path = ft_strsplit(path_env,':');
+	path = ft_strsplit(path_env, ':');
 	i = -1;
 	ft_printf("\nliste des path de commandes:\n");
 	while (path[++i])
