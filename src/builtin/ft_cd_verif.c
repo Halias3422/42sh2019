@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_cd_verif.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:11:29 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 16:49:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 11:58:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,17 +24,19 @@ char		*print_pwd(t_var *var)
 		return (getcwd(NULL, 1000));
 }
 
-char		*verif_p_option_path(char *new_path)
+char		*verif_p_option_path(char *new_path, int i, int absolute)
 {
-	int		i;
 	char	**split_path;
 	char	*test;
 
-	i = 0;
+	if (new_path && new_path[0] == '/')
+		absolute = 1;
 	test = ft_strnew(0);
 	split_path = ft_strsplit(new_path, '/');
 	while (split_path[i])
 	{
+		if (absolute == 1 && i == 0)
+			test = ft_strjoinf(test, "/", 1);
 		test = ft_strjoinf(test, split_path[i], 1);
 		test = ft_strjoinf(test, "/", 1);
 		if (verif_path(test, 1) == 0)

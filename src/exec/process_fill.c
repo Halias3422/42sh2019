@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 14:11:28 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 13:25:51 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -152,17 +152,38 @@ void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->next = NULL;
 }
 
+void			go_next_heredoc(t_lexeur **res, int *i)
+{
+	char	*tag;
+
+	(*i)++;
+	tag = ft_strdup(res[*i]->word);
+	(*i)++;
+	while (res[*i])
+	{
+		if (!ft_strcmp(res[*i]->word, tag))
+			break ;
+		(*i)++;
+	}
+	if (res[*i])
+		printf("res[%d]: _%s_\n", *i, res[*i]->word);
+	ft_strdel(&tag);
+}
+
 void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i)
 {
 	while (res[i] && ((res[i]->word) || (res[i]->token == 4 ||
 	res[i]->token == 5 || res[i]->token == 6 || res[i]->token == 7
 	|| res[i]->token == 8 || res[i]->token == 9)))
 	{
-		if (res[i]->word)
+		if (res[i]->token == 9)
+			go_next_heredoc(res, &i);
+		if (res[i] && res[i]->word)
 		{
 			(*j)->p->cmd[*k] = ft_strdup(res[i]->word);
 			(*k)++;
 		}
-		i++;
+		if (res[i])
+			i++;
 	}
 }

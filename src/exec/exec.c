@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 11:29:54 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 13:32:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -110,10 +110,13 @@ void		print_j(t_job *j)
 		while (pt)
 		{
 			i = 0;
-			while (pt->cmd[i])
+			if (pt->cmd)
 			{
-				printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
-				i++;
+				while (pt->cmd[i])
+				{
+					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
+					i++;
+				}
 			}
 			if (pt->redirect)
 				printf("fd: %d\n", pt->redirect->fd);
