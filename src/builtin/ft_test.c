@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 11:04:24 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 14:13:44 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,6 +61,7 @@ int			simple_operator(char *type, char *name)
 {
 	struct stat s_type;
 
+
 	if (type[0] != '-')
 	{
 		ft_printf("test: unknown condition: %s\n", type);
@@ -91,6 +92,12 @@ int			ft_test_argv(char **argv, int fd_out)
 	int inv;
 
 	i = 0;
+	if (ft_strcmp(argv[1], "-z") == 0)
+	{
+		if (!(argv[2]))
+			return (1);
+		return (0);
+	}
 	if (ft_tabclen(argv) <= 1)
 		return (1);
 	if (ft_strcmp(argv[1], "!") == 0)
