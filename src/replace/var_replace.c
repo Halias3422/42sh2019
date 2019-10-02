@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 10:42:58 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 08:50:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ char		*get_the_data(char *name, t_var *env)
 		start = start->next;
 	if (!start)
 		return (ft_strdup(""));
-	return (start->data);
+	return (ft_strdup(start->data));
 }
 
 int			find_second_char(char *str, int *i)
@@ -46,9 +46,9 @@ char		*fill_res(char *str, int *i, char *tmp, int *s)
 	char	*res;
 
 	if (str[*s] && str[(*s) - 1] && str[(*s) - 1] == '{')
-		res = ft_strjoinf(ft_strsub(str, 0, (*s) - 2), tmp, 1);
+		res = ft_strjoinf(ft_strsub(str, 0, (*s) - 2), tmp, 3);
 	else
-		res = ft_strjoinf(ft_strsub(str, 0, (*s) - 1), tmp, 1);
+		res = ft_strjoinf(ft_strsub(str, 0, (*s) - 1), tmp, 3);
 	if (str[*s] && str[(*s) - 1] && str[(*s) - 1] == '{')
 		(*i)++;
 	*s = *i;
@@ -81,6 +81,7 @@ char		*replace_var_to_data(char *str, t_var *env)
 	ft_strdel(&name);
 	res = fill_res(str, &i, tmp, &s);
 	res = ft_strjoinf(res, ft_strsub(str, s, i - s), 3);
+	// ft_strdel(&tmp);
 	ft_strdel(&str);
 	return (res);
 }

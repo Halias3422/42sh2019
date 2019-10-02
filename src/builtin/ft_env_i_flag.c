@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_env_i_flag.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 15:12:53 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 08:58:52 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,7 +77,7 @@ int		go_through_process_cmd(t_process *p, t_var **new_env,
 				if (ret == -2)
 					return (-1);
 				*new_env = *head;
-				print_env(new_env);
+				print_env(*new_env);
 				break ;
 			}
 		}

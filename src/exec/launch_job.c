@@ -37,17 +37,11 @@ void		alert_job(t_job *j)
 		remove_job(j->id);
 }
 
-void		close_fd(t_process *p)
-{
-	if (p->fd_in != STDIN_FILENO)
-		close(p->fd_in);
-	if (p->fd_out != STDOUT_FILENO)
-		close(p->fd_out);
-}
-
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
+	int			infile;
+	int			mypipe[2];
 
 	p = j->p;
 	if (j->p->builtin == 0 || j->split == '&')
@@ -59,10 +53,25 @@ void		launch_job(t_job *j, t_var *var)
 		if (p->cmd[0] && find_equal(p->cmd[0]) == 1)
 			if ((p->cmd = check_exec_var(p->cmd, &var)) == NULL)
 				return ;
-		fork_simple(j, p, &var);
-		close_fd(p);
+		p->fd_in = infile;
+		if (p->split == 'P')
+		{
+			//p = test_redirection(j, p, &var);
+			pipe(mypipe);
+			p->fd_out = mypipe[1];
+			fork_simple(j, p, &var);
+			close(mypipe[1]);
+			infile = mypipe[0];
+		}
+		else
+		{
+			p->fd_out = 1;
+			fork_simple(j, p, &var);
+			//infile = 0;
+		}
+		//fork_simple(j, p, &var);
 		p = get_and_or(p);
-		free_temp(&var);
+		//free_temp(&var);
 	}
 	alert_job(j);
 }

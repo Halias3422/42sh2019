@@ -23,6 +23,8 @@
 
 # define STOPED 1
 # define FINISHED 1
+# define WRITE_END 1
+# define READ_END 0
 
 typedef struct			s_lexeur t_lexeur;
 typedef struct			s_var t_var;
@@ -34,6 +36,8 @@ typedef	struct			s_redirect
 	char				*fd_out;
 	char				*heredoc_content;
 	int					fd;
+	int					open_in;
+	int					open_out;
 	char				*token;
 	struct s_redirect	*next;
 }						t_redirect;
@@ -211,4 +215,6 @@ void		before_redirection(t_process *p);
 t_process	*get_and_or(t_process *p);
 
 int		is_builtin_modify(t_process *p);
+
+void		wait_process_pid(int pid,t_var **var);
 #endif
