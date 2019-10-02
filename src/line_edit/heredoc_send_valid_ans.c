@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 19:02:06 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 09:47:59 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,8 @@ void			remake_pos_ans(t_heredoc *hdoc, t_pos *pos)
 	pos->ans = ft_strdup(pos->ans_heredoc);
 	ft_strdel(&pos->ans_heredoc);
 	pos->active_heredoc = 0;
-	free_hdoc(pos->hdoc);
+	if (hdoc)
+		free_hdoc(pos->hdoc);
 	pos->hdoc = NULL;
 	pos->ans_heredoc_save = ft_secure_free(pos->ans_heredoc_save);
 }

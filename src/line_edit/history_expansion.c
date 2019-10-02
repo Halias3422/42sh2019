@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 08:53:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 09:42:05 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 	{
 		while (hist && hist->next)
 			hist = hist->next;
-		if (pos->ans[i] == '!' && pos->ans[i + 1] != '\0' && pos->ans[i + 1] != 32 && (i == 0 || (i > 0 && pos->ans[i - 1] != '!'
+		if (pos->ans[i] == '!' && (pos->ans[i + 1] != '\0' && pos->ans[i + 1] != '=') && pos->ans[i + 1] != 32 && (i == 0 || (i > 0 && pos->ans[i - 1] != '!'
 		&& pos->ans[i - 1] != 92)) && check_if_inside_symbols(pos->ans, i) == 0)
 			error = replace_expansion_by_value(pos, hist, i, error);
 			if (error == -1)

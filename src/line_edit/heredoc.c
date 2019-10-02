@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 19:02:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 09:52:22 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,7 +88,8 @@ t_heredoc		*search_for_heredocs_in_ans(t_pos *pos, int i, int open,
 		{
 			if (heredoc_found(pos, i + 2, &hdoc, i + 2) == -1)
 			{
-				free_hdoc(hdoc);
+				if (hdoc)
+					free_hdoc(hdoc);
 				hdoc = NULL;
 				pos->is_complete = 1;
 			}
