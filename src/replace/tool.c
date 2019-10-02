@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/24 19:03:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/01 13:03:32 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,6 @@ int		search_agregator(char *str, int i)
 
 void	split_agregator(char *str, int *i)
 {
-	puts("here");
 	while (str[*i] && (find_token(str, *i) != 5 && find_token(str, *i) != 8))
 		(*i)++;
 	(*i) += 2;

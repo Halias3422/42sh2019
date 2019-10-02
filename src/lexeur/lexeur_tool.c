@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur_tool.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:24:10 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/21 17:44:42 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/09/27 13:18:59 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,6 +93,6 @@ char		*ft_del_simple_quote(char *word)
 	}
 	else
 		res = ft_strdup(word);
-	ft_strdel(&word);
+	// ft_strdel(&word);
 	return (res);
 }
