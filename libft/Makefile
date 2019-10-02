@@ -125,7 +125,7 @@ PEINC = $(addprefix $(INC_PATH), $(PEINC_NAME))
 #  									FLAG                                       #
 # **************************************************************************** #
 
-FLAGS = -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined
+FLAGS = -Wall -Werror -Wextra -O3 -g3 # -fsanitize=address #-fsanitize=undefined
 
 # **************************************************************************** #
 # 									REGLES                                     #
@@ -170,7 +170,7 @@ $(PEOBJ_PATH)%.o: $(PESRC_PATH)%.c $(PEINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
 	@echo "$(DARK_BLUE).\c"
 
-clean: 
+clean:
 	@rm -rf $(OBJ_PATH)
 
 fclean: clean

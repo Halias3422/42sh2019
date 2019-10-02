@@ -181,6 +181,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	t_job		*j;
 	t_job		*start;
 	t_process	*tmp;
+	t_job		*next;
 
 	if (!res[0])
 	{
@@ -197,6 +198,8 @@ int			start_exec(t_lexeur **res, t_var *var)
 	print_j(j);
 	while (j)
 	{
+		j->pgid = 0;
+		next = j->next;
 		tmp = j->p;
 		while (tmp)
 		{
@@ -204,7 +207,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 			tmp = tmp->next;
 		}
 		launch_job(j, var);
-		j = j->next;
+		j = next;
 	}
 	// free_parseur(j);
 	// free_jobs(start);

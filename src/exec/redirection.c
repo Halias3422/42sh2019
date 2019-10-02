@@ -90,6 +90,12 @@ static int	redirection_file(t_process *p, t_redirect *redirect)
 		dup2(p->file_in, STDIN_FILENO);
 		close(p->file_in);
 	}
+	if (ft_strcmp(redirect->token, "<<") == 0)
+	{
+		write(p->file_in, redirect->heredoc_content, ft_strlen(redirect->heredoc_content));
+		dup2(p->file_in, STDIN_FILENO);
+		close(p->file_in);
+	}
 	return (1);
 }
 
@@ -102,7 +108,13 @@ int			launch_redirection(t_process *p)
 	redirect = p->redirect;
 	while (redirect)
 	{
-		fd_in = ft_atoi(redirect->fd_in);
+		if (ft_strcmp(redirect->token, "<<") == 0)
+		{
+			printf(">%s\n", redirect->heredoc_content);
+			fd_in = 1;
+		}
+		else
+			fd_in = ft_atoi(redirect->fd_in);
 		if (!redirect->fd_in)
 			fd_in = 1;
 		fd_out = ft_atoi(redirect->fd_out);
@@ -139,6 +151,13 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 				redirect->fd_out);
 		}
 	}
+	if (ft_strcmp(redirect->token, "<<") == 0)
+	{
+		p->file_in = open("tmp", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
+		//write(p->file_in, redirect->heredoc_content, ft_strlen(redirect->heredoc_content));
+		//close(p->file_in);
+		printf(">>%s\n", redirect->heredoc_content);
+	}
 	redirect = redirect->next;
 }
 
@@ -154,6 +173,8 @@ void		before_redirection(t_process *p)
 		redirect = p->redirect;
 		while (redirect)
 		{
+			if (ft_strcmp(redirect->token, "<") == 0)
+				redirect->token = "<<";
 			before_redirection_file(redirect, p);
 			redirect = redirect->next;
 		}

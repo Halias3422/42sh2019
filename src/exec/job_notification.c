@@ -56,11 +56,6 @@ int			job_is_stoped(t_job *j)
 	return (1);
 }
 
-void		free_job(t_job_list *j)
-{
-	free(j);
-}
-
 void		job_notification(t_var **var)
 {
 	t_job_list	*job_list;
@@ -82,7 +77,7 @@ void		job_notification(t_var **var)
 				last->next = next;
 			else
 				first_job = next;
-			free_job(job_list);
+			free_job(job_list->j);
 		}
 		else if (job_is_stoped(job_list->j) && !job_list->j->notified)
 		{

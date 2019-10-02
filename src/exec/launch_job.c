@@ -48,6 +48,7 @@ void		launch_job(t_job *j, t_var *var)
 		add_job(j);
 	j->status = 'r';
 	before_redirection(p);
+	infile = 0;
 	while (p)
 	{
 		if (p->cmd[0] && find_equal(p->cmd[0]) == 1)
