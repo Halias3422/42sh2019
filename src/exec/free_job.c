@@ -21,12 +21,17 @@ void		free_redirections(t_redirect *ptr_redi)
 	r = ptr_redi;
 	while (r)
 	{
-		if (r->fd_out)
-			free(r->fd_out);
-		if (r->fd_in)
-			free(r->fd_in);
-		if (r->token)
-			free(r->token);
+		if (ft_strcmp(r->token, "<<") == 0)
+			free(r->heredoc_content);
+		else
+		{
+			if (r->fd_out)
+				free(r->fd_out);
+			if (r->fd_in)
+				free(r->fd_in);
+			if (r->token)
+				free(r->token);
+		}
 		next = r->next;
 		free(r);
 		r = next;

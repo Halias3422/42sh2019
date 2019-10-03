@@ -114,14 +114,14 @@ void		print_j(t_job *j)
 			{
 				while (pt->cmd[i])
 				{
-//					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
+					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
 					i++;
 				}
 			}
-//			if (pt->redirect)
-//				printf("fd: %d\n", pt->redirect->fd);
-//			if (pt->redirect)
-//				printf("content: _%s_\n", pt->redirect->heredoc_content);
+			if (pt->redirect)
+				printf("fd: %d\n", pt->redirect->fd);
+			if (pt->redirect)
+				printf("content: _%s_\n", pt->redirect->heredoc_content);
 			pt = pt->next;
 		}
 		jt = jt->next;
@@ -224,6 +224,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	fill_job(j, res);
 	fill_process(j, res);
 	free_lexeur(res);
+	//print_j(j);
 	while (j)
 	{
 		j->pgid = 0;

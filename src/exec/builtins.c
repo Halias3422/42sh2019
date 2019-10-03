@@ -38,7 +38,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"hash", &ft_hash, 1},
 	{"setenv", &ft_setenv, 1},
 	{"unsetenv", &ft_unsetenv, 1},
-	{"env", &ft_env, 1}
+	{"env", &ft_env, 0}
 };
 
 int		is_builtin_modify(t_process *p)

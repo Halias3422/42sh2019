@@ -108,7 +108,7 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 
 	i = 0;
 	tmp->token = ft_strdup(g_fill_token[res[*t]->token].name);
-	printf("tmp->token: _%s_\n", tmp->token);
+	//printf("tmp->token: _%s_\n", tmp->token);
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->heredoc_content = get_content(res[*t]->redirection, res, t);
@@ -119,6 +119,7 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 {
 	tmp->heredoc_content = NULL;
+	//printf("res[%d]: _%d_\n", *t, res[*t]->token);
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)

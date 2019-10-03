@@ -78,7 +78,6 @@ void		launch_job(t_job *j, t_var *var)
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{
-			//p = test_redirection(j, p, &var);
 			pipe(mypipe);
 			p->fd_out = mypipe[1];
 			fork_simple(j, p, &var);
@@ -89,9 +88,7 @@ void		launch_job(t_job *j, t_var *var)
 		{
 			p->fd_out = 1;
 			fork_simple(j, p, &var);
-			//infile = 0;
 		}
-		//fork_simple(j, p, &var);
 		p = get_and_or(p);
 		free_temp(&var);
 	}
