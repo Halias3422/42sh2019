@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:30:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:52:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,7 @@ int			check_token_for_redirection(char *str)
 		}
 		if (i == 0 || str[i - 1] != '\\')
 			token = find_token(str, i);
-		if (token == 4 || token == 5 || token == 6 || token == 8
+		if (token == 4 || token == 5 || token == 6 || token == 7 || token == 8
 		|| token == 9)
 			return (token);
 		if (str[i])

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   redirection.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 09:47:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 13:37:49 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,11 +100,11 @@ int			launch_redirection(t_process *p)
 	int			fd_out;
 
 	redirect = p->redirect;
+	fd_in = 1;
 	while (redirect)
 	{
-		fd_in = ft_atoi(redirect->fd_in);
-		if (!redirect->fd_in)
-			fd_in = 1;
+		if (redirect->fd_in)
+			fd_in = ft_atoi(redirect->fd_in);
 		fd_out = ft_atoi(redirect->fd_out);
 		if (redirection_file(p, redirect) == 0)
 			return (0);

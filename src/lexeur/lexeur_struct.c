@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:38:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/21 17:44:37 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:07:21 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,7 @@ int *i, enum e_token token)
 	t_lexeur *res;
 
 	res = malloc(sizeof(t_lexeur));
-	if (token == 4 || token == 6 || token == 9)
+	if (token == 4 || token == 6 || token == 9 || token == 7)
 	{
 		fill_struct_fd_in(res, get_fd_in(buf[*i]), token,
 		fill_redirection(buf, i));
