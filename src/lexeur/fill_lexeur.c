@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:52:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 18:09:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,5 +101,8 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 			fill_lex_exist(buf, &i, &j, array);
 	}
 	array[j] = NULL;
+	j = -1;
+//	while (array[++j])
+//		printf("ar[%d]: _%s_\ttoken -> %d\tred -> _%s_\tfd _%s_\n", j, array[j]->word, array[j]->token, array[j]->redirection, array[j]->fd_in);
 	return (array);
 }

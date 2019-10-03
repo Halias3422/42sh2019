@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:32:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 17:49:13 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,7 +85,8 @@ void		split_space_find_number(char *str, int *i);
 int			check_token_after_number(char *str, int i);
 int			double_check(char *str, int i);
 void		split_space_basic(char *str, int *i);
-
+void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc);
+char		*get_tag(char *str, int *i);
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                             alias_replace.c                                ┃
