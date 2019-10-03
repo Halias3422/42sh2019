@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 17:49:13 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 19:01:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -134,6 +134,7 @@ char *red);
 t_lexeur	*fill_lex_while(char *buf, int *i, int token);
 t_lexeur	*fill_lex_redirection(char **buf,
 int *i, enum e_token token);
+void		fill_lex_heredoc(t_lexeur ***array, int *j, char **buf, int *i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
