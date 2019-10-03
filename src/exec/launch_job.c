@@ -28,7 +28,10 @@ t_process	*get_and_or(t_process *p)
 void		alert_job(t_job *j)
 {
 	if (j->p->builtin == 1 && j->split != '&')
+	{
+		free_job(j);
 		return ;
+	}
 	if (j->split == '&')
 		print_start_process(j);
 	else if (job_is_stoped(j))
@@ -90,7 +93,7 @@ void		launch_job(t_job *j, t_var *var)
 		}
 		//fork_simple(j, p, &var);
 		p = get_and_or(p);
-		//free_temp(&var);
+		free_temp(&var);
 	}
 	alert_job(j);
 }
