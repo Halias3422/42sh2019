@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:51:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 10:24:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,24 @@ void		alert_job(t_job *j)
 		j->notified = 1;
 	else
 		remove_job(j->id);
+}
+
+void		print_tab(char **cmd, int c)
+{
+	int i =0;
+
+	if (c == 1)
+		ft_printf("{T.red.}------------------------------------\n");
+	if (c == 2)
+		ft_printf("{T.blue.}------------------------------------\n");
+	if (c == 3)
+		ft_printf("{T.yellow.}------------------------------------\n");
+	while (cmd[i])
+	{
+		ft_printf("tab[%d]=%s\n", i, cmd[i]);
+		i++;
+	}
+	ft_printf("{eoc}");
 }
 
 void		launch_job(t_job *j, t_var *var)

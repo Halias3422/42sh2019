@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:30:35 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 10:25:59 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -107,6 +107,20 @@ void		remoove_all_quote(char **str)
 	ft_free_tab(al);
 }
 
+int			check_utils(char **cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (ft_strchr(cmd[i], '$') != NULL)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 {
 	if (cmd[i] && find_equal(cmd[i]))
@@ -114,6 +128,7 @@ int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 		remoove_all_quote(&cmd[i]);
 		if (check_cmd(cmd) == 1)
 		{
+			// if (check_utils(cmd) == 1)
 			add_env_temp(var, cmd[i], TEMP);
 			*tmp = remove_tab(cmd, i);
 		}

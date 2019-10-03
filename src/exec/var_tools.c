@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:57:40 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/26 13:54:47 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 09:48:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,7 @@ int			find_equal(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (str[i] == '=')
+		if (str[i] == '=' && i > 0 && str[i - 1] != '!')
 			return (1);
 		i++;
 	}

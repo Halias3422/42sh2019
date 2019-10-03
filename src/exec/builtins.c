@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:30:13 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 10:24:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,7 @@ int		find_builtins(t_process *p, t_var **var)
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
 		{
 			p->ret = g_builtin_list[i].ptr_builtin(p, var);
-			add_list_env(var, LOCAL, ft_strdup("?"), ft_itoa(p->ret));
+			add_list_env(var, SPE, ft_strdup("?"), ft_itoa(p->ret));
 			return (1);
 		}
 	}
@@ -82,13 +82,17 @@ int		find_builtins(t_process *p, t_var **var)
 int		test_builtin(t_process *p)
 {
 	int i;
+	int j;
 
 	i = -1;
+	j = 0;
 	if (!p->cmd[0])
 		return (0);
 	while (++i < LEN_BUILTIN_LIST)
 	{
-		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
+		while (p->cmd[j] && find_equal(p->cmd[j]) == 1)
+			j++;
+		if (p->cmd[j] && ft_strcmp(p->cmd[j], g_builtin_list[i].name) == 0)
 			return (1);
 	}
 	return (0);

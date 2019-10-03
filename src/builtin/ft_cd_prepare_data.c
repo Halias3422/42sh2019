@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:10:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 10:30:57 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,8 @@ char	*move_to_home_dir(t_var **var)
 {
 	char	*path;
 
-	path = ft_get_val("HOME", *var, ENVIRONEMENT);
+	if ((path = ft_get_val("HOME", *var, TEMP)) == NULL)
+		path = ft_get_val("HOME", *var, ENVIRONEMENT);
 	if (path == NULL)
 	{
 		ft_printf_err("42sh: cd: HOME not set\n");
