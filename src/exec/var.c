@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 12:00:48 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:30:35 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,7 @@ void		add_env(t_var **var, char *str)
 	}
 	while (*var)
 	{
-		if (ft_strcmp(name, (*var)->name) == 0)
+		if (ft_strcmp(name, (*var)->name) == 0 && (*var)->type != SPE)
 			break ;
 		prev = (*var);
 		(*var) = (*var)->next;

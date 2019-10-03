@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 12:02:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:31:57 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,6 @@
 #ifndef EXEC_H
 # define EXEC_H
 
-//# include "termcaps.h"
 # include <unistd.h>
 # include "builtin.h"
 # include <signal.h>

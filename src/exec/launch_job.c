@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 12:00:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:30:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ void		launch_job(t_job *j, t_var *var)
 		add_job(j);
 	j->status = 'r';
 	before_redirection(p);
+	infile = 0;
 	while (p)
 	{
 		if (p->cmd[0] && find_equal(p->cmd[0]) == 1)

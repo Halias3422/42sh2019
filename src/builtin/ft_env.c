@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 08:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 11:59:26 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:29:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,10 +55,11 @@ t_var			*place_new_entry_in_tmp_env(char **new_env_entry,
 		var->next = NULL;
 	}
 	head = var;
-	while (var && var->next && ft_strcmp(new_env_entry[0], var->name) != 0)
+	while (var && var->next && ft_strcmp(new_env_entry[0], var->name) != 0
+				&& var->type != SPE)
 		var = var->next;
 	if (var->name != NULL && ft_strncmp(new_env_entry[0], var->name, 
-				name_len) == 0)
+				name_len) == 0 && var->type != SPE)
 	{
 		var->data = ft_secure_free(var->data);
 		var->data = ft_strdup(new_env_entry[1]);
