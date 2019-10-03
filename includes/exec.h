@@ -92,7 +92,6 @@ int		start_exec(t_lexeur **res, t_var *var);
 */
 
 void		fill_process(t_job *j, t_lexeur **res);
-void		free_process(t_job *j);
 void		fill_token(t_process *p, t_lexeur **res, int *i);
 
 
@@ -216,4 +215,5 @@ t_process	*get_and_or(t_process *p);
 int		is_builtin_modify(t_process *p);
 
 void		wait_process_pid(int pid,t_var **var);
+void		free_job(t_job *j);
 #endif
