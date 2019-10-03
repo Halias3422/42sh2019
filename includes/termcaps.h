@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 19:03:43 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 15:23:37 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -572,7 +572,7 @@ int						ft_put_c(int c);
 ***								env.c										***
 *******************************************************************************
 */
-t_var					*init_env(char **env, t_pos *pos);
+t_var					*init_env(char **env, t_pos *pos, char **av);
 char					*init_name(char *src);
 void					free_env(t_var *ptr_env);
 char					*init_data(char *src);
@@ -656,7 +656,7 @@ void					check_copy(unsigned char *buf, t_pos *pos);
 ** CHECK_BACKSLASH_C
 */
 
-char					*check_backslash(t_pos *pos, t_hist *hist);
+char					*check_backslash(t_pos *pos);
 
 /*
 **	TOKEN_C
@@ -680,17 +680,16 @@ int		double_quote(char *ans, int i);
 */
 
 void			check_for_heredoc(t_pos *pos, int i, char open);
-t_heredoc		*search_for_heredocs_in_ans(t_pos *pos, int i, int open,
-				t_heredoc *hdoc);
-int				fill_hdoc_content(t_heredoc *hdoc, char *ans, int i, int j);
-int				heredoc_found(t_pos *pos, int i, t_heredoc **hdoc, int j);
+void			search_for_heredocs_in_ans(t_pos *pos, int i, int open);
+int				fill_hdoc_content(t_pos *pos, char *ans, int i, int j);
+int				heredoc_found(t_pos *pos, int i, int j);
 
 /*
 **	HEREDOC_SEND_VALID_ANS_C
 */
 
-void			remake_pos_ans(t_heredoc *hdoc, t_pos *pos);
-int				fill_ans_heredoc(t_heredoc **hdoc, t_pos *pos, int i, int j);
+void			remake_pos_ans(t_pos *pos);
+int				fill_ans_heredoc(t_pos *pos, int i, int j);
 
 /*
 **	HEREDOC_TOOLS_C
@@ -701,5 +700,11 @@ int				going_to_heredoc_end(t_pos *pos, int i);
 void			free_hdoc(t_heredoc *hdoc);
 t_heredoc		*add_list_back_heredoc(t_heredoc *heredoc);
 void			init_t_heredoc(t_heredoc *hdoc);
+
+/*
+**	INIT_SPECIAL_PARAMS_C
+*/
+
+void		init_spe_params(t_var *save, t_pos *pos, char **av);
 
 #endif

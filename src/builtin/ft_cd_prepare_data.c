@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_cd_prepare_data.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:10:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 16:47:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 10:30:57 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,8 @@ char	*move_to_home_dir(t_var **var)
 {
 	char	*path;
 
-	path = ft_get_val("HOME", *var, ENVIRONEMENT);
+	if ((path = ft_get_val("HOME", *var, TEMP)) == NULL)
+		path = ft_get_val("HOME", *var, ENVIRONEMENT);
 	if (path == NULL)
 	{
 		ft_printf_err("42sh: cd: HOME not set\n");
@@ -69,8 +70,6 @@ char	*replace_double_dot_by_real_path(char *path)
 		return (path);
 	while (i > 0 && path[i] != '/')
 		i--;
-	if (i == 0)
-		return (path);
 	path[i + 1] = '\0';
 	return (path);
 }

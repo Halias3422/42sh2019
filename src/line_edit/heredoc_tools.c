@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:58:58 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 19:02:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 10:54:40 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,8 @@ void			free_hdoc(t_heredoc *hdoc)
 {
 	t_heredoc				*tmp;
 
+	if (hdoc == NULL)
+		return ;
 	while (hdoc->prev)
 		hdoc = hdoc->prev;
 	while (hdoc)

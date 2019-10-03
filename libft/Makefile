@@ -5,8 +5,8 @@
 #                                                  +:+:+   +:    +:  +:+:+     #
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
-#    Created: 2019/02/25 12:55:34 by shthevak     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/01 17:42:55 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Created: 2019/02/25 12:55:34 by mjalenqu     #+#   ##    ##    #+#        #
+#    Updated: 2019/10/03 15:05:49 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -170,7 +170,7 @@ $(PEOBJ_PATH)%.o: $(PESRC_PATH)%.c $(PEINC)
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
 	@echo "$(DARK_BLUE).\c"
 
-clean: 
+clean:
 	@rm -rf $(OBJ_PATH)
 
 fclean: clean

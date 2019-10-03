@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/25 09:10:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 16:06:09 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,6 @@ char				*absolute_path(char *path)
 	}
 	if (access(path, F_OK) == -1)
 		ft_printf("42sh: %s: No such file or directory", tmp);
-		//ft_printf("42sh: %s: command not found\n", tmp);
 	else if (access(path, X_OK) == -1)
 		ft_printf("42sh: %s: permission denied\n", tmp);
 	else

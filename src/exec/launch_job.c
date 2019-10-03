@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:15:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 10:24:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,10 @@ t_process	*get_and_or(t_process *p)
 void		alert_job(t_job *j)
 {
 	if (j->p->builtin == 1 && j->split != '&')
+	{
+		free_job(j);
 		return ;
+	}
 	if (j->split == '&')
 		print_start_process(j);
 	else if (job_is_stoped(j))
@@ -37,30 +40,58 @@ void		alert_job(t_job *j)
 		remove_job(j->id);
 }
 
-void		close_fd(t_process *p)
+void		print_tab(char **cmd, int c)
 {
-	if (p->fd_in != STDIN_FILENO)
-		close(p->fd_in);
-	if (p->fd_out != STDOUT_FILENO)
-		close(p->fd_out);
+	int i =0;
+
+	if (c == 1)
+		ft_printf("{T.red.}------------------------------------\n");
+	if (c == 2)
+		ft_printf("{T.blue.}------------------------------------\n");
+	if (c == 3)
+		ft_printf("{T.yellow.}------------------------------------\n");
+	while (cmd[i])
+	{
+		ft_printf("tab[%d]=%s\n", i, cmd[i]);
+		i++;
+	}
+	ft_printf("{eoc}");
 }
 
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
+	int			infile;
+	int			mypipe[2];
 
 	p = j->p;
 	if (j->p->builtin == 0 || j->split == '&')
 		add_job(j);
 	j->status = 'r';
 	before_redirection(p);
+	infile = 0;
 	while (p)
 	{
 		if (p->cmd[0] && find_equal(p->cmd[0]) == 1)
 			if ((p->cmd = check_exec_var(p->cmd, &var)) == NULL)
 				return ;
-		fork_simple(j, p, &var);
-		close_fd(p);
+		p->fd_in = infile;
+		if (p->split == 'P')
+		{
+			//p = test_redirection(j, p, &var);
+			pipe(mypipe);
+			p->fd_out = mypipe[1];
+			fork_simple(j, p, &var);
+			close(mypipe[1]);
+			infile = mypipe[0];
+		}
+		else
+		{
+			p->fd_out = 1;
+			fork_simple(j, p, &var);
+			//infile = 0;
+		}
+		//fork_simple(j, p, &var);
 		p = get_and_or(p);
 		free_temp(&var);
 	}

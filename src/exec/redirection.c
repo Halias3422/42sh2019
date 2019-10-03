@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   redirection.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 13:34:03 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:55:49 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,20 +73,26 @@ static int	redirection_file(t_process *p, t_redirect *redirect)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(p->file_out, redirect->fd);
-		close(p->file_out);
+		dup2(redirect->open_out, redirect->fd);
+		close(redirect->open_out);
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
 		if (!fd_right(redirect->fd_out))
 			return (0);
-		dup2(p->file_out, STDOUT_FILENO);
-		close(p->file_out);
+		dup2(redirect->open_out, redirect->fd);
+		close(redirect->open_out);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
 		if (!fd_right(redirect->fd_out) || !ft_file_exists(redirect->fd_out))
 			return (0);
+		dup2(p->file_in, STDIN_FILENO);
+		close(p->file_in);
+	}
+	if (ft_strcmp(redirect->token, "<<") == 0)
+	{
+		write(p->file_in, redirect->heredoc_content, ft_strlen(redirect->heredoc_content));
 		dup2(p->file_in, STDIN_FILENO);
 		close(p->file_in);
 	}
@@ -100,9 +106,16 @@ int			launch_redirection(t_process *p)
 	int			fd_out;
 
 	redirect = p->redirect;
+	fd_in = 1;
 	while (redirect)
 	{
-		fd_in = ft_atoi(redirect->fd_in);
+		if (ft_strcmp(redirect->token, "<<") == 0)
+		{
+			ft_printf(">%s\n", redirect->heredoc_content);
+			fd_in = 1;
+		}
+		else
+			fd_in = ft_atoi(redirect->fd_in);
 		if (!redirect->fd_in)
 			fd_in = 1;
 		fd_out = ft_atoi(redirect->fd_out);
@@ -120,13 +133,15 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 	if (ft_strcmp(redirect->token, ">") == 0)
 	{
 		if (fd_right(redirect->fd_out))
-			p->file_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
+		{
+			redirect->open_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		}
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
 		if (fd_right(redirect->fd_out))
-			p->file_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_APPEND,
+			redirect->open_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_APPEND,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	if (ft_strcmp(redirect->token, "<") == 0)
@@ -137,39 +152,33 @@ void		before_redirection_file(t_redirect *redirect, t_process *p)
 				redirect->fd_out);
 		}
 	}
+	if (ft_strcmp(redirect->token, "<<") == 0)
+	{
+		p->file_in = open("tmp", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
+		//write(p->file_in, redirect->heredoc_content, ft_strlen(redirect->heredoc_content));
+		//close(p->file_in);
+		printf(">>%s\n", redirect->heredoc_content);
+	}
 	redirect = redirect->next;
 }
 
 void		before_redirection(t_process *p)
 {
 	t_redirect	*redirect;
-	int			infile;
-	int			mypipe[2];
 
-	infile = 0;
 	while (p)
 	{
 		p->fd_error = STDERR_FILENO;
-		p->fd_in = infile;
-		if (p->split == 'P')
-		{
-			pipe(mypipe);
-			p->fd_out = mypipe[1];
-			infile = mypipe[0];
-		}
-		else
-		{
-			p->fd_out = 1;
-			infile = 0;
-		}
+		p->fd_in = 0;
+		p->fd_out = 1;
 		redirect = p->redirect;
 		while (redirect)
 		{
+			if (ft_strcmp(redirect->token, "<") == 0)
+				redirect->token = "<<";
 			before_redirection_file(redirect, p);
 			redirect = redirect->next;
 		}
-		//if (p->split == 'P' && p->fd_out != mypipe[1])
-		//	close(mypipe[1]);
 		p = get_and_or(p);
 	}
 }

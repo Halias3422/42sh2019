@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 15:58:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:52:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ char		*change_buf(char *buf)
 		j++;
 	}
 	res[j] = '\0';
-	//ft_strdel(&buf);
+	// ft_strdel(&buf);
 	return (res);
 }
 
@@ -59,7 +59,7 @@ int			check_token_for_redirection(char *str)
 		}
 		if (i == 0 || str[i - 1] != '\\')
 			token = find_token(str, i);
-		if (token == 4 || token == 5 || token == 6 || token == 8
+		if (token == 4 || token == 5 || token == 6 || token == 7 || token == 8
 		|| token == 9)
 			return (token);
 		if (str[i])

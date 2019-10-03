@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_cd.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 16:43:10 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:29:14 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ char	*get_path(char *cmd, t_var **var, char *new_path, int option)
 		if (option == 'P')
 		{
 			new_path = ft_strdup(cmd);
-			new_path = verif_p_option_path(new_path);
+			new_path = verif_p_option_path(new_path, 0, 0);
 		}
 		else
 			new_path = move_to_new_dir(cmd, var, new_path);

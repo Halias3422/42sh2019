@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   job_controll.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:35:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 10:24:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,14 +27,16 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 	else
 	{
 		if (WIFSIGNALED(status))
-			ft_printf_err("terminated by signal %d", WTERMSIG(status));
+			ft_printf_err("terminated by signal %d\n", WTERMSIG(status));
 		job_list->j->status = 'f';
 		process->completed = FINISHED;
 		if (!process->builtin)
 		{
 			process->ret = WEXITSTATUS(status);
-			add_list_env(var, LOCAL, ft_strdup("?"), ft_itoa(process->ret));
+			add_list_env(var, SPE, ft_strdup("?"), ft_itoa(process->ret));
 		}
+		else
+			process->ret = 0;
 	}
 }
 
@@ -55,7 +57,7 @@ int			mark_process_status(pid_t pid, int status, t_var **var)
 				{
 					process->status = status;
 					process_status(process, job_list, status, var);
-					return(0);
+					return (0);
 				}
 				process = process->next;
 			}
@@ -110,5 +112,14 @@ void		wait_process(t_var **var)
 	pid_t		pid_test;
 
 	pid_test = waitpid(WAIT_ANY, &status, WUNTRACED);
+	mark_process_status(pid_test, status, var);
+}
+
+void		wait_process_pid(int pid,t_var **var)
+{
+	int			status;
+	pid_t		pid_test;
+
+	pid_test = waitpid(pid, &status, WUNTRACED);
 	mark_process_status(pid_test, status, var);
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:47:15 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:31:52 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -173,7 +173,7 @@ void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 */
 
 int				ft_setenv(t_process *p, t_var **var);
-void			print_env(t_var **var);
+void			print_env(t_var *var);
 
 /*
 ** FT_UNSETENV_C
@@ -229,7 +229,7 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 */
 
 char			*print_pwd(t_var *var);
-char			*verif_p_option_path(char *new_path);
+char			*verif_p_option_path(char *new_path, int i, int absolute);
 int				verif_path(char *path, int mute);
 
 #endif

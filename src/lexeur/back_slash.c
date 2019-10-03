@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:15:51 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/02 18:50:35 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,12 +92,10 @@ void		del_back_slash(char ***ar)
 		// printf("len de |%s|= %d\n", (*ar)[j], ft_strlen((*ar)[j]));
 		while ((*ar)[j][k])
 		{
-			// printf("1/\tj = %d\tk = %d\n", j, k);
 			if (del_back_slash_browse(ar, &j, &k))
 				break ;
 			if (k > ft_strlen((*ar)[j]))
 				k = ft_strlen((*ar)[j]);
-			// printf("2/\tj = %d\tk = %d\n", j, k);
 		}
 		k = 0;
 		j++;

@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/01 19:03:41 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/03 15:05:41 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -31,7 +31,8 @@ SRC_LINE = $(addprefix line_edit/,\
 				tab_key_sort.c tab_key_struct.c tab_key_tools_calcul_print.c tab_key_tools_manip.c\
 				 init_alias.c check_for_tilde.c \
 				tab_key_auto_complete_tilde.c check_backslash.c \
-				token.c token_conditions.c heredoc.c heredoc_send_valid_ans.c heredoc_tools.c debug.c)
+				token.c token_conditions.c heredoc.c heredoc_send_valid_ans.c heredoc_tools.c\
+				init_spe_params.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
@@ -40,7 +41,7 @@ SRC_LEX = $(addprefix lexeur/, \
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
 				job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
-				process_tool.c redirection.c alias_tools.c)
+				process_tool.c redirection.c alias_tools.c free_job.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \

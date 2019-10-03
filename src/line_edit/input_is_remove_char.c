@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   input_is_remove_char.c                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/29 08:12:16 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 12:43:19 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 07:31:09 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,8 @@ static void		remove_char_ans(t_pos *pos)
 	if (pos->let_nb < pos->len_ans)
 		swap = ft_strjoinf(swap, pos->ans + pos->let_nb, 1);
 	ft_strdel(&pos->ans);
-	pos->ans = swap;
+	pos->ans = ft_strdup(swap);
+	ft_strdel(&swap);
 }
 
 int				input_is_backspace(t_pos *pos)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 18:53:18 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 15:15:49 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,6 @@ int				check_ans(char *str)
 			return (0);
 		i++;
 	}
-	ft_strdel(&str);
 	return (1);
 }
 
@@ -64,15 +63,17 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	ft_strdel(&pwd);
 	ans = termcaps42sh(&pos, hist, my_env);
 	if (pos.ans_heredoc)
-		remake_pos_ans(pos.hdoc, &pos);
-	ans = check_backslash(&pos, hist);
-	ans = check_for_tilde(ans, my_env, 0, 0);
+		remake_pos_ans(&pos);
+	ans = check_for_tilde(pos.ans, my_env, 0, 0);
 	tcsetattr(0, TCSANOW, &(pos.old_term));
 	job_notification(&my_env);
 	if (ans == NULL)
 		return (1);
 	if (check_ans(ans) == 1 && pos.error != 2)
+	{
+		ft_strdel(&ans);
 		return (0);
+	}
 	if (pos.error == 1)
 		error_handling(&pos, NULL, 0);
 	if ((check_error(ans)) != -1 && pos.error != 2)
@@ -92,12 +93,13 @@ int				main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	if (check_term() == -1)
+		exit (0);
 	check_entry();
-	signal_main();
 	shell_pid = getpid();
 	setpgid(shell_pid, shell_pid);
 	tcsetpgrp(STDIN_FILENO, shell_pid);
-	my_env = init_env(env, &pos);
+	my_env = init_env(env, &pos, av);
 	stock(my_env, 5);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);

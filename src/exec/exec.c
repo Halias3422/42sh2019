@@ -6,13 +6,14 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 09:26:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 15:21:00 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
+#include "../../includes/alias.h"
 
 void		init_job(t_job *j)
 {
@@ -99,17 +100,33 @@ void		print_j(t_job *j)
 {
 	t_job	*jt;
 	t_process *pt;
+	int			i;
 
 	jt = j;
+//	puts("------------------------");
 	while (jt)
 	{
 		pt = j->p;
 		while (pt)
 		{
+			i = 0;
+			if (pt->cmd)
+			{
+				while (pt->cmd[i])
+				{
+//					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
+					i++;
+				}
+			}
+//			if (pt->redirect)
+//				printf("fd: %d\n", pt->redirect->fd);
+//			if (pt->redirect)
+//				printf("content: _%s_\n", pt->redirect->heredoc_content);
 			pt = pt->next;
 		}
 		jt = jt->next;
 	}
+//	puts("------------------------");
 }
 
 void		free_jobs(t_job *j)
@@ -142,9 +159,60 @@ void		free_jobs(t_job *j)
 	}
 }
 
+void		replace_job(t_process **p, t_var *var)
+{
+	t_alias		*al;
+	t_replace	*r;
+
+	init_replace(&r);
+	if (!(*p) || !((*p)->cmd))
+		return ;
+	al = make_ar_to_list((*p)->cmd);
+	r->name = ft_strdup(al->data);
+	while (1)
+	{
+		if (remove_env_while(al, var, r) == 0)
+			break ;
+	}
+	(*p)->cmd = make_list_to_ar(al);
+	free_replace(r);
+	free_alias(al);
+}
+
+void		save_spe_param(char **cmd, t_var *var)
+{
+	int	i;
+
+	i = 0;
+	if (var == NULL)
+		return ;
+	while (cmd[i])
+		i++;
+	while (var && var->next)
+	{
+		if (var->type == SPE && ft_strcmp(var->name, "_") == 0)
+			break ;
+		var = var->next;
+	}
+	if (var && !(var->next) && ft_strcmp("_", var->name) != 0)
+	{
+		var->next = malloc(sizeof(t_var));
+		var = var->next;
+		var->name = ft_strdup("_");
+		var->next = NULL;
+	}
+	else
+		ft_strdel(&var->data);
+	var->data = ft_strdup(cmd[i - 1]);
+}
+
+
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
+	t_job		*start;
+	t_process	*tmp;
+	t_job		*next;
 
 	if (!res[0])
 	{
@@ -152,18 +220,27 @@ int			start_exec(t_lexeur **res, t_var *var)
 		return (0);
 	}
 	j = malloc(sizeof(t_job));
+	start = j;
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
 	free_lexeur(res);
-	print_j(j);
 	while (j)
 	{
+		j->pgid = 0;
+		next = j->next;
+		tmp = j->p;
+		while (tmp)
+		{
+			replace_job(&tmp, var);
+			tmp = tmp->next;
+		}
+		save_spe_param(j->p->cmd, var);
 		launch_job(j, var);
-		j = j->next;
+		j = next;
 	}
 	// free_parseur(j);
-	free_jobs(j);
+	// free_jobs(start);
 	return (0);
 }
