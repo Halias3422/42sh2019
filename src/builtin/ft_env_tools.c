@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 10:31:09 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:58:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 15:13:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,10 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 
 	var = *ptr_var;
 	if (!var)
+	{
+		free_name_and_data(name, data);
 		return ;
+	}
 	while (var != NULL)
 	{
 		if (ft_strcmp(name, var->name) == 0 && type == var->type)

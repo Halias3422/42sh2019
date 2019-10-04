@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:53:36 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:39:20 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,8 +62,7 @@ static void		interpret_env_cmd(t_process *p, int i, char *new_cmd,
 	}
 	if (check_error(new_cmd) != -1)
 		start_exec(start_lex(head, new_cmd), head);
-	else
-		free(new_cmd);
+	free(new_cmd);
 }
 
 void			print_new_env(t_var **new_env, t_var **head)

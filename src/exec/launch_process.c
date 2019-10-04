@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:19:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 15:44:06 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,6 +82,7 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	pid_t		pid;
 	char		*cmd_path;
 
+	cmd_path = NULL;
 	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
 	if (j->split != '&' && is_builtin_modify(p))
@@ -100,5 +101,6 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 		launch_process(p, *var, cmd_path);
 	else
 		update_pid(p, j, pid, var);
+//	ft_strdel(&cmd_path);
 	return (1);
 }
