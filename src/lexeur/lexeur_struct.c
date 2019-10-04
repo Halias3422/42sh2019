@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:38:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 10:43:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 11:14:46 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,4 +88,14 @@ int *i, enum e_token token)
 		return (res);
 	}
 	return (NULL);
+}
+
+void		token_8_and_5(int *i, int ret, char *str)
+{
+	(*i) += g_fill_token[ret].size;
+	if (str[*i + 1])
+		(*i)++;
+	while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
+	&& (find_token(str, *i) == -1))
+		(*i)++;
 }

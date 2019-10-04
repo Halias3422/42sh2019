@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/03 12:44:00 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/04 11:12:05 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -35,7 +35,7 @@ SRC_LINE = $(addprefix line_edit/,\
 				init_spe_params.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
+				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
 				lexeur_struct.c)
 
 SRC_EXEC = $(addprefix exec/, \

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 09:45:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 11:14:30 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -203,7 +203,6 @@ void		save_spe_param(char **cmd, t_var *var)
 		ft_strdel(&var->data);
 	var->data = ft_strdup(cmd[i - 1]);
 }
-
 
 int			start_exec(t_lexeur **res, t_var *var)
 {
