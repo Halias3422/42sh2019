@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   job_controll.c                                   .::    .:/ .      .::   */
+/*   free_job.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:35:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:11:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,12 +21,17 @@ void		free_redirections(t_redirect *ptr_redi)
 	r = ptr_redi;
 	while (r)
 	{
-		if (r->fd_out)
-			free(r->fd_out);
-		if (r->fd_in)
-			free(r->fd_in);
-		if (r->token)
-			free(r->token);
+		if (ft_strcmp(r->token, "<<") == 0)
+			free(r->heredoc_content);
+		else
+		{
+			if (r->fd_out)
+				free(r->fd_out);
+			if (r->fd_in)
+				free(r->fd_in);
+			if (r->token)
+				free(r->token);
+		}
 		next = r->next;
 		free(r);
 		r = next;

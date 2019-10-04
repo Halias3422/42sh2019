@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 11:14:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 12:07:26 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -184,15 +184,17 @@ void		save_spe_param(char **cmd, t_var *var)
 	int	i;
 
 	i = 0;
+	if (var == NULL)
+		return ;
 	while (cmd[i])
 		i++;
-	while (var->next)
+	while (var && var->next)
 	{
 		if (var->type == SPE && ft_strcmp(var->name, "_") == 0)
 			break ;
 		var = var->next;
 	}
-	if (!(var->next) && ft_strcmp("_", var->name) != 0)
+	if (var && !(var->next) && ft_strcmp("_", var->name) != 0)
 	{
 		var->next = malloc(sizeof(t_var));
 		var = var->next;
@@ -201,7 +203,10 @@ void		save_spe_param(char **cmd, t_var *var)
 	}
 	else
 		ft_strdel(&var->data);
-	var->data = ft_strdup(cmd[i - 1]);
+	if (!(cmd) && !(cmd[0]))
+		var->data = ft_strdup("");
+	else
+		var->data = ft_strdup(cmd[i - 1]);
 }
 
 int			start_exec(t_lexeur **res, t_var *var)

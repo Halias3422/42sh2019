@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 10:24:16 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:10:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,6 @@ void		launch_job(t_job *j, t_var *var)
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{
-			//p = test_redirection(j, p, &var);
 			pipe(mypipe);
 			p->fd_out = mypipe[1];
 			fork_simple(j, p, &var);

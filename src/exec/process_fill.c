@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process_fill.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 16:56:35 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:10:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,7 +97,7 @@ char		*get_content(char *tag, t_lexeur **res, int *t)
 		(*t)++;
 	}
 	(*t)++;
-	printf("CONTENT: _%s_\n", content);
+//	printf("CONTENT: _%s_\n", content);
 	content = add_space_content(content);
 	return (content);
 }
@@ -106,7 +106,7 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
 	int		i;
 
-	puts("here");
+	// puts("here");
 	i = 0;
 	tmp->token = ft_strdup(g_fill_token[res[*t]->token].name);
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;

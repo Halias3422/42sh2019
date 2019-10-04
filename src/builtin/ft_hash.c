@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/10 11:18:33 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 10:04:07 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 15:12:52 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,7 +86,7 @@ int			ft_hash(t_process *p, t_var **var)
 	t_hash	**hash;
 	char	*flags;
 
-	flags = ft_strdup("tdr");
+	flags = "tdr";
 	hash = stock_hash(NULL, 1);
 	if (hash == NULL)
 	{

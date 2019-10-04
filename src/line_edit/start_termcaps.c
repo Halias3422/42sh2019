@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:48:46 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:14:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,19 +17,6 @@ void			print_prompt(t_pos *pos)
 {
 	ft_printf("{B.T.cyan.}%s{eoc}", pos->prompt);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
-}
-
-static int		start_termcaps(t_pos *pos, char *buf)
-{
-	int				ret;
-
-	init_terminfo(pos);
-	ret = check_term();
-	if (ret == -1)
-		exit(0);
-	init_pos(pos);
-	ft_bzero(buf, 8);
-	return (ret);
 }
 
 static char		*returning_ans(t_pos *pos)
@@ -75,7 +62,9 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	while (hist->next)
 		hist = hist->next;
 	ghist = &hist;
-	start_termcaps(pos, (char*)buf);
+	init_terminfo(pos);
+	init_pos(pos);
+	ft_bzero(buf, 8);
 	print_prompt(pos);
 	signal_list();
 	while (1)
