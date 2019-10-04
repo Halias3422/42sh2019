@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:13:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:12:17 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 
 	expansion = get_expansion_content(pos->ans, i);
 	new_ans = ft_copy_part_str(pos->ans, i - 1, 0);
-	error = get_expansion_value(expansion, hist, &new_ans);
+	error = get_expansion_value(expansion, hist, &new_ans, pos);
 	if (error == -1)
 	{
 		new_ans = ft_secure_free(new_ans);
@@ -54,6 +54,15 @@ int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 	return (error);
 }
 
+void			print_new_ans_after_expansion_replace(t_pos *pos)
+{
+	pos->let_nb = ft_strlen(pos->ans);
+	pos->len_ans = pos->let_nb;
+	short_update(pos, get_len_with_lines(pos));
+	clean_at_start(pos);
+	print_ans(pos, 0, 0);
+}
+
 void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 				int error)
 {
@@ -62,11 +71,12 @@ void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 	if (ft_strchr(pos->ans, '!') == NULL || pos->active_heredoc == 1)
 		return ;
 	original_ans = ft_strdup(pos->ans);
-	while (pos->ans && pos->ans[i])
+	while (pos->ans && pos->ans[++i])
 	{
 		while (hist && hist->next)
 			hist = hist->next;
-		if (pos->ans[i] == '!' && (pos->ans[i + 1] != '\0' && pos->ans[i + 1] != '=') && pos->ans[i + 1] != 32 && (i == 0 || (i > 0 && pos->ans[i - 1] != '!'
+		if (pos->ans[i] == '!' && (pos->ans[i + 1] != '\0' && pos->ans[i + 1]
+!= '=') && pos->ans[i + 1] != 32 && (i == 0 || (i > 0 && pos->ans[i - 1] != '!'
 		&& pos->ans[i - 1] != 92)) && check_if_inside_symbols(pos->ans, i) == 0)
 			error = replace_expansion_by_value(pos, hist, i, error);
 			if (error == -1)
@@ -77,9 +87,8 @@ void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 			pos->ans = ft_strnew(0);
 			break ;
 		}
-		i++;
 	}
 	free(original_ans);
 	if (error != -1)
-		ft_printf("\n%s", pos->ans);
+		print_new_ans_after_expansion_replace(pos);
 }

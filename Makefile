@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/04 13:01:30 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/04 14:22:03 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -32,7 +32,7 @@ SRC_LINE = $(addprefix line_edit/,\
 				 init_alias.c check_for_tilde.c \
 				tab_key_auto_complete_tilde.c check_backslash.c \
 				token.c token_conditions.c heredoc.c heredoc_send_valid_ans.c heredoc_tools.c\
-				init_spe_params.c debug.c)
+				init_spe_params.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \

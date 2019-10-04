@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:53:14 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:18:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,6 @@ int			test_simple_operator(char *type, struct stat s_type)
 int			simple_operator(char *type, char *name)
 {
 	struct stat s_type;
-
 
 	if (type[0] != '-')
 	{
