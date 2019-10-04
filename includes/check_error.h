@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   check_error.h                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:17:13 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 09:54:47 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 11:16:28 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,4 +34,14 @@
 int			check_error(char *str);
 int			error_before_lexer(char **str);
 int			error_lex(t_lexeur **lex);
+int			syntax_print_error(int token);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                              error_tool.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+void		error_heredoc_go_next(char *str, int *i);
+int			first_check(char *str, int i, int token);
+int			second_check(char *str, int i, int token);
 #endif

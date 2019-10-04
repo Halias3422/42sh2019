@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/04 09:20:49 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/04 13:01:30 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -35,7 +35,7 @@ SRC_LINE = $(addprefix line_edit/,\
 				init_spe_params.c debug.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
+				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
 				lexeur_struct.c)
 
 SRC_EXEC = $(addprefix exec/, \
@@ -45,7 +45,7 @@ SRC_EXEC = $(addprefix exec/, \
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
-				alias_change_type.c alias_cnt.c alias_replace.c tool_split.c)
+				alias_change_type.c alias_cnt.c alias_replace.c tool_split.c split_agregator.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_set.c ft_type.c ft_export.c \

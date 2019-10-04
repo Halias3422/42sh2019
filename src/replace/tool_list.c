@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool_list.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:06:47 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:20:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 12:03:10 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,4 +43,26 @@ void		*get_replace(void *stock, int i)
 	if (i == 2)
 		return (ret);
 	return (NULL);
+}
+
+char		*fill_res_token(int *tint, int ret, char *str)
+{
+	char	*res;
+
+	(tint[1])++;
+	res = ft_strsub(str, (tint[0]), g_fill_token[ret].size);
+	(tint[0]) += g_fill_token[ret].size;
+	return (res);
+}
+
+int			basic_split_init(char *str, int *tint, int *start, int *ret)
+{
+	while (str[tint[0]] && ((str[tint[0]] >= 9 && str[tint[0]] <= 13)
+	|| str[tint[0]] == ' '))
+		(tint[0])++;
+	if (!str[tint[0]])
+		return (-1);
+	(*start) = tint[0];
+	(*ret) = find_token(str, tint[0]);
+	return (0);
 }
