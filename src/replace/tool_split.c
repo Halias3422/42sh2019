@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 14:07:49 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 17:49:17 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,22 @@ void		token_8_and_5(int *i, int ret, char *str)
 	while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
 	&& (find_token(str, *i) == -1))
 		(*i)++;
+}
+
+
+void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc)
+{
+	char	*tmp;
+	int		s;
+
+	jump_space(str, i);
+	s = *i;
+	while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' ')
+		(*i)++;
+	tmp = ft_strsub(str, *i, *i - s);
+	if (!ft_strcmp(tmp, tag))
+		(*heredoc) = 0;
+	ft_strdel(&tmp);
 }
 
 void		split_space_find_number(char *str, int *i)

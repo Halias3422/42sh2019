@@ -53,6 +53,41 @@ int		check_double_token(char *str, int i, int token)
 	return (0);
 }
 
+void	error_heredoc_go_next(char *str, int *i)
+{
+	char	*tag;
+	char	*tmp;
+	int		s;
+
+	tag = get_tag(str, i);
+	(*i) += g_fill_token[7].size;
+	while (str[*i])
+	{
+		jump_space(str, i);
+		s = *i;
+		while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '))
+			(*i)++;
+		tmp = ft_strsub(str, s, *i - s);
+		if (!ft_strcmp(tmp, tag))
+		{
+			ft_strdel(&tmp);
+			return ;
+		}
+		(*i)++;
+	}
+	if (tmp)
+		ft_strdel(&tmp);
+}
+
+int		check_is_end(char *str, int i)
+{
+	i += g_fill_token[7].size;
+	jump_space(str, &i);
+	if (!str[i])
+		return (0);
+	return (1);
+}
+
 int		check_error(char *str)
 {
 	int		i;
@@ -67,6 +102,11 @@ int		check_error(char *str)
 		if (i == 0 || str[i - 1] != '\\')
 		{
 			token = find_token(str, i);
+			if (token == 7 && check_is_end(str, i))
+			{
+				error_heredoc_go_next(str, &i);
+				token = find_token(str, i);
+			}
 			if (token == 4 || token == 0 || token == 1 || token == 10 || token == 2 || token == 3)
 				if (first_check(str, i, token))
 					return (-1);
@@ -77,7 +117,7 @@ int		check_error(char *str)
 				if (check_double_token(str, i, token))
 					return (-1);
 			if (token != -1)
-					i += g_fill_token[token].size;
+				i += g_fill_token[token].size;
 			else if (str[i] != '\0')
 				i++;
 		}
