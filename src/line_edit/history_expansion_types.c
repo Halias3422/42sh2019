@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 15:06:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 11:11:30 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:08:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,8 @@ int				word_finding_expansion(char **new_ans, t_hist *hist,
 	while (hist && hist->prev &&
 		ft_strncmp(expansion + 1, hist->cmd, ft_strlen(expansion + 1)) != 0)
 		hist = hist->prev;
-	if (ft_strcmp(pos->ans, hist->cmd) == 0 || ft_strncmp(expansion + 1, hist->cmd, ft_strlen(expansion + 1)) != 0)
+	if (ft_strcmp(pos->ans, hist->cmd) == 0 || ft_strncmp(expansion + 1,
+				hist->cmd, ft_strlen(expansion + 1)) != 0)
 		return (-1);
 	*new_ans = ft_strjoinf(*new_ans, hist->cmd, 1);
 	return (0);

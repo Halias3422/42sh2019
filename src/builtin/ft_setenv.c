@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:34 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 13:54:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,16 +26,27 @@ void		print_env(t_var *var)
 	}
 }
 
-void		add_setenv(t_var **var, char *name, char *data)
+void		add_setenv(t_var **var, char *name, char *data, int usage)
 {
 	t_var	*start;
 
-	start = malloc(sizeof(t_var));
-	start->name = name;
-	start->data = data;
-	start->type = ENVIRONEMENT;
-	start->next = (*var);
-	(*var) = start;
+	if (usage == 0)
+	{
+		start = malloc(sizeof(t_var));
+		start->name = name;
+		start->data = data;
+		start->type = ENVIRONEMENT;
+		start->next = (*var);
+		(*var) = start;
+	}
+	else if (usage == 1)
+	{
+		(*var) = malloc(sizeof(t_var));
+		(*var)->next = NULL;
+		(*var)->name = name;
+		(*var)->data = data;
+		(*var)->type = ENVIRONEMENT;
+	}
 }
 
 void		add_var_to_env(t_var **var, char *name, char *data)
@@ -45,7 +56,7 @@ void		add_var_to_env(t_var **var, char *name, char *data)
 	prev = NULL;
 	if (!(*var))
 	{
-		add_setenv(var, name, data);
+		add_setenv(var, name, data, 0);
 		stock(*var, 5);
 		return ;
 	}
@@ -58,12 +69,8 @@ void		add_var_to_env(t_var **var, char *name, char *data)
 	}
 	if (!(*var))
 	{
-		(*var) = malloc(sizeof(t_var));
+		add_setenv(var, name, data, 1);
 		prev->next = (*var);
-		(*var)->next = NULL;
-		(*var)->name = name;
-		(*var)->data = data;
-		(*var)->type = ENVIRONEMENT;
 		return ;
 	}
 	ft_strdel(&(*var)->data);

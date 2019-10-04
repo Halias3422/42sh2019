@@ -6,12 +6,19 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:21 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 13:53:36 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
+
+void			fill_new_link_in_env(t_var *new_env, char **new_env_var)
+{
+	new_env->name = new_env_var[0];
+	new_env->data = new_env_var[1];
+	new_env->type = ENVIRONEMENT;
+}
 
 static int		fill_new_env(t_process *p, int i, t_var **new_env,
 		t_var **head)
@@ -21,7 +28,8 @@ static int		fill_new_env(t_process *p, int i, t_var **new_env,
 	if (ft_strchr(p->cmd[i], '=') != NULL)
 	{
 		new_env_var = ft_strsplit(p->cmd[i], '=');
-		if ((new_env_var[0] == NULL && new_env_var[1] == NULL) || p->cmd[i][0] == '=')
+		if ((new_env_var[0] == NULL && new_env_var[1] == NULL) ||
+				p->cmd[i][0] == '=')
 		{
 			ft_free_tab(new_env_var);
 			ft_printf("42sh: env: invalid argument");
@@ -34,9 +42,7 @@ static int		fill_new_env(t_process *p, int i, t_var **new_env,
 		}
 		else
 			*new_env = add_list_back_env(*new_env);
-		(*new_env)->name = new_env_var[0];
-		(*new_env)->data = new_env_var[1];
-		(*new_env)->type = ENVIRONEMENT;
+		fill_new_link_in_env(*new_env, new_env_var);
 		free(new_env_var);
 		if (!p->cmd[i + 1])
 			return (-1);
@@ -45,7 +51,7 @@ static int		fill_new_env(t_process *p, int i, t_var **new_env,
 }
 
 static void		interpret_env_cmd(t_process *p, int i, char *new_cmd,
-		t_var *head)
+				t_var *head)
 {
 	new_cmd = ft_strnew(0);
 	while (p->cmd[i])
@@ -60,15 +66,21 @@ static void		interpret_env_cmd(t_process *p, int i, char *new_cmd,
 		free(new_cmd);
 }
 
-int		go_through_process_cmd(t_process *p, t_var **new_env,
-		t_var **head, int ret)
+void			print_new_env(t_var **new_env, t_var **head)
+{
+	*new_env = *head;
+	print_env(*new_env);
+}
+
+int				go_through_process_cmd(t_process *p, t_var **new_env,
+				t_var **head, int ret)
 {
 	char		*new_cmd;
 	int			i;
 
 	new_cmd = NULL;
-	i = 2;
-	while (p->cmd[i])
+	i = 1;
+	while (p->cmd[++i])
 	{
 		if (ft_strchr(p->cmd[i], '=') != NULL)
 		{
@@ -76,8 +88,7 @@ int		go_through_process_cmd(t_process *p, t_var **new_env,
 			{
 				if (ret == -2)
 					return (-1);
-				*new_env = *head;
-				print_env(*new_env);
+				print_new_env(new_env, head);
 				break ;
 			}
 		}
@@ -87,7 +98,6 @@ int		go_through_process_cmd(t_process *p, t_var **new_env,
 			interpret_env_cmd(p, i, new_cmd, *new_env);
 			break ;
 		}
-		i++;
 	}
 	return (0);
 }

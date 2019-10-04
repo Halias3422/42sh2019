@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 10:24:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 13:17:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"hash", &ft_hash, 1},
 	{"setenv", &ft_setenv, 1},
 	{"unsetenv", &ft_unsetenv, 1},
-	{"env", &ft_env, 0}
+	{"env", &ft_env, 1}
 };
 
 int		is_builtin_modify(t_process *p)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:42:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:09:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ int				heredoc_found(t_pos *pos, int i, int j)
 	while (pos->ans[i] && (pos->ans[i] == 32 || (pos->ans[i] >= 9 &&
 			pos->ans[i] <= 13)))
 		i++;
-		i = going_to_heredoc_end(pos, i);
+	i = going_to_heredoc_end(pos, i);
 	while (pos->ans[j] && (pos->ans[j] == 32 || (pos->ans[j] >= 9 &&
 			pos->ans[j] <= 13)))
 		j++;

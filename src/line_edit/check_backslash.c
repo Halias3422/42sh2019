@@ -6,14 +6,14 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 09:58:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:00:46 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-void	replace_last_hist(t_hist *hist, char *ans)
+void		replace_last_hist(t_hist *hist, char *ans)
 {
 	while (hist->next)
 		hist = hist->next;
@@ -22,7 +22,7 @@ void	replace_last_hist(t_hist *hist, char *ans)
 	hist->cmd = ft_strdup(ans);
 }
 
-char        *check_backslash_heredoc(t_pos *pos, t_hist *hist)
+char		*check_backslash_heredoc(t_pos *pos, t_hist *hist)
 {
 	int		i;
 	int		j;
@@ -62,7 +62,7 @@ int			odd_backslash(int i, char *ans)
 	return (1);
 }
 
-char        *check_backslash(t_pos *pos)
+char		*check_backslash(t_pos *pos)
 {
 	int		i;
 	int		j;
@@ -75,13 +75,13 @@ char        *check_backslash(t_pos *pos)
 	new_ans = ft_strnew(ft_strlen(pos->ans));
 	while (pos->ans && pos->ans[i] != '\0')
 	{
-		if (pos->ans[i] == 92 && pos->ans[i + 1] == '\n' && odd_backslash(i, pos->ans))
+		if (pos->ans[i] == 92 && pos->ans[i + 1] == '\n' &&
+				odd_backslash(i, pos->ans))
 			i++;
 		else
 			new_ans[j++] = pos->ans[i];
 		i++;
 	}
-	
 	new_ans[j] = '\0';
 	pos->ans = ft_secure_free(pos->ans);
 	return (new_ans);
