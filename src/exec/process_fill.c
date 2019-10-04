@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process_fill.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 16:56:35 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:08:27 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,6 +119,7 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 {
 	tmp->heredoc_content = NULL;
+	//printf("res[%d]: _%d_\n", *t, res[*t]->token);
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
