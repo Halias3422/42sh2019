@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 11:04:03 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 12:02:38 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,7 +86,14 @@ int			check_token_after_number(char *str, int i);
 int			double_check(char *str, int i);
 void		split_space_basic(char *str, int *i);
 void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc);
+
 char		*get_tag(char *str, int *i);
+char		*fill_res_token(int *tint, int ret, char *str);
+int			basic_split_init(char *str, int *tint, int *start, int *ret);
+
+
+int			search_agregator(char *str, int i);
+void		split_agregator(char *str, int *i);
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                             alias_replace.c                                ┃

@@ -6,41 +6,12 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 18:16:54 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 12:02:49 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
-
-int		search_agregator(char *str, int i)
-{
-	int		token;
-
-	while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
-	{
-		token = find_token(str, i);
-		if (token == 5 || token == 8)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void	split_agregator(char *str, int *i)
-{
-	while (str[*i] && (find_token(str, *i) != 5 && find_token(str, *i) != 8))
-		(*i)++;
-	(*i) += 2;
-	if (str[*i] && ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == ' '))
-	{
-		while (str[*i] && ((str[*i] >= 9 && str[*i] <= 13) || str[*i] == ' '))
-			(*i)++;
-	}
-	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
-	&& (find_token(str, *i) == -1)))
-		(*i)++;
-}
 
 char	*get_tag(char *str, int *i)
 {
@@ -84,13 +55,8 @@ int		basic_split_while(int *tint, char *str, char **res, char **tag)
 	int		start;
 	int		ret;
 
-	while (str[tint[0]] && ((str[tint[0]] >= 9 && str[tint[0]] <= 13)
-	|| str[tint[0]] == ' '))
-		(tint[0])++;
-	if (!str[tint[0]])
+	if (basic_split_init(str, tint, &start, &ret) == -1)
 		return (-1);
-	start = tint[0];
-	ret = find_token(str, tint[0]);
 	if (tint[2] && tag != NULL)
 		heredoc_go_next(str, &tint[0], (*tag), &tint[2]);
 	if (ret == 7 || check_int_for_heredoc(str, tint[0]))
@@ -107,11 +73,7 @@ int		basic_split_while(int *tint, char *str, char **res, char **tag)
 		split_space_basic(str, &tint[0]);
 	res[tint[1]] = ft_strsub(str, start, (tint[0]) - start);
 	if (str[tint[0]] && (ret = find_token(str, tint[0])) != -1)
-	{
-		(tint[1])++;
-		res[tint[1]] = ft_strsub(str, tint[0], g_fill_token[ret].size);
-		(tint[0]) += g_fill_token[ret].size;
-	}
+		res[tint[1]] = fill_res_token(tint, ret, str);
 	return (1);
 }
 
