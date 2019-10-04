@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 19:45:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 07:16:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,8 @@ t_var	*init_env(char **env, t_pos *pos, char **av)
 	}
 	new->next = NULL;
 	init_alias(save, pos, NULL);
-	init_spe_params(save, pos, av);
+	if (av != NULL)
+		init_spe_params(save, pos, av);
 	return (save);
 }
 
