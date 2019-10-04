@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 10:24:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 13:52:26 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@
 
 const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 {
-	{"test", &ft_test, 0},
+	{"test", &ft_test, 1},
 	{"alias", &main_alias, 1},
 	{"unalias", &main_unalias, 1},
 	{"set", &ft_set, 1},

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 13:53:14 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,14 +94,14 @@ int			ft_test_argv(char **argv, int fd_out)
 	int inv;
 
 	i = 0;
+	if (ft_tabclen(argv) <= 1)
+		return (1);
 	if (ft_strcmp(argv[1], "-z") == 0)
 	{
 		if (!(argv[2]))
 			return (1);
 		return (0);
 	}
-	if (ft_tabclen(argv) <= 1)
-		return (1);
 	if (ft_strcmp(argv[1], "!") == 0)
 	{
 		inv = 1;
