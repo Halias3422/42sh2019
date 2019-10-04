@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:13 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 11:21:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,7 +51,6 @@ static void		ctrl_c(t_pos *pos)
 {
 	char		*pwd;
 
-	print_hist(pos, *ghist);
 	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
 	if (pos->active_heredoc == 1)

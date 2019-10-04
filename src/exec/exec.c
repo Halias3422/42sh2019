@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 09:45:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 11:16:38 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -184,7 +184,7 @@ void		save_spe_param(char **cmd, t_var *var)
 	int	i;
 
 	i = 0;
-	while (cmd[i])
+	while (cmd && cmd[i])
 		i++;
 	while (var->next)
 	{
@@ -201,7 +201,10 @@ void		save_spe_param(char **cmd, t_var *var)
 	}
 	else
 		ft_strdel(&var->data);
-	var->data = ft_strdup(cmd[i - 1]);
+	if (!(cmd) && !(cmd[0]))
+		var->data = ft_strdup("");
+	else
+		var->data = ft_strdup(cmd[i - 1]);
 }
 
 

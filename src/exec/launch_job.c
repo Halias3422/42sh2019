@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 10:24:16 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/03 11:22:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,7 +90,7 @@ void		launch_job(t_job *j, t_var *var)
 		}
 		//fork_simple(j, p, &var);
 		p = get_and_or(p);
-		//free_temp(&var);
+		free_temp(&var);
 	}
 	alert_job(j);
 }
