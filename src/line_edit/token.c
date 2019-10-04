@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 08:55:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 09:57:55 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,8 @@ int		token(char *ans)
 		if (i < ft_strlen(ans))
 			i++;
 	}
-	if (ans && ft_strlen(ans) > 0 && ans[ft_strlen(ans) - 1] == 92)
+	if (ans && ft_strlen(ans) > 0 && ans[ft_strlen(ans) - 1] == 92 &&
+		odd_backslash(ft_strlen(ans) - 1, ans))
 		return (0);
 	return (1);
 }

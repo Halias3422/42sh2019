@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 16:06:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 09:42:59 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ char				*absolute_path(char *path)
 
 	tmp = path;
 	if (path[0] == '.')
-		path = ft_strjoin(getcwd(NULL, 1000), path + 1);
+		path = ft_strjoinf(getcwd(NULL, 1000), path + 1, 1);
 	if ((file = opendir(path)) != NULL)
 	{
 		ft_printf("42sh: %s: is a directory\n", tmp);
@@ -39,6 +39,7 @@ char				*absolute_path(char *path)
 		ft_printf("42sh: %s: permission denied\n", tmp);
 	else
 		return (path);
+	ft_strdel(&path);
 	return (NULL);
 }
 

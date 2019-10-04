@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:13:48 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:42:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,7 +112,6 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 					ft_strlen(pos->ans) - 1, ft_strlen(pos->ans) - 1))
 		{
 			pos->is_complete = 1;
-			ft_printf("je quitte les heredocs\n");
 			return ;
 		}
 	}

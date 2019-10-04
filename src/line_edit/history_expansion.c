@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:13:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 11:10:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 
 	expansion = get_expansion_content(pos->ans, i);
 	new_ans = ft_copy_part_str(pos->ans, i - 1, 0);
-	error = get_expansion_value(expansion, hist, &new_ans);
+	error = get_expansion_value(expansion, hist, &new_ans, pos);
 	if (error == -1)
 	{
 		new_ans = ft_secure_free(new_ans);
@@ -54,6 +54,7 @@ int				replace_expansion_by_value(t_pos *pos, t_hist *hist, int i,
 	return (error);
 }
 
+
 void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 				int error)
 {
@@ -61,6 +62,8 @@ void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 
 	if (ft_strchr(pos->ans, '!') == NULL || pos->active_heredoc == 1)
 		return ;
+//	if (check_if_valid_expansion(pos) == 1 && pos->active_heredoc == 0)
+//		return ;
 	original_ans = ft_strdup(pos->ans);
 	while (pos->ans && pos->ans[i])
 	{
@@ -81,5 +84,11 @@ void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 	}
 	free(original_ans);
 	if (error != -1)
-		ft_printf("\n%s", pos->ans);
+	{
+		pos->let_nb = ft_strlen(pos->ans);
+		pos->len_ans = pos->let_nb;
+		short_update(pos, get_len_with_lines(pos));
+		clean_at_start(pos);
+		print_ans(pos, 0, 0);
+	}
 }

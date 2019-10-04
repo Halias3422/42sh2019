@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/10 11:18:33 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 15:12:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:36:21 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,7 +102,7 @@ int			ft_hash(t_process *p, t_var **var)
 		print_part_of_hash_table(hash, p->cmd);
 	else
 	{
-		ft_printf("hash: usage:hash [-rdt] [name]\n");
+		ft_printf("hash: usage: hash [-rdt] [name]\n");
 		return (0);
 	}
 	return (1);

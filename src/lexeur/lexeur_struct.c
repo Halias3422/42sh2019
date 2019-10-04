@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:38:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:13:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:39:21 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,12 +47,10 @@ void		fill_lex_heredoc(t_lexeur ***array, int *j, char **buf, int *i)
 	t_lexeur	*res;
 	char		*tag;
 
-	puts("FILL_LEX_HEREDOC");
 	res = malloc(sizeof(t_lexeur));
 	fill_struct_fd_in(res, get_fd_in(buf[*i]), 7,
 	fill_redirection(buf, i));
 	tag = ft_strdup(res->redirection);
-	printf("TAG: _%s_\n", tag);
 	(*array)[*j] = res;
 	(*i)++;
 	while (buf[*i])
@@ -60,8 +58,6 @@ void		fill_lex_heredoc(t_lexeur ***array, int *j, char **buf, int *i)
 		(*j)++;
 		fill_struct(res, buf[*i], -1, NULL);
 		(*array)[*j] = res;
-		printf("red -> word _%s_\ttoken : _%d_\n", res->word, res->token);
-		printf("FIN ar[%d] -> word _%s_\ttoken : _%d_\n", *j, (*array)[*j]->word, (*array)[*j]->token);
 		if (!ft_strcmp(buf[*i], tag))
 		{
 			(*i)++;
@@ -69,7 +65,6 @@ void		fill_lex_heredoc(t_lexeur ***array, int *j, char **buf, int *i)
 		}
 		(*i)++;
 	}
-	printf("DURING j %d\n", *j);
 	ft_strdel(&tag);
 }
 

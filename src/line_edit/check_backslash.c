@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 15:06:49 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 09:58:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,21 @@ char        *check_backslash_heredoc(t_pos *pos, t_hist *hist)
 	return (new_ans);
 }
 
+int			odd_backslash(int i, char *ans)
+{
+	int		count;
+
+	count = 0;
+	while (i >= 0 && ans[i] == 92)
+	{
+		count += 1;
+		i--;
+	}
+	if (count % 2 == 0)
+		return (0);
+	return (1);
+}
+
 char        *check_backslash(t_pos *pos)
 {
 	int		i;
@@ -60,7 +75,7 @@ char        *check_backslash(t_pos *pos)
 	new_ans = ft_strnew(ft_strlen(pos->ans));
 	while (pos->ans && pos->ans[i] != '\0')
 	{
-		if (pos->ans[i] == 92 && pos->ans[i + 1] == '\n')
+		if (pos->ans[i] == 92 && pos->ans[i + 1] == '\n' && odd_backslash(i, pos->ans))
 			i++;
 		else
 			new_ans[j++] = pos->ans[i];
