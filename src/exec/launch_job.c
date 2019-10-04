@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 11:22:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:10:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,7 +88,9 @@ void		launch_job(t_job *j, t_var *var)
 		{
 			p->fd_out = 1;
 			fork_simple(j, p, &var);
+			//infile = 0;
 		}
+		//fork_simple(j, p, &var);
 		p = get_and_or(p);
 		free_temp(&var);
 	}

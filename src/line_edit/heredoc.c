@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   heredoc.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 11:17:46 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:13:48 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,6 +112,7 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 					ft_strlen(pos->ans) - 1, ft_strlen(pos->ans) - 1))
 		{
 			pos->is_complete = 1;
+			ft_printf("je quitte les heredocs\n");
 			return ;
 		}
 	}

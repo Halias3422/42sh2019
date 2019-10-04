@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:30:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:20:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	ans = termcaps42sh(&pos, hist, my_env);
 	if (pos.ans_heredoc)
 		remake_pos_ans(&pos);
-	ans = check_backslash(&pos, hist);
+	ans = check_backslash(&pos);
 	ans = check_for_tilde(ans, my_env, 0, 0);
 	tcsetattr(0, TCSANOW, &(pos.old_term));
 	job_notification(&my_env);
@@ -93,14 +93,14 @@ int				main(int ac, char **av, char **env)
 	pid_t	shell_pid;
 
 	(void)ac;
-	(void)av;
+	if (check_term() == -1)
+		exit (0);
 	check_entry();
-	signal_main();
 	shell_pid = getpid();
 	setpgid(shell_pid, shell_pid);
 	tcsetpgrp(STDIN_FILENO, shell_pid);
-	if (check_term() == -1)
-		exit (0);
+	// if (check_term() == -1)
+		// exit (0);
 	my_env = init_env(env, &pos, av);
 	stock(my_env, 5);
 	hist = (t_hist *)malloc(sizeof(t_hist));

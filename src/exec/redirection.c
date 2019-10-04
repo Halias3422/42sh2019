@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:55:49 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:19:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,6 +97,12 @@ static int	redirection_file(t_redirect *redirect)
 		//write(p->file_in, redirect->heredoc_content, ft_strlen(redirect->heredoc_content));
 		close(redirect->open_in);
 	}
+	// if (ft_strcmp(redirect->token, "<<") == 0)
+	// {
+	// 	write(p->file_in, redirect->heredoc_content, ft_strlen(redirect->heredoc_content));
+	// 	dup2(p->file_in, STDIN_FILENO);
+	// 	close(p->file_in);
+	// }
 	return (1);
 }
 

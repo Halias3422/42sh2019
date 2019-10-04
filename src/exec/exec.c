@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 11:16:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:12:47 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,14 +114,14 @@ void		print_j(t_job *j)
 			{
 				while (pt->cmd[i])
 				{
-					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
+//					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
 					i++;
 				}
 			}
-			if (pt->redirect)
-				printf("fd: %d\n", pt->redirect->fd);
-			if (pt->redirect)
-				printf("content: _%s_\n", pt->redirect->heredoc_content);
+//			if (pt->redirect)
+//				printf("fd: %d\n", pt->redirect->fd);
+//			if (pt->redirect)
+//				printf("content: _%s_\n", pt->redirect->heredoc_content);
 			pt = pt->next;
 		}
 		jt = jt->next;
@@ -184,15 +184,17 @@ void		save_spe_param(char **cmd, t_var *var)
 	int	i;
 
 	i = 0;
-	while (cmd && cmd[i])
+	if (var == NULL)
+		return ;
+	while (cmd[i])
 		i++;
-	while (var->next)
+	while (var && var->next)
 	{
 		if (var->type == SPE && ft_strcmp(var->name, "_") == 0)
 			break ;
 		var = var->next;
 	}
-	if (!(var->next) && ft_strcmp("_", var->name) != 0)
+	if (var && !(var->next) && ft_strcmp("_", var->name) != 0)
 	{
 		var->next = malloc(sizeof(t_var));
 		var = var->next;
@@ -227,7 +229,6 @@ int			start_exec(t_lexeur **res, t_var *var)
 	fill_job(j, res);
 	fill_process(j, res);
 	free_lexeur(res);
-	//print_j(j);
 	while (j)
 	{
 		j->pgid = 0;

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "lexeur.h": "c",
+        "ft_str.h": "c"
+    }
+}

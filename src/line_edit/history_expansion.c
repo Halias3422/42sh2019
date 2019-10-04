@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 08:13:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,7 @@ void			check_history_expansion(t_pos *pos, t_hist *hist, int i,
 {
 	char		*original_ans;
 
-	if (ft_strchr(pos->ans, '!') == NULL)
+	if (ft_strchr(pos->ans, '!') == NULL || pos->active_heredoc == 1)
 		return ;
 	original_ans = ft_strdup(pos->ans);
 	while (pos->ans && pos->ans[i])
