@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:10:50 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 09:50:41 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,7 +72,7 @@ void		launch_job(t_job *j, t_var *var)
 	infile = 0;
 	while (p)
 	{
-		if (p->cmd[0] && find_equal(p->cmd[0]) == 1)
+		if (p->cmd && p->cmd[0] && find_equal(p->cmd[0]) == 1)
 			if ((p->cmd = check_exec_var(p->cmd, &var)) == NULL)
 				return ;
 		p->fd_in = infile;

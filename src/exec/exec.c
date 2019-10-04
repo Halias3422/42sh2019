@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:12:47 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 09:50:07 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -184,7 +184,7 @@ void		save_spe_param(char **cmd, t_var *var)
 	int	i;
 
 	i = 0;
-	if (var == NULL)
+	if (var == NULL || !(cmd))
 		return ;
 	while (cmd[i])
 		i++;

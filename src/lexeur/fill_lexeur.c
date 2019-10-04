@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:13:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 09:22:27 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,20 +77,20 @@ void		fill_lex_exist(char **buf, int *i, int *j, t_lexeur **array)
 	token = check_token_for_redirection(buf[*i]);
 	if (token == 7)
 	{
-		puts("__TOKEN__");
+		// puts("__TOKEN__");
 		fill_lex_heredoc(&array, j, buf, i);
 	}
 	else if (token != -1)
 	{
-		puts("__RED__");
+		// puts("__RED__");
 		array[*j] = fill_lex_redirection(buf, i, token);
 	}
 	else
 	{
-		puts("__WHILE__");
+		// puts("__WHILE__");
 		array[*j] = fill_lex_while(buf[*i], i, find_token(buf[*i], k));
 	}
-	printf("__AVANT__ ar[%d] -> word _%s_\ttoken : _%d_\n", *j, array[*j]->word, array[*j]->token);
+	// printf("__AVANT__ ar[%d] -> word _%s_\ttoken : _%d_\n", *j, array[*j]->word, array[*j]->token);
 	(*j)++;
 }
 
@@ -103,7 +103,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	j = 0;
 	while (buf[i])
 		i++;
-	printf("allocate %d\n", i);
+	// printf("allocate %d\n", i);
 	array = malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])
@@ -113,10 +113,10 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 		if (buf[i])
 			fill_lex_exist(buf, &i, &j, array);
 	}
-	printf("j: %d\n", j);
+	// printf("j: %d\n", j);
 	array[j] = NULL;
 	j = -1;
-	while (array[++j])
-		printf("ar[%d]: _%s_\ttoken -> %d\tred -> _%s_\tfd _%s_\n", j, array[j]->word, array[j]->token, array[j]->redirection, array[j]->fd_in);
+	// while (array[++j])
+		// printf("ar[%d]: _%s_\ttoken -> %d\tred -> _%s_\tfd _%s_\n", j, array[j]->word, array[j]->token, array[j]->redirection, array[j]->fd_in);
 	return (array);
 }
