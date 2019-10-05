@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 12:07:26 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 12:04:37 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -168,6 +168,8 @@ void		replace_job(t_process **p, t_var *var)
 	if (!(*p) || !((*p)->cmd))
 		return ;
 	al = make_ar_to_list((*p)->cmd);
+	if (!al)
+		return ;
 	r->name = ft_strdup(al->data);
 	while (1)
 	{
@@ -184,7 +186,7 @@ void		save_spe_param(char **cmd, t_var *var)
 	int	i;
 
 	i = 0;
-	if (var == NULL)
+	if (var == NULL || !cmd)
 		return ;
 	while (cmd[i])
 		i++;

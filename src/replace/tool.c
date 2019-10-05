@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 12:07:57 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:00:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,9 +71,17 @@ int		basic_split_while(int *tint, char *str, char **res, char **tag)
 		split_agregator(str, &tint[0]);
 	else
 		split_space_basic(str, &tint[0]);
-	res[tint[1]] = ft_strsub(str, start, (tint[0]) - start);
+	printf("s %d\t i %d\n", start, tint[0]);
+	if (tint[0] != 0)
+	{
+		puts("1");
+		res[tint[1]] = ft_strsub(str, start, (tint[0]) - start);
+	}
 	if (str[tint[0]] && (ret = find_token(str, tint[0])) != -1)
+	{
+		puts("2");
 		res[tint[1]] = fill_res_token(tint, ret, str);
+	}
 	return (1);
 }
 
@@ -87,13 +95,15 @@ char	**split_space(char *str)
 	tint[1] = 0;
 	tint[2] = 0;
 	tag = NULL;
+	printf("allocate: %d\n", ft_strlen(str) + 1);
 	res = malloc(sizeof(char *) * (ft_strlen(str) + 1));
 	while (str[tint[0]])
 	{
 		if (basic_split_while(tint, str, res, &tag) == 1)
 			tint[1]++;
 	}
-	res[tint[1]] = 0;
+	printf("size: %d\n", tint[1]);
+	res[tint[1]] = NULL;
 	ft_strdel(&tag);
 	return (res);
 }

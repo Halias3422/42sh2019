@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process_fill.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:10:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 11:58:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,6 +66,8 @@ char		*add_space_content(char *content)
 	int		i;
 
 	i = 0;
+	if (!content)
+		return (NULL);
 	res = malloc(sizeof(char) * (ft_strlen(content) + 1));
 	while (content[i])
 	{

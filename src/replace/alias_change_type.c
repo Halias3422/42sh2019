@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias_change_type.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:02:37 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 10:43:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 12:03:27 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,8 @@ t_alias		*make_ar_to_list(char **str)
 	t_alias		*prev;
 	int			i;
 
+	if (!str || !str[0])
+		return (NULL);
 	alias = malloc(sizeof(t_alias));
 	prev = NULL;
 	start = alias;
