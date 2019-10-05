@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 15:23:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 13:53:53 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,10 +14,10 @@
 #include "../../includes/builtin.h"
 #include "../../includes/exec.h"
 
-static void		export_var(t_process *p, t_var **var)
+static void			export_var(t_process *p, t_var **var)
 {
-	t_var	*tmp;
-	int		i;
+	t_var			*tmp;
+	int				i;
 
 	i = 1;
 	while (p->cmd[i])
@@ -41,11 +41,14 @@ static void		export_var(t_process *p, t_var **var)
 static int			print_error(int status)
 {
 	if (status == 1)
-		ft_printf_err("42sh: export: {B.T.red.}error{eoc}: Argument required\n");
+	{
+		ft_printf_err("42sh: export: {B.T.red.}error{eoc}:");
+		ft_printf_err(" Argument required\n");
+	}
 	return (0);
 }
 
-int				ft_export(t_process *p, t_var **var)
+int					ft_export(t_process *p, t_var **var)
 {
 	if (!(p->cmd[1]))
 		return (print_error(1));

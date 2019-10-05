@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:41:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 12:00:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,8 +19,6 @@ int		ft_set(t_process *p, t_var **ptr_var)
 	t_var *var;
 
 	var = *ptr_var;
-	(void)ptr_var;
-	//var = stock(NULL, 6);
 	if (p->cmd[1])
 		return (1);
 	while (var)

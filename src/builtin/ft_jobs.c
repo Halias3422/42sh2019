@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:34 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 11:03:21 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 12:10:59 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "../../includes/builtin.h"
 #include "../../includes/termcaps.h"
 
-void		print_status_job(char	status)
+void			print_status_job(char status)
 {
 	if (status == 'f')
 		ft_printf("Done	");
@@ -24,7 +24,7 @@ void		print_status_job(char	status)
 		ft_printf("running	");
 }
 
-void		print_ft_job(t_job *j, int option)
+void			print_ft_job(t_job *j, int option)
 {
 	t_process	*process;
 	int			i;

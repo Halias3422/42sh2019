@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:49:25 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 14:10:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,7 +85,6 @@ int			double_check(char *str, int i)
 
 void		split_space_basic(char *str, int *i)
 {
-	puts("here");
 	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
 	&& (double_check(str, *i))))
 	{

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:15:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 11:16:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 14:16:19 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ int		check_error_no_backslash(char *str, int *i)
 		error_heredoc_go_next(str, i);
 		token = find_token(str, *i);
 	}
-	if (token == 4 || token == 0 || token == 1 || token == 10
+	if (token == 0 || token == 1 || token == 10
 	|| token == 2 || token == 3)
 		if (first_check(str, *i, token))
 			return (-1);

@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 15:06:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/13 11:35:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:08:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,19 +57,23 @@ int				negative_number_expansion(char **new_ans, t_hist *hist,
 }
 
 int				word_finding_expansion(char **new_ans, t_hist *hist,
-				char *expansion)
+				char *expansion, t_pos *pos)
 {
+	if (!hist->prev)
+		return (-1);
+	hist = hist->prev;
 	while (hist && hist->prev &&
 		ft_strncmp(expansion + 1, hist->cmd, ft_strlen(expansion + 1)) != 0)
 		hist = hist->prev;
-	if (ft_strncmp(expansion + 1, hist->cmd, ft_strlen(expansion + 1)) != 0)
+	if (ft_strcmp(pos->ans, hist->cmd) == 0 || ft_strncmp(expansion + 1,
+				hist->cmd, ft_strlen(expansion + 1)) != 0)
 		return (-1);
 	*new_ans = ft_strjoinf(*new_ans, hist->cmd, 1);
 	return (0);
 }
 
 int				get_expansion_value(char *expansion, t_hist *hist,
-				char **new_ans)
+				char **new_ans, t_pos *pos)
 {
 	if (expansion[1] == '!')
 		return (double_exclamation_expansion(new_ans, hist));
@@ -80,7 +84,7 @@ int				get_expansion_value(char *expansion, t_hist *hist,
 		return (negative_number_expansion(new_ans, hist, expansion));
 	else if (expansion[1] && expansion[1] != '!' &&
 		(expansion[1] < 9 || expansion[1] > 13) && expansion[1] != 32)
-		return (word_finding_expansion(new_ans, hist, expansion));
+		return (word_finding_expansion(new_ans, hist, expansion, pos));
 	else
 		return (-1);
 }

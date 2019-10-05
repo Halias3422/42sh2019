@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 12:04:37 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 14:17:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,7 +103,7 @@ void		print_j(t_job *j)
 	int			i;
 
 	jt = j;
-//	puts("------------------------");
+	puts("------------------------");
 	while (jt)
 	{
 		pt = j->p;
@@ -114,19 +114,19 @@ void		print_j(t_job *j)
 			{
 				while (pt->cmd[i])
 				{
-//					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
+					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
 					i++;
 				}
 			}
-//			if (pt->redirect)
-//				printf("fd: %d\n", pt->redirect->fd);
-//			if (pt->redirect)
-//				printf("content: _%s_\n", pt->redirect->heredoc_content);
+			if (pt->redirect)
+				printf("fd: %d\n", pt->redirect->fd);
+			if (pt->redirect)
+				printf("content: _%s_\n", pt->redirect->heredoc_content);
 			pt = pt->next;
 		}
 		jt = jt->next;
 	}
-//	puts("------------------------");
+	puts("------------------------");
 }
 
 void		free_jobs(t_job *j)
@@ -205,7 +205,7 @@ void		save_spe_param(char **cmd, t_var *var)
 	}
 	else
 		ft_strdel(&var->data);
-	if (!(cmd) && !(cmd[0]))
+	if (!(cmd) || !(cmd[0]))
 		var->data = ft_strdup("");
 	else
 		var->data = ft_strdup(cmd[i - 1]);
@@ -229,6 +229,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
+//	print_j(j);
 	free_lexeur(res);
 	while (j)
 	{

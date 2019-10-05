@@ -6,14 +6,14 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:01:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-int			fill_ans_heredoc(t_pos *pos, int i, int j)
+int				fill_ans_heredoc(t_pos *pos, int i, int j)
 {
 	j = i;
 	while (pos->ans[i])

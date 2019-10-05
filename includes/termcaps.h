@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:16:23 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 12:54:21 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -477,9 +477,9 @@ int				number_expansion(char **new_ans, t_hist *hist, char *expansion);
 int				negative_number_expansion(char **new_ans, t_hist *hist,
 				char *expansion);
 int				word_finding_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
+				char *expansion, t_pos *pos);
 int				get_expansion_value(char *expansion, t_hist *hist,
-				char **new_ans);
+				char **new_ans, t_pos *pos);
 
 /*
 ** HISTORY_EXPANSION_CALCULATE.C
@@ -656,6 +656,7 @@ void					check_copy(unsigned char *buf, t_pos *pos);
 ** CHECK_BACKSLASH_C
 */
 
+int						odd_backslash(int i, char *ans);
 char					*check_backslash(t_pos *pos);
 
 /*

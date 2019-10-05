@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 15:08:18 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:12:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,7 @@ static void		check_expansion_and_token(t_pos *pos, t_hist *hist)
 		print_ans(pos, 0, pos->start_co);
 		pos->ans_printed = 1;
 	}
-	check_history_expansion(pos, hist, 0, 0);
+	check_history_expansion(pos, hist, -1, 0);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	if (pos->active_heredoc == 0)
 		pos->is_complete = token(pos->ans);

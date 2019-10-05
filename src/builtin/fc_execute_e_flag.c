@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:52:50 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 11:52:04 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,6 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 		}
 	}
 	new_cmds[i] = NULL;
-	unlink(pwd);
 	free(pwd);
 	return (new_cmds);
 }
