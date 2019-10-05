@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:02:37 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 10:43:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 12:16:42 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,23 +51,24 @@ t_alias *prev)
 	(*i)++;
 }
 
-t_alias		*make_ar_to_list(char **str)
+t_alias        *make_ar_to_list(char **str)
 {
-	t_alias		*start;
-	t_alias		*alias;
-	t_alias		*prev;
-	int			i;
-
-	alias = malloc(sizeof(t_alias));
-	prev = NULL;
-	start = alias;
-	i = 0;
-	while (str[i])
-		make_ar_to_list_while(&i, str, &alias, prev);
-	alias->next = NULL;
-	alias = start;
-	free_ar(str);
-	return (start);
+    t_alias		*start;
+    t_alias		*alias;
+    t_alias		*prev;
+    int            i;
+    if (!str || !str[0])
+        return (NULL);
+    alias = malloc(sizeof(t_alias));
+    prev = NULL;
+    start = alias;
+    i = 0;
+    while (str[i])
+        make_ar_to_list_while(&i, str, &alias, prev);
+    alias->next = NULL;
+    alias = start;
+    free_ar(str);
+    return (start);
 }
 
 int			check_simple_or_multiple(char *str)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:10:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 12:06:31 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,24 +60,25 @@ void		fill_token(t_process *p, t_lexeur **res, int *i)
 		p->redirect->token = NULL;
 }
 
-char		*add_space_content(char *content)
+char        *add_space_content(char *content)
 {
-	char 	*res;
-	int		i;
-
-	i = 0;
-	res = malloc(sizeof(char) * (ft_strlen(content) + 1));
-	while (content[i])
-	{
-		if (content[i] == -1)
-			res[i] = ' ';
-		else
-			res[i] = content[i];
-		i++;
-	}
-	res[i] = '\0';
-	ft_strdel(&content);
-	return (res);
+    char     *res;
+    int        i;
+    i = 0;
+    if (!content)
+        return (NULL);
+    res = malloc(sizeof(char) * (ft_strlen(content) + 1));
+    while (content[i])
+    {
+        if (content[i] == -1)
+            res[i] = ' ';
+        else
+            res[i] = content[i];
+        i++;
+    }
+    res[i] = '\0';
+    ft_strdel(&content);
+    return (res);
 }
 
 char		*get_content(char *tag, t_lexeur **res, int *t)
