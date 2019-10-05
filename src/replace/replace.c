@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 14:17:57 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 16:43:25 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,15 +79,15 @@ int			check_spe(t_alias *alias, t_var *var)
 		while (alias->data[i])
 		{
 			if (alias->data[i] == '$' && alias->data[i + 1] == '_' && ( i == 0 || alias->data[i - 1] != '\\'))
-				{
-					tmp = ft_strdup(ft_get_val("_", var, SPE));
-					ret = ft_strsub(alias->data, 0, i);
-					ret = ft_strjoinf(ret, tmp, 3);
-					ret = ft_strjoinf(ret, ft_strsub(alias->data, i + 2, ft_strlen(alias->data)), 3);
-					ft_strdel(&alias->data);
-					alias->data = ft_strdup(ret);
-					ft_strdel(&ret);
-				}
+			{
+				tmp = ft_strdup(ft_get_val("_", var, SPE));
+				ret = ft_strsub(alias->data, 0, i);
+				ret = ft_strjoinf(ret, tmp, 3);
+				ret = ft_strjoinf(ret, ft_strsub(alias->data, i + 2, ft_strlen(alias->data)), 3);
+				ft_strdel(&alias->data);
+				alias->data = ft_strdup(ret);
+				ft_strdel(&ret);
+			}
 			i++;
 		}
 		alias = alias->next;

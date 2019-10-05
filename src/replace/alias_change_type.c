@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:02:37 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 14:12:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 14:33:57 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,6 @@ t_alias *prev)
 		(*alias)->prev = NULL;
 	else
 		(*alias)->prev = prev;
-	printf("str[%d]\n", *i);
 	(*alias)->data = ft_strdup(str[*i]);
 	prev = (*alias);
 	if (str[*i + 1])
@@ -65,7 +64,6 @@ t_alias		*make_ar_to_list(char **str)
 	prev = NULL;
 	start = alias;
 	i = 0;
-	dprintf(1, "str[0]: _%s_\n", str[0]);
 	while (str[i])
 		make_ar_to_list_while(&i, str, &alias, prev);
 	alias->next = NULL;
