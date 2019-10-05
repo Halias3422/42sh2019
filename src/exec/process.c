@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:52:14 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 15:28:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,7 @@ void			fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 void			fill_process_first_part(t_job **j, t_lexeur **res,
 int *i, int k)
 {
-	if (res[*i]->token == 9)
+	if (res[*i]->token == 7)
 	{
 		(*j)->p->cmd = malloc(sizeof(char *) * 1);
 		(*j)->p->cmd = NULL;

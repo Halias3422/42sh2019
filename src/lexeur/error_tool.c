@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   error_tool.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/04 11:05:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 11:17:05 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 13:33:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,12 +31,15 @@ void	error_heredoc_go_next(char *str, int *i)
 		if (!ft_strcmp(tmp, tag))
 		{
 			ft_strdel(&tmp);
+			ft_strdel(&tag);
 			return ;
 		}
+		ft_strdel(&tmp);
 		(*i)++;
 	}
 	if (tmp)
 		ft_strdel(&tmp);
+	ft_strdel(&tag);
 }
 
 int		first_check(char *str, int i, int token)
