@@ -48,7 +48,7 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	if (!launch_redirection(p))
 		exit(1);
 	if (find_builtins(p, &var) != 0)
-		exit(1);
+		exit(p->ret);
 	ft_execute_function(path, p->cmd, var);
 	exit(1);
 }

@@ -27,7 +27,7 @@ t_process	*get_and_or(t_process *p)
 
 void		alert_job(t_job *j)
 {
-	if (j->p->builtin == 1 && j->split != '&')
+	if (j->p->builtin == 1 && j->split != '&' && is_builtin_modify(j->p))
 	{
 		free_job(j);
 		return ;
@@ -65,7 +65,7 @@ void		launch_job(t_job *j, t_var *var)
 	int			mypipe[2];
 
 	p = j->p;
-	if (j->p->builtin == 0 || j->split == '&')
+	if (!(j->split != '&' && is_builtin_modify(p)))
 		add_job(j);
 	j->status = 'r';
 	before_redirection(p);
