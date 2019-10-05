@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_bg.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 11:03:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 13:11:40 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ int			ft_bg(t_process *p, t_var **var)
 
 	if (ft_tabclen(p->cmd) <= 1)
 	{
-		ft_putstr_fd("usage: bg %[job_id]", p->fd_out);
+		ft_putstr_fd("usage: bg %[job_id]\n", p->fd_out);
 		return (1);
 	}
 	else
@@ -39,7 +39,7 @@ int			ft_bg(t_process *p, t_var **var)
 			return (0);
 		}
 		else
-			ft_putstr_fd("bg: job bot found", p->fd_out);
+			ft_putstr_fd("bg: job not found\n", p->fd_out);
 	}
 	var = NULL;
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 12:16:09 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 15:34:42 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -103,7 +103,7 @@ void		print_j(t_job *j)
 	int			i;
 
 	jt = j;
-//	puts("------------------------");
+	puts("------------------------");
 	while (jt)
 	{
 		pt = j->p;
@@ -114,19 +114,19 @@ void		print_j(t_job *j)
 			{
 				while (pt->cmd[i])
 				{
-//					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
+					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
 					i++;
 				}
 			}
-//			if (pt->redirect)
-//				printf("fd: %d\n", pt->redirect->fd);
-//			if (pt->redirect)
-//				printf("content: _%s_\n", pt->redirect->heredoc_content);
+			if (pt->redirect)
+				printf("fd: %d\n", pt->redirect->fd);
+			if (pt->redirect)
+				printf("content: _%s_\n", pt->redirect->heredoc_content);
 			pt = pt->next;
 		}
 		jt = jt->next;
 	}
-//	puts("------------------------");
+	puts("------------------------");
 }
 
 void		free_jobs(t_job *j)
@@ -161,52 +161,54 @@ void		free_jobs(t_job *j)
 
 void        replace_job(t_process **p, t_var *var)
 {
-    t_alias		*al;
-    t_replace	*r;
-    init_replace(&r);
-    if (!(*p) || !((*p)->cmd))
-        return ;
-    al = make_ar_to_list((*p)->cmd);
-    if (!al)
-        return ;
-    r->name = ft_strdup(al->data);
-    while (1)
-    {
-        if (remove_env_while(al, var, r) == 0)
-            break ;
-    }
-    (*p)->cmd = make_list_to_ar(al);
-    free_replace(r);
-    free_alias(al);
+	t_alias		*al;
+	t_replace	*r;
+
+	init_replace(&r);
+	if (!(*p) || !((*p)->cmd))
+		return ;
+	al = make_ar_to_list((*p)->cmd);
+	if (!al)
+		return ;
+	r->name = ft_strdup(al->data);
+	while (1)
+	{
+		if (remove_env_while(al, var, r) == 0)
+			break ;
+	}
+	(*p)->cmd = make_list_to_ar(al);
+	free_replace(r);
+	free_alias(al);
 }
 
 void        save_spe_param(char **cmd, t_var *var)
 {
-    int    i;
-    i = 0;
-    if (var == NULL || !cmd)
-        return ;
-    while (cmd[i])
-        i++;
-    while (var && var->next)
-    {
-        if (var->type == SPE && ft_strcmp(var->name, "_") == 0)
-            break ;
-        var = var->next;
-    }
-    if (var && !(var->next) && ft_strcmp("_", var->name) != 0)
-    {
-        var->next = malloc(sizeof(t_var));
-        var = var->next;
-        var->name = ft_strdup("_");
-        var->next = NULL;
-    }
-    else
-        ft_strdel(&var->data);
-    if (!(cmd) || !(cmd[0]))
-        var->data = ft_strdup("");
-    else
-        var->data = ft_strdup(cmd[i - 1]);
+	int	i;
+
+	i = 0;
+	if (var == NULL || !cmd)
+		return ;
+	while (cmd[i])
+		i++;
+	while (var && var->next)
+	{
+		if (var->type == SPE && ft_strcmp(var->name, "_") == 0)
+			break ;
+		var = var->next;
+	}
+	if (var && !(var->next) && ft_strcmp("_", var->name) != 0)
+	{
+		var->next = malloc(sizeof(t_var));
+		var = var->next;
+		var->name = ft_strdup("_");
+		var->next = NULL;
+	}
+	else
+		ft_strdel(&var->data);
+	if (!(cmd) || !(cmd[0]))
+		var->data = ft_strdup("");
+	else
+		var->data = ft_strdup(cmd[i - 1]);
 }
 
 int			start_exec(t_lexeur **res, t_var *var)
@@ -227,6 +229,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
+//	print_j(j);
 	free_lexeur(res);
 	while (j)
 	{

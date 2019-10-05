@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 12:07:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 15:34:52 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -142,14 +142,10 @@ void		free_alias(t_alias *alias)
 char		**start_split(t_var *start, char *str)
 {
 	char		**ar;
-	t_alias		*alias;
 
 	ar = split_space(str);
 	if (!start)
 		return (ar);
-	alias = make_ar_to_list(ar);
-	ar = make_list_to_ar(alias);
-	free_alias(alias);
 	del_back_slash(&ar);
 	remoove_quote(&ar);
 	del_back_slash_end(&ar);

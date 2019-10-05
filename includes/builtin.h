@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtin.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:08:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 12:07:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@
 # include "hash.h"
 # include <dirent.h>
 
-# define LEN_BUILTIN_LIST 17
+# define LEN_BUILTIN_LIST 18
 # define TERM "42sh"
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
@@ -71,6 +71,8 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name);
 int				comp_num_operator(char *name1, char *type, char *name2);
 
+
+int				ft_bg(t_process *p, t_var **var);
 /*
 **	FT_EXIT_C
 */

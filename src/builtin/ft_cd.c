@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:14 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 15:59:51 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -118,6 +118,7 @@ int		ft_cd(t_process *p, t_var **var)
 
 	new_path = NULL;
 	i = 0;
+	ft_printf("{T.B.red.}tab=\n%T\n{eoc}", p->cmd);
 	if (verif_path(ft_get_val("PWD", *var, ENVIRONEMENT), 0) == 0)
 	{
 		getcwd(pwd, 1000);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 13:43:33 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 15:35:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,6 +38,7 @@ char        *add_space_content(char *content)
 {
     char     *res;
     int        i;
+	
     i = 0;
     if (!content)
         return (NULL);
