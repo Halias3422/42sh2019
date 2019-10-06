@@ -111,5 +111,6 @@ char				*check_path_hash(t_var **var, char **arg,
 	}
 	if (denied != 0)
 		return (path_denied(paths, arg));
-	return (path_not_found(paths, arg));
+	ft_free_tab(paths);
+	return (NULL);
 }

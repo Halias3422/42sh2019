@@ -43,12 +43,12 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
-	if (path == NULL)
-		exit(1);
 	if (!launch_redirection(p))
 		exit(1);
 	if (find_builtins(p, &var) != 0)
 		exit(p->ret);
+	if (path == NULL)
+		printf("42sh: %s: command not found\n", p->cmd[0]);
 	ft_execute_function(path, p->cmd, var);
 	exit(1);
 }
