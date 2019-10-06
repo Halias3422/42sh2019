@@ -50,7 +50,7 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	if (path == NULL)
 		printf("42sh: %s: command not found\n", p->cmd[0]);
 	ft_execute_function(path, p->cmd, var);
-	exit(1);
+	exit(127);
 }
 
 void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
@@ -90,10 +90,7 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 		if (find_builtins(p, var) != 0)
 			return (1);
 	}
-	if ((cmd_path = check_path_hash(var, p->cmd, -1, NULL)) == NULL)
-	{
-		add_list_env(var, SPE, ft_strdup("?"), ft_strdup("127"));
-	}
+	cmd_path = check_path_hash(var, p->cmd, -1, NULL);
 	pid = fork();
 	if (pid < 0)
 		return (-1);
