@@ -35,7 +35,10 @@ static int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 	if (ft_strcmp(redirect->token, ">&") == 0)
 	{
 		if (ft_strcmp(redirect->fd_out, "-") == 0)
+		{
 			close(fd_in);
+			return (1);
+		}
 		else if (fd_in > 0 && fd_out > 0)
 		{
 			if (dup2(fd_out, fd_in) == -1)
@@ -50,7 +53,10 @@ static int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 	if (ft_strcmp(redirect->token, "<&") == 0)
 	{
 		if (ft_strcmp(redirect->fd_out, "-") == 0)
+		{
 			close(fd_in);
+			return (1);
+		}
 		else if (fd_in > 0 && fd_out > 0)
 		{
 			if (fd_out > STDERR_FILENO)
@@ -162,12 +168,8 @@ void		before_redirection_file(t_redirect *redirect)
 	if (ft_strcmp(redirect->token, "<<") == 0)
 	{
 		redirect->open_in = open("tmp", O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR);
-		//p->file_in = open("tmp", O_CREAT | O_WRONLY | O_RDONLY, S_IRUSR | S_IWUSR);
 		write(redirect->open_in, redirect->heredoc_content, ft_strlen(redirect->heredoc_content));
 		redirect->open_in = open("tmp", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
-		//p->file_in = open("tmp", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
-		//close(p->file_in);
-		//printf(">>%s\n", redirect->heredoc_content);
 	}
 	redirect = redirect->next;
 }
