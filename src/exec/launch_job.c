@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:49:48 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 09:45:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,24 +40,6 @@ void		alert_job(t_job *j)
 		remove_job(j->id);
 }
 
-void		print_tab(char **cmd, int c)
-{
-	int i =0;
-
-	if (c == 1)
-		ft_printf("{T.red.}------------------------------------\n");
-	if (c == 2)
-		ft_printf("{T.blue.}------------------------------------\n");
-	if (c == 3)
-		ft_printf("{T.yellow.}------------------------------------\n");
-	while (cmd[i])
-	{
-		ft_printf("tab[%d]=%s\n", i, cmd[i]);
-		i++;
-	}
-	ft_printf("{eoc}");
-}
-
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
@@ -74,7 +56,10 @@ void		launch_job(t_job *j, t_var *var)
 	{
 		if (p->cmd && p->cmd[0] && find_equal(p->cmd[0]) == 1)
 			if ((p->cmd = check_exec_var(p->cmd, &var)) == NULL)
+			{
+				alert_job(j);
 				return ;
+			}
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{
@@ -88,9 +73,7 @@ void		launch_job(t_job *j, t_var *var)
 		{
 			p->fd_out = 1;
 			fork_simple(j, p, &var);
-			//infile = 0;
 		}
-		//fork_simple(j, p, &var);
 		p = get_and_or(p);
 		free_temp(&var);
 	}
