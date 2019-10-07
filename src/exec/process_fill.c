@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:38:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 15:45:15 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,7 +94,6 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 
 void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 {
-	printf("tmp->%p\n", tmp->token);
 	tmp->heredoc_content = NULL;
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
@@ -120,7 +119,6 @@ void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 		else
 			tmp->fd = 1;
 	}
-	printf("tmp ag->first->%p\n", tmp->token);
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
