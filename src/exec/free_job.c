@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:44:27 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 14:24:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,15 +34,15 @@ void		free_redirections(t_redirect *ptr_redi)
 	while (r)
 	{
 		if (ft_strcmp(r->token, "<<") == 0)
-			free(r->heredoc_content);
+			ft_strdel(&r->heredoc_content);
 		else
 		{
 			if (r->fd_out)
-				free(r->fd_out);
+				ft_strdel(&r->fd_out);
 			if (r->fd_in)
-				free(r->fd_in);
+				ft_strdel(&r->fd_in);
 			if (r->token)
-				free(r->token);
+				ft_strdel(&r->token);
 		}
 		next = r->next;
 		free(r);

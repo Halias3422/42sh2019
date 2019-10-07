@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/10 11:18:33 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:36:21 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 13:00:48 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ int			ft_hash(t_process *p, t_var **var)
 	if (hash == NULL)
 	{
 		ft_printf("42sh: hash: hash table not set\n");
-		return (0);
+		return (1);
 	}
 	if (!p->cmd[1])
 		read_hash_table(hash);
@@ -103,7 +103,7 @@ int			ft_hash(t_process *p, t_var **var)
 	else
 	{
 		ft_printf("hash: usage: hash [-rdt] [name]\n");
-		return (0);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
