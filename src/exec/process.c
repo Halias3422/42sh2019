@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 10:54:43 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 14:03:55 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,8 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 			break ;
 		if (res[t] && (check_token_in_condition(res, t)))
 		{
+			if (res[t]->token == 7)
+				done++;
 			if (!tmp)
 			{
 				tmp = malloc(sizeof(t_redirect));

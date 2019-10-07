@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 10:55:32 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:08:35 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 14:17:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,6 +98,6 @@ void	ft_tabfree(char **res)
 
 	i = -1;
 	while (res[++i])
-		free(res[i]);
+		ft_strdel(&res[i]);
 	free(res);
 }

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 09:44:33 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 13:55:52 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,12 +98,10 @@ t_lexeur		**start_lex(t_var *var, char *res)
 {
 	t_lexeur	**array;
 	char		**tmp;
-	int			i = -1;
 
 	array = NULL;
 	tmp = start_split(var, res);
 	array = fill_lex(tmp, array);
-	i = -1;
 	ft_free_tab(tmp);
 	return (array);
 }

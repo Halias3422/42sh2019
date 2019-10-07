@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 10:54:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 14:16:58 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,7 +106,8 @@ void		print_j(t_job *j)
 	puts("------------------------");
 	while (jt)
 	{
-		pt = j->p;
+		pt = jt->p;
+		puts("\t\tNEW JOB\t\t");
 		while (pt)
 		{
 			i = 0;
@@ -123,6 +124,8 @@ void		print_j(t_job *j)
 				printf("fd: %d\n", pt->redirect->fd);
 				printf("content: _%s_\n", pt->redirect->heredoc_content);
 				printf("token : _%s_\n", pt->redirect->token);
+				printf("redirect in : _%s_\n", pt->redirect->fd_in);
+				printf("redirect  out : _%s_\n", pt->redirect->fd_out);
 				pt->redirect = pt->redirect->next;
 			}
 			pt = pt->next;
@@ -251,7 +254,5 @@ int			start_exec(t_lexeur **res, t_var *var)
 		launch_job(j, var);
 		j = next;
 	}
-	// free_parseur(j);
-	// free_jobs(start);
 	return (0);
 }
