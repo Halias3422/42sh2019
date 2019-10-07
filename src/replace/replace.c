@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 16:43:25 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 09:49:34 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -145,7 +145,6 @@ char		**start_split(t_var *start, char *str)
 	if (!start)
 		return (ar);
 	del_back_slash(&ar);
-	remoove_quote(&ar);
 	del_back_slash_end(&ar);
 	ft_strdel(&str);
 	return (ar);
