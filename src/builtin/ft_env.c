@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 08:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:24 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 13:54:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,25 +40,19 @@ int				regular_env_process_cmd(t_process *p, t_var *var, int i)
 }
 
 t_var			*place_new_entry_in_tmp_env(char **new_env_entry,
-		t_var *var)
+				t_var *var)
 {
 	t_var		*head;
 	int			name_len;
 
 	name_len = ft_strlen(new_env_entry[0]);
 	if (var == NULL)
-	{
-		var = add_list_back_env(NULL);
-		var->name = ft_strdup(new_env_entry[0]);
-		var->data = ft_strdup(new_env_entry[1]);
-		var->type = ENVIRONEMENT;
-		var->next = NULL;
-	}
+		put_new_entry_in_var(var, new_env_entry, 0);
 	head = var;
 	while (var && var->next && ft_strcmp(new_env_entry[0], var->name) != 0
 				&& var->type != SPE)
 		var = var->next;
-	if (var->name != NULL && ft_strncmp(new_env_entry[0], var->name, 
+	if (var->name != NULL && ft_strncmp(new_env_entry[0], var->name,
 				name_len) == 0 && var->type != SPE)
 	{
 		var->data = ft_secure_free(var->data);
@@ -66,13 +60,7 @@ t_var			*place_new_entry_in_tmp_env(char **new_env_entry,
 		var = head;
 	}
 	else
-	{
-		var->next = add_list_back_env(var);
-		var = var->next;
-		var->name = ft_strdup(new_env_entry[0]);
-		var->data = ft_strdup(new_env_entry[1]);
-		var->type = ENVIRONEMENT;
-	}
+		put_new_entry_in_var(var, new_env_entry, 1);
 	return (head);
 }
 
@@ -99,14 +87,11 @@ t_var			*copy_env(t_var *var)
 	return (head);
 }
 
-int				normal_env_behavior(t_process *p, t_var **var)
+static int		normal_env_behavior(t_process *p, int i,
+				t_var *new_var)
 {
-	int			i;
 	char		**new_env_entry;
-	t_var		*new_var;
 
-	new_var = copy_env(*var);
-	i = 1;
 	if (ft_strchr(p->cmd[i], '=') != NULL)
 	{
 		while (p->cmd[i])
@@ -151,6 +136,6 @@ int				ft_env(t_process *p, t_var **var)
 		free_new_env(head);
 	}
 	else
-		err = normal_env_behavior(p, var);
+		err = normal_env_behavior(p, 1, copy_env(*var));
 	return (err);
 }

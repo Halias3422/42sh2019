@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 06:52:21 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:19:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,6 @@ char		*change_buf(char *buf)
 		j++;
 	}
 	res[j] = '\0';
-	// ft_strdel(&buf);
 	return (res);
 }
 
@@ -75,7 +74,9 @@ void		fill_lex_exist(char **buf, int *i, int *j, t_lexeur **array)
 
 	k = 0;
 	token = check_token_for_redirection(buf[*i]);
-	if (token != -1)
+	if (token == 7)
+		fill_lex_heredoc(&array, j, buf, i);
+	else if (token != -1)
 		array[*j] = fill_lex_redirection(buf, i, token);
 	else
 		array[*j] = fill_lex_while(buf[*i], i, find_token(buf[*i], k));

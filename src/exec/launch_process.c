@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 08:25:48 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 15:44:06 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,14 +43,14 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
-	if (path == NULL)
-		exit(1);
 	if (!launch_redirection(p))
 		exit(1);
 	if (find_builtins(p, &var) != 0)
-		exit(1);
+		exit(p->ret);
+	if (path == NULL)
+		printf("42sh: %s: command not found\n", p->cmd[0]);
 	ft_execute_function(path, p->cmd, var);
-	exit(1);
+	exit(127);
 }
 
 void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
@@ -82,17 +82,15 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	pid_t		pid;
 	char		*cmd_path;
 
-	if (!p->cmd[0])
+	cmd_path = NULL;
+	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
 	if (j->split != '&' && is_builtin_modify(p))
 	{
 		if (find_builtins(p, var) != 0)
 			return (1);
 	}
-	if ((cmd_path = check_path_hash(var, p->cmd, -1, NULL)) == NULL)
-	{
-		add_list_env(var, SPE, ft_strdup("?"), ft_strdup("127"));
-	}
+	cmd_path = check_path_hash(var, p->cmd, -1, NULL);
 	pid = fork();
 	if (pid < 0)
 		return (-1);
@@ -100,5 +98,6 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 		launch_process(p, *var, cmd_path);
 	else
 		update_pid(p, j, pid, var);
+//	ft_strdel(&cmd_path);
 	return (1);
 }

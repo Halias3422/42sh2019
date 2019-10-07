@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 10:24:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 15:13:35 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,13 +30,13 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 			ft_printf_err("terminated by signal %d\n", WTERMSIG(status));
 		job_list->j->status = 'f';
 		process->completed = FINISHED;
-		if (!process->builtin)
-		{
+		//if (!process->builtin)
+		//{
 			process->ret = WEXITSTATUS(status);
 			add_list_env(var, SPE, ft_strdup("?"), ft_itoa(process->ret));
-		}
-		else
-			process->ret = 0;
+		//}
+		//else
+		//	process->ret = 0;
 	}
 }
 

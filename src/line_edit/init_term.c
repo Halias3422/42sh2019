@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/04 17:27:12 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/17 09:53:55 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 10:42:37 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,7 @@ int			check_term(void)
 {
 	if (get_term() == -1)
 		return (-1);
-	if (isatty(2) == 0)
-		return (-1);
+	// if (isatty(2) == 0)
+		// return (-1);
 	return (0);
 }

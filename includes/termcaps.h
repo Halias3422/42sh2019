@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 15:23:37 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 12:52:49 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -186,35 +186,6 @@ typedef struct			ctrl_hist
 		int				act_li;
 }						t_ctrl_hist;
 
-typedef struct		s_tok
-{
-	int				quote;
-	int				dquote;
-	int				bquote;
-	int				cmdand;
-	int				cmdor;
-	int				pipe;
-	int				heredoc;
-	char			*herestr;
-	char			*fullheredoc;
-	int				i;
-	int				n;
-	int				mode;
-	int				nb_quote;
-	int				nb_dquote;
-	int				testtoken;
-	int				doubletoken;
-	char			*dquote_d;
-}					t_tok;
-
-typedef struct			s_tokench
-{
-	char				*token;
-	int					end;
-	struct s_tokench	*next;
-	struct s_tokench	*prev;
-}						t_tokench;
-
 char	*check_path_hash(t_var **var, char **arg, int i, char *ans);
 void	print_info(t_pos *pos);
 void	print_hist(t_pos *pos, t_hist *hist);
@@ -278,7 +249,7 @@ void				*stock(void *to_stock, int usage);
 ** INPUT_IS_ENTRY
 */
 
-int					find_missing_quote(char *str);
+t_hist				*entry_is_complete(t_pos *pos, t_hist *hist);
 t_hist				*input_is_entry(t_pos *pos, t_hist *hist, char *buf);
 
 /*
@@ -477,9 +448,9 @@ int				number_expansion(char **new_ans, t_hist *hist, char *expansion);
 int				negative_number_expansion(char **new_ans, t_hist *hist,
 				char *expansion);
 int				word_finding_expansion(char **new_ans, t_hist *hist,
-				char *expansion);
+				char *expansion, t_pos *pos);
 int				get_expansion_value(char *expansion, t_hist *hist,
-				char **new_ans);
+				char **new_ans, t_pos *pos);
 
 /*
 ** HISTORY_EXPANSION_CALCULATE.C
@@ -487,64 +458,6 @@ int				get_expansion_value(char *expansion, t_hist *hist,
 
 char			*get_expansion_content(char *ans, int i);
 int				get_expansion_length(char *ans, int i);
-
-/*
-** token_init.c
-*/
-
-t_tokench		*add_list_back_tok_next(t_tokench *tok);
-void			maj_token(t_tokench *tok, char *c);
-void			init_tok(t_tok *in);
-
-/*
-** token.c
-*/
-
-int				verif_token(char *str, int j);
-void			check_token(t_pos *pos, t_tok *in, t_tokench *tok);
-void			init_tok(t_tok *in);
-
-/*
-** TOKEN_CHECK_C
-*/
-
-int		check_in_2(t_pos *pos);
-int		check_in_3(t_pos *pos);
-
-/*
-** token_check_open.c
-*/
-
-void			check_first_token(t_pos *pos, t_tok *in, t_tokench *tok);
-
-/*
-** token_check_close.c
-*/
-
-int				check_close_nothing(t_pos *pos, t_tok *in);
-int				check_close_nothing2(t_pos *pos, t_tok *in);
-int				check_close_tree(t_pos *pos, t_tok *in);
-void			check_mode_1_2(t_tok *in, t_tokench *tok, char *c);
-t_tokench		*check_close(t_tokench *tok, char *c, t_tok *in);
-
-/*
-** token_heredoc_open.c
-*/
-
-void			check_heredoc(t_pos *pos, t_tok *in, t_tokench *tok);
-
-/*
-** token_heredoc_close.c
-*/
-
-void			heredoc_1(t_pos *pos, t_tok *in, t_tokench *tok);
-
-/*
-** token_free.c
-*/
-
-void			free_heredoc(t_tok *in);
-void			free_all_check_token(t_tok *in, t_tokench *tok);
 
 /*
 ** init_alias.c
@@ -656,6 +569,7 @@ void					check_copy(unsigned char *buf, t_pos *pos);
 ** CHECK_BACKSLASH_C
 */
 
+int						odd_backslash(int i, char *ans);
 char					*check_backslash(t_pos *pos);
 
 /*
@@ -688,6 +602,7 @@ int				heredoc_found(t_pos *pos, int i, int j);
 **	HEREDOC_SEND_VALID_ANS_C
 */
 
+void			heredoc_ctrl_d(t_pos *pos, t_hist **hist);
 void			remake_pos_ans(t_pos *pos);
 int				fill_ans_heredoc(t_pos *pos, int i, int j);
 

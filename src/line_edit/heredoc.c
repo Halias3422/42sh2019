@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   heredoc.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 07:38:17 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:09:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ int				heredoc_found(t_pos *pos, int i, int j)
 	while (pos->ans[i] && (pos->ans[i] == 32 || (pos->ans[i] >= 9 &&
 			pos->ans[i] <= 13)))
 		i++;
-		i = going_to_heredoc_end(pos, i);
+	i = going_to_heredoc_end(pos, i);
 	while (pos->ans[j] && (pos->ans[j] == 32 || (pos->ans[j] >= 9 &&
 			pos->ans[j] <= 13)))
 		j++;
@@ -50,7 +50,6 @@ int				fill_hdoc_content(t_pos *pos, char *ans, int i, int j)
 		pos->hdoc = pos->hdoc->next;
 	if (ft_strcmp(ans + i + 1, pos->hdoc->to_find) == 0)
 	{
-		ft_printf("je rentre bien la\n");
 		pos->hdoc->current_index = 1;
 		pos->hdoc->content = ft_strjoinf(pos->hdoc->content, ans + i + 1, 1);
 		pos->hdoc->content = ft_strjoinf(pos->hdoc->content, " ", 1);
@@ -113,7 +112,6 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 					ft_strlen(pos->ans) - 1, ft_strlen(pos->ans) - 1))
 		{
 			pos->is_complete = 1;
-			ft_printf("je quitte les heredocs\n");
 			return ;
 		}
 	}

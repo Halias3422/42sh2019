@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 15:34:07 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,9 @@
 int			comp_operator(char *name1, char *type, char *name2)
 {
 	if (ft_strcmp(type, "=") == 0)
-		return (ft_strcmp(name1, name2) == 0) ? 0 : 1;
+		return (ft_strcmp(name1, name2) == 0) ? 1 : 0;
 	else if (ft_strcmp(type, "!=") == 0)
-		return (ft_strcmp(name1, name2) != 0) ? 0 : 1;
+		return (ft_strcmp(name1, name2) != 0) ? 1 : 0;
 	else if (type[0] != '-')
 	{
 		ft_printf("test: condition expected: %s\n", type);
@@ -35,7 +35,7 @@ int			test_simple_operator(char *type, struct stat s_type)
 	if (ft_strcmp(type, "-c") == 0)
 		return ((s_type.st_mode & S_IFMT) == S_IFCHR) ? 0 : 1;
 	if (ft_strcmp(type, "-d") == 0)
-		return ((s_type.st_mode & S_IFMT) == S_IFDIR) ? 0 : 1;
+		return ((s_type.st_mode & S_IFMT) == S_IFDIR) ? 1 : 0;
 	if (ft_strcmp(type, "-f") == 0)
 		return ((s_type.st_mode & S_IFMT) == S_IFREG) ? 0 : 1;
 	if (ft_strcmp(type, "-L") == 0)
@@ -62,7 +62,6 @@ int			test_simple_operator(char *type, struct stat s_type)
 int			simple_operator(char *type, char *name)
 {
 	struct stat s_type;
-
 
 	if (type[0] != '-')
 	{
@@ -94,14 +93,14 @@ int			ft_test_argv(char **argv, int fd_out)
 	int inv;
 
 	i = 0;
+	if (ft_tabclen(argv) <= 1)
+		return (1);
 	if (ft_strcmp(argv[1], "-z") == 0)
 	{
 		if (!(argv[2]))
 			return (1);
 		return (0);
 	}
-	if (ft_tabclen(argv) <= 1)
-		return (1);
 	if (ft_strcmp(argv[1], "!") == 0)
 	{
 		inv = 1;

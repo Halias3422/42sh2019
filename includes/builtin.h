@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtin.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 12:07:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@
 # include "hash.h"
 # include <dirent.h>
 
-# define LEN_BUILTIN_LIST 17
+# define LEN_BUILTIN_LIST 18
 # define TERM "42sh"
 typedef struct	s_var t_var;
 typedef struct	s_process t_process;
@@ -71,6 +71,8 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name);
 int				comp_num_operator(char *name1, char *type, char *name2);
 
+
+int				ft_bg(t_process *p, t_var **var);
 /*
 **	FT_EXIT_C
 */
@@ -195,9 +197,18 @@ int				go_through_process_cmd(t_process *p, t_var **new_env,
 				t_var **head, int ret);
 
 /*
+**	TOOL_C
+*/
+
+int				remove_list_var(t_var **ptr_var, int type, char *name);
+void			free_name_and_data(char *name, char *data);
+
+/*
 **	FT_ENV_TOOLS_C
 */
 
+t_var			*put_new_entry_in_var(t_var *var, char **new_env_entry,
+				int usage);
 void		free_new_env(t_var *head);
 t_var		*init_t_var(t_var *ne);
 t_var		*add_list_back_env(t_var *env);
@@ -231,5 +242,6 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path, int i, int absolute);
 int				verif_path(char *path, int mute);
+
 
 #endif

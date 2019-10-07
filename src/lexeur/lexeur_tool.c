@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur_tool.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:24:10 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 13:18:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 11:15:03 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,10 @@ char *red)
 		res->redirection = ft_strdup(red);
 	else
 		res->redirection = NULL;
-	res->fd_in = ft_strdup(fd_in);
+	if (fd_in)
+		res->fd_in = ft_strdup(fd_in);
+	else
+		res->fd_in = NULL;
 	res->fd_out = NULL;
 	ft_strdel(&red);
 	ft_strdel(&fd_in);

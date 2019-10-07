@@ -6,21 +6,26 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/01 14:07:49 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 14:10:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
 
-void		token_8_and_5(int *i, int ret, char *str)
+void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc)
 {
-	(*i) += g_fill_token[ret].size;
-	if (str[*i + 1])
+	char	*tmp;
+	int		s;
+
+	jump_space(str, i);
+	s = *i;
+	while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' ')
 		(*i)++;
-	while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
-	&& (find_token(str, *i) == -1))
-		(*i)++;
+	tmp = ft_strsub(str, *i, *i - s);
+	if (!ft_strcmp(tmp, tag))
+		(*heredoc) = 0;
+	ft_strdel(&tmp);
 }
 
 void		split_space_find_number(char *str, int *i)
@@ -35,7 +40,8 @@ void		split_space_find_number(char *str, int *i)
 		ret = find_token(str, *i);
 		if (ret == -1)
 		{
-			while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' ')
+			while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
+			&& find_token(str, *i) == -1)
 				(*i)++;
 		}
 		if (str[*i] && (ret == 4 || ret == 6 || ret == 9 || ret == 7))

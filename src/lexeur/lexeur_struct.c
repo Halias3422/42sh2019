@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur_struct.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:38:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:07:21 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/04 14:20:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,30 @@ t_lexeur	*fill_lex_while(char *buf, int *i, int token)
 	return (res);
 }
 
+void		fill_lex_heredoc(t_lexeur ***array, int *j, char **buf, int *i)
+{
+	char		*tag;
+
+	(*array)[*j] = malloc(sizeof(t_lexeur));
+	fill_struct_fd_in((*array)[*j], get_fd_in(buf[*i]), 7,
+	fill_redirection(buf, i));
+	tag = ft_strdup((*array)[*j]->redirection);
+	(*i)++;
+	while (buf[*i])
+	{
+		(*j)++;
+		(*array)[*j] = malloc(sizeof(t_lexeur));
+		fill_struct((*array)[*j], buf[*i], -1, NULL);
+		if (!ft_strcmp(buf[*i], tag))
+		{
+			(*i)++;
+			break ;
+		}
+		(*i)++;
+	}
+	ft_strdel(&tag);
+}
+
 t_lexeur	*fill_lex_redirection(char **buf,
 int *i, enum e_token token)
 {
@@ -64,4 +88,14 @@ int *i, enum e_token token)
 		return (res);
 	}
 	return (NULL);
+}
+
+void		token_8_and_5(int *i, int ret, char *str)
+{
+	(*i) += g_fill_token[ret].size;
+	if (str[*i + 1])
+		(*i)++;
+	while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
+	&& (find_token(str, *i) == -1))
+		(*i)++;
 }
