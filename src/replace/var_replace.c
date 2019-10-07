@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 15:54:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,7 +81,6 @@ char		*replace_var_to_data(char *str, t_var *env)
 	ft_strdel(&name);
 	res = fill_res(str, &i, tmp, &s);
 	res = ft_strjoinf(res, ft_strsub(str, s, i - s), 3);
-	// ft_strdel(&tmp);
 	ft_strdel(&str);
 	return (res);
 }

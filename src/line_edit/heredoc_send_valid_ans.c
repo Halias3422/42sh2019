@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 15:49:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 17:29:45 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,8 @@ void			print_hdoc(t_heredoc *hdoc)
 		hdoc = hdoc->prev;
 	while (hdoc)
 	{
-		ft_printf("to_find = '%s', content = '%s', current_index = %d\n", hdoc->to_find, hdoc->content, hdoc->current_index);
+		ft_printf("to_find = '%s', content = '%s', current_index = %d\n",
+			hdoc->to_find, hdoc->content, hdoc->current_index);
 		hdoc = hdoc->next;
 	}
 }
@@ -41,8 +42,6 @@ void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
 	{
 		*hist = entry_is_complete(pos, *hist);
 		pos->active_heredoc = 0;
-//		if (pos->ans_heredoc)
-//			remake_pos_ans(pos);
 	}
 }
 
@@ -66,7 +65,7 @@ int				fill_ans_heredoc(t_pos *pos, int i, int j)
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc,
 			ft_strsub(pos->ans, j, i - j), 3);
 	if (pos->hdoc == NULL)
-		return(ft_strlen(pos->ans));
+		return (ft_strlen(pos->ans));
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, " ", 1);
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, pos->hdoc->content, 1);
 	pos->hdoc = pos->hdoc->next;

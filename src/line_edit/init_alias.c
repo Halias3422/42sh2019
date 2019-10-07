@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/29 09:16:52 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:49:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 17:37:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,18 +16,18 @@
 void	write_alias(t_var *var, t_pos *p)
 {
 	chdir(p->path);
-	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT, 0664);
-	while (var)
-	{
-		if (var->type == 2)
+	if ((p->alias = (open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT, 0664))) != -1)
+		while (var)
 		{
-			write(p->alias, var->name, ft_strlen(var->name));
-			write(p->alias, "=", 1);
-			write(p->alias, var->data, ft_strlen(var->data));
-			write(p->alias, "\n", 1);
+			if (var->type == 2)
+			{
+				write(p->alias, var->name, ft_strlen(var->name));
+				write(p->alias, "=", 1);
+				write(p->alias, var->data, ft_strlen(var->data));
+				write(p->alias, "\n", 1);
+			}
+			var = var->next;
 		}
-		var = var->next;
-	}
 }
 
 void	init_alias(t_var *var, t_pos *pos, char *line)
@@ -37,7 +37,11 @@ void	init_alias(t_var *var, t_pos *pos, char *line)
 
 	pos->path = getcwd(NULL, 255);
 	pwd = ft_strjoin(pos->path, "/.aliases");
-	pos->alias = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
+	if ((pos->alias = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666)) == -1)
+	{
+		ft_strdel(&pwd);
+		return ;
+	}
 	ft_strdel(&pwd);
 	while (var->next)
 		var = var->next;
