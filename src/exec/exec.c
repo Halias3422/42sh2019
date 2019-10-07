@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 15:34:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 10:54:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -118,10 +118,13 @@ void		print_j(t_job *j)
 					i++;
 				}
 			}
-			if (pt->redirect)
+			while (pt->redirect)
+			{
 				printf("fd: %d\n", pt->redirect->fd);
-			if (pt->redirect)
 				printf("content: _%s_\n", pt->redirect->heredoc_content);
+				printf("token : _%s_\n", pt->redirect->token);
+				pt->redirect = pt->redirect->next;
+			}
 			pt = pt->next;
 		}
 		jt = jt->next;
@@ -177,6 +180,9 @@ void        replace_job(t_process **p, t_var *var)
 			break ;
 	}
 	(*p)->cmd = make_list_to_ar(al);
+	del_back_slash(&(*p)->cmd);
+	remoove_quote(&(*p)->cmd);
+	del_back_slash_end(&(*p)->cmd);
 	free_replace(r);
 	free_alias(al);
 }

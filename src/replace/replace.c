@@ -146,9 +146,6 @@ char		**start_split(t_var *start, char *str)
 	ar = split_space(str);
 	if (!start)
 		return (ar);
-	del_back_slash(&ar);
-	remoove_quote(&ar);
-	del_back_slash_end(&ar);
 	ft_strdel(&str);
 	return (ar);
 }

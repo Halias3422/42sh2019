@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 11:27:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 13:57:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 		if (pos->active_heredoc)
 		{
 			heredoc_ctrl_d(pos, hist);
-			if (pos->hdoc == NULL)
+			if (pos->active_heredoc == 0)
 				return (returning_ans(pos));
 		}
 		else if (!pos->ans || !pos->ans[0])

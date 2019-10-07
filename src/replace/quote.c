@@ -71,7 +71,9 @@ char	*replace(char *str, char c)
 void	need_replace_quote(char ***array, int i, int *j)
 {
 	char	c;
+	int		tmp;
 
+	tmp = *j;
 	c = (*array)[i][*j];
 	(*array)[i] = replace((*array)[i], c);
 	if (!(*array) && !ft_strcmp((*array)[i], ""))
@@ -91,6 +93,7 @@ void	need_replace_quote(char ***array, int i, int *j)
 		(*j)++;
 	}
 }
+
 
 int		check_red(char *str)
 {
@@ -114,17 +117,7 @@ void	browse_ar(char ***array, int i, int j)
 		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
 		&& (j == 0 || (*array)[i][j - 1] != '\\')))
 		{
-			if ((find_token((*array)[i], j + 1) == -1) &&
-			check_red((*array)[i]))
-				need_replace_quote(array, i, &j);
-			else
-			{
-				j++;
-				while ((*array)[i][j] && (*array)[i][j] != '\'')
-					j++;
-				if ((*array)[i][j])
-					j++;
-			}
+			need_replace_quote(array, i, &j);
 		}
 		else
 		{

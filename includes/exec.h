@@ -57,6 +57,7 @@ typedef	struct			s_process
 	int					fd_error;
 	int					file_in;
 	int					file_out;
+	int					background;
 	t_redirect			*redirect;
 }						t_process;
 
@@ -176,7 +177,8 @@ void		find_alias(t_process *p, t_var *var, int k);
 void		add_list_alias(t_var **var, char *name, char *data);
 
 
-void		put_foreground(t_job *j, t_var **var);
+//void		put_foreground(t_job *j, t_var **var);
+void		put_foreground(t_job *j, t_var **var, t_process *p);
 void		put_background(t_job *j);
 
 int			test_builtin(t_process *p);
@@ -212,8 +214,11 @@ void		remove_item_var(t_var **var);
 void		before_redirection(t_process *p);
 t_process	*get_and_or(t_process *p);
 
-int		is_builtin_modify(t_process *p);
+int			is_builtin_modify(t_process *p);
 
 void		wait_process_pid(int pid,t_var **var);
 void		free_job(t_job *j);
+
+int			duplication(t_redirect *redirect, int fd_in, int fd_out);
+int			fd_right(char *path);
 #endif
