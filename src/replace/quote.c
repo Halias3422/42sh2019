@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 16:28:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 10:32:02 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,26 +71,17 @@ char	*replace(char *str, char c)
 void	need_replace_quote(char ***array, int i, int *j)
 {
 	char	c;
+	int		tmp;
 
+	tmp = *j;
 	c = (*array)[i][*j];
 	(*array)[i] = replace((*array)[i], c);
 	if (!(*array) && !ft_strcmp((*array)[i], ""))
 		return ;
 	if (*j > ft_strlen((*array)[i]))
-	{
-		(*j) = ft_strlen((*array)[i]);
-		return ;
-	}
-	if ((*array)[i][*j])
-		(*j)++;
-	while ((*array)[i][*j])
-	{
-		if ((*array)[i][*j] == c && (i == 0 ||
-		(*array)[i][(*j) - 1] != '\\'))
-			break ;
-		(*j)++;
-	}
+		(*j) = tmp;
 }
+
 
 int		check_red(char *str)
 {
@@ -114,17 +105,7 @@ void	browse_ar(char ***array, int i, int j)
 		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
 		&& (j == 0 || (*array)[i][j - 1] != '\\')))
 		{
-			if ((find_token((*array)[i], j + 1) == -1) &&
-			check_red((*array)[i]))
-				need_replace_quote(array, i, &j);
-			else
-			{
-				j++;
-				while ((*array)[i][j] && (*array)[i][j] != '\'')
-					j++;
-				if ((*array)[i][j])
-					j++;
-			}
+			need_replace_quote(array, i, &j);
 		}
 		else
 		{
