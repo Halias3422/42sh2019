@@ -66,6 +66,5 @@ int		ft_fg(t_process *p, t_var **var)
 		else
 			ft_putstr_fd("fg: job bot found", p->fd_out);
 	}
-	var = NULL;
 	return (1);
 }

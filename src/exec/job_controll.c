@@ -30,13 +30,13 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 			ft_printf_err("terminated by signal %d\n", WTERMSIG(status));
 		job_list->j->status = 'f';
 		process->completed = FINISHED;
-		if (!process->builtin)
-		{
+		//if (!process->builtin)
+		//{
 			process->ret = WEXITSTATUS(status);
 			add_list_env(var, SPE, ft_strdup("?"), ft_itoa(process->ret));
-		}
-		else
-			process->ret = 0;
+		//}
+		//else
+		//	process->ret = 0;
 	}
 }
 

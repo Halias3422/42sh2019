@@ -13,13 +13,6 @@
 
 #include "../../includes/hash.h"
 
-char				*path_not_found(char **paths, char **arg)
-{
-	ft_printf("42sh: %s: command not found\n", arg[0]);
-	ft_free_tab(paths);
-	return (NULL);
-}
-
 char				*absolute_path(char *path)
 {
 	char	*tmp;
