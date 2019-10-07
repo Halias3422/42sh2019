@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 09:46:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 09:55:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -177,6 +177,9 @@ void        replace_job(t_process **p, t_var *var)
 			break ;
 	}
 	(*p)->cmd = make_list_to_ar(al);
+	del_back_slash(&(*p)->cmd);
+	remoove_quote(&(*p)->cmd);
+	del_back_slash_end(&(*p)->cmd);
 	free_replace(r);
 	free_alias(al);
 }
