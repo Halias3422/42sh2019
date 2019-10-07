@@ -221,4 +221,5 @@ void		free_job(t_job *j);
 
 int			duplication(t_redirect *redirect, int fd_in, int fd_out);
 int			fd_right(char *path);
+void		free_job_list(void);
 #endif

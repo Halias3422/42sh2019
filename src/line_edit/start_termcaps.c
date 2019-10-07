@@ -44,6 +44,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 		}
 		else if (!pos->ans || !pos->ans[0])
 		{
+			free_job_list();
 			write_alias(var, pos);
 			exit(0);
 		}

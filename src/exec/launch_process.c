@@ -48,7 +48,7 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	if (find_builtins(p, &var) != 0)
 		exit(p->ret);
 	if (path == NULL)
-		printf("42sh: %s: command not found\n", p->cmd[0]);
+		exit (127);
 	ft_execute_function(path, p->cmd, var);
 	exit(127);
 }
