@@ -44,7 +44,7 @@ int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 		else if (fd_in > 0 && fd_out > 0)
 		{
 			if (fd_out > STDERR_FILENO)
-				ft_printf_err("42sh: %d: bad file descriptor", fd_out);
+				ft_printf_err("42sh: %d: bad file descriptor\n", fd_out);
 			else if (dup2(fd_in, fd_out) == -1)
 				ft_printf_err("42sh: duplication not working\n");
 			else
