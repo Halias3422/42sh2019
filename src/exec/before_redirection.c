@@ -19,14 +19,17 @@ int		fd_right(char *path)
 	if (access(path, F_OK) != -1)
 	{
 		if (opendir(path) != NULL)
-			ft_printf_err("42sh: %s: Is a directory", path);
+			ft_printf_err("42sh: %s: Is a directory\n", path);
 		else if (access(path, R_OK) == -1)
-			ft_printf_err("42sh: %s: Permission denied", path);
+			ft_printf_err("42sh: %s: Permission denied\n", path);
 		else
 			return (1);
 	}
 	else
+	{
+		ft_printf_err("42sh: no such file or directory: %s\n", path);
 		return (1);
+	}
 	return (0);
 }
 
@@ -34,11 +37,7 @@ void		before_redirection_file_in(t_redirect *redirect)
 {
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
-		if ((redirect->open_in = open(redirect->fd_out, O_RDONLY)) < 0)
-		{
-			ft_printf_err("42sh: no such file or directory: %s\n",
-				redirect->fd_out);
-		}
+		redirect->open_in = open(redirect->fd_out, O_RDONLY);
 	}
 	if (ft_strcmp(redirect->token, "<<") == 0)
 	{
@@ -52,11 +51,8 @@ void		before_redirection_file(t_redirect *redirect)
 {
 	if (ft_strcmp(redirect->token, ">") == 0)
 	{
-		if (fd_right(redirect->fd_out))
-		{
 			redirect->open_out = open(redirect->fd_out, O_CREAT | O_RDWR | O_TRUNC,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		}
 	}
 	if (ft_strcmp(redirect->token, ">>") == 0)
 	{
@@ -65,21 +61,6 @@ void		before_redirection_file(t_redirect *redirect)
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	}
 	before_redirection_file_in(redirect);
-	/*if (ft_strcmp(redirect->token, "<") == 0)
-	{
-		if ((redirect->open_in = open(redirect->fd_out, O_RDONLY)) < 0)
-		{
-			ft_printf_err("42sh: no such file or directory: %s\n",
-				redirect->fd_out);
-		}
-	}
-	if (ft_strcmp(redirect->token, "<<") == 0)
-	{
-		redirect->open_in = open("tmp", O_CREAT | O_RDWR | O_TRUNC, S_IRUSR | S_IWUSR);
-		write(redirect->open_in, redirect->heredoc_content, ft_strlen(redirect->heredoc_content));
-		redirect->open_in = open("tmp", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
-	}*/
-	//redirect = redirect->next;
 }
 
 void		before_redirection(t_process *p)
