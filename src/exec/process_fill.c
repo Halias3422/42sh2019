@@ -36,24 +36,24 @@ void		fill_process_split(t_job **j, t_lexeur **res, int i)
 
 char		*add_space_content(char *content)
 {
-	char 	*res;
-	int		i;
+    char     *res;
+    int        i;
 
-	i = 0;
-	if (!content)
-		return (NULL);
-	res = malloc(sizeof(char) * (ft_strlen(content) + 1));
-	while (content[i])
-	{
-		if (content[i] == -1)
-			res[i] = ' ';
-		else
-			res[i] = content[i];
-		i++;
-	}
-	res[i] = '\0';
-	ft_strdel(&content);
-	return (res);
+    i = 0;
+    if (!content)
+        return (NULL);
+    res = malloc(sizeof(char) * (ft_strlen(content) + 1));
+    while (content[i])
+    {
+        if (content[i] == -1)
+            res[i] = ' ';
+        else
+            res[i] = content[i];
+        i++;
+    }
+    res[i] = '\0';
+    ft_strdel(&content);
+    return (res);
 }
 
 char		*get_content(char *tag, t_lexeur **res, int *t)

@@ -6,12 +6,31 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:01:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 12:52:23 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
+
+void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
+{
+	t_heredoc	*hdoc;
+
+	while (pos->hdoc->prev)
+		pos->hdoc = pos->hdoc->prev;
+	hdoc = pos->hdoc;
+	while (hdoc && hdoc->current_index == 1)
+		hdoc = hdoc->next;
+	hdoc->content = ft_strjoinf(hdoc->content, hdoc->to_find, 1);
+	hdoc->current_index = 1;
+	if (hdoc->next == NULL)
+	{
+		*hist = entry_is_complete(pos, *hist);
+		if (pos->ans_heredoc)
+			remake_pos_ans(pos);
+	}
+}
 
 int				fill_ans_heredoc(t_pos *pos, int i, int j)
 {

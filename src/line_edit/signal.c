@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:13:20 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 12:54:37 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,15 +56,16 @@ static void		ctrl_c(t_pos *pos)
 	if (pos->active_heredoc == 1)
 	{
 		(*ghist)->cmd = ft_secure_free((*ghist)->cmd);
-		ft_printf("1 = %s 2  = %s \n", pos->ans_heredoc_save, pos->ans_heredoc);
 		pos->ans_heredoc_save = ft_secure_free(pos->ans_heredoc_save);
 		pos->ans_heredoc = ft_secure_free(pos->ans_heredoc);
+		free_hdoc(pos->hdoc);
 	}
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	pos->saved_ans = ft_secure_free(pos->saved_ans);
 	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = print_pwd(stock(NULL, 6)));
+	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	init_pos(pos);
 	pos->is_complete = 1;
 	ft_strdel(&pwd);

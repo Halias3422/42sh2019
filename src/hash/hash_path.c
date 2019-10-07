@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:59:10 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 13:16:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,12 +27,12 @@ char				*absolute_path(char *path)
 		closedir(file);
 	}
 	if (access(path, F_OK) == -1)
-		ft_printf("42sh: %s: No such file or directory", tmp);
+		ft_printf("42sh: %s: No such file or directory\n", tmp);
 	else if (access(path, X_OK) == -1)
 		ft_printf("42sh: %s: permission denied\n", tmp);
 	else
 		return (path);
-	ft_strdel(&path);
+//	ft_strdel(&path);
 	return (NULL);
 }
 
