@@ -47,6 +47,8 @@ int		is_builtin_modify(t_process *p)
 	int i;
 
 	i = -1;
+	if (!p->cmd)
+		return (0);
 	if (!p->cmd[0])
 		return (0);
 	while (++i < LEN_BUILTIN_LIST)

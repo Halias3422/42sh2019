@@ -79,7 +79,6 @@ char		*get_content(char *tag, t_lexeur **res, int *t)
 
 void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
-	int		i;
 	int		j;
 
 	j = (*t);
@@ -94,7 +93,7 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 
 void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 {
-	printf("tmp->%p\n", tmp->token);
+	//printf("tmp->%p\n", tmp->token);
 	tmp->heredoc_content = NULL;
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
