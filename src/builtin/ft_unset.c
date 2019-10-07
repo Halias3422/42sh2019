@@ -20,6 +20,11 @@ int			ft_unset_var(char *name, t_var **ptr_var)
 		return (1);
 	else if (remove_list_var(ptr_var, LOCAL, name))
 		return (1);
+	else if (ft_get_val(name, *ptr_var, SPE) != NULL)
+	{
+		ft_printf("can not unset special variable: {B.T.red.}%s{eoc}\n", name);
+		return (1);
+	}
 	return (0);
 }
 
