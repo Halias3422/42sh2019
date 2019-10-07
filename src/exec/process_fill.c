@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 15:35:20 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 12:55:58 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,6 +80,8 @@ char		*get_content(char *tag, t_lexeur **res, int *t)
 
 void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
+	if (tmp->token)
+		ft_strdel(&tmp->token);
 	tmp->token = ft_strdup(g_fill_token[res[*t]->token].name);
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;

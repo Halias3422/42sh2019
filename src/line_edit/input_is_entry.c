@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   input_is_entry.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:12:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 12:59:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ static void		write_in_history_file(t_pos *pos)
 	write(pos->history, "\n", 1);
 }
 
-static t_hist	*entry_is_complete(t_pos *pos, t_hist *hist)
+t_hist			*entry_is_complete(t_pos *pos, t_hist *hist)
 {
 	if (pos->is_expansion-- > 0)
 		return (hist);

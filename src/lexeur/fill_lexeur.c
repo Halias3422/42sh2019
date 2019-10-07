@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:19:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 13:23:00 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,12 @@ int			check_token_for_redirection(char *str)
 			while (str[i] && str[i] != '\'')
 				i++;
 		}
+		if (str[i] && str[i] == '"')
+		{
+			i++;
+			while (str[i] && str[i] != '"')
+				i++;
+		}
 		if (i == 0 || str[i - 1] != '\\')
 			token = find_token(str, i);
 		if (token == 4 || token == 5 || token == 6 || token == 7 || token == 8
@@ -92,6 +98,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	j = 0;
 	while (buf[i])
 		i++;
+	printf("i=%d\n", i);
 	array = malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])
