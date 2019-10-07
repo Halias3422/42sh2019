@@ -85,6 +85,7 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	cmd_path = NULL;
 	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
+	p->background = j->split == '&' ? 1 : 0;
 	if (j->split != '&' && is_builtin_modify(p))
 	{
 		if (find_builtins(p, var) != 0)
