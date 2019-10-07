@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 11:58:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 10:54:38 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,32 +32,6 @@ void		fill_process_split(t_job **j, t_lexeur **res, int i)
 		(*j)->p->split = 'P';
 	else
 		(*j)->p->split = '\0';
-}
-
-void		fill_token(t_process *p, t_lexeur **res, int *i)
-{
-	if (res[*i]->token == 9)
-	{
-		p->redirect->token = ft_strdup("<");
-		(*i)++;
-	}
-	else if (res[*i]->token == 6)
-	{
-		p->redirect->token = ft_strdup(">");
-		(*i)++;
-	}
-	else if (res[*i]->token == 4)
-	{
-		p->redirect->token = ft_strdup(">>");
-		(*i)++;
-	}
-	else if (res[*i]->token == 7)
-	{
-		p->redirect->token = ft_strdup("<<");
-		(*i)++;
-	}
-	else
-		p->redirect->token = NULL;
 }
 
 char		*add_space_content(char *content)
@@ -99,7 +73,6 @@ char		*get_content(char *tag, t_lexeur **res, int *t)
 		(*t)++;
 	}
 	(*t)++;
-//	printf("CONTENT: _%s_\n", content);
 	content = add_space_content(content);
 	return (content);
 }
@@ -107,15 +80,17 @@ char		*get_content(char *tag, t_lexeur **res, int *t)
 void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
 	int		i;
+	int		j;
 
-	// puts("here");
 	i = 0;
+	j = (*t);
 	tmp->token = ft_strdup(g_fill_token[res[*t]->token].name);
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->heredoc_content = get_content(res[*t]->redirection, res, t);
 	tmp->fd_out = NULL;
 	tmp->next = NULL;
+	(*t) = j;
 }
 
 void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
