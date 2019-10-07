@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:30:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 14:41:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,15 +82,6 @@ void	need_replace_quote(char ***array, int i, int *j)
 	{
 		(*j) = ft_strlen((*array)[i]);
 		return ;
-	}
-	if ((*array)[i][*j])
-		(*j)++;
-	while ((*array)[i][*j])
-	{
-		if ((*array)[i][*j] == c && (i == 0 ||
-		(*array)[i][(*j) - 1] != '\\'))
-			break ;
-		(*j)++;
 	}
 }
 

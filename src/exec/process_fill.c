@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:35:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 14:38:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,6 +87,7 @@ void		fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->heredoc_content = get_content(res[*t]->redirection, res, t);
 	tmp->fd_out = NULL;
+	tmp->fd_in = NULL;
 	tmp->next = NULL;
 	(*t) = j;
 }
