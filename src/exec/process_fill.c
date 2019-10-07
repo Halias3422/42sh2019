@@ -115,7 +115,10 @@ void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	}
 	else
 	{
-		tmp->fd = 1;
+		if (res[*t]->token == 8)
+			tmp->fd = 0;
+		else
+			tmp->fd = 1;
 	}
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;

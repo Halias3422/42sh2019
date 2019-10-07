@@ -38,7 +38,7 @@ int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 	{
 		if (ft_strcmp(redirect->fd_out, "-") == 0)
 		{
-			close(fd_in);
+			close(redirect->fd);
 			return (1);
 		}
 		else if (fd_in > 0 && fd_out > 0)
