@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:30:41 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 17:37:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,7 +66,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	unsigned char	buf[9];
 	char			*ans;
 
-	while (hist->next)
+	while (hist && hist->next)
 		hist = hist->next;
 	ghist = &hist;
 	init_terminfo(pos);

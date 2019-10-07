@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:02:37 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 16:47:26 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 15:54:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,7 +51,7 @@ t_alias *prev)
 	(*i)++;
 }
 
-t_alias        *make_ar_to_list(char **str)
+t_alias		*make_ar_to_list(char **str)
 {
 	t_alias		*start;
 	t_alias		*alias;

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 15:44:06 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 15:47:07 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,8 +47,8 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		exit(1);
 	if (find_builtins(p, &var) != 0)
 		exit(p->ret);
-	if (path == NULL)
-		exit (127);
+	// if (path == NULL)
+	// 	ft_printf("42sh: %s: command not found\n", p->cmd[0]);
 	ft_execute_function(path, p->cmd, var);
 	exit(127);
 }

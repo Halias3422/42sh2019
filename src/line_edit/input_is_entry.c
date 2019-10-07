@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:30:30 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 17:39:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,12 +36,12 @@ t_hist			*entry_is_complete(t_pos *pos, t_hist *hist)
 {
 	if (pos->is_expansion-- > 0)
 		return (hist);
-	while (hist->next)
+	while (hist && hist->next)
 		hist = hist->next;
 	tputs(tgetstr("ei", NULL), 1, ft_putchar);
 	if (ft_strlen(pos->ans) == 0)
 		return (hist);
-	if ((hist->prev && ft_strcmp(pos->ans, hist->prev->cmd) == 0))
+	if ((hist && hist->prev && ft_strcmp(pos->ans, hist->prev->cmd) == 0))
 	{
 		hist->cmd = ft_secure_free(hist->cmd);
 		return (hist->prev);

@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   redirection.c                                    .::    .:/ .      .::   */
+/*   ft_strfdup.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/03/28 17:01:39 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 13:43:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/07 16:01:39 by mjalenqu     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/07 16:05:48 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/lexeur.h"
+#include "ft_str.h"
 
-char			*fill_redirection(char **buf, int *i)
+char	*ft_strfdup(char *str)
 {
-	char	*res;
+	char	*ret;
+	int		i;
 
-	if (buf[*i + 1])
+	if (str == NULL)
+		return (NULL);
+	if (!(ret = malloc(sizeof(char) * (ft_strlen(str) + 1))))
+		return (NULL);
+	i = 0;
+	while (str[i])
 	{
-		(*i)++;
-		res = ft_strdup(buf[*i]);
-		return (res);
+		ret[i] = str[i];
+		i++;
 	}
-	return (NULL);
+	ret[i] = '\0';
+    ft_strdel(&str);
+	return (ret);
 }

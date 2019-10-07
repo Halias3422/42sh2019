@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:30:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 17:28:54 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,6 @@ static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 		update_history(pos, hist, (char*)buf);
 	return (hist);
 }
-
 
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {
