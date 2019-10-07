@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:06:47 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 14:09:26 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 16:43:16 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,7 @@ char		*fill_res_token(int *tint, int ret, char *str)
 {
 	char	*res;
 
-//	(tint[1])++;
+	(tint[1])++;
 	res = ft_strsub(str, (tint[0]), g_fill_token[ret].size);
 	(tint[0]) += g_fill_token[ret].size;
 	return (res);

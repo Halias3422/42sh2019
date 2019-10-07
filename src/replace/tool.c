@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 14:09:59 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/05 16:43:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,8 +71,7 @@ int		basic_split_while(int *tint, char *str, char **res, char **tag)
 		split_agregator(str, &tint[0]);
 	else
 		split_space_basic(str, &tint[0]);
-	if (tint[0] != 0)
-		res[tint[1]] = ft_strsub(str, start, (tint[0]) - start);
+	res[tint[1]] = ft_strsub(str, start, (tint[0]) - start);
 	if (str[tint[0]] && (ret = find_token(str, tint[0])) != -1)
 		res[tint[1]] = fill_res_token(tint, ret, str);
 	return (1);

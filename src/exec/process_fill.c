@@ -38,7 +38,7 @@ char        *add_space_content(char *content)
 {
     char     *res;
     int        i;
-	
+
     i = 0;
     if (!content)
         return (NULL);
@@ -141,7 +141,6 @@ void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	else
 		tmp->fd = 1;
-	puts("ag next");
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
