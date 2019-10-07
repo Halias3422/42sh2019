@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur_struct.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:38:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:20:04 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 09:44:20 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,14 +16,11 @@
 void		fill_struct(t_lexeur *res, char *word, enum e_token token,
 char *red)
 {
-	if (word)
-		word = ft_del_simple_quote(word);
 	res->word = ft_strdup(word);
 	res->token = token;
 	res->redirection = NULL;
 	res->fd_in = NULL;
 	res->fd_out = NULL;
-	ft_strdel(&word);
 	ft_strdel(&red);
 }
 
