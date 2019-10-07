@@ -6,12 +6,25 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 12:59:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 14:30:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
+
+void			print_hdoc(t_heredoc *hdoc)
+{
+	if (!hdoc)
+		return ;
+	while (hdoc->prev)
+		hdoc = hdoc->prev;
+	while (hdoc)
+	{
+		ft_printf("to_find = '%s', content = '%s', current_index = %d\n", hdoc->to_find, hdoc->content, hdoc->current_index);
+		hdoc = hdoc->next;
+	}
+}
 
 void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
 {
@@ -27,8 +40,9 @@ void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
 	if (hdoc->next == NULL)
 	{
 		*hist = entry_is_complete(pos, *hist);
-		if (pos->ans_heredoc)
-			remake_pos_ans(pos);
+		pos->active_heredoc = 0;
+//		if (pos->ans_heredoc)
+//			remake_pos_ans(pos);
 	}
 }
 
@@ -65,6 +79,8 @@ void			remake_pos_ans(t_pos *pos)
 	t_heredoc	*tmp;
 
 	i = 0;
+	while (pos->hdoc->prev)
+		pos->hdoc = pos->hdoc->prev;
 	tmp = pos->hdoc;
 	free(pos->ans);
 	pos->ans = ft_strdup(pos->ans_heredoc);
