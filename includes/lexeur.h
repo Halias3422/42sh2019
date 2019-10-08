@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 20:54:01 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 21:06:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -177,6 +177,14 @@ void		fill_struct_out(t_lexeur *res, char *fd_in, enum e_token token, char *fd_o
 void		fill_struct(t_lexeur *res, char *word, enum e_token token, char *red);
 t_lexeur	*fill_lex_redirection(char **buf, int *i, enum e_token token);
 t_lexeur	*fill_lex_while(char *buf, int *i, int token);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                            fill_lexeur_tool.c                              ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+char		*change_buf(char *buf);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
