@@ -91,7 +91,8 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 		if (find_builtins(p, var) != 0)
 			return (1);
 	}
-	cmd_path = check_path_hash(var, p->cmd, -1, NULL);
+	if (test_builtin(p) != 1)
+		cmd_path = check_path_hash(var, p->cmd, -1, NULL);
 	pid = fork();
 	if (pid < 0)
 	{
