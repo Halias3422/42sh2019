@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 13:42:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 13:43:19 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,6 @@ int			simple_operator(char *type, char *name, int *error)
 {
 	struct	stat s_type;
 
-//	name = get_real_path(name);
 	if (type[0] != '-' && (*error = 1))
 	{
 		ft_printf("test: unknown condition: %s\n", type);
