@@ -1,31 +1,14 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_set.c                                         .::    .:/ .      .::   */
+/*   ft_test_get_path.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 09:13:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/08 10:55:54 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/08 10:56:03 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
-#include "../../includes/exec.h"
-
-int		ft_set(t_process *p, t_var **ptr_var)
-{
-	t_var *var;
-
-	var = *ptr_var;
-	if (p->cmd[1])
-		return (1);
-	while (var)
-	{
-		if (var->type != ALIAS)
-			ft_printf("%s=%s\n", var->name, var->data);
-		var = var->next;
-	}
-	return (0);
-}
