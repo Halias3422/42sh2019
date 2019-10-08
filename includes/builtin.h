@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 19:22:47 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 07:46:04 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -152,6 +152,12 @@ void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist);
 char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
+
+/*
+**		FC_FREE_C
+*/
+
+void			free_fc_struct(t_fc *fc);
 
 /*
 **	FT_HASH_C
