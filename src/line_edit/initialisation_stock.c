@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 10:07:44 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:45:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,17 +55,12 @@ void			get_cursor_info(t_pos *pos, int *li, int *co, int i)
 
 void			*stock(void *to_stock, int usage)
 {
-	static t_pos		*stock_pos = NULL;
 	static char			*stock_copy = NULL;
 	static t_var		*stock_var = NULL;
 	static t_hist		*stock_hist = NULL;
 	static t_job_list	*stock_job = NULL;
 
-	if (usage == 0)
-		stock_pos = to_stock;
-	else if (usage == 1)
-		return (stock_pos);
-	else if (usage == 3)
+	if (usage == 3)
 		stock_copy = to_stock;
 	else if (usage == 4)
 		return (stock_copy);
@@ -132,5 +127,5 @@ void			init_pos(t_pos *pos)
 	}
 	pos->act_li = pos->start_li;
 	pos->act_co = pos->start_co;
-	stock(pos, 0);
+	to_stock(pos, 0);
 }

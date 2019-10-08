@@ -6,29 +6,13 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 15:34:07 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 19:22:49 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/builtin.h"
-
-int			comp_operator(char *name1, char *type, char *name2)
-{
-	if (ft_strcmp(type, "=") == 0)
-		return (ft_strcmp(name1, name2) == 0) ? 1 : 0;
-	else if (ft_strcmp(type, "!=") == 0)
-		return (ft_strcmp(name1, name2) != 0) ? 1 : 0;
-	else if (type[0] != '-')
-	{
-		ft_printf("test: condition expected: %s\n", type);
-		return (1);
-	}
-	else
-		return (comp_num_operator(name1, type, name2));
-	return (2);
-}
 
 int			test_simple_operator(char *type, struct stat s_type)
 {
@@ -87,6 +71,12 @@ int			simple_operator(char *type, char *name)
 	return (test_simple_operator(type, s_type));
 }
 
+int			ft_return(int fd)
+{
+	ft_putstr_fd("test: too many arguments", fd);
+	return (2);
+}
+
 int			ft_test_argv(char **argv, int fd_out)
 {
 	int i;
@@ -96,11 +86,7 @@ int			ft_test_argv(char **argv, int fd_out)
 	if (ft_tabclen(argv) <= 1)
 		return (1);
 	if (ft_strcmp(argv[1], "-z") == 0)
-	{
-		if (!(argv[2]))
-			return (1);
-		return (0);
-	}
+		return (argv[2] == NULL ? 0 : 1);
 	if (ft_strcmp(argv[1], "!") == 0)
 	{
 		inv = 1;
@@ -113,10 +99,7 @@ int			ft_test_argv(char **argv, int fd_out)
 	else if (ft_tabclen(argv) == 4)
 		i = comp_operator(argv[1], argv[2], argv[3]);
 	else
-	{
-		ft_putstr_fd("test: too many arguments", fd_out);
-		return (2);
-	}
+		return (ft_return(fd_out));
 	if (inv == 1)
 		i = (i == 0) ? 1 : 0;
 	return (i);

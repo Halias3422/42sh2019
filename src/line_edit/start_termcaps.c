@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 17:37:55 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:37:22 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,8 +26,8 @@ static char		*returning_ans(t_pos *pos)
 	return (pos->ans);
 }
 
-static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
-				unsigned char buf[9])
+static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist,
+	unsigned char buf[9])
 {
 	read(0, buf, 1);
 	if (buf[0] == 137)
@@ -42,11 +42,6 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 			if (pos->active_heredoc == 0)
 				return (returning_ans(pos));
 		}
-		else if (!pos->ans || !pos->ans[0])
-		{
-			write_alias(var, pos);
-			exit(0);
-		}
 	}
 	if (pos->max_co > 2)
 		*hist = check_input(buf, pos, *hist);
@@ -60,7 +55,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 	return (NULL);
 }
 
-char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
+char			*termcaps42sh(t_pos *pos, t_hist *hist)
 {
 	unsigned char	buf[9];
 	char			*ans;
@@ -75,7 +70,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	signal_list();
 	while (1)
 	{
-		if ((ans = termcaps42sh_loop(pos, &hist, var, buf)) != NULL)
+		if ((ans = termcaps42sh_loop(pos, &hist, buf)) != NULL)
 			return (ans);
 	}
 	return (NULL);

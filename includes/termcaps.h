@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:28:04 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 19:18:21 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,19 +85,19 @@ typedef struct			s_heredoc
 
 typedef struct		s_pos
 {
-	int				act_co;
-	int				act_li;
-	int				start_li;
-	int				start_co;
-	int				max_co;
-	int				max_li;
-	int				ans_printed;
-	char			*ans;
-	char			*saved_ans;
-	int				is_complete;
-	int				was_incomplete;
-	int				len_ans;
-	int				let_nb;
+	int					act_co;
+	int					act_li;
+	int					start_li;
+	int					start_co;
+	int					max_co;
+	int					max_li;
+	int					ans_printed;
+	char				*ans;
+	char				*saved_ans;
+	int					is_complete;
+	int					was_incomplete;
+	int					len_ans;
+	int					let_nb;
 	int					let_nb_saved;
 	int					history;
 	int					alias;
@@ -127,28 +127,28 @@ typedef struct		s_pos
 	struct s_heredoc	*hdoc;
 }						t_pos;
 
-typedef struct		s_htab
+typedef struct			s_htab
 {
-    struct s_htab	*next;
-    struct s_htab	*prev;
-    char			*content;
-	int				content_type;
-    int				content_no;
-	int				lenght_max;
-	int				matching_index;
-}					t_htab;
+    struct s_htab		*next;
+    struct s_htab		*prev;
+    char				*content;
+	int					content_type;
+    int					content_no;
+	int					lenght_max;
+	int					matching_index;
+}						t_htab;
 
-typedef struct		s_inter
+typedef struct			s_inter
 {
-	int				sg_quote;
-	int				db_quote;
-	int				bracket;
-	int				parenthesis;
-	int				a_quote;
-	int				db_and;
-	int				pipe;
-	int				db_pipe;
-}					t_inter;
+	int					sg_quote;
+	int					db_quote;
+	int					bracket;
+	int					parenthesis;
+	int					a_quote;
+	int					db_and;
+	int					pipe;
+	int					db_pipe;
+}						t_inter;
 
 typedef struct			s_command
 {
@@ -186,10 +186,10 @@ typedef struct			ctrl_hist
 		int				act_li;
 }						t_ctrl_hist;
 
-char	*check_path_hash(t_var **var, char **arg, int i, char *ans);
-void	print_info(t_pos *pos);
-void	print_hist(t_pos *pos, t_hist *hist);
-int		got_a_wildcard(char *name);
+char				*check_path_hash(t_var **var, char **arg, int i, char *ans);
+void				print_info(t_pos *pos);
+void				print_hist(t_pos *pos, t_hist *hist);
+int					got_a_wildcard(char *name);
 
 /*
 ** CALCUL_LINE
@@ -299,7 +299,7 @@ void				signal_list(void);
 ** START_TERMCAPS
 */
 
-char				*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var);
+char				*termcaps42sh(t_pos *pos, t_hist *hist);
 void				print_prompt(t_pos *pos);
 
 /*
@@ -621,5 +621,6 @@ void			init_t_heredoc(t_heredoc *hdoc);
 */
 
 void		init_spe_params(t_var *save, t_pos *pos, char **av);
+void		*to_stock(void *stock, int usage);
 
 #endif

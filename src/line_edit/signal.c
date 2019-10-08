@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:30:35 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:42:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,7 @@ static void		sighandler(int signum)
 {
 	t_pos		*pos;
 
-	pos = stock(NULL, 1);
+	pos = to_stock(NULL, 1);
 	if (signum == RESIZING)
 		resize_screen(pos);
 	if (signum == CTRL_C)

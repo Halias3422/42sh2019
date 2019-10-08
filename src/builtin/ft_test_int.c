@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 10:10:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/29 11:01:47 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 19:22:24 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,4 +52,20 @@ int			comp_num_operator(char *name1, char *type, char *name2)
 		ft_printf("test: unknown condition: %s\n", type);
 		return (2);
 	}
+}
+
+int			comp_operator(char *name1, char *type, char *name2)
+{
+	if (ft_strcmp(type, "=") == 0)
+		return (ft_strcmp(name1, name2) == 0) ? 1 : 0;
+	else if (ft_strcmp(type, "!=") == 0)
+		return (ft_strcmp(name1, name2) != 0) ? 1 : 0;
+	else if (type[0] != '-')
+	{
+		ft_printf("test: condition expected: %s\n", type);
+		return (1);
+	}
+	else
+		return (comp_num_operator(name1, type, name2));
+	return (2);
 }

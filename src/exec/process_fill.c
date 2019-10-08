@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 15:45:15 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:00:37 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -153,10 +153,11 @@ void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->next = NULL;
 }
 
-void			go_next_heredoc(t_lexeur **res, int *i)
+void			go_next_heredoc(t_lexeur **res, int *i, int *done)
 {
 	char	*tag;
 
+	(*done) = 1;
 	tag = ft_strdup(res[*i]->redirection);
 	(*i)++;
 	while (res[*i])
@@ -172,18 +173,21 @@ void			go_next_heredoc(t_lexeur **res, int *i)
 
 void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i)
 {
-	while (res[i] && ((res[i]->word) || (res[i]->token == 4 ||
-	res[i]->token == 5 || res[i]->token == 6 || res[i]->token == 7
-	|| res[i]->token == 8 || res[i]->token == 9)))
+	int		done;
+
+	while (res[i] && ((res[i]->word) || (res[i]->token != 0
+	&& res[i]->token != 1 &&
+	res[i]->token != 2 && res[i]->token != 3 && res[i]->token != 10)))
 	{
+		done = 0;
 		if (res[i]->token == 7)
-			go_next_heredoc(res, &i);
+			go_next_heredoc(res, &i, &done);
 		if (res[i] && res[i]->word)
 		{
 			(*j)->p->cmd[*k] = ft_strdup(res[i]->word);
 			(*k)++;
 		}
-		if (res[i])
+		if (res[i] && !done)
 			i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 11:52:04 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:44:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -81,7 +81,7 @@ void				exec_new_cmds(char **new_cmds, char **env)
 
 	hist = stock(NULL, 8);
 	i = 0;
-	my_env = init_env(env, stock(NULL, 1), NULL);
+	my_env = init_env(env, to_stock(NULL, 1), NULL);
 	i = 0;
 	while (new_cmds[i])
 	{

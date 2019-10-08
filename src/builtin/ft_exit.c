@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:54:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:44:34 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static void		write_alias_on_exit(t_var *var)
 {
 	t_pos *p;
 
-	p = stock(NULL, 1);
+	p = to_stock(NULL, 1);
 	chdir(p->path);
 	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	while (var)
@@ -38,7 +38,7 @@ void			free_pos(void)
 {
 	t_pos *pos;
 
-	pos = stock(NULL, 1);
+	pos = to_stock(NULL, 1);
 	ft_strdel(&pos->prompt);
 	ft_strdel(&pos->path);
 	ft_strdel(&pos->ctrl_hist_cmd);

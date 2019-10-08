@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:38:14 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:22:51 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,77 +62,6 @@ void		free_lexeur(t_lexeur **res)
 		i++;
 	}
 	free(res);
-}
-
-// void		free_parseur(t_job *j)
-// {
-// 	t_redirect	*red_tmp;
-// 	t_process	*pro_tmp;
-// 	t_job		*j_tmp;
-
-// 	while (j)
-// 	{
-// 		while (j->p)
-// 		{
-// 			while (j->p->redirect)
-// 			{
-// 				ft_strdel(&j->p->redirect->fd_in);
-// 				ft_strdel(&j->p->redirect->fd_out);
-// 				ft_strdel(&j->p->redirect->token);
-// 				red_tmp = j->p->redirect;
-// 				j->p->redirect = j->p->redirect->next;
-// 				free(red_tmp);
-// 			}
-// 			ft_free_tab(j->p->cmd);
-// 			pro_tmp = j->p;
-// 			j->p = j->p->next;
-// 			free(pro_tmp);
-// 		}
-// 		free(pro_tmp);
-// 		j_tmp = j;
-// 		j = j->next;
-// 		free(j_tmp);
-// 	}
-// 	free(j_tmp);
-// }
-
-void		print_j(t_job *j)
-{
-	t_job	*jt;
-	t_process *pt;
-	int			i;
-
-	jt = j;
-	puts("------------------------");
-	while (jt)
-	{
-		pt = jt->p;
-		puts("\t\tNEW JOB\t\t");
-		while (pt)
-		{
-			i = 0;
-			if (pt->cmd)
-			{
-				while (pt->cmd[i])
-				{
-					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
-					i++;
-				}
-			}
-			while (pt->redirect)
-			{
-				printf("fd: %d\n", pt->redirect->fd);
-				printf("content: _%s_\n", pt->redirect->heredoc_content);
-				printf("token : _%s_\n", pt->redirect->token);
-				printf("redirect in : _%s_\n", pt->redirect->fd_in);
-				printf("redirect  out : _%s_\n", pt->redirect->fd_out);
-				pt->redirect = pt->redirect->next;
-			}
-			pt = pt->next;
-		}
-		jt = jt->next;
-	}
-	puts("------------------------");
 }
 
 void		free_jobs(t_job *j)
@@ -238,7 +167,6 @@ int			start_exec(t_lexeur **res, t_var *var)
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
-//	print_j(j);
 	free_lexeur(res);
 	while (j)
 	{

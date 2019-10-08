@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_fg.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/08/22 16:44:51 by husahuc     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:46:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,6 @@ void	put_foreground(t_job *j, t_var **var, t_process *p)
 	tcsetpgrp(0, j->pgid);
 	wait_process(var);
 	signal(SIGTTOU, SIG_IGN);
-	//tcsetpgrp(0, p->pid);
 	if (p->background == 0)
 		tcsetpgrp(0, getpid());
 	else

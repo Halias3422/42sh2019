@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtin.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 12:07:43 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 19:22:47 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,7 @@ extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 # include <sys/stat.h>
 
 int				ft_test(t_process *p, t_var **var);
+int				comp_operator(char *name1, char *type, char *name2);
 int				ft_echo(t_process *p, t_var **var);
 int				ft_set(t_process *p, t_var **ptr_var);
 int				ft_type(t_process *p, t_var **var);
