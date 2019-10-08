@@ -51,16 +51,18 @@ char			is_function(char *function, t_var **var)
 	char	*path_function;
 	int		i;
 
-	i = -1;
-	path_env = ft_get_val("PATH", *var, ENVIRONEMENT);
-	path = ft_strsplit(path_env, ':');
-	while (path[++i])
+	if ((path_env = ft_get_val("PATH", *var, ENVIRONEMENT)) != NULL)
 	{
-		path_function = ft_strjoin(ft_strjoin(path[i], "/"), function);
-		if (ft_file_xrights(path_function))
+		i = -1;
+		path = ft_strsplit(path_env, ':');
+		while (path[++i])
 		{
-			ft_printf("%s is %s\n", function, path_function);
-			return (1);
+			path_function = ft_strjoin(ft_strjoin(path[i], "/"), function);
+			if (ft_file_xrights(path_function))
+			{
+				ft_printf("%s is %s\n", function, path_function);
+				return (1);
+			}
 		}
 	}
 	if (ft_file_xrights(function))
