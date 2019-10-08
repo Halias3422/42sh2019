@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 13:16:47 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 09:15:15 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,6 @@ char				*absolute_path(char *path)
 		ft_printf("42sh: %s: permission denied\n", tmp);
 	else
 		return (path);
-//	ft_strdel(&path);
 	return (NULL);
 }
 
@@ -43,9 +42,12 @@ char				*path_found(char **paths, int i, char *ans, char **arg)
 	return (ans);
 }
 
-char				*path_denied(char **paths, char **arg)
+char				*path_denied(char **paths, char **arg, int denied)
 {
-	ft_printf("42sh: %s: permission denied\n", arg[0]);
+	if (denied != 0)
+		ft_printf("42sh: %s: permission denied\n", arg[0]);
+	else
+		ft_printf("42sh: %s: command not found\n", arg[0]);
 	ft_free_tab(paths);
 	return (NULL);
 }

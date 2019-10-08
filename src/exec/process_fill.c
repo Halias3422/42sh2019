@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:00:37 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 07:56:41 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,24 +36,24 @@ void		fill_process_split(t_job **j, t_lexeur **res, int i)
 
 char		*add_space_content(char *content)
 {
-    char     *res;
-    int        i;
+	char	*res;
+	int		i;
 
-    i = 0;
-    if (!content)
-        return (NULL);
-    res = malloc(sizeof(char) * (ft_strlen(content) + 1));
-    while (content[i])
-    {
-        if (content[i] == -1)
-            res[i] = ' ';
-        else
-            res[i] = content[i];
-        i++;
-    }
-    res[i] = '\0';
-    ft_strdel(&content);
-    return (res);
+	i = 0;
+	if (!content)
+		return (NULL);
+	res = malloc(sizeof(char) * (ft_strlen(content) + 1));
+	while (content[i])
+	{
+		if (content[i] == -1)
+			res[i] = ' ';
+		else
+			res[i] = content[i];
+		i++;
+	}
+	res[i] = '\0';
+	ft_strdel(&content);
+	return (res);
 }
 
 char		*get_content(char *tag, t_lexeur **res, int *t)
@@ -153,7 +153,7 @@ void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->next = NULL;
 }
 
-void			go_next_heredoc(t_lexeur **res, int *i, int *done)
+void		go_next_heredoc(t_lexeur **res, int *i, int *done)
 {
 	char	*tag;
 

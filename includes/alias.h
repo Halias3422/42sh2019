@@ -3,17 +3,16 @@
 /*                                                              /             */
 /*   alias.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:08:47 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/23 09:59:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 09:25:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef ALIAS_H
 # define ALIAS_H
-
 
 # include "../libft/includes/ft_str.h"
 # include "../libft/includes/ft_int.h"
@@ -23,15 +22,14 @@
 # include "../libft/includes/ft_printf_err.h"
 # include <stdio.h>
 
-typedef struct s_temp_var t_tvar;
+typedef struct s_temp_var	t_tvar;
 
-typedef struct s_alias
+typedef struct	s_alias
 {
 	char			*data;
 	struct s_alias	*next;
 	struct s_alias	*prev;
-} t_alias;
-
+}				t_alias;
 
 char		check_last_char(t_alias *alias, int j);
 void		fill_alias(char *str, t_alias *alias);
@@ -44,7 +42,7 @@ int			end(char **str);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void        free_list(t_alias *alias);
+void		free_list(t_alias *alias);
 void		free_ar(char **str);
 void		free_list_tvar(t_tvar *alias);
 
@@ -53,7 +51,6 @@ void		free_list_tvar(t_tvar *alias);
 **┃                         alias_change_type.c                                ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
-
 
 t_alias		*make_ar_to_list(char **str);
 char		**make_list_to_ar(t_alias *alias);

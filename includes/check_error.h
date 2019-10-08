@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   check_error.h                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:17:13 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 11:16:28 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 09:26:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include "lexeur.h"
+# include "lexeur.h"
 
 # define ERROR "\033[1;31m"
 # define WHITE "\033[0m"

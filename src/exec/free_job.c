@@ -13,6 +13,18 @@
 
 #include "../../includes/exec.h"
 
+void		free_job_list(void)
+{
+	t_job_list	*job_list;
+
+	job_list = stock(NULL, 10);
+	while (job_list)
+	{
+		free_job(job_list->j);
+		job_list = job_list->next;
+	}
+}
+
 void		free_redirections(t_redirect *ptr_redi)
 {
 	t_redirect *r;

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtins.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 12:07:17 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 09:15:56 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"test", &ft_test, 1},
 	{"alias", &main_alias, 1},
 	{"unalias", &main_unalias, 1},
-	{"set", &ft_set, 0},
+	{"set", &ft_set, 1},
 	{"echo", &ft_echo, 0},
 	{"cd", &ft_cd, 1},
 	{"type", &ft_type, 0},
@@ -47,6 +47,8 @@ int		is_builtin_modify(t_process *p)
 	int i;
 
 	i = -1;
+	if (!p->cmd)
+		return (0);
 	if (!p->cmd[0])
 		return (0);
 	while (++i < LEN_BUILTIN_LIST)

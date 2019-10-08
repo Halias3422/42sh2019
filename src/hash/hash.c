@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:29:49 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 08:05:47 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -109,9 +109,5 @@ char				*check_path_hash(t_var **var, char **arg,
 		else if (access(paths[i], F_OK) == 0 && access(paths[i], X_OK) != 0)
 			denied += 1;
 	}
-	if (denied != 0)
-		return (path_denied(paths, arg));
-	ft_printf("42sh: %s: command not found\n", arg[0]);
-	ft_free_tab(paths);
-	return (NULL);
+	return (path_denied(paths, arg, denied));
 }

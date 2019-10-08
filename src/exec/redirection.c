@@ -41,7 +41,9 @@ static int	redirection_file(t_redirect *redirect)
 		redirection_fd(redirect->open_in, STDIN_FILENO);
 	}
 	if (ft_strcmp(redirect->token, "<<") == 0)
+	{
 		redirection_fd(redirect->open_in, STDIN_FILENO);
+	}
 	return (1);
 }
 

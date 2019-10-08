@@ -25,7 +25,6 @@ void	put_foreground(t_job *j, t_var **var, t_process *p)
 	else
 		tcsetpgrp(0, p->pid);
 	signal(SIGTTOU, SIG_DFL);
-	p = NULL;
 }
 
 int		rerun_job(t_job *j, t_var **var, t_process *p)

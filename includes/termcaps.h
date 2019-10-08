@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 19:18:21 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 09:07:46 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,7 +83,7 @@ typedef struct			s_heredoc
 	struct s_heredoc	*prev;
 }						t_heredoc;
 
-typedef struct		s_pos
+typedef struct			s_pos
 {
 	int					act_co;
 	int					act_li;
@@ -111,7 +111,7 @@ typedef struct		s_pos
 	int					debug3;
 	int					debug4;
 	int					debug5;
-    char				*debugchar;
+	char				*debugchar;
 	char				*debugchar2;
 	int					ctrl_search_history;
 	char				*ctrl_hist_cmd;
@@ -129,11 +129,11 @@ typedef struct		s_pos
 
 typedef struct			s_htab
 {
-    struct s_htab		*next;
-    struct s_htab		*prev;
-    char				*content;
+	struct s_htab		*next;
+	struct s_htab		*prev;
+	char				*content;
 	int					content_type;
-    int					content_no;
+	int					content_no;
 	int					lenght_max;
 	int					matching_index;
 }						t_htab;
@@ -179,11 +179,11 @@ typedef struct			s_hist
 	int					cmd_no;
 }						t_hist;
 
-typedef struct			ctrl_hist
+typedef struct			s_ctrl_hist
 {
-		int				needle;
-		int				act_co;
-		int				act_li;
+	int					needle;
+	int					act_co;
+	int					act_li;
 }						t_ctrl_hist;
 
 char				*check_path_hash(t_var **var, char **arg, int i, char *ans);
@@ -360,7 +360,6 @@ t_htab			*fill_new_htab(t_htab *htab, t_htab *neww, int match);
 ** TAB_KEY_AUTO_COMPLETE
 */
 
-
 int			wildcard_match(char *s1, char *s2);
 
 t_htab			*get_current_match(t_htab *htab, char *name, int wildcard);
@@ -463,7 +462,7 @@ int				get_expansion_length(char *ans, int i);
 ** init_alias.c
 */
 void			init_alias(t_var *var, t_pos *pos, char *line);
-void	write_alias(t_var *var, t_pos *p);
+void			write_alias(t_var *var, t_pos *p);
 
 /*
 *******************************************************************************
@@ -517,22 +516,14 @@ int						ft_file_wrights(char *path);
 char					*remove_char(char **str, int i);
 
 /*
-*******************************************************************************
-***								ft_error.c									***
-*******************************************************************************
+**    CONTROL_SEARCH_HISTORY.C
 */
-//void					free_all(t_all *all);
-//void					free_env(t_var *var);
-
-/*
- * **    CONTROL_SEARCH_HISTORY.C
- * */
 
 t_hist					*control_search_history(t_pos *pos, t_hist *hist,
 						unsigned char *buf);
 t_hist					*search_occurence_in_history(t_pos *pos, t_hist *hist,
 						t_ctrl_hist *ctrl);
-void                    needle_found_in_history(t_pos *pos, t_hist *hist,
+void					needle_found_in_history(t_pos *pos, t_hist *hist,
 						t_ctrl_hist *ctrl);
 t_hist					*exiting_control_mode(t_pos *pos, t_hist *hist);
 int						get_pos_strstr(char *str, char *tofind, int i, int j);
@@ -561,8 +552,6 @@ void					get_pos_coordinates_right_again(t_pos *pos);
 
 char					*check_for_tilde(char *ans, t_var *env, int i,
 						int usage);
-
-
 void					check_copy(unsigned char *buf, t_pos *pos);
 
 /*

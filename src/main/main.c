@@ -112,4 +112,5 @@ int				main(int ac, char **av, char **env)
 		if (main_loop(pos, stock(NULL, 6), hist) != 0)
 			break ;
 	}
+	free_job_list();
 }

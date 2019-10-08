@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 19:22:47 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 09:24:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,13 +18,16 @@
 # include "termcaps.h"
 # include "hash.h"
 # include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 # define LEN_BUILTIN_LIST 18
 # define TERM "42sh"
-typedef struct	s_var t_var;
-typedef struct	s_process t_process;
-typedef struct	s_hist t_hist;
-typedef struct	s_hash t_hash;
+
+typedef struct s_var		t_var;
+typedef struct s_process	t_process;
+typedef struct s_hist		t_hist;
+typedef struct s_hash		t_hash;
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -48,11 +51,7 @@ typedef struct	s_fc
 	int			error;
 }				t_fc;
 
-
 extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
-
-# include <sys/types.h>
-# include <sys/stat.h>
 
 int				ft_test(t_process *p, t_var **var);
 int				comp_operator(char *name1, char *type, char *name2);
@@ -63,16 +62,12 @@ int				ft_export(t_process *p, t_var **ptr_var);
 int				ft_unset(t_process *p, t_var **ptr_var);
 int				ft_fg(t_process *p, t_var **var);
 int				ft_jobs(t_process *p, t_var **var);
-
 char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);
 void			add_list_env(t_var **var, int type, char *name, char *data);
 int				remove_list_var(t_var **ptr_var, int type, char *name);
-
 int				verif_int(char *name);
 int				comp_num_operator(char *name1, char *type, char *name2);
-
-
 int				ft_bg(t_process *p, t_var **var);
 /*
 **	FT_EXIT_C
@@ -243,6 +238,5 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path, int i, int absolute);
 int				verif_path(char *path, int mute);
-
 
 #endif

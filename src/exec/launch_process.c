@@ -20,7 +20,10 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 
 	tab_var = split_env(var);
 	if (execve(path, arg, tab_var) == -1)
+	{
+		ft_tabfree(tab_var);
 		return (-1);
+	}
 	return (0);
 }
 
@@ -32,7 +35,6 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
-	//tcsetpgrp(0, p->pid);
 	if (p->fd_in != STDIN_FILENO)
 	{
 		dup2(p->fd_in, STDIN_FILENO);
@@ -47,8 +49,6 @@ int			launch_process(t_process *p, t_var *var, char *path)
 		exit(1);
 	if (find_builtins(p, &var) != 0)
 		exit(p->ret);
-	// if (path == NULL)
-	// 	ft_printf("42sh: %s: command not found\n", p->cmd[0]);
 	ft_execute_function(path, p->cmd, var);
 	exit(127);
 }
@@ -94,7 +94,10 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	cmd_path = check_path_hash(var, p->cmd, -1, NULL);
 	pid = fork();
 	if (pid < 0)
+	{
+		ft_strdel(&cmd_path);
 		return (-1);
+	}
 	if (pid == 0)
 		launch_process(p, *var, cmd_path);
 	else
