@@ -50,7 +50,6 @@ void		free_redirections(t_redirect *ptr_redi)
 	}
 }
 
-
 void		free_process(t_process *ptr_p)
 {
 	t_process *p;
