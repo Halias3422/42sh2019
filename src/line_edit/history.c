@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:30:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 14:31:07 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,17 +17,17 @@ void		free_t_hist(t_hist *hist)
 {
 	t_hist	*tmp;
 
-	while (hist->next)
-		hist = hist->next;
+	while (hist->prev)
+		hist = hist->prev;
 	while (hist)
 	{
 		tmp = hist;
-		if (hist->cmd)
-			ft_strdel(&hist->cmd);
-		hist = hist->prev;
+		ft_strdel(&tmp->cmd);
+		hist = hist->next;
 		free(tmp);
 	}
 }
+
 
 void		init_t_hist(t_hist *hist)
 {
@@ -86,13 +86,10 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 	{
 		if (ft_strlen(line) > 0)
 		{
-			hist->cmd = ft_strnew(0);
-			hist->cmd = ft_strjoinf(hist->cmd, line, 3);
+			hist->cmd = ft_strdup(line);
 			hist = add_list_back_hist(hist);
 		}
-		else if (line != NULL)
-			free(line);
-		line = NULL;
+		ft_strdel(&line);
 	}
 	return (hist);
 }
