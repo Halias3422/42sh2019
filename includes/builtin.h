@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 09:24:08 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 08:05:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,8 @@ typedef struct	s_fc
 extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 
 int				ft_test(t_process *p, t_var **var);
-int				comp_operator(char *name1, char *type, char *name2);
+int				is_comp(char *op);
+int				comp_operator(char *name1, char *type, char *name2, int *error);
 int				ft_echo(t_process *p, t_var **var);
 int				ft_set(t_process *p, t_var **ptr_var);
 int				ft_type(t_process *p, t_var **var);
@@ -66,8 +67,9 @@ char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);
 void			add_list_env(t_var **var, int type, char *name, char *data);
 int				remove_list_var(t_var **ptr_var, int type, char *name);
-int				verif_int(char *name);
-int				comp_num_operator(char *name1, char *type, char *name2);
+int				verif_int(char *name, int *error);
+int				comp_num_operator(char *name1, char *type, char *name2,
+				int *error);
 int				ft_bg(t_process *p, t_var **var);
 /*
 **	FT_EXIT_C
@@ -147,6 +149,12 @@ void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist);
 char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
+
+/*
+**		FC_FREE_C
+*/
+
+void			free_fc_struct(t_fc *fc);
 
 /*
 **	FT_HASH_C

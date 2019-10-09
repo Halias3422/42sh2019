@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_set.c                                         .::    .:/ .      .::   */
+/*   fc_free.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 09:13:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/08 07:42:30 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/08 07:51:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
-#include "../../includes/exec.h"
+#include "../../includes/termcaps.h"
 
-int		ft_set(t_process *p, t_var **ptr_var)
+void		free_fc_struct(t_fc *fc)
 {
-	t_var *var;
-
-	var = *ptr_var;
-	if (p->cmd[1])
-		return (1);
-	while (var)
-	{
-		if (var->type != ALIAS)
-			ft_printf("%s=%s\n", var->name, var->data);
-		var = var->next;
-	}
-	return (0);
+	ft_strdel(&fc->flags_model);
+	ft_strdel(&fc->flags);
+	ft_strdel(&fc->str_first);
+	ft_strdel(&fc->str_last);
 }
