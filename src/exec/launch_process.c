@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:15:53 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:18:18 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,7 +95,7 @@ int			fork_simple(t_job *j, t_process *p, t_var **var)
 	}
 	if (test_builtin(p) != 1)
 		cmd_path = check_path_hash(var, p->cmd, -1, NULL);
-	if (cmd_path == NULL)
+	if (cmd_path == NULL && test_builtin(p) == 0)
 		return (-1);
 	pid = fork();
 	if (pid < 0)

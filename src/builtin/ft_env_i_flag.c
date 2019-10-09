@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:39:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:41:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,22 @@ void			print_new_env(t_var **new_env, t_var **head)
 	print_env(*new_env);
 }
 
+int				find_if_cmd_is_builtin(t_process *p)
+{
+	int			i;
+
+	i = 2;
+	while (p->cmd[i] && ft_strchr(p->cmd[i], '=') != NULL)
+		i++;
+	if (ft_strcmp(p->cmd[i], "fc") == 0 || ft_strcmp(p->cmd[i], "set") == 0 ||
+	ft_strcmp(p->cmd[i], "unset") == 0 || ft_strcmp(p->cmd[i], "export") == 0)
+	{
+		ft_printf("env: %s: No such file or directory\n", p->cmd[i]);
+		return (1);
+	}
+	return (0);
+}
+
 int				go_through_process_cmd(t_process *p, t_var **new_env,
 				t_var **head, int ret)
 {
@@ -79,6 +95,8 @@ int				go_through_process_cmd(t_process *p, t_var **new_env,
 
 	new_cmd = NULL;
 	i = 1;
+	if (find_if_cmd_is_builtin(p) == 1)
+		return (0);
 	while (p->cmd[++i])
 	{
 		if (ft_strchr(p->cmd[i], '=') != NULL)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 08:52:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:58:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = print_pwd(my_env));
 	ft_strdel(&pwd);
-	ans = termcaps42sh(&pos, hist);
+	ans = termcaps42sh(&pos, hist, my_env);
 	if (pos.ans_heredoc)
 		remake_pos_ans(&pos);
 	ans = check_backslash(&pos);

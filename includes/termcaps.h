@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 09:07:46 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:59:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -299,7 +299,7 @@ void				signal_list(void);
 ** START_TERMCAPS
 */
 
-char				*termcaps42sh(t_pos *pos, t_hist *hist);
+char				*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var);
 void				print_prompt(t_pos *pos);
 
 /*

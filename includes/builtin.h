@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:05:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:00:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -136,7 +136,7 @@ void			prepare_s_flag(t_fc *fc, t_hist *hist, t_var **var);
 
 void			send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env);
 void			exec_ide_with_tmp_file(t_fc *fc, int fd, char **env);
-void			exec_new_cmds(char **new_cmds, char **env);
+void			exec_new_cmds(char **new_cmds);
 char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 				int ret);
 
