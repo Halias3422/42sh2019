@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 13:43:19 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 07:30:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,7 +63,7 @@ int			simple_operator(char *type, char *name, int *error)
 		ft_printf("test: unknown condition: %s\n", type);
 		return (2);
 	}
-	if (lstat(name, &s_type) == -1)
+	if (lstat(name, &s_type) == -1 && (*error = 1))
 		return (1);
 	if (ft_strcmp(type, "-e") == 0)
 		return (0);
@@ -87,14 +87,12 @@ int			ft_test_argv(char **argv)
 	error = 0;
 	i = 0;
 	inv = 0;
-	if (ft_tabclen(argv) <= 1)
-		return (1);
+	if (ft_tabclen(argv) <= 2)
+		return (0);
 	if (ft_strcmp(argv[1], "-z") == 0 && ft_tabclen(argv) < 4)
 		return (argv[2] == NULL || ft_strlen(argv[2]) == 0 ? 0 : 1);
 	if (ft_strcmp(argv[1], "!") == 0 && ft_tabclen(argv) < 6 && (inv = 1))
 		argv++;
-	if (ft_tabclen(argv) == 2 && argv[1] == NULL)
-		i = 1;
 	else if (ft_tabclen(argv) == 3)
 		i = simple_operator(argv[1], argv[2], &error);
 	else if (ft_tabclen(argv) == 4 && is_comp(argv[2]) == 1)
@@ -111,6 +109,8 @@ int			ft_test(t_process *p, t_var **var)
 	int ret;
 
 	var = NULL;
+	if (p->cmd[1] == NULL)
+		return (1);
 	ret = ft_test_argv(p->cmd);
 	return (ret);
 }
