@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 09:40:21 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 10:29:33 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,37 +64,7 @@ void		free_lexeur(t_lexeur **res)
 	free(res);
 }
 
-void		free_jobs(t_job *j)
-{
-	t_job		*job;
-	t_process	*pro;
-	t_redirect	*red;
-
-	while (j)
-	{
-		while (j->p)
-		{
-			while (j->p->redirect)
-			{
-				ft_strdel(&j->p->redirect->fd_out);
-				ft_strdel(&j->p->redirect->fd_in);
-				ft_strdel(&j->p->redirect->token);
-				red = j->p->redirect;
-				j->p->redirect = j->p->redirect->next;
-				free(red);
-			}
-			ft_free_tab(j->p->cmd);
-			pro = j->p;
-			j->p = j->p->next;
-			free(pro);
-		}
-		job = j;
-		j = j->next;
-		free(job);
-	}
-}
-
-void	replace_job(t_process **p, t_var *var)
+void		replace_job(t_process **p, t_var *var)
 {
 	t_alias		*al;
 	t_replace	*r;
@@ -119,11 +89,8 @@ void	replace_job(t_process **p, t_var *var)
 	free_alias(al);
 }
 
-void	save_spe_param(char **cmd, t_var *var)
+void		save_spe_param(char **cmd, t_var *var, int i)
 {
-	int	i;
-
-	i = 0;
 	if (var == NULL || !cmd)
 		return ;
 	while (cmd[i])
@@ -149,10 +116,22 @@ void	save_spe_param(char **cmd, t_var *var)
 		var->data = ft_strdup(cmd[i - 1]);
 }
 
+t_job		*make_job(t_lexeur **res)
+{
+	t_job	*j;
+
+	j = malloc(sizeof(t_job));
+	j->pgid = 0;
+	init_job(j);
+	fill_job(j, res);
+	fill_process(j, res);
+	free_lexeur(res);
+	return (j);
+}
+
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
-	t_job		*start;
 	t_process	*tmp;
 	t_job		*next;
 
@@ -161,13 +140,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 		free(res);
 		return (0);
 	}
-	j = malloc(sizeof(t_job));
-	start = j;
-	j->pgid = 0;
-	init_job(j);
-	fill_job(j, res);
-	fill_process(j, res);
-	free_lexeur(res);
+	j = make_job(res);
 	while (j)
 	{
 		j->pgid = 0;
@@ -178,7 +151,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 			replace_job(&tmp, var);
 			tmp = tmp->next;
 		}
-		save_spe_param(j->p->cmd, var);
+		save_spe_param(j->p->cmd, var, 0);
 		launch_job(j, var);
 		j = next;
 	}
