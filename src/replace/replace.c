@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 16:48:54 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 07:59:13 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,56 +15,11 @@
 #include "../../includes/termcaps.h"
 #include "../../includes/alias.h"
 
-char		*make_string(char **array)
+void		check_spe_free(t_alias **alias, char *ret)
 {
-	char	*res;
-	int		i;
-
-	i = 0;
-	res = ft_strdup("");
-	while (array[i])
-	{
-		ft_strjoin_free(&res, array[i]);
-		if (array[i + 1])
-			ft_strjoin_free(&res, " ");
-		i++;
-	}
-	return (res);
-}
-
-int			check_alias(char *array, t_var *var)
-{
-	t_var		*tmp_var;
-
-	tmp_var = var;
-	if (!(array))
-		return (0);
-	while (tmp_var && ((ft_strcmp(array, tmp_var->name) != 0)
-	|| tmp_var->type != ALIAS))
-	{
-		tmp_var = tmp_var->next;
-	}
-	if (!tmp_var)
-		return (0);
-	return (1);
-}
-
-int			check_backslash_var(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != '$')
-		i++;
-	if (i == 0 || str[i - 1] != '\\')
-	{
-		if (i == 0 && !str[i + 1])
-			return (0);
-		return (1);
-	}
-	if (!str[i + 1] || (str[i + 1] && str[i + 1] == ' '))
-		return (1);
-	return (0);
+	ft_strdel(&(*alias)->data);
+	(*alias)->data = ft_strdup(ret);
+	ft_strdel(&ret);
 }
 
 int			check_spe(t_alias *alias, t_var *var)
@@ -79,15 +34,14 @@ int			check_spe(t_alias *alias, t_var *var)
 		while (alias->data[++i])
 		{
 			if (alias->data[i] == '$' && alias->data[i + 1] == '_'
-						&& (i == 0 || alias->data[i - 1] != '\\'))
+			&& (i == 0 || alias->data[i - 1] != '\\'))
 			{
 				tmp = ft_strdup(ft_get_val("_", var, SPE));
 				ret = ft_strsub(alias->data, 0, i);
 				ret = ft_strjoinf(ret, tmp, 3);
-				ret = ft_strjoinf(ret, ft_strsub(alias->data,
-						i + 2, ft_strlen(alias->data)), 3);
-				ft_strdel(&alias->data);
-				alias->data = ft_strfdup(ret);
+				ret = ft_strjoinf(ret, ft_strsub(alias->data, i + 2,
+				ft_strlen(alias->data)), 3);
+				check_spe_free(&alias, ret);
 			}
 		}
 		alias = alias->next;

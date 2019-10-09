@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 15:56:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 07:59:02 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,20 +83,6 @@ void	need_replace_quote(char ***array, int i, int *j)
 		(*j) = ft_strlen((*array)[i]);
 		return ;
 	}
-}
-
-int		check_red(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (find_token(str, i) != -1)
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 void	browse_ar(char ***array, int i, int j)

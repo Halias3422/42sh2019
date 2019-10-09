@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:00:41 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 07:59:38 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,10 +33,10 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 			{
 				tmp = malloc(sizeof(t_redirect));
 				p = tmp;
-				fill_ag_first(tmp, res, &t);
+				(*i) += fill_ag_first(tmp, res, &t);
 			}
 			else
-				fill_ag_next(tmp, res, &t);
+				(*i) += fill_ag_next(tmp, res, &t);
 			done++;
 		}
 		t += (res[t]) ? 1 : 0;

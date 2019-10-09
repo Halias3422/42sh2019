@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 09:27:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 07:58:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -113,8 +113,8 @@ int			check_token_in_condition(t_lexeur **res, int t);
 
 void		fill_process_split(t_job **j, t_lexeur **res, int i);
 void		fill_token(t_process *p, t_lexeur **res, int *i);
-void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
-void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
+int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
+int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
 void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
 
 /*

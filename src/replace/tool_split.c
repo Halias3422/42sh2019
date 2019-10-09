@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 13:53:15 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 20:54:14 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,18 +23,7 @@ void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc)
 	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
 	&& (double_check(str, *i))))
 	{
-		if (str[*i] == '\'' && (*i == 0 || str[(*i) - 1] != '\\'))
-		{
-			while (str[++(*i)])
-				if (str[*i] == '\'' && (*i == 0 || str[(*i) - 1] != '\\'))
-					break ;
-		}
-		if (str[*i] == '"' && (*i == 0 || str[(*i) - 1] != '\\'))
-		{
-			while (str[++(*i)])
-				if (str[*i] == '"' && ((*i) == 0 || str[(*i) - 1] != '\\'))
-					break ;
-		}
+		heredoc_go_next_quote(str, i);
 		if (str[*i] == '\\' && str[*i + 1] == ' ')
 			(*i)++;
 		if (str[*i])
