@@ -40,6 +40,16 @@ void		alert_job(t_job *j)
 		remove_job(j->id);
 }
 
+void		launch_pipe(t_job *j, t_process *p, t_var *var, int mypipe[2],
+			int *infile)
+{
+	pipe(mypipe);
+	p->fd_out = mypipe[1];
+	fork_simple(j, p, &var);
+	close(mypipe[1]);
+	*infile = mypipe[0];
+}
+
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
@@ -62,13 +72,7 @@ void		launch_job(t_job *j, t_var *var)
 			}
 		p->fd_in = infile;
 		if (p->split == 'P')
-		{
-			pipe(mypipe);
-			p->fd_out = mypipe[1];
-			fork_simple(j, p, &var);
-			close(mypipe[1]);
-			infile = mypipe[0];
-		}
+			launch_pipe(j, p, var, mypipe, &infile);
 		else
 		{
 			p->fd_out = 1;
