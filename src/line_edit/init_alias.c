@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/29 09:16:52 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:25:27 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 08:40:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ void	write_alias(t_var *var, t_pos *p)
 		}
 }
 
-void	fill_alias(t_var *var, char *line)
+t_var	*fill_alias(t_var *var, char *line)
 {
 	var->next = malloc(sizeof(t_var));
 	var = var->next;
@@ -39,6 +39,7 @@ void	fill_alias(t_var *var, char *line)
 	var->data = init_data(line);
 	var->type = 2;
 	var->next = NULL;
+	return (var);
 }
 
 void	init_alias(t_var *var, t_pos *pos, char *line)
@@ -58,8 +59,9 @@ void	init_alias(t_var *var, t_pos *pos, char *line)
 		var = var->next;
 	while ((ret = get_next_line(pos->alias, &line)) > 0)
 	{
+		printf("line=%s\n", line);
 		if (ft_strlen(line) > 0)
-			fill_alias(var, line);
+			var = fill_alias(var, line);
 		if (line != NULL)
 			ft_strdel(&line);
 	}

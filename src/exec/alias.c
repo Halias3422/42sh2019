@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:15:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 08:41:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,6 +62,13 @@ int		error_unlias(char *str)
 	return (1);
 }
 
+void	free_one(t_var *var)
+{
+	ft_strdel(&var->data);
+	ft_strdel(&var->name);
+	free(var);
+}
+
 int		check_a(t_process *p, t_var **var)
 {
 	t_var	*start;
@@ -73,9 +80,7 @@ int		check_a(t_process *p, t_var **var)
 	while (start && start->type == ALIAS)
 	{
 		*var = start->next;
-		free(start->data);
-		free(start->name);
-		free(start);
+		free_one(start);
 		start = *var;
 	}
 	while (*var)
@@ -83,9 +88,7 @@ int		check_a(t_process *p, t_var **var)
 		if ((*var)->next && (*var)->next->type == ALIAS)
 		{
 			tmp = (*var)->next->next;
-			free((*var)->next->data);
-			free((*var)->next->name);
-			free((*var)->next);
+			free_one((*var)->next);
 			(*var)->next = tmp;
 		}
 		else
