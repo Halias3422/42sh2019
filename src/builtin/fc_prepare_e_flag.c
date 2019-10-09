@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 14:02:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 09:38:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:03:03 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,8 +112,6 @@ char			**get_ide_paths(char **env)
 		}
 		i++;
 	}
-	if (paths == NULL)
-		ft_printf("42sh: PATH environment not set\n");
 	return (paths);
 }
 
@@ -144,4 +142,5 @@ void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i)
 		remove_cmd_from_hist(hist);
 		overwrite_history_file(hist);
 	}
+	fc->ename = ft_secure_free(fc->ename);
 }

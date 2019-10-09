@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/29 09:16:52 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:40:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 10:10:31 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ t_var	*fill_alias(t_var *var, char *line)
 	var = var->next;
 	var->name = init_name(line);
 	var->data = init_data(line);
-	var->type = 2;
+	var->type = ALIAS;
 	var->next = NULL;
 	return (var);
 }

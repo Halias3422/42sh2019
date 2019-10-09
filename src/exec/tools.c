@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 10:55:32 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:17:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 08:39:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,7 @@ char	**split_env(t_var *var)
 		save = save->next;
 	}
 	save = var;
-	array = malloc(sizeof(char*) * (i + 1));
+	array = (char**)malloc(sizeof(char*) * (i + 1));
 	array[i] = 0;
 	j = 0;
 	while (save)

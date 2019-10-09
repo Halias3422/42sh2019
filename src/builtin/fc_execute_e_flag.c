@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:44:16 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:00:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,16 +72,16 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 	return (new_cmds);
 }
 
-void				exec_new_cmds(char **new_cmds, char **env)
+void				exec_new_cmds(char **new_cmds)
 {
 	int				i;
-	t_var			*my_env;
 	char			*tmp_cmd;
 	t_hist			*hist;
+	t_var			*var;
 
+	var = stock(NULL, 6);
 	hist = stock(NULL, 8);
 	i = 0;
-	my_env = init_env(env, to_stock(NULL, 1), NULL);
 	i = 0;
 	while (new_cmds[i])
 	{
@@ -89,11 +89,10 @@ void				exec_new_cmds(char **new_cmds, char **env)
 		if ((check_error(new_cmds[i])) != -1)
 		{
 			ft_printf("%s\n", tmp_cmd);
-			start_exec(start_lex(my_env, tmp_cmd), my_env);
+			start_exec(start_lex(var, tmp_cmd), var);
 		}
 		i++;
 	}
-	free_env(my_env);
 	place_new_cmds_in_history(new_cmds, hist);
 }
 
@@ -117,7 +116,7 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env)
 	{
 		wait(&father);
 		new_cmds = recover_new_cmds_from_tmp(new_cmds, fd, i, ret);
-		exec_new_cmds(new_cmds, env);
+		exec_new_cmds(new_cmds);
 		ft_free_tab(arg_tmp);
 		return ;
 	}

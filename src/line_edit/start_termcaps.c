@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 07:37:29 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 10:04:01 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,8 +26,24 @@ static char		*returning_ans(t_pos *pos)
 	return (pos->ans);
 }
 
-static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist,
-	unsigned char buf[9])
+static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
+{
+	if (pos->active_heredoc)
+	{
+		heredoc_ctrl_d(pos, hist);
+		if (pos->active_heredoc == 0)
+			return (1);
+	}
+	if (!pos->ans || !pos->ans[0])
+	{
+		write_alias(var, pos);
+		exit(0);
+	}
+	return (0);
+}
+
+static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
+				unsigned char buf[9])
 {
 	read(0, buf, 1);
 	if (buf[0] == 137)
@@ -36,12 +52,8 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist,
 		read(0, buf + 1, 8);
 	else if (buf[0] == 4)
 	{
-		if (pos->active_heredoc)
-		{
-			heredoc_ctrl_d(pos, hist);
-			if (pos->active_heredoc == 0)
-				return (returning_ans(pos));
-		}
+		if (handle_ctrl_d(pos, hist, var) == 1)
+			return (returning_ans(pos));
 	}
 	if (pos->max_co > 2)
 		*hist = check_input(buf, pos, *hist);
@@ -55,7 +67,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist,
 	return (NULL);
 }
 
-char			*termcaps42sh(t_pos *pos, t_hist *hist)
+char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 {
 	unsigned char	buf[9];
 	char			*ans;
@@ -70,7 +82,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist)
 	signal_list();
 	while (1)
 	{
-		if ((ans = termcaps42sh_loop(pos, &hist, buf)) != NULL)
+		if ((ans = termcaps42sh_loop(pos, &hist, var, buf)) != NULL)
 			return (ans);
 	}
 	return (NULL);

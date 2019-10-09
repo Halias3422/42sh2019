@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/09 08:02:41 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/09 08:24:46 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -40,7 +40,7 @@ SRC_LEX = $(addprefix lexeur/, \
 
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
-				job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
+			job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
 				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
 				before_redirection.c new_job.c)
 
@@ -70,7 +70,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=undefined #-fsanitize=address
 FLAG_END = -lcurses
 NORME = norminette
 

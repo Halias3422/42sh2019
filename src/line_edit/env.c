@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:13:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 08:18:34 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ t_var	*init_env(char **env, t_pos *pos, char **av)
 	int		i;
 
 	i = 0;
-	new = malloc(sizeof(t_var));
+	new = (t_var*)malloc(sizeof(t_var));
 	save = new;
 	while (env[i])
 	{
@@ -56,7 +56,7 @@ t_var	*init_env(char **env, t_pos *pos, char **av)
 		i++;
 		if (env[i])
 		{
-			new->next = malloc(sizeof(t_var));
+			new->next = (t_var*)malloc(sizeof(t_var));
 			new = new->next;
 		}
 	}
