@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 09:18:18 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 15:20:33 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,12 +79,10 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 	}
 }
 
-int			fork_simple(t_job *j, t_process *p, t_var **var)
+int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
 {
 	pid_t		pid;
-	char		*cmd_path;
 
-	cmd_path = NULL;
 	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
 	p->background = j->split == '&' ? 1 : 0;

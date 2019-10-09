@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 11:55:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 15:20:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -176,7 +176,8 @@ void					put_foreground(t_job *j, t_var **var, t_process *p);
 void					put_background(t_job *j);
 int						test_builtin(t_process *p);
 int						find_builtins(t_process *p, t_var **var);
-int						fork_simple(t_job *j, t_process *p, t_var **var);
+int						fork_simple(t_job *j, t_process *p, t_var **var,
+						char *cmd_path);
 void					wait_process(t_var **var);
 void					print_start_process(t_job *j);
 void					check_zombie();

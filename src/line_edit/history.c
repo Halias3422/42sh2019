@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 14:31:07 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 15:17:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,6 @@ void		free_t_hist(t_hist *hist)
 		free(tmp);
 	}
 }
-
 
 void		init_t_hist(t_hist *hist)
 {

@@ -6,21 +6,12 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 10:27:40 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 15:14:52 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-
-void			signal_main(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-}
 
 int				check_entry(void)
 {
@@ -29,6 +20,7 @@ int				check_entry(void)
 
 	if (!(s = malloc(sizeof(char) * 10000000)))
 		exit(0);
+	free(s);
 	if (ioctl(0, TIOCGWINSZ, &w) == -1)
 	{
 		ft_printf("Entry is not a tty\nExit\n");
@@ -53,20 +45,24 @@ int				check_ans(char *str)
 	return (1);
 }
 
+char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
+{
+	char *ans;
+
+	ans = termcaps42sh(pos, hist, env);
+	if (pos->ans_heredoc)
+		remake_pos_ans(pos);
+	ans = check_backslash(pos);
+	ans = check_for_tilde(ans, env, 0, 0);
+	tcsetattr(0, TCSANOW, &pos->old_term);
+	return (ans);
+}
+
 int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 {
-//	char		*pwd;
 	char		*ans;
 
-/*	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = print_pwd(my_env));
-	ft_strdel(&pwd);
-*/	ans = termcaps42sh(&pos, hist, my_env);
-	if (pos.ans_heredoc)
-		remake_pos_ans(&pos);
-	ans = check_backslash(&pos);
-	ans = check_for_tilde(ans, my_env, 0, 0);
-	tcsetattr(0, TCSANOW, &(pos.old_term));
+	ans = make_ans(&pos, hist, my_env);
 	job_notification(&my_env);
 	if (ans == NULL)
 		return (1);
@@ -100,7 +96,6 @@ int				main(int ac, char **av, char **env)
 	setpgid(shell_pid, shell_pid);
 	tcsetpgrp(STDIN_FILENO, shell_pid);
 	my_env = init_env(env, &pos, av);
-	stock(my_env, 5);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);
 	pos.is_complete = 1;
