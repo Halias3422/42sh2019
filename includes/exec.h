@@ -24,6 +24,7 @@
 # define FINISHED 1
 # define WRITE_END 1
 # define READ_END 0
+# define PATH_HEREDOC "/tmp/heredoc"
 
 typedef struct s_lexeur	t_lexeur;
 typedef struct s_var		t_var;
