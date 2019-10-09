@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 15:15:17 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 15:26:14 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,6 @@ int				ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
-	printf("passe\n");
 	status = ft_atoi(p->cmd[1]);
 	if (p->cmd && p->cmd[1] && p->cmd[2])
 	{
