@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   redirection.c                                    .::    .:/ .      .::   */
+/*   duplication.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:19:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 11:21:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ int	duplication_in(t_redirect *redirect, int fd_in, int fd_out)
 			return (1);
 	}
 	else
-		ft_printf_err("42sh: file number expected");
+		ft_printf_err("42sh: file number expected\n");
 	return (0);
 }
 
@@ -52,7 +52,7 @@ int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 				return (1);
 		}
 		else
-			ft_printf_err("42sh: file number expected");
+			ft_printf_err("42sh: file number expected\n");
 		return (0);
 	}
 	return (duplication_in(redirect, fd_in, fd_out));

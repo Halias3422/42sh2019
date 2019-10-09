@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 07:58:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 11:55:39 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,7 +83,7 @@ typedef struct			s_job_list
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int			start_exec(t_lexeur **res, t_var *var);
+int						start_exec(t_lexeur **res, t_var *var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -91,8 +91,8 @@ int			start_exec(t_lexeur **res, t_var *var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		fill_process(t_job *j, t_lexeur **res);
-void		fill_token(t_process *p, t_lexeur **res, int *i);
+void					fill_process(t_job *j, t_lexeur **res);
+void					fill_token(t_process *p, t_lexeur **res, int *i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -100,22 +100,22 @@ void		fill_token(t_process *p, t_lexeur **res, int *i);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int			cnt_process(t_lexeur **res, int i);
-void		change_job(t_job **j, t_process **start);
-int			check_moove_index(t_lexeur **res, int *t);
-t_redirect	*init_var(int *done, int *t, int *i);
-int			check_token_in_condition(t_lexeur **res, int t);
+int						cnt_process(t_lexeur **res, int i);
+void					change_job(t_job **j, t_process **start);
+int						check_moove_index(t_lexeur **res, int *t);
+t_redirect				*init_var(int *done, int *t, int *i);
+int						check_token_in_condition(t_lexeur **res, int t);
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                            process_fill.c                                  ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		fill_process_split(t_job **j, t_lexeur **res, int i);
-void		fill_token(t_process *p, t_lexeur **res, int *i);
-int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
-int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
-void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
+void					fill_process_split(t_job **j, t_lexeur **res, int i);
+void					fill_token(t_process *p, t_lexeur **res, int *i);
+int						fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
+int						fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
+void					fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -123,8 +123,8 @@ void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		launch_job(t_job *j, t_var *var);
-int			ft_test_path(t_process *p, t_var *var);
+void					launch_job(t_job *j, t_var *var);
+int						ft_test_path(t_process *p, t_var *var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -132,10 +132,10 @@ int			ft_test_path(t_process *p, t_var *var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-char		*ft_join_env(char *s1, char const *s2);
-char		**split_env(t_var *var);
-char		*strjoin_path(char *s1, char *s2);
-int			use_execve_acces(char *tmp, char **res, t_var *l_var);
+char					*ft_join_env(char *s1, char const *s2);
+char					**split_env(t_var *var);
+char					*strjoin_path(char *s1, char *s2);
+int						use_execve_acces(char *tmp, char **res, t_var *l_var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -143,8 +143,8 @@ int			use_execve_acces(char *tmp, char **res, t_var *l_var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		cnf_print_error(char *str);
-void		ft_tabfree(char **res);
+void					cnf_print_error(char *str);
+void					ft_tabfree(char **res);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -152,7 +152,8 @@ void		ft_tabfree(char **res);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int			main_option_exec(t_process **first, t_process **second, t_var *var);
+int						main_option_exec(t_process **first, t_process **second,
+						t_var *var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -160,60 +161,52 @@ int			main_option_exec(t_process **first, t_process **second, t_var *var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int			main_alias(t_process *p, t_var **var);
-int			main_unalias(t_process *p, t_var **var);
+int						main_alias(t_process *p, t_var **var);
+int						main_unalias(t_process *p, t_var **var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                    alias.c                                 ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
-void		add_alias(t_var **var, char *name, char *data);
-void		find_alias(t_process *p, t_var *var, int k);
-void		add_list_alias(t_var **var, char *name, char *data);
+void					add_alias(t_var **var, char *name, char *data);
+void					find_alias(t_process *p, t_var *var, int k);
+void					add_list_alias(t_var **var, char *name, char *data);
+void					put_foreground(t_job *j, t_var **var, t_process *p);
+void					put_background(t_job *j);
+int						test_builtin(t_process *p);
+int						find_builtins(t_process *p, t_var **var);
+int						fork_simple(t_job *j, t_process *p, t_var **var);
+void					wait_process(t_var **var);
+void					print_start_process(t_job *j);
+void					check_zombie();
+void					print_job(t_job *j);
+void					add_job(t_job *j);
+void					remove_job(int id);
+void					set_job_status(pid_t id, char status);
+int						find_job_pgid(pid_t pgid);
+void					job_notification(t_var **var);
+int						mark_process_status(pid_t pid, int status, t_var **var);
+void					signal_handler();
+int						job_is_stoped(t_job *j);
+t_job					*find_job_by_id(char *argv);
+void					free_lexeur(t_lexeur **res);
+void					add_local(t_var **var, char *str, t_var *prev,
+						int type);
+char					**check_exec_var(char **cmd, t_var **var);
+void					free_temp(t_var **var);
+int						check_cmd(char **str);
+int						find_equal(char *str);
+int						launch_redirection(t_process *p);
+void					remove_item_var(t_var **var);
+void					before_redirection(t_process *p);
+t_process				*get_and_or(t_process *p);
+int						is_builtin_modify(t_process *p);
+void					wait_process_pid(int pid, t_var **var);
+void					free_job(t_job *j);
+int						duplication(t_redirect *redirect, int fd_in,
+						int fd_out);
+int						fd_right(char *path);
+void					free_job_list(void);
 
-void		put_foreground(t_job *j, t_var **var, t_process *p);
-void		put_background(t_job *j);
-
-int			test_builtin(t_process *p);
-int			find_builtins(t_process *p, t_var **var);
-
-int			fork_simple(t_job *j, t_process *p, t_var **var);
-
-void		wait_process(t_var **var);
-void		print_start_process(t_job *j);
-void		check_zombie();
-void		print_job(t_job *j);
-void		add_job(t_job *j);
-void		remove_job(int id);
-void		set_job_status(pid_t id, char status);
-int			find_job_pgid(pid_t pgid);
-void		job_notification(t_var **var);
-int			mark_process_status(pid_t pid, int status, t_var **var);
-void		signal_handler();
-
-int			job_is_stoped(t_job *j);
-
-t_job		*find_job_by_id(char *argv);
-
-void		free_lexeur(t_lexeur **res);
-void		add_local(t_var **var, char *str, t_var *prev, int type);
-char		**check_exec_var(char **cmd, t_var **var);
-void		free_temp(t_var **var);
-int			check_cmd(char **str);
-int			find_equal(char *str);
-int			launch_redirection(t_process *p);
-void		remove_item_var(t_var **var);
-
-void		before_redirection(t_process *p);
-t_process	*get_and_or(t_process *p);
-
-int			is_builtin_modify(t_process *p);
-
-void		wait_process_pid(int pid, t_var **var);
-void		free_job(t_job *j);
-
-int			duplication(t_redirect *redirect, int fd_in, int fd_out);
-int			fd_right(char *path);
-void		free_job_list(void);
 #endif
