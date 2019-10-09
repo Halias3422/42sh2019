@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 13:14:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 11:52:25 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 08:53:16 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,8 +72,9 @@ void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
 
 	while (hist && hist->next && hist->next->next)
 		hist = hist->next;
-	hist->cmd = NULL;
-	hist->next = NULL;
+	ft_strdel(&hist->cmd);
+	if (hist->next)
+		hist->next = ft_secure_free(hist->next);
 	i = 0;
 	while (new_cmds[i])
 	{
