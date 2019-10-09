@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 09:00:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 12:57:13 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -213,9 +213,9 @@ void			free_name_and_data(char *name, char *data);
 
 t_var			*put_new_entry_in_var(t_var *var, char **new_env_entry,
 				int usage);
-void		free_new_env(t_var *head);
-t_var		*init_t_var(t_var *ne);
-t_var		*add_list_back_env(t_var *env);
+void			free_new_env(t_var *head);
+t_var			*init_t_var(t_var *ne);
+t_var			*add_list_back_env(t_var *env);
 
 /*
 **	FT_CD_C
