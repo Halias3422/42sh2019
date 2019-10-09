@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:44:34 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 14:03:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,6 +79,7 @@ int				ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
+	printf("passe\n");
 	status = ft_atoi(p->cmd[1]);
 	if (p->cmd && p->cmd[1] && p->cmd[2])
 	{
@@ -97,7 +98,7 @@ int				ft_exit(t_process *p, t_var **var)
 	}
 	write_alias_on_exit(*var);
 	free_pos();
-	free_t_hist(stock(NULL, 8));
+	// free_t_hist(stock(NULL, 8));
 	free_env_list(*var);
 	exit(status);
 }
