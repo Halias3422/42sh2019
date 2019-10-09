@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/29 09:16:52 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 10:10:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 10:16:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,6 @@ void	init_alias(t_var *var, t_pos *pos, char *line)
 		var = var->next;
 	while ((ret = get_next_line(pos->alias, &line)) > 0)
 	{
-		printf("line=%s\n", line);
 		if (ft_strlen(line) > 0)
 			var = fill_alias(var, line);
 		if (line != NULL)
