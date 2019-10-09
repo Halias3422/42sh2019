@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:22:51 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:40:21 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,7 +94,7 @@ void		free_jobs(t_job *j)
 	}
 }
 
-void        replace_job(t_process **p, t_var *var)
+void	replace_job(t_process **p, t_var *var)
 {
 	t_alias		*al;
 	t_replace	*r;
@@ -119,7 +119,7 @@ void        replace_job(t_process **p, t_var *var)
 	free_alias(al);
 }
 
-void        save_spe_param(char **cmd, t_var *var)
+void	save_spe_param(char **cmd, t_var *var)
 {
 	int	i;
 

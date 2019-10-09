@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:41:08 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 09:42:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -116,16 +116,12 @@ int		main_unalias(t_process *p, t_var **var)
 		{
 			if (!(*var)->next)
 			{
-				ft_strdel(&(*var)->name);
-				ft_strdel(&(*var)->data);
-				free(*var);
+				free_one((*var));
 				(*var) = NULL;
 				return (1);
 			}
 			(*var) = (*var)->next;
-			ft_strdel(&start->name);
-			ft_strdel(&start->data);
-			free(start);
+			free_one(start);
 			return (1);
 		}
 		while (*var && ft_strcmp(p->cmd[k], (*var)->name) != 0)
@@ -138,9 +134,7 @@ int		main_unalias(t_process *p, t_var **var)
 		last->next = (*var)->next;
 		tmp = (*var);
 		(*var) = start;
-		ft_strdel(&tmp->name);
-		ft_strdel(&tmp->data);
-		free(tmp);
+		free_one(tmp);
 		k++;
 	}
 	return (1);

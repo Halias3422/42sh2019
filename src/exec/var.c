@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 10:25:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 10:09:07 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,27 +42,36 @@ char		**remove_tab(char **src, int j)
 	if (len == 1)
 		return (NULL);
 	res = malloc(sizeof(char*) * len);
-	i = 0;
-	while (src[i])
+	i = -1;
+	while (src[++i])
 	{
 		if (i == j)
 			i++;
 		if (i > len)
 			break ;
 		res[k] = ft_strdup(src[i]);
-		i++;
 		k++;
 	}
 	res[len - 1] = NULL;
 	return (res);
 }
 
-void		add_env(t_var **var, char *str)
+t_var		*add_one(char *str, char *name)
+{
+	t_var *var;
+
+	var = malloc(sizeof(t_var));
+	var->next = NULL;
+	var->name = name;
+	var->data = init_data(str);
+	var->type = LOCAL;
+	return (var);
+}
+
+void		add_env(t_var **var, char *str, char *name)
 {
 	t_var	*prev;
-	char	*name;
 
-	prev = NULL;
 	name = init_name(str);
 	if (!(*var))
 	{
@@ -79,12 +88,8 @@ void		add_env(t_var **var, char *str)
 	}
 	if (!(*var))
 	{
-		(*var) = malloc(sizeof(t_var));
+		(*var) = add_one(str, name);
 		prev->next = (*var);
-		(*var)->next = NULL;
-		(*var)->name = name;
-		(*var)->data = init_data(str);
-		(*var)->type = LOCAL;
 		return ;
 	}
 	ft_strdel(&(*var)->data);
@@ -95,7 +100,7 @@ void		add_env(t_var **var, char *str)
 void		remoove_all_quote(char **str)
 {
 	char **al;
-	
+
 	al = malloc(sizeof(char *) * 3);
 	al[2] = 0;
 	al[0] = init_name(*str);
@@ -128,7 +133,6 @@ int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 		remoove_all_quote(&cmd[i]);
 		if (check_cmd(cmd) == 1)
 		{
-			// if (check_utils(cmd) == 1)
 			add_env_temp(var, cmd[i], TEMP);
 			*tmp = remove_tab(cmd, i);
 		}
@@ -136,7 +140,7 @@ int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 		{
 			while (cmd[i])
 			{
-				add_env(var, cmd[i]);
+				add_env(var, cmd[i], NULL);
 				i++;
 			}
 			ft_free_tab(cmd);
