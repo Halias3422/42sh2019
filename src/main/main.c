@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 13:25:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 14:26:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,16 +45,16 @@ int				check_ans(char *str)
 	return (1);
 }
 
-char			*make_ans(t_pos pos, t_hist *hist, t_var *env)
+char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 {
 	char *ans;
 
-	ans = termcaps42sh(&pos, hist, env);
-	if (pos.ans_heredoc)
-		remake_pos_ans(&pos);
-	ans = check_backslash(&pos);
+	ans = termcaps42sh(pos, hist, env);
+	if (pos->ans_heredoc)
+		remake_pos_ans(pos);
+	ans = check_backslash(pos);
 	ans = check_for_tilde(ans, env, 0, 0);
-	tcsetattr(0, TCSANOW, &(pos.old_term));
+	tcsetattr(0, TCSANOW, &pos->old_term);
 	return (ans);
 }
 
@@ -66,7 +66,7 @@ int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = print_pwd(my_env));
 	ft_strdel(&pwd);
-	ans = make_ans(pos, hist, my_env);
+	ans = make_ans(&pos, hist, my_env);
 	job_notification(&my_env);
 	if (ans == NULL)
 		return (1);

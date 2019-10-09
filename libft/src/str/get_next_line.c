@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 08:43:18 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 13:08:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 14:23:29 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,29 +36,30 @@ char	*get_line(char *str, char **line)
 
 int		get_next_line(const int fd, char **line)
 {
-	static char	*str[255];
+	static char	*str;
 	char		buf[BUFF_SIZE + 1];
-	char		*temp;
 	int			ret;
 
 	ret = 1;
 	if (fd < 0 || line == NULL || BUFF_SIZE < 1)
 		return (-1);
-	if (!(str[fd]))
-		str[fd] = ft_strnew(1);
-	while (!ft_strchr(str[fd], '\n') && ret > 0)
+	if (!(str))
+		str = ft_strnew(1);
+	while (!ft_strchr(str, '\n') && ret > 0)
 	{
 		if ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 		{
 			buf[ret] = '\0';
-			temp = ft_strjoinf(str[fd], buf, 1);
-			str[fd] = temp;
+			str = ft_strjoinf(str, buf, 1);
 		}
 	}
 	buf[ret] = '\0';
 	if (ret < 0)
 		return (-1);
-	if ((*line = get_line(str[fd], line)) == NULL)
+	if ((*line = get_line(str, line)) == NULL)
+	{
+		ft_strdel(&str);
 		return (0);
+	}
 	return (1);
 }
