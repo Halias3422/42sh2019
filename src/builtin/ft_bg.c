@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:11:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 15:45:47 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,13 +19,30 @@ void		put_background(t_job *j)
 	kill(-j->pgid, SIGCONT);
 }
 
+t_job		*find_plus(t_job *j)
+{
+	t_job		*tmp;
+
+	tmp = j;
+	while (tmp)
+	{
+		if (tmp->current == '+')
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
 int			ft_bg(t_process *p, t_var **var)
 {
 	t_job		*job;
 
 	if (ft_tabclen(p->cmd) <= 1)
 	{
-		ft_putstr_fd("usage: bg %[job_id]\n", p->fd_out);
+		job = find_plus(stock(NULL, 10));
+		if (job)
+			put_background(job);
+		//print
 		return (1);
 	}
 	else
