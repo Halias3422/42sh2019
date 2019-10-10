@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 13:11:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 18:06:34 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,8 @@ char	*init_data(char *src)
 	i = 0;
 	while (src[i] && src[i] != '=')
 		i++;
-	i++;
+	if (src[i])
+		i++;
 	dest = ft_strsub(src, i, ft_strlen(src) - i);
 	return (dest);
 }

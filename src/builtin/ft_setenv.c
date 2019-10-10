@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:58:14 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 18:16:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,22 +80,33 @@ void		add_var_to_env(t_var **var, char *name, char *data)
 	(*var)->data = data;
 }
 
+char		**init_al_tab_content(t_process *p)
+{
+	char	**al;
+
+	al = malloc(sizeof(char *) * 3);
+	al[0] = init_name(p->cmd[1]);
+	al[1] = init_data(p->cmd[1]);
+	al[2] = 0;
+	return (al);
+}
+
 int			ft_setenv(t_process *p, t_var **var)
 {
-	char		**al;
+	char	**al;
 
 	al = NULL;
 	if (p->cmd[1])
 	{
-		al = malloc(sizeof(char *) * 3);
-		al[0] = init_name(p->cmd[1]);
-		al[1] = init_data(p->cmd[1]);
-		al[2] = 0;
+		al = init_al_tab_content(p);
 		remoove_quote(&al);
 		if (check_name(al[0]) == 1)
 			return (print_err_setenv(al));
 		if (setenv_rules(p) == 0)
+		{
+			ft_free_tab(al);
 			return (0);
+		}
 		if (scan_name_for_undesired_symbols(al[0]) == -1)
 		{
 			ft_free_tab(al);

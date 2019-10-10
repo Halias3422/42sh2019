@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:27:24 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:55:04 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@
 # define PATH_HEREDOC "/tmp/heredoc"
 
 typedef struct s_lexeur	t_lexeur;
-typedef struct s_var		t_var;
+typedef struct s_var	t_var;
 
 typedef	struct			s_redirect
 {
@@ -102,11 +102,12 @@ void					fill_token(t_process *p, t_lexeur **res, int *i);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		fill_process_split(t_job **j, t_lexeur **res, int i);
-char		*add_space_content(char *content);
-char		*get_content(char *tag, t_lexeur **res, int *t, int *size);
-void		make_tmp_great_again(t_redirect **tmp);
-void		add_heredoc(char *tag, t_lexeur **res, int *i);
+void					fill_process_split(t_job **j, t_lexeur **res, int i);
+char					*add_space_content(char *content);
+char					*get_content(char *tag, t_lexeur **res, int *t,
+						int *size);
+void					make_tmp_great_again(t_redirect **tmp);
+void					add_heredoc(char *tag, t_lexeur **res, int *i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -146,9 +147,9 @@ int						ft_test_path(t_process *p, t_var *var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		init_job(t_job *j);
-void		fill_job(t_job *j, t_lexeur **res);
-void		free_lexeur(t_lexeur **res);
+void					init_job(t_job *j);
+void					fill_job(t_job *j, t_lexeur **res);
+void					free_lexeur(t_lexeur **res);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

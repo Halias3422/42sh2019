@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 15:38:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:51:07 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,16 +73,8 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	char			*pwd;
 	unsigned char	buf[9];
 
-	if (pos->last_cmd_on_bg == 1)
-	{
-		pos->ans = ft_strdup("");
-		while (1)
-		{
-			read(0, buf, 1);
-			if (buf[0] == '\n')
-				return (pos->ans);
-		}
-	}
+	if (check_if_process_in_bg(pos, buf) == 1)
+		return (pos->ans);
 	while (hist && hist->next)
 		hist = hist->next;
 	ghist = &hist;
