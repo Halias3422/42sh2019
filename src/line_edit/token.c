@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:29:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 14:59:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,20 +33,23 @@ int		token_condition(char *ans, int i)
 	return (i);
 }
 
-int		token(char *ans)
+int		token(char *ans, t_pos *pos)
 {
 	int		i;
 	int		ret;
 
 	i = 0;
 	ret = 1;
-	while (ans[i])
+	if (pos->active_heredoc == 0)
 	{
-		i = token_condition(ans, i);
-		if (i <= -1)
-			return (0);
-		if (i < ft_strlen(ans))
+		while (ans[i])
+		{
+			i = token_condition(ans, i);
+			if (i <= -1)
+				return (0);
+			if (i < ft_strlen(ans))
 			i++;
+		}
 	}
 	if (ans && ft_strlen(ans) > 0 && ans[ft_strlen(ans) - 1] == 92 &&
 		odd_backslash(ft_strlen(ans) - 1, ans))

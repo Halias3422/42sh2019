@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 13:42:21 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 15:04:52 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -570,7 +570,7 @@ char					*check_backslash(t_pos *pos);
 */
 
 int						token_condition(char *ans, int i);
-int						token(char *ans);
+int						token(char *ans, t_pos *pos);
 
 /*
 **	TOKEN_CONDITIONS_C

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 14:22:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 15:05:40 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,9 +69,9 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 
 char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 {
+	char			*ans;
 	char			*pwd;
 	unsigned char	buf[9];
-	char			*ans;
 
 	if (pos->last_cmd_on_bg == 1)
 	{
