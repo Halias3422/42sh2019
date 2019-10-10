@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 08:43:18 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 15:15:41 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 08:24:13 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,9 +57,6 @@ int		get_next_line(const int fd, char **line)
 	if (ret < 0)
 		return (-1);
 	if ((*line = get_line(str, line)) == NULL)
-	{
 		ft_strdel(&str);
-		return (0);
-	}
-	return (1);
+	return (*line == NULL ? 0 : 1);
 }

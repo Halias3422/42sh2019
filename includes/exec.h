@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 10:07:41 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 11:13:21 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -141,6 +141,16 @@ int						ft_test_path(t_process *p, t_var *var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                 exec_tool.c                                ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void		init_job(t_job *j);
+void		fill_job(t_job *j, t_lexeur **res);
+void		free_lexeur(t_lexeur **res);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                 tools.c       	                           ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
@@ -168,6 +178,24 @@ void					ft_tabfree(char **res);
 int						main_option_exec(t_process **first, t_process **second,
 						t_var *var);
 
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                          alias_norme.c                                     ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void					free_one(t_var *var);
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                          alias_reduction.c                                 ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+int						print_alias(t_var *var);
+int						check_name(char *name);
+int						print_err(char *name, char *data);
+void					ft_free_deux(char *s, char *s1);
+int						error_unlias(char *str);
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                    alias.c                                 ┃
@@ -222,5 +250,16 @@ int						duplication(t_redirect *redirect, int fd_in,
 						int fd_out);
 int						fd_right(char *path);
 void					free_job_list(void);
+int						check_name(char *name);
 
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                               var_norme.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void					add_env_temp(t_var **var, char *str, int type);
+char					**remove_tab(char **src, int j);
+t_var					*add_one(char *str, char *name);
+int						add_env_check(char *name, t_var **var, char *str);
 #endif
