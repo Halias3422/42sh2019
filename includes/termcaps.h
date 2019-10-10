@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 15:04:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 15:43:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -588,7 +588,7 @@ int						double_quote(char *ans, int i);
 
 void					check_for_heredoc(t_pos *pos, int i, char open);
 void					search_for_heredocs_in_ans(t_pos *pos, int i, int open);
-int						fill_hdoc_content(t_pos *pos, char *ans, int i, int j);
+int						fill_hdoc_content(t_pos *pos, char *ans, int i);
 int						heredoc_found(t_pos *pos, int i, int j);
 
 /*
