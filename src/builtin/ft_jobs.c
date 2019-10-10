@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:37:09 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:57:49 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,7 +104,8 @@ void			print_selected_jobs(t_job_list *j, int option, char *arg)
 	while (j)
 	{
 		name = built_job_name(j, name);
-		if (ft_strncmp(name, arg, ft_strlen(arg)) == 0 || j->j->id == ft_atoi(arg))
+		if (ft_strncmp(name, arg, ft_strlen(arg)) == 0
+		|| j->j->id == ft_atoi(arg))
 		{
 			print_current_job(j, option, name);
 			check += 1;

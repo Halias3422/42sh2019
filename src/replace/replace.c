@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:06:46 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:59:49 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,7 +95,6 @@ char		**start_split(t_var *start, char *str)
 {
 	char		**ar;
 
-	printf("__%s__\n", str);
 	ar = split_space(str);
 	if (!start)
 		return (ar);
