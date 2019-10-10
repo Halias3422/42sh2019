@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/05 21:32:49 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 15:17:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 12:51:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,6 +85,7 @@ t_hist		*create_history(t_pos *pos, t_hist *hist)
 	{
 		if (ft_strlen(line) > 0)
 		{
+			transform_tab_into_space(line);
 			hist->cmd = ft_strdup(line);
 			hist = add_list_back_hist(hist);
 		}

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:45:24 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 13:00:04 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,19 +90,13 @@ static void		init_classic_var(t_pos *pos)
 	pos->start_select = -1;
 	pos->ctrl_hist_cmd = ft_strnew(0);
 	pos->is_expansion = 0;
-	pos->debug = 0;
-	pos->debug2 = 0;
-	pos->debug3 = 0;
-	pos->debug4 = 0;
-	pos->debug5 = 0;
 	pos->replace_hist = 0;
 	pos->error = 0;
 	pos->ctrl_search_history = 0;
-	pos->debugchar = NULL;
-	pos->debugchar2 = NULL;
 	pos->active_heredoc = 0;
 	pos->ans_heredoc = NULL;
 	pos->hdoc = NULL;
+	pos->last_cmd_on_bg = 0;
 }
 
 void			init_pos(t_pos *pos)

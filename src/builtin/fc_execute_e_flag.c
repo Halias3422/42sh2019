@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 09:00:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 12:56:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,13 +55,13 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 	else
 		new_cmds = (char**)malloc(sizeof(char*) * 50 + 1);
 	line = NULL;
-	pwd = getcwd(NULL, 255);
-	pwd = ft_strjoinf(pwd, "/.tmp", 1);
+	pwd = ft_strjoinf(getcwd(NULL, 255), "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
 	while ((ret = get_next_line(fd, &line)))
 	{
 		if (ft_strlen(line) > 0)
 		{
+			transform_tab_into_space(line);
 			new_cmds[i] = ft_strnew(0);
 			new_cmds[i] = ft_strjoinf(new_cmds[i], line, 3);
 			i++;

@@ -6,12 +6,25 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 08:10:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 12:53:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
+
+void		transform_tab_into_space(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\t')
+			line[i] = 32;
+		i++;
+	}
+}
 
 void		right_arrow(t_pos *pos)
 {

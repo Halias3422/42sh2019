@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/29 09:16:52 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 14:37:35 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 12:56:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,10 @@ void	init_alias(t_var *var, t_pos *pos, char *line)
 	while ((ret = get_next_line(pos->alias, &line)) > 0)
 	{
 		if (ft_strlen(line) > 0)
+		{
+			transform_tab_into_space(line);
 			var = fill_alias(var, line);
+		}
 		if (line != NULL)
 			ft_strdel(&line);
 	}
