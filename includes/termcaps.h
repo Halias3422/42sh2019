@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 13:06:07 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 15:43:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,13 +106,6 @@ typedef struct			s_pos
 	char				*prompt;
 	int					len_prompt;
 	int					start_select;
-	char				debug;
-	int					debug2;
-	int					debug3;
-	int					debug4;
-	int					debug5;
-	char				*debugchar;
-	char				*debugchar2;
 	int					ctrl_search_history;
 	char				*ctrl_hist_cmd;
 	int					replace_hist;
@@ -124,6 +117,7 @@ typedef struct			s_pos
 	int					active_heredoc;
 	char				*ans_heredoc;
 	char				*ans_heredoc_save;
+	int					last_cmd_on_bg;
 	struct s_heredoc	*hdoc;
 }						t_pos;
 
@@ -225,6 +219,7 @@ t_hist					*check_input(unsigned char *buf, t_pos *pos,
 ** ESCAPE_CODE
 */
 
+void					transform_tab_into_space(char *line);
 t_hist					*escape_code(char *buf, t_pos *pos, t_hist *hist);
 void					right_arrow(t_pos *pos);
 void					left_arrow(t_pos *pos);
@@ -244,7 +239,7 @@ t_hist					*create_history(t_pos *pos, t_hist *hist);
 
 void					get_cursor_info(t_pos *pos, int *li, int *co, int i);
 void					init_terminfo(t_pos *pos);
-void					init_pos(t_pos *pos);
+void					init_pos(t_pos *pos, int usage);
 void					*stock(void *to_stock, int usage);
 
 /*
@@ -575,7 +570,7 @@ char					*check_backslash(t_pos *pos);
 */
 
 int						token_condition(char *ans, int i);
-int						token(char *ans);
+int						token(char *ans, t_pos *pos);
 
 /*
 **	TOKEN_CONDITIONS_C
@@ -593,7 +588,7 @@ int						double_quote(char *ans, int i);
 
 void					check_for_heredoc(t_pos *pos, int i, char open);
 void					search_for_heredocs_in_ans(t_pos *pos, int i, int open);
-int						fill_hdoc_content(t_pos *pos, char *ans, int i, int j);
+int						fill_hdoc_content(t_pos *pos, char *ans, int i);
 int						heredoc_found(t_pos *pos, int i, int j);
 
 /*

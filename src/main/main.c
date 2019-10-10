@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 15:14:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 15:49:00 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,37 +47,35 @@ int				check_ans(char *str)
 
 char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 {
-	char *ans;
-
-	ans = termcaps42sh(pos, hist, env);
+	termcaps42sh(pos, hist, env);
 	if (pos->ans_heredoc)
 		remake_pos_ans(pos);
-	ans = check_backslash(pos);
-	ans = check_for_tilde(ans, env, 0, 0);
+	pos->ans = check_for_tilde(pos->ans, env, 0, 0);
+	pos->last_cmd_on_bg = 0;
 	tcsetattr(0, TCSANOW, &pos->old_term);
-	return (ans);
+	return (pos->ans);
 }
 
-int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
+int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 {
 	char		*ans;
 
-	ans = make_ans(&pos, hist, my_env);
+	ans = make_ans(pos, hist, my_env);
 	job_notification(&my_env);
 	if (ans == NULL)
 		return (1);
-	if (check_ans(ans) == 1 && pos.error != 2)
+	if (check_ans(ans) == 1 && pos->error != 2)
 	{
 		ft_strdel(&ans);
 		return (0);
 	}
-	if (pos.error == 1)
-		error_handling(&pos, NULL, 0);
-	if ((check_error(ans)) != -1 && pos.error != 2)
+	if (pos->error == 1)
+		error_handling(pos, NULL, 0);
+	if ((check_error(ans)) != -1 && pos->error != 2)
 		start_exec(start_lex(my_env, ans), my_env);
 	else
-		pos.ans = ft_secure_free(pos.ans);
-	pos.error = 0;
+		pos->ans = ft_secure_free(pos->ans);
+	pos->error = 0;
 	return (0);
 }
 
@@ -104,7 +102,7 @@ int				main(int ac, char **av, char **env)
 	ghist = &hist;
 	while (1)
 	{
-		if (main_loop(pos, stock(NULL, 6), hist) != 0)
+		if (main_loop(&pos, stock(NULL, 6), hist) != 0)
 			break ;
 	}
 	free_job_list();

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 10:53:31 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 10:53:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:46:28 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,7 @@ void		init_job(t_job *j)
 {
 	j->split = '\0';
 	j->status = '\0';
+	j->current = ' ';
 }
 
 void		fill_job(t_job *j, t_lexeur **res)

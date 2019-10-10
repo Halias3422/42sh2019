@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 15:46:34 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:56:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,26 +14,26 @@
 #include "../../includes/termcaps.h"
 #include "../../includes/exec.h"
 
-void		put_background(t_job *j)
+void			put_background(t_job *j)
 {
 	kill(-j->pgid, SIGCONT);
 }
 
-t_job		*find_plus(t_job *j)
+t_job		*find_plus(t_job_list *j)
 {
-	t_job		*tmp;
+	t_job_list		*tmp;
 
 	tmp = j;
 	while (tmp)
 	{
-		if (tmp->current == '+')
-			return (tmp);
+		if (tmp->j->current == '+')
+			return (tmp->j);
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
-int			ft_bg(t_process *p, t_var **var)
+int				ft_bg(t_process *p, t_var **var)
 {
 	t_job		*job;
 
@@ -41,8 +41,12 @@ int			ft_bg(t_process *p, t_var **var)
 	{
 		job = find_plus(stock(NULL, 10));
 		if (job)
+		{
 			put_background(job);
-		//print
+			print_job(job);
+		}
+		else
+			ft_printf_err("bg: current: no such job\n");
 		return (1);
 	}
 	else
