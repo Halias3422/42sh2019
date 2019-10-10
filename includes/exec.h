@@ -70,6 +70,7 @@ typedef struct			s_job
 	char				status;
 	int					notified;
 	int					id;
+	char				current;
 }						t_job;
 
 typedef struct			s_job_list

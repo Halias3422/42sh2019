@@ -22,6 +22,7 @@ t_job_list	*new_job(t_job *j, int number)
 		return (NULL);
 	j->id = number;
 	job_list->j = j;
+	job_list->j->current = '+';
 	job_list->next = NULL;
 	return (job_list);
 }
@@ -42,9 +43,11 @@ void		add_job(t_job *j)
 		while (job_list->next != NULL)
 		{
 			i++;
+			job_list->j->current = ' ';
 			job_list = job_list->next;
 		}
 		job_list->next = new_job(j, i);
+		job_list->j->current = '-';
 	}
 	stock(start, 9);
 }

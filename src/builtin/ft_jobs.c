@@ -30,14 +30,14 @@ void			print_ft_job(t_job *j, int option)
 	int			i;
 
 	if (option == 1)
-		ft_printf("[%d] %d	", j->id, j->pgid);
+		ft_printf("[%d] %c %d	", j->id, j->current, j->pgid);
 	else if (option == 2)
 	{
 		ft_printf("%d\n", j->pgid);
 		return ;
 	}
 	else
-		ft_printf("[%d]	", j->id);
+		ft_printf("[%d] %c	", j->id, j->current);
 	print_status_job(j->status);
 	process = j->p;
 	while (process)
