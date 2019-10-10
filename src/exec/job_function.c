@@ -34,6 +34,7 @@ void		remove_job(int id)
 		if (job_list->j->id == id)
 		{
 			last->next = job_list->next;
+			free_job(job_list->j);
 			free(job_list);
 			break ;
 		}
@@ -48,7 +49,7 @@ void		print_job(t_job *j)
 	t_process	*process;
 	int			i;
 
-	ft_printf("[%d] %d	", j->id, j->pgid);
+	ft_printf("[%d] %c %d	",j->id, j->current, j->pgid);
 	if (j->status == 'f')
 		ft_printf("Done	");
 	else if (j->status == 's')
