@@ -17,9 +17,11 @@ void		free_job_list(void)
 {
 	t_job_list	*job_list;
 
-	job_list = stock(NULL, 10);
+	if ((job_list = stock(NULL, 10)) == NULL)
+		return ;
 	while (job_list)
 	{
+		kill(job_list->j->pgid, SIGINT);
 		free_job(job_list->j);
 		job_list = job_list->next;
 	}

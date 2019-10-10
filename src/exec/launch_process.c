@@ -93,8 +93,6 @@ int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
 	}
 	if (test_builtin(p) != 1)
 		cmd_path = check_path_hash(var, p->cmd, -1, NULL);
-	if (cmd_path == NULL && test_builtin(p) == 0)
-		return (-1);
 	pid = fork();
 	if (pid < 0)
 	{
