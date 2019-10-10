@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:57:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 10:13:23 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,6 +93,13 @@ static int	setenv_rules(t_process *p)
 	return (1);
 }
 
+static int		print_err(char **al)
+{
+	ft_free_tab(al);
+	ft_printf_err("42sh: setenv:{B.T.red.} error{eoc}: Permission denied\n");
+	return (1);
+}
+
 int			ft_setenv(t_process *p, t_var **var)
 {
 	char		**al;
@@ -105,16 +112,18 @@ int			ft_setenv(t_process *p, t_var **var)
 		al[1] = init_data(p->cmd[1]);
 		al[2] = 0;
 		remoove_quote(&al);
+		if (check_name(al[0]) == 1)
+			return (print_err(al));
 		if (setenv_rules(p) == 0)
 			return (0);
 		if (scan_name_for_undesired_symbols(al[0]) == -1)
 		{
 			ft_free_tab(al);
 			ft_printf_err("42sh: setenv: invalid name parameter\n");
-			return (0);
+			return (1);
 		}
 		add_var_to_env(var, al[0], al[1]);
 	}
 	free(al);
-	return (1);
+	return (0);
 }
