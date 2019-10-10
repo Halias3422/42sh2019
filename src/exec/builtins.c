@@ -15,11 +15,6 @@
 #include "../../includes/builtin.h"
 #include "../../includes/termcaps.h"
 
-/*
-** TODO faire en sorte qu'on puisse exec un builtins au milieu d'autres
-** comme ls.
-*/
-
 const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 {
 	{"test", &ft_test, 1},
