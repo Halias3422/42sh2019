@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 10:29:33 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 13:24:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,12 +119,23 @@ void		save_spe_param(char **cmd, t_var *var, int i)
 t_job		*make_job(t_lexeur **res)
 {
 	t_job	*j;
+	t_job	*tmp;
+	t_pos	*pos;
 
+	pos = to_stock(NULL, 1);
 	j = malloc(sizeof(t_job));
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
+	tmp = j;
+	pos->last_cmd_on_bg = 0;
+	while (tmp)
+	{
+		if (tmp->split == '&')
+			pos->last_cmd_on_bg = 1;
+		tmp = tmp->next;
+	}
 	free_lexeur(res);
 	return (j);
 }
