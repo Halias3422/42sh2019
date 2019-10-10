@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:57:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 08:04:18 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ void		print_env(t_var *var)
 {
 	while (var)
 	{
-		if (var->type == ENVIRONEMENT || 1)
+		if (var->type == ENVIRONEMENT)
 		{
 			ft_printf("%s=", var->name);
 			ft_printf("%s\n", var->data);

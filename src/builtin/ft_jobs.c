@@ -3,16 +3,15 @@
 /*                                                              /             */
 /*   ft_jobs.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/08/22 16:44:34 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 10:49:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/10 11:38:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
-#include "../../includes/termcaps.h"
 
 void			print_status_job(char status)
 {
@@ -21,68 +20,123 @@ void			print_status_job(char status)
 	else if (status == 's')
 		ft_printf("Stopped	");
 	else
-		ft_printf("running	");
+		ft_printf("Running	");
 }
 
-void			print_ft_job(t_job *j, int option)
+int				ft_jobs_option(char **cmd, int *i)
 {
-	t_process	*process;
+	int			j;
+	int			ret;
+
+	ret = 0;
+	while (cmd[*i] && cmd[*i][0] == '-')
+	{
+		j = 1;
+		if (ft_strcmp(cmd[*i], "--") == 0)
+			return (ret);
+		while (cmd[*i][j])
+		{
+			if (cmd[*i][j] == 'p')
+				ret = 'p';
+			else if (cmd[*i][j] == 'l')
+				ret = 'l';
+			else
+				return (cmd[*i][j]);
+			j++;
+		}
+		*i += 1;
+	}
+	return (ret);
+}
+
+void			print_current_job(t_job_list *j, int option, char *name)
+{
+	if (option != 'p')
+		ft_printf("[%d]%c ", j->j->id, 'x');
+	if (option == 'p' || option == 'l')
+		ft_printf("%d ", j->j->pgid);
+	if (option != 'p')
+	{
+		print_status_job(j->j->status);
+		ft_printf("%s", name);
+	}
+	ft_putchar ('\n');
+}
+
+char			*built_job_name(t_job_list *j, char *name)
+{
 	int			i;
 
-	if (option == 1)
-		ft_printf("[%d] %d	", j->id, j->pgid);
-	else if (option == 2)
+	i = 0;
+	while (j->j->p->cmd[i])
 	{
-		ft_printf("%d\n", j->pgid);
-		return ;
+		name = ft_strjoinf(name, j->j->p->cmd[i], 1);
+		if (j->j->p->cmd[i + 1])
+			name = ft_strjoinf(name, " ", 1);
+		i++;
 	}
-	else
-		ft_printf("[%d]	", j->id);
-	print_status_job(j->status);
-	process = j->p;
-	while (process)
-	{
-		i = -1;
-		while (process->cmd[++i])
-		{
-			ft_printf("%s ", process->cmd[i]);
-		}
-		process = process->next;
-	}
-	ft_putchar('\n');
-	option = 0;
+	return (name);
 }
 
-int				ft_jobs_option(char **cmd)
+void			print_all_jobs(t_job_list *j, int option)
 {
-	if (ft_tabclen(cmd) > 1)
+	char		*name;
+
+	name = ft_strnew(0);
+	while (j)
 	{
-		if (cmd[1][0] == '-')
-		{
-			if (cmd[1][1] == 'l')
-				return (1);
-			else if (cmd[1][1] == 'p')
-				return (2);
-		}
-		else
-			return (-1);
+		name = built_job_name(j, name);
+		print_current_job(j, option, name);
+		j = j->next;
+		ft_strdel(&name);
+		if (j)
+			name = ft_strnew(0);
 	}
-	return (0);
+}
+
+void			print_selected_jobs(t_job_list *j, int option, char *arg)
+{
+	char		*name;
+	int			check;
+
+	check = 0;
+	name = ft_strnew(0);
+	while (j)
+	{
+		name = built_job_name(j, name);
+		if (ft_strncmp(name, arg, ft_strlen(arg)) == 0 || j->j->id == ft_atoi(arg))
+		{
+			print_current_job(j, option, name);
+			check += 1;
+		}
+		j = j->next;
+		ft_strdel(&name);
+		if (j)
+			name = ft_strnew(0);
+	}
+	if (!check)
+		ft_printf_err("42sh: jobs: %s: no such job\n", arg);
 }
 
 int				ft_jobs(t_process *p, t_var **var)
 {
 	t_job_list	*job_list;
 	int			option;
+	int			i;
 
-	option = ft_jobs_option(p->cmd);
-	job_list = stock(NULL, 10);
-	while (job_list != NULL)
+	(void)var;
+	i = 1;
+	option = ft_jobs_option(p->cmd, &i);
+	if (option != 'l' && option != 'p' && option != 0)
 	{
-		print_ft_job(job_list->j, option);
-		job_list = job_list->next;
+		ft_printf_err("42sh: jobs: -%c: invalid option\n", option);
+		ft_printf_err("jobs: usage: jobs [-l|-p] [job_id...]\n");
+		return (2);
 	}
-	p = NULL;
-	var = NULL;
+	job_list = stock(NULL, 10);
+	if (p->cmd[i] == NULL)
+		print_all_jobs(job_list, option);
+	while (p->cmd[i])
+		print_selected_jobs(job_list, option, p->cmd[i++]);
 	return (0);
 }
