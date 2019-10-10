@@ -15,11 +15,6 @@
 #include "../../includes/builtin.h"
 #include "../../includes/termcaps.h"
 
-/*
-** TODO faire en sorte qu'on puisse exec un builtins au milieu d'autres
-** comme ls.
-*/
-
 const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 {
 	{"test", &ft_test, 1},
@@ -39,7 +34,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"setenv", &ft_setenv, 1},
 	{"unsetenv", &ft_unsetenv, 1},
 	{"env", &ft_env, 0},
-	{"bg", &ft_bg, 0}
+	{"bg", &ft_bg, 1}
 };
 
 int		is_builtin_modify(t_process *p)

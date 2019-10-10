@@ -14,6 +14,25 @@
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
 
+static void	update_current(void)
+{
+	t_job_list	*job_list;
+	t_job_list	*last;
+	t_job_list	*penultimate;
+
+	job_list = stock(NULL, 10);
+	last = NULL;
+	while (job_list)
+	{
+		penultimate->j->current = ' ';
+		last->j->current = '-';
+		job_list->j->current = '+';
+		penultimate = last;
+		last = job_list;
+		job_list = job_list->next;
+	}
+}
+
 void		remove_job(int id)
 {
 	t_job_list	*job_list;
@@ -47,6 +66,7 @@ void		remove_job(int id)
 			i++;
 		}
 	}
+	update_current();
 	stock(start, 9);
 }
 
@@ -55,7 +75,7 @@ void		print_job(t_job *j)
 	t_process	*process;
 	int			i;
 
-	ft_printf("[%d] %c %d	",j->id, j->current, j->pgid);
+	ft_printf("[%d] %c %d	", j->id, j->current, j->pgid);
 	if (j->status == 'f')
 		ft_printf("Done	");
 	else if (j->status == 's')
