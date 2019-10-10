@@ -41,11 +41,11 @@ void		before_redirection_file_in(t_redirect *redirect)
 	}
 	if (ft_strcmp(redirect->token, "<<") == 0)
 	{
-		redirect->open_in = open("tmp", O_CREAT | O_RDWR | O_TRUNC,
+		redirect->open_in = open(PATH_HEREDOC, O_CREAT | O_RDWR | O_TRUNC,
 			S_IRUSR | S_IWUSR);
 		write(redirect->open_in, redirect->heredoc_content,
 			ft_strlen(redirect->heredoc_content));
-		redirect->open_in = open("tmp", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+		redirect->open_in = open(PATH_HEREDOC, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
 	}
 }
 
