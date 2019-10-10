@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   redirection.c                                    .::    .:/ .      .::   */
+/*   before_redirection.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:19:18 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 10:00:34 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,8 @@ void		before_redirection_file_in(t_redirect *redirect)
 			S_IRUSR | S_IWUSR);
 		write(redirect->open_in, redirect->heredoc_content,
 			ft_strlen(redirect->heredoc_content));
-		redirect->open_in = open(PATH_HEREDOC, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+		redirect->open_in = open(PATH_HEREDOC, O_CREAT |
+		O_RDWR, S_IRUSR | S_IWUSR);
 	}
 }
 

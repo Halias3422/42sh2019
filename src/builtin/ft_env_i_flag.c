@@ -3,22 +3,15 @@
 /*                                                              /             */
 /*   ft_env_i_flag.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 09:41:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 12:39:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
-
-void			fill_new_link_in_env(t_var *new_env, char **new_env_var)
-{
-	new_env->name = new_env_var[0];
-	new_env->data = new_env_var[1];
-	new_env->type = ENVIRONEMENT;
-}
 
 static int		fill_new_env(t_process *p, int i, t_var **new_env,
 		t_var **head)
@@ -65,12 +58,6 @@ static void		interpret_env_cmd(t_process *p, int i, char *new_cmd,
 	free(new_cmd);
 }
 
-void			print_new_env(t_var **new_env, t_var **head)
-{
-	*new_env = *head;
-	print_env(*new_env);
-}
-
 int				find_if_cmd_is_builtin(t_process *p)
 {
 	int			i;
@@ -87,13 +74,20 @@ int				find_if_cmd_is_builtin(t_process *p)
 	return (0);
 }
 
+int				go_through_process_cmd_tool(int ret, t_var **new_env,
+t_var **head)
+{
+	if (ret == -2)
+		return (0);
+	print_new_env(new_env, head);
+	return (1);
+}
+
 int				go_through_process_cmd(t_process *p, t_var **new_env,
 				t_var **head, int ret)
 {
-	char		*new_cmd;
 	int			i;
 
-	new_cmd = NULL;
 	i = 1;
 	if (find_if_cmd_is_builtin(p) == 1)
 		return (0);
@@ -103,16 +97,15 @@ int				go_through_process_cmd(t_process *p, t_var **new_env,
 		{
 			if ((ret = fill_new_env(p, i, new_env, head)) <= -1)
 			{
-				if (ret == -2)
+				if (!go_through_process_cmd_tool(ret, new_env, head))
 					return (-1);
-				print_new_env(new_env, head);
 				break ;
 			}
 		}
 		else if (p->cmd[i])
 		{
 			*new_env = *head;
-			interpret_env_cmd(p, i, new_cmd, *new_env);
+			interpret_env_cmd(p, i, NULL, *new_env);
 			break ;
 		}
 	}

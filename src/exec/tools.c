@@ -6,13 +6,20 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 10:55:32 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:39:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 11:01:38 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
+
+void	split_env_while(t_var **save, int *i)
+{
+	if ((*save)->type == ENVIRONEMENT)
+		(*i)++;
+	(*save) = (*save)->next;
+}
 
 char	**split_env(t_var *var)
 {
@@ -24,11 +31,7 @@ char	**split_env(t_var *var)
 	i = 0;
 	save = var;
 	while (save)
-	{
-		if (save->type == ENVIRONEMENT)
-			i++;
-		save = save->next;
-	}
+		split_env_while(&save, &i);
 	save = var;
 	array = (char**)malloc(sizeof(char*) * (i + 1));
 	array[i] = 0;

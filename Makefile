@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/09 10:16:04 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/10 11:58:15 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -42,7 +42,8 @@ SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
 			job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
 				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
-				before_redirection.c new_job.c)
+				before_redirection.c new_job.c process_file.c alias_reduction.c alias_norme.c \
+				exec_tool.c var_norme.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
@@ -55,7 +56,8 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				fc_get_flags.c fc_execute_l_flag.c fc_execute_s_flag.c fc_execute_e_flag.c \
 				fc_tools.c fc_prepare_e_flag.c fc_s_replace_pattern.c ft_hash.c \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
-				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c tools_bis.c)
+				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c tools_bis.c ft_setenv_tool.c \
+				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c)
 
 SRC_MAIN = $(addprefix main/, main.c)
 
