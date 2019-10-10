@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 13:00:04 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 13:41:48 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -99,7 +99,7 @@ static void		init_classic_var(t_pos *pos)
 	pos->last_cmd_on_bg = 0;
 }
 
-void			init_pos(t_pos *pos)
+void			init_pos(t_pos *pos, int usage)
 {
 	pos->max_co = tgetnum("co");
 	pos->max_li = tgetnum("li") - 1;
@@ -111,15 +111,18 @@ void			init_pos(t_pos *pos)
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	init_classic_var(pos);
-	get_cursor_info(pos, &pos->start_li, &pos->start_co, 0);
-	pos->start_co = pos->len_prompt;
-	if (pos->start_li == -1 || pos->start_co == -1)
+	if (usage)
 	{
-		pos->start_li = 0;
-		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
-		print_prompt(pos);
+		get_cursor_info(pos, &pos->start_li, &pos->start_co, 0);
+		pos->start_co = pos->len_prompt;
+		if (pos->start_li == -1 || pos->start_co == -1)
+		{
+			pos->start_li = 0;
+			tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchar);
+			print_prompt(pos);
+		}
+		pos->act_li = pos->start_li;
+		pos->act_co = pos->start_co;
 	}
-	pos->act_li = pos->start_li;
-	pos->act_co = pos->start_co;
 	to_stock(pos, 0);
 }

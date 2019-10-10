@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 13:25:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 14:23:09 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,6 +54,7 @@ char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 		remake_pos_ans(pos);
 	ans = check_backslash(pos);
 	ans = check_for_tilde(ans, env, 0, 0);
+	pos->last_cmd_on_bg = 0;
 	tcsetattr(0, TCSANOW, &pos->old_term);
 	return (ans);
 }

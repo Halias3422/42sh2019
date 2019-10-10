@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 12:59:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 13:42:21 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -239,7 +239,7 @@ t_hist					*create_history(t_pos *pos, t_hist *hist);
 
 void					get_cursor_info(t_pos *pos, int *li, int *co, int i);
 void					init_terminfo(t_pos *pos);
-void					init_pos(t_pos *pos);
+void					init_pos(t_pos *pos, int usage);
 void					*stock(void *to_stock, int usage);
 
 /*
