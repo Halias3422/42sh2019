@@ -263,4 +263,9 @@ void					add_env_temp(t_var **var, char *str, int type);
 char					**remove_tab(char **src, int j);
 t_var					*add_one(char *str, char *name);
 int						add_env_check(char *name, t_var **var, char *str);
+
+int						check_process(t_var *var, t_process *p, t_job *j);
+t_process				*init_launch_job(t_job *j, int *infile);
+void					launch_simple_job(t_process *p, t_job *j, t_var **var);
+void					alert_job(t_job *j);
 #endif
