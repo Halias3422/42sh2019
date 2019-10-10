@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:29:17 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 15:21:52 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,7 @@ void		launch_pipe(t_job *j, t_process *p, t_var *var, int mypipe[2],
 {
 	pipe(mypipe);
 	p->fd_out = mypipe[1];
-	fork_simple(j, p, &var);
+	fork_simple(j, p, &var, NULL);
 	close(mypipe[1]);
 	*infile = mypipe[0];
 }
@@ -76,7 +76,7 @@ void		launch_job(t_job *j, t_var *var)
 		else
 		{
 			p->fd_out = 1;
-			fork_simple(j, p, &var);
+			fork_simple(j, p, &var, NULL);
 		}
 		p = get_and_or(p);
 		free_temp(&var);

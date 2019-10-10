@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 10:04:01 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 10:44:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,6 +69,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 
 char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 {
+	char			*pwd;
 	unsigned char	buf[9];
 	char			*ans;
 
@@ -76,8 +77,11 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 		hist = hist->next;
 	ghist = &hist;
 	init_terminfo(pos);
-	init_pos(pos);
 	ft_bzero(buf, 8);
+	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+		pwd = print_pwd(var));
+	ft_strdel(&pwd);
+	init_pos(pos);
 	print_prompt(pos);
 	signal_list();
 	while (1)

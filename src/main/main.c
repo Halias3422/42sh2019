@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 14:26:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 15:14:52 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,12 +60,8 @@ char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 
 int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
 {
-	char		*pwd;
 	char		*ans;
 
-	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = print_pwd(my_env));
-	ft_strdel(&pwd);
 	ans = make_ans(&pos, hist, my_env);
 	job_notification(&my_env);
 	if (ans == NULL)

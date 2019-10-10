@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/23 08:43:18 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 14:23:29 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 15:15:41 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ char	*get_line(char *str, char **line)
 
 int		get_next_line(const int fd, char **line)
 {
-	static char	*str;
+	static char	*str = NULL;
 	char		buf[BUFF_SIZE + 1];
 	int			ret;
 

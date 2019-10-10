@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 08:17:17 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 11:22:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -116,6 +116,7 @@ int		ft_cd(t_process *p, t_var **var)
 	char	*new_path;
 	char	pwd[1000];
 
+	option = 0;
 	new_path = NULL;
 	i = 0;
 	if (verif_path(ft_get_val("PWD", *var, ENVIRONEMENT), 0) == 0)
@@ -123,11 +124,8 @@ int		ft_cd(t_process *p, t_var **var)
 		getcwd(pwd, 1000);
 		add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), ft_strdup(pwd));
 	}
-	if ((option = get_cd_option(p->cmd, &i, 0, 0)) == -1)
-	{
-		ft_printf_err("cd: usage: cd [-L|-P] [dir]\n");
+	if (check_arguments_number(p, &i, &option) == 1)
 		return (1);
-	}
 	if ((new_path = get_path(p->cmd[i], var, new_path, option)) == NULL)
 		return (1);
 	if (verif_path(new_path, 1) == 0)
