@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:56:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:51:48 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void			put_background(t_job *j)
 	kill(-j->pgid, SIGCONT);
 }
 
-t_job		*find_plus(t_job_list *j)
+t_job			*find_plus(t_job_list *j)
 {
 	t_job_list		*tmp;
 
@@ -33,29 +33,58 @@ t_job		*find_plus(t_job_list *j)
 	return (NULL);
 }
 
+char			*find_split_process(t_process *p)
+{
+	if (p->split == 'A')
+		return (" && ");
+	else if (p->split == '|')
+		return (" || ");
+	else if (p->split == 'P')
+		return (" | ");
+	else
+		return ("");
+}
+
+char			*find_all_cmd(t_job *j)
+{
+	int			i;
+	t_process	*pt;
+	char		*res;
+
+	pt = j->p;
+	res = ft_strdup("");
+	while (pt)
+	{
+		i = -1;
+		while (pt->cmd[++i])
+			ft_strjoin_free(&res, pt->cmd[i]);
+		if (pt->split)
+			ft_strjoin_free(&res, find_split_process(pt));
+		pt = pt->next;
+	}
+	if (j->split == '&')
+		ft_strjoin_free(&res, " &");
+	else
+		ft_strjoin_free(&res, " ;");
+	return (res);
+}
+
 int				ft_bg(t_process *p, t_var **var)
 {
 	t_job		*job;
+	char		*tmp;
 
 	if (ft_tabclen(p->cmd) <= 1)
-	{
 		job = find_plus(stock(NULL, 10));
-		if (job)
-		{
-			put_background(job);
-			print_job(job);
-		}
-		else
-			ft_printf_err("bg: current: no such job\n");
-		return (1);
-	}
 	else
 		job = find_job_by_id(p->cmd[1]);
 	if (job != NULL)
 	{
 		kill(-job->pgid, SIGCONT);
 		job->status = 'r';
-		print_job(job);
+		ft_printf("[%d]%c %s\n", job->id, job->current,
+		tmp = find_all_cmd(job));
+		ft_strdel(&tmp);
 		return (0);
 	}
 	else
