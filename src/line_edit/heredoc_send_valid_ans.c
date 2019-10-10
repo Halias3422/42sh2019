@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 17:29:45 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:41:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,7 @@ void			remake_pos_ans(t_pos *pos)
 	int			i;
 	t_heredoc	*tmp;
 
+	print_hdoc(pos->hdoc);
 	i = 0;
 	while (pos->hdoc && pos->hdoc->prev)
 		pos->hdoc = pos->hdoc->prev;
