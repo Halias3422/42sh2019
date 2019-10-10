@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:16:04 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:28:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,7 @@ int		basic_split_while(int *tint, char *str, char **res, char **tag)
 		heredoc_go_next(str, &tint[0], (*tag), &tint[2]);
 	if (ret == 7 || check_int_for_heredoc(str, tint[0]))
 	{
+		ft_strdel(tag);
 		(*tag) = get_tag(str, &tint[0]);
 		tint[2] = 1;
 	}
