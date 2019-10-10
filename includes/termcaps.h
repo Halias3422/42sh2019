@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 15:43:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:52:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -598,6 +598,7 @@ int						heredoc_found(t_pos *pos, int i, int j);
 void					heredoc_ctrl_d(t_pos *pos, t_hist **hist);
 void					remake_pos_ans(t_pos *pos);
 int						fill_ans_heredoc(t_pos *pos, int i, int j);
+char					*put_symbol_in_ans(char *ans, int i);
 
 /*
 **	HEREDOC_TOOLS_C

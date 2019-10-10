@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 15:44:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:54:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,10 @@ char			*check_backslash_in_heredocs(t_pos *pos, char *ans, int i)
 	else
 		return (pos->hdoc->content);
 	free(pos->hdoc->content);
-	if (ft_strcmp(new_content, pos->hdoc->to_find) == 0)
+	j = ft_strlen(new_content) - 1;
+	while (j > 0 && new_content[j - 1] != ' ')
+		j--;
+	if (ft_strcmp(new_content + j, pos->hdoc->to_find) == 0)
 		pos->hdoc->current_index = 1;
 	return (new_content);
 }
@@ -69,6 +72,7 @@ int				fill_hdoc_content(t_pos *pos, char *ans, int i)
 {
 	while (i > 0 && ans[i] != '\n')
 		i--;
+	ans = put_symbol_in_ans(ans, i);
 	while (pos->hdoc->next && pos->hdoc->current_index == 1)
 		pos->hdoc = pos->hdoc->next;
 	if (ft_strcmp(ans + i + 1, pos->hdoc->to_find) == 0 && ans[i - 1] != 92)
@@ -136,6 +140,8 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 	}
 	if (pos->hdoc)
 	{
+		if (pos->is_complete == 1)
+			pos->ans_heredoc = remove_backslash(pos->ans_heredoc);
 		pos->is_complete = 0;
 		pos->active_heredoc = 1;
 	}

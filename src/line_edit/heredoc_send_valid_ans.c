@@ -6,25 +6,22 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 17:29:45 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:54:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-void			print_hdoc(t_heredoc *hdoc)
+char			*put_symbol_in_ans(char *ans, int i)
 {
-	if (!hdoc)
-		return ;
-	while (hdoc->prev)
-		hdoc = hdoc->prev;
-	while (hdoc)
+	while (ans[i])
 	{
-		ft_printf("to_find = '%s', content = '%s', current_index = %d\n",
-			hdoc->to_find, hdoc->content, hdoc->current_index);
-		hdoc = hdoc->next;
+		if (ans[i] == ' ')
+			ans[i] = -1;
+		i++;
 	}
+	return (ans);
 }
 
 void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
