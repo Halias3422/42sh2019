@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:36:12 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:54:01 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,6 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 	char		*ans;
 
 	ans = make_ans(pos, hist, my_env);
-	ft_printf("ans = [%s]\n", ans);
 	job_notification(&my_env);
 	if (ans == NULL)
 		return (1);

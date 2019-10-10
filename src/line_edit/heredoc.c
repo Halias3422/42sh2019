@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:50:30 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:54:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,17 +66,6 @@ char			*check_backslash_in_heredocs(t_pos *pos, char *ans, int i)
 	if (ft_strcmp(new_content + j, pos->hdoc->to_find) == 0)
 		pos->hdoc->current_index = 1;
 	return (new_content);
-}
-
-char			*put_symbol_in_ans(char *ans, int i)
-{
-	while (ans[i])
-	{
-		if (ans[i] == ' ')
-			ans[i] = -1;
-		i++;
-	}
-	return (ans);
 }
 
 int				fill_hdoc_content(t_pos *pos, char *ans, int i)
