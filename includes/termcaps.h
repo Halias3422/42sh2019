@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:52:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:51:52 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -207,6 +207,8 @@ void					error_handling(t_pos *pos, char *variable, int err);
 */
 
 int						check_term(void);
+int						check_if_process_in_bg(t_pos *pos,
+						unsigned char buf[9]);
 
 /*
 ** CHECK_INPUT.C

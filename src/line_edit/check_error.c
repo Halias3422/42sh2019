@@ -6,14 +6,29 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:14:23 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 15:23:21 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:53:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-int		check_term(void)
+int				check_if_process_in_bg(t_pos *pos, unsigned char buf[9])
+{
+	if (pos->last_cmd_on_bg == 1)
+	{
+		pos->ans = ft_strdup("");
+		while (1)
+		{
+			read(0, buf, 1);
+			if (buf[0] == '\n')
+				return (1);
+		}
+	}
+	return (0);
+}
+
+int				check_term(void)
 {
 	int			ret;
 	char		*term_type;

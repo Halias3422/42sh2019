@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 12:39:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:44:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@ typedef struct s_var		t_var;
 typedef struct s_process	t_process;
 typedef struct s_hist		t_hist;
 typedef struct s_hash		t_hash;
+typedef struct s_job_list	t_job_list;
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -62,7 +63,6 @@ int				ft_type(t_process *p, t_var **var);
 int				ft_export(t_process *p, t_var **ptr_var);
 int				ft_unset(t_process *p, t_var **ptr_var);
 int				ft_fg(t_process *p, t_var **var);
-int				ft_jobs(t_process *p, t_var **var);
 char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);
 void			add_list_env(t_var **var, int type, char *name, char *data);
@@ -261,5 +261,22 @@ char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 
 void			fill_new_link_in_env(t_var *new_env, char **new_env_var);
 void			print_new_env(t_var **new_env, t_var **head);
+
+/*
+**	FT_JOBS_C
+*/
+
+int				ft_jobs(t_process *p, t_var **var);
+char			*built_job_name(t_job_list *j, char *name);
+int				ft_jobs_option(char **cmd, int *i);
+
+/*
+**	FT_JOBS_PRINT_C
+*/
+
+void			print_selected_jobs(t_job_list *j, int option, char *arg);
+void			print_all_jobs(t_job_list *j, int option);
+void			print_current_job(t_job_list *j, int option, char *name);
+void			print_status_job(char status);
 
 #endif
