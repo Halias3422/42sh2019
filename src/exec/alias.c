@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/12 13:09:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 09:42:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 09:56:04 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,6 +25,23 @@ int		print_alias(t_var *var)
 	return (0);
 }
 
+
+int		check_name(char *name)
+{
+	if ((ft_strcmp(name, "_") == 0) || (ft_strcmp(name, "?") == 0) ||
+	(ft_strcmp(name, "!") == 0) || (ft_strcmp(name, "$") == 0) ||
+	(ft_strcmp(name, "0") == 0))
+		return (1);
+	return (0);
+}
+
+int		print_err(char **al)
+{
+	ft_printf_err("42sh: alias:{B.T.red.} error{eoc}: Permission denied\n");
+	ft_free_tab(al);
+	return (1);
+}
+
 int		main_alias(t_process *p, t_var **var)
 {
 	char	**al;
@@ -41,6 +58,8 @@ int		main_alias(t_process *p, t_var **var)
 		al[0] = init_name(p->cmd[k]);
 		al[1] = init_data(p->cmd[k]);
 		remoove_quote(&al);
+		if (check_name(al[0]) == 1)
+			return (print_err(al));
 		i = 0;
 		while (p->cmd[k][i] && p->cmd[k][i] != '=')
 			i++;
@@ -50,7 +69,7 @@ int		main_alias(t_process *p, t_var **var)
 			add_list_alias(var, al[0], al[1]);
 		ft_free_tab(al);
 	}
-	return (1);
+	return (0);
 }
 
 int		error_unlias(char *str)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 10:09:07 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 10:00:59 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,9 +18,16 @@
 void		add_env_temp(t_var **var, char *str, int type)
 {
 	t_var	*start;
+	char	*name;
 
+	name = init_name(str);
+	if (check_name(name) == 1)
+	{
+		ft_strdel(&name);
+		return ;
+	}
 	start = malloc(sizeof(t_var));
-	start->name = init_name(str);
+	start->name = name;
 	start->data = init_data(str);
 	start->type = type;
 	start->next = (*var);
@@ -73,6 +80,11 @@ void		add_env(t_var **var, char *str, char *name)
 	t_var	*prev;
 
 	name = init_name(str);
+	if (check_name(name) == 1)
+	{
+		ft_strdel(&name);
+		return ;
+	}
 	if (!(*var))
 	{
 		add_env_temp(var, str, LOCAL);

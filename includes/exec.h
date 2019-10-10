@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 15:20:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 09:57:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -210,5 +210,6 @@ int						duplication(t_redirect *redirect, int fd_in,
 						int fd_out);
 int						fd_right(char *path);
 void					free_job_list(void);
+int						check_name(char *name);
 
 #endif
