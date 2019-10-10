@@ -99,5 +99,6 @@ int				ft_exit(t_process *p, t_var **var)
 	free_pos();
 	free_t_hist(stock(NULL, 8));
 	free_env_list(*var);
+	free_job_list();
 	exit(status);
 }

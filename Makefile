@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/10 11:12:16 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/10 11:58:15 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -56,7 +56,8 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				fc_get_flags.c fc_execute_l_flag.c fc_execute_s_flag.c fc_execute_e_flag.c \
 				fc_tools.c fc_prepare_e_flag.c fc_s_replace_pattern.c ft_hash.c \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
-				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c tools_bis.c)
+				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c tools_bis.c ft_setenv_tool.c \
+				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c)
 
 SRC_MAIN = $(addprefix main/, main.c)
 

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtin.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 14:38:26 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 12:39:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -180,6 +180,7 @@ void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 
 int				ft_setenv(t_process *p, t_var **var);
 void			print_env(t_var *var);
+int				print_err_setenv(char **al);
 
 /*
 ** FT_UNSETENV_C
@@ -247,5 +248,18 @@ char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path, int i, int absolute);
 int				verif_path(char *path, int mute);
 int				check_arguments_number(t_process *p, int *i, int *option);
+
+/*
+**	FC_PREPARE_E_FLAG_TOOL.C
+*/
+
+char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
+
+/*
+**	FT_ENV_I_FLAG_TOOL.C
+*/
+
+void			fill_new_link_in_env(t_var *new_env, char **new_env_var);
+void			print_new_env(t_var **new_env, t_var **head);
 
 #endif

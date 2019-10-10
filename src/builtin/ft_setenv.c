@@ -3,28 +3,15 @@
 /*                                                              /             */
 /*   ft_setenv.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:57:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 11:27:09 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
-
-void		print_env(t_var *var)
-{
-	while (var)
-	{
-		if (var->type == ENVIRONEMENT || 1)
-		{
-			ft_printf("%s=", var->name);
-			ft_printf("%s\n", var->data);
-		}
-		var = var->next;
-	}
-}
 
 void		add_setenv(t_var **var, char *name, char *data, int usage)
 {
@@ -47,6 +34,21 @@ void		add_setenv(t_var **var, char *name, char *data, int usage)
 		(*var)->data = data;
 		(*var)->type = ENVIRONEMENT;
 	}
+}
+
+static int	setenv_rules(t_process *p)
+{
+	if (p->cmd[1] && p->cmd[2])
+	{
+		ft_printf("42sh: setenv: too much arguments, use -u for usage\n");
+		return (0);
+	}
+	if (p->cmd[1] && ft_strcmp(p->cmd[1], "-u") == 0)
+	{
+		ft_printf("42sh: setenv: usage: setenv [NAME=data, NAME, =NAME]\n");
+		return (0);
+	}
+	return (1);
 }
 
 void		add_var_to_env(t_var **var, char *name, char *data)
@@ -78,21 +80,6 @@ void		add_var_to_env(t_var **var, char *name, char *data)
 	(*var)->data = data;
 }
 
-static int	setenv_rules(t_process *p)
-{
-	if (p->cmd[1] && p->cmd[2])
-	{
-		ft_printf("42sh: setenv: too much arguments, use -u for usage\n");
-		return (0);
-	}
-	if (p->cmd[1] && ft_strcmp(p->cmd[1], "-u") == 0)
-	{
-		ft_printf("42sh: setenv: usage: setenv [NAME=data, NAME, =NAME]\n");
-		return (0);
-	}
-	return (1);
-}
-
 int			ft_setenv(t_process *p, t_var **var)
 {
 	char		**al;
@@ -105,16 +92,18 @@ int			ft_setenv(t_process *p, t_var **var)
 		al[1] = init_data(p->cmd[1]);
 		al[2] = 0;
 		remoove_quote(&al);
+		if (check_name(al[0]) == 1)
+			return (print_err_setenv(al));
 		if (setenv_rules(p) == 0)
 			return (0);
 		if (scan_name_for_undesired_symbols(al[0]) == -1)
 		{
 			ft_free_tab(al);
 			ft_printf_err("42sh: setenv: invalid name parameter\n");
-			return (0);
+			return (1);
 		}
 		add_var_to_env(var, al[0], al[1]);
 	}
 	free(al);
-	return (1);
+	return (0);
 }
