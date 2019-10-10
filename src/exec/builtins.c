@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtins.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 09:08:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:58:25 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"setenv", &ft_setenv, 1},
 	{"unsetenv", &ft_unsetenv, 1},
 	{"env", &ft_env, 0},
-	{"bg", &ft_bg, 0}
+	{"bg", &ft_bg, 1}
 };
 
 int		is_builtin_modify(t_process *p)
