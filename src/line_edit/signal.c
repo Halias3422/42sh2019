@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:42:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 14:05:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,6 +51,8 @@ static void		ctrl_c(t_pos *pos)
 {
 	char		*pwd;
 
+	if (pos->last_cmd_on_bg == 1)
+		return ;
 	while ((*ghist)->next)
 		*ghist = (*ghist)->next;
 	if (pos->active_heredoc == 1)
@@ -66,7 +68,7 @@ static void		ctrl_c(t_pos *pos)
 	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
 		pwd = print_pwd(stock(NULL, 6)));
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
-	init_pos(pos);
+	init_pos(pos, 1);
 	pos->is_complete = 1;
 	ft_strdel(&pwd);
 	print_prompt(pos);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 14:14:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/28 14:51:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 08:15:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,26 +73,6 @@ char			is_function(char *function, t_var **var)
 	return (0);
 }
 
-static void		print_list(t_var *var)
-{
-	int		i;
-	char	*path_env;
-	char	**path;
-
-	ft_printf("liste des builtin:\n");
-	i = 0;
-	ft_printf("%s", g_builtin_list[i].name);
-	while (++i < LEN_BUILTIN_LIST)
-		ft_printf(" ,%s", g_builtin_list[i].name);
-	path_env = ft_get_val("PATH", var, ENVIRONEMENT);
-	path = ft_strsplit(path_env, ':');
-	i = -1;
-	ft_printf("\nliste des path de commandes:\n");
-	while (path[++i])
-		ft_printf("%s\n", path[i]);
-	var = NULL;
-}
-
 int				ft_type(t_process *p, t_var **var)
 {
 	int i;
@@ -100,18 +80,13 @@ int				ft_type(t_process *p, t_var **var)
 
 	i = 0;
 	ret = 1;
-	if (ft_tabclen(p->cmd) > 1 && ft_strcmp(p->cmd[1], "-l") == 0)
-	{
-		print_list(*var);
-		return (0);
-	}
 	while (p->cmd[++i])
 	{
-		if (is_builtin(p->cmd[i]))
+		if (is_alias(p->cmd[i], *var))
+			ret = 0;
+		else if (is_builtin(p->cmd[i]))
 			ret = 0;
 		else if (is_function(p->cmd[i], var))
-			ret = 0;
-		else if (is_alias(p->cmd[i], *var))
 			ret = 0;
 		else
 			ft_printf("%s not found\n", p->cmd[i]);
