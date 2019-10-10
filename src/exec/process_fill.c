@@ -3,80 +3,16 @@
 /*                                                              /             */
 /*   process_fill.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 12:50:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 09:51:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
-
-void		fill_process_split(t_job **j, t_lexeur **res, int i)
-{
-	int		k;
-
-	k = i;
-	while (res[k] && (res[k]->word || (res[k]->token == 4 ||
-	res[k]->token == 5 || res[k]->token == 6 || res[k]->token == 7)))
-	{
-		k++;
-	}
-	if (res[k] && res[k]->token == 0)
-		(*j)->p->split = 'A';
-	else if (res[k] && res[k]->token == 2)
-		(*j)->p->split = '|';
-	else if (res[k] && res[k]->token == 3)
-		(*j)->p->split = 'P';
-	else
-		(*j)->p->split = '\0';
-}
-
-char		*add_space_content(char *content)
-{
-	char	*res;
-	int		i;
-
-	i = 0;
-	if (!content)
-		return (NULL);
-	res = malloc(sizeof(char) * (ft_strlen(content) + 1));
-	while (content[i])
-	{
-		if (content[i] == -1)
-			res[i] = ' ';
-		else
-			res[i] = content[i];
-		i++;
-	}
-	res[i] = '\0';
-	ft_strdel(&content);
-	return (res);
-}
-
-char		*get_content(char *tag, t_lexeur **res, int *t, int *size)
-{
-	char	*content;
-
-	(*t)++;
-	content = NULL;
-	while (res[*t] && ft_strcmp(res[*t]->word, tag))
-	{
-		(*size)++;
-		if (!content)
-			content = ft_strdup(res[*t]->word);
-		else
-			ft_strjoin_free(&content, res[*t]->word);
-		if (res[*t + 1] && ft_strcmp(res[*t + 1]->word, tag))
-			ft_strjoin_free(&content, "\n");
-		(*t)++;
-	}
-	(*t)++;
-	content = add_space_content(content);
-	return (content);
-}
 
 int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
@@ -117,12 +53,7 @@ int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	else
-	{
-		if (res[*t]->token == 8)
-			tmp->fd = 0;
-		else
-			tmp->fd = 1;
-	}
+		tmp->fd = (res[*t]->token == 8) ? 0 : 1;
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
@@ -133,9 +64,7 @@ int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 {
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = malloc(sizeof(t_redirect));
-	tmp = tmp->next;
-	tmp->heredoc_content = NULL;
+	make_tmp_great_again(&tmp);
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
