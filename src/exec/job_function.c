@@ -33,12 +33,26 @@ static void	update_current(void)
 	}
 }
 
+void		remove_job_free(t_job_list **job_list, t_job_list **last,
+			t_job_list **start)
+{
+	t_job_list *next;
+
+	next = (*job_list)->next;
+	if (*last == NULL)
+		*start = next;
+	else
+		(*last)->next = next;
+	free_job((*job_list)->j);
+	free(*job_list);
+	*job_list = next;
+}
+
 void		remove_job(int id)
 {
 	t_job_list	*job_list;
 	t_job_list	*start;
 	t_job_list	*last;
-	t_job_list	*next;
 	int			i;
 
 	start = stock(NULL, 10);
@@ -48,16 +62,7 @@ void		remove_job(int id)
 	while (job_list)
 	{
 		if (job_list->j->id == id)
-		{
-			next = job_list->next;
-			if (last == NULL)
-				start = next;
-			else
-				last->next = next;
-			free_job(job_list->j);
-			free(job_list);
-			job_list = next;
-		}
+			remove_job_free(&job_list, &last, &start);
 		else
 		{
 			job_list->j->id = i;
