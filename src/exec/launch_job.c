@@ -27,7 +27,7 @@ t_process	*get_and_or(t_process *p)
 
 void		alert_job(t_job *j)
 {
-	if (j->p->builtin == 1 && j->split != '&' && is_builtin_modify(j->p))
+	if (j->split != '&' && is_builtin_modify(j->p))
 	{
 		free_job(j);
 		return ;
@@ -37,7 +37,9 @@ void		alert_job(t_job *j)
 	else if (job_is_stoped(j))
 		j->notified = 1;
 	else
+	{
 		remove_job(j->id);
+	}
 }
 
 void		launch_pipe(t_job *j, t_process *p, t_var *var, int mypipe[2],

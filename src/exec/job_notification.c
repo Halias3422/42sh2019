@@ -83,7 +83,12 @@ void		job_notification(t_var **var)
 	{
 		next = job_list->next;
 		if (job_is_completed(job_list->j))
-			job_completed(job_list, &first_job, next, &last);
+		{
+			print_job(job_list->j);
+			remove_job(job_list->j->id);
+			return ;
+			//job_completed(job_list, &first_job, next, &last);
+		}
 		else if (job_is_stoped(job_list->j) && !job_list->j->notified)
 		{
 			job_list->j->notified = 1;

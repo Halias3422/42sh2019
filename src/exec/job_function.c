@@ -19,27 +19,33 @@ void		remove_job(int id)
 	t_job_list	*job_list;
 	t_job_list	*start;
 	t_job_list	*last;
+	t_job_list	*next;
+	int			i;
 
 	start = stock(NULL, 10);
 	job_list = start;
-	if (job_list->j->id == id)
-	{
-		free_job(job_list->j);
-		free(job_list);
-		stock(NULL, 9);
-		return ;
-	}
+	i = 1;
+	last = NULL;
 	while (job_list)
 	{
 		if (job_list->j->id == id)
 		{
-			last->next = job_list->next;
+			next = job_list->next;
+			if (last == NULL)
+				start = next;
+			else
+				last->next = next;
 			free_job(job_list->j);
 			free(job_list);
-			break ;
+			job_list = next;
 		}
-		last = job_list;
-		job_list = job_list->next;
+		else
+		{
+			job_list->j->id = i;
+			last = job_list;
+			job_list = job_list->next;
+			i++;
+		}
 	}
 	stock(start, 9);
 }
