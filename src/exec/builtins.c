@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 11:15:25 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 14:51:49 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"test", &ft_test, 1},
 	{"alias", &main_alias, 1},
 	{"unalias", &main_unalias, 1},
-	{"set", &ft_set, 1},
+	{"set", &ft_set, 0},
 	{"echo", &ft_echo, 0},
 	{"cd", &ft_cd, 1},
 	{"type", &ft_type, 0},

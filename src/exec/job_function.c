@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 12:49:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 15:05:30 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,14 +30,14 @@ void		change_less(t_job_list *j_less)
 
 int			already_update(void)
 {
-	t_job_list		*j;
+	t_job_list		*job_list;
 
-	j = stock(NULL, 10);
-	while (j)
+	job_list = stock(NULL, 10);
+	while (job_list)
 	{
-		if (j->j->current == '+')
+		if (job_list->j->current == '+')
 			return (0);
-		j = j->next;
+		job_list = job_list->next;
 	}
 	return (1);
 }
