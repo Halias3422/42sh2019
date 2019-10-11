@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 07:16:33 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 10:45:18 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,7 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 	if (execve(path, arg, tab_var) == -1)
 	{
 		ft_tabfree(tab_var);
+		ft_strdel(&path);
 		return (-1);
 	}
 	return (0);
