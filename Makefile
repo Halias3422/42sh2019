@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/11 10:23:22 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/11 11:07:40 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -73,7 +73,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -Og -g3 #-fsanitize=address #-fsanitize=undefined 
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined 
 FLAG_END = -lcurses
 NORME = norminette
 

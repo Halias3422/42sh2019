@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:38:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 11:15:34 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ void		free_process(t_process *ptr_p)
 	while (p)
 	{
 		if (p->cmd)
-			ft_tabfree(p->cmd);
+			ft_free_tab(p->cmd);
 		if (p->redirect)
 			free_redirections(p->redirect);
 		next = p->next;
