@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 13:44:46 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 16:13:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,8 +14,12 @@
 #include "../../includes/termcaps.h"
 #include "../../includes/builtin.h"
 
-void	put_foreground(t_job *j, t_var **var, t_process *p)
+void			put_foreground(t_job *j, t_var **var, t_process *p)
 {
+	t_pos		*pos;
+
+	pos = to_stock(NULL, 1);
+	pos->last_cmd_on_bg = 1;
 	kill(-j->pgid, SIGCONT);
 	j->status = 'r';
 	tcsetpgrp(0, j->pgid);
@@ -28,13 +32,14 @@ void	put_foreground(t_job *j, t_var **var, t_process *p)
 	signal(SIGTTOU, SIG_DFL);
 }
 
-int		rerun_job(t_job *j, t_var **var, t_process *p)
+int				rerun_job(t_job *j, t_var **var, t_process *p)
 {
 	put_foreground(j, var, p);
 	return (0);
 }
 
-void	move_plus_and_minus_indicators(t_job_list *j, t_job_list *save)
+void			move_plus_and_minus_indicators(t_job_list *j,
+				t_job_list *save)
 {
 	if (j->j->current == '+' && save == j)
 	{
@@ -42,26 +47,18 @@ void	move_plus_and_minus_indicators(t_job_list *j, t_job_list *save)
 		while (save->next)
 			save = save->next;
 		save->j->current = '-';
-		save->next->j->current = '+';
+		if (save->next)
+			save->next->j->current = '+';
+		else
+			save->j->current = '+';
 	}
 	else if (save->j->current == '+' && j != save)
 		return ;
 	else
-	{
-		j->j->current = ' ';
-		while (save->next)
-		{
-			if (save->next->j->current == '-')
-			{
-				save->next->j->current = '+';
-				save->j->current = '-';
-			}
-			save = save->next;
-		}
-	}
+		go_through_jobs_for_current(j, save);
 }
 
-t_job	*find_job_by_id(char *argv)
+t_job			*find_job_by_id(char *argv)
 {
 	int			pid;
 	t_job_list	*job_list;
@@ -75,7 +72,8 @@ t_job	*find_job_by_id(char *argv)
 	while (job_list)
 	{
 		name = built_job_name(job_list, name);
-		if (job_list->j->pgid == pid || job_list->j->id == pid || ft_strncmp(name , argv, ft_strlen(name) == 0))
+		if (job_list->j->pgid == pid || job_list->j->id == pid ||
+				ft_strncmp(name, argv, ft_strlen(name) == 0))
 		{
 			move_plus_and_minus_indicators(job_list, save);
 			ft_strdel(&name);
@@ -87,18 +85,17 @@ t_job	*find_job_by_id(char *argv)
 	return (NULL);
 }
 
-int		ft_fg(t_process *p, t_var **var)
+int				ft_fg(t_process *p, t_var **var)
 {
 	t_job		*job;
 
 	if (ft_tabclen(p->cmd) <= 1)
 	{
 		job = find_plus(stock(NULL, 10));
+		move_plus_and_minus_indicators(find_plus_jb(stock(NULL, 10)),
+			stock(NULL, 10));
 		if (job != NULL)
-		{
-			rerun_job(job, var, p);
-			return (0);
-		}
+			return (rerun_job(job, var, p));
 		else
 			ft_printf_err("bg: current: no such job\n", p->fd_out);
 	}
@@ -106,10 +103,7 @@ int		ft_fg(t_process *p, t_var **var)
 	{
 		job = find_job_by_id(p->cmd[1]);
 		if (job != NULL)
-		{
-			rerun_job(job, var, p);
-			return (0);
-		}
+			return (rerun_job(job, var, p));
 		else
 			ft_putstr_fd("fg: job not found", p->fd_out);
 	}
