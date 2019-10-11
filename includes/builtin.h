@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 09:58:44 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 16:05:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,7 +71,14 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name, int *error);
 int				comp_num_operator(char *name1, char *type, char *name2,
 				int *error);
+
+/*
+**	FT_BG_C
+*/
+
+t_job_list		*find_plus_jb(t_job_list *j);
 int				ft_bg(t_process *p, t_var **var);
+
 /*
 **	FT_EXIT_C
 */

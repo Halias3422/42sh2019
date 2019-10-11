@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 15:00:24 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 16:06:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,7 @@ void			change_plus_and_minus_indicators(t_job_list *jb, t_job *j,
 			save->j->current = ' ';
 		save = save->next;
 	}
+	if (j)
 	j->current = '-';
 	jb->j->current = '+';
 }
