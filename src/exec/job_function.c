@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 10:48:19 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 07:45:19 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,7 +86,7 @@ void		print_job(t_job *j)
 	else if (j->status == 's')
 		ft_printf("Stopped	");
 	else
-		ft_printf("running	");
+		ft_printf("Running	");
 	process = j->p;
 	while (process)
 	{

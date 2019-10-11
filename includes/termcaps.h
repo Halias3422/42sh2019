@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 17:51:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 18:41:59 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -185,7 +185,7 @@ char					*check_path_hash(t_var **var, char **arg, int i,
 void					print_info(t_pos *pos);
 void					print_hist(t_pos *pos, t_hist *hist);
 int						got_a_wildcard(char *name);
-
+int						check_ans(char *str);
 /*
 ** CALCUL_LINE
 */

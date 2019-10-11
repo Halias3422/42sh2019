@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:37:00 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 07:50:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,7 @@ t_hist			*entry_is_complete(t_pos *pos, t_hist *hist)
 		ft_strdup(pos->ans_heredoc_save);
 	hist = add_list_back_hist(hist);
 	hist = hist->prev;
+	pos->was_incomplete = 0;
 	return (hist);
 }
 
@@ -88,6 +89,13 @@ t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 		ft_strdel(&pos->saved_ans);
 		return (hist);
 	}
+	if (check_ans(pos->ans) == 1)
+	{
+		while (hist->next)
+			hist = hist->next;
+		hist->cmd = ft_secure_free(hist->cmd);
+		return(hist);
+	}
 	if (pos->is_complete == 0)
 	{
 		pos->history_mode = 0;
@@ -97,9 +105,6 @@ t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 	if (pos->is_complete == 0)
 		entry_is_incomplete(pos, hist, buf);
 	else
-	{
 		entry_is_complete(pos, hist);
-		pos->was_incomplete = 0;
-	}
 	return (hist);
 }

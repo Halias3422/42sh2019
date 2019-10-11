@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 15:21:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 07:45:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ t_process	*init_launch_job(t_job *j, int *infile)
 		add_job(j);
 	j->status = 'r';
 	before_redirection(p);
-	infile = 0;
+	*infile = 0;
 	return (p);
 }
 
