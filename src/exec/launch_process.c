@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 07:16:33 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 11:19:09 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,7 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 	if (execve(path, arg, tab_var) == -1)
 	{
 		ft_tabfree(tab_var);
+//		ft_strdel(&path);
 		return (-1);
 	}
 	return (0);
@@ -100,8 +101,14 @@ int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
 		return (-1);
 	}
 	if (pid == 0)
+	{
 		launch_process(p, *var, cmd_path);
+		ft_strdel(&cmd_path);
+	}
 	else
+	{
 		update_pid(p, j, pid, var);
+		ft_strdel(&cmd_path);
+	}
 	return (1);
 }

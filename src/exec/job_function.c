@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   job_function.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 13:24:39 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 15:29:47 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,14 +14,15 @@
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
 
-static void	update_current(void)
+void		update_current(void)
 {
-	t_job_list		*job_list;
-	t_job_list		*last;
-	t_job_list		*penultimate;
+	t_job_list	*job_list;
+	t_job_list	*last;
+	t_job_list	*penultimate;
 
 	job_list = stock(NULL, 10);
 	last = NULL;
+	penultimate = NULL;
 	while (job_list)
 	{
 		penultimate->j->current = ' ';

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 09:15:15 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 11:22:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,7 @@ char				*absolute_path(char *path)
 	else if (access(path, X_OK) == -1)
 		ft_printf("42sh: %s: permission denied\n", tmp);
 	else
-		return (path);
+		return (ft_strdup(path));
 	return (NULL);
 }
 

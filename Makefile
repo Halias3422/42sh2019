@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/11 13:19:26 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/11 15:31:59 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -73,7 +73,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined 
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined 
 FLAG_END = -lcurses
 NORME = norminette
 
@@ -90,27 +90,15 @@ RESET = \033[0m
 
 all: $(NAME)
 
-$(NAME) : $(OBJ_PATH) $(OBJ) Makefile
+$(NAME) : $(OBJ) Makefile
 	@echo  "\n$(LIGHT_GREEN)42sh loaded$(RESET)"
 	@make -C libft
 	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
 	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]$(YELLOW)"
 
-#	@./21sh
-
-$(OBJ_PATH):
-	@mkdir -p obj 2> /dev/null
-	@mkdir -p obj/line_edit 2> /dev/null
-	@mkdir -p obj/lexeur 2> /dev/null
-	@mkdir -p obj/replace 2> /dev/null
-	@mkdir -p obj/exec 2> /dev/null
-	@mkdir -p obj/builtin 2> /dev/null
-	@mkdir -p obj/main 2> /dev/null
-	@mkdir -p obj/ft_printf 2> /dev/null
-	@mkdir -p obj/hash 2> /dev/null
-
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
+	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAG) -g -I $(INC_PATH) -o $@ -c $<
 	@echo "$(LIGHT_GREEN).\c"
 

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 12:43:12 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 13:44:46 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,17 +34,54 @@ int		rerun_job(t_job *j, t_var **var, t_process *p)
 	return (0);
 }
 
+void	move_plus_and_minus_indicators(t_job_list *j, t_job_list *save)
+{
+	if (j->j->current == '+' && save == j)
+	{
+		save->j->current = ' ';
+		while (save->next)
+			save = save->next;
+		save->j->current = '-';
+		save->next->j->current = '+';
+	}
+	else if (save->j->current == '+' && j != save)
+		return ;
+	else
+	{
+		j->j->current = ' ';
+		while (save->next)
+		{
+			if (save->next->j->current == '-')
+			{
+				save->next->j->current = '+';
+				save->j->current = '-';
+			}
+			save = save->next;
+		}
+	}
+}
+
 t_job	*find_job_by_id(char *argv)
 {
 	int			pid;
 	t_job_list	*job_list;
+	char		*name;
+	t_job_list	*save;
 
 	job_list = stock(NULL, 10);
 	pid = ft_atoi(argv);
+	name = ft_strnew(0);
+	save = job_list;
 	while (job_list)
 	{
-		if (job_list->j->pgid == pid || job_list->j->id == pid)
+		name = built_job_name(job_list, name);
+		if (job_list->j->pgid == pid || job_list->j->id == pid || ft_strncmp(name , argv, ft_strlen(name) == 0))
+		{
+			move_plus_and_minus_indicators(job_list, save);
+			ft_strdel(&name);
 			return (job_list->j);
+		}
+		ft_strdel(&name);
 		job_list = job_list->next;
 	}
 	return (NULL);

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 12:57:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 15:29:40 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,8 @@ void		save_spe_param(char **cmd, t_var *var, int i)
 		var->next = malloc(sizeof(t_var));
 		var = var->next;
 		var->name = ft_strdup("_");
+		var->data = NULL;
+		var->type = SPE;
 		var->next = NULL;
 	}
 	else
