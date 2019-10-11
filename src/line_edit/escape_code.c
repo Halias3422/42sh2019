@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 15:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 12:53:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 12:38:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,9 +74,9 @@ t_hist		*escape_code(char *buf, t_pos *pos, t_hist *hist)
 	if ((buf && buf[1] == 27) || ft_strncmp(buf + 1, "[F", 2) == 0 ||
 			ft_strncmp(buf + 1, "[H", 2) == 0)
 		find_jump(buf, pos);
-	if (ft_strncmp(buf + 1, "[A", 2) == 0)
+	if (ft_strncmp(buf + 1, "[A", 2) == 0 && pos->active_heredoc == 0)
 		hist = move_through_history(hist, pos, "up");
-	else if (ft_strncmp(buf + 1, "[B", 2) == 0)
+	else if ((ft_strncmp(buf + 1, "[B", 2) == 0) && pos->active_heredoc == 0)
 		hist = move_through_history(hist, pos, "down");
 	if (pos->let_nb < (int)ft_strlen(pos->ans) &&
 			ft_strncmp(buf + 1, "[C", 2) == 0)

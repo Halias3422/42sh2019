@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 17:39:20 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 12:49:35 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,6 +62,7 @@ int				ft_jobs(t_process *p, t_var **var)
 
 	(void)var;
 	i = 1;
+	update_current();
 	option = ft_jobs_option(p->cmd, &i);
 	if (option != 'l' && option != 'p' && option != 0)
 	{
