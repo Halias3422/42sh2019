@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 08:34:22 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 12:50:29 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,10 @@ char			*find_all_cmd(t_job *j)
 	{
 		i = -1;
 		while (pt->cmd[++i])
+		{
 			ft_strjoin_free(&res, pt->cmd[i]);
+			ft_strjoin_free(&res, " ");
+		}
 		if (pt->split)
 			ft_strjoin_free(&res, find_split_process(pt));
 		pt = pt->next;
@@ -74,6 +77,7 @@ int				ft_bg(t_process *p, t_var **var)
 	t_job		*job;
 	char		*tmp;
 
+	update_current();
 	if (ft_tabclen(p->cmd) <= 1)
 		job = find_plus(stock(NULL, 10));
 	else

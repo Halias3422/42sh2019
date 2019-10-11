@@ -6,12 +6,13 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 08:37:06 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 12:43:12 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
+#include "../../includes/builtin.h"
 
 void	put_foreground(t_job *j, t_var **var, t_process *p)
 {
@@ -73,7 +74,7 @@ int		ft_fg(t_process *p, t_var **var)
 			return (0);
 		}
 		else
-			ft_putstr_fd("fg: job bot found", p->fd_out);
+			ft_putstr_fd("fg: job not found", p->fd_out);
 	}
 	return (1);
 }
