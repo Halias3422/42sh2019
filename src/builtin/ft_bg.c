@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 12:50:29 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 13:25:36 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,7 +77,6 @@ int				ft_bg(t_process *p, t_var **var)
 	t_job		*job;
 	char		*tmp;
 
-	update_current();
 	if (ft_tabclen(p->cmd) <= 1)
 		job = find_plus(stock(NULL, 10));
 	else

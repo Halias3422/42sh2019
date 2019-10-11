@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 10:00:34 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 13:44:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,10 +26,7 @@ int			fd_right(char *path)
 			return (1);
 	}
 	else
-	{
-		ft_printf_err("42sh: no such file or directory: %s\n", path);
 		return (1);
-	}
 	return (0);
 }
 
@@ -37,7 +34,9 @@ void		before_redirection_file_in(t_redirect *redirect)
 {
 	if (ft_strcmp(redirect->token, "<") == 0)
 	{
-		redirect->open_in = open(redirect->fd_out, O_RDONLY);
+		if ((redirect->open_in = open(redirect->fd_out, O_RDONLY)) == -1)
+			ft_printf_err("42sh: %s: No such file or directory\n",
+			redirect->fd_out);
 	}
 	if (ft_strcmp(redirect->token, "<<") == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 12:49:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 13:24:39 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,52 +14,12 @@
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
 
-void		change_less(t_job_list *j_less)
+static void	update_current(void)
 {
-	t_job_list		*j;
+	t_job_list		*job_list;
+	t_job_list		*last;
+	t_job_list		*penultimate;
 
-	j_less->j->current = '+';
-	j = stock(NULL, 10);
-	while (j->next && (j->next && j->next->j->current != '+'))
-	{
-		j = j->next;
-	}
-	if (j->j->current != '+')
-		j->j->current = '-';
-}
-
-int			already_update(void)
-{
-	t_job_list		*j;
-
-	j = stock(NULL, 10);
-	while (j)
-	{
-		if (j->j->current == '+')
-			return (0);
-		j = j->next;
-	}
-	return (1);
-}
-
-void		update_current(void)
-{
-	t_job_list	*job_list;
-	t_job_list	*last;
-	t_job_list	*penultimate;
-
-	job_list = stock(NULL, 10);
-	if (already_update())
-	{
-		while (job_list)
-		{
-			if (job_list->j->current == '-')
-				return (change_less(job_list));
-			job_list = job_list->next;
-		}
-	}
-	while (job_list)
-		job_list = job_list->next;
 	job_list = stock(NULL, 10);
 	last = NULL;
 	while (job_list)

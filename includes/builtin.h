@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 09:58:44 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 13:24:53 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -282,6 +282,5 @@ void			print_status_job(char status);
 
 
 t_job			*find_plus(t_job_list *j);
-void			update_current(void);
 
 #endif
