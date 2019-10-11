@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 16:05:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 16:22:00 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,6 +71,15 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name, int *error);
 int				comp_num_operator(char *name1, char *type, char *name2,
 				int *error);
+/*
+**	FT_BG_FG_TOOLS_C
+*/
+
+t_job			*find_plus(t_job_list *j);
+void			go_through_jobs_for_current(t_job_list *j, t_job_list *save);
+t_job_list		*find_plus_jb(t_job_list *j);
+void			change_plus_and_minus_indicators(t_job_list *jb, t_job *j,
+				t_job_list *save);
 
 /*
 **	FT_BG_C
@@ -286,7 +295,6 @@ void			print_selected_jobs(t_job_list *j, int option, char *arg);
 void			print_all_jobs(t_job_list *j, int option);
 void			print_current_job(t_job_list *j, int option, char *name);
 void			print_status_job(char status);
-
 
 t_job			*find_plus(t_job_list *j);
 void			update_current(void);

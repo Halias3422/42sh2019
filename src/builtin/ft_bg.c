@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 16:06:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 16:09:34 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,35 +19,6 @@ void			put_background(t_job *j)
 	kill(-j->pgid, SIGCONT);
 }
 
-t_job			*find_plus(t_job_list *j)
-{
-	t_job_list		*tmp;
-
-	tmp = j;
-	while (tmp)
-	{
-		if (tmp->j->current == '+')
-			return (tmp->j);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-t_job_list		*find_plus_jb(t_job_list *j)
-{
-	t_job_list		*tmp;
-
-	tmp = j;
-	while (tmp)
-	{
-		if (tmp->j->current == '+')
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-
 char			*find_split_process(t_process *p)
 {
 	if (p->split == 'A')
@@ -58,22 +29,6 @@ char			*find_split_process(t_process *p)
 		return (" | ");
 	else
 		return ("");
-}
-
-void			change_plus_and_minus_indicators(t_job_list *jb, t_job *j,
-				t_job_list *save)
-{
-	if (jb->j == j)
-		return ;
-	while (save)
-	{
-		if (save->j->current == '-')
-			save->j->current = ' ';
-		save = save->next;
-	}
-	if (j)
-	j->current = '-';
-	jb->j->current = '+';
 }
 
 static void		iterate_through_list(t_job_list *jb, char *ans)

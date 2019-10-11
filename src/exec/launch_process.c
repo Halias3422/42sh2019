@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 11:19:09 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 16:20:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,6 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 	if (execve(path, arg, tab_var) == -1)
 	{
 		ft_tabfree(tab_var);
-//		ft_strdel(&path);
 		return (-1);
 	}
 	return (0);
@@ -80,10 +79,9 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 	}
 }
 
-int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
+int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
+			char **cmd_path)
 {
-	pid_t		pid;
-
 	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
 	p->background = j->split == '&' ? 1 : 0;
@@ -93,7 +91,17 @@ int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
 			return (1);
 	}
 	if (test_builtin(p) != 1)
-		cmd_path = check_path_hash(var, p->cmd, -1, NULL);
+		*cmd_path = check_path_hash(var, p->cmd, -1, NULL);
+	return (0);
+}
+
+int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
+{
+	pid_t		pid;
+	int			ret;
+
+	if ((ret = check_path_before_fork(p, var, j, &cmd_path)) != 0)
+		return (ret);
 	pid = fork();
 	if (pid < 0)
 	{

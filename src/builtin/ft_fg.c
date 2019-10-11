@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 16:04:55 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 16:13:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,9 +14,9 @@
 #include "../../includes/termcaps.h"
 #include "../../includes/builtin.h"
 
-void				put_foreground(t_job *j, t_var **var, t_process *p)
+void			put_foreground(t_job *j, t_var **var, t_process *p)
 {
-	t_pos			*pos;
+	t_pos		*pos;
 
 	pos = to_stock(NULL, 1);
 	pos->last_cmd_on_bg = 1;
@@ -32,42 +32,14 @@ void				put_foreground(t_job *j, t_var **var, t_process *p)
 	signal(SIGTTOU, SIG_DFL);
 }
 
-int					rerun_job(t_job *j, t_var **var, t_process *p)
+int				rerun_job(t_job *j, t_var **var, t_process *p)
 {
 	put_foreground(j, var, p);
 	return (0);
 }
 
-static t_job_list	*find_plus_jb(t_job_list *j)
-{
-	t_job_list		*tmp;
-
-	tmp = j;
-	while (tmp)
-	{
-		if (tmp->j->current == '+')
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-void				go_through_jobs_for_current(t_job_list *j, t_job_list *save)
-{
-	j->j->current = ' ';
-	while (save->next)
-	{
-		if (save->next->j->current == '-')
-		{
-			save->next->j->current = '+';
-			save->j->current = '-';
-		}
-		save = save->next;
-	}
-}
-
-void				move_plus_and_minus_indicators(t_job_list *j,
-					t_job_list *save)
+void			move_plus_and_minus_indicators(t_job_list *j,
+				t_job_list *save)
 {
 	if (j->j->current == '+' && save == j)
 	{
@@ -86,7 +58,7 @@ void				move_plus_and_minus_indicators(t_job_list *j,
 		go_through_jobs_for_current(j, save);
 }
 
-t_job	*find_job_by_id(char *argv)
+t_job			*find_job_by_id(char *argv)
 {
 	int			pid;
 	t_job_list	*job_list;
@@ -101,7 +73,7 @@ t_job	*find_job_by_id(char *argv)
 	{
 		name = built_job_name(job_list, name);
 		if (job_list->j->pgid == pid || job_list->j->id == pid ||
-				ft_strncmp(name , argv, ft_strlen(name) == 0))
+				ft_strncmp(name, argv, ft_strlen(name) == 0))
 		{
 			move_plus_and_minus_indicators(job_list, save);
 			ft_strdel(&name);
@@ -113,7 +85,7 @@ t_job	*find_job_by_id(char *argv)
 	return (NULL);
 }
 
-int		ft_fg(t_process *p, t_var **var)
+int				ft_fg(t_process *p, t_var **var)
 {
 	t_job		*job;
 
