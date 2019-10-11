@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 07:50:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 07:57:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,7 +94,7 @@ t_hist			*input_is_entry(t_pos *pos, t_hist *hist, char *buf)
 		while (hist->next)
 			hist = hist->next;
 		hist->cmd = ft_secure_free(hist->cmd);
-		return(hist);
+		return (hist);
 	}
 	if (pos->is_complete == 0)
 	{

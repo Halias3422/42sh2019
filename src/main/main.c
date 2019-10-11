@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 07:47:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 08:01:28 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -100,7 +100,6 @@ int				main(int ac, char **av, char **env)
 	pos.last_cmd_on_bg = 0;
 	pos.prompt = ft_strdup("$ ");
 	hist = create_history(&pos, hist);
-	ghist = &hist;
 	while (1)
 	{
 		if (main_loop(&pos, stock(NULL, 6), hist) != 0)
