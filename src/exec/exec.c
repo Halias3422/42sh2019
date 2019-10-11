@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 08:53:13 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 08:57:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,8 @@ void		save_spe_param(char **cmd, t_var *var, int i)
 		var->next = malloc(sizeof(t_var));
 		var = var->next;
 		var->name = ft_strdup("_");
+		var->data = NULL;
+		var->type = SPE;
 		var->next = NULL;
 	}
 	else
