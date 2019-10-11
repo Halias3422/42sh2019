@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 17:44:33 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 08:38:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ typedef struct s_process	t_process;
 typedef struct s_hist		t_hist;
 typedef struct s_hash		t_hash;
 typedef struct s_job_list	t_job_list;
+typedef struct s_job		t_job;
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -278,5 +279,8 @@ void			print_selected_jobs(t_job_list *j, int option, char *arg);
 void			print_all_jobs(t_job_list *j, int option);
 void			print_current_job(t_job_list *j, int option, char *name);
 void			print_status_job(char status);
+
+
+t_job			*find_plus(t_job_list *j);
 
 #endif

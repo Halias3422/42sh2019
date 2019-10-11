@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 17:51:48 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 08:34:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,7 +88,7 @@ int				ft_bg(t_process *p, t_var **var)
 		return (0);
 	}
 	else
-		ft_putstr_fd("bg: job not found\n", p->fd_out);
+		ft_printf_err("bg: no such job\n", p->fd_out);
 	var = NULL;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_fg.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:46:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 08:37:06 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,8 +55,14 @@ int		ft_fg(t_process *p, t_var **var)
 
 	if (ft_tabclen(p->cmd) <= 1)
 	{
-		ft_putstr_fd("usage: fg %[job_id]", p->fd_out);
-		return (1);
+		job = find_plus(stock(NULL, 10));
+		if (job != NULL)
+		{
+			rerun_job(job, var, p);
+			return (0);
+		}
+		else
+			ft_printf_err("bg: current: no such job\n", p->fd_out);
 	}
 	else
 	{
