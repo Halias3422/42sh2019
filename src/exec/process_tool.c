@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:37:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 17:49:18 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 09:48:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,47 +14,52 @@
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
 
-int                     cnt_process(t_lexeur **res, int i)
+int				cnt_process(t_lexeur **res, int i)
 {
-    int     nb;
-    nb = 0;
-    while (res[i])
-    {
-        if (res[i]->word)
-            nb++;
-        i++;
-    }
-    return (nb);
+	int		nb;
+
+	nb = 0;
+	while (res[i])
+	{
+		if (res[i]->word)
+			nb++;
+		i++;
+	}
+	return (nb);
 }
-void                    change_job(t_job **j, t_process **start)
+
+void			change_job(t_job **j, t_process **start)
 {
-    (*j)->p->next = NULL;
-    (*j)->p = *start;
-    (*j) = (*j)->next;
-    (*j)->p = malloc(sizeof(t_process));
-    *start = (*j)->p;
+	(*j)->p->next = NULL;
+	(*j)->p = *start;
+	(*j) = (*j)->next;
+	(*j)->p = malloc(sizeof(t_process));
+	*start = (*j)->p;
 }
-int                     check_moove_index(t_lexeur **res, int *t)
+
+int				check_moove_index(t_lexeur **res, int *t)
 {
-    while (res[*t] && res[*t]->word)
-        (*t)++;
-    if (res[*t] && (res[*t]->token != 4 && res[*t]->token != 5 &&
-    res[*t]->token != 8 && res[*t]->token != 6 && res[*t]->token != 9
-    && res[*t]->token != 7))
-        return (1);
-    return (0);
+	while (res[*t] && res[*t]->word)
+		(*t)++;
+	if (res[*t] && (res[*t]->token != 4 && res[*t]->token != 5 &&
+	res[*t]->token != 8 && res[*t]->token != 6 && res[*t]->token != 9
+	&& res[*t]->token != 7))
+		return (1);
+	return (0);
 }
-t_redirect              *init_var(int *done, int *t, int *i)
+
+t_redirect		*init_var(int *done, int *t, int *i)
 {
-    (*done) = 0;
-    (*t) = *i;
-    return (NULL);
+	(*done) = 0;
+	(*t) = *i;
+	return (NULL);
 }
-int                     check_token_in_condition(t_lexeur **res, int t)
+
+int				check_token_in_condition(t_lexeur **res, int t)
 {
-    if (res[t] && (res[t]->token == 4 || res[t]->token == 5 ||
-    res[t]->token == 8 || res[t]->token == 6 || res[t]->token == 7 ||
-    res[t]->token == 9))
-        return (1);
-    return (0);
+	if (res[t] && (res[t]->token == 4 || res[t]->token == 5 ||
+	res[t]->token == 8 || res[t]->token == 6 || res[t]->token == 7 ||
+	res[t]->token == 9))
+		return (1);
+	return (0);
 }

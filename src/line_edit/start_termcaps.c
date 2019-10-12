@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 11:27:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 08:00:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,22 @@ static char		*returning_ans(t_pos *pos)
 	return (pos->ans);
 }
 
+static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
+{
+	if (pos->active_heredoc)
+	{
+		heredoc_ctrl_d(pos, hist);
+		if (pos->active_heredoc == 0)
+			return (1);
+	}
+	if (!pos->ans || !pos->ans[0])
+	{
+		write_alias(var, pos);
+		exit(0);
+	}
+	return (0);
+}
+
 static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 				unsigned char buf[9])
 {
@@ -36,17 +52,8 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 		read(0, buf + 1, 8);
 	else if (buf[0] == 4)
 	{
-		if (pos->active_heredoc)
-		{
-			heredoc_ctrl_d(pos, hist);
-			if (pos->hdoc == NULL)
-				return (returning_ans(pos));
-		}
-		else if (!pos->ans || !pos->ans[0])
-		{
-			write_alias(var, pos);
-			exit(0);
-		}
+		if (handle_ctrl_d(pos, hist, var) == 1)
+			return (returning_ans(pos));
 	}
 	if (pos->max_co > 2)
 		*hist = check_input(buf, pos, *hist);
@@ -62,15 +69,21 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 
 char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 {
-	unsigned char	buf[9];
 	char			*ans;
+	char			*pwd;
+	unsigned char	buf[9];
 
-	while (hist->next)
+	if (check_if_process_in_bg(pos, buf) == 1)
+		return (pos->ans);
+	while (hist && hist->next)
 		hist = hist->next;
 	ghist = &hist;
 	init_terminfo(pos);
-	init_pos(pos);
 	ft_bzero(buf, 8);
+	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+		pwd = print_pwd(var));
+	ft_strdel(&pwd);
+	init_pos(pos, 1);
 	print_prompt(pos);
 	signal_list();
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 12:07:17 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 14:51:49 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,11 +14,6 @@
 #include "../../includes/exec.h"
 #include "../../includes/builtin.h"
 #include "../../includes/termcaps.h"
-
-/*
-** TODO faire en sorte qu'on puisse exec un builtins au milieu d'autres
-** comme ls.
-*/
 
 const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 {
@@ -39,7 +34,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"setenv", &ft_setenv, 1},
 	{"unsetenv", &ft_unsetenv, 1},
 	{"env", &ft_env, 0},
-	{"bg", &ft_bg, 0}
+	{"bg", &ft_bg, 1}
 };
 
 int		is_builtin_modify(t_process *p)
@@ -47,6 +42,8 @@ int		is_builtin_modify(t_process *p)
 	int i;
 
 	i = -1;
+	if (!p->cmd)
+		return (0);
 	if (!p->cmd[0])
 		return (0);
 	while (++i < LEN_BUILTIN_LIST)

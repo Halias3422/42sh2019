@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 16:43:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 13:41:17 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,12 +44,6 @@ int		check_int_for_heredoc(char *str, int i)
 	return (0);
 }
 
-/*
-** tint[0] = i;
-** tint[1] = k;
-** tint[2] = heredoc;
-*/
-
 int		basic_split_while(int *tint, char *str, char **res, char **tag)
 {
 	int		start;
@@ -61,6 +55,7 @@ int		basic_split_while(int *tint, char *str, char **res, char **tag)
 		heredoc_go_next(str, &tint[0], (*tag), &tint[2]);
 	if (ret == 7 || check_int_for_heredoc(str, tint[0]))
 	{
+		ft_strdel(tag);
 		(*tag) = get_tag(str, &tint[0]);
 		tint[2] = 1;
 	}
@@ -87,7 +82,7 @@ char	**split_space(char *str)
 	tint[1] = 0;
 	tint[2] = 0;
 	tag = NULL;
-	res = malloc(sizeof(char *) * (ft_strlen(str) + 1));
+	res = malloc(sizeof(char *) * (ft_strlen(str) + 2));
 	while (str[tint[0]])
 	{
 		if (basic_split_while(tint, str, res, &tag) == 1)

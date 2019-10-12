@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:56:51 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 11:22:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ static char			*complete_hash_table(t_hash *tmp, char *arg, char *path)
 		tmp->hit += 1;
 	else
 		init_single_link(tmp, arg, path);
-	return (tmp->path);
+	return (ft_strdup(tmp->path));
 }
 
 void				read_hash_table(t_hash **hash)
@@ -53,7 +53,7 @@ static char			*search_exec_in_table(t_hash *hash, char *arg)
 				ft_strcmp(hash->exec, arg) == 0)
 		{
 			hash->hit += 1;
-			return (hash->path);
+			return (ft_strdup(hash->path));
 		}
 		hash = hash->next;
 	}
@@ -109,8 +109,5 @@ char				*check_path_hash(t_var **var, char **arg,
 		else if (access(paths[i], F_OK) == 0 && access(paths[i], X_OK) != 0)
 			denied += 1;
 	}
-	if (denied != 0)
-		return (path_denied(paths, arg));
-	ft_free_tab(paths);
-	return (NULL);
+	return (path_denied(paths, arg, denied));
 }

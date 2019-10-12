@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:19:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 07:59:44 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,26 +19,20 @@ void		jump_space(char *buf, int *i)
 		(*i)++;
 }
 
-char		*change_buf(char *buf)
+void		check_token_for_redirection_quote(char *str, int *i)
 {
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	res = malloc(sizeof(char) * (ft_strlen(buf) + 1));
-	while (buf[i])
+	if (str[*i] && str[*i] == '\'')
 	{
-		if (buf[i] == '\\' && buf[i + 1])
-			i++;
-		res[j] = buf[i];
-		if (buf[i])
-			i++;
-		j++;
+		(*i)++;
+		while (str[*i] && str[*i] != '\'')
+			(*i)++;
 	}
-	res[j] = '\0';
-	return (res);
+	if (str[*i] && str[*i] == '"')
+	{
+		(*i)++;
+		while (str[*i] && str[*i] != '"')
+			(*i)++;
+	}
 }
 
 int			check_token_for_redirection(char *str)
@@ -50,12 +44,7 @@ int			check_token_for_redirection(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] && str[i] == '\'')
-		{
-			i++;
-			while (str[i] && str[i] != '\'')
-				i++;
-		}
+		check_token_for_redirection_quote(str, &i);
 		if (i == 0 || str[i - 1] != '\\')
 			token = find_token(str, i);
 		if (token == 4 || token == 5 || token == 6 || token == 7 || token == 8

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtin.h                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 12:07:43 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 11:00:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,13 +18,18 @@
 # include "termcaps.h"
 # include "hash.h"
 # include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 # define LEN_BUILTIN_LIST 18
 # define TERM "42sh"
-typedef struct	s_var t_var;
-typedef struct	s_process t_process;
-typedef struct	s_hist t_hist;
-typedef struct	s_hash t_hash;
+
+typedef struct s_var		t_var;
+typedef struct s_process	t_process;
+typedef struct s_hist		t_hist;
+typedef struct s_hash		t_hash;
+typedef struct s_job_list	t_job_list;
+typedef struct s_job		t_job;
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -48,31 +53,51 @@ typedef struct	s_fc
 	int			error;
 }				t_fc;
 
-
 extern const t_builtin	g_builtin_list[LEN_BUILTIN_LIST];
 
-# include <sys/types.h>
-# include <sys/stat.h>
-
 int				ft_test(t_process *p, t_var **var);
+int				is_comp(char *op);
+int				comp_operator(char *name1, char *type, char *name2, int *error);
 int				ft_echo(t_process *p, t_var **var);
 int				ft_set(t_process *p, t_var **ptr_var);
 int				ft_type(t_process *p, t_var **var);
 int				ft_export(t_process *p, t_var **ptr_var);
 int				ft_unset(t_process *p, t_var **ptr_var);
-int				ft_fg(t_process *p, t_var **var);
-int				ft_jobs(t_process *p, t_var **var);
-
 char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);
 void			add_list_env(t_var **var, int type, char *name, char *data);
 int				remove_list_var(t_var **ptr_var, int type, char *name);
+int				verif_int(char *name, int *error);
+int				comp_num_operator(char *name1, char *type, char *name2,
+				int *error);
 
-int				verif_int(char *name);
-int				comp_num_operator(char *name1, char *type, char *name2);
+/*
+**	FT_FG_C
+*/
 
+void			put_foreground(t_job *j, t_var **var, t_process *p);
+void			move_plus_and_minus_indicators(t_job_list *j, t_job_list *save);
+t_job			*find_job_by_id(char *argv);
+int				rerun_job(t_job *j, t_var **var, t_process *p);
+int				ft_fg(t_process *p, t_var **var);
 
+/*
+**	FT_BG_FG_TOOLS_C
+*/
+
+t_job			*find_plus(t_job_list *j);
+void			go_through_jobs_for_current(t_job_list *j, t_job_list *save);
+t_job_list		*find_plus_jb(t_job_list *j);
+void			change_plus_and_minus_indicators(t_job_list *jb, t_job *j,
+				t_job_list *save);
+
+/*
+**	FT_BG_C
+*/
+
+t_job_list		*find_plus_jb(t_job_list *j);
 int				ft_bg(t_process *p, t_var **var);
+
 /*
 **	FT_EXIT_C
 */
@@ -138,7 +163,7 @@ void			prepare_s_flag(t_fc *fc, t_hist *hist, t_var **var);
 
 void			send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env);
 void			exec_ide_with_tmp_file(t_fc *fc, int fd, char **env);
-void			exec_new_cmds(char **new_cmds, char **env);
+void			exec_new_cmds(char **new_cmds);
 char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 				int ret);
 
@@ -151,6 +176,12 @@ void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist);
 char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
+
+/*
+**		FC_FREE_C
+*/
+
+void			free_fc_struct(t_fc *fc);
 
 /*
 **	FT_HASH_C
@@ -176,6 +207,7 @@ void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 
 int				ft_setenv(t_process *p, t_var **var);
 void			print_env(t_var *var);
+int				print_err_setenv(char **al);
 
 /*
 ** FT_UNSETENV_C
@@ -209,9 +241,9 @@ void			free_name_and_data(char *name, char *data);
 
 t_var			*put_new_entry_in_var(t_var *var, char **new_env_entry,
 				int usage);
-void		free_new_env(t_var *head);
-t_var		*init_t_var(t_var *ne);
-t_var		*add_list_back_env(t_var *env);
+void			free_new_env(t_var *head);
+t_var			*init_t_var(t_var *ne);
+t_var			*add_list_back_env(t_var *env);
 
 /*
 **	FT_CD_C
@@ -242,6 +274,38 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path, int i, int absolute);
 int				verif_path(char *path, int mute);
+int				check_arguments_number(t_process *p, int *i, int *option);
 
+/*
+**	FC_PREPARE_E_FLAG_TOOL.C
+*/
+
+char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
+
+/*
+**	FT_ENV_I_FLAG_TOOL.C
+*/
+
+void			fill_new_link_in_env(t_var *new_env, char **new_env_var);
+void			print_new_env(t_var **new_env, t_var **head);
+
+/*
+**	FT_JOBS_C
+*/
+
+int				ft_jobs(t_process *p, t_var **var);
+char			*built_job_name(t_job_list *j, char *name);
+int				ft_jobs_option(char **cmd, int *i);
+
+/*
+**	FT_JOBS_PRINT_C
+*/
+
+void			print_selected_jobs(t_job_list *j, int option, char *arg);
+void			print_all_jobs(t_job_list *j, int option);
+void			print_current_job(t_job_list *j, int option, char *name);
+void			print_status_job(char status);
+
+t_job			*find_plus(t_job_list *j);
 
 #endif

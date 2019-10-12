@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_bg.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:11:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 15:20:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,33 +14,78 @@
 #include "../../includes/termcaps.h"
 #include "../../includes/exec.h"
 
-void		put_background(t_job *j)
+void			put_background(t_job *j)
 {
 	kill(-j->pgid, SIGCONT);
 }
 
-int			ft_bg(t_process *p, t_var **var)
+char			*find_split_process(t_process *p)
+{
+	if (p->split == 'A')
+		return (" && ");
+	else if (p->split == '|')
+		return (" || ");
+	else if (p->split == 'P')
+		return (" | ");
+	else
+		return ("");
+}
+
+static void		iterate_through_list(t_job_list *jb, char *ans)
+{
+	char		*name;
+	t_job_list	*save;
+
+	save = jb;
+	name = ft_strnew(0);
+	while (jb)
+	{
+		name = built_job_name(jb, name);
+		if (jb->j->id == ft_atoi(ans) ||
+		ft_strncmp(name, ans, ft_strlen(name)) == 0)
+		{
+			change_plus_and_minus_indicators(jb, find_plus(save), save);
+			ft_strdel(&name);
+			return ;
+		}
+		ft_strdel(&name);
+		jb = jb->next;
+	}
+	ft_printf_err("42sh: bg: %s: no such job\n", ans);
+}
+
+t_job			*find_job_by_id_bg(char **cmd, int i)
+{
+	t_job		*j;
+	t_job_list	*jb;
+
+	jb = stock(NULL, 10);
+	j = find_plus(jb);
+	if (cmd[i] == NULL)
+		return (j);
+	while (cmd[i])
+		iterate_through_list(jb, cmd[i++]);
+	return (j);
+}
+
+int				ft_bg(t_process *p, t_var **var)
 {
 	t_job		*job;
+//	char		*tmp;
+	t_pos		*pos;
 
-	if (ft_tabclen(p->cmd) <= 1)
+	job = find_job_by_id_bg(p->cmd, 1);
+	if (job != NULL)
 	{
-		ft_putstr_fd("usage: bg %[job_id]\n", p->fd_out);
-		return (1);
+		pos = to_stock(NULL, 1);
+		pos->last_cmd_on_bg = 1;
+		kill(-job->pgid, SIGCONT);
+		job->status = 'r';
+//		ft_strdel(&tmp);
+		return (0);
 	}
-	else
-	{
-		job = find_job_by_id(p->cmd[1]);
-		if (job != NULL)
-		{
-			kill(-job->pgid, SIGCONT);
-			job->status = 'r';
-			print_job(job);
-			return (0);
-		}
-		else
-			ft_putstr_fd("bg: job not found\n", p->fd_out);
-	}
+	else if (p->cmd[1] == NULL)
+		ft_printf_err("42sh: bg: no such job\n", p->fd_out);
 	var = NULL;
 	return (1);
 }

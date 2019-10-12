@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:03:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 07:58:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,8 +42,6 @@ void		fill_alias_solo(char *str, t_alias *alias)
 	char	*tmp;
 
 	tmp = alias->data;
-	// if (alias->data != NULL)
-	// 	ft_strdel(&alias->data);
 	alias->data = ft_strdup(str);
 	ft_strdel(&tmp);
 	ft_strdel(&str);

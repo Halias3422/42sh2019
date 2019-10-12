@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   back_slash.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:50:35 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/08 20:58:59 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,6 @@ void		del_back_slash(char ***ar)
 	k = 0;
 	while ((*ar)[j])
 	{
-		// printf("len de |%s|= %d\n", (*ar)[j], ft_strlen((*ar)[j]));
 		while ((*ar)[j][k])
 		{
 			if (del_back_slash_browse(ar, &j, &k))

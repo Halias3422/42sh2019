@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/08 11:18:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 07:43:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 15:51:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,8 +18,8 @@ static void		init_fc_struct(t_fc *fc)
 	fc->flags_model = ft_strdup("elnrs");
 	fc->flags = ft_strnew(6);
 	fc->ename = NULL;
-	fc->str_first = ft_strnew(0);
-	fc->str_last = ft_strnew(0);
+	fc->str_first = NULL;
+	fc->str_last = NULL;
 	fc->int_first = -1;
 	fc->int_last = -1;
 	fc->first_is_str = -1;
@@ -84,7 +84,10 @@ static void		execute_fc_according_to_flags(t_fc *fc, t_var **var,
 	if (fc->int_last == 0 && fc->last_is_str == -1)
 		fc->int_last = hist->cmd_no - 1;
 	if (fc->error == 1)
+	{
+		free_fc_struct(fc);
 		return ;
+	}
 	if (ft_strchr(fc->flags, 'l') != NULL)
 		prepare_l_flag(fc, hist);
 	else if (ft_strchr(fc->flags, 's') != NULL)
@@ -108,11 +111,7 @@ int				ft_fc(t_process *p, t_var **var)
 		if (fc.error == 0)
 			execute_fc_according_to_flags(&fc, var, p);
 	}
-	free(fc.flags_model);
-	free(fc.flags);
-	free(fc.ename);
-	free(fc.str_first);
-	free(fc.str_last);
+	free_fc_struct(&fc);
 	if (fc.error == 0)
 		return (0);
 	return (1);

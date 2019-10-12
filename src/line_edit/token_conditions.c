@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   token_conditions.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 13:29:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:42:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,7 +39,7 @@ int		brace_param(char *ans, int i)
 {
 	t_pos		*pos;
 
-	pos = stock(NULL, 1);
+	pos = to_stock(NULL, 1);
 	while (ans[i])
 	{
 		if (ans[i] == '}' && ans[i - 1] != 92)
@@ -83,7 +83,7 @@ int		simple_pipe(char *ans, int i)
 	{
 		if (ans[i] != 92 && (ans[i + 1] == '&' || ans[i] == '|'))
 			return (ft_strlen(ans));
-			i++;
+		i++;
 	}
 	if (i == j)
 		return (ft_strlen(ans));

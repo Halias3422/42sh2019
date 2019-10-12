@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tools.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:15:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/24 13:42:42 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:43:37 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,4 +52,15 @@ int		is_in_selection_area(int i, t_pos *pos)
 		(i <= pos->start_select && i >= pos->let_nb))
 		return (1);
 	return (0);
+}
+
+void	*to_stock(void *stock, int usage)
+{
+	static t_pos	*pos = NULL;
+
+	if (usage == 0)
+		pos = stock;
+	else if (usage == 1)
+		return (pos);
+	return (NULL);
 }

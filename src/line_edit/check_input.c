@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 10:13:01 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 15:12:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,11 +45,10 @@ static t_hist	*input_no_escape(t_pos *pos, t_hist *hist, unsigned char *buf)
 		input_is_printable_char(pos, (char*)buf);
 	if (buf[0] == 18 || pos->ctrl_search_history == 1)
 		hist = control_search_history(pos, hist, buf);
-	if (pos->ans != NULL)
+	if (pos->ans != NULL && check_ans(pos->ans) != 1)
 		update_history(pos, hist, (char*)buf);
 	return (hist);
 }
-
 
 t_hist			*check_input(unsigned char *buf, t_pos *pos, t_hist *hist)
 {

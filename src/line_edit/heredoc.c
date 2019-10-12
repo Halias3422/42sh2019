@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:09:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:54:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,13 +42,40 @@ int				heredoc_found(t_pos *pos, int i, int j)
 	return (1);
 }
 
-int				fill_hdoc_content(t_pos *pos, char *ans, int i, int j)
+char			*check_backslash_in_heredocs(t_pos *pos, char *ans, int i)
+{
+	int			j;
+	char		*new_content;
+
+	pos->hdoc->content = ft_strjoinf(pos->hdoc->content, ans + i + 1, 1);
+	j = ft_strlen(pos->hdoc->content) - 1;
+	while (j > 0 && pos->hdoc->content[j] != 32)
+		j--;
+	if (j > 0 && pos->hdoc->content[j - 1] == 92)
+	{
+		new_content = ft_strnew(j);
+		new_content = ft_strncpy(new_content, pos->hdoc->content, j - 1);
+		new_content = ft_strjoinf(new_content, pos->hdoc->content + j + 1, 1);
+	}
+	else
+		return (pos->hdoc->content);
+	free(pos->hdoc->content);
+	j = ft_strlen(new_content) - 1;
+	while (j > 0 && new_content[j - 1] != ' ')
+		j--;
+	if (ft_strcmp(new_content + j, pos->hdoc->to_find) == 0)
+		pos->hdoc->current_index = 1;
+	return (new_content);
+}
+
+int				fill_hdoc_content(t_pos *pos, char *ans, int i)
 {
 	while (i > 0 && ans[i] != '\n')
 		i--;
+	ans = put_symbol_in_ans(ans, i);
 	while (pos->hdoc->next && pos->hdoc->current_index == 1)
 		pos->hdoc = pos->hdoc->next;
-	if (ft_strcmp(ans + i + 1, pos->hdoc->to_find) == 0)
+	if (ft_strcmp(ans + i + 1, pos->hdoc->to_find) == 0 && ans[i - 1] != 92)
 	{
 		pos->hdoc->current_index = 1;
 		pos->hdoc->content = ft_strjoinf(pos->hdoc->content, ans + i + 1, 1);
@@ -58,15 +85,11 @@ int				fill_hdoc_content(t_pos *pos, char *ans, int i, int j)
 			return (1);
 		return (0);
 	}
-	j = i;
-	while (ans[++j])
-	{
-		if (ans[j] == 32)
-			ans[j] = -1;
-	}
-	pos->hdoc->content = ft_strjoinf(pos->hdoc->content, ans + i + 1, 1);
+	pos->hdoc->content = check_backslash_in_heredocs(pos, ans, i);
 	pos->hdoc->content = ft_strjoinf(pos->hdoc->content, " ", 1);
 	ft_strdel(&ans);
+	if (pos->hdoc->current_index == 1 && pos->hdoc->next == NULL)
+		return (1);
 	return (0);
 }
 
@@ -109,7 +132,7 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 		while (pos->hdoc->prev)
 			pos->hdoc = pos->hdoc->prev;
 		if (fill_hdoc_content(pos, ft_strdup(pos->ans),
-					ft_strlen(pos->ans) - 1, ft_strlen(pos->ans) - 1))
+					ft_strlen(pos->ans) - 1))
 		{
 			pos->is_complete = 1;
 			return ;
@@ -117,6 +140,8 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 	}
 	if (pos->hdoc)
 	{
+		if (pos->is_complete == 1)
+			pos->ans_heredoc = remove_backslash(pos->ans_heredoc);
 		pos->is_complete = 0;
 		pos->active_heredoc = 1;
 	}

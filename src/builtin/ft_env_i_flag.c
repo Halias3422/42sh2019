@@ -6,19 +6,12 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:39:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 13:38:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
-
-void			fill_new_link_in_env(t_var *new_env, char **new_env_var)
-{
-	new_env->name = new_env_var[0];
-	new_env->data = new_env_var[1];
-	new_env->type = ENVIRONEMENT;
-}
 
 static int		fill_new_env(t_process *p, int i, t_var **new_env,
 		t_var **head)
@@ -60,41 +53,59 @@ static void		interpret_env_cmd(t_process *p, int i, char *new_cmd,
 		new_cmd = ft_strjoinf(new_cmd, " ", 1);
 		i++;
 	}
+	(void)head;
 	if (check_error(new_cmd) != -1)
 		start_exec(start_lex(head, new_cmd), head);
-	free(new_cmd);
 }
 
-void			print_new_env(t_var **new_env, t_var **head)
+int				find_if_cmd_is_builtin(t_process *p)
 {
-	*new_env = *head;
-	print_env(*new_env);
+	int			i;
+
+	i = 2;
+	while (p->cmd[i] && ft_strchr(p->cmd[i], '=') != NULL)
+		i++;
+	if (ft_strcmp(p->cmd[i], "fc") == 0 || ft_strcmp(p->cmd[i], "set") == 0 ||
+	ft_strcmp(p->cmd[i], "unset") == 0 || ft_strcmp(p->cmd[i], "export") == 0)
+	{
+		ft_printf("env: %s: No such file or directory\n", p->cmd[i]);
+		return (1);
+	}
+	return (0);
+}
+
+int				go_through_process_cmd_tool(int ret, t_var **new_env,
+t_var **head)
+{
+	if (ret == -2)
+		return (0);
+	print_new_env(new_env, head);
+	return (1);
 }
 
 int				go_through_process_cmd(t_process *p, t_var **new_env,
 				t_var **head, int ret)
 {
-	char		*new_cmd;
 	int			i;
 
-	new_cmd = NULL;
 	i = 1;
+	if (find_if_cmd_is_builtin(p) == 1)
+		return (0);
 	while (p->cmd[++i])
 	{
 		if (ft_strchr(p->cmd[i], '=') != NULL)
 		{
 			if ((ret = fill_new_env(p, i, new_env, head)) <= -1)
 			{
-				if (ret == -2)
+				if (!go_through_process_cmd_tool(ret, new_env, head))
 					return (-1);
-				print_new_env(new_env, head);
 				break ;
 			}
 		}
 		else if (p->cmd[i])
 		{
 			*new_env = *head;
-			interpret_env_cmd(p, i, new_cmd, *new_env);
+			interpret_env_cmd(p, i, NULL, *new_env);
 			break ;
 		}
 	}

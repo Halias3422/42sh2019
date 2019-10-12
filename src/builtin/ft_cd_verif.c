@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:11:29 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:12 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/09 11:20:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -88,5 +88,20 @@ int			verif_path(char *path, int mute)
 		print_cd_error(path, i, mute, 2);
 	else
 		return (1);
+	return (0);
+}
+
+int			check_arguments_number(t_process *p, int *i, int *option)
+{
+	if ((*option = get_cd_option(p->cmd, i, 0, 0)) == -1)
+	{
+		ft_printf_err("cd: usage: cd [-L|-P] [dir]\n");
+		return (1);
+	}
+	if (p->cmd[*i] && p->cmd[*i + 1])
+	{
+		ft_printf_err("cd: too many arguments\n");
+		return (1);
+	}
 	return (0);
 }

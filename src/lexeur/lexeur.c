@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:48:08 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 12:07:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 17:40:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,7 +106,7 @@ t_lexeur		**start_lex(t_var *var, char *res)
 	return (array);
 }
 
-void	print_lexer(t_lexeur *lex)
+void			print_lexer(t_lexeur *lex)
 {
 	ft_printf_err("%s\n", g_fill_token[lex->token].name);
 }

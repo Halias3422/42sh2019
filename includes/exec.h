@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 09:38:52 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,10 +24,10 @@
 # define FINISHED 1
 # define WRITE_END 1
 # define READ_END 0
+# define PATH_HEREDOC "/tmp/heredoc"
 
-typedef struct			s_lexeur t_lexeur;
-typedef struct			s_var t_var;
-
+typedef struct s_lexeur	t_lexeur;
+typedef struct s_var	t_var;
 
 typedef	struct			s_redirect
 {
@@ -57,6 +57,7 @@ typedef	struct			s_process
 	int					fd_error;
 	int					file_in;
 	int					file_out;
+	int					background;
 	t_redirect			*redirect;
 }						t_process;
 
@@ -69,6 +70,8 @@ typedef struct			s_job
 	char				status;
 	int					notified;
 	int					id;
+	char				current;
+	int					was_a_plus;
 }						t_job;
 
 typedef struct			s_job_list
@@ -83,7 +86,7 @@ typedef struct			s_job_list
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int		start_exec(t_lexeur **res, t_var *var);
+int						start_exec(t_lexeur **res, t_var *var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -91,9 +94,21 @@ int		start_exec(t_lexeur **res, t_var *var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		fill_process(t_job *j, t_lexeur **res);
-void		fill_token(t_process *p, t_lexeur **res, int *i);
+void					fill_process(t_job *j, t_lexeur **res);
+void					fill_token(t_process *p, t_lexeur **res, int *i);
 
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                         process_file.c                                     ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void					fill_process_split(t_job **j, t_lexeur **res, int i);
+char					*add_space_content(char *content);
+char					*get_content(char *tag, t_lexeur **res, int *t,
+						int *size);
+void					make_tmp_great_again(t_redirect **tmp);
+void					add_heredoc(char *tag, t_lexeur **res, int *i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -112,11 +127,11 @@ int						check_token_in_condition(t_lexeur **res, int t);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		fill_process_split(t_job **j, t_lexeur **res, int i);
-void		fill_token(t_process *p, t_lexeur **res, int *i);
-void		fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
-void		fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
-void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
+void					fill_process_split(t_job **j, t_lexeur **res, int i);
+void					fill_token(t_process *p, t_lexeur **res, int *i);
+int						fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t);
+int						fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t);
+void					fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -124,10 +139,18 @@ void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		launch_job(t_job *j, t_var *var);
-//int			solve_execve(char *path, char **arg, t_var *var);
-//int			main_exec_while(t_process *p, t_var *var);
-int		ft_test_path(t_process *p, t_var *var);
+void					launch_job(t_job *j, t_var *var);
+int						ft_test_path(t_process *p, t_var *var);
+
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                                 exec_tool.c                                ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void					init_job(t_job *j);
+void					fill_job(t_job *j, t_lexeur **res);
+void					free_lexeur(t_lexeur **res);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -135,10 +158,10 @@ int		ft_test_path(t_process *p, t_var *var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-char		*ft_join_env(char *s1, char const *s2);
-char		**split_env(t_var *var);
-char		*strjoin_path(char *s1, char *s2);
-int			use_execve_acces(char *tmp, char **res, t_var *l_var);
+char					*ft_join_env(char *s1, char const *s2);
+char					**split_env(t_var *var);
+char					*strjoin_path(char *s1, char *s2);
+int						use_execve_acces(char *tmp, char **res, t_var *l_var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -146,8 +169,8 @@ int			use_execve_acces(char *tmp, char **res, t_var *l_var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void		cnf_print_error(char *str);
-void		ft_tabfree(char **res);
+void					cnf_print_error(char *str);
+void					ft_tabfree(char **res);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -155,65 +178,96 @@ void		ft_tabfree(char **res);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int			main_option_exec(t_process **first, t_process **second, t_var *var);
+int						main_option_exec(t_process **first, t_process **second,
+						t_var *var);
 
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                          alias_norme.c                                     ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void					free_one(t_var *var);
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                          alias_reduction.c                                 ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+int						print_alias(t_var *var);
+int						check_name(char *name);
+int						print_err(char *name, char *data);
+void					ft_free_deux(char *s, char *s1);
+int						error_unlias(char *str);
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                    alias.c                                 ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-int			main_alias(t_process *p, t_var **var);
-int			main_unalias(t_process *p, t_var **var);
+int						main_alias(t_process *p, t_var **var);
+int						main_unalias(t_process *p, t_var **var);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 **┃                                    alias.c                                 ┃
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
-void		add_alias(t_var **var, char *name, char *data);
-void		find_alias(t_process *p, t_var *var, int k);
-void		add_list_alias(t_var **var, char *name, char *data);
+void					add_alias(t_var **var, char *name, char *data);
+void					find_alias(t_process *p, t_var *var, int k);
+void					add_list_alias(t_var **var, char *name, char *data);
+void					put_foreground(t_job *j, t_var **var, t_process *p);
+void					put_background(t_job *j);
+int						test_builtin(t_process *p);
+int						find_builtins(t_process *p, t_var **var);
+int						fork_simple(t_job *j, t_process *p, t_var **var,
+						char *cmd_path);
+void					wait_process(t_var **var);
+void					print_start_process(t_job *j);
+void					check_zombie();
+void					print_job(t_job *j);
+void					add_job(t_job *j);
+void					remove_job(int id);
+void					set_job_status(pid_t id, char status);
+int						find_job_pgid(pid_t pgid);
+void					job_notification(t_var **var);
+int						mark_process_status(pid_t pid, int status, t_var **var);
+void					signal_handler();
+int						job_is_stoped(t_job *j);
+t_job					*find_job_by_id(char *argv);
+void					free_lexeur(t_lexeur **res);
+void					add_local(t_var **var, char *str, t_var *prev,
+						int type);
+char					**check_exec_var(char **cmd, t_var **var);
+void					free_temp(t_var **var);
+int						check_cmd(char **str);
+int						find_equal(char *str);
+int						launch_redirection(t_process *p);
+void					remove_item_var(t_var **var);
+void					before_redirection(t_process *p);
+t_process				*get_and_or(t_process *p);
+int						is_builtin_modify(t_process *p);
+void					wait_process_pid(int pid, t_var **var);
+void					free_job(t_job *j);
+int						duplication(t_redirect *redirect, int fd_in,
+						int fd_out);
+int						fd_right(char *path);
+void					free_job_list(void);
+int						check_name(char *name);
 
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                               var_norme.c                                  ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
 
-void		put_foreground(t_job *j, t_var **var);
-void		put_background(t_job *j);
+void					add_env_temp(t_var **var, char *str, int type);
+char					**remove_tab(char **src, int j);
+t_var					*add_one(char *str, char *name);
+int						add_env_check(char *name, t_var **var, char *str);
 
-int			test_builtin(t_process *p);
-int			find_builtins(t_process *p, t_var **var);
-
-int			fork_simple(t_job *j, t_process *p, t_var **var);
-
-void		wait_process(t_var **var);
-void		print_start_process(t_job *j);
-void		check_zombie();
-void		print_job(t_job *j);
-void		add_job(t_job *j);
-void		remove_job(int id);
-void		set_job_status(pid_t id, char status);
-int			find_job_pgid(pid_t pgid);
-void		job_notification(t_var **var);
-int			mark_process_status(pid_t pid, int status, t_var **var);
-void		signal_handler();
-
-int			job_is_stoped(t_job *j);
-
-t_job		*find_job_by_id(char *argv);
-
-void		free_lexeur(t_lexeur **res);
-void		add_local(t_var **var, char *str, t_var *prev, int type);
-char		**check_exec_var(char **cmd, t_var **var);
-void		free_temp(t_var **var);
-int			check_cmd(char **str);
-int			find_equal(char *str);
-int			launch_redirection(t_process *p);
-void		remove_item_var(t_var **var);
-
-void		before_redirection(t_process *p);
-t_process	*get_and_or(t_process *p);
-
-int		is_builtin_modify(t_process *p);
-
-void		wait_process_pid(int pid,t_var **var);
-void		free_job(t_job *j);
+int						check_process(t_var *var, t_process *p, t_job *j);
+t_process				*init_launch_job(t_job *j, int *infile);
+void					launch_simple_job(t_process *p, t_job *j, t_var **var);
+void					alert_job(t_job *j);
 #endif

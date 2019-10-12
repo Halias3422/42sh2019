@@ -3,15 +3,27 @@
 /*                                                              /             */
 /*   ft_env_tools.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 10:31:09 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 15:13:10 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/07 18:53:07 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
+
+t_var		*fill_var(char *name, char *data, int type)
+{
+	t_var	*var;
+
+	var = malloc(sizeof(t_var));
+	var->name = ft_strdup(name);
+	var->data = ft_strdup(data);
+	var->type = type;
+	var->next = NULL;
+	return (var);
+}
 
 void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 {
@@ -37,11 +49,7 @@ void		add_list_env(t_var **ptr_var, int type, char *name, char *data)
 			last = var;
 		var = var->next;
 	}
-	last->next = malloc(sizeof(t_var));
-	last->next->name = ft_strdup(name);
-	last->next->data = ft_strdup(data);
-	last->next->type = type;
-	last->next->next = NULL;
+	last->next = fill_var(name, data, type);
 	free_name_and_data(name, data);
 }
 
@@ -61,20 +69,6 @@ t_var		*put_new_entry_in_var(t_var *var, char **new_env_entry,
 	if (usage == 0)
 		var->next = NULL;
 	return (var);
-}
-
-void		free_new_env(t_var *head)
-{
-	t_var	*tmp;
-
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		tmp->data = ft_secure_free(tmp->data);
-		tmp->name = ft_secure_free(tmp->name);
-		free(tmp);
-	}
 }
 
 t_var		*init_t_var(t_var *new)

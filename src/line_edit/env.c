@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 08:13:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 18:06:34 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,8 @@ char	*init_data(char *src)
 	i = 0;
 	while (src[i] && src[i] != '=')
 		i++;
-	i++;
+	if (src[i])
+		i++;
 	dest = ft_strsub(src, i, ft_strlen(src) - i);
 	return (dest);
 }
@@ -46,7 +47,7 @@ t_var	*init_env(char **env, t_pos *pos, char **av)
 	int		i;
 
 	i = 0;
-	new = malloc(sizeof(t_var));
+	new = (t_var*)malloc(sizeof(t_var));
 	save = new;
 	while (env[i])
 	{
@@ -56,7 +57,7 @@ t_var	*init_env(char **env, t_pos *pos, char **av)
 		i++;
 		if (env[i])
 		{
-			new->next = malloc(sizeof(t_var));
+			new->next = (t_var*)malloc(sizeof(t_var));
 			new = new->next;
 		}
 	}
@@ -64,6 +65,7 @@ t_var	*init_env(char **env, t_pos *pos, char **av)
 	init_alias(save, pos, NULL);
 	if (av != NULL)
 		init_spe_params(save, pos, av);
+	stock(save, 5);
 	return (save);
 }
 

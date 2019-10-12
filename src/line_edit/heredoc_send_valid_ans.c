@@ -6,12 +6,23 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 12:52:23 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/10 16:54:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
+
+char			*put_symbol_in_ans(char *ans, int i)
+{
+	while (ans[i])
+	{
+		if (ans[i] == ' ')
+			ans[i] = -1;
+		i++;
+	}
+	return (ans);
+}
 
 void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
 {
@@ -27,8 +38,7 @@ void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
 	if (hdoc->next == NULL)
 	{
 		*hist = entry_is_complete(pos, *hist);
-		if (pos->ans_heredoc)
-			remake_pos_ans(pos);
+		pos->active_heredoc = 0;
 	}
 }
 
@@ -52,7 +62,7 @@ int				fill_ans_heredoc(t_pos *pos, int i, int j)
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc,
 			ft_strsub(pos->ans, j, i - j), 3);
 	if (pos->hdoc == NULL)
-		return(ft_strlen(pos->ans));
+		return (ft_strlen(pos->ans));
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, " ", 1);
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, pos->hdoc->content, 1);
 	pos->hdoc = pos->hdoc->next;
@@ -65,6 +75,8 @@ void			remake_pos_ans(t_pos *pos)
 	t_heredoc	*tmp;
 
 	i = 0;
+	while (pos->hdoc && pos->hdoc->prev)
+		pos->hdoc = pos->hdoc->prev;
 	tmp = pos->hdoc;
 	free(pos->ans);
 	pos->ans = ft_strdup(pos->ans_heredoc);

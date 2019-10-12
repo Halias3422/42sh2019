@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/04 14:59:10 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 11:22:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,12 +27,11 @@ char				*absolute_path(char *path)
 		closedir(file);
 	}
 	if (access(path, F_OK) == -1)
-		ft_printf("42sh: %s: No such file or directory", tmp);
+		ft_printf("42sh: %s: No such file or directory\n", tmp);
 	else if (access(path, X_OK) == -1)
 		ft_printf("42sh: %s: permission denied\n", tmp);
 	else
-		return (path);
-	ft_strdel(&path);
+		return (ft_strdup(path));
 	return (NULL);
 }
 
@@ -43,9 +42,12 @@ char				*path_found(char **paths, int i, char *ans, char **arg)
 	return (ans);
 }
 
-char				*path_denied(char **paths, char **arg)
+char				*path_denied(char **paths, char **arg, int denied)
 {
-	ft_printf("42sh: %s: permission denied\n", arg[0]);
+	if (denied != 0)
+		ft_printf("42sh: %s: permission denied\n", arg[0]);
+	else
+		ft_printf("42sh: %s: command not found\n", arg[0]);
 	ft_free_tab(paths);
 	return (NULL);
 }
