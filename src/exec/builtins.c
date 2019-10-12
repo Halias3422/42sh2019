@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 14:51:49 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 09:58:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 	{"type", &ft_type, 0},
 	{"export", &ft_export, 1},
 	{"unset", &ft_unset, 1},
-	{"fc", &ft_fc, 1},
+	{"fc", &ft_fc, 0},
 	{"fg", &ft_fg, 1},
 	{"jobs", &ft_jobs, 1},
 	{"exit", &ft_exit, 1},

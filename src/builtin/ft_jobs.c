@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_jobs.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 13:46:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/11 15:30:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,6 @@ int				ft_jobs(t_process *p, t_var **var)
 
 	(void)var;
 	i = 1;
-	update_current();
 	option = ft_jobs_option(p->cmd, &i);
 	if (option != 'l' && option != 'p' && option != 0)
 	{
