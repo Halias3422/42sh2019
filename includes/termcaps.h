@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 13:59:47 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 15:27:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -187,6 +187,13 @@ void					print_info(t_pos *pos);
 void					print_hist(t_pos *pos, t_hist *hist);
 int						got_a_wildcard(char *name);
 int						check_ans(char *str);
+
+/*
+**	INIT_POS_MAIN_C
+*/
+
+void					main_init_pos(t_pos *pos, t_var *my_env);
+
 /*
 ** CALCUL_LINE
 */
@@ -204,7 +211,7 @@ int						go_to_let_nb(t_pos *pos);
 void					error_handling(t_pos *pos, char *variable, int err);
 
 /*
-** CHECK_ERROR
+** CHECK_ERROR_C
 */
 
 int						check_term(void);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 13:38:03 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 15:16:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,8 +65,9 @@ int				find_if_cmd_is_builtin(t_process *p)
 	i = 2;
 	while (p->cmd[i] && ft_strchr(p->cmd[i], '=') != NULL)
 		i++;
-	if (ft_strcmp(p->cmd[i], "fc") == 0 || ft_strcmp(p->cmd[i], "set") == 0 ||
-	ft_strcmp(p->cmd[i], "unset") == 0 || ft_strcmp(p->cmd[i], "export") == 0)
+	if (p->cmd[i] && (ft_strcmp(p->cmd[i], "fc") == 0 ||
+	ft_strcmp(p->cmd[i], "set") == 0 || ft_strcmp(p->cmd[i], "unset") == 0 ||
+	ft_strcmp(p->cmd[i], "export") == 0))
 	{
 		ft_printf("env: %s: No such file or directory\n", p->cmd[i]);
 		return (1);

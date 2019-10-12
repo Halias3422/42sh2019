@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/12 14:15:49 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/12 15:23:27 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -60,7 +60,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c tools_bis.c ft_setenv_tool.c \
 				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c ft_fg_bg_tools.c)
 
-SRC_MAIN = $(addprefix main/, main.c)
+SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)
 
 SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
 
