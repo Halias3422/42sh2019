@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 18:06:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 15:44:00 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,15 +40,17 @@ char	*init_name(char *src)
 	return (dest);
 }
 
-t_var	*init_env(char **env, t_pos *pos, char **av)
+t_var	*init_env(char **env, t_pos *pos, char **av, int i)
 {
 	t_var	*new;
 	t_var	*save;
-	int		i;
 
-	i = 0;
-	new = (t_var*)malloc(sizeof(t_var));
+	new = init_spe_params(av);
 	save = new;
+	while (new->next)
+		new = new->next;
+	new->next = malloc(sizeof(t_var));
+	new = new->next;
 	while (env[i])
 	{
 		new->name = init_name(env[i]);
@@ -63,8 +65,6 @@ t_var	*init_env(char **env, t_pos *pos, char **av)
 	}
 	new->next = NULL;
 	init_alias(save, pos, NULL);
-	if (av != NULL)
-		init_spe_params(save, pos, av);
 	stock(save, 5);
 	return (save);
 }

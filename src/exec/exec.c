@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 15:29:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 14:53:40 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -107,6 +107,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 	j = make_job(res);
 	while (j)
 	{
+		var = stock(NULL, 6);
 		j->pgid = 0;
 		next = j->next;
 		tmp = j->p;

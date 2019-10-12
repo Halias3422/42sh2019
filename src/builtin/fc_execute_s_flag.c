@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/24 13:41:03 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:43:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 09:52:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ static void		exec_s_flag(t_fc *fc, t_hist *hist, t_var **var)
 	char	**cmd;
 	char	*tmp_cmd;
 
+	*var = stock(NULL, 6);
 	cmd = (char**)malloc(sizeof(char*) * 2);
 	cmd[1] = NULL;
 	tmp_cmd = ft_strdup(hist->cmd);
