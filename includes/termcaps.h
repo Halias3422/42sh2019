@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 10:52:54 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 13:59:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -118,6 +118,7 @@ typedef struct			s_pos
 	char				*ans_heredoc;
 	char				*ans_heredoc_save;
 	int					last_cmd_on_bg;
+	char				*pwd;
 	struct s_heredoc	*hdoc;
 }						t_pos;
 
