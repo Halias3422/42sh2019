@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 15:00:29 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 10:52:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -180,7 +180,7 @@ typedef struct			s_ctrl_hist
 	int					act_li;
 }						t_ctrl_hist;
 
-char					*check_path_hash(t_var **var, char **arg, int i,
+char					*check_path_hash(t_var **var, char *arg, int i,
 						char *ans);
 void					print_info(t_pos *pos);
 void					print_hist(t_pos *pos, t_hist *hist);

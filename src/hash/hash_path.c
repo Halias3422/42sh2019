@@ -6,21 +6,22 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 11:22:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 11:12:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/hash.h"
 
-char				*absolute_path(char *path)
+char				*absolute_path(char *path, char *tmp)
 {
-	char	*tmp;
 	DIR		*file;
 
-	tmp = path;
 	if (path[0] == '.')
-		path = ft_strjoinf(getcwd(NULL, 1000), path + 1, 1);
+	{
+		ft_strdel(&path);
+		path = ft_strjoinf(getcwd(NULL, 1000), tmp + 1, 1);
+	}
 	if ((file = opendir(path)) != NULL)
 	{
 		ft_printf("42sh: %s: is a directory\n", tmp);
@@ -31,24 +32,31 @@ char				*absolute_path(char *path)
 	else if (access(path, X_OK) == -1)
 		ft_printf("42sh: %s: permission denied\n", tmp);
 	else
-		return (ft_strdup(path));
+	{
+		ft_strdel(&tmp);
+		return (path);
+	}
+	ft_strdel(&tmp);
+	ft_strdel(&path);
 	return (NULL);
 }
 
-char				*path_found(char **paths, int i, char *ans, char **arg)
+char				*path_found(char **paths, int i, char *ans, char *arg)
 {
 	ans = fill_hash_table(paths[i], arg);
 	ft_free_tab(paths);
+	ft_strdel(&arg);
 	return (ans);
 }
 
-char				*path_denied(char **paths, char **arg, int denied)
+char				*path_denied(char **paths, char *arg, int denied)
 {
 	if (denied != 0)
-		ft_printf("42sh: %s: permission denied\n", arg[0]);
+		ft_printf("42sh: %s: permission denied\n", arg);
 	else
-		ft_printf("42sh: %s: command not found\n", arg[0]);
+		ft_printf("42sh: %s: command not found\n", arg);
 	ft_free_tab(paths);
+	ft_strdel(&arg);
 	return (NULL);
 }
 

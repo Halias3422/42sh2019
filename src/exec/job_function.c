@@ -6,14 +6,13 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 18:23:12 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 11:12:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
-
 
 void		update_current(void)
 {
@@ -26,11 +25,11 @@ void		update_current(void)
 	penultimate = NULL;
 	while (job_list)
 	{
-			penultimate->j->current = ' ';
-			last->j->current = '-';
-			job_list->j->current = '+';
-			penultimate = last;
-			last = job_list;
+		penultimate->j->current = ' ';
+		last->j->current = '-';
+		job_list->j->current = '+';
+		penultimate = last;
+		last = job_list;
 		job_list = job_list->next;
 	}
 }
