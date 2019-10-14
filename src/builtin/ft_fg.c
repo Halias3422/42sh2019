@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 13:32:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 15:22:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -201,10 +201,9 @@ t_job			*find_job_by_id(char *argv)
 	{
 		name = built_job_name(job_list, name);
 		if (job_list->j->pgid == pid || job_list->j->id == pid ||
-				ft_strncmp(name, argv, ft_strlen(name) == 0))
+				ft_strncmp(name, argv, ft_strlen(argv)) == 0)
 		{
 			move_plus_and_minus_indicators(job_list, save);
-		//	replace_was_plus_and_minus(save);
 			ft_strdel(&name);
 			return (job_list->j);
 		}

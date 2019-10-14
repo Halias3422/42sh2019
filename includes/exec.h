@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 14:33:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 14:52:09 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,6 +94,8 @@ typedef struct			s_save_job
 **	NEW_JOB_C
 */
 
+t_save_job		*copy_job_list(t_job_list *save);
+void		free_copy_job(t_save_job *copy);
 void					add_job(t_job *j);
 
 /*
