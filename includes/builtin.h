@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 16:26:14 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 09:16:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -196,6 +196,12 @@ void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 */
 
 int				ft_setenv(t_process *p, t_var **var);
+
+/*
+**	FT_SETENV_TOOL_C
+*/
+
+char			**init_al_tab_content(t_process *p, int i);
 void			print_env(t_var *var);
 int				print_err_setenv(char **al);
 
