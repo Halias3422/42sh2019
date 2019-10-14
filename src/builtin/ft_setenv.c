@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 09:16:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 11:30:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,31 +47,31 @@ static int	setenv_rules(t_process *p, char **al)
 	return (1);
 }
 
-void		add_var_to_env(t_var **var, char *name, char *data, t_var *prev)
+void		add_var_to_env(t_var *var, char *name, char *data, t_var *prev)
 {
-	if (!(*var))
+	if (!(var))
 	{
-		add_setenv(var, name, data, 0);
-		stock(*var, 5);
+		add_setenv(&var, name, data, 0);
+		stock(var, 5);
 		return ;
 	}
-	while (*var)
+	while (var)
 	{
-		if (ft_strcmp(name, (*var)->name) == 0)
+		if (ft_strcmp(name, (var)->name) == 0)
 			break ;
-		prev = (*var);
-		(*var) = (*var)->next;
+		prev = (var);
+		(var) = (var)->next;
 	}
-	if (!(*var))
+	if (!(var))
 	{
-		add_setenv(var, name, data, 1);
-		prev->next = (*var);
+		add_setenv(&var, name, data, 1);
+		prev->next = (var);
 		return ;
 	}
 	if (data && ft_strlen(data) > 0)
 	{
-		ft_strdel(&(*var)->data);
-		(*var)->data = ft_strdup(data);
+		ft_strdel(&(var)->data);
+		(var)->data = ft_strdup(data);
 	}
 }
 
@@ -97,7 +97,7 @@ int			setenv_through_cmd_passed(t_process *p, t_var **var, char **al,
 		}
 		else
 		{
-			add_var_to_env(var, al[0], al[1], NULL);
+			add_var_to_env(*var, al[0], al[1], NULL);
 			check = 0;
 		}
 		ft_free_tab(al);
