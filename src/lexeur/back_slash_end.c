@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:12:52 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 13:21:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 16:37:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,12 +22,6 @@ int			back_slash_count_end(char *str)
 	i = 0;
 	while (str[i])
 	{
-		// if (str[i] && str[i] == '\'' && str[i - 1] != '\\')
-		// {
-		// 	i++;
-		// 	while (str[i] && str[i] != '\'')
-		// 		i++;
-		// }
 		if (str[i] == '\\' && str[i + 1] && str[i + 1] != '"'
 		&& str[i + 1] != '\'' && str[i + 1] != '$' && str[i + 1] != ' ')
 			i++;
