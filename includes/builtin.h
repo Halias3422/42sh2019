@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 11:00:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 11:09:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,6 +74,9 @@ int				comp_num_operator(char *name1, char *type, char *name2,
 /*
 **	FT_FG_C
 */
+
+
+void			check_if_jobs_are_empty(t_job_list *save);
 
 void			put_foreground(t_job *j, t_var **var, t_process *p);
 void			move_plus_and_minus_indicators(t_job_list *j, t_job_list *save);

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 09:38:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 10:40:21 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,7 @@ typedef struct			s_job
 typedef struct			s_job_list
 {
 	struct s_job_list	*next;
+	struct s_job_list	*prev;
 	t_job				*j;
 }						t_job_list;
 

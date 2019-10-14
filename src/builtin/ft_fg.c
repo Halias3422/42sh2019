@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 10:13:14 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 11:13:01 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ void			put_foreground(t_job *j, t_var **var, t_process *p)
 
 	pos = to_stock(NULL, 1);
 	pos->last_cmd_on_bg = 1;
-	kill(-j->pgid, SIGCONT);
+	kill(j->pgid, SIGCONT);
 	j->status = 'r';
 	tcsetpgrp(0, j->pgid);
 	wait_process(var);
@@ -38,6 +38,19 @@ int				rerun_job(t_job *j, t_var **var, t_process *p)
 	return (0);
 }
 
+void			replace_minus_by_plus(t_job_list *save)
+{
+	while (save)
+	{
+		if (save->j->current == '-')
+		{
+			save->j->current = '+';
+			save->j->was_a_plus = 0;
+		}
+		save = save->next;
+	}
+}
+
 void			check_if_jobs_are_empty(t_job_list *save)
 {
 	t_job_list	*tmp;
@@ -52,8 +65,14 @@ void			check_if_jobs_are_empty(t_job_list *save)
 		if (tmp->j->current == '+')
 			check_plus += 1;
 		if (tmp->j->current == '-')
-			check_minus += 2;
+			check_minus += 1;
 		tmp = tmp->next;
+	}
+	if (check_minus == 1 && check_plus == 0)
+	{
+		replace_minus_by_plus(save);
+		check_plus = 1;
+		check_minus = 0;
 	}
 	if (save && (check_plus == 0 || check_minus == 0))
 	{
@@ -65,7 +84,10 @@ void			check_if_jobs_are_empty(t_job_list *save)
 			if (tmp->next && tmp->next->next == NULL)
 			{
 				if (check_minus == 0)
+				{
 					tmp->j->current = '-';
+					tmp->j->was_a_plus = 1;
+				}
 				if (check_plus == 0)
 					tmp->next->j->current = '+';
 			}
@@ -84,11 +106,10 @@ void			move_plus_and_minus_indicators(t_job_list *j, t_job_list *save)
 	t_job_list *tmp;
 
 	tmp = save;
-/*
 	ft_printf("{T.purple.}impression du debut -- ptr = %p\n", save);
 	print_all_jobs(tmp, 0);
 	ft_printf("{T.purple.}fin\n");
-*/
+
 	if (j && j->j && j->j->current == '+' && save == j)
 	{
 		ft_printf("-1-\n");
@@ -121,16 +142,15 @@ void			move_plus_and_minus_indicators(t_job_list *j, t_job_list *save)
 			go_through_jobs_for_current(j, save);
 	}
 	save = tmp;
-/*	ft_printf("{T.purple.}impression du fin -- ptr = %p\n", save);
+	ft_printf("{T.purple.}impression du fin -- ptr = %p\n", save);
 	print_all_jobs(tmp, 0);
 	ft_printf("{T.purple.}fin\n");
-*/
+
 	check_if_jobs_are_empty(save);
-/*
+
 	ft_printf("{T.purple.}impression du fin 2\n");
 	print_all_jobs(tmp, 0);
 	ft_printf("{T.purple.}fin\n");
-*/
 }
 /*
 void			replace_was_plus_and_minus(t_job_list *head)

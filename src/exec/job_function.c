@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 10:13:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 11:14:05 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,11 +85,11 @@ void		replace_plus_and_minus(t_job_list *start)
 
 	check = 0;
 	tmp = start;
-/*
+
 	ft_printf("{T.green.}impression du debut 1\n");
 	print_all_jobs(tmp, 0);
 	ft_printf("{T.green.}fin\n");
-*/
+
 	check = place_minus_before_plus(start);
 
 /*	ft_printf("{T.green.}impression du debut\n");
@@ -103,11 +103,11 @@ void		replace_plus_and_minus(t_job_list *start)
 		start = start->next;
 	}
 */	start = tmp;
-/*
+
 	ft_printf("{T.green.}impression du milieu\n");
 	print_all_jobs(tmp, 0);
 	ft_printf("{T.green.}fin  check = %d\n", check);
-*/
+
 	while (start && check == 0)
 	{
 		if (start->j->current == '-')
@@ -116,11 +116,17 @@ void		replace_plus_and_minus(t_job_list *start)
 			start->j->current = '-';
 		start = start->next;
 	}
-/*
+	ft_printf("{T.green.}impression du milieu\n");
+	print_all_jobs(tmp, 0);
+	ft_printf("{T.green.}fin  check = %d\n", check);
+
+//	if (tmp && check == 0)
+//		place_minus_before_plus(tmp);
+
 	ft_printf("{T.green.}impression du fin\n");
 	print_all_jobs(tmp, 0);
 	ft_printf("{T.green.}fin\n");
-*/
+
 }
 
 void		remove_job(int id)
@@ -134,11 +140,11 @@ void		remove_job(int id)
 	job_list = start;
 	i = 1;
 	last = NULL;
-/*
+
 	ft_printf("{T.yellow.}impression du debut\n");
 	print_all_jobs(start, 0);
 	ft_printf("{T.yellow.}fin\n");
-*/
+
 	while (job_list)
 	{
 		if (job_list->j->id == id)
@@ -153,11 +159,17 @@ void		remove_job(int id)
 	}
 
 	replace_plus_and_minus(start);
-/*
+
 	ft_printf("{T.yellow.}impression des jobs fin\n");
 	print_all_jobs(start, 0);
 	ft_printf("{T.yellow.}fin\n");
-*/
+	
+	check_if_jobs_are_empty(start);
+	ft_printf("{T.yellow.}impression des jobs fin\n");
+	print_all_jobs(start, 0);
+	ft_printf("{T.yellow.}fin\n");
+
+
 	stock(start, 9);
 }
 
