@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 11:13:01 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 13:32:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,9 +83,14 @@ void			check_if_jobs_are_empty(t_job_list *save)
 		{
 			if (tmp->next && tmp->next->next == NULL)
 			{
-				if (check_minus == 0)
+				if (check_minus == 0 && check_plus == 0)
 				{
 					tmp->j->current = '-';
+					tmp->j->was_a_plus = 1;
+				}
+				else if (check_plus == 0 && check_minus == 0)
+				{
+					tmp->next->j->current = '-';
 					tmp->j->was_a_plus = 1;
 				}
 				if (check_plus == 0)

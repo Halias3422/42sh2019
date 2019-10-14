@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 10:40:21 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 14:33:20 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,6 +24,7 @@
 # define FINISHED 1
 # define WRITE_END 1
 # define READ_END 0
+# define DEBUG 0
 # define PATH_HEREDOC "/tmp/heredoc"
 
 typedef struct s_lexeur	t_lexeur;
@@ -80,6 +81,20 @@ typedef struct			s_job_list
 	struct s_job_list	*prev;
 	t_job				*j;
 }						t_job_list;
+
+typedef struct			s_save_job
+{
+	char				current;
+	int					was_a_plus;
+	struct s_save_job	*next;
+	struct s_save_job	*prev;
+}						t_save_job;
+
+/*
+**	NEW_JOB_C
+*/
+
+void					add_job(t_job *j);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -227,7 +242,6 @@ void					wait_process(t_var **var);
 void					print_start_process(t_job *j);
 void					check_zombie();
 void					print_job(t_job *j);
-void					add_job(t_job *j);
 void					remove_job(int id);
 void					set_job_status(pid_t id, char status);
 int						find_job_pgid(pid_t pgid);

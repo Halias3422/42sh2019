@@ -6,13 +6,58 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 11:03:38 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 14:33:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
+
+t_save_job		*add_list_save_job(t_job *save, t_save_job *chain)
+{
+	t_save_job	*new;
+
+	new = NULL;
+	if (!(new = (t_save_job*)malloc(sizeof(t_save_job))))
+		return (NULL);
+	if (chain == NULL)
+	{
+		new->current = save->current;
+		new->was_a_plus = save->was_a_plus;
+		new->prev = NULL;
+		new->next = NULL;
+		return (new);
+	}
+	while (chain->next != NULL)
+		chain = chain->next;
+	new->current = save->current;
+	new->was_a_plus = save->was_a_plus;
+	new->next = NULL;
+	new->prev = chain;
+	chain->next = new;
+	return (new);
+}
+
+t_save_job		*copy_job_list(t_job_list *save)
+{
+	t_save_job	*chain;
+	t_save_job	*head;
+
+	chain = NULL;
+	while (save)
+	{
+		if (chain == NULL)
+		{
+			head = add_list_save_job(save->j, chain);
+			chain = head;
+		}
+		else
+			chain = add_list_save_job(save->j, chain);
+		save = save->next;
+	}
+	return (head);
+}
 
 t_job_list	*new_job(t_job *j, int number)
 {
@@ -96,22 +141,66 @@ void		place_plus_and_minus(t_job_list *head, char split)
 //	ft_printf("--------------------------------\n");
 }
 
+void		free_copy_job(t_save_job *copy)
+{
+	t_save_job	*tmp;
+
+	tmp = NULL;
+	while (copy)
+	{
+		tmp = copy;
+		copy = copy->next;
+		free(tmp);
+	}
+	to_stock(NULL, 2);
+}
+
+static void		print_save_job(t_save_job *chain)
+{
+	while (chain)
+	{
+		ft_printf("current = %c ", chain->current);
+		ft_printf("was_a_plus = %d\n", chain->was_a_plus);
+		chain = chain->next;
+	}
+}
+
+
 void		add_job(t_job *j)
 {
 	t_job_list	*job_list;
 	t_job_list	*start;
+	t_save_job	*copy;
 	int			i;
 
+	t_save_job	*test;
+
+	test = to_stock(NULL, 3);
+	copy = NULL;
 	start = stock(NULL, 10);
+
+	free_copy_job(test);
+	test = NULL;
+
+	copy = copy_job_list(start);
+	if (DEBUG)
+	{
+	ft_printf("{T.red.}avant boucle de creation copy = \n");
+	print_save_job(copy);
+	ft_printf("{T.red.}fin\n");
+	}
+	to_stock(copy, 2);
+	
 	if (start == NULL)
 	{
 		start = new_job(j, 1);
 		start->j->current = '+';
-
-//		ft_printf("{T.red.B.}apres boucle de creation\n");
-//		print_all_jobs(start, 0);
-//		ft_printf("{T.red.B.}fin\n");
-
+		if (DEBUG)
+		{
+		ft_printf("{T.red.B.}apres boucle de creation\n");
+		print_all_jobs(start, 0);
+		ft_printf("{T.red.B.}fin\n");
+		}
 	}
 	else
 	{
@@ -125,11 +214,13 @@ void		add_job(t_job *j)
 		job_list->next = new_job(j, i);
 		place_plus_and_minus(start, job_list->next->j->split);
 		job_list->next->j->current = '+';
-
-//		ft_printf("{T.red.B.}apres boucle de creation\n");
-//		print_all_jobs(start, 0);
-//		ft_printf("{T.red.B.}fin\n");
-
+		if (DEBUG)
+		{
+		ft_printf("{T.red.B.}apres boucle de creation\n");
+		print_all_jobs(start, 0);
+		ft_printf("{T.red.B.}fin\n");
+		}
 	}
 	stock(start, 9);
+
 }
