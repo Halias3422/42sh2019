@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 14:52:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 18:10:52 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,6 @@
 # define FINISHED 1
 # define WRITE_END 1
 # define READ_END 0
-# define DEBUG 0
 # define PATH_HEREDOC "/tmp/heredoc"
 
 typedef struct s_lexeur	t_lexeur;
@@ -94,9 +93,20 @@ typedef struct			s_save_job
 **	NEW_JOB_C
 */
 
-t_save_job		*copy_job_list(t_job_list *save);
-void		free_copy_job(t_save_job *copy);
-void					add_job(t_job *j);
+t_save_job				*copy_job_list(t_job_list *save, t_save_job *head);
+void					free_copy_job(t_save_job *copy);
+void					add_job(t_job *j, int i);
+
+/*
+**	JOB_FUNCTION_PLUS_AND_MINUS_C
+*/
+
+t_save_job				*stock_t_job(t_save_job *stock, int usage);
+int						place_minus_before_plus_check_null(t_job_list *save,
+						int check);
+int						place_minus_before_plus(t_job_list *save);
+void					replace_plus_and_minus(t_job_list *start);
+int						lenlist(t_job_list *start, t_save_job *copy, int usage);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -244,7 +254,7 @@ void					wait_process(t_var **var);
 void					print_start_process(t_job *j);
 void					check_zombie();
 void					print_job(t_job *j);
-void					remove_job(int id);
+void					remove_job(int id, int i);
 void					set_job_status(pid_t id, char status);
 int						find_job_pgid(pid_t pgid);
 void					job_notification(t_var **var);

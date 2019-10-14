@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:02:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 14:26:43 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 15:56:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,9 +34,6 @@ void			print_current_job(t_job_list *j, int option, char *name)
 		print_status_job(j->j->status);
 		ft_printf("%s", name);
 	}
-
-	ft_printf(" -- was_a_plus = %d", j->j->was_a_plus);
-
 	ft_putchar('\n');
 }
 

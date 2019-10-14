@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 15:21:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 16:34:02 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,5 +37,5 @@ void		alert_job(t_job *j)
 	else if (job_is_stoped(j))
 		j->notified = 1;
 	else
-		remove_job(j->id);
+		remove_job(j->id, 1);
 }

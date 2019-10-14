@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 11:09:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 17:02:18 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,11 +72,19 @@ int				comp_num_operator(char *name1, char *type, char *name2,
 				int *error);
 
 /*
-**	FT_FG_C
+**	FT_FG_BG_PLUS_AND_MINUS_C
 */
 
+t_job_list		*move_plus_and_minus_indicators_moves(t_job_list *save);
+void			move_plus_and_minus_indicators(t_job_list *j, t_job_list *save);
+void			place_plus_and_minus_init_check(t_job_list *head, int *check);
+void			place_plus_and_minus_check_null(t_job_list *head,
+				t_job_list *tmp);
+void			place_plus_and_minus(t_job_list *head, char split);
 
-void			check_if_jobs_are_empty(t_job_list *save);
+/*
+**	FT_FG_C
+*/
 
 void			put_foreground(t_job *j, t_var **var, t_process *p);
 void			move_plus_and_minus_indicators(t_job_list *j, t_job_list *save);
