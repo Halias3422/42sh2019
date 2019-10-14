@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 15:59:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 10:13:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,6 +39,45 @@ void		remove_plus(t_job_list *tmp)
 	}
 }
 
+int			place_minus_before_plus(t_job_list *save)
+{
+	t_job_list	*tmp;
+	int			check;
+
+	check = 0;
+	tmp = save;
+	while (tmp)
+	{
+		if (tmp->j->current == '-')
+			check = 1;
+		tmp = tmp->next;
+	}
+	if (save && check == 0 && save->j->current == '+')
+	{
+		if (save->next == NULL)
+			return (1);
+		while (save->next)
+			save = save->next;
+		save->j->current = '-';
+		save->j->was_a_plus = 1;
+		return (1);
+	}
+	else if (check == 0)
+	{
+		while (check != 1 && save)
+		{
+			if (save->next && save->next->j->current == '+')
+			{
+				save->j->current = '-';
+				save->j->was_a_plus = 1;
+			}
+			save = save->next;
+		}
+		return (1);
+	}
+	return (0);
+}
+
 void		replace_plus_and_minus(t_job_list *start)
 {
 	int			check;
@@ -46,8 +85,14 @@ void		replace_plus_and_minus(t_job_list *start)
 
 	check = 0;
 	tmp = start;
+/*
+	ft_printf("{T.green.}impression du debut 1\n");
+	print_all_jobs(tmp, 0);
+	ft_printf("{T.green.}fin\n");
+*/
+	check = place_minus_before_plus(start);
 
-	ft_printf("{T.green.}impression du debut\n");
+/*	ft_printf("{T.green.}impression du debut\n");
 	print_all_jobs(tmp, 0);
 	ft_printf("{T.green.}fin\n");
 
@@ -57,13 +102,13 @@ void		replace_plus_and_minus(t_job_list *start)
 			check += 1;
 		start = start->next;
 	}
-	start = tmp;
-
+*/	start = tmp;
+/*
 	ft_printf("{T.green.}impression du milieu\n");
 	print_all_jobs(tmp, 0);
-	ft_printf("{T.green.}fin\n");
-
-	while (start)
+	ft_printf("{T.green.}fin  check = %d\n", check);
+*/
+	while (start && check == 0)
 	{
 		if (start->j->current == '-')
 			start->j->current = '+';
@@ -71,11 +116,11 @@ void		replace_plus_and_minus(t_job_list *start)
 			start->j->current = '-';
 		start = start->next;
 	}
-
+/*
 	ft_printf("{T.green.}impression du fin\n");
 	print_all_jobs(tmp, 0);
 	ft_printf("{T.green.}fin\n");
-
+*/
 }
 
 void		remove_job(int id)
@@ -89,11 +134,11 @@ void		remove_job(int id)
 	job_list = start;
 	i = 1;
 	last = NULL;
-
+/*
 	ft_printf("{T.yellow.}impression du debut\n");
 	print_all_jobs(start, 0);
 	ft_printf("{T.yellow.}fin\n");
-
+*/
 	while (job_list)
 	{
 		if (job_list->j->id == id)
@@ -108,10 +153,11 @@ void		remove_job(int id)
 	}
 
 	replace_plus_and_minus(start);
+/*
 	ft_printf("{T.yellow.}impression des jobs fin\n");
 	print_all_jobs(start, 0);
 	ft_printf("{T.yellow.}fin\n");
-
+*/
 	stock(start, 9);
 }
 
