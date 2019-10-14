@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:15:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/05 14:16:19 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 12:50:33 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,8 @@ int		check_double_token(char *str, int i, int token)
 	i += g_fill_token[token].size;
 	jump_space(str, &i);
 	token2 = find_token(str, i);
-	if (token2 != -1)
+	if (token2 != -1 && token2 != 4 && token2 != 5 && token2 != 6
+	&& token2 != 7 && token2 != 8 && token2 != 9)
 		return (syntax_print_error(token2));
 	return (0);
 }
