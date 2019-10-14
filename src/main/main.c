@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 08:01:28 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 15:20:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,9 +96,7 @@ int				main(int ac, char **av, char **env)
 	my_env = init_env(env, &pos, av);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);
-	pos.is_complete = 1;
-	pos.last_cmd_on_bg = 0;
-	pos.prompt = ft_strdup("$ ");
+	main_init_pos(&pos, my_env);
 	hist = create_history(&pos, hist);
 	while (1)
 	{

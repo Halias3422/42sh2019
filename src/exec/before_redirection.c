@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 13:44:22 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 07:16:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,7 @@ void		before_redirection_file_in(t_redirect *redirect)
 			S_IRUSR | S_IWUSR);
 		write(redirect->open_in, redirect->heredoc_content,
 			ft_strlen(redirect->heredoc_content));
+		write(redirect->open_in, "\n", 1);
 		redirect->open_in = open(PATH_HEREDOC, O_CREAT |
 		O_RDWR, S_IRUSR | S_IWUSR);
 	}

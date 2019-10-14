@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 11:22:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 15:17:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,16 +114,13 @@ int		ft_cd(t_process *p, t_var **var)
 	int		option;
 	int		i;
 	char	*new_path;
-	char	pwd[1000];
+	t_pos	*pos;
 
+	pos = to_stock(NULL, 1);
 	option = 0;
 	new_path = NULL;
 	i = 0;
-	if (verif_path(ft_get_val("PWD", *var, ENVIRONEMENT), 0) == 0)
-	{
-		getcwd(pwd, 1000);
-		add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), ft_strdup(pwd));
-	}
+	add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), ft_strdup(pos->pwd));
 	if (check_arguments_number(p, &i, &option) == 1)
 		return (1);
 	if ((new_path = get_path(p->cmd[i], var, new_path, option)) == NULL)
@@ -131,6 +128,11 @@ int		ft_cd(t_process *p, t_var **var)
 	if (verif_path(new_path, 1) == 0)
 		return (1);
 	chdir(new_path);
+	ft_strdel(&pos->pwd);
+	if (option == 'P')
+		pos->pwd = getcwd(NULL, 1000);
+	else
+		pos->pwd = ft_strdup(new_path);
 	replace_pwd_vars_in_env(var, new_path, option);
 	return (0);
 }

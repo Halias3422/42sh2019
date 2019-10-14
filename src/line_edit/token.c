@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:55:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 07:28:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ int		token_condition(char *ans, int i)
 {
 	if (ans[i] == '"' && (i == 0 || (i > 0 && ans[i - 1] != 92)))
 		i = double_quote(ans, i + 1);
-	else if (ans[i] == 39 && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+	else if (ans[i] == 39)
 		i = simple_quote(ans, i + 1);
 	else if (ans[i] == '$' && ans[i + 1] == '{' && (i == 0 || (i > 0 &&
 					ans[i - 1] != 92)))

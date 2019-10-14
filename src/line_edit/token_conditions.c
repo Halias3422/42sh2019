@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 18:42:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 07:28:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,7 @@ int		simple_quote(char *ans, int i)
 {
 	while (ans[i])
 	{
-		if (ans[i] == 39 && ans[i - 1] != 92)
+		if (ans[i] == 39)
 			return (i);
 		i++;
 	}
