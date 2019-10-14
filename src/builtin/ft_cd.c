@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 15:17:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 16:23:46 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,7 @@ char	*move_to_new_dir(char *cmd, t_var **var, char *new_path)
 		else if (ft_strcmp(tmp[i], ".") != 0)
 		{
 			new_path = ft_strjoinf(new_path, tmp[i], 1);
-			if (verif_path(new_path, 1) == 0)
+			if (verif_path(new_path, 1, 0) == 0)
 			{
 				ft_free_tab(tmp);
 				free(new_path);
@@ -124,15 +124,12 @@ int		ft_cd(t_process *p, t_var **var)
 	if (check_arguments_number(p, &i, &option) == 1)
 		return (1);
 	if ((new_path = get_path(p->cmd[i], var, new_path, option)) == NULL)
-		return (1);
-	if (verif_path(new_path, 1) == 0)
-		return (1);
-	chdir(new_path);
-	ft_strdel(&pos->pwd);
-	if (option == 'P')
-		pos->pwd = getcwd(NULL, 1000);
-	else
-		pos->pwd = ft_strdup(new_path);
-	replace_pwd_vars_in_env(var, new_path, option);
-	return (0);
+	{
+		if (p->cmd[1] && ft_get_val("CDPATH", *var, ENVIRONEMENT) != NULL &&
+				(new_path == NULL || verif_path(new_path, 1, 0) == 0))
+			new_path = verif_path_in_cdpath(new_path, *var, p->cmd[1]);
+		else
+			new_path = ft_strdup(p->cmd[i]);
+	}
+	return (finish_ft_cd(new_path, pos, var, option));
 }

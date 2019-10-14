@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 09:16:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 16:29:07 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@ typedef struct s_hist		t_hist;
 typedef struct s_hash		t_hash;
 typedef struct s_job_list	t_job_list;
 typedef struct s_job		t_job;
+typedef struct s_pos		t_pos;
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -267,10 +268,20 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 **	FT_CD_VERIF_C
 */
 
+char			*verif_path_in_cdpath(char *path, t_var *var, char *cmd);
 char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path, int i, int absolute);
-int				verif_path(char *path, int mute);
+int				verif_path(char *path, int mute, int usage);
 int				check_arguments_number(t_process *p, int *i, int *option);
+
+/*
+**	FT_CD_CHECK_CDPATH_C
+*/
+
+char			*verif_path_in_cdpath(char *path, t_var *var, char *cmd);
+void			print_cd_error(char *path, int i, int mute, int usage);
+int				finish_ft_cd(char *new_path, t_pos *pos, t_var **var,
+				int option);
 
 /*
 **	FC_PREPARE_E_FLAG_TOOL.C

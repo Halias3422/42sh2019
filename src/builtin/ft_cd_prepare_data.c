@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:10:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 10:30:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 16:20:01 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ char	*move_to_home_dir(t_var **var)
 		ft_printf_err("42sh: cd: HOME not set\n");
 		return (NULL);
 	}
-	else if (verif_path(path, 1) == 0)
+	else if (verif_path(path, 1, 0) == 0)
 		return (NULL);
 	return (ft_strdup(path));
 }
@@ -39,7 +39,7 @@ char	*move_to_oldpwd(t_var **var)
 		ft_printf_err("42sh: cd: OLDPWD not set\n");
 		return (NULL);
 	}
-	else if (verif_path(path, 1) == 0)
+	else if (verif_path(path, 1, 0) == 0)
 		return (NULL);
 	return (ft_strdup(path));
 }
