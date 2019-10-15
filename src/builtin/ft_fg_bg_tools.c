@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/11 16:07:08 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:31:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 10:29:34 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,4 +82,33 @@ void			change_plus_and_minus_indicators(t_job_list *jb, t_job *j,
 		j->current = '-';
 	}
 	jb->j->current = '+';
+}
+
+void		repare_plus_and_minus(t_job_list *save, int check_minus,
+			int check_plus)
+{
+	t_job_list	*tmp;
+
+	tmp = save;
+	while (tmp)
+	{
+		if (tmp->j->current == '+')
+			check_plus = 1;
+		if (tmp->j->current == '-')
+			check_minus = 1;
+		tmp = tmp->next;
+	}
+	while (save)
+	{
+		if (save->j->was_a_plus == 1)
+			save->j->was_a_plus = 0;
+		if (save->next == NULL && check_plus == 0)
+			save->j->current = '+';
+		if (save->next && save->next->next == NULL && check_minus == 0)
+		{
+			save->j->current = '-';
+			save->j->was_a_plus = 1;
+		}
+		save = save->next;
+	}
 }
