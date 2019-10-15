@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:32:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 11:32:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 15:46:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,6 @@ char			*check_new_cmd_is_valid(char *new_cmds, char **paths)
 		closedir(dirp);
 		i++;
 	}
-	ft_printf_err("ici 42sh: command not found: %s\n", new_cmds);
+	ft_printf_err("42sh: command not found: %s\n", new_cmds);
 	return (0);
 }

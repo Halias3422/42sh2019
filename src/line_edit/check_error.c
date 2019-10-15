@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:14:23 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 13:42:42 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 15:53:49 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,6 @@ int				check_if_process_in_bg(t_pos *pos, unsigned char buf[9])
 		pos->ans = ft_strdup("");
 		while (1)
 		{
-			ft_printf("Background control executed, {U.}press enter{eoc}\n");
 			read(0, buf, 1);
 			if (buf[0] == '\n')
 				return (1);
