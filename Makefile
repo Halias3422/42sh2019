@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/15 13:56:55 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/15 15:16:51 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,6 +17,7 @@ LIB_PATH = libft/libft.a
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
+ALL_INC  = ./includes/$(wildcard *.h)
 
 SRC_LINE = $(addprefix line_edit/,\
 				calcul_line.c check_error.c check_input.c control_search_history_calcul_pos.c\
@@ -92,17 +93,17 @@ RESET = \033[0m
 
 all: $(NAME)
 
-$(NAME) : $(OBJ) Makefile
+$(NAME) : $(OBJ) libs $(LIB_PATH) $(ALL_INC)
 	@echo  "\n$(LIGHT_GREEN)42sh loaded$(RESET)"
 	@make -C libft
-	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]"
+	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]${RESET}"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
-	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]$(YELLOW)"
+	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]${RESET}"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAG) -g -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_GREEN).\c"
+	@echo "$(LIGHT_GREEN).\c${RESET}"
 
 clean:
 	@make -C libft/ clean
@@ -112,7 +113,10 @@ clean:
 fclean: clean
 	@make -C libft/ fclean
 	@rm -rf $(NAME)
-	@echo "./$(NAME)\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]\n"
+	@echo "./$(NAME)\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]${RESET}\n"
+
+libs:
+	@ make -C libft/
 
 batman: $(NAME)
 	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "
