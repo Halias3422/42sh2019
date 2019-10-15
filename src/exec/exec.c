@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:26:20 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 09:25:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,12 +20,12 @@ void		replace_job(t_process **p, t_var *var)
 	t_alias		*al;
 	t_replace	*r;
 
-	init_replace(&r);
 	if (!(*p) || !((*p)->cmd))
 		return ;
 	al = make_ar_to_list((*p)->cmd);
 	if (!al)
 		return ;
+	init_replace(&r);
 	r->name = ft_strdup(al->data);
 	while (1)
 	{
