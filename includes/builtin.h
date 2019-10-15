@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 10:30:04 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 13:44:16 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -291,7 +291,6 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 **	FT_CD_VERIF_C
 */
 
-char			*verif_path_in_cdpath(char *path, t_var *var, char *cmd);
 char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path, int i, int absolute);
 int				verif_path(char *path, int mute, int usage);
@@ -301,7 +300,8 @@ int				check_arguments_number(t_process *p, int *i, int *option);
 **	FT_CD_CHECK_CDPATH_C
 */
 
-char			*verif_path_in_cdpath(char *path, t_var *var, char *cmd);
+char			*verif_path_in_cdpath(char *path, t_var *var, char **cmd,
+				int j);
 void			print_cd_error(char *path, int i, int mute, int usage);
 int				finish_ft_cd(char *new_path, t_pos *pos, t_var **var,
 				int option);
