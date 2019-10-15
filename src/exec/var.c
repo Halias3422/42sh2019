@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var.c                                            .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 11:11:50 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 11:34:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,7 @@ int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 		remoove_all_quote(&cmd[i]);
 		if (check_cmd(cmd) == 1)
 		{
+			printf("cmd[%d]=%s\n", i, cmd[i]);
 			add_env_temp(var, cmd[i], TEMP);
 			*tmp = remove_tab(cmd, i);
 		}

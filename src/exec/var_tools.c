@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:57:40 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 09:48:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 11:41:59 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,13 +17,17 @@
 void		free_temp(t_var **var)
 {
 	t_var *tmp;
+	t_var *first;
 	t_var *next;
+	t_var *prev;
 
 	tmp = (*var);
+	first = tmp;
 	while (*var)
 	{
 		if ((*var)->type == TEMP)
 		{
+			prev->next = (*var)->next;
 			ft_strdel(&(*var)->name);
 			ft_strdel(&(*var)->data);
 			next = (*var)->next;
@@ -32,10 +36,10 @@ void		free_temp(t_var **var)
 			if (!tmp)
 				tmp = (*var);
 		}
-		if ((*var)->type != TEMP)
-			break ;
+		prev = (*var);
 		(*var) = (*var)->next;
 	}
+	(*var) = first;
 }
 
 int			find_equal(char *str)
@@ -61,6 +65,8 @@ int			check_cmd(char **str)
 	i = 0;
 	while (str[i])
 	{
+		// if (ft_strchr(str[i], '$') != NULL)
+			// return (0);
 		if (find_equal(str[i]) == 1)
 		{
 			if (str[i + 1] && find_equal(str[i + 1]) != 1)
