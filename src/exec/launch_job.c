@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 11:20:09 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 11:15:32 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ t_process	*init_launch_job(t_job *j, int *infile)
 
 	p = j->p;
 	if (!(j->split != '&' && is_builtin_modify(p)))
-		add_job(j);
+		add_job(j, 2);
 	j->status = 'r';
 	before_redirection(p);
 	*infile = 0;
@@ -56,7 +56,10 @@ void		launch_job(t_job *j, t_var *var)
 	while (p)
 	{
 		if (check_process(var, p, j))
+		{
+			free_temp(&var);
 			return ;
+		}
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 09:53:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 11:13:54 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,7 +55,6 @@ int *i, int k)
 {
 	if (res[*i]->token == 7)
 	{
-		(*j)->p->cmd = malloc(sizeof(char *) * 1);
 		(*j)->p->cmd = NULL;
 		return ;
 	}

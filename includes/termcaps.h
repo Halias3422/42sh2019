@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:59:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 09:03:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -298,7 +298,6 @@ t_hist					*search_up_complete_in_history(t_hist *hist,
 t_hist					*search_down_complete_in_history(t_hist *hist,
 						t_pos *pos);
 void					remove_last_link_hist(void);
-
 
 /*
 ** SIGNAL

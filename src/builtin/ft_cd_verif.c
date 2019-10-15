@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:11:29 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 16:20:00 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 13:38:55 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ char		*verif_p_option_path(char *new_path, int i, int absolute)
 		test = ft_strjoinf(test, "/", 1);
 		if (verif_path(test, 1, 0) == 0)
 		{
+			ft_strdel(&new_path);
 			ft_free_tab(split_path);
 			free(test);
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_fg.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/08/22 16:44:48 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 16:13:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/08/22 16:44:48 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/15 08:32:12 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,7 @@ void			put_foreground(t_job *j, t_var **var, t_process *p)
 
 	pos = to_stock(NULL, 1);
 	pos->last_cmd_on_bg = 1;
-	kill(-j->pgid, SIGCONT);
+	kill(j->pgid, SIGCONT);
 	j->status = 'r';
 	tcsetpgrp(0, j->pgid);
 	wait_process(var);
@@ -38,24 +38,17 @@ int				rerun_job(t_job *j, t_var **var, t_process *p)
 	return (0);
 }
 
-void			move_plus_and_minus_indicators(t_job_list *j,
-				t_job_list *save)
+void			replace_minus_by_plus(t_job_list *save)
 {
-	if (j->j->current == '+' && save == j)
+	while (save)
 	{
-		save->j->current = ' ';
-		while (save->next)
-			save = save->next;
-		save->j->current = '-';
-		if (save->next)
-			save->next->j->current = '+';
-		else
+		if (save->j->current == '-')
+		{
 			save->j->current = '+';
+			save->j->was_a_plus = 0;
+		}
+		save = save->next;
 	}
-	else if (save->j->current == '+' && j != save)
-		return ;
-	else
-		go_through_jobs_for_current(j, save);
 }
 
 t_job			*find_job_by_id(char *argv)
@@ -73,7 +66,7 @@ t_job			*find_job_by_id(char *argv)
 	{
 		name = built_job_name(job_list, name);
 		if (job_list->j->pgid == pid || job_list->j->id == pid ||
-				ft_strncmp(name, argv, ft_strlen(name) == 0))
+				ft_strncmp(name, argv, ft_strlen(argv)) == 0)
 		{
 			move_plus_and_minus_indicators(job_list, save);
 			ft_strdel(&name);
