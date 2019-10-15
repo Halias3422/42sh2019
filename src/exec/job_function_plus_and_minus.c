@@ -6,23 +6,12 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:55:55 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 18:11:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 10:17:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
-/*
-void		remove_plus(t_job_list *tmp)
-{
-	while (tmp)
-	{
-		if (tmp->j->current == '+')
-			tmp->j->current = ' ';
-		tmp = tmp->next;
-	}
-}*/
-
 
 t_save_job	*stock_t_job(t_save_job *stock, int usage)
 {

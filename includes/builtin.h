@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:30:23 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 10:30:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -102,6 +102,8 @@ void			go_through_jobs_for_current(t_job_list *j, t_job_list *save);
 t_job_list		*find_plus_jb(t_job_list *j);
 void			change_plus_and_minus_indicators(t_job_list *jb, t_job *j,
 				t_job_list *save);
+void			repare_plus_and_minus(t_job_list *save, int check_minus,
+				int check_plus);
 
 /*
 **	FT_BG_C
