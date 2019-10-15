@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:30:27 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 13:43:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -127,7 +127,7 @@ int		ft_cd(t_process *p, t_var **var)
 	{
 		if (p->cmd[1] && ft_get_val("CDPATH", *var, ENVIRONEMENT) != NULL &&
 				(new_path == NULL || verif_path(new_path, 1, 0) == 0))
-			new_path = verif_path_in_cdpath(new_path, *var, p->cmd[1]);
+			new_path = verif_path_in_cdpath(new_path, *var, p->cmd, 1);
 		else
 			new_path = ft_strdup(p->cmd[i]);
 	}
