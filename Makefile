@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/14 16:29:22 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/15 08:38:22 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -43,7 +43,7 @@ SRC_EXEC = $(addprefix exec/, \
 			job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
 				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
 				before_redirection.c new_job.c process_file.c alias_reduction.c alias_norme.c \
-				exec_tool.c var_norme.c launch_job_process.c)
+				exec_tool.c var_norme.c launch_job_process.c job_function_plus_and_minus.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
@@ -59,6 +59,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
 				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c ft_cd_check_cdpath.c \
 				tools_bis.c ft_setenv_tool.c \
+				ft_fg_bg_plus_and_minus.c\
 				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c ft_fg_bg_tools.c)
 
 SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)

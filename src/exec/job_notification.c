@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:55:33 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:27:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ t_job_list	*job_notification_while(t_job_list *job_list, t_job_list **last)
 	if (job_is_completed(job_list->j))
 	{
 		print_job(job_list->j);
-		remove_job(job_list->j->id);
+		remove_job(job_list->j->id, 1);
 		return (NULL);
 	}
 	else if (job_is_stoped(job_list->j) && !job_list->j->notified)

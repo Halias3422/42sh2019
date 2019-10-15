@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_fg_bg_tools.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/11 16:07:08 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 16:13:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:31:28 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,12 +44,19 @@ t_job			*find_plus(t_job_list *j)
 void			go_through_jobs_for_current(t_job_list *j, t_job_list *save)
 {
 	j->j->current = ' ';
+	if (save->j->current == '-')
+	{
+		save->j->current = '+';
+		save->j->was_a_plus = 0;
+	}
 	while (save->next)
 	{
 		if (save->next->j->current == '-')
 		{
 			save->next->j->current = '+';
+			save->next->j->was_a_plus = 0;
 			save->j->current = '-';
+			save->j->was_a_plus = 1;
 		}
 		save = save->next;
 	}
@@ -63,10 +70,16 @@ void			change_plus_and_minus_indicators(t_job_list *jb, t_job *j,
 	while (save)
 	{
 		if (save->j->current == '-')
+		{
+			save->j->was_a_plus = 0;
 			save->j->current = ' ';
+		}
 		save = save->next;
 	}
 	if (j)
+	{
+		j->was_a_plus = 1;
 		j->current = '-';
+	}
 	jb->j->current = '+';
 }

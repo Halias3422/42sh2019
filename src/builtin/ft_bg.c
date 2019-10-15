@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 16:25:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:29:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,8 +71,8 @@ t_job			*find_job_by_id_bg(char **cmd, int i)
 int				ft_bg(t_process *p, t_var **var)
 {
 	t_job		*job;
-	char		*tmp;
 	t_pos		*pos;
+	t_save_job	*copy;
 
 	job = find_job_by_id_bg(p->cmd, 1);
 	if (job != NULL)
@@ -81,7 +81,10 @@ int				ft_bg(t_process *p, t_var **var)
 		pos->last_cmd_on_bg = 1;
 		kill(-job->pgid, SIGCONT);
 		job->status = 'r';
-		ft_strdel(&tmp);
+		copy = stock_t_job(NULL, 3);
+		free_copy_job(copy);
+		copy = copy_job_list(stock(NULL, 10), NULL);
+		stock_t_job(copy, 2);
 		return (0);
 	}
 	else if (p->cmd[1] == NULL)

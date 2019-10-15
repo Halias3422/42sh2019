@@ -6,33 +6,13 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 07:16:24 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:27:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
-
-void		update_current(void)
-{
-	t_job_list	*job_list;
-	t_job_list	*last;
-	t_job_list	*penultimate;
-
-	job_list = stock(NULL, 10);
-	last = NULL;
-	penultimate = NULL;
-	while (job_list)
-	{
-		penultimate->j->current = ' ';
-		last->j->current = '-';
-		job_list->j->current = '+';
-		penultimate = last;
-		last = job_list;
-		job_list = job_list->next;
-	}
-}
 
 void		remove_job_free(t_job_list **job_list, t_job_list **last,
 			t_job_list **start)
@@ -49,16 +29,27 @@ void		remove_job_free(t_job_list **job_list, t_job_list **last,
 	*job_list = next;
 }
 
-void		remove_job(int id)
+void		return_to_the_copy(t_job_list *start, t_save_job *copy)
+{
+	while (copy)
+	{
+		start->j->current = copy->current;
+		start->j->was_a_plus = copy->was_a_plus;
+		copy = copy->next;
+		start = start->next;
+	}
+}
+
+void		remove_job(int id, int i)
 {
 	t_job_list	*job_list;
 	t_job_list	*start;
 	t_job_list	*last;
-	int			i;
+	t_save_job	*copy;
 
+	copy = stock_t_job(NULL, 3);
 	start = stock(NULL, 10);
 	job_list = start;
-	i = 1;
 	last = NULL;
 	while (job_list)
 	{
@@ -72,7 +63,9 @@ void		remove_job(int id)
 			i++;
 		}
 	}
-	update_current();
+	replace_plus_and_minus(start);
+	if (copy != NULL && lenlist(start, NULL, 1) == lenlist(NULL, copy, 0))
+		return_to_the_copy(start, copy);
 	stock(start, 9);
 }
 

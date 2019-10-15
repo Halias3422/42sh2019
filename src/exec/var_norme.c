@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:11:03 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 11:24:23 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:28:32 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,6 @@ int			add_env_check(char *name, t_var **var, char *str)
 	}
 	if (!(*var))
 	{
-		puts("env check");
 		add_env_temp(var, str, LOCAL);
 		stock(*var, 5);
 		return (1);

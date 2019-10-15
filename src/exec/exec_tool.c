@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec_tool.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 10:53:31 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:46:28 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:25:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ void		init_job(t_job *j)
 	j->split = '\0';
 	j->status = '\0';
 	j->current = ' ';
+	j->was_a_plus = 0;
 }
 
 void		fill_job(t_job *j, t_lexeur **res)

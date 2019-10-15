@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 09:57:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:17:00 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,13 +71,42 @@ typedef struct			s_job
 	int					notified;
 	int					id;
 	char				current;
+	int					was_a_plus;
 }						t_job;
 
 typedef struct			s_job_list
 {
 	struct s_job_list	*next;
+	struct s_job_list	*prev;
 	t_job				*j;
 }						t_job_list;
+
+typedef struct			s_save_job
+{
+	char				current;
+	int					was_a_plus;
+	struct s_save_job	*next;
+	struct s_save_job	*prev;
+}						t_save_job;
+
+/*
+**	NEW_JOB_C
+*/
+
+t_save_job				*copy_job_list(t_job_list *save, t_save_job *head);
+void					free_copy_job(t_save_job *copy);
+void					add_job(t_job *j, int i);
+
+/*
+**	JOB_FUNCTION_PLUS_AND_MINUS_C
+*/
+
+t_save_job				*stock_t_job(t_save_job *stock, int usage);
+int						place_minus_before_plus_check_null(t_job_list *save,
+						int check);
+int						place_minus_before_plus(t_job_list *save);
+void					replace_plus_and_minus(t_job_list *start);
+int						lenlist(t_job_list *start, t_save_job *copy, int usage);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -225,8 +254,7 @@ void					wait_process(t_var **var);
 void					print_start_process(t_job *j);
 void					check_zombie();
 void					print_job(t_job *j);
-void					add_job(t_job *j);
-void					remove_job(int id);
+void					remove_job(int id, int i);
 void					set_job_status(pid_t id, char status);
 int						find_job_pgid(pid_t pgid);
 void					job_notification(t_var **var);

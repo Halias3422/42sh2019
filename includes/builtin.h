@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 16:29:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:30:23 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,6 @@ int				ft_set(t_process *p, t_var **ptr_var);
 int				ft_type(t_process *p, t_var **var);
 int				ft_export(t_process *p, t_var **ptr_var);
 int				ft_unset(t_process *p, t_var **ptr_var);
-int				ft_fg(t_process *p, t_var **var);
 char			*ft_get_val(char *name, t_var *var, int type);
 int				ft_tabclen(char **array);
 void			add_list_env(t_var **var, int type, char *name, char *data);
@@ -72,6 +71,28 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name, int *error);
 int				comp_num_operator(char *name1, char *type, char *name2,
 				int *error);
+
+/*
+**	FT_FG_BG_PLUS_AND_MINUS_C
+*/
+
+t_job_list		*move_plus_and_minus_indicators_moves(t_job_list *save);
+void			move_plus_and_minus_indicators(t_job_list *j, t_job_list *save);
+void			place_plus_and_minus_init_check(t_job_list *head, int *check);
+void			place_plus_and_minus_check_null(t_job_list *head,
+				t_job_list *tmp);
+void			place_plus_and_minus(t_job_list *head, char split);
+
+/*
+**	FT_FG_C
+*/
+
+void			put_foreground(t_job *j, t_var **var, t_process *p);
+void			move_plus_and_minus_indicators(t_job_list *j, t_job_list *save);
+t_job			*find_job_by_id(char *argv);
+int				rerun_job(t_job *j, t_var **var, t_process *p);
+int				ft_fg(t_process *p, t_var **var);
+
 /*
 **	FT_BG_FG_TOOLS_C
 */
