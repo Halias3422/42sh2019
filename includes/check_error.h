@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   check_error.h                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:17:13 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 09:26:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 13:53:00 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,4 +44,5 @@ int			syntax_print_error(int token);
 void		error_heredoc_go_next(char *str, int *i);
 int			first_check(char *str, int i, int token);
 int			second_check(char *str, int i, int token);
+void		moove_next_quote(char c, char *str, int *i);
 #endif
