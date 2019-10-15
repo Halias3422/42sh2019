@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 07:32:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:31:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,7 @@ void			free_pos(void)
 	ft_strdel(&pos->path);
 	ft_strdel(&pos->ctrl_hist_cmd);
 	ft_strdel(&pos->saved_ans);
+	ft_strdel(&pos->pwd);
 }
 
 void			free_env_list(t_var *var)

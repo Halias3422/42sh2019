@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   before_redirection.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 13:44:22 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:24:55 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,7 @@ void		before_redirection_file_in(t_redirect *redirect)
 			S_IRUSR | S_IWUSR);
 		write(redirect->open_in, redirect->heredoc_content,
 			ft_strlen(redirect->heredoc_content));
+		write(redirect->open_in, "\n", 1);
 		redirect->open_in = open(PATH_HEREDOC, O_CREAT |
 		O_RDWR, S_IRUSR | S_IWUSR);
 	}
@@ -82,6 +83,6 @@ void		before_redirection(t_process *p)
 			before_redirection_file(redirect);
 			redirect = redirect->next;
 		}
-		p = get_and_or(p);
+		p = p->next;
 	}
 }

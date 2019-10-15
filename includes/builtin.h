@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 17:02:18 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 10:19:44 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@ typedef struct s_hist		t_hist;
 typedef struct s_hash		t_hash;
 typedef struct s_job_list	t_job_list;
 typedef struct s_job		t_job;
+typedef struct s_pos		t_pos;
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -101,6 +102,8 @@ void			go_through_jobs_for_current(t_job_list *j, t_job_list *save);
 t_job_list		*find_plus_jb(t_job_list *j);
 void			change_plus_and_minus_indicators(t_job_list *jb, t_job *j,
 				t_job_list *save);
+void			repare_plus_and_minus(t_job_list *save, int check_minus,
+				int check_plus);
 
 /*
 **	FT_BG_C
@@ -217,6 +220,12 @@ void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 */
 
 int				ft_setenv(t_process *p, t_var **var);
+
+/*
+**	FT_SETENV_TOOL_C
+*/
+
+char			**init_al_tab_content(t_process *p, int i);
 void			print_env(t_var *var);
 int				print_err_setenv(char **al);
 
@@ -282,10 +291,20 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 **	FT_CD_VERIF_C
 */
 
+char			*verif_path_in_cdpath(char *path, t_var *var, char *cmd);
 char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path, int i, int absolute);
-int				verif_path(char *path, int mute);
+int				verif_path(char *path, int mute, int usage);
 int				check_arguments_number(t_process *p, int *i, int *option);
+
+/*
+**	FT_CD_CHECK_CDPATH_C
+*/
+
+char			*verif_path_in_cdpath(char *path, t_var *var, char *cmd);
+void			print_cd_error(char *path, int i, int mute, int usage);
+int				finish_ft_cd(char *new_path, t_pos *pos, t_var **var,
+				int option);
 
 /*
 **	FC_PREPARE_E_FLAG_TOOL.C

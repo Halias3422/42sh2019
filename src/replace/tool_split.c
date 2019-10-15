@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool_split.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 20:54:14 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:18:18 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,12 +20,8 @@ void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc)
 
 	jump_space(str, i);
 	s = *i;
-	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
-	&& (double_check(str, *i))))
+	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '))
 	{
-		heredoc_go_next_quote(str, i);
-		if (str[*i] == '\\' && str[*i + 1] == ' ')
-			(*i)++;
 		if (str[*i])
 			(*i)++;
 	}

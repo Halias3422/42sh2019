@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 18:10:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 09:14:16 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ static void		iterate_through_list(t_job_list *jb, char *ans)
 	{
 		name = built_job_name(jb, name);
 		if (jb->j->id == ft_atoi(ans) ||
-		ft_strncmp(name, ans, ft_strlen(name)) == 0)
+		ft_strncmp(name, ans, ft_strlen(ans)) == 0)
 		{
 			change_plus_and_minus_indicators(jb, find_plus(save), save);
 			ft_strdel(&name);

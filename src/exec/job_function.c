@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 18:11:10 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 10:18:19 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,15 +57,15 @@ void		remove_job(int id, int i)
 			remove_job_free(&job_list, &last, &start);
 		else
 		{
-			job_list->j->id = i;
+			job_list->j->id = ++i;
 			last = job_list;
 			job_list = job_list->next;
-			i++;
 		}
 	}
 	replace_plus_and_minus(start);
 	if (copy != NULL && lenlist(start, NULL, 1) == lenlist(NULL, copy, 0))
 		return_to_the_copy(start, copy);
+	repare_plus_and_minus(start, 0, 0);
 	stock(start, 9);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:15:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 17:50:52 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:22:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,7 @@ int		is_in_selection_area(int i, t_pos *pos)
 
 void	*to_stock(void *stock, int usage)
 {
-	static t_pos		*pos = NULL;
+	static t_pos	*pos = NULL;
 
 	if (usage == 0)
 		pos = stock;

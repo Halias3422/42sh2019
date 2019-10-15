@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 15:00:29 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 09:03:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -118,6 +118,7 @@ typedef struct			s_pos
 	char				*ans_heredoc;
 	char				*ans_heredoc_save;
 	int					last_cmd_on_bg;
+	char				*pwd;
 	struct s_heredoc	*hdoc;
 }						t_pos;
 
@@ -180,12 +181,19 @@ typedef struct			s_ctrl_hist
 	int					act_li;
 }						t_ctrl_hist;
 
-char					*check_path_hash(t_var **var, char **arg, int i,
+char					*check_path_hash(t_var **var, char *arg, int i,
 						char *ans);
 void					print_info(t_pos *pos);
 void					print_hist(t_pos *pos, t_hist *hist);
 int						got_a_wildcard(char *name);
 int						check_ans(char *str);
+
+/*
+**	INIT_POS_MAIN_C
+*/
+
+void					main_init_pos(t_pos *pos, t_var *my_env);
+
 /*
 ** CALCUL_LINE
 */
@@ -203,7 +211,7 @@ int						go_to_let_nb(t_pos *pos);
 void					error_handling(t_pos *pos, char *variable, int err);
 
 /*
-** CHECK_ERROR
+** CHECK_ERROR_C
 */
 
 int						check_term(void);
@@ -289,6 +297,7 @@ t_hist					*search_up_complete_in_history(t_hist *hist,
 						t_pos *pos);
 t_hist					*search_down_complete_in_history(t_hist *hist,
 						t_pos *pos);
+void					remove_last_link_hist(void);
 
 /*
 ** SIGNAL
@@ -490,7 +499,7 @@ int						ft_put_c(int c);
 ***								env.c										***
 *******************************************************************************
 */
-t_var					*init_env(char **env, t_pos *pos, char **av);
+t_var					*init_env(char **env, t_pos *pos, char **av, int i);
 char					*init_name(char *src);
 void					free_env(t_var *ptr_env);
 char					*init_data(char *src);
@@ -616,7 +625,7 @@ void					init_t_heredoc(t_heredoc *hdoc);
 **	INIT_SPECIAL_PARAMS_C
 */
 
-void					init_spe_params(t_var *save, t_pos *pos, char **av);
+t_var					*init_spe_params(char **av);
 void					*to_stock(void *stock, int usage);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/14 17:32:22 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/15 10:12:09 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -57,11 +57,12 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				fc_get_flags.c fc_execute_l_flag.c fc_execute_s_flag.c fc_execute_e_flag.c \
 				fc_tools.c fc_prepare_e_flag.c fc_s_replace_pattern.c ft_hash.c \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
-				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c tools_bis.c \
-				ft_setenv_tool.c ft_fg_bg_plus_and_minus.c\
+				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c ft_cd_check_cdpath.c \
+				tools_bis.c ft_setenv_tool.c \
+				ft_fg_bg_plus_and_minus.c\
 				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c ft_fg_bg_tools.c)
 
-SRC_MAIN = $(addprefix main/, main.c)
+SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)
 
 SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
 
@@ -74,7 +75,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined 
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined 
 FLAG_END = -lcurses
 NORME = norminette
 
