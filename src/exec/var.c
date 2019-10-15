@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 11:34:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 14:37:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,6 @@ int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 		remoove_all_quote(&cmd[i]);
 		if (check_cmd(cmd) == 1)
 		{
-			printf("cmd[%d]=%s\n", i, cmd[i]);
 			add_env_temp(var, cmd[i], TEMP);
 			*tmp = remove_tab(cmd, i);
 		}

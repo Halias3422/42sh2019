@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:11:03 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 11:40:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 14:38:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,6 @@ void		add_env_temp(t_var **var, char *str, int type)
 	}
 	while ((*var)->next && (*var)->next->type == SPE)
 		(*var) = (*var)->next;
-	printf("%s=%s\n", (*var)->name, (*var)->data);
 	tmp = (*var)->next;
 	(*var)->next = malloc(sizeof(t_var));
 	(*var)->next->name = name;
