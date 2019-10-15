@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/18 07:50:21 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:30:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 12:17:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,9 @@ static int		fill_new_env(t_process *p, int i, t_var **new_env,
 static void		interpret_env_cmd(t_process *p, int i, char *new_cmd,
 				t_var *head)
 {
+	t_var		*old_env;
+
+	old_env = stock(NULL, 6);
 	new_cmd = ft_strnew(0);
 	while (p->cmd[i])
 	{
@@ -53,9 +56,12 @@ static void		interpret_env_cmd(t_process *p, int i, char *new_cmd,
 		new_cmd = ft_strjoinf(new_cmd, " ", 1);
 		i++;
 	}
-	(void)head;
 	if (check_error(new_cmd) != -1)
+	{
+		stock(head, 5);
 		start_exec(start_lex(head, new_cmd), head);
+		stock(old_env, 5);
+	}
 }
 
 int				find_if_cmd_is_builtin(t_process *p)
