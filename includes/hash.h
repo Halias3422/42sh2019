@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:31:38 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 11:08:16 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 07:41:01 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,10 +47,10 @@ unsigned short		get_key_of_exec(char *str);
 **	HASH_PATH_C
 */
 
+int					test_all_paths_existence(char **paths, char *arg, int *i);
 char				*absolute_path(char *path, char *tmp);
 char				*path_found(char **paths, int i, char *ans, char *arg);
 char				*path_denied(char **paths, char *arg, int denied);
-char				*path_not_found(char **paths, char **arg);
 int					scan_name_for_undesired_symbols(char *str);
 
 #endif

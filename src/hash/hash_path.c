@@ -6,12 +6,30 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 09:43:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 11:12:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 07:42:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/hash.h"
+
+int					test_all_paths_existence(char **paths, char *arg, int *i)
+{
+	int				denied;
+
+	denied = 0;
+	while (paths != NULL && paths[*i])
+	{
+		paths[*i] = ft_strjoinf(paths[*i], "/", 1);
+		paths[*i] = ft_strjoinf(paths[*i], arg, 1);
+		if (access(paths[*i], F_OK) == 0 && access(paths[*i], X_OK) == 0)
+			return (1);
+		else if (access(paths[*i], F_OK) == 0 && access(paths[*i], X_OK) != 0)
+			denied -= 1;
+		*i += 1;
+	}
+	return (denied);
+}
 
 char				*absolute_path(char *path, char *tmp)
 {

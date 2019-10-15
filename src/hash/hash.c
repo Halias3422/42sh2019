@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 11:09:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 07:40:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,18 +96,16 @@ char				*check_path_hash(t_var **var, char *arg,
 		return (absolute_path(arg, ft_strdup(arg)));
 	if ((hash = stock_hash(NULL, 1)) != NULL &&
 	(ans = search_exec_in_table(hash[get_key_of_exec(arg)], arg)) != NULL)
+	{
+		ft_strdel(&arg);
 		return (ans);
+	}
 	env = split_env(*var);
 	paths = get_ide_paths(env);
 	ft_free_tab(env);
-	while (paths != NULL && paths[++i])
-	{
-		paths[i] = ft_strjoinf(paths[i], "/", 1);
-		paths[i] = ft_strjoinf(paths[i], arg, 1);
-		if (access(paths[i], F_OK) == 0 && access(paths[i], X_OK) == 0)
-			return (path_found(paths, i, ans, arg));
-		else if (access(paths[i], F_OK) == 0 && access(paths[i], X_OK) != 0)
-			denied += 1;
-	}
-	return (path_denied(paths, arg, denied));
+	denied = test_all_paths_existence(paths, arg, &i);
+	if (denied > 0)
+		return (path_found(paths, i, ans, arg));
+	else
+		return (path_denied(paths, arg, denied));
 }

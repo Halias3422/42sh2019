@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 18:16:13 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 11:30:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,8 +20,8 @@ void		add_setenv(t_var **var, char *name, char *data, int usage)
 	if (usage == 0)
 	{
 		start = malloc(sizeof(t_var));
-		start->name = name;
-		start->data = data;
+		start->name = ft_strdup(name);
+		start->data = ft_strdup(data);
 		start->type = ENVIRONEMENT;
 		start->next = (*var);
 		(*var) = start;
@@ -30,91 +30,89 @@ void		add_setenv(t_var **var, char *name, char *data, int usage)
 	{
 		(*var) = malloc(sizeof(t_var));
 		(*var)->next = NULL;
-		(*var)->name = name;
-		(*var)->data = data;
+		(*var)->name = ft_strdup(name);
+		(*var)->data = ft_strdup(data);
 		(*var)->type = ENVIRONEMENT;
 	}
 }
 
-static int	setenv_rules(t_process *p)
+static int	setenv_rules(t_process *p, char **al)
 {
-	if (p->cmd[1] && p->cmd[2])
+	if (p->cmd[1] && !p->cmd[2] && ft_strcmp(p->cmd[1], "-u") == 0)
 	{
-		ft_printf("42sh: setenv: too much arguments, use -u for usage\n");
-		return (0);
-	}
-	if (p->cmd[1] && ft_strcmp(p->cmd[1], "-u") == 0)
-	{
-		ft_printf("42sh: setenv: usage: setenv [NAME=data, NAME, =NAME]\n");
+		ft_printf("42sh: setenv: usage: setenv [NAME=data, NAME]\n");
+		ft_free_tab(al);
 		return (0);
 	}
 	return (1);
 }
 
-void		add_var_to_env(t_var **var, char *name, char *data)
+void		add_var_to_env(t_var *var, char *name, char *data, t_var *prev)
 {
-	t_var	*prev;
-
-	prev = NULL;
-	if (!(*var))
+	if (!(var))
 	{
-		add_setenv(var, name, data, 0);
-		stock(*var, 5);
+		add_setenv(&var, name, data, 0);
+		stock(var, 5);
 		return ;
 	}
-	while (*var)
+	while (var)
 	{
-		if (ft_strcmp(name, (*var)->name) == 0)
+		if (ft_strcmp(name, (var)->name) == 0)
 			break ;
-		prev = (*var);
-		(*var) = (*var)->next;
+		prev = (var);
+		(var) = (var)->next;
 	}
-	if (!(*var))
+	if (!(var))
 	{
-		add_setenv(var, name, data, 1);
-		prev->next = (*var);
+		add_setenv(&var, name, data, 1);
+		prev->next = (var);
 		return ;
 	}
-	ft_strdel(&(*var)->data);
-	ft_strdel(&name);
-	(*var)->data = data;
+	if (data && ft_strlen(data) > 0)
+	{
+		ft_strdel(&(var)->data);
+		(var)->data = ft_strdup(data);
+	}
 }
 
-char		**init_al_tab_content(t_process *p)
+int			setenv_through_cmd_passed(t_process *p, t_var **var, char **al,
+		int i)
 {
-	char	**al;
+	int		check;
 
-	al = malloc(sizeof(char *) * 3);
-	al[0] = init_name(p->cmd[1]);
-	al[1] = init_data(p->cmd[1]);
-	al[2] = 0;
-	return (al);
+	check = 0;
+	while (p->cmd[++i])
+	{
+		al = init_al_tab_content(p, i);
+		remoove_quote(&al);
+		if (check_name(al[0]) == 1)
+			return (print_err_setenv(al));
+		if (setenv_rules(p, al) == 0)
+			return (-1);
+		if (scan_name_for_undesired_symbols(al[0]) == -1 ||
+				p->cmd[i][0] == '=')
+		{
+			check = -1;
+			ft_printf_err("42sh: setenv: invalid name parameter\n");
+		}
+		else
+		{
+			add_var_to_env(*var, al[0], al[1], NULL);
+			check = 0;
+		}
+		ft_free_tab(al);
+	}
+	return (check);
 }
 
 int			ft_setenv(t_process *p, t_var **var)
 {
 	char	**al;
+	int		i;
 
+	i = 0;
 	al = NULL;
 	if (p->cmd[1])
-	{
-		al = init_al_tab_content(p);
-		remoove_quote(&al);
-		if (check_name(al[0]) == 1)
-			return (print_err_setenv(al));
-		if (setenv_rules(p) == 0)
-		{
-			ft_free_tab(al);
-			return (0);
-		}
-		if (scan_name_for_undesired_symbols(al[0]) == -1)
-		{
-			ft_free_tab(al);
-			ft_printf_err("42sh: setenv: invalid name parameter\n");
-			return (1);
-		}
-		add_var_to_env(var, al[0], al[1]);
-	}
-	free(al);
-	return (0);
+		return (setenv_through_cmd_passed(p, var, al, i));
+	return (-1);
 }

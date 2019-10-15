@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:12:52 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 09:15:58 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 16:37:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,7 @@ char		*solve_back_slash_end(char *str)
 	int		tmp;
 
 	a = back_slash_count_end(str);
-	res = malloc(sizeof(char) * (a + 1));
+	res = malloc(sizeof(char) * (a + 2));
 	tmp = a;
 	a = 0;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 15:27:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:59:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -297,6 +297,8 @@ t_hist					*search_up_complete_in_history(t_hist *hist,
 						t_pos *pos);
 t_hist					*search_down_complete_in_history(t_hist *hist,
 						t_pos *pos);
+void					remove_last_link_hist(void);
+
 
 /*
 ** SIGNAL
@@ -498,7 +500,7 @@ int						ft_put_c(int c);
 ***								env.c										***
 *******************************************************************************
 */
-t_var					*init_env(char **env, t_pos *pos, char **av);
+t_var					*init_env(char **env, t_pos *pos, char **av, int i);
 char					*init_name(char *src);
 void					free_env(t_var *ptr_env);
 char					*init_data(char *src);
@@ -624,7 +626,7 @@ void					init_t_heredoc(t_heredoc *hdoc);
 **	INIT_SPECIAL_PARAMS_C
 */
 
-void					init_spe_params(t_var *save, t_pos *pos, char **av);
+t_var					*init_spe_params(char **av);
 void					*to_stock(void *stock, int usage);
 
 #endif

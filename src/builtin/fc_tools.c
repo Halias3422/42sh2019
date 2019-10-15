@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 13:14:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:53:16 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 16:27:16 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,10 @@ char			*get_program_pwd(char *pwd, int i)
 	while (env[i] && ft_strncmp(env[i], "_=", 2) != 0)
 		i++;
 	if (env[i] == NULL)
+	{
+		ft_free_tab(env);
 		return (NULL);
+	}
 	pwd = ft_strnew(0);
 	pwd = ft_strjoinf(pwd, env[i] + 2, 1);
 	i = ft_strlen(pwd) - 1;

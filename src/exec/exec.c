@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 15:29:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 07:50:00 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,6 +93,12 @@ t_job		*make_job(t_lexeur **res)
 	return (j);
 }
 
+int			return_freed_re(t_lexeur **res)
+{
+	free(res);
+	return (0);
+}
+
 int			start_exec(t_lexeur **res, t_var *var)
 {
 	t_job		*j;
@@ -100,13 +106,11 @@ int			start_exec(t_lexeur **res, t_var *var)
 	t_job		*next;
 
 	if (!res[0])
-	{
-		free(res);
-		return (0);
-	}
+		return (return_freed_re(res));
 	j = make_job(res);
 	while (j)
 	{
+		var = stock(NULL, 6);
 		j->pgid = 0;
 		next = j->next;
 		tmp = j->p;

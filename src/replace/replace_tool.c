@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   replace_tool.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/08 20:22:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 20:32:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/12 11:01:32 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,8 @@ int			check_alias(char *array, t_var *var)
 {
 	t_var		*tmp_var;
 
-	tmp_var = var;
+	(void)var;
+	tmp_var = stock(NULL, 6);
 	while (tmp_var && ((ft_strcmp(array, tmp_var->name) != 0)
 	|| tmp_var->type != ALIAS))
 	{

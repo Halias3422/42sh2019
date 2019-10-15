@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 10:39:03 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/14 17:39:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,6 +83,6 @@ void		before_redirection(t_process *p)
 			before_redirection_file(redirect);
 			redirect = redirect->next;
 		}
-		p = get_and_or(p);
+		p = p->next;
 	}
 }

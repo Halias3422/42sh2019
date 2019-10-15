@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 15:12:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:59:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,6 +51,7 @@ static void		ctrl_c(t_pos *pos)
 {
 	char		*pwd;
 
+	remove_last_link_hist();
 	if (pos->last_cmd_on_bg == 1)
 		return ;
 	while ((*ghist)->next)
