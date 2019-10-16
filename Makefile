@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/15 15:16:51 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/16 11:13:37 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -94,7 +94,7 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME) : $(OBJ) libs $(LIB_PATH) $(ALL_INC)
-	@echo  "\n$(LIGHT_GREEN)42sh loaded$(RESET)"
+	@echo  "\n$(LIGHT_GREEN)21sh loaded$(RESET)"
 	@make -C libft
 	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]${RESET}"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
