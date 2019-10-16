@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/16 15:01:19 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/16 15:02:31 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -115,9 +115,6 @@ fclean: clean
 	@make -C libft/ fclean
 	@rm -rf $(NAME)
 	@echo "./$(NAME)\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]${RESET}\n"
-
-libs:
-	@ make -C libft/
 
 batman: $(NAME)
 	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "
