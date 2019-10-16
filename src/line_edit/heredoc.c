@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:54:54 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/16 11:18:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -108,7 +108,8 @@ void			search_for_heredocs_in_ans(t_pos *pos, int i, int open)
 		if (open == -1 && pos->ans[i] == '<' && pos->ans[i + 1] == '<' &&
 				(i == 0 || (i > 0 && pos->ans[i - 1] != 92)))
 		{
-			if (heredoc_found(pos, i + 2, i + 2) == -1)
+			if (heredoc_found(pos, i + 2, i + 2) == -1 ||
+					check_if_to_find_is_not_empty(pos->hdoc) == -1)
 			{
 				free_hdoc(pos->hdoc);
 				pos->hdoc = NULL;
