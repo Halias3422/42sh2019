@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 15:49:17 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 15:51:01 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/16 08:41:04 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,8 @@ int			ft_unset_var(char *name, t_var **ptr_var)
 		return (1);
 	else if (ft_get_val(name, *ptr_var, SPE) != NULL)
 	{
-		ft_printf_err("can not unset special variable: {B.T.red.}%s{eoc}\n", name);
+		ft_printf_err("can not unset special variable: {B.T.red.}%s{eoc}\n",
+				name);
 		return (1);
 	}
 	return (0);
