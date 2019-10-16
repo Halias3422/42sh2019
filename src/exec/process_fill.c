@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 10:03:23 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/16 12:41:09 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,9 +29,25 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 	tmp->fd_in = NULL;
 	tmp->next = NULL;
 	(*t) = j;
-	if (tmp->heredoc_content != NULL)
+	{
 		return (size);
+	}
 	return (0);
+}
+
+int			go_next_token(t_lexeur **res, int *t)
+{
+	int		i;
+
+	i = 0;
+	if (res[*t] && res[*t + 1] && res[*t + 1]->token == (enum e_token)-1)
+		(*t)++;
+	while (res[*t] && res[*t]->word)
+	{
+		i++;
+		(*t)++;
+	}
+	return (i);
 }
 
 int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
@@ -57,7 +73,7 @@ int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
-	return (0);
+	return (go_next_token(res, t));
 }
 
 int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
@@ -85,7 +101,7 @@ int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
-	return (0);
+	return (go_next_token(res, t));
 }
 
 void		go_next_heredoc(t_lexeur **res, int *i, int *done)
@@ -117,7 +133,7 @@ void		fill_all_cmd(t_lexeur **res, t_job **j, int *k, int i)
 		done = 0;
 		if (res[i]->token == 7)
 			go_next_heredoc(res, &i, &done);
-		if (res[i] && res[i]->word)
+		else if (res[i] && res[i]->word)
 		{
 			(*j)->p->cmd[*k] = ft_strdup(res[i]->word);
 			(*k)++;
