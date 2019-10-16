@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 12:48:25 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/16 13:20:37 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
 	int		j;
 	int		size;
+	int		diff;
 
 	size = 0;
 	j = (*t);
@@ -28,11 +29,12 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 	tmp->fd_out = NULL;
 	tmp->fd_in = NULL;
 	tmp->next = NULL;
+	diff = (*t) - j;
 	(*t) = j;
-	{
-		return (size);
-	}
-	return (0);
+	diff--;
+	if (tmp->heredoc_content != NULL)
+		return (size + 1);
+	return (diff);
 }
 
 int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
