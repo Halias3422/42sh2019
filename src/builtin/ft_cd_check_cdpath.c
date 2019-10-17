@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 13:29:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 09:53:02 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,13 +34,19 @@ void		print_cd_error(char *path, int i, int mute, int usage)
 {
 	if (mute)
 	{
-		if (usage == 0)
+		if (usage == 0 && path && path + i)
 			ft_printf_err("42sh: cd: %s: is not a directory\n", path + i);
-		if (usage == 1)
+		else if (usage == 0)
+			ft_printf_err("42sh: cd : not a directory\n");
+		if (usage == 1 && path && path + i + 1)
 			ft_printf_err("42sh: cd: %s: No such file or directory\n",
 					path + i + 1);
-		if (usage == 2)
+		else if (usage == 1)
+			ft_printf_err("42sh: cd: No such file or directory\n");
+		if (usage == 2 && path && path + i)
 			ft_printf_err("42sh: cd: %s: permission denied\n", path + i);
+		else if (usage == 2)
+			ft_printf_err("42sh: cd: permission denied\n");
 	}
 }
 

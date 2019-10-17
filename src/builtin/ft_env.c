@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 08:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 09:06:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 10:13:35 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -123,7 +123,7 @@ int				ft_env(t_process *p, t_var **var)
 	t_var		*head;
 	int			err;
 
-	err = 1;
+	err = 0;
 	head = NULL;
 	new_env = NULL;
 	if (!p->cmd[1])
