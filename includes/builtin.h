@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:17:18 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 17:01:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -191,7 +191,7 @@ char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 **		FC_PREPARE_E_FLAG.C
 */
 
-char			**get_ide_paths(char **env);
+char			**get_ide_paths(char **env, int usage, t_fc *fc);
 void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist);
@@ -202,6 +202,7 @@ char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 */
 
 void			free_fc_struct(t_fc *fc);
+int				get_value_of_cmd_return(t_fc fc, t_var *var);
 
 /*
 **	FT_HASH_C

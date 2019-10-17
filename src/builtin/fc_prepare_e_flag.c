@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 14:02:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 11:36:00 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 16:48:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ static int		check_if_ename_is_text_editor(t_fc *fc, char **paths, int i)
 	return (0);
 }
 
-char			**get_ide_paths(char **env)
+char			**get_ide_paths(char **env, int usage, t_fc *fc)
 {
 	int				i;
 	char			**paths;
@@ -84,6 +84,8 @@ char			**get_ide_paths(char **env)
 		}
 		i++;
 	}
+	if (usage == 0 && paths == NULL)
+		fc->error = 2;
 	return (paths);
 }
 
@@ -99,7 +101,7 @@ void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i)
 	char		**paths;
 
 	env = split_env(*var);
-	paths = get_ide_paths(env);
+	paths = get_ide_paths(env, 0, fc);
 	if (fc->ename == NULL || (fc->ename[0] > '0' && fc->ename[0] < '9'))
 	{
 		if (fc->ename != NULL)
