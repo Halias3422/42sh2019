@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:18:24 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 23:20:40 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,9 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
-	remove_last_link_hist();
+	t_var		*var;
+
+	var = stock(NULL, 6);
 	if (pos->last_cmd_on_bg == 1)
 		return ;
 	while ((*ghist)->next)
@@ -68,6 +70,7 @@ static void		ctrl_c(t_pos *pos)
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	init_pos(pos, 1);
 	pos->is_complete = 1;
+	add_list_env(&var, SPE, ft_strdup("?"), ft_strdup("1"));
 	print_prompt(pos);
 }
 

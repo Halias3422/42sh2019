@@ -3,17 +3,18 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/17 22:14:57 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/17 23:14:03 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = 21sh
 
-LIB_PATH = libft/libft.a
+LIB_PATH = libft/
+LIB_LIB  = libft/libft.a
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
@@ -77,13 +78,15 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined 
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined 
 FLAG_END = -lcurses
 NORME = norminette
 
+WHITE_BOLD = \033[37m
 BLUE=\033[0;38;5;123m
 DARK_BLUE = \033[0;38;5;110m
 GREEN = \033[0;32m
+GREEN_BOLD = \033[1;32m
 LIGHT_GREEN = \033[1;38;5;121m
 LIGHT_YELLOW = \033[1;33;5;121m
 LIGHT_RED = \033[1;31;5;121m
@@ -92,29 +95,33 @@ YELLOW = \033[1;33m
 RED = \033[1;31m
 RESET = \033[0m
 
-all: $(NAME)
+all:
+	@echo ""
+	@make -C $(LIB_PATH)
+	@make -j $(NAME)
+	@echo ""
 
 $(NAME) : $(OBJ) Makefile
-	@echo  "\n$(LIGHT_GREEN)21sh loaded$(RESET)"
-	@make -C libft
-	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]${RESET}"
-	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
-	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]${RESET}"
+	@echo  "			\033[2K\r$(GREEN_BOLD)21sh:	$(WHITE_BOLD)loaded$(RESET)"
+	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_LIB) -I include
+
+$(LIB_LIB):
+	@make -C $(LIB_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAG) -g -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_GREEN).\c${RESET}"
+	@printf "\033[2K\r$(GREEN_BOLD)21sh:	\033[37m$<\033[36m \033[0m"
 
 clean:
 	@make -C libft/ clean
 	@rm -rf $(OBJ_PATH)
-	@echo ".o\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]$(RESET)"
+	@echo "$(GREEN_BOLD)21sh:	$(YELLOW)object files deleted$(RESET)"
 
 fclean: clean
 	@make -C libft/ fclean
 	@rm -rf $(NAME)
-	@echo "./$(NAME)\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]${RESET}\n"
+	@echo "$(GREEN_BOLD)21sh:	$(YELLOW)executable file deleted$(RESET)"
 
 batman: $(NAME)
 	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "
