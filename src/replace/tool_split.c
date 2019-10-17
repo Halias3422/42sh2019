@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 11:10:39 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 16:35:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,8 @@ void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc)
 	{
 		if (str[*i] == '\\' && str[*i + 1] == ' ')
 			(*i)++;
-		(*i)++;
+		if (str[*i])
+			(*i)++;
 	}
 	tmp = ft_strsub(str, s, *i - s);
 	if (!ft_strcmp(tmp, tag))

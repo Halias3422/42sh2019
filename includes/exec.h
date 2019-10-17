@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 12:51:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 22:07:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -147,7 +147,7 @@ void					add_heredoc(char *tag, t_lexeur **res, int *i);
 int						cnt_process(t_lexeur **res, int i);
 void					change_job(t_job **j, t_process **start);
 int						check_moove_index(t_lexeur **res, int *t);
-t_redirect				*init_var(int *done, int *t, int *i);
+t_redirect				*init_var(int *t, int *i);
 int						check_token_in_condition(t_lexeur **res, int t);
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -305,4 +305,7 @@ int						check_process(t_var *var, t_process *p, t_job *j);
 t_process				*init_launch_job(t_job *j, int *infile);
 void					launch_simple_job(t_process *p, t_job *j, t_var **var);
 void					alert_job(t_job *j);
+
+void					fill_heredoc_init(t_lexeur **res, t_redirect *tmp, int *t,
+						int *size);
 #endif

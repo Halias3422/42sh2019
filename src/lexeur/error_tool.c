@@ -6,21 +6,28 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/04 11:05:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 14:32:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 22:05:26 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/check_error.h"
 
+char	*error_heredoc_go_next_init(int *j, int *i, char *str)
+{
+	(*j) = (*i);
+	(*i) += g_fill_token[7].size;
+	return (get_tag(str, j));
+}
+
 void	error_heredoc_go_next(char *str, int *i)
 {
 	char	*tag;
 	char	*tmp;
+	int		j;
 	int		s;
 
-	tag = get_tag(str, i);
-	(*i) += g_fill_token[7].size;
+	tag = error_heredoc_go_next_init(&j, i, str);
 	while (str[*i])
 	{
 		jump_space(str, i);

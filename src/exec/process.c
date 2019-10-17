@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 13:20:31 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 21:47:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,30 +16,27 @@
 
 t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i, int t)
 {
-	int			done;
 	t_redirect	*tmp;
 
-	tmp = init_var(&done, &t, i);
+	tmp = init_var(&t, i);
 	while (res[t])
 	{
 		if (check_moove_index(res, &t))
 			break ;
 		if (res[t] && (check_token_in_condition(res, t)))
 		{
-			done += (res[t]->token == 7) ? 1 : 0;
 			if (!tmp)
 			{
 				tmp = malloc(sizeof(t_redirect));
 				p = tmp;
-				(*i) += fill_ag_first(tmp, res, &t);
+				(*i) = fill_ag_first(tmp, res, &t);
 			}
 			else
-				(*i) += fill_ag_next(tmp, res, &t);
-			done++;
+				(*i) = fill_ag_next(tmp, res, &t);
 		}
-		t += (res[t]) ? 1 : 0;
+		else
+			t += (res[t]) ? 1 : 0;
 	}
-	(*i) += done;
 	return (p);
 }
 

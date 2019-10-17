@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur_struct.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:38:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 14:29:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 19:54:37 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,7 +45,7 @@ void		fill_lex_heredoc(t_lexeur ***array, int *j, char **buf, int *i)
 
 	(*array)[*j] = malloc(sizeof(t_lexeur));
 	fill_struct_fd_in((*array)[*j], get_fd_in(buf[*i]), 7,
-	fill_redirection(buf, i));
+	fill_redirection_heredoc(buf, i));
 	tag = ft_strdup((*array)[*j]->redirection);
 	(*i)++;
 	while (buf[*i])
