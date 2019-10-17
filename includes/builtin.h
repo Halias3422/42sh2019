@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 13:44:16 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 18:12:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-# define LEN_BUILTIN_LIST 18
+# define LEN_BUILTIN_LIST 19
 # define TERM "42sh"
 
 typedef struct s_var		t_var;
@@ -71,6 +71,12 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name, int *error);
 int				comp_num_operator(char *name1, char *type, char *name2,
 				int *error);
+
+/*
+**	FT_SHTHEME
+*/
+
+int				ft_shtheme(t_process *p, t_var **var);
 
 /*
 **	FT_FG_BG_PLUS_AND_MINUS_C
@@ -185,7 +191,7 @@ char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 **		FC_PREPARE_E_FLAG.C
 */
 
-char			**get_ide_paths(char **env);
+char			**get_ide_paths(char **env, int usage, t_fc *fc);
 void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist);
@@ -196,22 +202,24 @@ char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 */
 
 void			free_fc_struct(t_fc *fc);
+int				get_value_of_cmd_return(t_fc fc, t_var *var);
 
 /*
 **	FT_HASH_C
 */
 
 int				ft_hash(t_process *p, t_var **var);
-void			exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
+int				exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
 				t_var **var);
 void			print_path_hash(t_hash **hash, char **cmd);
-void			print_part_of_hash_table(t_hash **hash, char **cmd);
+int				print_part_of_hash_table(t_hash **hash, char **cmd, int ret);
 
 /*
 **	HASH_D_FLAG_C
 */
 
-void			remove_selected_entry_hash(t_hash **hash, char **cmd);
+int				check_if_table_is_empty(t_hash **hash);
+int				remove_selected_entry_hash(t_hash **hash, char **cmd);
 void			delete_middle_link(t_hash *tmp);
 void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 
@@ -247,6 +255,15 @@ int				ft_env(t_process *p, t_var **var);
 
 int				go_through_process_cmd(t_process *p, t_var **new_env,
 				t_var **head, int ret);
+
+/*
+**	FT_ENV_I_NEW_ENV_C
+*/
+
+t_var			*copy_old_env(t_var *old);
+void			add_list_front_env(t_var *old, t_var **head);
+t_var			*add_front_spe_params(t_var *old, t_var *new_env);
+void			print_all_env(t_var *var);
 
 /*
 **	TOOL_C

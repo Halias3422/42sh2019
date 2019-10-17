@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:32:12 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 19:04:23 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,7 +90,7 @@ int				ft_fg(t_process *p, t_var **var)
 		if (job != NULL)
 			return (rerun_job(job, var, p));
 		else
-			ft_printf_err("bg: current: no such job\n", p->fd_out);
+			ft_printf_err("fg: current: no such job\n", p->fd_out);
 	}
 	else
 	{
@@ -98,7 +98,7 @@ int				ft_fg(t_process *p, t_var **var)
 		if (job != NULL)
 			return (rerun_job(job, var, p));
 		else
-			ft_putstr_fd("fg: job not found", p->fd_out);
+			ft_putstr_fd("fg: job not found\n", p->fd_out);
 	}
 	return (1);
 }

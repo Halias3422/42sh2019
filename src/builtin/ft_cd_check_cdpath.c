@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 09:53:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 16:42:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,8 @@ void		print_cd_error(char *path, int i, int mute, int usage)
 {
 	if (mute)
 	{
+		if (i < 0)
+			i = 0;
 		if (usage == 0 && path && path + i)
 			ft_printf_err("42sh: cd: %s: is not a directory\n", path + i);
 		else if (usage == 0)

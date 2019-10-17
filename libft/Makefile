@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/16 11:11:36 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/17 16:59:08 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -63,8 +63,8 @@ SSRC_NAME = ft_bzero.c ft_isalpha.c ft_isascii.c ft_itoa.c ft_itoa_base.c\
 			ft_strstr.c ft_strsub.c ft_strfsub.c ft_voidrev.c ft_voidswap.c ft_put_space.c\
 			ft_strsplit.c ft_free_tab.c get_next_line.c ft_putcolor.c ft_putcolor2.c ft_isspace.c\
 			ft_strncpy.c ft_strjoinf.c ft_strchr.c ft_strcapitalizer.c ft_copy_part_str.c\
-			ft_swap_let_string.c ft_strrev.c ft_secure_free.c ft_strndup.c\
-			ft_strstr_case_unsensitive.c ft_strncmp_case_unsensitive.c ft_strfdup.c
+			ft_swap_let_string.c ft_strrev.c ft_secure_free.c ft_strndup.c ft_isalnum_underscore.c\
+			ft_strstr_case_unsensitive.c ft_strncmp_case_unsensitive.c ft_strfdup.c ft_isalnum.c
 
 UINC_NAME = ft_unix.h
 USRC_NAME = ft_terminal_h.c ft_terminal_w.c ft_file_exists.c ft_create_file.c\
