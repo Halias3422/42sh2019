@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:17:18 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 18:12:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -191,7 +191,7 @@ char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 **		FC_PREPARE_E_FLAG.C
 */
 
-char			**get_ide_paths(char **env);
+char			**get_ide_paths(char **env, int usage, t_fc *fc);
 void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i);
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist);
@@ -202,22 +202,24 @@ char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 */
 
 void			free_fc_struct(t_fc *fc);
+int				get_value_of_cmd_return(t_fc fc, t_var *var);
 
 /*
 **	FT_HASH_C
 */
 
 int				ft_hash(t_process *p, t_var **var);
-void			exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
+int				exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
 				t_var **var);
 void			print_path_hash(t_hash **hash, char **cmd);
-void			print_part_of_hash_table(t_hash **hash, char **cmd);
+int				print_part_of_hash_table(t_hash **hash, char **cmd, int ret);
 
 /*
 **	HASH_D_FLAG_C
 */
 
-void			remove_selected_entry_hash(t_hash **hash, char **cmd);
+int				check_if_table_is_empty(t_hash **hash);
+int				remove_selected_entry_hash(t_hash **hash, char **cmd);
 void			delete_middle_link(t_hash *tmp);
 void			delete_first_link(t_hash **hash, t_hash *tmp, int key);
 
