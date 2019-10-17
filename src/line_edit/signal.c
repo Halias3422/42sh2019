@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 09:04:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 11:39:37 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,8 +49,6 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
-	char		*pwd;
-
 	remove_last_link_hist();
 	if (pos->last_cmd_on_bg == 1)
 		return ;
@@ -66,8 +64,9 @@ static void		ctrl_c(t_pos *pos)
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	pos->saved_ans = ft_secure_free(pos->saved_ans);
-	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = pos->pwd);
+	print_first_prompt(pos);
+	//	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
+//		pwd = pos->pwd);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	init_pos(pos, 1);
 	pos->is_complete = 1;

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 09:51:50 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 13:59:41 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -121,6 +121,8 @@ typedef struct			s_pos
 	char				*pwd;
 	struct s_heredoc	*hdoc;
 	int					braceparam;
+	int					shtheme;
+	int					ret;
 }						t_pos;
 
 typedef struct			s_htab
@@ -188,6 +190,13 @@ void					print_info(t_pos *pos);
 void					print_hist(t_pos *pos, t_hist *hist);
 int						got_a_wildcard(char *name);
 int						check_ans(char *str);
+
+/*
+**	PRINT_PROMPT_C
+*/
+
+void					print_first_prompt(t_pos *pos);
+void					print_second_prompt(t_pos *pos);
 
 /*
 **	INIT_POS_MAIN_C

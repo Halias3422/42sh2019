@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 13:44:16 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 11:30:55 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-# define LEN_BUILTIN_LIST 18
+# define LEN_BUILTIN_LIST 19
 # define TERM "42sh"
 
 typedef struct s_var		t_var;
@@ -71,6 +71,12 @@ int				remove_list_var(t_var **ptr_var, int type, char *name);
 int				verif_int(char *name, int *error);
 int				comp_num_operator(char *name1, char *type, char *name2,
 				int *error);
+
+/*
+**	FT_SHTHEME
+*/
+
+int				ft_shtheme(t_process *p, t_var **var);
 
 /*
 **	FT_FG_BG_PLUS_AND_MINUS_C
