@@ -6,12 +6,23 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:54:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/16 11:17:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
+
+int				check_if_to_find_is_not_empty(t_heredoc *hdoc)
+{
+	while (hdoc)
+	{
+		if (!hdoc->to_find || check_ans(hdoc->to_find) == 1)
+			return (-1);
+		hdoc = hdoc->next;
+	}
+	return (0);
+}
 
 char			*put_symbol_in_ans(char *ans, int i)
 {

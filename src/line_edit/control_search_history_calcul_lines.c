@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 07:22:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/05/27 14:22:32 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 14:30:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,4 +71,18 @@ int			count_cmd_line_len(t_pos *pos, char *ans, int act_co)
 		i++;
 	}
 	return (nb_line);
+}
+
+t_hist		*exit_control_search(t_hist *hist, t_pos *pos)
+{
+	hist = exiting_control_mode(pos, hist);
+	while (hist->next)
+		hist = hist->next;
+	if (pos->ans && ft_strlen(pos->ans) > 0)
+	{
+		hist->cmd = ft_strdup(pos->ans);
+		hist->next = add_list_back_hist(hist);
+	}
+	ft_strdel(&pos->saved_ans);
+	return (hist);
 }

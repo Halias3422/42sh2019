@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 09:03:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 17:03:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -120,6 +120,9 @@ typedef struct			s_pos
 	int					last_cmd_on_bg;
 	char				*pwd;
 	struct s_heredoc	*hdoc;
+	int					braceparam;
+	int					shtheme;
+	int					ret;
 }						t_pos;
 
 typedef struct			s_htab
@@ -187,6 +190,15 @@ void					print_info(t_pos *pos);
 void					print_hist(t_pos *pos, t_hist *hist);
 int						got_a_wildcard(char *name);
 int						check_ans(char *str);
+
+void					print_all_env(t_var *var);
+
+/*
+**	PRINT_PROMPT_C
+*/
+
+void					print_first_prompt(t_pos *pos);
+void					print_second_prompt(t_pos *pos);
 
 /*
 **	INIT_POS_MAIN_C
@@ -503,6 +515,7 @@ t_var					*init_env(char **env, t_pos *pos, char **av, int i);
 char					*init_name(char *src);
 void					free_env(t_var *ptr_env);
 char					*init_data(char *src);
+void					shlvl(t_var *env);
 
 /*
 *******************************************************************************
@@ -552,6 +565,7 @@ void					get_right_coordinates_found(t_pos *pos, t_hist *hist,
 int						count_cmd_line_len(t_pos *pos, char *ans, int act_co);
 void					count_ctrl_col_and_line(t_pos *pos, char *ans,
 						t_ctrl_hist *ctrl, int needle);
+t_hist					*exit_control_search(t_hist *hist, t_pos *pos);
 
 /*
 **CONTROL_SEARCH_HISTORY_CALCUL_POS.C
@@ -610,6 +624,7 @@ void					heredoc_ctrl_d(t_pos *pos, t_hist **hist);
 void					remake_pos_ans(t_pos *pos);
 int						fill_ans_heredoc(t_pos *pos, int i, int j);
 char					*put_symbol_in_ans(char *ans, int i);
+int						check_if_to_find_is_not_empty(t_heredoc *hdoc);
 
 /*
 **	HEREDOC_TOOLS_C

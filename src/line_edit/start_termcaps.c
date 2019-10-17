@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:21:47 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 16:19:14 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,17 @@
 
 void			print_prompt(t_pos *pos)
 {
-	ft_printf("{B.T.cyan.}%s{eoc}", pos->prompt);
+	t_var			*var;
+	char			*state;
+
+	state = NULL;
+	var = stock(NULL, 6);
+	if (var)
+		state = ft_get_val("?", var, SPE);
+	if (pos->ret == 1 && state && ft_strcmp(state, "0") != 0)
+		ft_printf("{B.T.red.}%s{eoc}", pos->prompt);
+	else
+		print_second_prompt(pos);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 }
 
@@ -79,8 +89,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	ghist = &hist;
 	init_terminfo(pos);
 	ft_bzero(buf, 8);
-	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pos->pwd);
+	print_first_prompt(pos);
 	init_pos(pos, 1);
 	print_prompt(pos);
 	signal_list();

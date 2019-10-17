@@ -6,14 +6,14 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/23 14:15:31 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/30 11:17:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 13:03:00 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
 
-static char		*get_var_name(char *ans, int i)
+static char		*get_var_name(char *ans, int i, t_pos *pos)
 {
 	int		min;
 
@@ -23,6 +23,11 @@ static char		*get_var_name(char *ans, int i)
 		ans[i] == ';' || ans[i] == 32)
 		return (NULL);
 	min = i;
+	if (ans[i] == '{')
+	{
+		min += 1;
+		pos->braceparam = 1;
+	}
 	while (ans[i] && ans[i] != '$' && ans[i] != '&' && ans[i] != '|' &&
 		ans[i] != ';' && ans[i] != 32)
 		i += 1;
@@ -36,7 +41,7 @@ t_htab			*looking_for_var(t_pos *pos, t_htab *htab, char **name)
 	t_var	*var;
 
 	ft_strdel(name);
-	*name = get_var_name(pos->ans, pos->let_nb);
+	*name = get_var_name(pos->ans, pos->let_nb, pos);
 	var = stock(NULL, 6);
 	while (var)
 	{

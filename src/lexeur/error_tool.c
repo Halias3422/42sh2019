@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/04 11:05:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:59:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 14:32:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,4 +60,11 @@ int		second_check(char *str, int i, int token)
 	if (!str[i])
 		return (syntax_print_error(token));
 	return (0);
+}
+
+void	moove_next_quote(char c, char *str, int *i)
+{
+	(*i)++;
+	while (str[*i] && str[*i] != c)
+		(*i)++;
 }

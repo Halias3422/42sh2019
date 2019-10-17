@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 09:34:24 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 14:00:03 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,6 +97,7 @@ static void		init_classic_var(t_pos *pos)
 	pos->ans_heredoc = NULL;
 	pos->hdoc = NULL;
 	pos->last_cmd_on_bg = 0;
+	pos->braceparam = 0;
 }
 
 void			init_pos(t_pos *pos, int usage)

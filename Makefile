@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/15 10:12:09 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/17 17:47:59 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,6 +17,7 @@ LIB_PATH = libft/libft.a
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
+ALL_INC  = ./includes/$(wildcard *.h)
 
 SRC_LINE = $(addprefix line_edit/,\
 				calcul_line.c check_error.c check_input.c control_search_history_calcul_pos.c\
@@ -32,7 +33,7 @@ SRC_LINE = $(addprefix line_edit/,\
 				 init_alias.c check_for_tilde.c \
 				tab_key_auto_complete_tilde.c check_backslash.c \
 				token.c token_conditions.c heredoc.c heredoc_send_valid_ans.c heredoc_tools.c\
-				init_spe_params.c)
+				init_spe_params.c print_prompt.c)
 
 SRC_LEX = $(addprefix lexeur/, \
 				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
@@ -43,7 +44,8 @@ SRC_EXEC = $(addprefix exec/, \
 			job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
 				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
 				before_redirection.c new_job.c process_file.c alias_reduction.c alias_norme.c \
-				exec_tool.c var_norme.c launch_job_process.c job_function_plus_and_minus.c)
+				exec_tool.c var_norme.c launch_job_process.c job_function_plus_and_minus.c \
+				process_heredoc.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
@@ -58,8 +60,8 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				fc_tools.c fc_prepare_e_flag.c fc_s_replace_pattern.c ft_hash.c \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
 				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c ft_cd_check_cdpath.c \
-				tools_bis.c ft_setenv_tool.c \
-				ft_fg_bg_plus_and_minus.c\
+				tools_bis.c ft_setenv_tool.c ft_env_i_new_env.c\
+				ft_fg_bg_plus_and_minus.c ft_shtheme.c\
 				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c ft_fg_bg_tools.c)
 
 SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)
@@ -93,16 +95,16 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME) : $(OBJ) Makefile
-	@echo  "\n$(LIGHT_GREEN)42sh loaded$(RESET)"
+	@echo  "\n$(LIGHT_GREEN)21sh loaded$(RESET)"
 	@make -C libft
-	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]"
+	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]${RESET}"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
-	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]$(YELLOW)"
+	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]${RESET}"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAG) -g -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_GREEN).\c"
+	@echo "$(LIGHT_GREEN).\c${RESET}"
 
 clean:
 	@make -C libft/ clean
@@ -112,7 +114,7 @@ clean:
 fclean: clean
 	@make -C libft/ fclean
 	@rm -rf $(NAME)
-	@echo "./$(NAME)\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]\n"
+	@echo "./$(NAME)\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]${RESET}\n"
 
 batman: $(NAME)
 	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "

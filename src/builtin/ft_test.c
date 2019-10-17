@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 08:19:10 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 15:49:14 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,18 +49,18 @@ int			simple_operator(char *type, char *name, int *error)
 
 	if (type[0] != '-' && (*error = 1))
 	{
-		ft_printf("test: unknown condition: %s\n", type);
+		ft_printf_err("test: unknown condition: %s\n", type);
 		return (2);
 	}
 	if (ft_strlen(type) < 2 && (*error = 1))
 	{
-		ft_printf("42sh: parse error: condition expected: %s\n", type);
+		ft_printf_err("42sh: parse error: condition expected: %s\n", type);
 		return (2);
 	}
 	if (!ft_strchr("ebcdfLpSsgurwx", type[1]) || ft_strlen(type) > 2)
 	{
 		*error = 1;
-		ft_printf("test: unknown condition: %s\n", type);
+		ft_printf_err("test: unknown condition: %s\n", type);
 		return (2);
 	}
 	if (lstat(name, &s_type) == -1 && (*error = 1))

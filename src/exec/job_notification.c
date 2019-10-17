@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 10:02:58 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 18:40:25 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,9 +21,7 @@ void		update_status(t_var **var)
 
 	pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
 	while (!mark_process_status(pid, status, var))
-	{
 		pid = waitpid(WAIT_ANY, &status, WUNTRACED | WNOHANG);
-	}
 }
 
 int			job_is_completed(t_job *j)

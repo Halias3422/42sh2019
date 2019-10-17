@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:33:31 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 17:10:46 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,21 +85,12 @@ int			setenv_through_cmd_passed(t_process *p, t_var **var, char **al,
 	{
 		al = init_al_tab_content(p, i);
 		remoove_quote(&al);
-		if (check_name(al[0]) == 1)
-			return (print_err_setenv(al));
 		if (setenv_rules(p, al) == 0)
-			return (-1);
-		if (scan_name_for_undesired_symbols(al[0]) == -1 ||
-				p->cmd[i][0] == '=')
-		{
-			check = -1;
-			ft_printf_err("42sh: setenv: invalid name parameter\n");
-		}
-		else
-		{
-			add_var_to_env(*var, al[0], al[1], NULL);
+			return (0);
+		if (check_name(al[0]) == 1 || p->cmd[i][0] == '=')
+			return (print_err_setenv(al));
+		add_var_to_env(*var, al[0], al[1], NULL);
 			check = 0;
-		}
 		ft_free_tab(al);
 	}
 	return (check);

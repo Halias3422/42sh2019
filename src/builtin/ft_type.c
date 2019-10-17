@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/20 14:14:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 08:15:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 15:50:17 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,7 @@ int				ft_type(t_process *p, t_var **var)
 		else if (is_function(p->cmd[i], var))
 			ret = 0;
 		else
-			ft_printf("%s not found\n", p->cmd[i]);
+			ft_printf_err("%s not found\n", p->cmd[i]);
 	}
 	return (ret);
 }

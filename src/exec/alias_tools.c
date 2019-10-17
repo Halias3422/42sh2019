@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/25 15:57:47 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/12 11:24:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/16 08:38:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,7 +63,7 @@ void		add_list_alias(t_var **var, char *name, char *data)
 	prev = NULL;
 	if (!(*var))
 	{
-		puts("list alias");
+		ft_printf("list alias");
 		add_alias(var, name, data);
 		stock(*var, 5);
 		return ;

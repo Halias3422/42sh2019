@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_set.c                                         .::    .:/ .      .::   */
+/*   process_heredoc.c                                .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/05/17 17:13:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:38:18 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/16 12:48:03 by mdelarbr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/16 12:51:58 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
 #include "../../includes/exec.h"
 
-int		ft_set(t_process *p, t_var **ptr_var)
+int			go_next_token(t_lexeur **res, int *t)
 {
-	t_var *var;
+	int		i;
 
-	var = *ptr_var;
-	if (p->cmd[1])
-		return (0);
-	while (var)
+	i = 0;
+	if (res[*t] && res[*t + 1] && res[*t + 1]->token == (enum e_token)-1)
+		(*t)++;
+	while (res[*t] && res[*t]->word)
 	{
-		if (var->type != ALIAS)
-			ft_printf("%s=%s\n", var->name, var->data);
-		var = var->next;
+		i++;
+		(*t)++;
 	}
-	return (0);
+	return (i);
 }

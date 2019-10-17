@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:21:52 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 15:53:59 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,7 @@ int		brace_param(char *ans, int i)
 		i++;
 	}
 	pos->error = 2;
-	ft_printf("\n42sh : syntax {T.red.B.}error{eoc} for braceparam\n");
+	ft_printf_err("\n42sh : syntax {T.red.B.}error{eoc} for braceparam\n");
 	return (ft_strlen(ans));
 }
 

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:11:03 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:28:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 13:26:15 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,19 +16,24 @@
 void		add_env_temp(t_var **var, char *str, int type)
 {
 	t_var	*start;
+	t_var	*tmp;
 	char	*name;
 
 	name = init_name(str);
+	start = (*var);
 	if (check_name(name) == 1)
 	{
 		ft_strdel(&name);
 		return ;
 	}
-	start = malloc(sizeof(t_var));
-	start->name = name;
-	start->data = init_data(str);
-	start->type = type;
-	start->next = (*var);
+	while ((*var)->next && (*var)->next->type == SPE)
+		(*var) = (*var)->next;
+	tmp = (*var)->next;
+	(*var)->next = malloc(sizeof(t_var));
+	(*var)->next->name = name;
+	(*var)->next->data = init_data(str);
+	(*var)->next->type = type;
+	(*var)->next->next = tmp;
 	(*var) = start;
 }
 
@@ -77,6 +82,7 @@ int			add_env_check(char *name, t_var **var, char *str)
 {
 	if (check_name(name) == 1)
 	{
+		ft_printf_err("42sh: %s: ambiguous value name\n", name);
 		ft_strdel(&name);
 		return (1);
 	}

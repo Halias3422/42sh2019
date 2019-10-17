@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:21:44 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 11:12:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 12:58:57 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,7 +101,7 @@ void		auto_complete(t_pos *pos, t_htab *htab, char *name,
 		add_slash_on_ans(pos);
 	else if (pos->ans[pos->let_nb] == 32)
 		right_arrow(pos);
-	else
+	else if (pos->braceparam != 1)
 		input_is_printable_char(pos, " ");
 	clean_at_start(pos);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/02 16:15:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 14:18:28 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 13:55:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,6 +52,9 @@ int		check_error_no_backslash(char *str, int *i)
 	int		token;
 
 	token = find_token(str, *i);
+	if (token != -1)
+		if (check_double_token(str, *i, token))
+			return (-1);
 	if (token == 7 && check_is_end(str, *i))
 	{
 		error_heredoc_go_next(str, i);
@@ -64,9 +67,6 @@ int		check_error_no_backslash(char *str, int *i)
 	if (token == 9 || token == 6 || token == 8 || token == 5
 	|| token == 4 || token == 7)
 		if (second_check(str, *i, token))
-			return (-1);
-	if (token != -1)
-		if (check_double_token(str, *i, token))
 			return (-1);
 	if (token != -1)
 		(*i) += g_fill_token[token].size;
@@ -85,6 +85,9 @@ int		check_error(char *str)
 	while (str[i])
 	{
 		jump_space(str, &i);
+		if ((str[i] == '"' && (i == 0 || str[i - 1] != '\\'))
+		|| (str[i] == '\'' && (i == 0 || str[i - 1] != '\\')))
+			moove_next_quote(str[i], str, &i);
 		if (i == 0 || str[i - 1] != '\\')
 		{
 			if (check_error_no_backslash(str, &i) == -1)
