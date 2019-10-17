@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 17:10:46 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 18:55:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,7 +90,7 @@ int			setenv_through_cmd_passed(t_process *p, t_var **var, char **al,
 		if (check_name(al[0]) == 1 || p->cmd[i][0] == '=')
 			return (print_err_setenv(al));
 		add_var_to_env(*var, al[0], al[1], NULL);
-			check = 0;
+		check = 0;
 		ft_free_tab(al);
 	}
 	return (check);

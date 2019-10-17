@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 18:41:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 18:55:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ t_job			*find_job_by_id_bg(char **cmd, int i)
 	j = NULL;
 	save = NULL;
 	jb = stock(NULL, 10);
-	if	(cmd[i] == NULL)
+	if (cmd[i] == NULL)
 		return (find_plus(jb));
 	while (cmd[i])
 	{
