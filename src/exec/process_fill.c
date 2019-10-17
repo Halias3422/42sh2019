@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 13:49:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 08:43:44 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,7 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
 	int		j;
 	int		size;
+	int		diff;
 
 	size = 0;
 	j = (*t);
@@ -28,10 +29,12 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 	tmp->fd_out = NULL;
 	tmp->fd_in = NULL;
 	tmp->next = NULL;
+	diff = (*t) - j;
 	(*t) = j;
+	diff--;
 	if (tmp->heredoc_content != NULL)
-		return (size);
-	return (0);
+		return (size + 1);
+	return (diff);
 }
 
 int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
@@ -57,7 +60,7 @@ int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
-	return (0);
+	return (go_next_token(res, t));
 }
 
 int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
@@ -85,7 +88,7 @@ int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
-	return (0);
+	return (go_next_token(res, t));
 }
 
 void		go_next_heredoc(t_lexeur **res, int *i, int *done)

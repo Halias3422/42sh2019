@@ -6,13 +6,31 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:20:23 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 09:50:50 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 #include "../../includes/lexeur.h"
+
+void	shlvl(t_var *env)
+{
+	int	i;
+
+	while (env)
+	{
+		if (ft_strcmp("SHLVL", env->name) == 0)
+		{
+			i = ft_atoi(env->data);
+			i++;
+			ft_strdel(&env->data);
+			env->data = ft_itoa(i);
+			return ;
+		}
+		env = env->next;
+	}
+}
 
 char	*init_data(char *src)
 {

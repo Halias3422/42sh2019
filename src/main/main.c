@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 15:54:17 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 09:51:29 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -94,6 +94,7 @@ int				main(int ac, char **av, char **env)
 	setpgid(shell_pid, shell_pid);
 	tcsetpgrp(STDIN_FILENO, shell_pid);
 	my_env = init_env(env, &pos, av, 0);
+	shlvl(my_env);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);
 	main_init_pos(&pos, my_env);
