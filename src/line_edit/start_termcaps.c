@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 14:07:51 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 10:04:31 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,17 @@
 
 void			print_prompt(t_pos *pos)
 {
-	ft_printf("{B.T.cyan.}%s{eoc}", pos->prompt);
+	t_var			*var;
+	char			*state;
+
+	state = NULL;
+	var = stock(NULL, 6);
+	if (var)
+		state = ft_get_val("?", var, SPE);
+	if (state && ft_strcmp(state, "0") != 0)
+		ft_printf("{B.T.red.}%s{eoc}", pos->prompt);
+	else
+		ft_printf("{B.T.cyan.}%s{eoc}", pos->prompt);
 	tputs(tgetstr("cd", NULL), 1, ft_putchar);
 }
 
