@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/17 11:35:06 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 13:58:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 16:18:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ void		print_first_prompt(t_pos *pos)
 				pos->pwd);
 }
 
-void					print_second_prompt(t_pos *pos)
+void		print_second_prompt(t_pos *pos)
 {
 	if (pos->shtheme == 5)
 		ft_printf("%s", pos->prompt);

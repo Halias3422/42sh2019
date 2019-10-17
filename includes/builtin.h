@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 11:30:55 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 16:17:18 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -253,6 +253,15 @@ int				ft_env(t_process *p, t_var **var);
 
 int				go_through_process_cmd(t_process *p, t_var **new_env,
 				t_var **head, int ret);
+
+/*
+**	FT_ENV_I_NEW_ENV_C
+*/
+
+t_var			*copy_old_env(t_var *old);
+void			add_list_front_env(t_var *old, t_var **head);
+t_var			*add_front_spe_params(t_var *old, t_var *new_env);
+void			print_all_env(t_var *var);
 
 /*
 **	TOOL_C

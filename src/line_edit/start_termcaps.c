@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 14:03:30 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 16:19:14 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -90,8 +90,6 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	init_terminfo(pos);
 	ft_bzero(buf, 8);
 	print_first_prompt(pos);
-//	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {T.yellow.}%s{eoc}\n",
-//		pos->pwd);
 	init_pos(pos, 1);
 	print_prompt(pos);
 	signal_list();
