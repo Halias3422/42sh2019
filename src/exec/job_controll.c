@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 16:16:05 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 18:42:02 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,7 +67,6 @@ void		print_start_process(t_job *j)
 	t_process	*p;
 
 	p = j->p;
-	ft_printf("[%d]", j->id);
 	while (p)
 	{
 		ft_printf(" %d", p->pid);

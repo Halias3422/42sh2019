@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 10:28:45 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:26:38 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 16:59:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,7 @@ int		check_name(char *name)
 {
 	if ((ft_strcmp(name, "_") == 0) || (ft_strcmp(name, "?") == 0) ||
 	(ft_strcmp(name, "!") == 0) || (ft_strcmp(name, "$") == 0) ||
-	(ft_strcmp(name, "0") == 0) || ft_isalnum(name) == 1)
+	(ft_strcmp(name, "0") == 0) || ft_isalnum_underscore(name) == 1)
 		return (1);
 	return (0);
 }
