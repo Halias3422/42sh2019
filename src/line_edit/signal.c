@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 23:20:40 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 13:09:37 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,7 @@ static void		ctrl_c(t_pos *pos)
 	var = stock(NULL, 6);
 	if (pos->last_cmd_on_bg == 1)
 		return ;
-	while ((*ghist)->next)
+	while (*ghist && (*ghist)->next)
 		*ghist = (*ghist)->next;
 	if (pos->active_heredoc == 1)
 	{

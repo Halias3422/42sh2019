@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 10:18:31 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 12:58:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,7 @@ char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 	pos->ans = check_for_tilde(pos->ans, env, 0, 0);
 	pos->last_cmd_on_bg = 0;
 	tcsetattr(0, TCSANOW, &pos->old_term);
-	return (pos->ans);
+	return (ft_strdup(pos->ans));
 }
 
 int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
@@ -73,7 +73,7 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 		error_handling(pos, NULL, 0);
 	if ((check_error(ans)) != -1 && pos->error != 2)
 		start_exec(start_lex(my_env, ans), my_env);
-	else
+	if (pos->ans)
 		pos->ans = ft_secure_free(pos->ans);
 	pos->error = 0;
 	return (0);

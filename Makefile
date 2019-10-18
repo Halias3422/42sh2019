@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/18 11:11:42 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/18 13:09:31 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -78,7 +78,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined 
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined 
 FLAG_END = -lcurses
 NORME = norminette
 
@@ -97,16 +97,13 @@ RESET = \033[0m
 
 all:
 	@echo ""
-	@make -C $(LIB_PATH)
+	@make -j -C $(LIB_PATH)
 	@make -j $(NAME)
 	@echo ""
 
-$(NAME) : $(OBJ) Makefile
+$(NAME) : $(LIB_LIB) $(OBJ) Makefile 
 	@echo  "			\033[2K\r$(GREEN_BOLD)21sh:	$(WHITE_BOLD)loaded$(RESET)"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_LIB) -I include
-
-$(LIB_LIB):
-	@make -C $(LIB_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
