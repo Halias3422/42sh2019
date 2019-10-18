@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 11:18:17 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 13:37:00 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,11 +26,7 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 	if (tmp->heredoc_content != NULL)
 	{
 		if (res[*t])
-		{
-			size++;
-			go_next_token(res, &size);
-			return (size);
-		}
+			return (*t);
 		return (size);
 	}
 	if (res[*t])
