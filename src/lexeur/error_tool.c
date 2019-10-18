@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/04 11:05:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 09:54:14 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 12:58:07 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,8 @@ void	error_heredoc_go_next(char *str, int *i)
 			return ;
 		}
 		ft_strdel(&tmp);
+		if (!(str[*i]))
+			break ;
 	}
 	if (tmp)
 		ft_strdel(&tmp);

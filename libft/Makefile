@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/18 10:48:14 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/18 12:09:22 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -19,7 +19,7 @@ BLUE=\033[0;38;5;123m
 LIGHT_PINK = \033[0;38;5;200m
 PINK = \033[0;38;5;198m
 DARK_BLUE = \033[1;38;5;110m
-GREEN = \033[0;38;5;111m
+GREEN = \033[1;32;5;111m
 LIGHT_GREEN = \033[1;38;5;121m
 LIGHT_RED = \033[0;38;5;110m
 FLASH_GREEN = \033[33;32m
@@ -137,7 +137,7 @@ all : $(OBJ_PATH) $(NAME)
 
 $(NAME): $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
 	@ar rcs $(NAME) $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
-	@echo "	\033[2K\r$(DARK_BLUE)libft:	\033[37mloaded\033[0m"
+	@echo "	\033[2K\r$(DARK_BLUE)libft:	$(GREEN)loaded\033[0m"
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH) 2> /dev/null
