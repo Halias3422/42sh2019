@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 13:09:37 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 14:55:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ struct s_hist	**ghist;
 
 void			signal_handler(void)
 {
-	ft_printf("\n");
+	ft_printf("test:\n");
 }
 
 static void		resize_screen(t_pos *pos)

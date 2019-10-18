@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 22:14:47 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 15:03:25 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -306,6 +306,7 @@ t_process				*init_launch_job(t_job *j, int *infile);
 void					launch_simple_job(t_process *p, t_job *j, t_var **var);
 void					alert_job(t_job *j);
 
-void					fill_heredoc_init(t_lexeur **res, t_redirect *tmp, int *t,
-						int *size);
+void					fill_heredoc_init(t_lexeur **res, t_redirect *tmp,
+						int *t, int *size);
+
 #endif

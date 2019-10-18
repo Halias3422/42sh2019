@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 14:00:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 15:01:50 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,8 @@ void			get_cursor_info(t_pos *pos, int *li, int *co, int i)
 {
 	char		*buf;
 
+	(void)*co;
+	tcsetattr(0, TCSANOW, &pos->my_term);
 	buf = ft_strnew(10);
 	write(1, "\033[6n", 5);
 	read(1, buf, 8);
@@ -44,12 +46,6 @@ void			get_cursor_info(t_pos *pos, int *li, int *co, int i)
 			*li = pos->max_li;
 	}
 	i = 0;
-	while (buf[i] && buf[i] != ';')
-		i++;
-	if (buf[i] == '\0')
-		*co = -1;
-	else
-		*co = ft_atoi(buf + i + 1) - 1 + pos->len_prompt;
 	free(buf - 1);
 }
 

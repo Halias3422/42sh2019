@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 19:54:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 15:03:51 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -329,7 +329,6 @@ void					free_alias(t_alias *alias);
 int						remove_env_while(t_alias *alias, t_var *var,
 						t_replace *replace);
 void					print_lexer(t_lexeur *lex);
-
-
 char					*fill_redirection_heredoc(char **buf, int *i);
+
 #endif
