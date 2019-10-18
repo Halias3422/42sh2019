@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 09:41:57 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 15:59:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,20 +15,23 @@
 
 int		token_condition(char *ans, int i)
 {
-	if (ans[i] == '"' && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+	if (ans[i] == '"' && (i == 0 || (i > 0 &&
+				odd_backslash(i - 1, ans) == 0)))
 		i = double_quote(ans, i + 1);
-	else if (ans[i] == 39 && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+	else if (ans[i] == 39 && (i == 0 || (i > 0 &&
+				odd_backslash(i - 1, ans) == 0)))
 		i = simple_quote(ans, i + 1);
 	else if (ans[i] == '$' && ans[i + 1] == '{' && (i == 0 || (i > 0 &&
-					ans[i - 1] != 92)))
+				odd_backslash(i - 1, ans) == 0)))
 		i = brace_param(ans, i + 2);
 	else if (ans[i] == '&' && ans[i + 1] == '&' && (i == 0 || (i > 0 &&
-					ans[i - 1] != 92)))
+				odd_backslash(i - 1, ans) == 0)))
 		i = double_token(ans, i + 2);
 	else if (ans[i] == '|' && ans[i + 1] == '|' && (i == 0 || (i > 0 &&
-					ans[i - 1] != 92)))
+				odd_backslash(i - 1, ans) == 0)))
 		i = double_token(ans, i + 2);
-	else if (ans[i] == '|' && (i == 0 || (i > 0 && ans[i - 1] != 92)))
+	else if (ans[i] == '|' && (i == 0 || (i > 0 &&
+				odd_backslash(i - 1, ans) == 0)))
 		i = simple_pipe(ans, i + 1);
 	return (i);
 }

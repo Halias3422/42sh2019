@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 15:53:59 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 16:00:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ int		double_quote(char *ans, int i)
 {
 	while (ans[i])
 	{
-		if (ans[i] == '"' && ans[i - 1] != 92)
+		if (ans[i] == '"' && odd_backslash(i - 1, ans) == 0)
 			return (i);
 		i++;
 	}
