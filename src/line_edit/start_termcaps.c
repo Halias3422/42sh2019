@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 13:00:43 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 16:50:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,8 +38,13 @@ static char		*returning_ans(t_pos *pos)
 
 static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
 {
+	int			i;
+
 	if (pos->active_heredoc)
 	{
+		i = ft_strlen(pos->ans) - 1;
+		if (pos->ans[i] != '\n')
+			return (0);
 		heredoc_ctrl_d(pos, hist);
 		if (pos->active_heredoc == 0)
 			return (1);
