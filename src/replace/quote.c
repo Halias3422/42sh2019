@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 07:59:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 14:35:06 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,23 +20,26 @@
 ** ar[3] = tmp.
 */
 
-char	*fill_first_replace(int *i, char *str, char c, int *s)
+char	*fill_first_replace(int *i, char **str, char c, int *s)
 {
 	char	*res;
 
-	if (str[*i] != c)
+	if (c == '\'')
+		*str = (remove_simple_quote(str));
+	if ((*str)[*i] != c)
 	{
-		while (str[*i] != c || (*i == 0 || str[*i - 1] == '\\'))
+		while ((*str)[*i] && ((*str)[*i] != c || (*i == 0 || (*str)[*i - 1] == '\\')))
 			(*i)++;
-		res = ft_strsub(str, 0, *i);
+		res = ft_strsub((*str), 0, *i);
 	}
 	else
 		res = ft_strdup("");
 	(*i)++;
+	(*i) = (*i) < ft_strlen(*str) ? (*i)++ : ft_strlen(*str);
 	(*s) = (*i);
-	while (str[*i])
+	while ((*str)[*i])
 	{
-		if (str[*i] == c && (*i == 0 || str[*i - 1] != '\\'))
+		if ((*str)[*i] == c && (*i == 0 || (*str)[*i - 1] != '\\'))
 			break ;
 		(*i)++;
 	}
@@ -50,7 +53,7 @@ char	*replace(char *str, char c)
 	int		i;
 
 	i = 0;
-	ar[1] = fill_first_replace(&i, str, c, &s);
+	ar[1] = fill_first_replace(&i, &str, c, &s);
 	ar[3] = ft_strsub(str, s, i - s);
 	ar[0] = ft_strjoin(ar[1], ar[3]);
 	i++;
