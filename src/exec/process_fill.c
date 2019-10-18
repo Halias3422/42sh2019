@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 22:08:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 10:46:23 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,7 @@ int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
-	return ((*t)++);
+	return (++(*t));
 }
 
 int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
@@ -93,7 +93,7 @@ int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
-	return ((*t)++);
+	return (++(*t));
 }
 
 void		go_next_heredoc(t_lexeur **res, int *i, int *done)
