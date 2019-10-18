@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   error_tool.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/04 11:05:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 23:17:03 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 09:54:14 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,8 +15,11 @@
 
 char	*error_heredoc_go_next_init(int j, int *i, char *str)
 {
-	get_tag(str, i);
+	char	*tmp;
+
+	tmp = get_tag(str, i);
 	(*i) += g_fill_token[7].size;
+	ft_strdel(&tmp);
 	return (get_tag(str, &j));
 }
 
