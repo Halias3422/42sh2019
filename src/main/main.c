@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/19 11:16:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/19 11:34:58 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,6 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 	if (pos->ans)
 		pos->ans = ft_secure_free(pos->ans);
 	pos->error = 0;
-	ft_strdel(&ans);
 	return (0);
 }
 
