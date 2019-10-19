@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 16:54:25 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/19 11:16:39 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,8 +62,6 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 
 	ans = make_ans(pos, hist, my_env);
 	job_notification(&my_env);
-	if (ans == NULL)
-		return (1);
 	if (check_ans(ans) == 1 && pos->error != 2)
 	{
 		ft_strdel(&ans);
@@ -73,9 +71,12 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 		error_handling(pos, NULL, 0);
 	if ((check_error(ans)) != -1 && pos->error != 2)
 		start_exec(start_lex(my_env, ans), my_env);
+	else
+		ft_strdel(&ans);
 	if (pos->ans)
 		pos->ans = ft_secure_free(pos->ans);
 	pos->error = 0;
+	ft_strdel(&ans);
 	return (0);
 }
 
