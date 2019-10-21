@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 15:03:25 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:01:55 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -133,8 +133,7 @@ void					fill_token(t_process *p, t_lexeur **res, int *i);
 
 void					fill_process_split(t_job **j, t_lexeur **res, int i);
 char					*add_space_content(char *content);
-char					*get_content(char *tag, t_lexeur **res, int *t,
-						int *size);
+char					*get_content(char *tag, t_lexeur **res, int *t);
 void					make_tmp_great_again(t_redirect **tmp);
 void					add_heredoc(char *tag, t_lexeur **res, int *i);
 
@@ -307,6 +306,6 @@ void					launch_simple_job(t_process *p, t_job *j, t_var **var);
 void					alert_job(t_job *j);
 
 void					fill_heredoc_init(t_lexeur **res, t_redirect *tmp,
-						int *t, int *size);
+						int *t);
 
 #endif
