@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/08 21:05:25 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 08:56:24 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:54:39 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,5 +32,6 @@ char		*change_buf(char *buf)
 		j++;
 	}
 	res[j] = '\0';
+	ft_strdel(&buf);
 	return (res);
 }

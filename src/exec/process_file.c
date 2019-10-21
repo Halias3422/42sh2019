@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 09:46:16 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 21:47:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:09:17 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,15 +55,19 @@ char		*add_space_content(char *content)
 	return (res);
 }
 
-char		*get_content(char *tag, t_lexeur **res, int *t, int *size)
+char		*get_content(char *tag, t_lexeur **res, int *t)
 {
 	char	*content;
 
 	(*t)++;
 	content = NULL;
+	if (!(ft_strcmp(tag, "")))
+	{
+		tag = res[*t]->word;
+		(*t)++;
+	}
 	while (res[*t] && ft_strcmp(res[*t]->word, tag))
 	{
-		(*size)++;
 		if (!content)
 			content = ft_strdup(res[*t]->word);
 		else
@@ -72,7 +76,8 @@ char		*get_content(char *tag, t_lexeur **res, int *t, int *size)
 			ft_strjoin_free(&content, "\n");
 		(*t)++;
 	}
-	(*t)++;
+	if (res[*t])
+		(*t)++;
 	content = add_space_content(content);
 	return (content);
 }

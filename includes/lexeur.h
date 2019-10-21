@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 15:04:40 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 09:39:38 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -155,7 +155,7 @@ char					*ft_del_simple_quote(char *word);
 
 void					fill_struct(t_lexeur *res, char *word,
 						enum e_token token, char *red);
-t_lexeur				*fill_lex_while(char *buf, int *i, int token);
+t_lexeur				*fill_lex_while(char **buf, int *i, int token);
 t_lexeur				*fill_lex_redirection(char **buf,
 						int *i, enum e_token token);
 void					fill_lex_heredoc(t_lexeur ***array, int *j,
@@ -180,7 +180,6 @@ void					fill_struct(t_lexeur *res, char *word,
 						enum e_token token, char *red);
 t_lexeur				*fill_lex_redirection(char **buf, int *i,
 						enum e_token token);
-t_lexeur				*fill_lex_while(char *buf, int *i, int token);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

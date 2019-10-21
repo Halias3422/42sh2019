@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 13:37:00 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:09:26 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,10 +16,8 @@
 
 int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
-	int		size;
-
-	fill_heredoc_init(res, tmp, t, &size);
-	tmp->heredoc_content = get_content(res[*t]->redirection, res, t, &size);
+	fill_heredoc_init(res, tmp, t);
+	tmp->heredoc_content = get_content(res[*t]->redirection, res, t);
 	tmp->fd_out = NULL;
 	tmp->fd_in = NULL;
 	tmp->next = NULL;
@@ -27,12 +25,14 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 	{
 		if (res[*t])
 			return (*t);
-		return (size);
+		return (--(*t));
 	}
 	if (res[*t])
 	{
 		if (res[*t] && res[*t]->token == (enum e_token)-1)
+		{
 			go_next_token(res, t);
+		}
 		return ((*t));
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   quote.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 14:35:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/19 09:47:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,8 @@ char	*fill_first_replace(int *i, char **str, char c, int *s)
 		*str = (remove_simple_quote(str));
 	if ((*str)[*i] != c)
 	{
-		while ((*str)[*i] && ((*str)[*i] != c || (*i == 0 || (*str)[*i - 1] == '\\')))
+		while ((*str)[*i] && ((*str)[*i] != c ||
+		(*i == 0 || (*str)[*i - 1] == '\\')))
 			(*i)++;
 		res = ft_strsub((*str), 0, *i);
 	}

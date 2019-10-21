@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/16 12:48:03 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 13:37:22 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 10:55:28 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,10 +28,8 @@ int			go_next_token(t_lexeur **res, int *t)
 	return (i);
 }
 
-void		fill_heredoc_init(t_lexeur **res, t_redirect *tmp, int *t,
-int *size)
+void		fill_heredoc_init(t_lexeur **res, t_redirect *tmp, int *t)
 {
-	(*size) = 0;
 	tmp->token = g_fill_token[res[*t]->token].name;
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
