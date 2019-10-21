@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/09 07:59:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 09:39:59 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ void		fill_lex_exist(char **buf, int *i, int *j, t_lexeur **array)
 	else if (token != -1)
 		array[*j] = fill_lex_redirection(buf, i, token);
 	else
-		array[*j] = fill_lex_while(buf[*i], i, find_token(buf[*i], k));
+		array[*j] = fill_lex_while(&buf[*i], i, find_token(buf[*i], k));
 	(*j)++;
 }
 

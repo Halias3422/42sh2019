@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   back_slash_end.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:12:52 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 16:37:20 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/19 11:10:38 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,7 @@ char		*solve_back_slash_end(char *str)
 	while (str[i] && a <= tmp)
 	{
 		if (str[i] && (str[i] == '\\' && str[i + 1] && (str[i + 1] == '"'
-		|| str[i + 1] == '\'' || str[i + 1] == '$')))
+		|| str[i + 1] == '\'' || str[i + 1] == '$' || str[i + 1] == '\\')))
 			i++;
 		res[a] = str[i];
 		a++;
@@ -61,7 +61,8 @@ char		*solve_back_slash_end(char *str)
 int			del_back_slash_end_browse(char ***ar, int j, int *k)
 {
 	if ((*ar)[j][*k + 1] && ((*ar)[j][*k + 1] == '\''
-	|| (*ar)[j][*k + 1] == '"' || (*ar)[j][*k + 1] == '$')
+	|| (*ar)[j][*k + 1] == '"' || (*ar)[j][*k + 1] == '$'
+	|| (*ar)[j][*k + 1] == '\\')
 	&& (*ar)[j][*k] == '\\')
 	{
 		(*ar)[j] = solve_back_slash_end((*ar)[j]);
