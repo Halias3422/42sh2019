@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 11:15:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/19 12:20:39 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,10 +56,7 @@ void		launch_job(t_job *j, t_var *var)
 	while (p)
 	{
 		if (check_process(var, p, j))
-		{
-			free_temp(&var);
-			return ;
-		}
+			return (free_temp(&var));
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{

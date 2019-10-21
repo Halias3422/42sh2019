@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 10:10:59 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/08 13:41:43 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:47:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,7 @@ int			verif_int(char *name, int *error)
 		else
 		{
 			*error = 1;
-			ft_printf("test: integer expression expected: %s\n", name);
+			ft_printf_err_fd("test: integer expression expected: %s\n", name);
 			return (-1);
 		}
 	}
@@ -72,7 +72,7 @@ int			comp_num_operator(char *name1, char *type, char *name2, int *error)
 	else
 	{
 		*error = 1;
-		ft_printf("test: unknown condition: %s\n", type);
+		ft_printf_err_fd("test: unknown condition: %s\n", type);
 		return (2);
 	}
 }
@@ -86,7 +86,7 @@ int			comp_operator(char *name1, char *type, char *name2, int *error)
 	else if (type[0] != '-')
 	{
 		*error = 1;
-		ft_printf("test: condition expected: %s\n", type);
+		ft_printf_err_fd("test: condition expected: %s\n", type);
 		return (1);
 	}
 	else

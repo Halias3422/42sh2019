@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 09:04:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 14:55:10 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ struct s_hist	**ghist;
 
 void			signal_handler(void)
 {
-	ft_printf("\n");
+	ft_printf("test:\n");
 }
 
 static void		resize_screen(t_pos *pos)
@@ -49,12 +49,12 @@ static void		resize_screen(t_pos *pos)
 
 static void		ctrl_c(t_pos *pos)
 {
-	char		*pwd;
+	t_var		*var;
 
-	remove_last_link_hist();
+	var = stock(NULL, 6);
 	if (pos->last_cmd_on_bg == 1)
 		return ;
-	while ((*ghist)->next)
+	while (*ghist && (*ghist)->next)
 		*ghist = (*ghist)->next;
 	if (pos->active_heredoc == 1)
 	{
@@ -66,11 +66,11 @@ static void		ctrl_c(t_pos *pos)
 	write(1, "\n", 1);
 	pos->ans = ft_secure_free(pos->ans);
 	pos->saved_ans = ft_secure_free(pos->saved_ans);
-	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = pos->pwd);
+	print_first_prompt(pos);
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	init_pos(pos, 1);
 	pos->is_complete = 1;
+	add_list_env(&var, SPE, ft_strdup("?"), ft_strdup("1"));
 	print_prompt(pos);
 }
 

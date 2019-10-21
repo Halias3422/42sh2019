@@ -6,12 +6,22 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/04 11:05:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 16:59:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 13:39:36 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/check_error.h"
+
+char	*error_heredoc_go_next_init(int j, int *i, char *str)
+{
+	char	*tmp;
+
+	tmp = get_tag(str, i);
+	(*i) += g_fill_token[7].size;
+	ft_strdel(&tmp);
+	return (get_tag(str, &j));
+}
 
 void	error_heredoc_go_next(char *str, int *i)
 {
@@ -19,9 +29,8 @@ void	error_heredoc_go_next(char *str, int *i)
 	char	*tmp;
 	int		s;
 
-	tag = get_tag(str, i);
-	(*i) += g_fill_token[7].size;
-	while (str[*i])
+	tag = error_heredoc_go_next_init(0, i, str);
+	while (str[++(*i)])
 	{
 		jump_space(str, i);
 		s = *i;
@@ -35,7 +44,8 @@ void	error_heredoc_go_next(char *str, int *i)
 			return ;
 		}
 		ft_strdel(&tmp);
-		(*i)++;
+		if (!(str[*i]))
+			break ;
 	}
 	if (tmp)
 		ft_strdel(&tmp);
@@ -60,4 +70,11 @@ int		second_check(char *str, int i, int token)
 	if (!str[i])
 		return (syntax_print_error(token));
 	return (0);
+}
+
+void	moove_next_quote(char c, char *str, int *i)
+{
+	(*i)++;
+	while (str[*i] && str[*i] != c)
+		(*i)++;
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:57:40 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 11:41:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 14:32:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,8 +65,6 @@ int			check_cmd(char **str)
 	i = 0;
 	while (str[i])
 	{
-		// if (ft_strchr(str[i], '$') != NULL)
-			// return (0);
 		if (find_equal(str[i]) == 1)
 		{
 			if (str[i + 1] && find_equal(str[i + 1]) != 1)

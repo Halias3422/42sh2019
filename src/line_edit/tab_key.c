@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:39:47 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 08:54:43 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 13:01:48 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,4 +112,5 @@ void			input_is_tab(t_pos *pos)
 		htab = prepare_auto_complete(pos, htab, name);
 	ft_free_void(path, name, NULL, NULL);
 	free_htab(htab);
+	pos->braceparam = 0;
 }

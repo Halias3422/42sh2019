@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:02:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:32:15 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:45:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,8 @@ void			print_all_jobs(t_job_list *j, int option)
 {
 	char		*name;
 
-	name = ft_strnew(0);
+	if (j)
+		name = ft_strnew(0);
 	while (j)
 	{
 		name = built_job_name(j, name);
@@ -75,5 +76,5 @@ void			print_selected_jobs(t_job_list *j, int option, char *arg)
 			name = ft_strnew(0);
 	}
 	if (!check)
-		ft_printf_err("42sh: jobs: %s: no such job\n", arg);
+		ft_printf_err_fd("42sh: jobs: %s: no such job\n", arg);
 }

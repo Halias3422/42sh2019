@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:27:58 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:53:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,6 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 
 int			launch_process(t_process *p, t_var *var, char *path)
 {
-	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
@@ -82,6 +81,12 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 			char **cmd_path)
 {
+	t_pos	*pos;
+
+	pos = to_stock(NULL, 1);
+	pos->act_fd_out = p->fd_out;
+	pos->act_fd_error = p->fd_error;
+	pos->separator = p->split;
 	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
 	p->background = j->split == '&' ? 1 : 0;

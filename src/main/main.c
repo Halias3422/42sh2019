@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:19:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 08:18:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ int				check_entry(void)
 	free(s);
 	if (ioctl(0, TIOCGWINSZ, &w) == -1)
 	{
-		ft_printf("Entry is not a tty\nExit\n");
+		ft_printf_err("Entry is not a tty\nExit\n");
 		exit(0);
 	}
 	return (0);
@@ -53,7 +53,7 @@ char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 	pos->ans = check_for_tilde(pos->ans, env, 0, 0);
 	pos->last_cmd_on_bg = 0;
 	tcsetattr(0, TCSANOW, &pos->old_term);
-	return (pos->ans);
+	return (ft_strdup(pos->ans));
 }
 
 int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
@@ -62,8 +62,6 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 
 	ans = make_ans(pos, hist, my_env);
 	job_notification(&my_env);
-	if (ans == NULL)
-		return (1);
 	if (check_ans(ans) == 1 && pos->error != 2)
 	{
 		ft_strdel(&ans);
@@ -74,6 +72,8 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 	if ((check_error(ans)) != -1 && pos->error != 2)
 		start_exec(start_lex(my_env, ans), my_env);
 	else
+		ft_strdel(&ans);
+	if (pos->ans)
 		pos->ans = ft_secure_free(pos->ans);
 	pos->error = 0;
 	return (0);
@@ -94,6 +94,7 @@ int				main(int ac, char **av, char **env)
 	setpgid(shell_pid, shell_pid);
 	tcsetpgrp(STDIN_FILENO, shell_pid);
 	my_env = init_env(env, &pos, av, 0);
+	shlvl(my_env);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);
 	main_init_pos(&pos, my_env);

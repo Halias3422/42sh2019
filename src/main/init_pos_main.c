@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/12 15:19:18 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/14 15:14:18 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 07:53:25 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,9 @@ void			main_init_pos(t_pos *pos, t_var *my_env)
 {
 	pos->is_complete = 1;
 	pos->last_cmd_on_bg = 0;
+	pos->shtheme = 1;
+	pos->ret = 1;
+	pos->ans = NULL;
 	pos->prompt = ft_strdup("$ ");
 	if ((pos->pwd = ft_strdup(ft_get_val("PWD", my_env, ENVIRONEMENT))) == NULL
 			|| verif_path(pos->pwd, 0, 0) == 0)

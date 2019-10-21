@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:23:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:32:37 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:45:58 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,6 @@ void		print_env(t_var *var)
 int			print_err_setenv(char **al)
 {
 	ft_free_tab(al);
-	ft_printf_err("42sh: setenv:{B.T.red.} error{eoc}: Permission denied\n");
+	ft_printf_err_fd("42sh: setenv: ambiguous value name\n");
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 13:29:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:43:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,7 +20,8 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var **var, int option)
 		ft_strdel(&new_path);
 		return (1);
 	}
-	chdir(new_path);
+	if (pos->act_fd_out == 1)
+		chdir(new_path);
 	ft_strdel(&pos->pwd);
 	if (option == 'P')
 		pos->pwd = getcwd(NULL, 1000);
@@ -34,13 +35,21 @@ void		print_cd_error(char *path, int i, int mute, int usage)
 {
 	if (mute)
 	{
-		if (usage == 0)
-			ft_printf_err("42sh: cd: %s: is not a directory\n", path + i);
-		if (usage == 1)
-			ft_printf_err("42sh: cd: %s: No such file or directory\n",
+		if (i < 0)
+			i = 0;
+		if (usage == 0 && path && path + i)
+			ft_printf_err_fd("42sh: cd: %s: is not a directory\n",  path + i);
+		else if (usage == 0)
+			ft_printf_err_fd("42sh: cd : not a directory\n");
+		if (usage == 1 && path && path + i + 1)
+			ft_printf_err_fd("42sh: cd: %s: No such file or directory\n",
 					path + i + 1);
-		if (usage == 2)
-			ft_printf_err("42sh: cd: %s: permission denied\n", path + i);
+		else if (usage == 1)
+			ft_printf_err_fd("42sh: cd: No such file or directory\n");
+		if (usage == 2 && path && path + i)
+			ft_printf_err_fd("42sh: cd: %s: permission denied\n", path + i);
+		else if (usage == 2)
+			ft_printf_err_fd("42sh: cd: permission denied\n");
 	}
 }
 
