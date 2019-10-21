@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:42:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 16:13:00 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,8 @@ int		get_cd_option(char **cmd, int *i, int ret, int j)
 					ret = cmd[*i][j];
 				else
 				{
-					ft_printf_err_fd("42sh: cd: %c: invalid option\n", cmd[*i][j]);
+					ft_printf_err_fd("42sh: cd: %c: invalid option\n",
+							cmd[*i][j]);
 					return (-1);
 				}
 			}
@@ -109,23 +110,6 @@ void	replace_pwd_vars_in_env(t_var **var, char *new_path, int option)
 	add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), tmp);
 }
 
-void	restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
-{
-	if (pos->act_fd_out != 1 && pos->separator == 'P')
-	{
-		ft_printf("fd out = %d\n", pos->act_fd_out);
-		free_env_list(*var);
-		*var = old_env;
-		stock(*var, 5);
-		ft_strdel(&pos->pwd);
-		pos->pwd = ft_strdup(ft_get_val("PWD", *var, ENVIRONEMENT));
-		if (!pos->pwd)
-			pos->pwd = getcwd(NULL, 1000);
-	}
-	else
-		free_env_list(old_env);
-}
-
 int		ft_cd(t_process *p, t_var **var)
 {
 	int		option;
@@ -133,7 +117,6 @@ int		ft_cd(t_process *p, t_var **var)
 	char	*new_path;
 	t_pos	*pos;
 	t_var	*old_env;
-	int		ret;
 
 	old_env = copy_env(*var);
 	pos = to_stock(NULL, 1);
@@ -151,7 +134,5 @@ int		ft_cd(t_process *p, t_var **var)
 		else
 			new_path = ft_strdup(p->cmd[i]);
 	}
-	ret = finish_ft_cd(new_path, pos, var, option);
-	restore_old_env(old_env, var, pos);
-	return (ret);
+	return (finish_ft_cd(new_path, pos, old_env, option));
 }

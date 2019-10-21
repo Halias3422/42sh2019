@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 13:17:04 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:39:53 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,7 @@ void				exec_new_cmds(char **new_cmds)
 		tmp_cmd = ft_strdup(new_cmds[i]);
 		if ((check_error(new_cmds[i])) != -1)
 		{
-			ft_printf("%s\n", tmp_cmd);
+			ft_printf_fd("%s\n", tmp_cmd);
 			start_exec(start_lex(stock(NULL, 6), tmp_cmd), stock(NULL, 6));
 		}
 		i++;

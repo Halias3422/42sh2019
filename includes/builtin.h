@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 13:16:52 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:57:28 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -318,10 +318,11 @@ int				check_arguments_number(t_process *p, int *i, int *option);
 **	FT_CD_CHECK_CDPATH_C
 */
 
+void			restore_old_env(t_var *old_env, t_var **var, t_pos *pos);
 char			*verif_path_in_cdpath(char *path, t_var *var, char **cmd,
 				int j);
 void			print_cd_error(char *path, int i, int mute, int usage);
-int				finish_ft_cd(char *new_path, t_pos *pos, t_var **var,
+int				finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env,
 				int option);
 
 /*

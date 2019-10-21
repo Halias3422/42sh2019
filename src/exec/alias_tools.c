@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/25 15:57:47 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:50:46 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:45:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ void		find_alias(t_process *p, t_var *var, int k)
 		ft_printf_err_fd("42sh: alias: %s: not found\n", p->cmd[k]);
 		return ;
 	}
-	ft_printf("alias %s=%s\n", tmp->name, tmp->data);
+	ft_printf_fd("alias %s=%s\n", tmp->name, tmp->data);
 }
 
 void		add_to_alias(t_var **var, char *name, char *data, t_var *prev)
@@ -57,7 +57,7 @@ void		add_list_alias(t_var **var, char *name, char *data)
 	prev = NULL;
 	if (!(*var))
 	{
-		ft_printf("list alias");
+		ft_printf_fd("list alias");
 		add_alias(var, name, data);
 		stock(*var, 5);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 15:50:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:47:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:45:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ static int	unsetenv_rules(t_process *p)
 {
 	if (p->cmd[1] && ft_strcmp(p->cmd[1], "-u") == 0)
 	{
-		ft_printf("42sh: unsetenv: usage: unsetenv [NAME]\n");
+		ft_printf_err_fd("42sh: unsetenv: usage: unsetenv [NAME]\n");
 		return (0);
 	}
 	return (1);

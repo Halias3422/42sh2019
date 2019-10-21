@@ -6,17 +6,37 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:43:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:59:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
 
-int			finish_ft_cd(char *new_path, t_pos *pos, t_var **var, int option)
+void		restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
 {
+	if (pos->act_fd_out != 1 && pos->separator == 'P')
+	{
+		free_env_list(*var);
+		*var = old_env;
+		stock(*var, 5);
+		ft_strdel(&pos->pwd);
+		pos->pwd = ft_strdup(ft_get_val("PWD", *var, ENVIRONEMENT));
+		if (!pos->pwd)
+			pos->pwd = getcwd(NULL, 1000);
+	}
+	else
+		free_env_list(old_env);
+}
+
+int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
+{
+	t_var	*var;
+
+	var = stock(NULL, 6);
 	if (verif_path(new_path, 1, 1) == 0)
 	{
+		restore_old_env(old_env, &var, pos);
 		ft_strdel(&new_path);
 		return (1);
 	}
@@ -27,7 +47,8 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var **var, int option)
 		pos->pwd = getcwd(NULL, 1000);
 	else
 		pos->pwd = ft_strdup(new_path);
-	replace_pwd_vars_in_env(var, new_path, option);
+	replace_pwd_vars_in_env(&var, new_path, option);
+	restore_old_env(old_env, &var, pos);
 	return (0);
 }
 
@@ -38,7 +59,7 @@ void		print_cd_error(char *path, int i, int mute, int usage)
 		if (i < 0)
 			i = 0;
 		if (usage == 0 && path && path + i)
-			ft_printf_err_fd("42sh: cd: %s: is not a directory\n",  path + i);
+			ft_printf_err_fd("42sh: cd: %s: is not a directory\n", path + i);
 		else if (usage == 0)
 			ft_printf_err_fd("42sh: cd : not a directory\n");
 		if (usage == 1 && path && path + i + 1)

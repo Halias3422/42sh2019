@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:44:04 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 16:00:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,18 +83,19 @@ int				ft_exit(t_process *p, t_var **var)
 	status = ft_atoi(p->cmd[1]);
 	if (p->cmd && p->cmd[1] && p->cmd[2])
 	{
-		ft_printf_err_fd("42sh: exit: {B.T.red.}error{eoc}: Too many arguments\n");
+		ft_printf_err_fd("42sh: exit: error: Too many arguments\n");
 		return (1);
 	}
 	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
 		return (status);
 	if (status < 0 || (p->cmd[1] && check_if_letter(p->cmd[1]) &&
 		(status = 255)))
-		ft_printf_err_fd("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
+		ft_printf_err_fd("42sh: exit: %s: numeric argument required\n",
+				p->cmd[1]);
 	else
 	{
 		free_hash_table();
-		ft_printf("exit\n");
+		ft_printf_fd("exit\n");
 	}
 	write_alias_on_exit(*var);
 	free_pos();

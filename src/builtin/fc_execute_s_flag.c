@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/24 13:41:03 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:51:00 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:40:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ static void		exec_s_flag(t_fc *fc, t_hist *hist, t_var **var)
 	if (fc->ename != NULL)
 		tmp_cmd = replace_cmd_content_with_ename(fc, tmp_cmd);
 	cmd[0] = ft_strdup(tmp_cmd);
-	ft_printf("%s\n", tmp_cmd);
+	ft_printf_fd("%s\n", tmp_cmd);
 	if ((check_error(hist->cmd)) != -1)
 		start_exec(start_lex(*var, tmp_cmd), *var);
 	place_new_cmds_in_history(cmd, hist);

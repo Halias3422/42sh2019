@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:15:43 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:52:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -665,6 +665,7 @@ int						ft_printf_err_fd(const char *format, ...);
 int						print_printf_err_fd(t_dataerr *data, int i, int fd);
 int						iterating_through_output_err_fd(t_dataerr *data,
 						int *printed_backslash, int i, int fd);
-int						handle_colors_err_fd(t_dataerr *d, int i, int tmp, int fd);
+int						handle_colors_err_fd(t_dataerr *d, int i, int tmp,
+						int fd);
 
 #endif

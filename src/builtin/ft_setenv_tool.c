@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:23:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:45:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:44:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,8 +32,8 @@ void		print_env(t_var *var)
 	{
 		if (var->type == ENVIRONEMENT)
 		{
-			ft_printf("%s=", var->name);
-			ft_printf("%s\n", var->data);
+			ft_printf_fd("%s=", var->name);
+			ft_printf_fd("%s\n", var->data);
 		}
 		var = var->next;
 	}
