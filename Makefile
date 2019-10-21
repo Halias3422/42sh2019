@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/21 10:23:17 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/21 11:11:54 by mdelarbr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -37,7 +37,8 @@ SRC_LINE = $(addprefix line_edit/,\
 				init_spe_params.c print_prompt.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
+				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c\
+				fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
 				lexeur_struct.c fill_lexeur_tool.c)
 
 SRC_EXEC = $(addprefix exec/, \
@@ -49,9 +50,9 @@ SRC_EXEC = $(addprefix exec/, \
 				process_heredoc.c)
 
 SRC_REP = $(addprefix replace/, \
-				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
-				alias_change_type.c alias_cnt.c alias_replace.c tool_split.c split_agregator.c quote_tool.c \
-				replace_tool.c)
+				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c\
+				alias_tools.c free_file.c alias_change_type.c alias_cnt.c alias_replace.c\
+				tool_split.c split_agregator.c quote_tool.c replace_tool.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_set.c ft_type.c ft_export.c \
@@ -72,13 +73,14 @@ SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
 SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HASH)
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
-INC_NAME = termcaps.h
+INC_NAME = termcaps.h alias.h builtin.h check_error.h exec.h hash.h launch.h \
+		   lexeur.h
 
 INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined 
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined 
 FLAG_END = -lcurses
 NORME = norminette
 
@@ -101,7 +103,7 @@ all:
 	@make -j $(NAME)
 	@echo ""
 
-$(NAME) : $(OBJ) Makefile
+$(NAME) : $(OBJ) Makefile $(LIB_LIB)
 	@echo  "			\033[2K\r$(YELLOW)21sh:	$(GREEN_BOLD)loaded$(RESET)"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_LIB) -I include
 
