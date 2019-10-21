@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   replace.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 21:54:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:48:23 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -98,6 +98,6 @@ char		**start_split(t_var *start, char *str)
 	ar = split_space(str);
 	if (!start)
 		return (ar);
-	ft_strdel(&str);
+	// ft_strdel(&str);
 	return (ar);
 }

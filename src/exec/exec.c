@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/19 12:18:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:39:12 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,8 @@ t_job		*make_job(t_lexeur **res)
 	fill_job(j, res);
 	fill_process(j, res);
 	tmp = j;
-	pos->last_cmd_on_bg = 0;
+	if (pos)
+		pos->last_cmd_on_bg = 0;
 	while (tmp)
 	{
 		if (tmp->split == '&')

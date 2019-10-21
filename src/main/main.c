@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/19 11:34:58 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:46:29 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,17 +15,11 @@
 
 int				check_entry(void)
 {
-	struct winsize	w;
 	char			*s;
 
 	if (!(s = malloc(sizeof(char) * 10000000)))
 		exit(0);
 	free(s);
-	if (ioctl(0, TIOCGWINSZ, &w) == -1)
-	{
-		ft_printf_err("Entry is not a tty\nExit\n");
-		exit(0);
-	}
 	return (0);
 }
 
@@ -79,6 +73,23 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 	return (0);
 }
 
+int				script_test(char **av, int ac, t_var *env)
+{
+	char	*ans;
+
+	if (ac == 3)
+	{
+		if (ft_strcmp(av[1], "-c") == 0)
+		{
+			ans = ft_strdup(av[2]);
+			if (check_error(ans) != -1)
+				start_exec(start_lex(env, ans), env);
+		}
+	}
+	start_exec(start_lex(env, "exit"), env);
+	return (0);
+}
+
 int				main(int ac, char **av, char **env)
 {
 	t_hist	*hist;
@@ -86,7 +97,6 @@ int				main(int ac, char **av, char **env)
 	t_pos	pos;
 	pid_t	shell_pid;
 
-	(void)ac;
 	if (check_term() == -1)
 		exit(0);
 	check_entry();
@@ -99,6 +109,8 @@ int				main(int ac, char **av, char **env)
 	init_t_hist(hist);
 	main_init_pos(&pos, my_env);
 	hist = create_history(&pos, hist);
+	if (ac > 1)
+		return (script_test(av, ac, my_env));
 	while (1)
 	{
 		if (main_loop(&pos, stock(NULL, 6), hist) != 0)

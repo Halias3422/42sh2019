@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:31:01 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:46:13 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,25 +14,26 @@
 #include "../../includes/builtin.h"
 #include "../../includes/exec.h"
 
-static void		write_alias_on_exit(t_var *var)
-{
-	t_pos *p;
+// static void		write_alias_on_exit(t_var *var)
+// {
+// 	t_pos *p;
 
-	p = to_stock(NULL, 1);
-	chdir(p->path);
-	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT, 0664);
-	while (var)
-	{
-		if (var->type == ALIAS)
-		{
-			write(p->alias, var->name, ft_strlen(var->name));
-			write(p->alias, "=", 1);
-			write(p->alias, var->data, ft_strlen(var->data));
-			write(p->alias, "\n", 1);
-		}
-		var = var->next;
-	}
-}
+// 	p = to_stock(NULL, 1);
+// 	printf("_%p_\n", p);
+// 	chdir(p->path);
+// 	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT, 0664);
+// 	while (var)
+// 	{
+// 		if (var->type == ALIAS)
+// 		{
+// 			write(p->alias, var->name, ft_strlen(var->name));
+// 			write(p->alias, "=", 1);
+// 			write(p->alias, var->data, ft_strlen(var->data));
+// 			write(p->alias, "\n", 1);
+// 		}
+// 		var = var->next;
+// 	}
+// }
 
 void			free_pos(void)
 {
@@ -96,8 +97,8 @@ int				ft_exit(t_process *p, t_var **var)
 		free_hash_table();
 		ft_printf("exit\n");
 	}
-	write_alias_on_exit(*var);
-	free_pos();
+	//write_alias_on_exit(*var);
+	//free_pos();
 	free_t_hist(stock(NULL, 8));
 	free_env_list(*var);
 	free_job_list();
