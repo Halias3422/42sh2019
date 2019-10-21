@@ -308,4 +308,5 @@ void					alert_job(t_job *j);
 void					fill_heredoc_init(t_lexeur **res, t_redirect *tmp,
 						int *t);
 
+int						launch_redirection_builtin(t_process *p);
 #endif

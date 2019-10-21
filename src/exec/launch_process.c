@@ -84,14 +84,15 @@ int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 	t_pos	*pos;
 
 	pos = to_stock(NULL, 1);
-	pos->act_fd_out = p->fd_out;
-	pos->act_fd_error = p->fd_error;
-	pos->separator = p->split;
 	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
 	p->background = j->split == '&' ? 1 : 0;
 	if (j->split != '&' && is_builtin_modify(p))
 	{
+		launch_redirection_builtin(p);
+		pos->act_fd_out = p->fd_out;
+		pos->act_fd_error = p->fd_error;
+		pos->separator = p->split;
 		if (find_builtins(p, var) != 0)
 			return (1);
 	}
