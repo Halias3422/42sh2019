@@ -37,7 +37,7 @@ int			duplication_builtin(t_process *p, t_redirect *redirect, int fd_in,
 			if (fd_in == 2)
 				p->fd_error = (fd_out == 1) ? p->fd_out : fd_out;
 			if (fd_in == 1)
-				p->fd_in = (fd_out == 2) ? p->fd_error : fd_out;
+				p->fd_out = (fd_out == 2) ? p->fd_error : fd_out;
 		}
 		else
 			ft_printf_err("42sh: file number expected\n");
