@@ -128,7 +128,7 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "$(YELLOW)21sh:	$(RED)executable file deleted$(RESET)"
 
-batman: $(NAME)
+batman: all
 	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "
 	@echo "                .o888888888'                          '888888888o. "
 	@echo "             .o888888888'            .   .              '888888888o. "
