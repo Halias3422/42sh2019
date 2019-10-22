@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:12:52 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/19 11:10:38 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 11:53:01 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,6 +38,7 @@ char		*solve_back_slash_end(char *str)
 	int		i;
 	int		a;
 	int		tmp;
+	int		ret;
 
 	a = back_slash_count_end(str);
 	res = malloc(sizeof(char) * (a + 2));
@@ -47,8 +48,9 @@ char		*solve_back_slash_end(char *str)
 	while (str[i] && a <= tmp)
 	{
 		if (str[i] && (str[i] == '\\' && str[i + 1] && (str[i + 1] == '"'
-		|| str[i + 1] == '\'' || str[i + 1] == '$' || str[i + 1] == '\\')))
-			i++;
+		|| str[i + 1] == '\'' || str[i + 1] == '$' || str[i + 1] == '\\'
+		|| (ret = find_token(str, i + 1)) != -1)))
+			i += (ret != -1) ? g_fill_token[ret].size : 1;
 		res[a] = str[i];
 		a++;
 		i++;
@@ -62,7 +64,7 @@ int			del_back_slash_end_browse(char ***ar, int j, int *k)
 {
 	if ((*ar)[j][*k + 1] && ((*ar)[j][*k + 1] == '\''
 	|| (*ar)[j][*k + 1] == '"' || (*ar)[j][*k + 1] == '$'
-	|| (*ar)[j][*k + 1] == '\\')
+	|| (*ar)[j][*k + 1] == '\\' || find_token((*ar)[j], (*k) + 1) != -1)
 	&& (*ar)[j][*k] == '\\')
 	{
 		(*ar)[j] = solve_back_slash_end((*ar)[j]);
