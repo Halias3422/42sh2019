@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 10:28:45 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:48:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 13:16:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@ int		check_name(char *name)
 
 int		print_err(char *name, char *data)
 {
-	ft_printf_err_fd("42sh: alias:{B.T.red.} error{eoc}: Permission denied\n");
+	ft_printf_err_fd("42sh: alias: error: Permission denied\n");
 	ft_strdel(&name);
 	ft_strdel(&data);
 	return (1);
