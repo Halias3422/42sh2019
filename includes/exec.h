@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:00:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 13:46:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -249,7 +249,9 @@ int						main_unalias(t_process *p, t_var **var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 void					add_alias(t_var **var, char *name, char *data);
-void					find_alias(t_process *p, t_var *var, int k);
+int						find_alias(t_process *p, int k);
+int						looking_for_aliases(t_process *p, int k,
+						char *name, char *data);
 void					add_list_alias(t_var **var, char *name, char *data);
 void					put_foreground(t_job *j, t_var **var, t_process *p);
 void					put_background(t_job *j);
