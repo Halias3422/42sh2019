@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 11:22:17 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 13:30:16 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,49 +69,6 @@ void		save_spe_param(char **cmd, t_var *var, int i)
 		var->data = ft_strdup(cmd[i - 1]);
 }
 
-void		print_j(t_job *j)
-{
-	t_job	*jt;
-	t_process *pt;
-	t_redirect	*rt;
-	int			i;
-
-	jt = j;
-	puts("------------------------");
-	while (jt)
-	{
-		pt = jt->p;
-		puts("\t\tNEW JOB\t\t");
-		while (pt)
-		{
-			i = 0;
-			puts("\t\tNEW PROCESS\t\t");
-			if (pt->cmd)
-			{
-				while (pt->cmd[i])
-				{
-					printf("cmd[%d]: _%s_\n", i, pt->cmd[i]);
-					i++;
-				}
-			}
-			printf("split: _%c_\n", pt->split);
-			rt = pt->redirect;
-			while (rt)
-			{
-				printf("fd: %d\n", rt->fd);
-				printf("content: _%s_\n", rt->heredoc_content);
-				printf("token : _%s_\n", rt->token);
-				printf("redirect in : _%s_\n", rt->fd_in);
-				printf("redirect  out : _%s_\n", rt->fd_out);
-				rt= rt->next;
-			}
-			pt = pt->next;
-		}
-		jt = jt->next;
-	}
-	puts("------------------------");
-}
-
 t_job		*make_job(t_lexeur **res)
 {
 	t_job	*j;
@@ -124,7 +81,6 @@ t_job		*make_job(t_lexeur **res)
 	init_job(j);
 	fill_job(j, res);
 	fill_process(j, res);
- //   print_j(j);
 	tmp = j;
 	pos->last_cmd_on_bg = 0;
 	while (tmp)
