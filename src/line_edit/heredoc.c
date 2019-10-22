@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 11:18:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 11:52:43 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,8 +28,8 @@ int				heredoc_found(t_pos *pos, int i, int j)
 		j++;
 	if (pos->ans[j] && (pos->ans[j] == '<' || pos->ans[j] == '>' ||
 			pos->ans[j] == '&' || pos->ans[j] == '|' || (pos->ans[j] == '$' &&
-	pos->ans[j + 1] == '{')) && (i == 0 || (i > 0 && pos->ans[i - 1] != 92)) &&
-			j == i)
+			pos->ans[j + 1] == '{') || pos->ans[j + 1] == ';') &&
+			(i == 0 || (i > 0 && pos->ans[i - 1] != 92)))
 		return (-1);
 	pos->hdoc = add_list_back_heredoc(pos->hdoc);
 	(pos->hdoc)->to_find = ft_strsub(pos->ans, j, i - j);
