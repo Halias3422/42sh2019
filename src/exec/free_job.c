@@ -1,17 +1,31 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   job_controll.c                                   .::    .:/ .      .::   */
+/*   free_job.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: husahuc <husahuc@student.42.fr>            +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/27 17:35:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:26:26 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+void		free_job_list(void)
+{
+	t_job_list	*job_list;
+
+	if ((job_list = stock(NULL, 10)) == NULL)
+		return ;
+	while (job_list)
+	{
+		kill(job_list->j->pgid, SIGINT);
+		free_job(job_list->j);
+		job_list = job_list->next;
+	}
+}
 
 void		free_redirections(t_redirect *ptr_redi)
 {
@@ -21,12 +35,17 @@ void		free_redirections(t_redirect *ptr_redi)
 	r = ptr_redi;
 	while (r)
 	{
-		if (r->fd_out)
-			free(r->fd_out);
-		if (r->fd_in)
-			free(r->fd_in);
-		if (r->token)
-			free(r->token);
+		if (ft_strcmp(r->token, "<<") == 0)
+			ft_strdel(&r->heredoc_content);
+		else
+		{
+			if (r->fd_out)
+				ft_strdel(&r->fd_out);
+			if (r->fd_in)
+				ft_strdel(&r->fd_in);
+			if (r->token)
+				ft_strdel(&r->token);
+		}
 		next = r->next;
 		free(r);
 		r = next;
@@ -41,8 +60,10 @@ void		free_process(t_process *ptr_p)
 	p = ptr_p;
 	while (p)
 	{
-		ft_tabfree(p->cmd);
-		free_redirections(p->redirect);
+		if (p->cmd)
+			ft_free_tab(p->cmd);
+		if (p->redirect)
+			free_redirections(p->redirect);
 		next = p->next;
 		free(p);
 		p = next;

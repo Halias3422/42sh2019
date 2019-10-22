@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 13:14:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/18 08:41:16 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:28:53 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,7 +31,10 @@ char			*get_program_pwd(char *pwd, int i)
 	while (env[i] && ft_strncmp(env[i], "_=", 2) != 0)
 		i++;
 	if (env[i] == NULL)
+	{
+		ft_free_tab(env);
 		return (NULL);
+	}
 	pwd = ft_strnew(0);
 	pwd = ft_strjoinf(pwd, env[i] + 2, 1);
 	i = ft_strlen(pwd) - 1;
@@ -72,8 +75,9 @@ void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
 
 	while (hist && hist->next && hist->next->next)
 		hist = hist->next;
-	hist->cmd = NULL;
-	hist->next = NULL;
+	ft_strdel(&hist->cmd);
+	if (hist->next)
+		hist->next = ft_secure_free(hist->next);
 	i = 0;
 	while (new_cmds[i])
 	{
@@ -88,16 +92,6 @@ void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
 	hist->next = NULL;
 	ft_free_tab(new_cmds);
 	overwrite_history_file(hist);
-
-/*
-	while (hist->prev)
-		hist = hist->prev;
-	while (hist->next)
-	{
-		ft_printf("cmd = %s\n", hist->cmd);
-		hist = hist->next;
-	}
-	*/
 }
 
 void			print_fc_usage(void)

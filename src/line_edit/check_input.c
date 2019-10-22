@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/23 14:41:17 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 08:06:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/16 08:23:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,8 @@ static void		update_history(t_pos *pos, t_hist *hist, char *buf)
 	ft_strdel(&pos->saved_ans);
 	if (buf[0] != 10)
 		pos->saved_ans = ft_strdup(pos->ans);
+	if (check_ans(pos->ans) == 1)
+		return ;
 	if (hist && hist->next == NULL)
 	{
 		if (hist->cmd != NULL)

@@ -3,43 +3,15 @@
 /*                                                              /             */
 /*   fc_prepare_e_flag.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 14:02:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/17 09:38:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:42:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
-
-char			*check_new_cmd_is_valid(char *new_cmds, char **paths)
-{
-	int				i;
-	DIR				*dirp;
-	struct dirent	*read;
-
-	i = 0;
-	while (paths[i])
-	{
-		paths[i] = free_strjoin(paths[i], "/");
-		dirp = opendir(paths[i]);
-		while ((read = readdir(dirp)) != NULL)
-		{
-			if (ft_strcmp(new_cmds, read->d_name) == 0)
-			{
-				new_cmds = ft_secure_free(new_cmds);
-				new_cmds = ft_strdup(read->d_name);
-				new_cmds = ft_strjoinf(paths[i], new_cmds, 2);
-				return (new_cmds);
-			}
-		}
-		closedir(dirp);
-		i++;
-	}
-	ft_printf_err("ici 42sh: command not found: %s\n", new_cmds);
-	return (0);
-}
 
 void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 				t_hist *hist)
@@ -92,11 +64,11 @@ static int		check_if_ename_is_text_editor(t_fc *fc, char **paths, int i)
 		closedir(dirp);
 	}
 	fc->error = 1;
-	ft_printf_err("42sh: command not found: %s\n", fc->ename);
+	ft_printf_err_fd("42sh: command not found: %s\n", fc->ename);
 	return (0);
 }
 
-char			**get_ide_paths(char **env)
+char			**get_ide_paths(char **env, int usage, t_fc *fc)
 {
 	int				i;
 	char			**paths;
@@ -112,9 +84,15 @@ char			**get_ide_paths(char **env)
 		}
 		i++;
 	}
-	if (paths == NULL)
-		ft_printf("42sh: PATH environment not set\n");
+	if (usage == 0 && paths == NULL)
+		fc->error = 2;
 	return (paths);
+}
+
+void			prepare_e_flag_free(char **paths, char **env)
+{
+	ft_free_tab(paths);
+	ft_free_tab(env);
 }
 
 void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i)
@@ -123,7 +101,7 @@ void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i)
 	char		**paths;
 
 	env = split_env(*var);
-	paths = get_ide_paths(env);
+	paths = get_ide_paths(env, 0, fc);
 	if (fc->ename == NULL || (fc->ename[0] > '0' && fc->ename[0] < '9'))
 	{
 		if (fc->ename != NULL)
@@ -136,12 +114,12 @@ void			prepare_e_flag(t_fc *fc, t_hist *hist, t_var **var, int i)
 	}
 	else if (check_if_ename_is_text_editor(fc, paths, i - 1) == 1)
 		send_e_flag_to_exec(fc, hist, env);
-	ft_free_tab(paths);
-	ft_free_tab(env);
+	prepare_e_flag_free(paths, env);
 	if (fc->error == 1)
 	{
 		hist = hist->prev;
 		remove_cmd_from_hist(hist);
 		overwrite_history_file(hist);
 	}
+	fc->ename = ft_secure_free(fc->ename);
 }

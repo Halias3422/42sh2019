@@ -3,20 +3,22 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/03 07:56:05 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/21 14:08:50 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = 21sh
 
-LIB_PATH = libft/libft.a
+LIB_PATH = libft/
+LIB_LIB  = libft/libft.a
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
+ALL_INC  = ./includes/$(wildcard *.h)
 
 SRC_LINE = $(addprefix line_edit/,\
 				calcul_line.c check_error.c check_input.c control_search_history_calcul_pos.c\
@@ -32,37 +34,53 @@ SRC_LINE = $(addprefix line_edit/,\
 				 init_alias.c check_for_tilde.c \
 				tab_key_auto_complete_tilde.c check_backslash.c \
 				token.c token_conditions.c heredoc.c heredoc_send_valid_ans.c heredoc_tools.c\
-				init_spe_params.c debug.c)
+				init_spe_params.c print_prompt.c)
+
+SRC_PRINTF = $(addprefix printf_fd/, \
+			 	ft_printf_fd.c print_colors_fd.c print_printf_fd.c )
+
+SRC_PRINTF_ERR = $(addprefix printf_error_fd/, \
+				 ft_printf_err_fd.c print_colors_err_fd.c print_printf_err_fd.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
-				lexeur_struct.c)
+				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c\
+				fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
+				lexeur_struct.c fill_lexeur_tool.c)
 
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
-				job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
-				process_tool.c redirection.c alias_tools.c free_job.c)
+			job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
+				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
+				before_redirection.c new_job.c process_file.c alias_reduction.c alias_norme.c \
+				exec_tool.c var_norme.c launch_job_process.c job_function_plus_and_minus.c \
+				process_heredoc.c builtin_redirection.c)
 
 SRC_REP = $(addprefix replace/, \
-				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c alias_tools.c free_file.c \
-				alias_change_type.c alias_cnt.c alias_replace.c tool_split.c)
+				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c\
+				alias_tools.c free_file.c alias_change_type.c alias_cnt.c alias_replace.c\
+				tool_split.c split_agregator.c quote_tool.c replace_tool.c)
 
 SRC_BUILTIN = $(addprefix builtin/, \
 				ft_test.c ft_test_int.c ft_echo.c ft_set.c ft_type.c ft_export.c \
-				ft_unset.c ft_fc.c tool.c ft_fg.c ft_bg.c ft_jobs.c ft_exit.c fc_get_args.c \
+				ft_unset.c fc_free.c ft_fc.c tool.c ft_fg.c ft_bg.c ft_jobs.c \
+				ft_jobs_print.c ft_exit.c fc_get_args.c \
 				fc_get_flags.c fc_execute_l_flag.c fc_execute_s_flag.c fc_execute_e_flag.c \
 				fc_tools.c fc_prepare_e_flag.c fc_s_replace_pattern.c ft_hash.c \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
-				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c)
+				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c ft_cd_check_cdpath.c \
+				tools_bis.c ft_setenv_tool.c ft_env_i_new_env.c\
+				ft_fg_bg_plus_and_minus.c ft_shtheme.c\
+				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c ft_fg_bg_tools.c)
 
-SRC_MAIN = $(addprefix main/, main.c)
+SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)
 
 SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
 
-SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HASH)
+SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HASH) $(SRC_PRINTF) $(SRC_PRINTF_ERR)
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
-INC_NAME = termcaps.h
+INC_NAME = termcaps.h alias.h builtin.h check_error.h exec.h hash.h launch.h \
+		   lexeur.h
 
 INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
@@ -72,9 +90,11 @@ FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined
 FLAG_END = -lcurses
 NORME = norminette
 
+WHITE_BOLD = \033[37m
 BLUE=\033[0;38;5;123m
 DARK_BLUE = \033[0;38;5;110m
 GREEN = \033[0;32m
+GREEN_BOLD = \033[1;32m
 LIGHT_GREEN = \033[1;38;5;121m
 LIGHT_YELLOW = \033[1;33;5;121m
 LIGHT_RED = \033[1;31;5;121m
@@ -83,43 +103,32 @@ YELLOW = \033[1;33m
 RED = \033[1;31m
 RESET = \033[0m
 
-all: $(NAME)
+all:
+	@echo ""
+	@make -C $(LIB_PATH)
+	@make -j $(NAME)
+	@echo ""
 
-$(NAME) : $(OBJ_PATH) $(OBJ) Makefile
-	@echo  "\n$(LIGHT_GREEN)42sh loaded$(RESET)"
-	@make -C libft
-	@echo "$(YELLOW)Libft$(RESET):\t...$(GREEN)\t[OK]"
-	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_PATH) -I include
-	@echo "$(YELLOW)$(NAME)$(RESET):\t...$(GREEN)\t[OK]$(YELLOW)"
-
-#	@./21sh
-
-$(OBJ_PATH):
-	@mkdir -p obj 2> /dev/null
-	@mkdir -p obj/line_edit 2> /dev/null
-	@mkdir -p obj/lexeur 2> /dev/null
-	@mkdir -p obj/replace 2> /dev/null
-	@mkdir -p obj/exec 2> /dev/null
-	@mkdir -p obj/builtin 2> /dev/null
-	@mkdir -p obj/main 2> /dev/null
-	@mkdir -p obj/ft_printf 2> /dev/null
-	@mkdir -p obj/hash 2> /dev/null
+$(NAME) : $(OBJ) Makefile $(LIB_LIB)
+	@echo  "			\033[2K\r$(YELLOW)21sh:	$(GREEN_BOLD)loaded$(RESET)"
+	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_LIB) -I include
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
+	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAG) -g -I $(INC_PATH) -o $@ -c $<
-	@echo "$(LIGHT_GREEN).\c"
+	@printf "\033[2K\r$(YELLOW)21sh:	\033[37m$<\033[36m \033[0m"
 
 clean:
 	@make -C libft/ clean
 	@rm -rf $(OBJ_PATH)
-	@echo ".o\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]$(RESET)"
+	@echo "$(YELLOW)21sh:	$(RED)object files deleted$(RESET)"
 
 fclean: clean
 	@make -C libft/ fclean
 	@rm -rf $(NAME)
-	@echo "./$(NAME)\tof\t$(YELLOW)$(NAME)$(RESET):\t$(RED)[-]\n"
+	@echo "$(YELLOW)21sh:	$(RED)executable file deleted$(RESET)"
 
-batman: $(NAME)
+batman: all
 	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "
 	@echo "                .o888888888'                          '888888888o. "
 	@echo "             .o888888888'            .   .              '888888888o. "

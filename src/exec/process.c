@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:52:14 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:10:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,13 +14,11 @@
 #include "../../includes/exec.h"
 #include "../../includes/lexeur.h"
 
-t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
+t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i, int t)
 {
-	int			t;
-	int			done;
 	t_redirect	*tmp;
 
-	tmp = init_var(&done, &t, i);
+	tmp = init_var(&t, i);
 	while (res[t])
 	{
 		if (check_moove_index(res, &t))
@@ -31,24 +29,15 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i)
 			{
 				tmp = malloc(sizeof(t_redirect));
 				p = tmp;
-				fill_ag_first(tmp, res, &t);
+				(*i) = fill_ag_first(tmp, res, &t);
 			}
 			else
-				fill_ag_next(tmp, res, &t);
-			done++;
+				(*i) = fill_ag_next(tmp, res, &t);
 		}
-		t += (res[t]) ? 1 : 0;
+		else
+			t += (res[t]) ? 1 : 0;
 	}
-	(*i) += done;
 	return (p);
-}
-
-void			add_heredoc(char *tag, t_lexeur **res, int *i)
-{
-	(*i)++;
-	while (res[*i] && !ft_strcmp(res[*i]->word, tag))
-		(*i)++;
-	(*i)++;
 }
 
 void			fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
@@ -58,13 +47,11 @@ void			fill_cmd(t_lexeur **res, t_job **j, int *k, int *i)
 	(*i)++;
 }
 
-
 void			fill_process_first_part(t_job **j, t_lexeur **res,
 int *i, int k)
 {
-	if (res[*i]->token == 9)
+	if (res[*i]->token == 7)
 	{
-		(*j)->p->cmd = malloc(sizeof(char *) * 1);
 		(*j)->p->cmd = NULL;
 		return ;
 	}
@@ -84,7 +71,7 @@ int *i)
 	k = 0;
 	fill_process_first_part(j, res, i, k);
 	if (res[*i])
-		(*j)->p->redirect = fill_agregator(NULL, res, i);
+		(*j)->p->redirect = fill_agregator(NULL, res, i, 0);
 	if (res[*i] && (res[*i]->token == 0 || res[*i]->token == 2
 	|| res[*i]->token == 3))
 	{

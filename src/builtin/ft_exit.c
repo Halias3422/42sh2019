@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:52:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 16:00:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,13 +14,13 @@
 #include "../../includes/builtin.h"
 #include "../../includes/exec.h"
 
-static void	 write_alias_on_exit(t_var *var)
+static void		write_alias_on_exit(t_var *var)
 {
 	t_pos *p;
 
-	p = stock(NULL, 1);
+	p = to_stock(NULL, 1);
 	chdir(p->path);
-	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT , 0664);
+	p->alias = open("./.aliases", O_WRONLY | O_TRUNC | O_CREAT, 0664);
 	while (var)
 	{
 		if (var->type == ALIAS)
@@ -34,25 +34,19 @@ static void	 write_alias_on_exit(t_var *var)
 	}
 }
 
-void			free_pos()
+void			free_pos(void)
 {
 	t_pos *pos;
 
-	pos = stock(NULL, 1);
+	pos = to_stock(NULL, 1);
 	ft_strdel(&pos->prompt);
 	ft_strdel(&pos->path);
 	ft_strdel(&pos->ctrl_hist_cmd);
 	ft_strdel(&pos->saved_ans);
+	ft_strdel(&pos->pwd);
 }
 
-int		error_exit(int i)
-{
-	if (i == 1)
-		ft_printf_err("42sh: exit: {B.T.red.}error{eoc}: Too many arguments\n");
-	return (1);
-}
-
-void	free_env_list(t_var *var)
+void			free_env_list(t_var *var)
 {
 	t_var	*tmp;
 
@@ -68,7 +62,7 @@ void	free_env_list(t_var *var)
 	}
 }
 
-int		check_if_letter(char *str)
+int				check_if_letter(char *str)
 {
 	int		i;
 
@@ -82,26 +76,31 @@ int		check_if_letter(char *str)
 	return (0);
 }
 
-int		ft_exit(t_process *p, t_var **var)
+int				ft_exit(t_process *p, t_var **var)
 {
 	int	status;
 
 	status = ft_atoi(p->cmd[1]);
 	if (p->cmd && p->cmd[1] && p->cmd[2])
-		return (error_exit(1));
+	{
+		ft_printf_err_fd("42sh: exit: error: Too many arguments\n");
+		return (1);
+	}
 	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
 		return (status);
 	if (status < 0 || (p->cmd[1] && check_if_letter(p->cmd[1]) &&
 		(status = 255)))
-		ft_printf_err("42sh: exit: %s: numeric argument required\n", p->cmd[1]);
+		ft_printf_err_fd("42sh: exit: %s: numeric argument required\n",
+				p->cmd[1]);
 	else
 	{
 		free_hash_table();
-		ft_printf("exit\n");
+		ft_printf_fd("exit\n");
 	}
 	write_alias_on_exit(*var);
 	free_pos();
 	free_t_hist(stock(NULL, 8));
 	free_env_list(*var);
+	free_job_list();
 	exit(status);
 }

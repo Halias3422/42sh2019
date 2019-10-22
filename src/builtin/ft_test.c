@@ -6,29 +6,13 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/15 12:55:43 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:40 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:47:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 #include "../../includes/builtin.h"
-
-int			comp_operator(char *name1, char *type, char *name2)
-{
-	if (ft_strcmp(type, "=") == 0)
-		return (ft_strcmp(name1, name2) == 0) ? 0 : 1;
-	else if (ft_strcmp(type, "!=") == 0)
-		return (ft_strcmp(name1, name2) != 0) ? 0 : 1;
-	else if (type[0] != '-')
-	{
-		ft_printf("test: condition expected: %s\n", type);
-		return (1);
-	}
-	else
-		return (comp_num_operator(name1, type, name2));
-	return (2);
-}
 
 int			test_simple_operator(char *type, struct stat s_type)
 {
@@ -39,7 +23,7 @@ int			test_simple_operator(char *type, struct stat s_type)
 	if (ft_strcmp(type, "-f") == 0)
 		return ((s_type.st_mode & S_IFMT) == S_IFREG) ? 0 : 1;
 	if (ft_strcmp(type, "-L") == 0)
-		return ((s_type.st_mode & S_IFMT) == S_IFLNK) ? 0 : 1;
+		return (S_ISLNK(s_type.st_mode & S_IFMT)) ? 0 : 1;
 	if (ft_strcmp(type, "-p") == 0)
 		return ((s_type.st_mode & S_IFMT) == S_IFIFO) ? 0 : 1;
 	if (ft_strcmp(type, "-S") == 0)
@@ -59,66 +43,63 @@ int			test_simple_operator(char *type, struct stat s_type)
 	return (0);
 }
 
-int			simple_operator(char *type, char *name)
+int			simple_operator(char *type, char *name, int *error)
 {
 	struct stat s_type;
 
-
-	if (type[0] != '-')
+	if (type[0] != '-' && (*error = 1))
 	{
-		ft_printf("test: unknown condition: %s\n", type);
+		ft_printf_err_fd("test: unknown condition: %s\n", type);
 		return (2);
 	}
-	if (ft_strlen(type) < 2)
+	if (ft_strlen(type) < 2 && (*error = 1))
 	{
-		ft_printf("42sh: parse error: condition expected: %s\n", type);
+		ft_printf_err_fd("42sh: parse error: condition expected: %s\n", type);
 		return (2);
 	}
-	if (!ft_strchr("ebcdfLpSgurwx", type[1]) || ft_strlen(type) > 2)
+	if (!ft_strchr("ebcdfLpSsgurwx", type[1]) || ft_strlen(type) > 2)
 	{
-		ft_printf("test: unknown condition: %s\n", type);
+		*error = 1;
+		ft_printf_err_fd("test: unknown condition: %s\n", type);
 		return (2);
 	}
-	if (stat(name, &s_type) == -1)
+	if (lstat(name, &s_type) == -1 && (*error = 1))
 		return (1);
 	if (ft_strcmp(type, "-e") == 0)
 		return (0);
 	if (ft_strcmp(type, "-b") == 0)
-		return ((s_type.st_mode & S_IFMT) == S_IFBLK) ? 0 : 1;
+		return (S_ISBLK(s_type.st_mode) ? 0 : 1);
 	return (test_simple_operator(type, s_type));
 }
 
-int			ft_test_argv(char **argv, int fd_out)
+int			ft_return(void)
 {
-	int i;
-	int inv;
+	ft_printf_err_fd("test: too many arguments\n");
+	return (2);
+}
 
+int			ft_test_argv(char **argv)
+{
+	int		i;
+	int		inv;
+	int		error;
+
+	error = 0;
 	i = 0;
-	if (ft_strcmp(argv[1], "-z") == 0)
-	{
-		if (!(argv[2]))
-			return (1);
+	inv = 0;
+	if (ft_tabclen(argv) <= 2)
 		return (0);
-	}
-	if (ft_tabclen(argv) <= 1)
-		return (1);
-	if (ft_strcmp(argv[1], "!") == 0)
-	{
-		inv = 1;
+	if (ft_strcmp(argv[1], "-z") == 0 && ft_tabclen(argv) < 4)
+		return (argv[2] == NULL || ft_strlen(argv[2]) == 0 ? 0 : 1);
+	if (ft_strcmp(argv[1], "!") == 0 && ft_tabclen(argv) < 6 && (inv = 1))
 		argv++;
-	}
-	if (ft_tabclen(argv) == 2 && argv[1] == NULL)
-		i = 1;
 	else if (ft_tabclen(argv) == 3)
-		i = simple_operator(argv[1], argv[2]);
-	else if (ft_tabclen(argv) == 4)
-		i = comp_operator(argv[1], argv[2], argv[3]);
-	else
-	{
-		ft_putstr_fd("test: too many arguments", fd_out);
-		return (2);
-	}
-	if (inv == 1)
+		i = simple_operator(argv[1], argv[2], &error);
+	else if (ft_tabclen(argv) == 4 && is_comp(argv[2]) == 1)
+		i = comp_operator(argv[1], argv[2], argv[3], &error);
+	else if (ft_tabclen(argv) >= 4)
+		return (ft_return());
+	if (inv == 1 && error == 0)
 		i = (i == 0) ? 1 : 0;
 	return (i);
 }
@@ -128,6 +109,8 @@ int			ft_test(t_process *p, t_var **var)
 	int ret;
 
 	var = NULL;
-	ret = ft_test_argv(p->cmd, p->fd_out);
+	if (p->cmd[1] == NULL)
+		return (1);
+	ret = ft_test_argv(p->cmd);
 	return (ret);
 }

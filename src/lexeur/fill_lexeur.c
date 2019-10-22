@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:52:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 09:39:59 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,27 +19,20 @@ void		jump_space(char *buf, int *i)
 		(*i)++;
 }
 
-char		*change_buf(char *buf)
+void		check_token_for_redirection_quote(char *str, int *i)
 {
-	char	*res;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	res = malloc(sizeof(char) * (ft_strlen(buf) + 1));
-	while (buf[i])
+	if (str[*i] && str[*i] == '\'')
 	{
-		if (buf[i] == '\\' && buf[i + 1])
-			i++;
-		res[j] = buf[i];
-		if (buf[i])
-			i++;
-		j++;
+		(*i)++;
+		while (str[*i] && str[*i] != '\'')
+			(*i)++;
 	}
-	res[j] = '\0';
-	// ft_strdel(&buf);
-	return (res);
+	if (str[*i] && str[*i] == '"')
+	{
+		(*i)++;
+		while (str[*i] && str[*i] != '"')
+			(*i)++;
+	}
 }
 
 int			check_token_for_redirection(char *str)
@@ -51,12 +44,7 @@ int			check_token_for_redirection(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] && str[i] == '\'')
-		{
-			i++;
-			while (str[i] && str[i] != '\'')
-				i++;
-		}
+		check_token_for_redirection_quote(str, &i);
 		if (i == 0 || str[i - 1] != '\\')
 			token = find_token(str, i);
 		if (token == 4 || token == 5 || token == 6 || token == 7 || token == 8
@@ -75,10 +63,12 @@ void		fill_lex_exist(char **buf, int *i, int *j, t_lexeur **array)
 
 	k = 0;
 	token = check_token_for_redirection(buf[*i]);
-	if (token != -1)
+	if (token == 7)
+		fill_lex_heredoc(&array, j, buf, i);
+	else if (token != -1)
 		array[*j] = fill_lex_redirection(buf, i, token);
 	else
-		array[*j] = fill_lex_while(buf[*i], i, find_token(buf[*i], k));
+		array[*j] = fill_lex_while(&buf[*i], i, find_token(buf[*i], k));
 	(*j)++;
 }
 

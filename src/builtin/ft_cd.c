@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:29:14 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 09:58:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,8 @@ int		get_cd_option(char **cmd, int *i, int ret, int j)
 					ret = cmd[*i][j];
 				else
 				{
-					ft_printf_err("42sh: cd: %c: invalid option\n", cmd[*i][j]);
+					ft_printf_err_fd("42sh: cd: %c: invalid option\n",
+							cmd[*i][j]);
 					return (-1);
 				}
 			}
@@ -53,7 +54,7 @@ char	*move_to_new_dir(char *cmd, t_var **var, char *new_path)
 		else if (ft_strcmp(tmp[i], ".") != 0)
 		{
 			new_path = ft_strjoinf(new_path, tmp[i], 1);
-			if (verif_path(new_path, 1) == 0)
+			if (verif_path(new_path, 1, 0) == 0)
 			{
 				ft_free_tab(tmp);
 				free(new_path);
@@ -114,25 +115,24 @@ int		ft_cd(t_process *p, t_var **var)
 	int		option;
 	int		i;
 	char	*new_path;
-	char	pwd[1000];
+	t_pos	*pos;
+	t_var	*old_env;
 
+	old_env = copy_env(*var);
+	pos = to_stock(NULL, 1);
+	option = 0;
 	new_path = NULL;
 	i = 0;
-	if (verif_path(ft_get_val("PWD", *var, ENVIRONEMENT), 0) == 0)
-	{
-		getcwd(pwd, 1000);
-		add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), ft_strdup(pwd));
-	}
-	if ((option = get_cd_option(p->cmd, &i, 0, 0)) == -1)
-	{
-		ft_printf_err("cd: usage: cd [-L|-P] [dir]\n");
+	add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), ft_strdup(pos->pwd));
+	if (check_arguments_number(p, &i, &option, old_env) == 1)
 		return (1);
-	}
 	if ((new_path = get_path(p->cmd[i], var, new_path, option)) == NULL)
-		return (1);
-	if (verif_path(new_path, 1) == 0)
-		return (1);
-	chdir(new_path);
-	replace_pwd_vars_in_env(var, new_path, option);
-	return (0);
+	{
+		if (p->cmd[1] && ft_get_val("CDPATH", *var, ENVIRONEMENT) != NULL &&
+				(new_path == NULL || verif_path(new_path, 1, 0) == 0))
+			new_path = verif_path_in_cdpath(new_path, *var, p->cmd, 1);
+		else
+			new_path = ft_strdup(p->cmd[i]);
+	}
+	return (finish_ft_cd(new_path, pos, old_env, option));
 }

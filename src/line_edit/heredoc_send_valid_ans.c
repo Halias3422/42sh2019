@@ -6,14 +6,54 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:02 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 16:49:48 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-int			fill_ans_heredoc(t_pos *pos, int i, int j)
+int				check_if_to_find_is_not_empty(t_heredoc *hdoc)
+{
+	while (hdoc)
+	{
+		if (!hdoc->to_find || check_ans(hdoc->to_find) == 1)
+			return (-1);
+		hdoc = hdoc->next;
+	}
+	return (0);
+}
+
+char			*put_symbol_in_ans(char *ans, int i)
+{
+	while (ans[i])
+	{
+		if (ans[i] == ' ')
+			ans[i] = -1;
+		i++;
+	}
+	return (ans);
+}
+
+void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
+{
+	t_heredoc	*hdoc;
+
+	while (pos->hdoc->prev)
+		pos->hdoc = pos->hdoc->prev;
+	hdoc = pos->hdoc;
+	while (hdoc && hdoc->current_index == 1)
+		hdoc = hdoc->next;
+	hdoc->content = ft_strjoinf(hdoc->content, hdoc->to_find, 1);
+	hdoc->current_index = 1;
+	if (hdoc->next == NULL)
+	{
+		*hist = entry_is_complete(pos, *hist);
+		pos->active_heredoc = 0;
+	}
+}
+
+int				fill_ans_heredoc(t_pos *pos, int i, int j)
 {
 	j = i;
 	while (pos->ans[i])
@@ -33,7 +73,7 @@ int			fill_ans_heredoc(t_pos *pos, int i, int j)
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc,
 			ft_strsub(pos->ans, j, i - j), 3);
 	if (pos->hdoc == NULL)
-		return(ft_strlen(pos->ans));
+		return (ft_strlen(pos->ans));
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, " ", 1);
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, pos->hdoc->content, 1);
 	pos->hdoc = pos->hdoc->next;
@@ -46,6 +86,8 @@ void			remake_pos_ans(t_pos *pos)
 	t_heredoc	*tmp;
 
 	i = 0;
+	while (pos->hdoc && pos->hdoc->prev)
+		pos->hdoc = pos->hdoc->prev;
 	tmp = pos->hdoc;
 	free(pos->ans);
 	pos->ans = ft_strdup(pos->ans_heredoc);

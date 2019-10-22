@@ -6,13 +6,31 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 19:45:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/17 14:11:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 #include "../../includes/lexeur.h"
+
+void	shlvl(t_var *env)
+{
+	int	i;
+
+	while (env)
+	{
+		if (ft_strcmp("SHLVL", env->name) == 0)
+		{
+			i = ft_atoi(env->data);
+			i++;
+			ft_strdel(&env->data);
+			env->data = ft_itoa(i);
+			return ;
+		}
+		env = env->next;
+	}
+}
 
 char	*init_data(char *src)
 {
@@ -22,7 +40,8 @@ char	*init_data(char *src)
 	i = 0;
 	while (src[i] && src[i] != '=')
 		i++;
-	i++;
+	if (src[i])
+		i++;
 	dest = ft_strsub(src, i, ft_strlen(src) - i);
 	return (dest);
 }
@@ -39,15 +58,17 @@ char	*init_name(char *src)
 	return (dest);
 }
 
-t_var	*init_env(char **env, t_pos *pos, char **av)
+t_var	*init_env(char **env, t_pos *pos, char **av, int i)
 {
 	t_var	*new;
 	t_var	*save;
-	int		i;
 
-	i = 0;
-	new = malloc(sizeof(t_var));
+	new = init_spe_params(av);
 	save = new;
+	while (new->next)
+		new = new->next;
+	new->next = malloc(sizeof(t_var));
+	new = new->next;
 	while (env[i])
 	{
 		new->name = init_name(env[i]);
@@ -56,13 +77,13 @@ t_var	*init_env(char **env, t_pos *pos, char **av)
 		i++;
 		if (env[i])
 		{
-			new->next = malloc(sizeof(t_var));
+			new->next = (t_var*)malloc(sizeof(t_var));
 			new = new->next;
 		}
 	}
 	new->next = NULL;
 	init_alias(save, pos, NULL);
-	init_spe_params(save, pos, av);
+	stock(save, 5);
 	return (save);
 }
 

@@ -6,14 +6,14 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/02 18:07:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 19:45:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:20:27 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-char		*get_spe_param_data(char c, char **av, t_var *var)
+char		*get_spe_param_data(char c, char **av)
 {
 	if (c == '0')
 		return (ft_strdup(av[0]));
@@ -24,32 +24,35 @@ char		*get_spe_param_data(char c, char **av, t_var *var)
 	else if (c == '!')
 		return (ft_strdup("0"));
 	else if (c == '_')
-		return (ft_strdup(ft_get_val("_", var, ENVIRONEMENT)));
+		return (ft_strdup(""));
 	return (NULL);
 }
 
-void		init_spe_params(t_var *var, t_pos *pos, char **av)
+t_var		*init_spe_params(char **av)
 {
 	char	*spe;
 	int		i;
 	t_var	*save;
+	t_var	*env;
 
-	save = var;
 	i = 0;
-	(void)pos;
+	save = malloc(sizeof(t_var));
+	env = save;
 	spe = ft_strdup("0?$!_");
-	while (save->next)
-		save = save->next;
 	while (spe[i])
 	{
-		save->next = (t_var*)malloc(sizeof(t_var));
-		save = save->next;
 		save->name = ft_strnew(1);
 		save->name[0] = spe[i];
 		save->next = NULL;
-		save->data = get_spe_param_data(spe[i], av, var);
+		save->data = get_spe_param_data(spe[i], av);
 		save->type = 4;
 		i++;
+		if (spe[i])
+		{
+			save->next = malloc(sizeof(t_var));
+			save = save->next;
+		}
 	}
 	ft_strdel(&spe);
+	return (env);
 }

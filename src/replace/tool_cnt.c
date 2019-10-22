@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool_cnt.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:06:16 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/19 17:32:35 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/15 08:18:26 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,4 +46,20 @@ int			cnt_printable_char(int *nb, char *str, int *i)
 		(*i)++;
 	}
 	return (0);
+}
+
+void		heredoc_go_next_quote(char *str, int *i)
+{
+	if (str[*i] == '\'' && (*i == 0 || str[(*i) - 1] != '\\'))
+	{
+		while (str[++(*i)])
+			if (str[*i] == '\'' && (*i == 0 || str[(*i) - 1] != '\\'))
+				break ;
+	}
+	if (str[*i] == '"' && (*i == 0 || str[(*i) - 1] != '\\'))
+	{
+		while (str[++(*i)])
+			if (str[*i] == '"' && ((*i) == 0 || str[(*i) - 1] != '\\'))
+				break ;
+	}
 }

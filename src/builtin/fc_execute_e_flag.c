@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/02 18:52:50 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:39:53 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,46 +55,45 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 	else
 		new_cmds = (char**)malloc(sizeof(char*) * 50 + 1);
 	line = NULL;
-	pwd = getcwd(NULL, 255);
-	pwd = ft_strjoinf(pwd, "/.tmp", 1);
+	pwd = ft_strjoinf(getcwd(NULL, 255), "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
 	while ((ret = get_next_line(fd, &line)))
 	{
 		if (ft_strlen(line) > 0)
 		{
+			transform_tab_into_space(line);
 			new_cmds[i] = ft_strnew(0);
 			new_cmds[i] = ft_strjoinf(new_cmds[i], line, 3);
 			i++;
 		}
 	}
 	new_cmds[i] = NULL;
-	unlink(pwd);
 	free(pwd);
 	return (new_cmds);
 }
 
-void				exec_new_cmds(char **new_cmds, char **env)
+void				exec_new_cmds(char **new_cmds)
 {
 	int				i;
-	t_var			*my_env;
 	char			*tmp_cmd;
 	t_hist			*hist;
+	t_var			*var;
 
+	var = stock(NULL, 6);
 	hist = stock(NULL, 8);
 	i = 0;
-	my_env = init_env(env, stock(NULL, 1), NULL);
 	i = 0;
 	while (new_cmds[i])
 	{
+		var = stock(NULL, 6);
 		tmp_cmd = ft_strdup(new_cmds[i]);
 		if ((check_error(new_cmds[i])) != -1)
 		{
-			ft_printf("%s\n", tmp_cmd);
-			start_exec(start_lex(my_env, tmp_cmd), my_env);
+			ft_printf_fd("%s\n", tmp_cmd);
+			start_exec(start_lex(stock(NULL, 6), tmp_cmd), stock(NULL, 6));
 		}
 		i++;
 	}
-	free_env(my_env);
 	place_new_cmds_in_history(new_cmds, hist);
 }
 
@@ -118,7 +117,7 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env)
 	{
 		wait(&father);
 		new_cmds = recover_new_cmds_from_tmp(new_cmds, fd, i, ret);
-		exec_new_cmds(new_cmds, env);
+		exec_new_cmds(new_cmds);
 		ft_free_tab(arg_tmp);
 		return ;
 	}

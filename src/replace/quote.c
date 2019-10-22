@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   quote.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:32 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/19 09:47:45 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,23 +20,27 @@
 ** ar[3] = tmp.
 */
 
-char	*fill_first_replace(int *i, char *str, char c, int *s)
+char	*fill_first_replace(int *i, char **str, char c, int *s)
 {
 	char	*res;
 
-	if (str[*i] != c)
+	if (c == '\'')
+		*str = (remove_simple_quote(str));
+	if ((*str)[*i] != c)
 	{
-		while (str[*i] != c || (*i == 0 || str[*i - 1] == '\\'))
+		while ((*str)[*i] && ((*str)[*i] != c ||
+		(*i == 0 || (*str)[*i - 1] == '\\')))
 			(*i)++;
-		res = ft_strsub(str, 0, *i);
+		res = ft_strsub((*str), 0, *i);
 	}
 	else
 		res = ft_strdup("");
 	(*i)++;
+	(*i) = (*i) < ft_strlen(*str) ? (*i)++ : ft_strlen(*str);
 	(*s) = (*i);
-	while (str[*i])
+	while ((*str)[*i])
 	{
-		if (str[*i] == c && (*i == 0 || str[*i - 1] != '\\'))
+		if ((*str)[*i] == c && (*i == 0 || (*str)[*i - 1] != '\\'))
 			break ;
 		(*i)++;
 	}
@@ -50,7 +54,7 @@ char	*replace(char *str, char c)
 	int		i;
 
 	i = 0;
-	ar[1] = fill_first_replace(&i, str, c, &s);
+	ar[1] = fill_first_replace(&i, &str, c, &s);
 	ar[3] = ft_strsub(str, s, i - s);
 	ar[0] = ft_strjoin(ar[1], ar[3]);
 	i++;
@@ -71,36 +75,18 @@ char	*replace(char *str, char c)
 void	need_replace_quote(char ***array, int i, int *j)
 {
 	char	c;
+	int		tmp;
 
+	tmp = *j;
 	c = (*array)[i][*j];
 	(*array)[i] = replace((*array)[i], c);
 	if (!(*array) && !ft_strcmp((*array)[i], ""))
 		return ;
 	if (*j > ft_strlen((*array)[i]))
+	{
+		(*j) = ft_strlen((*array)[i]);
 		return ;
-	if ((*array)[i][*j])
-		(*j)++;
-	while ((*array)[i][*j])
-	{
-		if ((*array)[i][*j] == c && (i == 0 ||
-		(*array)[i][(*j) - 1] != '\\'))
-			break ;
-		(*j)++;
 	}
-}
-
-int		check_red(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (find_token(str, i) != -1)
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 void	browse_ar(char ***array, int i, int j)
@@ -111,24 +97,12 @@ void	browse_ar(char ***array, int i, int j)
 		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
 		&& (j == 0 || (*array)[i][j - 1] != '\\')))
 		{
-			if ((find_token((*array)[i], j + 1) == -1) &&
-			check_red((*array)[i]))
-				need_replace_quote(array, i, &j);
-			else
-			{
-				j++;
-				while ((*array)[i][j] && (*array)[i][j] != '\'')
-					j++;
-				if ((*array)[i][j])
-					j++;
-			}
+			need_replace_quote(array, i, &j);
 		}
 		else
 		{
 			if (j < ft_strlen((*array)[i]))
-			{
 				j++;
-			}
 			else
 				j = ft_strlen((*array)[i]);
 		}

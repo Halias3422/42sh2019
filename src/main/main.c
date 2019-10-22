@@ -6,21 +6,12 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:30:57 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 08:18:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-
-void			signal_main(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
-}
 
 int				check_entry(void)
 {
@@ -29,9 +20,10 @@ int				check_entry(void)
 
 	if (!(s = malloc(sizeof(char) * 10000000)))
 		exit(0);
+	free(s);
 	if (ioctl(0, TIOCGWINSZ, &w) == -1)
 	{
-		ft_printf("Entry is not a tty\nExit\n");
+		ft_printf_err("Entry is not a tty\nExit\n");
 		exit(0);
 	}
 	return (0);
@@ -53,35 +45,37 @@ int				check_ans(char *str)
 	return (1);
 }
 
-int				main_loop(t_pos pos, t_var *my_env, t_hist *hist)
+char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 {
-	char		*pwd;
+	termcaps42sh(pos, hist, env);
+	if (pos->ans_heredoc)
+		remake_pos_ans(pos);
+	pos->ans = check_for_tilde(pos->ans, env, 0, 0);
+	pos->last_cmd_on_bg = 0;
+	tcsetattr(0, TCSANOW, &pos->old_term);
+	return (ft_strdup(pos->ans));
+}
+
+int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
+{
 	char		*ans;
 
-	ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {B.T.yellow.}%s{eoc}\n",
-		pwd = print_pwd(my_env));
-	ft_strdel(&pwd);
-	ans = termcaps42sh(&pos, hist, my_env);
-	if (pos.ans_heredoc)
-		remake_pos_ans(&pos);
-	ans = check_backslash(&pos, hist);
-	ans = check_for_tilde(ans, my_env, 0, 0);
-	tcsetattr(0, TCSANOW, &(pos.old_term));
+	ans = make_ans(pos, hist, my_env);
 	job_notification(&my_env);
-	if (ans == NULL)
-		return (1);
-	if (check_ans(ans) == 1 && pos.error != 2)
+	if (check_ans(ans) == 1 && pos->error != 2)
 	{
 		ft_strdel(&ans);
 		return (0);
 	}
-	if (pos.error == 1)
-		error_handling(&pos, NULL, 0);
-	if ((check_error(ans)) != -1 && pos.error != 2)
+	if (pos->error == 1)
+		error_handling(pos, NULL, 0);
+	if ((check_error(ans)) != -1 && pos->error != 2)
 		start_exec(start_lex(my_env, ans), my_env);
 	else
-		pos.ans = ft_secure_free(pos.ans);
-	pos.error = 0;
+		ft_strdel(&ans);
+	if (pos->ans)
+		pos->ans = ft_secure_free(pos->ans);
+	pos->error = 0;
 	return (0);
 }
 
@@ -93,25 +87,22 @@ int				main(int ac, char **av, char **env)
 	pid_t	shell_pid;
 
 	(void)ac;
-	(void)av;
+	if (check_term() == -1)
+		exit(0);
 	check_entry();
-	signal_main();
 	shell_pid = getpid();
 	setpgid(shell_pid, shell_pid);
 	tcsetpgrp(STDIN_FILENO, shell_pid);
-	if (check_term() == -1)
-		exit (0);
-	my_env = init_env(env, &pos, av);
-	stock(my_env, 5);
+	my_env = init_env(env, &pos, av, 0);
+	shlvl(my_env);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);
-	pos.is_complete = 1;
-	pos.prompt = ft_strdup("$ ");
+	main_init_pos(&pos, my_env);
 	hist = create_history(&pos, hist);
-	ghist = &hist;
 	while (1)
 	{
-		if (main_loop(pos, stock(NULL, 6), hist) != 0)
+		if (main_loop(&pos, stock(NULL, 6), hist) != 0)
 			break ;
 	}
+	free_job_list();
 }

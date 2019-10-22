@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/16 14:49:17 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:30:35 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/19 12:20:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,61 +15,13 @@
 #include "lexeur.h"
 #include "exec.h"
 
-void		add_env_temp(t_var **var, char *str, int type)
-{
-	t_var	*start;
-
-	start = malloc(sizeof(t_var));
-	start->name = init_name(str);
-	start->data = init_data(str);
-	start->type = type;
-	start->next = (*var);
-	(*var) = start;
-}
-
-char		**remove_tab(char **src, int j)
-{
-	char	**res;
-	int		i;
-	int		k;
-	int		len;
-
-	i = 0;
-	k = 0;
-	len = 0;
-	while (src[len])
-		len++;
-	if (len == 1)
-		return (NULL);
-	res = malloc(sizeof(char*) * len);
-	i = 0;
-	while (src[i])
-	{
-		if (i == j)
-			i++;
-		if (i > len)
-			break ;
-		res[k] = ft_strdup(src[i]);
-		i++;
-		k++;
-	}
-	res[len - 1] = NULL;
-	return (res);
-}
-
-void		add_env(t_var **var, char *str)
+void		add_env(t_var **var, char *str, char *name)
 {
 	t_var	*prev;
-	char	*name;
 
-	prev = NULL;
 	name = init_name(str);
-	if (!(*var))
-	{
-		add_env_temp(var, str, LOCAL);
-		stock(*var, 5);
+	if (add_env_check(name, var, str) == 1)
 		return ;
-	}
 	while (*var)
 	{
 		if (ft_strcmp(name, (*var)->name) == 0 && (*var)->type != SPE)
@@ -79,12 +31,8 @@ void		add_env(t_var **var, char *str)
 	}
 	if (!(*var))
 	{
-		(*var) = malloc(sizeof(t_var));
+		(*var) = add_one(str, name);
 		prev->next = (*var);
-		(*var)->next = NULL;
-		(*var)->name = name;
-		(*var)->data = init_data(str);
-		(*var)->type = LOCAL;
 		return ;
 	}
 	ft_strdel(&(*var)->data);
@@ -95,7 +43,7 @@ void		add_env(t_var **var, char *str)
 void		remoove_all_quote(char **str)
 {
 	char **al;
-	
+
 	al = malloc(sizeof(char *) * 3);
 	al[2] = 0;
 	al[0] = init_name(*str);
@@ -105,6 +53,20 @@ void		remoove_all_quote(char **str)
 	(*str) = ft_strjoin(al[0], "=");
 	ft_strjoin_free(str, al[1]);
 	ft_free_tab(al);
+}
+
+int			check_utils(char **cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (ft_strchr(cmd[i], '$') != NULL)
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
@@ -121,7 +83,7 @@ int			local_or_env(t_var **var, char **cmd, int i, char ***tmp)
 		{
 			while (cmd[i])
 			{
-				add_env(var, cmd[i]);
+				add_env(var, cmd[i], NULL);
 				i++;
 			}
 			ft_free_tab(cmd);
