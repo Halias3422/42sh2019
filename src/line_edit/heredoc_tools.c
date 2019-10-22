@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:58:58 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 14:07:43 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 11:52:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,7 @@ int				going_to_heredoc_end(t_pos *pos, int i)
 			if (pos->ans[i] == 32 || pos->ans[i] == '<' || pos->ans[i] == '>' ||
 				pos->ans[i] == '&' || pos->ans[i] == '|' || pos->ans[i] == '\n'
 				|| (pos->ans[i] == '$' && pos->ans[i + 1] == '{') ||
-				pos->ans[i] == '"' || pos->ans[i] == 39)
+				pos->ans[i] == '"' || pos->ans[i] == 39 || pos->ans[i] == ';')
 				break ;
 		}
 		i++;
