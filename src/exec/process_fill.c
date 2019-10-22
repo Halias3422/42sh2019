@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process_fill.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 08:43:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 11:09:26 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,25 +16,26 @@
 
 int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 {
-	int		j;
-	int		size;
-	int		diff;
-
-	size = 0;
-	j = (*t);
-	tmp->token = g_fill_token[res[*t]->token].name;
-	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
-	tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
-	tmp->heredoc_content = get_content(res[*t]->redirection, res, t, &size);
+	fill_heredoc_init(res, tmp, t);
+	tmp->heredoc_content = get_content(res[*t]->redirection, res, t);
 	tmp->fd_out = NULL;
 	tmp->fd_in = NULL;
 	tmp->next = NULL;
-	diff = (*t) - j;
-	(*t) = j;
-	diff--;
 	if (tmp->heredoc_content != NULL)
-		return (size + 1);
-	return (diff);
+	{
+		if (res[*t])
+			return (*t);
+		return (--(*t));
+	}
+	if (res[*t])
+	{
+		if (res[*t] && res[*t]->token == (enum e_token)-1)
+		{
+			go_next_token(res, t);
+		}
+		return ((*t));
+	}
+	return (0);
 }
 
 int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
@@ -60,7 +61,7 @@ int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
-	return (go_next_token(res, t));
+	return (++(*t));
 }
 
 int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
@@ -88,7 +89,7 @@ int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->token = (res[*t]->token) ? ft_strdup(g_fill_token[res[*t]->token].name)
 	: NULL;
 	tmp->next = NULL;
-	return (go_next_token(res, t));
+	return (++(*t));
 }
 
 void		go_next_heredoc(t_lexeur **res, int *i, int *done)

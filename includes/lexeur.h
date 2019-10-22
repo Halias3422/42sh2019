@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 12:51:02 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 13:53:15 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -155,7 +155,7 @@ char					*ft_del_simple_quote(char *word);
 
 void					fill_struct(t_lexeur *res, char *word,
 						enum e_token token, char *red);
-t_lexeur				*fill_lex_while(char *buf, int *i, int token);
+t_lexeur				*fill_lex_while(char **buf, int *i, int token);
 t_lexeur				*fill_lex_redirection(char **buf,
 						int *i, enum e_token token);
 void					fill_lex_heredoc(t_lexeur ***array, int *j,
@@ -180,7 +180,6 @@ void					fill_struct(t_lexeur *res, char *word,
 						enum e_token token, char *red);
 t_lexeur				*fill_lex_redirection(char **buf, int *i,
 						enum e_token token);
-t_lexeur				*fill_lex_while(char *buf, int *i, int token);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -329,5 +328,8 @@ void					free_alias(t_alias *alias);
 int						remove_env_while(t_alias *alias, t_var *var,
 						t_replace *replace);
 void					print_lexer(t_lexeur *lex);
+char					*remove_simple_quote(char **str);
+char					*fill_redirection_heredoc(char **buf, int *i);
 
+int		            	find_second_char(char *str, int *i);
 #endif

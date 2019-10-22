@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:23 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 18:41:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:42:47 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ static t_job	*iterate_through_list(t_job_list *jb, char *ans)
 		ft_strdel(&name);
 		jb = jb->next;
 	}
-	ft_printf_err("42sh: bg: %s: no such job\n", ans);
+	ft_printf_err_fd("42sh: bg: %s: no such job\n", ans);
 	return (NULL);
 }
 
@@ -61,7 +61,7 @@ t_job			*find_job_by_id_bg(char **cmd, int i)
 	j = NULL;
 	save = NULL;
 	jb = stock(NULL, 10);
-	if	(cmd[i] == NULL)
+	if (cmd[i] == NULL)
 		return (find_plus(jb));
 	while (cmd[i])
 	{
@@ -97,7 +97,7 @@ int				ft_bg(t_process *p, t_var **var)
 		return (0);
 	}
 	else if (p->cmd[1] == NULL)
-		ft_printf_err("42sh: bg: no such job\n", p->fd_out);
+		ft_printf_err_fd("42sh: bg: no such job\n", p->fd_out);
 	var = NULL;
 	return (1);
 }

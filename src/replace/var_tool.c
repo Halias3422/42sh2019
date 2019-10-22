@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:07:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/20 08:41:52 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 13:52:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,4 +72,18 @@ t_tvar		*make_ar_to_list_var(char **str)
 	var = start;
 	free_ar(str);
 	return (var);
+}
+
+int			find_second_char(char *str, int *i)
+{
+	if (str[*i] == '{')
+	{
+		(*i)++;
+		while (str[*i] != '}')
+			(*i)++;
+		return (0);
+	}
+	else
+		(*i)++;
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 13:43:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 09:58:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,8 @@ int		get_cd_option(char **cmd, int *i, int ret, int j)
 					ret = cmd[*i][j];
 				else
 				{
-					ft_printf_err("42sh: cd: %c: invalid option\n", cmd[*i][j]);
+					ft_printf_err_fd("42sh: cd: %c: invalid option\n",
+							cmd[*i][j]);
 					return (-1);
 				}
 			}
@@ -115,13 +116,15 @@ int		ft_cd(t_process *p, t_var **var)
 	int		i;
 	char	*new_path;
 	t_pos	*pos;
+	t_var	*old_env;
 
+	old_env = copy_env(*var);
 	pos = to_stock(NULL, 1);
 	option = 0;
 	new_path = NULL;
 	i = 0;
 	add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), ft_strdup(pos->pwd));
-	if (check_arguments_number(p, &i, &option) == 1)
+	if (check_arguments_number(p, &i, &option, old_env) == 1)
 		return (1);
 	if ((new_path = get_path(p->cmd[i], var, new_path, option)) == NULL)
 	{
@@ -131,5 +134,5 @@ int		ft_cd(t_process *p, t_var **var)
 		else
 			new_path = ft_strdup(p->cmd[i]);
 	}
-	return (finish_ft_cd(new_path, pos, var, option));
+	return (finish_ft_cd(new_path, pos, old_env, option));
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 15:30:06 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 14:45:25 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,8 +65,8 @@ int				ft_jobs(t_process *p, t_var **var)
 	option = ft_jobs_option(p->cmd, &i);
 	if (option != 'l' && option != 'p' && option != 0)
 	{
-		ft_printf_err("42sh: jobs: -%c: invalid option\n", option);
-		ft_printf_err("jobs: usage: jobs [-l|-p] [job_id...]\n");
+		ft_printf_err_fd("42sh: jobs: -%c: invalid option\n", option);
+		ft_printf_err_fd("jobs: usage: jobs [-l|-p] [job_id...]\n");
 		return (2);
 	}
 	job_list = stock(NULL, 10);

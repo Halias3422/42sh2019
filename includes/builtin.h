@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 18:12:33 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 09:56:41 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -247,6 +247,7 @@ int				ft_unsetenv(t_process *p, t_var **var);
 **	FT_ENV_C
 */
 
+t_var			*copy_env(t_var *var);
 int				ft_env(t_process *p, t_var **var);
 
 /*
@@ -311,16 +312,18 @@ char			*move_to_new_dir(char *cmd, t_var **var, char *new_path);
 char			*print_pwd(t_var *var);
 char			*verif_p_option_path(char *new_path, int i, int absolute);
 int				verif_path(char *path, int mute, int usage);
-int				check_arguments_number(t_process *p, int *i, int *option);
+int				check_arguments_number(t_process *p, int *i, int *option,
+				t_var *old_env);
 
 /*
 **	FT_CD_CHECK_CDPATH_C
 */
 
+void			restore_old_env(t_var *old_env, t_var **var, t_pos *pos);
 char			*verif_path_in_cdpath(char *path, t_var *var, char **cmd,
 				int j);
 void			print_cd_error(char *path, int i, int mute, int usage);
-int				finish_ft_cd(char *new_path, t_pos *pos, t_var **var,
+int				finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env,
 				int option);
 
 /*

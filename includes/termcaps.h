@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 17:03:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:52:06 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,7 @@
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/ft_mem.h"
 # include "../libft/includes/ft_printf_err.h"
+# include "../libft/includes/ft_printf.h"
 # include "exec.h"
 # include "check_error.h"
 # include "builtin.h"
@@ -123,6 +124,9 @@ typedef struct			s_pos
 	int					braceparam;
 	int					shtheme;
 	int					ret;
+	int					act_fd_out;
+	int					act_fd_error;
+	int					separator;
 }						t_pos;
 
 typedef struct			s_htab
@@ -642,5 +646,26 @@ void					init_t_heredoc(t_heredoc *hdoc);
 
 t_var					*init_spe_params(char **av);
 void					*to_stock(void *stock, int usage);
+
+/*
+**	FT_PRINTF_FD_C
+*/
+
+int						ft_printf_fd(const char *format, ...);
+int						print_printf_fd(t_data *data, int i, int fd);
+int						iterating_through_output_fd(t_data *data,
+						int *printed_backslash, int i, int fd);
+int						handle_colors_fd(t_data *d, int i, int tmp, int fd);
+
+/*
+**	FT_PRINTF_FD_C
+*/
+
+int						ft_printf_err_fd(const char *format, ...);
+int						print_printf_err_fd(t_dataerr *data, int i, int fd);
+int						iterating_through_output_err_fd(t_dataerr *data,
+						int *printed_backslash, int i, int fd);
+int						handle_colors_err_fd(t_dataerr *d, int i, int tmp,
+						int fd);
 
 #endif

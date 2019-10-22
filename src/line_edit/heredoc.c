@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   heredoc.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/16 11:18:08 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 17:45:02 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,8 +28,8 @@ int				heredoc_found(t_pos *pos, int i, int j)
 		j++;
 	if (pos->ans[j] && (pos->ans[j] == '<' || pos->ans[j] == '>' ||
 			pos->ans[j] == '&' || pos->ans[j] == '|' || (pos->ans[j] == '$' &&
-	pos->ans[j + 1] == '{')) && (i == 0 || (i > 0 && pos->ans[i - 1] != 92)) &&
-			j == i)
+			pos->ans[j + 1] == '{') || pos->ans[j + 1] == ';') &&
+			(i == 0 || (i > 0 && pos->ans[i - 1] != 92)) && i == j)
 		return (-1);
 	pos->hdoc = add_list_back_heredoc(pos->hdoc);
 	(pos->hdoc)->to_find = ft_strsub(pos->ans, j, i - j);
@@ -98,15 +98,16 @@ void			search_for_heredocs_in_ans(t_pos *pos, int i, int open)
 	while (pos->ans[i])
 	{
 		if (open != -1 && (pos->ans[i] == open ||
-				(open == '$' && pos->ans[i] == '}')) && pos->ans[i - 1] != 92)
+			(open == '$' && pos->ans[i] == '}')) &&
+			(odd_backslash(i - 1, pos->ans) == 0 || pos->ans[i] == 39))
 			open = -1;
 		else if (open == -1 &&
 				(pos->ans[i] == '"' || pos->ans[i] == 39 ||
 				(pos->ans[i] == '$' && pos->ans[i + 1] == '{')) &&
-				(i == 0 || (i > 0 && pos->ans[i - 1] != 92)))
+				(i == 0 || (i > 0 && odd_backslash(i - 1, pos->ans) == 0)))
 			open = pos->ans[i];
 		if (open == -1 && pos->ans[i] == '<' && pos->ans[i + 1] == '<' &&
-				(i == 0 || (i > 0 && pos->ans[i - 1] != 92)))
+				(i == 0 || (i > 0 && odd_backslash(i - 1, pos->ans) == 0)))
 		{
 			if (heredoc_found(pos, i + 2, i + 2) == -1 ||
 					check_if_to_find_is_not_empty(pos->hdoc) == -1)
@@ -124,6 +125,7 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 {
 	if (pos->hdoc == NULL)
 	{
+		ft_printf("pos ans au debut = [%s]\n", pos->ans);
 		pos->ans_heredoc_save = ft_strdup(pos->ans);
 		pos->ans_heredoc = ft_strdup(pos->ans);
 		search_for_heredocs_in_ans(pos, i, open);
@@ -146,4 +148,5 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 		pos->is_complete = 0;
 		pos->active_heredoc = 1;
 	}
+	ft_printf("pos->ans a la fin = [%s], heredoc = [%s], saveheredoc = [%s]\n", pos->ans, pos->ans_heredoc, pos->ans_heredoc_save);
 }

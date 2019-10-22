@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 18:21:48 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 13:46:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -133,8 +133,7 @@ void					fill_token(t_process *p, t_lexeur **res, int *i);
 
 void					fill_process_split(t_job **j, t_lexeur **res, int i);
 char					*add_space_content(char *content);
-char					*get_content(char *tag, t_lexeur **res, int *t,
-						int *size);
+char					*get_content(char *tag, t_lexeur **res, int *t);
 void					make_tmp_great_again(t_redirect **tmp);
 void					add_heredoc(char *tag, t_lexeur **res, int *i);
 
@@ -147,7 +146,7 @@ void					add_heredoc(char *tag, t_lexeur **res, int *i);
 int						cnt_process(t_lexeur **res, int i);
 void					change_job(t_job **j, t_process **start);
 int						check_moove_index(t_lexeur **res, int *t);
-t_redirect				*init_var(int *done, int *t, int *i);
+t_redirect				*init_var(int *t, int *i);
 int						check_token_in_condition(t_lexeur **res, int t);
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -250,7 +249,9 @@ int						main_unalias(t_process *p, t_var **var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 void					add_alias(t_var **var, char *name, char *data);
-void					find_alias(t_process *p, t_var *var, int k);
+int						find_alias(t_process *p, int k);
+int						looking_for_aliases(t_process *p, int k,
+						char *name, char *data);
 void					add_list_alias(t_var **var, char *name, char *data);
 void					put_foreground(t_job *j, t_var **var, t_process *p);
 void					put_background(t_job *j);
@@ -305,4 +306,9 @@ int						check_process(t_var *var, t_process *p, t_job *j);
 t_process				*init_launch_job(t_job *j, int *infile);
 void					launch_simple_job(t_process *p, t_job *j, t_var **var);
 void					alert_job(t_job *j);
+
+void					fill_heredoc_init(t_lexeur **res, t_redirect *tmp,
+						int *t);
+
+int						launch_redirection_builtin(t_process *p);
 #endif

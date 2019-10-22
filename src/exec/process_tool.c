@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:37:07 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 10:42:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/18 13:37:28 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,9 +48,8 @@ int				check_moove_index(t_lexeur **res, int *t)
 	return (0);
 }
 
-t_redirect		*init_var(int *done, int *t, int *i)
+t_redirect		*init_var(int *t, int *i)
 {
-	(*done) = 0;
 	(*t) = *i;
 	return (NULL);
 }

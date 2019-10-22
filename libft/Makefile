@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/17 16:59:08 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/22 11:22:53 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -19,10 +19,12 @@ BLUE=\033[0;38;5;123m
 LIGHT_PINK = \033[0;38;5;200m
 PINK = \033[0;38;5;198m
 DARK_BLUE = \033[1;38;5;110m
-GREEN = \033[0;38;5;111m
+GREEN = \033[1;32;111m
 LIGHT_GREEN = \033[1;38;5;121m
 LIGHT_RED = \033[0;38;5;110m
 FLASH_GREEN = \033[33;32m
+WHITE_BOLD = \033[37m
+
 # **************************************************************************** #
 #									PATH                                       #
 # **************************************************************************** #
@@ -131,44 +133,41 @@ FLAGS = -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address#-fsanitize=undefined
 # 									REGLES                                     #
 # **************************************************************************** #
 
-all : $(OBJ_PATH) $(NAME)
+all : $(NAME)
 
 $(NAME): $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
 	@ar rcs $(NAME) $(SOBJ) $(UOBJ) $(IOBJ) $(LOBJ) $(MOBJ) $(POBJ) $(PEOBJ)
-	@echo "\n$(DARK_BLUE)libft loaded\033[0m"
-
-$(OBJ_PATH):
-	@mkdir -p $(OBJ_PATH) 2> /dev/null
-	@mkdir -p $(SOBJ_PATH) 2> /dev/null
-	@mkdir -p $(UOBJ_PATH) 2> /dev/null
-	@mkdir -p $(IOBJ_PATH) 2> /dev/null
-	@mkdir -p $(MOBJ_PATH) 2> /dev/null
-	@mkdir -p $(POBJ_PATH) 2> /dev/null
-	@mkdir -p $(PEOBJ_PATH) 2> /dev/null
+	@echo "	\033[2K\r$(DARK_BLUE)libft:	$(GREEN)loaded\033[0m"
 
 $(SOBJ_PATH)%.o: $(SSRC_PATH)%.c $(SINC)
+	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@printf "\033[2K\r$(DARK_BLUE)libft:	\033[37m$<\033[36m \033[0m"
 
 $(UOBJ_PATH)%.o: $(USRC_PATH)%.c $(UINC)
+	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@printf "\033[2K\r$(DARK_BLUE)libft:	\033[37m$<\033[36m \033[0m"
 
 $(IOBJ_PATH)%.o: $(ISRC_PATH)%.c $(IINC)
+	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@printf "\033[2K\r$(DARK_BLUE)libft:	\033[37m$<\033[36m \033[0m"
 
 $(MOBJ_PATH)%.o: $(MSRC_PATH)%.c $(MINC)
+	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@printf "\033[2K\r$(DARK_BLUE)libft:	\033[37m$<\033[36m \033[0m"
 
 $(POBJ_PATH)%.o: $(PSRC_PATH)%.c $(PINC)
+	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@printf "\033[2K\r$(DARK_BLUE)libft:	\033[37m$<\033[36m \033[0m"
 
 $(PEOBJ_PATH)%.o: $(PESRC_PATH)%.c $(PEINC)
+	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAGS) -I $(INC_PATH) -o $@ -c $<
-	@echo "$(DARK_BLUE).\c"
+	@printf "\033[2K\r$(DARK_BLUE)libft:	\033[37m$<\033[36m \033[0m"
 
 clean:
 	@rm -rf $(OBJ_PATH)

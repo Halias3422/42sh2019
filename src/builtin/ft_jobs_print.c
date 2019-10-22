@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:02:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 17:46:47 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:44:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,23 +16,23 @@
 void			print_status_job(char status)
 {
 	if (status == 'f')
-		ft_printf("Done	");
+		ft_printf_fd("Done	");
 	else if (status == 's')
-		ft_printf("Stopped	");
+		ft_printf_fd("Stopped	");
 	else
-		ft_printf("Running	");
+		ft_printf_fd("Running	");
 }
 
 void			print_current_job(t_job_list *j, int option, char *name)
 {
 	if (option != 'p')
-		ft_printf("[%d]%c ", j->j->id, j->j->current);
+		ft_printf_fd("[%d]%c ", j->j->id, j->j->current);
 	if (option == 'p' || option == 'l')
-		ft_printf("%d ", j->j->pgid);
+		ft_printf_fd("%d ", j->j->pgid);
 	if (option != 'p')
 	{
 		print_status_job(j->j->status);
-		ft_printf("%s", name);
+		ft_printf_fd("%s", name);
 	}
 	ft_putchar('\n');
 }
@@ -76,5 +76,5 @@ void			print_selected_jobs(t_job_list *j, int option, char *arg)
 			name = ft_strnew(0);
 	}
 	if (!check)
-		ft_printf_err("42sh: jobs: %s: no such job\n", arg);
+		ft_printf_err_fd("42sh: jobs: %s: no such job\n", arg);
 }
