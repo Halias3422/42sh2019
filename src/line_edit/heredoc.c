@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 12:00:23 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 10:42:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,6 @@ int				heredoc_found(t_pos *pos, int i, int j)
 		return (-1);
 	while ((pos->hdoc)->to_find[--j] == 32)
 		(pos->hdoc)->to_find[j] = '\0';
-	(pos->hdoc)->to_find = remove_backslash((pos->hdoc)->to_find);
 	return (1);
 }
 
@@ -68,23 +67,27 @@ char			*check_backslash_in_heredocs(t_pos *pos, char *ans, int i)
 	return (new_content);
 }
 
-int				fill_hdoc_content(t_pos *pos, char *ans, int i)
+int				fill_hdoc_content(t_pos *pos, char *ans, int i, char *tmp)
 {
 	while (i > 0 && ans[i] != '\n')
 		i--;
-	ans = put_symbol_in_ans(ans, i);
 	while (pos->hdoc->next && pos->hdoc->current_index == 1)
 		pos->hdoc = pos->hdoc->next;
-	if (ft_strcmp(ans + i + 1, pos->hdoc->to_find) == 0 && ans[i - 1] != 92)
+	if (ft_strcmp(ans + i + 1, tmp) == 0)
 	{
+		ans = put_symbol_in_ans(ans, i);
 		pos->hdoc->current_index = 1;
-		pos->hdoc->content = ft_strjoinf(pos->hdoc->content, ans + i + 1, 1);
+		pos->hdoc->content = ft_strjoinf(pos->hdoc->content,
+			pos->hdoc->to_find, 1);
 		pos->hdoc->content = ft_strjoinf(pos->hdoc->content, " ", 1);
 		ft_strdel(&ans);
+		free(tmp);
 		if (pos->hdoc->next == NULL)
 			return (1);
 		return (0);
 	}
+	ans = put_symbol_in_ans(ans, i);
+	free(tmp);
 	pos->hdoc->content = check_backslash_in_heredocs(pos, ans, i);
 	pos->hdoc->content = ft_strjoinf(pos->hdoc->content, " ", 1);
 	ft_strdel(&ans);
@@ -98,15 +101,16 @@ void			search_for_heredocs_in_ans(t_pos *pos, int i, int open)
 	while (pos->ans[i])
 	{
 		if (open != -1 && (pos->ans[i] == open ||
-				(open == '$' && pos->ans[i] == '}')) && pos->ans[i - 1] != 92)
+			(open == '$' && pos->ans[i] == '}')) &&
+			(odd_backslash(i - 1, pos->ans) == 0 || pos->ans[i] == 39))
 			open = -1;
 		else if (open == -1 &&
 				(pos->ans[i] == '"' || pos->ans[i] == 39 ||
 				(pos->ans[i] == '$' && pos->ans[i + 1] == '{')) &&
-				(i == 0 || (i > 0 && pos->ans[i - 1] != 92)))
+				(i == 0 || (i > 0 && odd_backslash(i - 1, pos->ans) == 0)))
 			open = pos->ans[i];
 		if (open == -1 && pos->ans[i] == '<' && pos->ans[i + 1] == '<' &&
-				(i == 0 || (i > 0 && pos->ans[i - 1] != 92)))
+				(i == 0 || (i > 0 && odd_backslash(i - 1, pos->ans) == 0)))
 		{
 			if (heredoc_found(pos, i + 2, i + 2) == -1 ||
 					check_if_to_find_is_not_empty(pos->hdoc) == -1)
@@ -133,7 +137,7 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 		while (pos->hdoc->prev)
 			pos->hdoc = pos->hdoc->prev;
 		if (fill_hdoc_content(pos, ft_strdup(pos->ans),
-					ft_strlen(pos->ans) - 1))
+		ft_strlen(pos->ans) - 1, remove_backslash(pos->hdoc->to_find, 0, 0)))
 		{
 			pos->is_complete = 1;
 			return ;
@@ -141,8 +145,6 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 	}
 	if (pos->hdoc)
 	{
-		if (pos->is_complete == 1)
-			pos->ans_heredoc = remove_backslash(pos->ans_heredoc);
 		pos->is_complete = 0;
 		pos->active_heredoc = 1;
 	}
