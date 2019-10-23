@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/23 11:13:36 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/23 15:34:35 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -74,7 +74,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 
 SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)
 
-SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
+SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c hash_prepare_error.c)
 
 SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HASH) $(SRC_PRINTF) $(SRC_PRINTF_ERR)
 

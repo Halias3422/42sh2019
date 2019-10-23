@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 12:34:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 15:44:34 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,14 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	if (find_builtins(p, &var) != 0)
 		exit(p->ret);
 	if (path == NULL)
+	{
+		if (p->hash_error)
+		{
+			ft_printf_err_fd("%s", p->hash_error);
+			ft_strdel(&p->hash_error);
+		}
 		exit(127);
+	}
 	ft_execute_function(path, p->cmd, var);
 	exit(127);
 }
@@ -82,16 +89,18 @@ int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 			char **cmd_path)
 {
 	t_pos	*pos;
-
+	
+	to_stock(p, 2);
 	pos = to_stock(NULL, 1);
 	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
 	p->background = j->split == '&' ? 1 : 0;
-	launch_redirection_builtin(p);
-	pos->act_fd_out = p->fd_out;
-	pos->act_fd_error = p->fd_error;
+
 	if (j->split != '&' && is_builtin_modify(p))
 	{
+		launch_redirection_builtin(p);
+		pos->act_fd_out = p->fd_out;
+		pos->act_fd_error = p->fd_error;
 		pos->separator = p->split;
 		if (find_builtins(p, var) != 0)
 			return (1);
