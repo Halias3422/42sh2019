@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 17:59:58 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 10:49:25 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,28 +53,6 @@ void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
 	}
 }
 
-int				is_my_index_open(t_pos *pos, int i, char open, int limit)
-{
-	while (pos->ans[i] && i != limit)
-	{
-		if (open != -1 && (pos->ans[i] == open ||
-					(open == '$' && pos->ans[i] == '}')) &&
-				(odd_backslash(i - 1, pos->ans) == 0 || pos->ans[i] == 39))
-			open = -1;
-		else if (open == -1 &&
-				(pos->ans[i] == '"' || pos->ans[i] == 39 ||
-				 (pos->ans[i] == '$' && pos->ans[i + 1] == '{')) &&
-				(i == 0 || (i > 0 && odd_backslash(i - 1, pos->ans) == 0)))
-			open = pos->ans[i];
-		i++;
-	}
-	if (pos->ans[i] == '\0')
-		return (0);
-	if (open == -1)
-		return (1);
-	return (0);
-}
-
 int				fill_ans_heredoc(t_pos *pos, int i, int j)
 {
 	j = i;
@@ -99,6 +77,8 @@ int				fill_ans_heredoc(t_pos *pos, int i, int j)
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, " ", 1);
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, pos->hdoc->content, 1);
 	pos->hdoc = pos->hdoc->next;
+	if (i > ft_strlen(pos->ans))
+		return (ft_strlen(pos->ans));
 	return (i);
 }
 

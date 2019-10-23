@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 13:53:15 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 10:48:09 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -330,6 +330,6 @@ int						remove_env_while(t_alias *alias, t_var *var,
 void					print_lexer(t_lexeur *lex);
 char					*remove_simple_quote(char **str);
 char					*fill_redirection_heredoc(char **buf, int *i);
+int						find_second_char(char *str, int *i);
 
-int		            	find_second_char(char *str, int *i);
 #endif

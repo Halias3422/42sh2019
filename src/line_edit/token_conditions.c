@@ -6,12 +6,34 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 10:43:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 10:46:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
+
+int		is_my_index_open(t_pos *pos, int i, char open, int limit)
+{
+	while (pos->ans[i] && i != limit)
+	{
+		if (open != -1 && (pos->ans[i] == open ||
+					(open == '$' && pos->ans[i] == '}')) &&
+				(odd_backslash(i - 1, pos->ans) == 0 || pos->ans[i] == 39))
+			open = -1;
+		else if (open == -1 &&
+				(pos->ans[i] == '"' || pos->ans[i] == 39 ||
+				(pos->ans[i] == '$' && pos->ans[i + 1] == '{')) &&
+				(i == 0 || (i > 0 && odd_backslash(i - 1, pos->ans) == 0)))
+			open = pos->ans[i];
+		i++;
+	}
+	if (pos->ans[i] == '\0')
+		return (0);
+	if (open == -1)
+		return (1);
+	return (0);
+}
 
 int		double_token(char *ans, int i)
 {

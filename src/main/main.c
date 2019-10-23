@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 18:00:18 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 10:49:33 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,6 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 	char		*ans;
 
 	ans = make_ans(pos, hist, my_env);
-	ft_printf("phrase retournee [%s]\n", ans);
 	job_notification(&my_env);
 	if (check_ans(ans) == 1 && pos->error != 2)
 	{
