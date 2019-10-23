@@ -6,12 +6,13 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:35:24 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 17:55:41 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/lexeur.h"
+#include "../../includes/termcaps.h"
 
 void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc)
 {
@@ -81,7 +82,7 @@ int			double_check(char *str, int i)
 {
 	if (find_token(str, i) != -1)
 	{
-		if (i != 0 && str[i - 1] == '\\')
+		if (odd_backslash(i - 1, str))
 			return (1);
 		return (0);
 	}
@@ -93,19 +94,19 @@ void		split_space_basic(char *str, int *i)
 	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
 	&& (double_check(str, *i))))
 	{
-		if (str[*i] == '\'' && (*i == 0 || str[(*i) - 1] != '\\'))
+		if (str[*i] == '\'' && !odd_backslash(*i - 1, str))
 		{
 			while (str[++(*i)])
-				if (str[*i] == '\'' && (*i == 0 || str[(*i) - 1] != '\\'))
+				if (str[*i] == '\'' && !odd_backslash(*i - 1, str))
 					break ;
 		}
-		if (str[*i] == '"' && (*i == 0 || str[(*i) - 1] != '\\'))
+		if (str[*i] == '"' && !odd_backslash(*i - 1, str))
 		{
 			while (str[++(*i)])
-				if (str[*i] == '"' && ((*i) == 0 || str[(*i) - 1] != '\\'))
+				if (str[*i] == '"' && !odd_backslash(*i - 1, str))
 					break ;
 		}
-		if (str[*i] == '\\' && str[*i + 1] == ' ')
+		if (odd_backslash(*i, str) && str[*i + 1] == ' ')
 			(*i)++;
 		if (str[*i])
 			(*i)++;

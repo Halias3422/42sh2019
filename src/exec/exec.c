@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 13:30:16 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 16:09:32 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,9 +33,7 @@ void		replace_job(t_process **p, t_var *var)
 			break ;
 	}
 	(*p)->cmd = make_list_to_ar(al);
-	del_back_slash(&(*p)->cmd);
-	remoove_quote(&(*p)->cmd);
-	del_back_slash_end(&(*p)->cmd);
+	(*p)->cmd = del_back_slash_and_quote((*p)->cmd);
 	free_replace(r);
 	free_alias(al);
 }
