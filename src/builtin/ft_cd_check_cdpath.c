@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 11:21:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 14:17:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,8 @@ void		print_cd_error(char *path, int i, int mute, int usage)
 char		*get_new_path_content(char *new_path, char *cdpath, char *cmd)
 {
 	new_path = ft_strjoinf(new_path, cdpath, 1);
-	new_path = ft_strjoinf(new_path, "/", 1);
+	if (new_path[ft_strlen(new_path) - 1] != '/')
+		new_path = ft_strjoinf(new_path, "/", 1);
 	new_path = ft_strjoinf(new_path, cmd, 1);
 	return (new_path);
 }
