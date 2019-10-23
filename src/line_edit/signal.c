@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 16:16:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 11:00:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,6 +64,7 @@ static void		ctrl_c(t_pos *pos)
 		free_hdoc(pos->hdoc);
 	}
 	write(1, "\n", 1);
+	(*ghist)->cmd = ft_secure_free((*ghist)->cmd);
 	pos->ans = ft_secure_free(pos->ans);
 	pos->saved_ans = ft_secure_free(pos->saved_ans);
 	print_first_prompt(pos);
