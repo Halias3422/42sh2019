@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:53:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 11:36:00 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,11 +87,11 @@ int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 	if (!p || !p->cmd || !p->cmd[0])
 		return (-1);
 	p->background = j->split == '&' ? 1 : 0;
+	launch_redirection_builtin(p);
+	pos->act_fd_out = p->fd_out;
+	pos->act_fd_error = p->fd_error;
 	if (j->split != '&' && is_builtin_modify(p))
 	{
-		launch_redirection_builtin(p);
-		pos->act_fd_out = p->fd_out;
-		pos->act_fd_error = p->fd_error;
 		pos->separator = p->split;
 		if (find_builtins(p, var) != 0)
 			return (1);
