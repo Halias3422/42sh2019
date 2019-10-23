@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 16:38:24 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 16:11:44 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,8 @@ int				alpha_numeric_condition(char *str, int i)
 {
 	if (str[i] && ((str[i] >= 'a' && str[i] <= 'Z') ||
 	(str[i] >= 'A' && str[i] <= 'Z') ||
-	(str[i] >= '0' && str[i] <= '9') || str[i] == '_'))
+	(str[i] >= '0' && str[i] <= '9') || str[i] == '0' || str[i] == '$' ||
+	str[i] == '?' || str[i] == '!' || str[i] == '_'))
 		return (1);
 	return (0);
 }

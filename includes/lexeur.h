@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 16:01:15 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 16:12:24 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -333,4 +333,5 @@ char					*fill_redirection_heredoc(char **buf, int *i);
 int		            	find_second_char(char *str, int *i);
 void		            check_quote_simple(char *str, int *i, int *quote_simple);
 void	            	check_quote_double(char *str, int *i, int *quote_double);
+
 #endif

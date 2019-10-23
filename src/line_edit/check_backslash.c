@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 16:01:27 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 16:11:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,6 +60,21 @@ int			odd_backslash(int i, char *ans)
 	if (count % 2 == 0)
 		return (0);
 	return (1);
+}
+
+int			count_valid_backslash(int i, char *ans)
+{
+	int		count;
+
+	count = 0;
+	while (i >= 0 && ans[i] == 92)
+	{
+		count += 1;
+		i--;
+	}
+	if (count % 2 == 0)
+		return (count / 2);
+	return ((count - 1) / 2);
 }
 
 char		*check_backslash(t_pos *pos)

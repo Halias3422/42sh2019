@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 13:46:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 15:25:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,7 @@ typedef	struct			s_process
 	int					file_in;
 	int					file_out;
 	int					background;
+	char				*hash_error;
 	t_redirect			*redirect;
 }						t_process;
 
