@@ -6,14 +6,14 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 07:48:54 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 08:52:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-void			print_hdoc(t_heredoc *hdoc)
+void	print_hdoc(t_heredoc *hdoc)
 {
 	if (!hdoc)
 		ft_printf("hdoc est nulle\n");

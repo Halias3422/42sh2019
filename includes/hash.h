@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:31:38 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 15:30:55 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 08:52:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,6 @@ int					scan_name_for_undesired_symbols(char *str);
 **	HASH_PREPARE_ERROR_C
 */
 
-void		prepare_error_message_for_hash(int error, char *str);
+void				prepare_error_message_for_hash(int error, char *str);
 
 #endif
