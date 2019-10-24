@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 15:44:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 07:36:21 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,10 +51,7 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	if (path == NULL)
 	{
 		if (p->hash_error)
-		{
 			ft_printf_err_fd("%s", p->hash_error);
-			ft_strdel(&p->hash_error);
-		}
 		exit(127);
 	}
 	ft_execute_function(path, p->cmd, var);
@@ -134,5 +131,6 @@ int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
 		update_pid(p, j, pid, var);
 		ft_strdel(&cmd_path);
 	}
+	ft_strdel(&p->hash_error);
 	return (1);
 }

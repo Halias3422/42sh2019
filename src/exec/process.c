@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 15:15:50 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 07:37:36 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -107,6 +107,7 @@ void			fill_process(t_job *j, t_lexeur **res)
 		j->p->completed = 0;
 		j->p->redirect = NULL;
 		j->p->hash_error = NULL;
+		j->p->pid = 0;
 		j->p->split = '\0';
 		if (fill_process_while(res, &j, &start, &i) == 0)
 			break ;
