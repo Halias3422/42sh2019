@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 16:50:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 15:03:13 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,11 +46,13 @@ static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
 		if (pos->ans[i] != '\n')
 			return (0);
 		heredoc_ctrl_d(pos, hist);
+		ft_strdel(&pos->saved_ans);
 		if (pos->active_heredoc == 0)
 			return (1);
 	}
 	if (!pos->ans || !pos->ans[0])
 	{
+		free_job_list();
 		write_alias(var, pos);
 		exit(0);
 	}

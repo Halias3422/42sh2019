@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 08:05:59 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:20:46 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:37:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,7 +105,7 @@ static int		normal_env_behavior(t_process *p, int i,
 				new_env_entry = ft_strsplit(p->cmd[i], '=');
 				if (new_env_entry[1] == NULL && p->cmd[i][0] == '=')
 				{
-					ft_printf_err("%s: env: invalid argument", TERM);
+					ft_printf_err_fd("%s: env: invalid argument", TERM);
 					free_new_env(new_var);
 					ft_free_tab(new_env_entry);
 					return (-1);

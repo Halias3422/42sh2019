@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 10:28:45 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:59:27 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 13:16:27 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ int		print_alias(t_var *var)
 	while (var)
 	{
 		if (var->type == ALIAS)
-			ft_printf("%s=%s\n", var->name, var->data);
+			ft_printf_fd("%s=%s\n", var->name, var->data);
 		var = var->next;
 	}
 	return (0);
@@ -35,7 +35,7 @@ int		check_name(char *name)
 
 int		print_err(char *name, char *data)
 {
-	ft_printf_err("42sh: alias:{B.T.red.} error{eoc}: Permission denied\n");
+	ft_printf_err_fd("42sh: alias: error: Permission denied\n");
 	ft_strdel(&name);
 	ft_strdel(&data);
 	return (1);
@@ -49,9 +49,6 @@ void	ft_free_deux(char *s, char *s1)
 
 int		error_unlias(char *str)
 {
-	ft_putstr("21sh: ");
-	ft_putstr("unalias: ");
-	ft_putstr(str);
-	ft_putstr(": not found\n");
+	ft_printf_err_fd("42sh: unalias: %s: not found\n", str);
 	return (1);
 }

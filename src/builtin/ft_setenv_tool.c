@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:23:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 16:46:17 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 15:44:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,8 +32,8 @@ void		print_env(t_var *var)
 	{
 		if (var->type == ENVIRONEMENT)
 		{
-			ft_printf("%s=", var->name);
-			ft_printf("%s\n", var->data);
+			ft_printf_fd("%s=", var->name);
+			ft_printf_fd("%s\n", var->data);
 		}
 		var = var->next;
 	}
@@ -42,6 +42,6 @@ void		print_env(t_var *var)
 int			print_err_setenv(char **al)
 {
 	ft_free_tab(al);
-	ft_printf_err("42sh: setenv: ambiguous value name\n");
+	ft_printf_err_fd("42sh: setenv: ambiguous value name\n");
 	return (-1);
 }

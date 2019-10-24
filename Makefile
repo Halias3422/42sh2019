@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/21 11:54:17 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/24 12:55:16 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -36,8 +36,14 @@ SRC_LINE = $(addprefix line_edit/,\
 				token.c token_conditions.c heredoc.c heredoc_send_valid_ans.c heredoc_tools.c\
 				init_spe_params.c print_prompt.c)
 
+SRC_PRINTF = $(addprefix printf_fd/, \
+			 	ft_printf_fd.c print_colors_fd.c print_printf_fd.c )
+
+SRC_PRINTF_ERR = $(addprefix printf_error_fd/, \
+				 ft_printf_err_fd.c print_colors_err_fd.c print_printf_err_fd.c)
+
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c\
+				back_slash.c back_slash_tools.c error.c error_tool.c\
 				fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
 				lexeur_struct.c fill_lexeur_tool.c)
 
@@ -47,7 +53,7 @@ SRC_EXEC = $(addprefix exec/, \
 				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
 				before_redirection.c new_job.c process_file.c alias_reduction.c alias_norme.c \
 				exec_tool.c var_norme.c launch_job_process.c job_function_plus_and_minus.c \
-				process_heredoc.c)
+				process_heredoc.c builtin_redirection.c handle_process.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c\
@@ -68,9 +74,9 @@ SRC_BUILTIN = $(addprefix builtin/, \
 
 SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)
 
-SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
+SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c hash_prepare_error.c)
 
-SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HASH)
+SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HASH) $(SRC_PRINTF) $(SRC_PRINTF_ERR)
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 INC_NAME = termcaps.h alias.h builtin.h check_error.h exec.h hash.h launch.h \
@@ -80,7 +86,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined 
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined
 FLAG_END = -lcurses
 NORME = norminette
 
@@ -122,7 +128,7 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "$(YELLOW)21sh:	$(RED)executable file deleted$(RESET)"
 
-batman: $(NAME)
+batman: all
 	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "
 	@echo "                .o888888888'                          '888888888o. "
 	@echo "             .o888888888'            .   .              '888888888o. "

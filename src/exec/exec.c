@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 11:54:33 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 12:22:30 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,9 +33,7 @@ void		replace_job(t_process **p, t_var *var)
 			break ;
 	}
 	(*p)->cmd = make_list_to_ar(al);
-	del_back_slash(&(*p)->cmd);
-	remoove_quote(&(*p)->cmd);
-	del_back_slash_end(&(*p)->cmd);
+	(*p)->cmd = del_back_slash_and_quote((*p)->cmd);
 	free_replace(r);
 	free_alias(al);
 }
@@ -82,8 +80,7 @@ t_job		*make_job(t_lexeur **res)
 	fill_job(j, res);
 	fill_process(j, res);
 	tmp = j;
-	if (pos)
-		pos->last_cmd_on_bg = 0;
+	pos->last_cmd_on_bg = 0;
 	while (tmp)
 	{
 		if (tmp->split == '&')

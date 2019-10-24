@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 11:52:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 12:57:48 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,11 +15,17 @@
 
 int				check_entry(void)
 {
+	struct winsize	w;
 	char			*s;
 
 	if (!(s = malloc(sizeof(char) * 10000000)))
 		exit(0);
 	free(s);
+	if (ioctl(0, TIOCGWINSZ, &w) == -1)
+	{
+		ft_printf_err("Entry is not a tty\nExit\n");
+		exit(0);
+	}
 	return (0);
 }
 
@@ -73,20 +79,29 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 	return (0);
 }
 
-int				script_test(char **av, int ac, t_var *env)
+int				script_test(char **av, int ac, t_var *env, t_pos *pos)
 {
 	char	*ans;
+	int		i;
 
-	if (ac == 3)
+	i = 2;
+	init_pos(pos, 0);
+	ft_printf("--------------------\n");
+	if (ac > 2)
 	{
 		if (ft_strcmp(av[1], "-c") == 0)
 		{
-			ans = ft_strdup(av[2]);
-			if (check_error(ans) != -1)
-				start_exec(start_lex(env, ans), env);
+			while (av[i])
+			{
+				ans = ft_strdup(av[i]);
+				if (check_error(ans) != -1)
+					start_exec(start_lex(env, ans), env);
+				ft_printf("\n--------------------\n");
+				i++;
+			}
 		}
 	}
-	start_exec(start_lex(env, "exit"), env);
+	start_exec(start_lex(env, ft_strdup("exit")), env);
 	return (0);
 }
 
@@ -97,6 +112,7 @@ int				main(int ac, char **av, char **env)
 	t_pos	pos;
 	pid_t	shell_pid;
 
+	(void)ac;
 	if (check_term() == -1)
 		exit(0);
 	check_entry();
@@ -110,7 +126,7 @@ int				main(int ac, char **av, char **env)
 	main_init_pos(&pos, my_env);
 	hist = create_history(&pos, hist);
 	if (ac > 1)
-		return (script_test(av, ac, my_env));
+		return (script_test(av, ac, my_env, &pos));
 	while (1)
 	{
 		if (main_loop(&pos, stock(NULL, 6), hist) != 0)

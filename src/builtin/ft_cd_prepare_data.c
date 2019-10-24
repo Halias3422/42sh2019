@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:10:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 13:39:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 08:16:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ char	*move_to_home_dir(t_var **var)
 		path = ft_get_val("HOME", *var, ENVIRONEMENT);
 	if (path == NULL)
 	{
-		ft_printf_err("42sh: cd: HOME not set\n");
+		ft_printf_err_fd("42sh: cd: HOME not set\n");
 		return (NULL);
 	}
 	else if (verif_path(path, 1, 0) == 0)
@@ -36,11 +36,12 @@ char	*move_to_oldpwd(t_var **var)
 	path = ft_get_val("OLDPWD", *var, ENVIRONEMENT);
 	if (path == NULL)
 	{
-		ft_printf_err("42sh: cd: OLDPWD not set\n");
+		ft_printf_err_fd("42sh: cd: OLDPWD not set\n");
 		return (NULL);
 	}
 	else if (verif_path(path, 1, 0) == 0)
 		return (NULL);
+	ft_printf_fd("%s\n", path);
 	return (ft_strdup(path));
 }
 

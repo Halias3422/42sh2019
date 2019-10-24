@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/28 16:54:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/19 09:47:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 18:37:47 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ char	*fill_first_replace(int *i, char **str, char c, int *s)
 	if ((*str)[*i] != c)
 	{
 		while ((*str)[*i] && ((*str)[*i] != c ||
-		(*i == 0 || (*str)[*i - 1] == '\\')))
+		odd_backslash(*i, (*str))))
 			(*i)++;
 		res = ft_strsub((*str), 0, *i);
 	}
@@ -40,7 +40,7 @@ char	*fill_first_replace(int *i, char **str, char c, int *s)
 	(*s) = (*i);
 	while ((*str)[*i])
 	{
-		if ((*str)[*i] == c && (*i == 0 || (*str)[*i - 1] != '\\'))
+		if ((*str)[*i] == c && !odd_backslash(*i, (*str)))
 			break ;
 		(*i)++;
 	}
@@ -93,9 +93,8 @@ void	browse_ar(char ***array, int i, int j)
 {
 	while ((*array)[i][j])
 	{
-		if (((*array)[i][j] == '\'' && (j == 0 ||
-		(*array)[i][j - 1] != '\\')) || ((*array)[i][j] == '"'
-		&& (j == 0 || (*array)[i][j - 1] != '\\')))
+		if (((*array)[i][j] == '\'' && !odd_backslash(j, (*array)[i]))
+		|| ((*array)[i][j] == '"' && !odd_backslash(j, (*array)[i])))
 		{
 			need_replace_quote(array, i, &j);
 		}

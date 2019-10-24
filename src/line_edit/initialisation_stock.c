@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/19 11:38:59 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 11:28:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,6 +77,9 @@ void			*stock(void *to_stock, int usage)
 
 static void		init_classic_var(t_pos *pos)
 {
+	if (pos->ans)
+		ft_strdel(&pos->ans);
+	pos->ans = ft_strnew(0);
 	pos->history_mode = 0;
 	pos->ans_printed = 0;
 	pos->let_nb = 0;
@@ -94,6 +97,9 @@ static void		init_classic_var(t_pos *pos)
 	pos->hdoc = NULL;
 	pos->last_cmd_on_bg = 0;
 	pos->braceparam = 0;
+	pos->act_fd_out = 1;
+	pos->act_fd_error = 2;
+	pos->separator = 0;
 }
 
 void			init_pos(t_pos *pos, int usage)
@@ -104,9 +110,6 @@ void			init_pos(t_pos *pos, int usage)
 		pos->len_prompt = 2;
 	else
 		pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
-	if (pos->ans)
-		ft_strdel(&pos->ans);
-	pos->ans = ft_strnew(0);
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
 	init_classic_var(pos);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/09 13:43:28 by shthevak     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 13:50:03 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 10:51:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,5 @@ char	*ft_strrmvi(char *str, int i)
 		if (i + 1 < ft_strlen((const char *)str))
 			ft_strjoin_free(&ret, str + i + 1);
 	}
-	// ft_strdel(&str);
 	return (ret);
 }

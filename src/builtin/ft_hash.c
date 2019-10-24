@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/10 11:18:33 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 18:16:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/21 16:13:07 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,13 +29,13 @@ int			print_part_of_hash_table(t_hash **hash, char **cmd, int ret)
 			while (tmp != NULL)
 			{
 				if (tmp->path != NULL && ft_strcmp(tmp->exec, cmd[i]) == 0)
-					ft_printf("key[%d] -- path = %s -- cmd = %s -- hit = %d\n",
-							key, tmp->path, tmp->exec, tmp->hit);
+					ft_printf_fd("%s used by %s %d time(s)\n",
+						tmp->path, tmp->exec, tmp->hit);
 				tmp = tmp->next;
 			}
 		}
 		else if (cmd[i] && ret++ == 0)
-			ft_printf_err("42sh: hash: %s: not found\n", cmd[i]);
+			ft_printf_err_fd("42sh: hash: %s: not found\n", cmd[i]);
 		i++;
 	}
 	return (ret);
@@ -57,7 +57,7 @@ void		print_path_hash(t_hash **hash, char **cmd)
 			while (tmp != NULL)
 			{
 				if (tmp->path != NULL && ft_strcmp(tmp->exec, cmd[i]) == 0)
-					ft_printf("%s is located in path = %s\n",
+					ft_printf_fd("%s is located in path = %s\n",
 							cmd[i], tmp->path);
 				tmp = tmp->next;
 			}
@@ -76,7 +76,7 @@ int			exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
 	if (flag == 'r')
 	{
 		free_hash_table();
-		ft_printf("hash: hash table cleared\n");
+		ft_printf_fd("hash: hash table cleared\n");
 		stock_hash(NULL, 0);
 	}
 	else if (flag == 't')
@@ -85,7 +85,7 @@ int			exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
 		ret = remove_selected_entry_hash(hash, cmd);
 	else
 	{
-		ft_printf_err("42sh: hash: bad parameter\n");
+		ft_printf_err_fd("42sh: hash: bad parameter\n");
 		return (1);
 	}
 	return (ret);
@@ -102,7 +102,7 @@ int			ft_hash(t_process *p, t_var **var)
 	hash = stock_hash(NULL, 1);
 	if (hash == NULL || check_if_table_is_empty(hash) == 1)
 	{
-		ft_printf_err("42sh: hash: hash table not set\n");
+		ft_printf_err_fd("42sh: hash: hash table not set\n");
 		return (1);
 	}
 	if (!p->cmd[1])
@@ -114,7 +114,7 @@ int			ft_hash(t_process *p, t_var **var)
 		ret = print_part_of_hash_table(hash, p->cmd, 0);
 	else
 	{
-		ft_printf_err("hash: usage: hash [-rdt] [name]\n");
+		ft_printf_err_fd("hash: usage: hash [-rdt] [name]\n");
 		return (1);
 	}
 	return (ret);

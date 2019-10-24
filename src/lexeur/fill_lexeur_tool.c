@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fill_lexeur_tool.c                               .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/08 21:05:25 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 11:54:39 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 19:07:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ char		*change_buf(char *buf)
 	res = malloc(sizeof(char) * (ft_strlen(buf) + 1));
 	while (buf[i])
 	{
-		if (buf[i] == '\\' && buf[i + 1])
+		if (!odd_backslash(i, buf) && buf[i + 1])
 			i++;
 		res[j] = buf[i];
 		if (buf[i])
