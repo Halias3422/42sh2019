@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 14:17:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 09:08:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 void		restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
 {
-	if (pos->act_fd_out != 1 && pos->separator == 'P')
+	if (pos->act_fd_out > 2 || pos->separator == 'P')
 	{
 		add_list_env(var, ENVIRONEMENT, ft_strdup("OLDPWD"),
 				ft_strdup(ft_get_val("OLDPWD", old_env, ENVIRONEMENT)));

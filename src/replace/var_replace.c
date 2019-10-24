@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 16:11:44 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 10:15:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,7 +67,7 @@ char			*replace_var_to_data(char *str, t_var *env)
 	i++;
 	s = i;
 	if (str[i] == '{')
-		s = i + 1;
+		s = i++ + 1;
 	while (alpha_numeric_condition(str, i))
 		if (find_second_char(str, &i) == 0)
 			break ;

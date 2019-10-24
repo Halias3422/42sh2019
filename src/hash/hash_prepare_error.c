@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/23 15:06:52 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 12:22:10 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 12:26:59 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,6 +18,8 @@ void		prepare_error_message_for_hash(int error, char *str)
 	t_process	*p;
 
 	p = to_stock(NULL, 3);
+	if (p->hash_error)
+		return ;
 	p->hash_error = ft_strnew(0);
 	p->hash_error = ft_strjoinf(p->hash_error, "42sh: ", 1);
 	if (str)

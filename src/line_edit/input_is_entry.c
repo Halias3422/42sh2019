@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 14:45:50 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 10:49:22 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,7 @@ static void		check_expansion_and_token(t_pos *pos, t_hist *hist)
 
 	i = ft_strlen(pos->ans);
 	if (pos->active_heredoc == 0)
-		pos->ans = check_backslash(pos);
+		pos->ans = check_backslash(pos, 0, 0, 0);
 	if (i != ft_strlen(pos->ans))
 	{
 		clean_at_start(pos);
