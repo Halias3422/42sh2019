@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 08:52:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 10:30:54 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,7 @@ int		is_my_index_open(t_pos *pos, int i, char open, int limit)
 			open = pos->ans[i];
 		i++;
 	}
-	if (pos->ans[i] == '\0')
+	if (pos->ans[i] == '\0' && i != limit)
 		return (0);
 	if (open == -1)
 		return (1);

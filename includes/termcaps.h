@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 07:49:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 10:49:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -594,7 +594,7 @@ void					check_copy(unsigned char *buf, t_pos *pos);
 
 int						count_valid_backslash(int i, char *ans);
 int						odd_backslash(int i, char *ans);
-char					*check_backslash(t_pos *pos);
+char					*check_backslash(t_pos *pos, int i, int j, int count);
 
 /*
 **	TOKEN_C
