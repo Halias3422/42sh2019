@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 09:01:41 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 13:14:19 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -308,10 +308,8 @@ int						check_process(t_var *var, t_process *p, t_job *j);
 t_process				*init_launch_job(t_job *j, int *infile);
 void					launch_simple_job(t_process *p, t_job *j, t_var **var);
 void					alert_job(t_job *j);
-
 void					fill_heredoc_init(t_lexeur **res, t_redirect *tmp,
 						int *t);
-
 int						launch_redirection_builtin(t_process *p);
 
 /*
@@ -320,5 +318,13 @@ int						launch_redirection_builtin(t_process *p);
 
 int						launch_process(t_process *p, t_var *var, char *path);
 int						finish_process(t_process *p, t_var *var, char *path);
+
+/*
+**	BUILTIN_REDIRECTION_PREPARE_C
+*/
+
+int						check_fd_out_content_before_redirection(t_process *p,
+						t_redirect *redirect);
+int						is_all_num(char *str);
 
 #endif

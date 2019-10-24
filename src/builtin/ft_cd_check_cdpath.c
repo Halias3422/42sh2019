@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 09:08:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 13:12:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,8 @@
 
 void		restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
 {
-	if (pos->act_fd_out > 2 || pos->separator == 'P')
+	if (pos->act_fd_out > 2 || pos->separator == 'P' ||
+			(pos->act_fd_out < 1 && pos->act_fd_out != -9))
 	{
 		add_list_env(var, ENVIRONEMENT, ft_strdup("OLDPWD"),
 				ft_strdup(ft_get_val("OLDPWD", old_env, ENVIRONEMENT)));
@@ -42,7 +43,7 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 		ft_strdel(&new_path);
 		return (1);
 	}
-	if (pos->act_fd_out == 1)
+	if (pos->act_fd_out == 1 || pos->act_fd_out == -9)
 		chdir(new_path);
 	ft_strdel(&pos->pwd);
 	if (option == 'P')
