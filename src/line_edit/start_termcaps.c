@@ -52,6 +52,7 @@ static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
 	}
 	if (!pos->ans || !pos->ans[0])
 	{
+		free_job_list();
 		write_alias(var, pos);
 		exit(0);
 	}
