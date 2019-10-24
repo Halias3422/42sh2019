@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 12:51:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 17:24:41 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,20 +15,16 @@
 
 void		restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
 {
-	if (pos->act_fd_out > 2 || pos->separator == 'P' ||
-			(pos->act_fd_out < 1 && pos->act_fd_out != -9))
-	{
-		add_list_env(var, ENVIRONEMENT, ft_strdup("OLDPWD"),
-				ft_strdup(ft_get_val("OLDPWD", old_env, ENVIRONEMENT)));
-		add_list_env(var, ENVIRONEMENT, ft_strdup("HOME"),
-				ft_strdup(ft_get_val("HOME", old_env, ENVIRONEMENT)));
-		add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"),
-				ft_strdup(ft_get_val("PWD", old_env, ENVIRONEMENT)));
-		ft_strdel(&pos->pwd);
-		pos->pwd = ft_strdup(ft_get_val("PWD", *var, ENVIRONEMENT));
-		if (!pos->pwd)
-			pos->pwd = getcwd(NULL, 1000);
-	}
+	add_list_env(var, ENVIRONEMENT, ft_strdup("OLDPWD"),
+			ft_strdup(ft_get_val("OLDPWD", old_env, ENVIRONEMENT)));
+	add_list_env(var, ENVIRONEMENT, ft_strdup("HOME"),
+			ft_strdup(ft_get_val("HOME", old_env, ENVIRONEMENT)));
+	add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"),
+			ft_strdup(ft_get_val("PWD", old_env, ENVIRONEMENT)));
+	ft_strdel(&pos->pwd);
+	pos->pwd = ft_strdup(ft_get_val("PWD", *var, ENVIRONEMENT));
+	if (!pos->pwd)
+		pos->pwd = getcwd(NULL, 1000);
 	free_env_list(old_env);
 }
 
@@ -43,15 +39,14 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 		ft_strdel(&new_path);
 		return (1);
 	}
-	if (pos->act_fd_out == 1 || pos->act_fd_out == -9)
-		chdir(new_path);
+	chdir(new_path);
 	ft_strdel(&pos->pwd);
 	if (option == 'P')
 		pos->pwd = getcwd(NULL, 1000);
 	else
 		pos->pwd = ft_strdup(new_path);
 	replace_pwd_vars_in_env(&var, new_path, option);
-	restore_old_env(old_env, &var, pos);
+//	restore_old_env(old_env, &var, pos);
 	return (0);
 }
 

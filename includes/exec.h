@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 13:04:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 15:14:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -303,6 +303,7 @@ void					add_env_temp(t_var **var, char *str, int type);
 char					**remove_tab(char **src, int j);
 t_var					*add_one(char *str, char *name);
 int						add_env_check(char *name, t_var **var, char *str);
+
 int						check_process(t_var *var, t_process *p, t_job *j);
 t_process				*init_launch_job(t_job *j, int *infile);
 void					launch_simple_job(t_process *p, t_job *j, t_var **var);
@@ -326,4 +327,9 @@ int						check_fd_out_content_before_redirection(t_process *p,
 						t_redirect *redirect);
 int						is_all_num(char *str);
 
+/*
+**	NEW_REDIRECTION_C
+*/
+
+void					get_all_redirections_done(t_process *p);
 #endif

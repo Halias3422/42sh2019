@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 08:57:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 09:12:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 16:51:29 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,21 +31,24 @@ int			finish_process(t_process *p, t_var *var, char *path)
 
 int			launch_process(t_process *p, t_var *var, char *path)
 {
+	int	ret;
+
+	ret = 0;
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
-	if (p->fd_in != STDIN_FILENO)
+/*	if (p->fd_in != STDIN_FILENO)
 	{
-		dup2(p->fd_in, STDIN_FILENO);
+		ret = dup2(p->fd_in, STDIN_FILENO);
 		close(p->fd_in);
 	}
 	if (p->fd_out != STDOUT_FILENO)
 	{
-		dup2(p->fd_out, STDOUT_FILENO);
+		ret = dup2(p->fd_out, STDOUT_FILENO);
 		close(p->fd_out);
 	}
-	finish_process(p, var, path);
+*/	finish_process(p, var, path);
 	return (0);
 }
