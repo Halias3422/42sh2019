@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 09:39:38 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 08:53:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -198,7 +198,7 @@ char					*change_buf(char *buf);
 void					fill_lex_solve_back_slash(char *buf, int *i,
 						int *start);
 void					cnt_solve_back_slash(char *buf, int *i, int *cnt);
-void					del_back_slash(char ***ar);
+char					**del_back_slash_and_quote(char **ar);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -217,7 +217,7 @@ void					del_back_slash_end(char ***ar);
 void					cnt_solve_back_slash(char *buf, int *i, int *cnt);
 int						back_slash_count(char *str);
 int						del_back_slash_simple_quote(int *k, int j, char ***ar);
-int						del_back_slash_double_quote(int *k, int j, char ***ar);
+char					*del_back_slash_double_quote(char *str);
 
 /*
 **┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -330,5 +330,10 @@ int						remove_env_while(t_alias *alias, t_var *var,
 void					print_lexer(t_lexeur *lex);
 char					*remove_simple_quote(char **str);
 char					*fill_redirection_heredoc(char **buf, int *i);
+int						find_second_char(char *str, int *i);
+void					check_quote_simple(char *str, int *i,
+						int *quote_simple);
+void					check_quote_double(char *str, int *i,
+						int *quote_double);
 
 #endif

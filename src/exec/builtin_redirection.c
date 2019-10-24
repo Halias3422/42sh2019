@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/11 13:35:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 13:04:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,30 @@ static void	redirection_builtin_fd(int new, int old, t_process *p)
 		p->fd_out = new;
 }
 
+int			duplication_builtin_in(t_process *p, t_redirect *redirect,
+			int fd_in, int fd_out)
+{
+	if (ft_strcmp(redirect->token, "<&") == 0)
+	{
+		if (ft_strcmp(redirect->fd_out, "-") == 0)
+		{
+			p->fd_out = -1;
+			return (1);
+		}
+		else if (fd_in > 0 && fd_out > 0)
+		{
+			if (fd_out > STDERR_FILENO)
+				ft_printf_err("42sh: %d: bad file descriptor\n", fd_out);
+			if (fd_in == 2)
+				p->fd_error = (fd_out == 1) ? p->fd_out : fd_out;
+			if (fd_in == 1)
+				p->fd_out = (fd_out == 2) ? p->fd_error : fd_out;
+		}
+		return (0);
+	}
+	return (1);
+}
+
 int			duplication_builtin(t_process *p, t_redirect *redirect, int fd_in,
 			int fd_out)
 {
@@ -34,16 +58,16 @@ int			duplication_builtin(t_process *p, t_redirect *redirect, int fd_in,
 		}
 		else if (fd_in > 0 && fd_out > 0)
 		{
+			if (fd_out > STDERR_FILENO)
+				ft_printf_err("42sh: %d: bad file descriptor\n", fd_out);
 			if (fd_in == 2)
 				p->fd_error = (fd_out == 1) ? p->fd_out : fd_out;
 			if (fd_in == 1)
 				p->fd_out = (fd_out == 2) ? p->fd_error : fd_out;
 		}
-		else
-			ft_printf_err("42sh: file number expected\n");
 		return (0);
 	}
-	return (1);
+	return (duplication_builtin_in(p, redirect, fd_in, fd_out));
 }
 
 static int	redirection_builtin_file(t_redirect *redirect, t_process *p)
@@ -76,7 +100,10 @@ int			launch_redirection_builtin(t_process *p)
 		fd_in = ft_atoi(redirect->fd_in);
 		if (!redirect->fd_in)
 			fd_in = 1;
-		fd_out = ft_atoi(redirect->fd_out);
+		if (check_fd_out_content_before_redirection(p, redirect) == 0)
+			return (0);
+		else
+			fd_out = ft_atoi(redirect->fd_out);
 		if (redirection_builtin_file(redirect, p) == 0)
 			return (0);
 		if (duplication_builtin(p, redirect, fd_in, fd_out) == 0)

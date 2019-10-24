@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/21 14:08:50 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/24 13:02:25 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -43,7 +43,7 @@ SRC_PRINTF_ERR = $(addprefix printf_error_fd/, \
 				 ft_printf_err_fd.c print_colors_err_fd.c print_printf_err_fd.c)
 
 SRC_LEX = $(addprefix lexeur/, \
-				back_slash.c back_slash_end.c back_slash_tools.c error.c error_tool.c\
+				back_slash.c back_slash_tools.c error.c error_tool.c\
 				fill_lexeur.c lexeur.c redirection.c redirection_tools.c lexeur_tool.c \
 				lexeur_struct.c fill_lexeur_tool.c)
 
@@ -53,7 +53,7 @@ SRC_EXEC = $(addprefix exec/, \
 				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
 				before_redirection.c new_job.c process_file.c alias_reduction.c alias_norme.c \
 				exec_tool.c var_norme.c launch_job_process.c job_function_plus_and_minus.c \
-				process_heredoc.c builtin_redirection.c)
+				process_heredoc.c builtin_redirection.c handle_process.c builtin_redirection_prepare.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c\
@@ -74,7 +74,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 
 SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)
 
-SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c)
+SRC_HASH = $(addprefix hash/, hash.c hash_tools.c hash_path.c hash_prepare_error.c)
 
 SRC_NAME = $(SRC_EXEC) $(SRC_LEX) $(SRC_LINE) $(SRC_MAIN) $(SRC_REP) $(SRC_BUILTIN) $(SRC_HASH) $(SRC_PRINTF) $(SRC_PRINTF_ERR)
 

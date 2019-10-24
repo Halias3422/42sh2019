@@ -16,12 +16,18 @@
 void		free_job_list(void)
 {
 	t_job_list	*job_list;
+	t_process	*process;
 
 	if ((job_list = stock(NULL, 10)) == NULL)
 		return ;
 	while (job_list)
 	{
-		kill(job_list->j->pgid, SIGINT);
+		process = job_list->j->p;
+		while (process)
+		{
+			kill(process->pid, SIGINT);
+			process = process->next;
+		}
 		free_job(job_list->j);
 		job_list = job_list->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 15:52:06 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 10:49:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -188,6 +188,7 @@ typedef struct			s_ctrl_hist
 	int					act_li;
 }						t_ctrl_hist;
 
+void					print_hdoc(t_heredoc *hdoc);
 char					*check_path_hash(t_var **var, char *arg, int i,
 						char *ans);
 void					print_info(t_pos *pos);
@@ -591,8 +592,9 @@ void					check_copy(unsigned char *buf, t_pos *pos);
 ** CHECK_BACKSLASH_C
 */
 
+int						count_valid_backslash(int i, char *ans);
 int						odd_backslash(int i, char *ans);
-char					*check_backslash(t_pos *pos);
+char					*check_backslash(t_pos *pos, int i, int j, int count);
 
 /*
 **	TOKEN_C
@@ -605,6 +607,8 @@ int						token(char *ans, t_pos *pos);
 **	TOKEN_CONDITIONS_C
 */
 
+int						is_my_index_open(t_pos *pos, int i, char open,
+						int limit);
 int						simple_pipe(char *ans, int i);
 int						double_token(char *ans, int i);
 int						brace_param(char *ans, int i);
@@ -617,7 +621,8 @@ int						double_quote(char *ans, int i);
 
 void					check_for_heredoc(t_pos *pos, int i, char open);
 void					search_for_heredocs_in_ans(t_pos *pos, int i, int open);
-int						fill_hdoc_content(t_pos *pos, char *ans, int i);
+int						fill_hdoc_content(t_pos *pos, char *ans, int i,
+						char *tmp);
 int						heredoc_found(t_pos *pos, int i, int j);
 
 /*
@@ -634,7 +639,7 @@ int						check_if_to_find_is_not_empty(t_heredoc *hdoc);
 **	HEREDOC_TOOLS_C
 */
 
-char					*remove_backslash(char *ans);
+char					*remove_backslash(char *ans, int i, int j);
 int						going_to_heredoc_end(t_pos *pos, int i);
 void					free_hdoc(t_heredoc *hdoc);
 t_heredoc				*add_list_back_heredoc(t_heredoc *heredoc);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 16:13:00 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 09:58:15 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -124,7 +124,7 @@ int		ft_cd(t_process *p, t_var **var)
 	new_path = NULL;
 	i = 0;
 	add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"), ft_strdup(pos->pwd));
-	if (check_arguments_number(p, &i, &option) == 1)
+	if (check_arguments_number(p, &i, &option, old_env) == 1)
 		return (1);
 	if ((new_path = get_path(p->cmd[i], var, new_path, option)) == NULL)
 	{

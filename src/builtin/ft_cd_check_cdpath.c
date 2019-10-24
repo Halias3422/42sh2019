@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 15:59:32 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 12:51:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,18 +15,21 @@
 
 void		restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
 {
-	if (pos->act_fd_out != 1 && pos->separator == 'P')
+	if (pos->act_fd_out > 2 || pos->separator == 'P' ||
+			(pos->act_fd_out < 1 && pos->act_fd_out != -9))
 	{
-		free_env_list(*var);
-		*var = old_env;
-		stock(*var, 5);
+		add_list_env(var, ENVIRONEMENT, ft_strdup("OLDPWD"),
+				ft_strdup(ft_get_val("OLDPWD", old_env, ENVIRONEMENT)));
+		add_list_env(var, ENVIRONEMENT, ft_strdup("HOME"),
+				ft_strdup(ft_get_val("HOME", old_env, ENVIRONEMENT)));
+		add_list_env(var, ENVIRONEMENT, ft_strdup("PWD"),
+				ft_strdup(ft_get_val("PWD", old_env, ENVIRONEMENT)));
 		ft_strdel(&pos->pwd);
 		pos->pwd = ft_strdup(ft_get_val("PWD", *var, ENVIRONEMENT));
 		if (!pos->pwd)
 			pos->pwd = getcwd(NULL, 1000);
 	}
-	else
-		free_env_list(old_env);
+	free_env_list(old_env);
 }
 
 int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
@@ -40,7 +43,7 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 		ft_strdel(&new_path);
 		return (1);
 	}
-	if (pos->act_fd_out == 1)
+	if (pos->act_fd_out == 1 || pos->act_fd_out == -9)
 		chdir(new_path);
 	ft_strdel(&pos->pwd);
 	if (option == 'P')
@@ -77,7 +80,8 @@ void		print_cd_error(char *path, int i, int mute, int usage)
 char		*get_new_path_content(char *new_path, char *cdpath, char *cmd)
 {
 	new_path = ft_strjoinf(new_path, cdpath, 1);
-	new_path = ft_strjoinf(new_path, "/", 1);
+	if (new_path[ft_strlen(new_path) - 1] != '/')
+		new_path = ft_strjoinf(new_path, "/", 1);
 	new_path = ft_strjoinf(new_path, cmd, 1);
 	return (new_path);
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 16:49:48 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 10:49:25 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,14 +59,14 @@ int				fill_ans_heredoc(t_pos *pos, int i, int j)
 	while (pos->ans[i])
 	{
 		if (pos->ans[i] == '<' && pos->ans[i + 1] == '<' &&
-			(i == 0 || (i > 0 && pos->ans[i - 1] != 92)))
+				(i == 0 || is_my_index_open(pos, 0, -1, i)))
 			break ;
 		i += 1;
 	}
 	if (pos->ans[i])
 		i += 2;
 	while (pos->ans[i] && (pos->ans[i] == 32 || (pos->ans[i] >= 9 &&
-		pos->ans[i] <= 13)))
+					pos->ans[i] <= 13)))
 		i += 1;
 	if (pos->hdoc)
 		i += ft_strlen(pos->hdoc->to_find);
@@ -77,6 +77,8 @@ int				fill_ans_heredoc(t_pos *pos, int i, int j)
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, " ", 1);
 	pos->ans_heredoc = ft_strjoinf(pos->ans_heredoc, pos->hdoc->content, 1);
 	pos->hdoc = pos->hdoc->next;
+	if (i > ft_strlen(pos->ans))
+		return (ft_strlen(pos->ans));
 	return (i);
 }
 
