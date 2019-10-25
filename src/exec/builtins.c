@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 11:35:32 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 16:36:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,6 +63,8 @@ int		find_builtins(t_process *p, t_var **var)
 {
 	int i;
 
+	if (p->exec_builtin == 0)
+		return (0);
 	i = -1;
 	if (!p->cmd[0])
 		return (0);

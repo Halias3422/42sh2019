@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 17:29:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 16:02:48 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,7 @@ int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 {
 	t_pos	*pos;
 
+	if (test_builtin(p) == 1)
 	get_all_redirections_done(p);
 	to_stock(p, 2);
 	pos = to_stock(NULL, 1);

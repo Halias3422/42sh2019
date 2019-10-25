@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/23 14:54:19 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 17:30:45 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 18:12:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,6 @@ int		print_printf_fd(t_data *data, int i, int fd)
 	int	printed_backslash;
 	int	backslash_last_pos;
 
-	printf("dans printf fd = %d\n", fd);
 	printed_backslash = 0;
 	backslash_last_pos = 0;
 	data->code = NULL;

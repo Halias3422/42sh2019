@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 10:49:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 19:02:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -127,6 +127,7 @@ typedef struct			s_pos
 	int					act_fd_out;
 	int					act_fd_error;
 	int					separator;
+	int					pipe;
 }						t_pos;
 
 typedef struct			s_htab
