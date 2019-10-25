@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 13:14:19 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 19:42:43 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -290,7 +290,7 @@ void					free_job(t_job *j);
 int						duplication(t_redirect *redirect, int fd_in,
 						int fd_out);
 int						fd_right(char *path);
-void					free_job_list(void);
+void					free_job_list(int i);
 int						check_name(char *name);
 
 /*

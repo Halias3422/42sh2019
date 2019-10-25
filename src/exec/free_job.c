@@ -6,31 +6,40 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:26:26 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 19:58:30 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void		free_job_list(void)
+void		free_job_list(int i)
 {
 	t_job_list	*job_list;
+	t_job_list	*tmp;
 	t_process	*process;
 
 	if ((job_list = stock(NULL, 10)) == NULL)
 		return ;
 	while (job_list)
 	{
+		tmp = job_list->next;
 		process = job_list->j->p;
 		while (process)
 		{
+			i = 0;
+			ft_printf_fd("job killed: %d -", process->pid);
+			while (process->cmd[i])
+				ft_printf_fd(" %s", process->cmd[i++]);
+			ft_printf_fd("\n");
 			kill(process->pid, SIGINT);
 			process = process->next;
 		}
 		free_job(job_list->j);
-		job_list = job_list->next;
+		free(job_list);
+		job_list = tmp;
 	}
+	stock(NULL, 9);
 }
 
 void		free_redirections(t_redirect *ptr_redi)
