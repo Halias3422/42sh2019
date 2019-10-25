@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:30:08 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 10:42:24 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 07:51:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -136,6 +136,8 @@ void			check_for_heredoc(t_pos *pos, int i, char open)
 	{
 		while (pos->hdoc->prev)
 			pos->hdoc = pos->hdoc->prev;
+		while (pos->hdoc->current_index == 1)
+			pos->hdoc = pos->hdoc->next;
 		if (fill_hdoc_content(pos, ft_strdup(pos->ans),
 		ft_strlen(pos->ans) - 1, remove_backslash(pos->hdoc->to_find, 0, 0)))
 		{

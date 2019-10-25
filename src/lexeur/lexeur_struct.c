@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:38:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 10:14:31 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/22 19:07:10 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,10 +28,8 @@ t_lexeur	*fill_lex_while(char **buf, int *i, int token)
 {
 	t_lexeur	*res;
 
-	if ((*buf)[0] == '\\' && find_token((*buf), 1) != -1)
-	{
+	if (odd_backslash(0, *buf) && find_token((*buf), 1) != -1)
 		*buf = change_buf(*buf);
-	}
 	res = malloc(sizeof(t_lexeur));
 	if (token == -1)
 		fill_struct(res, *buf, token, NULL);

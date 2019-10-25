@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/19 13:34:01 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/10 11:23:35 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 08:48:58 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,7 +47,9 @@ int	duplication(t_redirect *redirect, int fd_in, int fd_out)
 		}
 		else if (fd_in > 0 && fd_out > 0)
 		{
-			if (dup2(fd_out, fd_in) == -1)
+			if (fd_out > STDERR_FILENO)
+				ft_printf_err("42sh: %d: bad file descriptor\n", fd_out);
+			else if (dup2(fd_out, fd_in) == -1)
 				ft_printf_err("42sh: duplication not working\n");
 			else
 				return (1);

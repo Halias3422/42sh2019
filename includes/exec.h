@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 13:46:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 13:14:19 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,7 @@ typedef	struct			s_process
 	int					file_in;
 	int					file_out;
 	int					background;
+	char				*hash_error;
 	t_redirect			*redirect;
 }						t_process;
 
@@ -259,6 +260,7 @@ int						test_builtin(t_process *p);
 int						find_builtins(t_process *p, t_var **var);
 int						fork_simple(t_job *j, t_process *p, t_var **var,
 						char *cmd_path);
+int						ft_execute_function(char *path, char **arg, t_var *var);
 void					wait_process(t_var **var);
 void					print_start_process(t_job *j);
 void					check_zombie();
@@ -306,9 +308,23 @@ int						check_process(t_var *var, t_process *p, t_job *j);
 t_process				*init_launch_job(t_job *j, int *infile);
 void					launch_simple_job(t_process *p, t_job *j, t_var **var);
 void					alert_job(t_job *j);
-
 void					fill_heredoc_init(t_lexeur **res, t_redirect *tmp,
 						int *t);
-
 int						launch_redirection_builtin(t_process *p);
+
+/*
+**	HANDLE_PROCESS_C
+*/
+
+int						launch_process(t_process *p, t_var *var, char *path);
+int						finish_process(t_process *p, t_var *var, char *path);
+
+/*
+**	BUILTIN_REDIRECTION_PREPARE_C
+*/
+
+int						check_fd_out_content_before_redirection(t_process *p,
+						t_redirect *redirect);
+int						is_all_num(char *str);
+
 #endif

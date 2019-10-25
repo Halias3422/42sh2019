@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 10:44:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 14:58:35 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 14:38:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,14 +67,18 @@ void			print_htab(t_htab *htab, int max_word)
 		htab = htab->prev;
 	while (htab)
 	{
-		if (htab->content_type == 4)
-			ft_printf("{B.T.cyan.}%s{eoc}/{eoc}   ", htab == NULL ?
-				NULL : htab->content);
-		else
-			ft_printf("%s    ", htab == NULL ? NULL : htab->content);
-		complete_with_space(htab);
-		if ((htab->content_no + 1) % max_word == 0 && htab->next != NULL)
-			write(1, "\n", 1);
+		if (htab->content && ft_strcmp(htab->content, ".") &&
+				ft_strcmp(htab->content, ".."))
+		{
+			if (htab->content_type == 4)
+				ft_printf("{B.T.cyan.}%s{eoc}/{eoc}   ", htab == NULL ?
+					NULL : htab->content);
+			else
+				ft_printf("%s    ", htab == NULL ? NULL : htab->content);
+			complete_with_space(htab);
+			if ((htab->content_no + 1) % max_word == 0 && htab->next != NULL)
+				write(1, "\n", 1);
+		}
 		htab = htab->next;
 	}
 	write(1, "\n", 1);
@@ -85,6 +89,9 @@ void			prepare_to_print_htab(t_pos *pos, t_htab *htab)
 	int			len;
 	int			max_word;
 
+	if (pos->tab_key_printed == 1)
+		return ;
+	pos->tab_key_printed = 1;
 	if ((max_word = pos->max_co / (htab->lenght_max + 4)) == 0)
 		return ;
 	print_htab(htab, max_word);

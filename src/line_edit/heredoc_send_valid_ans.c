@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   heredoc_send_valid_ans.c                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 10:49:25 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 13:08:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,6 +45,7 @@ void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
 	while (hdoc && hdoc->current_index == 1)
 		hdoc = hdoc->next;
 	hdoc->content = ft_strjoinf(hdoc->content, hdoc->to_find, 1);
+	hdoc->content = ft_strjoinf(hdoc->content, " ", 1);
 	hdoc->current_index = 1;
 	if (hdoc->next == NULL)
 	{

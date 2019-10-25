@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 10:47:43 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/23 16:11:33 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ char	*get_tag(char *str, int *i)
 	jump_space(str, &j);
 	s = j;
 	while (str[j] && ((str[j] < 9 || str[j] > 13) && str[j] != ' '
-		&& find_token(str, j) == -1))
+	&& find_token(str, j) == -1))
 		j++;
 	tag = ft_strsub(str, s, j - s);
 	(*i) = j;

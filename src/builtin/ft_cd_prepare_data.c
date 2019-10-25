@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:10:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:43:19 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/24 08:16:32 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,6 +41,7 @@ char	*move_to_oldpwd(t_var **var)
 	}
 	else if (verif_path(path, 1, 0) == 0)
 		return (NULL);
+	ft_printf_fd("%s\n", path);
 	return (ft_strdup(path));
 }
 
