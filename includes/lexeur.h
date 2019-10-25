@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 08:53:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 13:23:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -335,5 +335,6 @@ void					check_quote_simple(char *str, int *i,
 						int *quote_simple);
 void					check_quote_double(char *str, int *i,
 						int *quote_double);
+void					solve_quote_simple(char *str, char **res, int *i, int j);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:13:32 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 16:09:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 13:23:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,26 +20,23 @@ void		check_quote_double(char *str, int *i, int *quote_double)
 		(*quote_double) = 0;
 		(*i)++;
 	}
-	(*quote_double) = (*quote_double == 1) ? 0 : 1;
-	if (str[*i])
+	else
+		(*quote_double) = (*quote_double == 1) ? 0 : 1;
+	if (str[*i] && str[*i + 1] && (str[*i + 1] != '"' && str[*i + 1] != '\''))
 		(*i)++;
 }
 
 void		check_quote_simple(char *str, int *i, int *quote_simple)
 {
-	if (str[*i + 1] == '\'' && *quote_simple == 0)
+	if (str[*i + 1] == '\'')
 	{
 		(*quote_simple) = 0;
 		(*i)++;
 	}
 	else
 		(*quote_simple) = (*quote_simple == 1) ? 0 : 1;
-	(*i)++;
-	if (str[*i] && str[*i] == '\'')
-	{
+	if (str[*i] && str[*i + 1] && (str[*i + 1] != '"' && str[*i + 1] != '\''))
 		(*i)++;
-		*quote_simple = 1;
-	}
 }
 
 void		cnt_solve_back_slash(char *buf, int *i, int *cnt)
@@ -55,4 +52,15 @@ void		cnt_solve_back_slash(char *buf, int *i, int *cnt)
 				break ;
 		(*i)++;
 	}
+}
+
+void		solve_quote_simple(char *str, char **res, int *i, int j)
+{
+	if (str[*i] == '\'')
+	{
+		while (str[*i] && str[*i] == '\'')
+			(*i)++;
+	}
+	if (str[*i])
+		(*res)[j] = str[*i];
 }
