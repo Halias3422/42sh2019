@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 09:56:41 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 19:39:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,6 +31,7 @@ typedef struct s_hash		t_hash;
 typedef struct s_job_list	t_job_list;
 typedef struct s_job		t_job;
 typedef struct s_pos		t_pos;
+typedef struct s_save_job	t_save_job;
 typedef struct	s_builtin
 {
 	const char	*name;
@@ -122,6 +123,10 @@ int				ft_bg(t_process *p, t_var **var);
 **	FT_EXIT_C
 */
 
+void			write_alias_on_exit(t_var *var);
+void			free_pos(void);
+void			kill_last_job(t_job_list *jb, t_pos *pos, t_var *var,
+				t_save_job *save);
 void			free_env_list(t_var *var);
 int				ft_exit(t_process *p, t_var **var);
 /*

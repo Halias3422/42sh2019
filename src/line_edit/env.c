@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/08 10:53:46 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 14:11:26 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 17:07:17 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,10 +14,12 @@
 #include "../../includes/termcaps.h"
 #include "../../includes/lexeur.h"
 
-void	shlvl(t_var *env)
+void	shlvl(t_var *env, int ac, char **av)
 {
 	int	i;
 
+	(void)ac;
+	(void)av;
 	while (env)
 	{
 		if (ft_strcmp("SHLVL", env->name) == 0)
