@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 16:11:33 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 21:58:51 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,8 +61,7 @@ int		basic_split_while(int *tint, char *str, char **res, char **tag)
 		(*tag) = get_tag(str, &tint[0]);
 		tint[2] = 1;
 	}
-	else if (str[tint[0]] && ((str[tint[0]] >= '0' && str[tint[0]] <= '9') ||
-	(ret == 5 || ret == 8)))
+	else if (str[tint[0]] && ((str[tint[0]] >= '0' && str[tint[0]] <= '9')))
 		split_space_find_number(str, &tint[0]);
 	else if (search_agregator(str, tint[0]))
 		split_agregator(str, &tint[0]);

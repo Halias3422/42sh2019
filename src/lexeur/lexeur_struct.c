@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/21 17:38:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 19:07:10 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 18:38:44 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -79,7 +79,7 @@ int *i, enum e_token token)
 	}
 	if (token == 5 || token == 8)
 	{
-		fill_struct_fd_out(res, get_fd_in(buf[*i]), token,
+		fill_struct_fd_out(res, NULL, token,
 		get_fd_out(buf[*i]));
 		(*i)++;
 		return (res);

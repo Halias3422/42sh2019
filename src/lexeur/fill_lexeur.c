@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 18:03:50 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 17:28:54 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,13 +42,16 @@ int			check_token_for_redirection(char *str)
 
 	token = 0;
 	i = 0;
+    if (!odd_backslash(i - 1, str))
+		token = find_token(str, i);
+	if (token == 5 || token == 8)
+		return (token);
 	while (str[i])
 	{
 		check_token_for_redirection_quote(str, &i);
 		if (!odd_backslash(i - 1, str))
 			token = find_token(str, i);
-		if (token == 4 || token == 5 || token == 6 || token == 7 || token == 8
-		|| token == 9)
+		if (token == 4 || token == 6 || token == 7 || token == 9)
 			return (token);
 		if (str[i])
 			i++;
