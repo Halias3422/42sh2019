@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 15:14:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 16:14:53 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -197,6 +197,15 @@ void					print_hist(t_pos *pos, t_hist *hist);
 int						got_a_wildcard(char *name);
 int						check_ans(char *str);
 void					print_htab_debug(t_htab *htab);
+void					print_all_env(t_var *var);
+
+/*
+**	PRINT_PROMPT_C
+*/
+
+void					print_first_prompt(t_pos *pos);
+void					print_second_prompt(t_pos *pos);
+
 void					print_all_env(t_var *var);
 
 /*
