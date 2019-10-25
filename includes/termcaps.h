@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:14:53 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 17:07:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -128,6 +128,7 @@ typedef struct			s_pos
 	int					act_fd_error;
 	int					separator;
 	int					tab_key_printed;
+	int					exit_mode;
 }						t_pos;
 
 typedef struct			s_htab
@@ -533,7 +534,7 @@ t_var					*init_env(char **env, t_pos *pos, char **av, int i);
 char					*init_name(char *src);
 void					free_env(t_var *ptr_env);
 char					*init_data(char *src);
-void					shlvl(t_var *env);
+void					shlvl(t_var *env, int ac, char **av);
 
 /*
 *******************************************************************************
