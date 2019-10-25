@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 10:03:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 16:10:31 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,7 @@ char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 	termcaps42sh(pos, hist, env);
 	if (pos->ans_heredoc)
 		remake_pos_ans(pos);
-	pos->ans = check_for_tilde(pos->ans, env, 0, 0);
+	pos->ans = check_for_tilde(pos->ans, env, -1, 0);
 	pos->last_cmd_on_bg = 0;
 	tcsetattr(0, TCSANOW, &pos->old_term);
 	return (ft_strdup(pos->ans));
