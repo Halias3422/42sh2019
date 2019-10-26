@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 13:12:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/26 13:20:46 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,7 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 	t_var	*var;
 
 	var = stock(NULL, 6);
+	new_path = error_in_new_path(new_path);
 	if (verif_path(new_path, 1, 1) == 0)
 	{
 		restore_old_env(old_env, &var, pos);
@@ -57,7 +58,10 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 
 void		print_cd_error(char *path, int i, int mute, int usage)
 {
-	if (mute)
+	t_pos	*pos;
+
+	pos = to_stock(NULL, 1);
+	if (mute && pos->error_printed == 0)
 	{
 		if (i < 0)
 			i = 0;

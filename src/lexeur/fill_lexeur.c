@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 11:29:05 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 17:28:54 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/26 13:21:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ int			check_token_for_redirection(char *str)
 
 	token = 0;
 	i = 0;
-    if (!odd_backslash(i - 1, str))
+	if (!odd_backslash(i - 1, str))
 		token = find_token(str, i);
 	if (token == 5 || token == 8)
 		return (token);
