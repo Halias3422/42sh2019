@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:12:35 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/26 13:08:05 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,6 +101,7 @@ static void		init_classic_var(t_pos *pos)
 	pos->act_fd_error = 2;
 	pos->separator = 0;
 	pos->tab_key_printed = 0;
+	pos->error_printed = 0;
 }
 
 void			init_pos(t_pos *pos, int usage)

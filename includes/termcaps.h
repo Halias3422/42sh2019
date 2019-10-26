@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 20:02:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/26 13:07:32 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -129,6 +129,7 @@ typedef struct			s_pos
 	int					separator;
 	int					tab_key_printed;
 	int					exit_mode;
+	int					error_printed;
 }						t_pos;
 
 typedef struct			s_htab
