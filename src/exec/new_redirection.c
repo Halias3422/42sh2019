@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 19:51:39 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/26 11:52:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,8 +30,9 @@ int			redirection_get_argument_file_fd(t_redirect *red, char *file,
 	new_fd_out = 1;
 	if (access(file, F_OK) != -1 && access(file, W_OK) != -1)
 	{
-		if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, "<") == 0)
-		new_fd_out = open(file, O_RDWR | O_TRUNC);
+		if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, "<") == 0
+				|| ft_strcmp(red->token, ">&") == 0)
+			new_fd_out = open(file, O_RDWR | O_TRUNC);
 		else if (ft_strcmp(red->token, ">>") == 0)
 		{
 			new_fd_out = open(file, O_WRONLY | O_CREAT |O_APPEND);
@@ -86,6 +87,7 @@ void		normal_redirection_behavior(t_redirect *red, t_process *p,
 void		aggregation_file_redirection(t_redirect *red, t_process *p,
 			t_pos *pos)
 {
+//	char	*file_in;
 	char	*file;
 	int		new_fd_out;
 	int		new_fd_in;
@@ -95,17 +97,27 @@ void		aggregation_file_redirection(t_redirect *red, t_process *p,
 		ft_printf("42sh: %s: ambiguous redirect\n", red->fd_out);
 		p->exec_builtin = 0;
 	}
-	if (is_all_num(red->fd_in) != 1)
-		new_fd_in = 1;
+	// attendre que mateo retravaille le parsing pour toto>&2
+/*	if (is_all_num(red->fd_in) != 1)
+	{
+		file_in = ft_strdup("./");
+		file_in = ft_strjoinf(file_in, red->fd_in, 1);
+		new_fd_in = open(file_in, O_WRONLY);
+	}
 	else
-		new_fd_in = ft_atoi(red->fd_in);
-	if (red->fd_out && red->fd_out[0] != '/')
-		file = ft_strdup("./");
+*/		new_fd_in = ft_atoi(red->fd_in);
+	if (is_all_num(red->fd_out) != 1)
+	{
+		if (red->fd_out && red->fd_out[0] != '/')
+			file = ft_strdup("./");
+		else
+			file = ft_strnew(0);
+		file = ft_strjoinf(file, red->fd_out, 1);
+		if ((new_fd_out = redirection_get_argument_file_fd(red, file, p)) == -1)
+			return ;
+	}
 	else
-		file = ft_strnew(0);
-	file = ft_strjoinf(file, red->fd_out, 1);
-	if ((new_fd_out = redirection_get_argument_file_fd(red, file, p)) == -1)
-		return ;
+		new_fd_out = ft_atoi(red->fd_out);
 	if (ft_strcmp(red->token, "<&") == 0)
 		duping_fd_for_binaries(new_fd_in, new_fd_out);
 	else if (ft_strcmp(red->token, ">&") == 0)
@@ -123,6 +135,11 @@ void		aggregation_redirection_behavior(t_redirect *red, t_process *p,
 
 		fd_in = ft_atoi(red->fd_in);
 		fd_out = ft_atoi(red->fd_out);
+		if (ft_strcmp(red->fd_out, "-") == 0)
+		{
+				close(fd_in);
+				return ;
+		}
 		if ((ret = isatty(fd_out) == 0))
 		{
 			ft_printf_err_fd("42sh: %s: Bad file descriptor\n", red->fd_out);
@@ -146,8 +163,14 @@ void		get_all_redirections_done(t_process *p)
 	t_pos		*pos;
 
 	pos = to_stock(NULL, 1);
+	if (p->split == 'P')
+		dup2(p->fd_out, 1);
+	if (pos->pipe > 0)
+	{
+		close(pos->pipe);
+		dup2(p->fd_in, 0);
+	}
 	red = p->redirect;
-	if (red && red->token)
 	while (red)
 	{
 		if (ft_strcmp(red->token, "<") == 0 || ft_strcmp(red->token, ">") == 0
@@ -155,7 +178,7 @@ void		get_all_redirections_done(t_process *p)
 			normal_redirection_behavior(red, p, pos);
 		else if ((ft_strcmp(red->token, "<&") == 0 ||
 				ft_strcmp(red->token, ">&") == 0) &&
-				is_all_num(red->fd_out) == 1)
+				is_all_num(red->fd_out) == 1 && (!red->fd_in || is_all_num(red->fd_in) == 1))
 			aggregation_redirection_behavior(red, p, pos);
 		else if (ft_strcmp(red->token, "<&") == 0 ||
 				ft_strcmp(red->token, ">&") == 0)

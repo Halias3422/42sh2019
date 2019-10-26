@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 08:57:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:03:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/26 11:02:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,10 +15,10 @@
 
 int			finish_process(t_process *p, t_var *var, char *path)
 {
-//	if (!launch_redirection(p))
-//		exit(1);
 	if (test_builtin(p) != 1)
 		get_all_redirections_done(p);
+	if (p->exec_builtin == 0)
+		exit(1);
 	if (find_builtins(p, &var) != 0)
 		exit(p->ret);
 	if (path == NULL)

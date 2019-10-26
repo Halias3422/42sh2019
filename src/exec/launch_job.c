@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 19:49:22 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/26 10:40:23 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,7 +51,10 @@ void		launch_job(t_job *j, t_var *var)
 	t_process	*p;
 	int			infile;
 	int			mypipe[2];
+	t_pos		*pos;
 
+	pos = to_stock(NULL, 1);
+	pos->pipe = 0;
 	p = init_launch_job(j, &infile);
 	while (p)
 	{
@@ -62,6 +65,7 @@ void		launch_job(t_job *j, t_var *var)
 		{
 			pipe(mypipe);
 			p->fd_out = mypipe[1];
+			pos->pipe = p->fd_out;
 			fork_simple(j, p, &var, NULL);
 			close(mypipe[1]);
 			infile = mypipe[0];
