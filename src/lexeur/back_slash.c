@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   back_slash.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:14:16 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 16:07:40 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,7 @@ char		*browse_back_slash_and_quote(char *str, int i, int j)
 	int			quote_simple;
 
 	res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	ft_bzero(res, ft_strlen(str));
 	init_value(&quote_simple, &quote_double);
 	while (str[i])
 	{
@@ -62,9 +63,8 @@ char		*browse_back_slash_and_quote(char *str, int i, int j)
 		else if (str[i] && str[i] != '"' && str[i] != '\'')
 			solve_normal(str, &res, &i, j);
 		i += (str[i]) ? 1 : 0;
-		j += (res[j]) ? 1 : 0;
+		j++;
 	}
-	res[j] = '\0';
 	return (res);
 }
 
