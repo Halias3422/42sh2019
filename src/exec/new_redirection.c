@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/26 11:52:12 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 11:04:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,7 +63,7 @@ void		redirection_fill_pos_fd(t_pos *pos, int old_fd, int new_fd)
 }
 
 void		normal_redirection_behavior(t_redirect *red, t_process *p,
-			t_pos *pos)
+			t_pos *pos, int is_builtin)
 {
 	int	new_fd_out;
 	int		init_fd;
@@ -76,18 +76,15 @@ void		normal_redirection_behavior(t_redirect *red, t_process *p,
 	init_fd = red->fd;
 	if ((new_fd_out = redirection_get_argument_file_fd(red, file, p)) == -1)
 		return ;
-	if (ft_strcmp(red->token, "<<") == 0)
-		duping_fd_for_binaries(red->fd, 1);
-	else if (test_builtin(p) != 1)
+	else if (is_builtin != 1)
 		duping_fd_for_binaries(new_fd_out, red->fd);
 	redirection_fill_pos_fd(pos, init_fd, new_fd_out);
 	ft_strdel(&file);
 }
 
 void		aggregation_file_redirection(t_redirect *red, t_process *p,
-			t_pos *pos)
+			t_pos *pos, int is_builtin)
 {
-//	char	*file_in;
 	char	*file;
 	int		new_fd_out;
 	int		new_fd_in;
@@ -97,15 +94,7 @@ void		aggregation_file_redirection(t_redirect *red, t_process *p,
 		ft_printf("42sh: %s: ambiguous redirect\n", red->fd_out);
 		p->exec_builtin = 0;
 	}
-	// attendre que mateo retravaille le parsing pour toto>&2
-/*	if (is_all_num(red->fd_in) != 1)
-	{
-		file_in = ft_strdup("./");
-		file_in = ft_strjoinf(file_in, red->fd_in, 1);
-		new_fd_in = open(file_in, O_WRONLY);
-	}
-	else
-*/		new_fd_in = ft_atoi(red->fd_in);
+	new_fd_in = ft_atoi(red->fd_in);
 	if (is_all_num(red->fd_out) != 1)
 	{
 		if (red->fd_out && red->fd_out[0] != '/')
@@ -118,16 +107,16 @@ void		aggregation_file_redirection(t_redirect *red, t_process *p,
 	}
 	else
 		new_fd_out = ft_atoi(red->fd_out);
-	if (ft_strcmp(red->token, "<&") == 0)
+	if (ft_strcmp(red->token, "<&") == 0 && is_builtin != 1)
 		duping_fd_for_binaries(new_fd_in, new_fd_out);
-	else if (ft_strcmp(red->token, ">&") == 0)
+	else if (ft_strcmp(red->token, ">&") == 0 && is_builtin != 1)
 		duping_fd_for_binaries(new_fd_out, new_fd_in);
 	redirection_fill_pos_fd(pos, new_fd_in, new_fd_out);
 	ft_strdel(&file);
 }
 
 void		aggregation_redirection_behavior(t_redirect *red, t_process *p,
-			t_pos *pos)
+			t_pos *pos, int is_builtin)
 {
 	int		ret;
 	int		fd_in;
@@ -149,40 +138,79 @@ void		aggregation_redirection_behavior(t_redirect *red, t_process *p,
 		}
 		else
 		{
-			if (ft_strcmp(red->token, "<&") == 0)
+			if (ft_strcmp(red->token, "<&") == 0 && is_builtin != 1)
 				duping_fd_for_binaries(fd_out, fd_in);
-			else if (ft_strcmp(red->token, ">&") == 0)
+			else if (ft_strcmp(red->token, ">&") == 0 && is_builtin != 1)
+			{
+				p->fd_in = fd_out;
 				duping_fd_for_binaries(fd_out, fd_in);
+			}
 			redirection_fill_pos_fd(pos, fd_in, fd_out);
 		}
+}
+
+void		heredoc_redirection_behavior(t_redirect *red, t_process *p,
+			t_pos *pos)
+{
+	int		hdoc_file;
+
+	(void)p;
+	(void)pos;
+	hdoc_file = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0666);
+	write(hdoc_file, red->heredoc_content, ft_strlen(red->heredoc_content));
+	hdoc_file = open("/tmp/heredoc", O_CREAT | O_RDWR , 0666);
+		dup2(hdoc_file, 0);
+	close(hdoc_file);
 }
 
 void		get_all_redirections_done(t_process *p)
 {
 	t_redirect	*red;
 	t_pos		*pos;
+	int			is_builtin;
+	int			check;
 
+	check = 0;
+	is_builtin = test_builtin(p);
 	pos = to_stock(NULL, 1);
-	if (p->split == 'P')
-		dup2(p->fd_out, 1);
-	if (pos->pipe > 0)
+	if (pos->pipe > 0 && p->split != 'P')
 	{
-		close(pos->pipe);
-		dup2(p->fd_in, 0);
+		pos->act_fd_out = 1;
+		if (is_builtin != 1)
+		{
+			close(pos->pipe);
+			dup2(p->fd_in, 0);
+		}
 	}
+	if (p->redirect)
+		ft_printf("red->out _%s_\tred->in _%s_\n", p->redirect->fd_out, p->redirect->fd_in);
 	red = p->redirect;
 	while (red)
 	{
+		check++;
 		if (ft_strcmp(red->token, "<") == 0 || ft_strcmp(red->token, ">") == 0
 				|| ft_strcmp(red->token, ">>") == 0)
-			normal_redirection_behavior(red, p, pos);
+			normal_redirection_behavior(red, p, pos, is_builtin);
+		else if (ft_strcmp(red->token, "<<") == 0)
+			heredoc_redirection_behavior(red, p, pos);
 		else if ((ft_strcmp(red->token, "<&") == 0 ||
 				ft_strcmp(red->token, ">&") == 0) &&
 				is_all_num(red->fd_out) == 1 && (!red->fd_in || is_all_num(red->fd_in) == 1))
-			aggregation_redirection_behavior(red, p, pos);
+			aggregation_redirection_behavior(red, p, pos, is_builtin);
 		else if (ft_strcmp(red->token, "<&") == 0 ||
 				ft_strcmp(red->token, ">&") == 0)
-			aggregation_file_redirection(red, p, pos);
+			aggregation_file_redirection(red, p, pos, is_builtin);
 		red = red->next;
+	}
+	if (p->split == 'P')
+	{
+		pos->act_fd_out = p->fd_out;
+		if (is_builtin != 1 && check > 0)
+		{
+			puts("AH OUI OUI OUI\n");
+		dup2(p->fd_out, p->fd_in);
+		}
+		else
+			dup2(p->fd_out, 1);
 	}
 }

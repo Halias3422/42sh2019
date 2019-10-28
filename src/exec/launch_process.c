@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:02:48 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 09:47:50 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,6 +86,7 @@ int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
 	if ((ret = check_path_before_fork(p, var, j, &cmd_path)) != 0)
 		return (ret);
 	pid = fork();
+
 	if (pid < 0)
 	{
 		ft_strdel(&cmd_path);

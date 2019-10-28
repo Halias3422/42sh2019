@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/26 10:40:23 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 09:48:53 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,11 +58,13 @@ void		launch_job(t_job *j, t_var *var)
 	p = init_launch_job(j, &infile);
 	while (p)
 	{
+
 		if (check_process(var, p, j))
 			return (free_temp(&var));
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{
+			ft_printf("jai trouve un split\n");
 			pipe(mypipe);
 			p->fd_out = mypipe[1];
 			pos->pipe = p->fd_out;
