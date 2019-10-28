@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 15:08:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 17:53:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,12 +40,6 @@ t_process	*init_launch_job(t_job *j, int *infile)
 	return (p);
 }
 
-void		launch_simple_job(t_process *p, t_job *j, t_var **var)
-{
-	p->fd_out = 1;
-	fork_simple(j, p, var, NULL);
-}
-
 int			launch_multiple_jobs(t_process *p, t_job *j, t_var **var,
 			int *mypipe)
 {
@@ -56,34 +50,44 @@ int			launch_multiple_jobs(t_process *p, t_job *j, t_var **var,
 	return (mypipe[0]);
 }
 
+void		send_job_to_fork_simple(t_process *p, t_job *j, t_var *var,
+			int *infile)
+{
+	int		mypipe[2];
+	t_pos	*pos;
+
+	pos = to_stock(NULL, 1);
+	p->fd_in = *infile;
+	if (p->split == 'P')
+	{
+		pipe(mypipe);
+		p->fd_out = mypipe[1];
+		pos->pipe = p->fd_out;
+		fork_simple(j, p, &var, NULL);
+		close(mypipe[1]);
+		*infile = mypipe[0];
+	}
+	else
+	{
+		p->fd_out = 1;
+		fork_simple(j, p, &var, NULL);
+	}
+}
+
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
 	int			infile;
-	int			mypipe[2];
 	t_pos		*pos;
-
 
 	pos = to_stock(NULL, 1);
 	pos->pipe = 0;
 	p = init_launch_job(j, &infile);
 	while (p)
 	{
-
 		if (check_process(var, p, j))
 			return (free_temp(&var));
-		p->fd_in = infile;
-		if (p->split == 'P')
-		{
-			pipe(mypipe);
-			p->fd_out = mypipe[1];
-			pos->pipe = p->fd_out;
-			fork_simple(j, p, &var, NULL);
-			close(mypipe[1]);
-			infile = mypipe[0];
-		}
-		else
-			launch_simple_job(p, j, &var);
+		send_job_to_fork_simple(p, j, var, &infile);
 		p = get_and_or(p);
 		if (pos->exit_mode < 0)
 			free_temp(&var);

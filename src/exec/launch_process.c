@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 15:44:03 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 17:53:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -51,13 +51,40 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 	}
 }
 
+int			launch_process(t_process *p, t_var *var, char *path)
+{
+	int	ret;
+
+	ret = 0;
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTTOU, &signal_handler);
+	signal(SIGCHLD, SIG_IGN);
+	if (test_builtin(p) != 1)
+		get_all_redirections_done(p, to_stock(NULL, 1), p->redirect);
+	if (p->exec_builtin == 0)
+		exit(1);
+	if (find_builtins(p, &var) != 0)
+		exit(p->ret);
+	if (path == NULL)
+	{
+		if (p->hash_error)
+			ft_printf_err_fd("%s", p->hash_error);
+		exit(127);
+	}
+	ft_execute_function(path, p->cmd, var);
+	exit(127);
+	return (0);
+}
+
 int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 			char **cmd_path)
 {
 	t_pos	*pos;
 
 	if (test_builtin(p) == 1)
-	get_all_redirections_done(p, to_stock(NULL, 1), p->redirect);
+		get_all_redirections_done(p, to_stock(NULL, 1), p->redirect);
 	to_stock(p, 2);
 	pos = to_stock(NULL, 1);
 	if (!p || !p->cmd || !p->cmd[0])
@@ -65,10 +92,6 @@ int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 	p->background = j->split == '&' ? 1 : 0;
 	if (j->split != '&' && is_builtin_modify(p))
 	{
-//		launch_redirection_builtin(p);
-//		pos->act_fd_out = p->fd_out;
-//		pos->act_fd_error = p->fd_error;
-//		pos->separator = p->split;
 		if (find_builtins(p, var) != 0)
 			return (1);
 	}
@@ -86,7 +109,6 @@ int			fork_simple(t_job *j, t_process *p, t_var **var, char *cmd_path)
 	if ((ret = check_path_before_fork(p, var, j, &cmd_path)) != 0)
 		return (ret);
 	pid = fork();
-
 	if (pid < 0)
 	{
 		ft_strdel(&cmd_path);

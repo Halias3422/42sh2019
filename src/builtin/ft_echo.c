@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 15:00:57 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 16:08:03 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 17:42:00 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,9 +35,9 @@ int			ft_echo_simple(t_process *p, t_var **var, t_pos *pos)
 	return (0);
 }
 
-int		ft_echo_no_line(t_process *p, t_var **var, t_pos *pos)
+int			ft_echo_no_line(t_process *p, t_var **var, t_pos *pos)
 {
-	int i;
+	int		i;
 
 	i = 2;
 	var = NULL;
@@ -55,7 +55,7 @@ int		ft_echo_no_line(t_process *p, t_var **var, t_pos *pos)
 	return (0);
 }
 
-int		ft_echo(t_process *p, t_var **var)
+int			ft_echo(t_process *p, t_var **var)
 {
 	t_pos	*pos;
 

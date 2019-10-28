@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 15:52:22 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 17:39:45 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 		return (1);
 	}
 	if (p->split != 'P')
-	chdir(new_path);
+		chdir(new_path);
 	ft_strdel(&pos->pwd);
 	if (option == 'P')
 		pos->pwd = getcwd(NULL, 1000);
