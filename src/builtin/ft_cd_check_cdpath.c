@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 13:02:13 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 15:14:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,6 @@ void		restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
 	pos->pwd = ft_strdup(ft_get_val("PWD", *var, ENVIRONEMENT));
 	if (!pos->pwd)
 		pos->pwd = getcwd(NULL, 1000);
-	free_env_list(old_env);
 }
 
 int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
@@ -35,6 +34,7 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 
 	p = to_stock(NULL, 3);
 	var = stock(NULL, 6);
+	new_path = error_in_new_path(new_path);
 	if (verif_path(new_path, 1, 1) == 0)
 	{
 		restore_old_env(old_env, &var, pos);
@@ -51,12 +51,16 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 	replace_pwd_vars_in_env(&var, new_path, option);
 	if (p->split == 'P')
 		restore_old_env(old_env, &var, pos);
+	free_env_list(old_env);
 	return (0);
 }
 
 void		print_cd_error(char *path, int i, int mute, int usage)
 {
-	if (mute)
+	t_pos	*pos;
+
+	pos = to_stock(NULL, 1);
+	if (mute && pos->error_printed == 0)
 	{
 		if (i < 0)
 			i = 0;

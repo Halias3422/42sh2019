@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/26 10:39:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 13:53:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -128,6 +128,9 @@ typedef struct			s_pos
 	int					act_fd_error;
 	int					separator;
 	int					pipe;
+	int					tab_key_printed;
+	int					exit_mode;
+	int					error_printed;
 }						t_pos;
 
 typedef struct			s_htab
@@ -196,6 +199,15 @@ void					print_info(t_pos *pos);
 void					print_hist(t_pos *pos, t_hist *hist);
 int						got_a_wildcard(char *name);
 int						check_ans(char *str);
+void					print_htab_debug(t_htab *htab);
+void					print_all_env(t_var *var);
+
+/*
+**	PRINT_PROMPT_C
+*/
+
+void					print_first_prompt(t_pos *pos);
+void					print_second_prompt(t_pos *pos);
 
 void					print_all_env(t_var *var);
 
@@ -353,6 +365,8 @@ t_htab					*looking_for_current(t_pos *pos, t_htab *htab,
 ** TAB_KEY_ALL_PATH
 */
 
+int						scan_ans_current_file(int *passed_exe, int *ret,
+						int i, t_pos *pos);
 t_htab					*looking_for_all(t_pos *pos, t_htab *htab, char **name);
 
 /*
@@ -403,6 +417,7 @@ t_htab					*get_intelligent_match(t_htab *htab, char *name);
 ** TAB_KEY_AUTO_COMPLETE_FOR_TILDE_C
 */
 
+void					finish_auto_complete(t_pos *pos);
 void					reduce_ans_for_tilde(t_pos *pos, char *name);
 int						get_length_of_home_env(t_var *env);
 
@@ -521,7 +536,7 @@ t_var					*init_env(char **env, t_pos *pos, char **av, int i);
 char					*init_name(char *src);
 void					free_env(t_var *ptr_env);
 char					*init_data(char *src);
-void					shlvl(t_var *env);
+void					shlvl(t_var *env, int ac, char **av);
 
 /*
 *******************************************************************************

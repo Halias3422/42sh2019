@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/28 07:46:44 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/28 15:11:53 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -70,7 +70,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
 				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c ft_cd_check_cdpath.c \
 				tools_bis.c ft_setenv_tool.c ft_env_i_new_env.c\
-				ft_fg_bg_plus_and_minus.c ft_shtheme.c\
+				ft_fg_bg_plus_and_minus.c ft_shtheme.c ft_cd_error.c\
 				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c ft_fg_bg_tools.c)
 
 SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)
@@ -87,7 +87,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined
+FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined
 FLAG_END = -lcurses
 NORME = norminette
 

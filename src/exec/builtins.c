@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:36:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 13:52:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,10 +61,12 @@ int		is_builtin_modify(t_process *p)
 
 int		find_builtins(t_process *p, t_var **var)
 {
-	int i;
+	int		i;
+	t_pos	*pos;
 
 	if (p->exec_builtin == 0)
 		return (0);
+	pos = to_stock(NULL, 1);
 	i = -1;
 	if (!p->cmd[0])
 		return (0);
@@ -73,7 +75,8 @@ int		find_builtins(t_process *p, t_var **var)
 		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
 		{
 			p->ret = g_builtin_list[i].ptr_builtin(p, var);
-			add_list_env(var, SPE, ft_strdup("?"), ft_itoa(p->ret));
+			if (pos->exit_mode < 0)
+				add_list_env(var, SPE, ft_strdup("?"), ft_itoa(p->ret));
 			return (1);
 		}
 	}

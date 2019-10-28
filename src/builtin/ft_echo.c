@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 15:00:57 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 08:14:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 13:58:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,7 @@ int			ft_echo_simple(t_process *p, t_var **var, t_pos *pos)
 	{
 		if (i != 1)
 			ft_printf_fd(" ");
-//		ft_printf("pos->act_fd_out = %d\n", pos->act_fd_out);
+		ft_printf("ici p->cmd[i] = [%s]\n", p->cmd[i]);
 		ft_printf_fd("%s", p->cmd[i]);
 		i++;
 	}

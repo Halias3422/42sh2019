@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:03:35 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 13:50:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,7 @@ char			*make_ans(t_pos *pos, t_hist *hist, t_var *env)
 	termcaps42sh(pos, hist, env);
 	if (pos->ans_heredoc)
 		remake_pos_ans(pos);
-	pos->ans = check_for_tilde(pos->ans, env, 0, 0);
+	pos->ans = check_for_tilde(pos->ans, env, -1, 0);
 	pos->last_cmd_on_bg = 0;
 	tcsetattr(0, TCSANOW, &pos->old_term);
 	return (ft_strdup(pos->ans));
@@ -86,7 +86,6 @@ int				main(int ac, char **av, char **env)
 	t_pos	pos;
 	pid_t	shell_pid;
 
-	(void)ac;
 	if (check_term() == -1)
 		exit(0);
 	check_entry();
@@ -94,15 +93,17 @@ int				main(int ac, char **av, char **env)
 	setpgid(shell_pid, shell_pid);
 	tcsetpgrp(STDIN_FILENO, shell_pid);
 	my_env = init_env(env, &pos, av, 0);
-	shlvl(my_env);
+	shlvl(my_env, ac, av);
 	hist = (t_hist *)malloc(sizeof(t_hist));
 	init_t_hist(hist);
 	main_init_pos(&pos, my_env);
 	hist = create_history(&pos, hist);
-	while (1)
+	while (pos.exit_mode < 0)
 	{
 		if (main_loop(&pos, stock(NULL, 6), hist) != 0)
 			break ;
+		if (pos.exit_mode >= 0)
+			kill_last_job(stock(NULL, 10), &pos, my_env, stock_t_job(NULL, 3));
 	}
-	free_job_list();
+	return (pos.exit_mode);
 }

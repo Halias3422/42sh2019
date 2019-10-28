@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 16:09:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 15:34:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ void				read_hash_table(t_hash **hash)
 		tmp = hash[i];
 		while (tmp != NULL)
 		{
-			if (tmp->path != NULL && tmp->hit == 1)
+			if (tmp->path != NULL && tmp->hit >= 1)
 				ft_printf_fd("%s used by %s %d time(s)\n",
 						tmp->path, tmp->exec, tmp->hit);
 			tmp = tmp->next;

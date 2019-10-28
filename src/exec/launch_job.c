@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   launch_job.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 09:48:53 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 15:08:37 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,12 +46,23 @@ void		launch_simple_job(t_process *p, t_job *j, t_var **var)
 	fork_simple(j, p, var, NULL);
 }
 
+int			launch_multiple_jobs(t_process *p, t_job *j, t_var **var,
+			int *mypipe)
+{
+	pipe(mypipe);
+	p->fd_out = mypipe[1];
+	fork_simple(j, p, var, NULL);
+	close(mypipe[1]);
+	return (mypipe[0]);
+}
+
 void		launch_job(t_job *j, t_var *var)
 {
 	t_process	*p;
 	int			infile;
 	int			mypipe[2];
 	t_pos		*pos;
+
 
 	pos = to_stock(NULL, 1);
 	pos->pipe = 0;
@@ -64,7 +75,6 @@ void		launch_job(t_job *j, t_var *var)
 		p->fd_in = infile;
 		if (p->split == 'P')
 		{
-			ft_printf("jai trouve un split\n");
 			pipe(mypipe);
 			p->fd_out = mypipe[1];
 			pos->pipe = p->fd_out;
@@ -75,7 +85,8 @@ void		launch_job(t_job *j, t_var *var)
 		else
 			launch_simple_job(p, j, &var);
 		p = get_and_or(p);
-		free_temp(&var);
+		if (pos->exit_mode < 0)
+			free_temp(&var);
 	}
 	alert_job(j);
 }

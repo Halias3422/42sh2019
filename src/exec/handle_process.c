@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 08:57:55 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 09:57:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 15:44:40 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 int			finish_process(t_process *p, t_var *var, char *path)
 {
 	if (test_builtin(p) != 1)
-		get_all_redirections_done(p);
+		get_all_redirections_done(p, to_stock(NULL, 1), p->redirect);
 	if (p->exec_builtin == 0)
 		exit(1);
 	if (find_builtins(p, &var) != 0)

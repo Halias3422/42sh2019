@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_norme.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:11:03 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 13:26:15 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/25 17:08:42 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ void		add_env_temp(t_var **var, char *str, int type)
 	(*var)->next->type = type;
 	(*var)->next->next = tmp;
 	(*var) = start;
+	print_all_env((*var));
 }
 
 char		**remove_tab(char **src, int j)
