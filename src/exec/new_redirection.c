@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 15:44:58 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 16:56:55 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,19 +30,20 @@ int			redirection_get_argument_file_fd(t_redirect *red, char *file,
 	new_fd_out = 1;
 	if (access(file, F_OK) != -1 && access(file, W_OK) != -1)
 	{
-		if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, "<") == 0
-				|| ft_strcmp(red->token, ">&") == 0)
+		if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, ">&") == 0)
 			new_fd_out = open(file, O_RDWR | O_TRUNC);
+		else if (ft_strcmp(red->token, "<") == 0)
+			new_fd_out = open(file, O_RDWR | O_CREAT, 0666);
 		else if (ft_strcmp(red->token, ">>") == 0)
-		{
 			new_fd_out = open(file, O_WRONLY | O_CREAT |O_APPEND);
-		}
 	}
 	else if (access(file, F_OK) != -1 && access(file, W_OK) == -1)
 		ft_printf_err_fd("42sh: %s: permission denied\n", red->fd_out);
 	else if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, ">>") == 0
 			|| ft_strcmp(red->token, ">&") == 0)
+	{
 		new_fd_out = open(file, O_RDWR | O_CREAT, 0666);
+	}
 	else
 	{
 		ft_printf_err_fd("42sh: %s: No such file or directory\n", red->fd_out);
@@ -75,15 +76,22 @@ void		normal_redirection_behavior(t_redirect *red, t_process *p,
 	int		init_fd;
 	char	*file;
 
-
-	file = ft_strdup("./");
+	if (red->fd_out[0] != '/')
+		file = ft_strdup("./");
+	else
+		file = ft_strnew(0);
 	file = ft_strjoinf(file, red->fd_out, 1);
 	new_fd_out = 1;
 	init_fd = red->fd;
 	if ((new_fd_out = redirection_get_argument_file_fd(red, file, p)) == -1)
 		return ;
 	else if (is_builtin != 1)
+	{
+		if (ft_strcmp(red->token, "<") != 0)
 		duping_fd_for_binaries(new_fd_out, red->fd);
+		else
+			duping_fd_for_binaries(new_fd_out, 0);
+	}
 	redirection_fill_pos_fd(pos, init_fd, new_fd_out);
 	ft_strdel(&file);
 }
