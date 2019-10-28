@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 13:39:12 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 13:48:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,6 +55,7 @@ int			redirection_get_argument_file_fd(t_redirect *red, char *file,
 
 void		redirection_fill_pos_fd(t_pos *pos, int old_fd, int new_fd)
 {
+	ft_printf("old_fd =%d new_fd = %d\n", old_fd, new_fd);
 	if (old_fd == 1)
 		pos->act_fd_out = new_fd;
 	else if (old_fd == 2)
@@ -89,6 +90,7 @@ void		aggregation_file_redirection(t_redirect *red, t_process *p,
 	int		new_fd_out;
 	int		new_fd_in;
 
+	ft_printf("je viens la\n");
 	if (ft_strcmp(red->token, "<&") == 0 || (red->fd_in && is_all_num(red->fd_in) != 1))
 	{
 		ft_printf("42sh: %s: ambiguous redirect\n", red->fd_out);
@@ -184,7 +186,6 @@ void		get_all_redirections_done(t_process *p)
 	int			is_builtin;
 	int			check;
 
-	dprintf(2, "je passe la mamene\n");
 	check = 0;
 	is_builtin = test_builtin(p);
 	pos = to_stock(NULL, 1);
