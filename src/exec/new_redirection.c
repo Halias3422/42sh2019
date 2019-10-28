@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 11:04:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 13:39:12 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,12 +89,15 @@ void		aggregation_file_redirection(t_redirect *red, t_process *p,
 	int		new_fd_out;
 	int		new_fd_in;
 
-	if (ft_strcmp(red->token, "<&") == 0)
+	if (ft_strcmp(red->token, "<&") == 0 || (red->fd_in && is_all_num(red->fd_in) != 1))
 	{
 		ft_printf("42sh: %s: ambiguous redirect\n", red->fd_out);
 		p->exec_builtin = 0;
 	}
+	if (red->fd_in)
 	new_fd_in = ft_atoi(red->fd_in);
+	else
+		new_fd_in = 1;
 	if (is_all_num(red->fd_out) != 1)
 	{
 		if (red->fd_out && red->fd_out[0] != '/')
@@ -110,7 +113,13 @@ void		aggregation_file_redirection(t_redirect *red, t_process *p,
 	if (ft_strcmp(red->token, "<&") == 0 && is_builtin != 1)
 		duping_fd_for_binaries(new_fd_in, new_fd_out);
 	else if (ft_strcmp(red->token, ">&") == 0 && is_builtin != 1)
+	{
+		if (new_fd_in == 1 || new_fd_out == 1)
+			p->fd_in = new_fd_out;
+		else
+			p->fd_in = 1;
 		duping_fd_for_binaries(new_fd_out, new_fd_in);
+	}
 	redirection_fill_pos_fd(pos, new_fd_in, new_fd_out);
 	ft_strdel(&file);
 }
@@ -142,7 +151,10 @@ void		aggregation_redirection_behavior(t_redirect *red, t_process *p,
 				duping_fd_for_binaries(fd_out, fd_in);
 			else if (ft_strcmp(red->token, ">&") == 0 && is_builtin != 1)
 			{
-				p->fd_in = fd_out;
+				if (fd_in == 1 || fd_out == 1)
+					p->fd_in = fd_out;
+				else
+					p->fd_in = 1;
 				duping_fd_for_binaries(fd_out, fd_in);
 			}
 			redirection_fill_pos_fd(pos, fd_in, fd_out);
@@ -158,8 +170,10 @@ void		heredoc_redirection_behavior(t_redirect *red, t_process *p,
 	(void)pos;
 	hdoc_file = open("/tmp/heredoc", O_CREAT | O_RDWR | O_TRUNC, 0666);
 	write(hdoc_file, red->heredoc_content, ft_strlen(red->heredoc_content));
+	write(hdoc_file, "\n", 1);
 	hdoc_file = open("/tmp/heredoc", O_CREAT | O_RDWR , 0666);
 		dup2(hdoc_file, 0);
+		p->fd_in = 1;
 	close(hdoc_file);
 }
 
@@ -170,6 +184,7 @@ void		get_all_redirections_done(t_process *p)
 	int			is_builtin;
 	int			check;
 
+	dprintf(2, "je passe la mamene\n");
 	check = 0;
 	is_builtin = test_builtin(p);
 	pos = to_stock(NULL, 1);
@@ -182,8 +197,6 @@ void		get_all_redirections_done(t_process *p)
 			dup2(p->fd_in, 0);
 		}
 	}
-	if (p->redirect)
-		ft_printf("red->out _%s_\tred->in _%s_\n", p->redirect->fd_out, p->redirect->fd_in);
 	red = p->redirect;
 	while (red)
 	{
@@ -206,11 +219,8 @@ void		get_all_redirections_done(t_process *p)
 	{
 		pos->act_fd_out = p->fd_out;
 		if (is_builtin != 1 && check > 0)
-		{
-			puts("AH OUI OUI OUI\n");
-		dup2(p->fd_out, p->fd_in);
-		}
-		else
+			dup2(p->fd_out, p->fd_in);
+		else if (is_builtin != 1)
 			dup2(p->fd_out, 1);
 	}
 }

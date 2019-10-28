@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:31:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 13:02:13 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,8 +30,10 @@ void		restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
 
 int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 {
-	t_var	*var;
+	t_var		*var;
+	t_process	*p;
 
+	p = to_stock(NULL, 3);
 	var = stock(NULL, 6);
 	if (verif_path(new_path, 1, 1) == 0)
 	{
@@ -39,6 +41,7 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 		ft_strdel(&new_path);
 		return (1);
 	}
+	if (p->split != 'P')
 	chdir(new_path);
 	ft_strdel(&pos->pwd);
 	if (option == 'P')
@@ -46,7 +49,8 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 	else
 		pos->pwd = ft_strdup(new_path);
 	replace_pwd_vars_in_env(&var, new_path, option);
-//	restore_old_env(old_env, &var, pos);
+	if (p->split == 'P')
+		restore_old_env(old_env, &var, pos);
 	return (0);
 }
 
