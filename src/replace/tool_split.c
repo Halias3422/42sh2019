@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 16:08:28 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 16:12:42 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,19 +41,16 @@ void		split_space_find_number(char *str, int *i)
 	ret = -1;
 	while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
 		(*i)++;
-	puts("here");
 	if (str[*i])
 	{
 		if (!odd_backslash((*i) - 1, str))
 			ret = find_token(str, *i);
 		if (ret == -1)
 		{
-			puts("li");
 			while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
 			&& (!odd_backslash((*i) - 1, str) && find_token(str, *i) == -1))
 				(*i)++;
 			(*i)++;
-			printf("->>>>>>>>>>str[%d] -> _%c_\nret -> %d\n", *i, str[*i], ret);
 		}
 		if (str[*i] && (ret == 4 || ret == 6 || ret == 9 || ret == 7))
 		{
@@ -85,7 +82,6 @@ int			check_token_after_number(char *str, int i)
 
 int			double_check(char *str, int i)
 {
-	printf("str[%d]: _%c_\n", i, str[i]);
 	if (!odd_backslash(i - 1, str) && find_token(str, i) != -1)
 	{
 		if (odd_backslash(i - 1, str))

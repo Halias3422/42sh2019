@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/09 10:52:26 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 16:08:00 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 16:12:49 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,7 +68,6 @@ int		basic_split_while(int *tint, char *str, char **res, char **tag)
 	else
 		split_space_basic(str, &tint[0]);
 	res[tint[1]] = ft_strsub(str, start, (tint[0]) - start);
-	printf("res[%d]: _%s_\n", tint[1], res[tint[1]]);
 	if (str[tint[0]] && (ret = find_token(str, tint[0])) != -1)
 		res[tint[1]] = fill_res_token(tint, ret, str);
 	return (1);

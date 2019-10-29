@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 15:49:55 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 16:12:27 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,7 +74,6 @@ char		**del_back_slash_and_quote(char **ar)
 	char	**res;
 
 	i = 0;
-	printf("ar[%d]=%s\n", i, ar[i]);
 	while (ar[i])
 		i++;
 	res = (char **)malloc(sizeof(char *) * (i + 1));
@@ -82,7 +81,6 @@ char		**del_back_slash_and_quote(char **ar)
 	while (ar[i])
 	{
 		res[i] = browse_back_slash_and_quote(ar[i], 0, 0, NULL);
-		printf("res[%d]=%s\n",i , res[i]);
 		i++;
 	}
 	res[i] = NULL;
