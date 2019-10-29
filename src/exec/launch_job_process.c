@@ -16,13 +16,22 @@
 
 t_process	*get_and_or(t_process *p)
 {
+	char split;
+
 	if (p->split != '|' && p->split != 'A')
 		return (p->next);
+	split = p->split;
 	if (p->split == '|' && p->ret != 0)
 		return (p->next);
 	else if (p->split == 'A' && p->ret == 0)
 		return (p->next);
-	return (p->next->next);
+	while (p)
+	{
+		if (p->split != split)
+			return (p->next);
+		p = p->next;
+	}
+	return (NULL);
 }
 
 void		alert_job(t_job *j)
