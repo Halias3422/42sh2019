@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 12:49:53 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 14:04:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,9 +14,9 @@
 #include "../../includes/exec.h"
 #include <fcntl.h>
 
-int			is_all_num(char *str)
+int				is_all_num(char *str)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	if (str[0] && str[0] == '-')
@@ -68,53 +68,14 @@ static void		init_pipe_redirection(t_pos *pos, t_process *p, int is_builtin,
 	}
 }
 
-void			print_all_redirect(t_process *p)
-{
-	t_redirect	*red;
-
-	red = p->redirect;
-	if (!p)
-		dprintf(2, "p est NULL\n");
-	else
-	{
-		dprintf(2, "\n\n=======================================\n");
-		while (p)
-		{
-			int		i = 0;
-			while (p->cmd[i])
-				dprintf(2, "p->cmd = [%s]\n", p->cmd[i++]);
-			dprintf(2, "dans p:\n");
-			dprintf(2, "split = [%c]\n", p->split);
-			dprintf(2, "fd in = [%d] - fd out = [%d], - fd error = [%d]\n", p->fd_in, p->fd_out, p->fd_error);
-			dprintf(2, "\ndans les redirections:\n");
-			if (!red)
-				dprintf(2, "red est NULL\n");
-			else
-			{
-				while (red)
-				{
-					dprintf(2, "red fd in = [%s], red fd out = [%s], red fd = [%d], red token = [%s]\n", red->fd_in, red->fd_out, red->fd, red->token);
-					red = red->next;
-				}
-			}
-			if (p)
-				p = p->next;
-			red = p->redirect;
-		}
-		dprintf(2, "=======================================\n");
-	}
-}
-
 void			get_all_redirections_done(t_process *p, t_pos *pos,
-				t_redirect *red)
+				t_redirect *red, int is_builtin)
 {
-	int			is_builtin;
 	int			check;
 	int			i;
 
 	i = -1;
 	check = 0;
-	is_builtin = test_builtin(p);
 	end_pipe_redirection(pos, p, is_builtin);
 	while (red)
 	{

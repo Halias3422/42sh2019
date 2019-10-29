@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 10:34:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 12:59:42 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,7 +62,8 @@ int			launch_process(t_process *p, t_var *var, char *path)
 	signal(SIGTTOU, &signal_handler);
 	signal(SIGCHLD, SIG_IGN);
 	if (test_builtin(p) != 1)
-		get_all_redirections_done(p, to_stock(NULL, 1), p->redirect);
+		get_all_redirections_done(p, to_stock(NULL, 1), p->redirect,
+				test_builtin(p));
 	if (p->exec_builtin == 0)
 		exit(1);
 	if (find_builtins(p, &var) != 0)
@@ -84,7 +85,8 @@ int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 	t_pos	*pos;
 
 	if (test_builtin(p) == 1)
-		get_all_redirections_done(p, to_stock(NULL, 1), p->redirect);
+		get_all_redirections_done(p, to_stock(NULL, 1),
+				p->redirect, test_builtin(p));
 	to_stock(p, 2);
 	pos = to_stock(NULL, 1);
 	p->background = j->split == '&' ? 1 : 0;

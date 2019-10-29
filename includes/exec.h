@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 11:19:30 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 14:04:59 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -334,7 +334,7 @@ int						is_all_num(char *str);
 */
 
 void					get_all_redirections_done(t_process *p, t_pos *pos,
-						t_redirect *red);
+						t_redirect *red, int is_builtin);
 
 /*
 **	REDIRECTION_NORMAL_C
@@ -361,5 +361,7 @@ void					aggregation_file_redirection(t_redirect *red,
 						t_process *p, char *file);
 void					finishing_aggregation_file(t_redirect *red,
 						t_process *p, int new_fd_in, int new_fd_out);
+void					init_fd_in_and_out(t_lexeur **res, int *t, t_redirect
+						*tmp);
 
 #endif

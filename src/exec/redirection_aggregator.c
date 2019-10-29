@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:19:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 11:20:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 14:05:34 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,18 +28,15 @@ void		finishing_aggregation_file(t_redirect *red, t_process *p,
 	if (ft_strcmp(red->token, "<&") == 0 && is_builtin != 1)
 		dup2(new_fd_in, new_fd_out);
 	else if (ft_strcmp(red->token, ">&") == 0 && is_builtin != 1)
-	{
-		dprintf(2, "new_fd_out = %d new_fd_in = %d\n", new_fd_out, new_fd_in);
 		dup2(new_fd_out, new_fd_in);
-	}
 	redirection_fill_pos_fd(pos, new_fd_in, new_fd_out);
 }
 
 void		aggregation_file_redirection(t_redirect *red, t_process *p,
 			char *file)
 {
-	int		new_fd_out;
 	int		new_fd_in;
+	int		new_fd_out;
 
 	if (ft_strcmp(red->token, "<&") == 0 ||
 			(red->fd_in && is_all_num(red->fd_in) != 1))
@@ -73,10 +70,8 @@ void		finishing_aggregation_redirection(int fd_in, int fd_out,
 
 	is_builtin = test_builtin(p);
 	pos = to_stock(NULL, 1);
-	if (fd_in == 1 || fd_out == 1)
+	if (fd_in == 1 && fd_out == 1 && is_builtin != 1)
 		p->fd_in = fd_out;
-	else
-		p->fd_in = 1;
 	if (ft_strcmp(red->token, "<&") == 0 && is_builtin != 1)
 		dup2(fd_out, fd_in);
 	else if (ft_strcmp(red->token, ">&") == 0 && is_builtin != 1)

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 13:14:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 13:23:59 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,10 +47,7 @@ int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
-	{
-		tmp->fd_in = (res[*t]->fd_in) ? ft_strdup(res[*t]->fd_in) : NULL;
-		tmp->fd_out = (res[*t]->fd_out) ? ft_strdup(res[*t]->fd_out) : NULL;
-	}
+		init_fd_in_and_out(res, t, tmp);
 	else
 	{
 		tmp->fd_in = NULL;
@@ -75,10 +72,7 @@ int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
-	{
-		tmp->fd_in = (res[*t]->fd_in) ? ft_strdup(res[*t]->fd_in) : NULL;
-		tmp->fd_out = (res[*t]->fd_out) ? ft_strdup(res[*t]->fd_out) : NULL;
-	}
+		init_fd_in_and_out(res, t, tmp);
 	else
 	{
 		tmp->fd_in = NULL;
