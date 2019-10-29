@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 17:28:41 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 11:19:30 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,9 +61,6 @@ typedef	struct			s_process
 	int					background;
 	char				*hash_error;
 	int					exec_builtin;
-	int					save_fd_in;
-	int					save_fd_out;
-	int					save_fd_err;
 	t_redirect			*redirect;
 }						t_process;
 
@@ -361,7 +358,7 @@ void					aggregation_redirection_behavior(t_redirect *red,
 void					finishing_aggregation_redirection(int fd_in, int fd_out,
 						t_redirect *red, t_process *p);
 void					aggregation_file_redirection(t_redirect *red,
-						t_process *p);
+						t_process *p, char *file);
 void					finishing_aggregation_file(t_redirect *red,
 						t_process *p, int new_fd_in, int new_fd_out);
 

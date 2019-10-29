@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/28 17:41:21 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/29 12:45:50 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -50,11 +50,10 @@ SRC_LEX = $(addprefix lexeur/, \
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
 			job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
-				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
-				before_redirection.c new_job.c process_file.c alias_reduction.c alias_norme.c \
-				exec_tool.c var_norme.c launch_job_process.c job_function_plus_and_minus.c \
-				process_heredoc.c builtin_redirection.c builtin_redirection_prepare.c \
-				redirection_pipe_dispatch.c redirection_normal.c redirection_aggregator.c)
+				process_tool.c alias_tools.c free_job.c new_job.c process_file.c \
+				alias_reduction.c alias_norme.c exec_tool.c var_norme.c launch_job_process.c \
+				job_function_plus_and_minus.c process_heredoc.c redirection_pipe_dispatch.c \
+				redirection_normal.c redirection_aggregator.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c\
@@ -87,7 +86,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -O3 -g3 #-fsanitize=address #-fsanitize=undefined
+FLAG += -Wall -Werror -Wextra -O3 -g3 -fsanitize=address #-fsanitize=undefined
 FLAG_END = -lcurses
 NORME = norminette
 

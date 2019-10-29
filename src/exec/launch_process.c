@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 17:53:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 10:34:38 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -87,15 +87,13 @@ int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 		get_all_redirections_done(p, to_stock(NULL, 1), p->redirect);
 	to_stock(p, 2);
 	pos = to_stock(NULL, 1);
-	if (!p || !p->cmd || !p->cmd[0])
-		return (-1);
 	p->background = j->split == '&' ? 1 : 0;
 	if (j->split != '&' && is_builtin_modify(p))
 	{
 		if (find_builtins(p, var) != 0)
 			return (1);
 	}
-	if (test_builtin(p) != 1)
+	if (test_builtin(p) != 1 && p && p->cmd && p->cmd[0])
 		*cmd_path = check_path_hash(var, ft_strdup(p->cmd[0]), 0, NULL);
 	return (0);
 }

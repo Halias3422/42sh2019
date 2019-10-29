@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 17:53:20 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 11:06:29 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,6 @@ t_process	*init_launch_job(t_job *j, int *infile)
 	if (!(j->split != '&' && is_builtin_modify(p)))
 		add_job(j, 2);
 	j->status = 'r';
-	before_redirection(p);
 	*infile = 0;
 	return (p);
 }
@@ -62,8 +61,8 @@ void		send_job_to_fork_simple(t_process *p, t_job *j, t_var *var,
 	{
 		pipe(mypipe);
 		p->fd_out = mypipe[1];
-		pos->pipe = p->fd_out;
 		fork_simple(j, p, &var, NULL);
+		pos->pipe = p->fd_out;
 		close(mypipe[1]);
 		*infile = mypipe[0];
 	}

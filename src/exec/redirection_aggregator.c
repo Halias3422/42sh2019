@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:19:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 17:39:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 11:20:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,20 +28,23 @@ void		finishing_aggregation_file(t_redirect *red, t_process *p,
 	if (ft_strcmp(red->token, "<&") == 0 && is_builtin != 1)
 		dup2(new_fd_in, new_fd_out);
 	else if (ft_strcmp(red->token, ">&") == 0 && is_builtin != 1)
+	{
+		dprintf(2, "new_fd_out = %d new_fd_in = %d\n", new_fd_out, new_fd_in);
 		dup2(new_fd_out, new_fd_in);
+	}
 	redirection_fill_pos_fd(pos, new_fd_in, new_fd_out);
 }
 
-void		aggregation_file_redirection(t_redirect *red, t_process *p)
+void		aggregation_file_redirection(t_redirect *red, t_process *p,
+			char *file)
 {
-	char	*file;
 	int		new_fd_out;
 	int		new_fd_in;
 
 	if (ft_strcmp(red->token, "<&") == 0 ||
 			(red->fd_in && is_all_num(red->fd_in) != 1))
 	{
-		ft_printf("42sh: %s: ambiguous redirect\n", red->fd_out);
+		ft_printf_err_fd("42sh: %s: ambiguous redirect\n", red->fd_out);
 		p->exec_builtin = 0;
 	}
 	new_fd_in = (red->fd_in) ? ft_atoi(red->fd_in) : 1;
@@ -59,6 +62,7 @@ void		aggregation_file_redirection(t_redirect *red, t_process *p)
 	}
 	else
 		new_fd_out = ft_atoi(red->fd_out);
+	finishing_aggregation_file(red, p, new_fd_in, new_fd_out);
 }
 
 void		finishing_aggregation_redirection(int fd_in, int fd_out,
