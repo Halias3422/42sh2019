@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   back_slash.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 16:05:15 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 14:50:37 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,11 +60,12 @@ char		*browse_back_slash_and_quote(char *str, int i, int j)
 			solve_quote_simple(str, &res, &i, j);
 		else if (quote_double)
 			solve_quote_double(str, &res, &i, j);
-		else if (str[i] && str[i] != '"' && str[i] != '\'')
+		else /*if (str[i] && str[i] != '"' && str[i] != '\'')*/
 			solve_normal(str, &res, &i, j);
 		i += (str[i]) ? 1 : 0;
 		j += (res[j]) ? 1 : 0;
 	}
+	res[j] = '\0';
 	return (res);
 }
 
@@ -81,6 +82,7 @@ char		**del_back_slash_and_quote(char **ar)
 	while (ar[i])
 	{
 		res[i] = browse_back_slash_and_quote(ar[i], 0, 0);
+		printf("res[%d]=%s\n",i , res[i]);
 		i++;
 	}
 	res[i] = NULL;
