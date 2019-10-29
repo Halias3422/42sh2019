@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:19:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 14:05:34 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 14:31:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -89,7 +89,7 @@ void		aggregation_redirection_behavior(t_redirect *red, t_process *p)
 	fd_out = ft_atoi(red->fd_out);
 	if (ft_strcmp(red->fd_out, "-") == 0)
 	{
-		p->exec_builtin = 0;
+		close(fd_in);
 		return ;
 	}
 	if (fd_out != 1 && fd_out != 2 && (ret = isatty(fd_out) == 0))
