@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool_split.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 18:38:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 16:27:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,18 +38,21 @@ void		split_space_find_number(char *str, int *i)
 {
 	int		ret;
 
-	ret = 0;
+	ret = -1;
 	while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
 		(*i)++;
 	if (str[*i])
 	{
-		ret = find_token(str, *i);
+		if (!odd_backslash((*i) - 1, str))
+			ret = find_token(str, *i);
 		if (ret == -1)
 		{
 			while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
-			&& find_token(str, *i) == -1)
+			&& (!odd_backslash((*i) - 1, str) && find_token(str, *i) == -1))
 				(*i)++;
+			(*i)++;
 		}
+		*i = (*i > ft_strlen(str)) ? ft_strlen(str) : *i;
 		if (str[*i] && (ret == 4 || ret == 6 || ret == 9 || ret == 7))
 		{
 			(*i) += g_fill_token[ret].size;
@@ -80,7 +83,7 @@ int			check_token_after_number(char *str, int i)
 
 int			double_check(char *str, int i)
 {
-	if (find_token(str, i) != -1)
+	if (!odd_backslash(i - 1, str) && find_token(str, i) != -1)
 	{
 		if (odd_backslash(i - 1, str))
 			return (1);
