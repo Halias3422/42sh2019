@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:56:46 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 11:50:47 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 13:02:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,15 +57,13 @@ void			heredoc_ctrl_d(t_pos *pos, t_hist **hist)
 int				fill_ans_heredoc(t_pos *pos, int i, int j)
 {
 	j = i;
-	ft_printf("pos->ans avant = [%s]\n", pos->ans);
 	while (pos->ans[i])
 	{
 		if (pos->ans[i] == '<' && pos->ans[i + 1] == '<' &&
-			(i == 0 || is_my_index_open(pos, 0, -1, i)) && add_space(pos, i))
+			(i == 0 || is_my_index_open(pos, 0, -1, i)) && add_space(pos, &i))
 			break ;
 		i += 1;
 	}
-	ft_printf("pos->ans apres = [%s]\n", pos->ans);
 	if (pos->ans[i])
 		i += 2;
 	while (pos->ans[i] && (pos->ans[i] == 32 || (pos->ans[i] >= 9 &&

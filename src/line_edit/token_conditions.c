@@ -6,26 +6,27 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 11:51:57 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 13:00:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-int		add_space(t_pos *pos, int i)
+int		add_space(t_pos *pos, int *i)
 {
 	char	*swap;
 
 	swap = NULL;
-	if (i <= 0 || pos->ans[i - 1] == ' ')
+	if (*i <= 0)
 		return (1);
-	swap = ft_strnew(i + 1);
-	swap = ft_strncpy(swap, pos->ans, i);
+	swap = ft_strnew(*i + 1);
+	swap = ft_strncpy(swap, pos->ans, *i);
 	swap = ft_strjoinf(swap, " ", 1);
-	swap = ft_strjoinf(swap, pos->ans + i, 1);
+	swap = ft_strjoinf(swap, pos->ans + *i, 1);
 	free(pos->ans);
 	pos->ans = swap;
+	*i = *i + 1;
 	return (1);
 }
 
