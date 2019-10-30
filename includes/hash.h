@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:31:38 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 13:45:49 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 13:55:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 
 # include "termcaps.h"
 # include "builtin.h"
-# define NB_KEY 2
+# define NB_KEY 100
 
 typedef struct s_var	t_var;
 

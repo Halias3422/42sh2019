@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:11:03 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 10:35:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 11:16:26 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,6 @@ void		add_env_temp(t_var **var, char *str, int type)
 	(*var)->next->type = type;
 	(*var)->next->next = tmp;
 	(*var) = start;
-	// print_all_env((*var));
 }
 
 char		**remove_tab(char **src, int j)

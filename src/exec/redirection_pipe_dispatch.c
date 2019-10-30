@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 14:04:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 14:24:05 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,8 +33,10 @@ int				is_all_num(char *str)
 
 static void		end_pipe_redirection(t_pos *pos, t_process *p, int is_builtin)
 {
+	(void)is_builtin;
 	if (pos->pipe > 0)
 	{
+	dprintf(2, "a la finpos->act_fd_out = %d\n", pos->act_fd_out);
 		pos->act_fd_out = 1;
 		if (is_builtin != 1)
 		{
@@ -49,6 +51,16 @@ static void		init_pipe_redirection(t_pos *pos, t_process *p, int is_builtin,
 {
 	if (p->split == 'P')
 	{
+		if (p->fd_in == 0)
+		{
+			if (is_builtin == 1 && p->redirect && ft_strcmp(p->redirect->token,
+						"<") == 0)
+			{
+				p->redirect->fd_in = ft_strdup("1");
+				p->redirect->fd_out = ft_strdup("1");
+			}
+			p->fd_in = 1;
+		}
 		if (!p->redirect || (p->redirect && (p->redirect->fd_in &&
 		ft_strcmp(p->redirect->fd_in, "1") == 0 &&
 		ft_strcmp(p->redirect->fd_out, "1") == 0)))
@@ -65,6 +77,7 @@ static void		init_pipe_redirection(t_pos *pos, t_process *p, int is_builtin,
 			dup2(p->fd_out, p->fd_in);
 		else if (is_builtin != 1)
 			dup2(p->fd_out, 1);
+	dprintf(2, "pos->act_fd_out = %d\n", pos->act_fd_out);
 	}
 }
 
