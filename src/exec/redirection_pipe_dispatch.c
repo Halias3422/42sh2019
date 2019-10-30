@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 14:04:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 16:18:56 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,12 +33,16 @@ int				is_all_num(char *str)
 
 static void		end_pipe_redirection(t_pos *pos, t_process *p, int is_builtin)
 {
+	(void)is_builtin;
 	if (pos->pipe > 0)
 	{
+		dprintf(2, "JE FINIS LE PIPE\n");
 		pos->act_fd_out = 1;
 		if (is_builtin != 1)
 		{
 			close(pos->pipe);
+	//		dprintf(2, "p->fd_in avant pipe = %d\n", p->fd_in);
+			if (!p->redirect)
 			dup2(p->fd_in, 0);
 		}
 	}
@@ -56,7 +60,9 @@ static void		init_pipe_redirection(t_pos *pos, t_process *p, int is_builtin,
 		else if (p->redirect && p->redirect->fd_in &&
 		ft_strcmp(p->redirect->fd_in, "1") == 0 &&
 		ft_strcmp(p->redirect->fd_out, "1") != 0)
+		{
 			pos->act_fd_out = ft_atoi(p->redirect->fd_out);
+		}
 		else if (p->redirect && p->redirect->fd_in &&
 		ft_strcmp(p->redirect->fd_in, "2") == 0 &&
 		ft_strcmp(p->redirect->fd_out, "2") != 0)
@@ -94,6 +100,17 @@ void			get_all_redirections_done(t_process *p, t_pos *pos,
 				ft_strcmp(red->token, ">&") == 0)
 			aggregation_file_redirection(red, p, NULL);
 		red = red->next;
+		if (p->fd_in == 0 && ft_strcmp(p->redirect->token, "<") == 0)
+		{
+			if (p->split == 'P' && is_builtin == 1 && p->redirect && ft_strcmp(p->redirect->token, "<") == 0)
+			{
+				ft_strdel(&p->redirect->fd_in);
+				p->redirect->fd_in = ft_strdup("1");
+				ft_strdel(&p->redirect->fd_out);
+				p->redirect->fd_out = ft_strdup("1");
+			}
+			p->fd_in = 1;
+		}
 	}
 	init_pipe_redirection(pos, p, is_builtin, check);
 }

@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:20:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 11:11:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 14:17:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,7 +80,10 @@ void		normal_redirection_behavior(t_redirect *red, t_process *p,
 		else
 			dup2(new_fd_out, 0);
 	}
+	if (ft_strcmp(red->token, "<") != 0)
 	redirection_fill_pos_fd(pos, init_fd, new_fd_out);
+	else
+		redirection_fill_pos_fd(pos, 0, new_fd_out);
 	ft_strdel(&file);
 }
 

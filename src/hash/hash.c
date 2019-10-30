@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 08:11:10 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 14:25:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,6 +97,8 @@ char				*check_path_hash(t_var **var, char *arg,
 	if ((hash = stock_hash(NULL, 1)) != NULL &&
 	(ans = search_exec_in_table(hash[get_key_of_exec(arg)], arg)) != NULL)
 	{
+		if (access(ans, F_OK) == -1 || access(ans, X_OK) == -1)
+			ans = remove_old_entry_in_hash(hash, ans, arg, var);
 		ft_strdel(&arg);
 		return (ans);
 	}
