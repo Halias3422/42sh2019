@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 16:27:08 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 11:55:12 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,10 +34,9 @@ void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc)
 	ft_strdel(&tmp);
 }
 
-void		split_space_find_number(char *str, int *i)
+void        split_space_find_number(char *str, int *i)
 {
-	int		ret;
-
+	int     ret;
 	ret = -1;
 	while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
 		(*i)++;
@@ -48,9 +47,9 @@ void		split_space_find_number(char *str, int *i)
 		if (ret == -1)
 		{
 			while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
-			&& (!odd_backslash((*i) - 1, str) && find_token(str, *i) == -1))
+				&& (!odd_backslash((*i) - 1, str) && find_token(str, *i) == -1))
 				(*i)++;
-			(*i)++;
+			(*i) += (str[*i] && str[*i] != ' ') ? 1 : 0;
 		}
 		*i = (*i > ft_strlen(str)) ? ft_strlen(str) : *i;
 		if (str[*i] && (ret == 4 || ret == 6 || ret == 9 || ret == 7))
@@ -95,7 +94,7 @@ int			double_check(char *str, int i)
 void		split_space_basic(char *str, int *i)
 {
 	while (str[*i] && ((str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
-	&& (double_check(str, *i))))
+				&& (double_check(str, *i))))
 	{
 		if (str[*i] == '\'' && !odd_backslash(*i - 1, str))
 		{
