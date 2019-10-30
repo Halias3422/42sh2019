@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tool_split.c                                     .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 16:27:08 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 11:45:33 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,7 @@ void		split_space_find_number(char *str, int *i)
 			while (str[*i] && (str[*i] < 9 || str[*i] > 13) && str[*i] != ' '
 			&& (!odd_backslash((*i) - 1, str) && find_token(str, *i) == -1))
 				(*i)++;
-			(*i)++;
+			(*i) += (str[*i] && str[*i] != ' ') ? 1 : 0;
 		}
 		*i = (*i > ft_strlen(str)) ? ft_strlen(str) : *i;
 		if (str[*i] && (ret == 4 || ret == 6 || ret == 9 || ret == 7))
