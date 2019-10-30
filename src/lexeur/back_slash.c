@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 16:05:15 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 09:49:04 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,9 +40,8 @@ void		solve_normal(char *str, char **res, int *i, int j)
 	(*res)[j] = str[*i];
 }
 
-char		*browse_back_slash_and_quote(char *str, int i, int j)
+char		*browse_back_slash_and_quote(char *str, int i, int j, char *res)
 {
-	char		*res;
 	int			quote_double;
 	int			quote_simple;
 
@@ -65,6 +64,7 @@ char		*browse_back_slash_and_quote(char *str, int i, int j)
 		i += (str[i]) ? 1 : 0;
 		j += (res[j]) ? 1 : 0;
 	}
+	res[j] = '\0';
 	return (res);
 }
 
@@ -80,7 +80,7 @@ char		**del_back_slash_and_quote(char **ar)
 	i = 0;
 	while (ar[i])
 	{
-		res[i] = browse_back_slash_and_quote(ar[i], 0, 0);
+		res[i] = browse_back_slash_and_quote(ar[i], 0, 0, NULL);
 		i++;
 	}
 	res[i] = NULL;

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   exec.h                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 19:42:43 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/29 14:04:59 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,7 @@
 
 typedef struct s_lexeur	t_lexeur;
 typedef struct s_var	t_var;
+typedef struct s_pos	t_pos;
 
 typedef	struct			s_redirect
 {
@@ -59,6 +60,7 @@ typedef	struct			s_process
 	int					file_out;
 	int					background;
 	char				*hash_error;
+	int					exec_builtin;
 	t_redirect			*redirect;
 }						t_process;
 
@@ -326,5 +328,40 @@ int						finish_process(t_process *p, t_var *var, char *path);
 int						check_fd_out_content_before_redirection(t_process *p,
 						t_redirect *redirect);
 int						is_all_num(char *str);
+
+/*
+**	REDIRECTION_PIPE_DISPATCH_C
+*/
+
+void					get_all_redirections_done(t_process *p, t_pos *pos,
+						t_redirect *red, int is_builtin);
+
+/*
+**	REDIRECTION_NORMAL_C
+*/
+
+void					heredoc_redirection_behavior(t_redirect *red,
+						t_process *p, t_pos *pos);
+void					normal_redirection_behavior(t_redirect *red,
+						t_process *p, t_pos *pos, int is_builtin);
+void					redirection_fill_pos_fd(t_pos *pos, int old_fd,
+						int new_fd);
+int						redirection_get_argument_file_fd(t_redirect *red,
+						char *file, t_process *p, int new_fd_out);
+
+/*
+**	REDIRECTION_AGGREGATOR_C
+*/
+
+void					aggregation_redirection_behavior(t_redirect *red,
+						t_process *p);
+void					finishing_aggregation_redirection(int fd_in, int fd_out,
+						t_redirect *red, t_process *p);
+void					aggregation_file_redirection(t_redirect *red,
+						t_process *p, char *file);
+void					finishing_aggregation_file(t_redirect *red,
+						t_process *p, int new_fd_in, int new_fd_out);
+void					init_fd_in_and_out(t_lexeur **res, int *t, t_redirect
+						*tmp);
 
 #endif
