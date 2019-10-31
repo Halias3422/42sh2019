@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/26 12:59:57 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 11:22:06 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -124,7 +124,7 @@ int				ft_bg(t_process *p, t_var **var);
 */
 
 void			write_alias_on_exit(t_var *var);
-void			free_pos(void);
+void			free_pos(t_pos *pos);
 void			kill_last_job(t_job_list *jb, t_pos *pos, t_var *var,
 				t_save_job *save);
 void			free_env_list(t_var *var);

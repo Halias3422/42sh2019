@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 20:00:12 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 11:22:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,11 +34,8 @@ void			write_alias_on_exit(t_var *var)
 	}
 }
 
-void			free_pos(void)
+void			free_pos(t_pos *pos)
 {
-	t_pos *pos;
-
-	pos = to_stock(NULL, 1);
 	ft_strdel(&pos->prompt);
 	ft_strdel(&pos->path);
 	ft_strdel(&pos->ctrl_hist_cmd);
@@ -62,18 +59,13 @@ void			kill_last_job(t_job_list *jb, t_pos *pos, t_var *var,
 		ft_printf_fd("There are stopped jobs.\n");
 		free_job_list(0);
 		free_copy_job(save);
-		pos->exit_mode = -100;
 	}
-	else
-	{
-		free_job_list(0);
-		free_hash_table();
-		ft_printf_fd("exit\n");
-		write_alias_on_exit(var);
-		free_pos();
-		free_t_hist(stock(NULL, 8));
-		free_env_list(var);
-	}
+	free_hash_table();
+	ft_printf_fd("exit\n");
+	write_alias_on_exit(var);
+	free_pos(pos);
+	free_t_hist(stock(NULL, 8));
+	free_env_list(var);
 }
 
 void			free_env_list(t_var *var)

@@ -29,7 +29,7 @@ void		free_replace(t_replace *replace)
 
 void		init_replace(t_replace **replace)
 {
-	(*replace) = malloc(sizeof(t_replace));
+	(*replace) = ft_malloc(sizeof(t_replace));
 	(*replace)->name = NULL;
 	(*replace)->next = NULL;
 }

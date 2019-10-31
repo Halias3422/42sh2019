@@ -19,7 +19,7 @@ void		add_setenv(t_var **var, char *name, char *data, int usage)
 
 	if (usage == 0)
 	{
-		start = malloc(sizeof(t_var));
+		start = ft_malloc(sizeof(t_var));
 		start->name = ft_strdup(name);
 		start->data = ft_strdup(data);
 		start->type = ENVIRONEMENT;
@@ -28,7 +28,7 @@ void		add_setenv(t_var **var, char *name, char *data, int usage)
 	}
 	else if (usage == 1)
 	{
-		(*var) = malloc(sizeof(t_var));
+		(*var) = ft_malloc(sizeof(t_var));
 		(*var)->next = NULL;
 		(*var)->name = ft_strdup(name);
 		(*var)->data = ft_strdup(data);

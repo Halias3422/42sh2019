@@ -45,7 +45,7 @@ char		*browse_back_slash_and_quote(char *str, int i, int j, char *res)
 	int			quote_double;
 	int			quote_simple;
 
-	res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	res = (char *)ft_malloc(sizeof(char) * (ft_strlen(str) + 1));
 	ft_bzero(res, ft_strlen(str));
 	init_value(&quote_simple, &quote_double);
 	while (str[i])
@@ -76,7 +76,7 @@ char		**del_back_slash_and_quote(char **ar)
 	i = 0;
 	while (ar[i])
 		i++;
-	res = (char **)malloc(sizeof(char *) * (i + 1));
+	res = (char **)ft_malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (ar[i])
 	{

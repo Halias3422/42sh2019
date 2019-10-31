@@ -27,7 +27,7 @@ char	*remove_cut(char *str, int start, int end)
 		res = ft_strdup("");
 		return (res);
 	}
-	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	res = ft_malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (str[i])
 	{
 		while (str[i] && i >= start && i <= end)

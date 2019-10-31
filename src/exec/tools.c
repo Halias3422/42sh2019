@@ -33,7 +33,7 @@ char	**split_env(t_var *var)
 	while (save)
 		split_env_while(&save, &i);
 	save = var;
-	array = (char**)malloc(sizeof(char*) * (i + 1));
+	array = (char**)ft_malloc(sizeof(char*) * (i + 1));
 	array[i] = 0;
 	j = 0;
 	while (save)

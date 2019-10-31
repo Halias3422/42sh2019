@@ -33,7 +33,7 @@ void			change_job(t_job **j, t_process **start)
 	(*j)->p->next = NULL;
 	(*j)->p = *start;
 	(*j) = (*j)->next;
-	(*j)->p = malloc(sizeof(t_process));
+	(*j)->p = ft_malloc(sizeof(t_process));
 	*start = (*j)->p;
 }
 

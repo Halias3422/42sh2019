@@ -81,7 +81,7 @@ t_lexeur	**fill_lex(char **buf, t_lexeur **array)
 	j = 0;
 	while (buf[i])
 		i++;
-	array = malloc(sizeof(t_lexeur *) * (i + 1));
+	array = ft_malloc(sizeof(t_lexeur *) * (i + 1));
 	i = 0;
 	while (buf[i])
 	{

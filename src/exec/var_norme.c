@@ -29,7 +29,7 @@ void		add_env_temp(t_var **var, char *str, int type)
 	while ((*var)->next && (*var)->next->type == SPE)
 		(*var) = (*var)->next;
 	tmp = (*var)->next;
-	(*var)->next = malloc(sizeof(t_var));
+	(*var)->next = ft_malloc(sizeof(t_var));
 	(*var)->next->name = name;
 	(*var)->next->data = init_data(str);
 	(*var)->next->type = type;
@@ -51,7 +51,7 @@ char		**remove_tab(char **src, int j)
 		len++;
 	if (len == 1)
 		return (NULL);
-	res = malloc(sizeof(char*) * len);
+	res = ft_malloc(sizeof(char*) * len);
 	i = -1;
 	while (src[++i])
 	{
@@ -70,7 +70,7 @@ t_var		*add_one(char *str, char *name)
 {
 	t_var *var;
 
-	var = malloc(sizeof(t_var));
+	var = ft_malloc(sizeof(t_var));
 	var->next = NULL;
 	var->name = name;
 	var->data = init_data(str);

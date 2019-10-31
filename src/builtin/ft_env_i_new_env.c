@@ -17,7 +17,7 @@ t_var			*copy_old_env(t_var *old)
 {
 	t_var *new;
 
-	new = (t_var*)malloc(sizeof(t_var));
+	new = (t_var*)ft_malloc(sizeof(t_var));
 	new->data = ft_strdup(old->data);
 	new->name = ft_strdup(old->name);
 	new->type = old->type;

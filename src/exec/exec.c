@@ -52,7 +52,7 @@ void		save_spe_param(char **cmd, t_var *var, int i)
 	}
 	if (var && !(var->next) && ft_strcmp("_", var->name) != 0)
 	{
-		var->next = malloc(sizeof(t_var));
+		var->next = ft_malloc(sizeof(t_var));
 		var = var->next;
 		var->name = ft_strdup("_");
 		var->data = NULL;
@@ -74,7 +74,7 @@ t_job		*make_job(t_lexeur **res)
 	t_pos	*pos;
 
 	pos = to_stock(NULL, 1);
-	j = malloc(sizeof(t_job));
+	j = ft_malloc(sizeof(t_job));
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);

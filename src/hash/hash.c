@@ -72,7 +72,7 @@ char				*fill_hash_table(char *path, char *arg)
 	key = get_key_of_exec(arg);
 	if (hash == NULL)
 	{
-		hash = (t_hash**)malloc(sizeof(t_hash*) * 100);
+		hash = (t_hash**)ft_malloc(sizeof(t_hash*) * 100);
 		init_hash_links(hash);
 		stock_hash(hash, 0);
 	}

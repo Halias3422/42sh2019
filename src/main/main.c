@@ -18,7 +18,7 @@ int				check_entry(void)
 	struct winsize	w;
 	char			*s;
 
-	if (!(s = malloc(sizeof(char) * 10000000)))
+	if (!(s = ft_malloc(sizeof(char) * 10000000)))
 		exit(0);
 	free(s);
 	if (ioctl(0, TIOCGWINSZ, &w) == -1)
@@ -94,7 +94,7 @@ int				main(int ac, char **av, char **env)
 	tcsetpgrp(STDIN_FILENO, shell_pid);
 	my_env = init_env(env, &pos, av, 0);
 	shlvl(my_env, ac, av);
-	hist = (t_hist *)malloc(sizeof(t_hist));
+	hist = (t_hist *)ft_malloc(sizeof(t_hist));
 	init_t_hist(hist);
 	main_init_pos(&pos, my_env);
 	hist = create_history(&pos, hist);

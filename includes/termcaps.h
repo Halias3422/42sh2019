@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 12:58:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 11:23:55 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -192,6 +192,7 @@ typedef struct			s_ctrl_hist
 	int					act_li;
 }						t_ctrl_hist;
 
+void					*ft_malloc(size_t size);
 void					print_hdoc(t_heredoc *hdoc);
 char					*check_path_hash(t_var **var, char *arg, int i,
 						char *ans);

@@ -44,7 +44,7 @@ void		remoove_all_quote(char **str)
 {
 	char **al;
 
-	al = malloc(sizeof(char *) * 3);
+	al = ft_malloc(sizeof(char *) * 3);
 	al[2] = 0;
 	al[0] = init_name(*str);
 	al[1] = init_data(*str);

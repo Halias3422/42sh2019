@@ -6,12 +6,26 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:14:23 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 19:59:06 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 11:11:41 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
+
+void			*ft_malloc(size_t size)
+{
+	void	*ret;
+
+	ret = malloc(size);
+	if (ret == NULL)
+	{
+		ft_printf("42sh: error: memory allocation failed\n");
+		ft_printf("42sh: program stops\n");
+		exit(126);
+	}
+	return (ret);
+}
 
 int				check_if_process_in_bg(t_pos *pos, unsigned char buf[9])
 {

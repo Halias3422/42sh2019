@@ -19,7 +19,7 @@ t_save_job		*add_list_save_job(t_job *save, t_save_job *chain)
 	t_save_job	*new;
 
 	new = NULL;
-	if (!(new = (t_save_job*)malloc(sizeof(t_save_job))))
+	if (!(new = (t_save_job*)ft_malloc(sizeof(t_save_job))))
 		return (NULL);
 	if (chain == NULL)
 	{
@@ -62,7 +62,7 @@ t_job_list		*new_job(t_job *j, int number)
 {
 	t_job_list	*job_list;
 
-	if (!(job_list = malloc(sizeof(t_job_list))))
+	if (!(job_list = ft_malloc(sizeof(t_job_list))))
 		return (NULL);
 	j->id = number;
 	job_list->j = j;

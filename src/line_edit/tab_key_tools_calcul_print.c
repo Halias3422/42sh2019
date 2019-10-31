@@ -24,7 +24,7 @@ int				is_a_directory(char *path, t_pos *pos)
 	i = word_index;
 	while (i - 1 >= 0 && path[i - 1] != 32)
 		i -= 1;
-	to_open = malloc(word_index - i + 2);
+	to_open = ft_malloc(word_index - i + 2);
 	to_open[word_index - i + 1] = '\0';
 	ft_strncpy(to_open, path + i, word_index - i + 1);
 	if ((dirp = opendir(to_open)) == NULL)

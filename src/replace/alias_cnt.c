@@ -52,7 +52,7 @@ void		ft_add_list(t_alias *alias, int i, char *str)
 	int		j;
 	t_alias	*new;
 
-	new = malloc(sizeof(t_alias));
+	new = ft_malloc(sizeof(t_alias));
 	new->data = ft_strdup(str);
 	j = 0;
 	while (j < i - 1)

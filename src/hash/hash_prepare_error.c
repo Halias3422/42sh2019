@@ -6,23 +6,22 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/23 15:06:52 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 13:44:13 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 11:25:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/hash.h"
 
-void				hash_is_on_middle_link(t_hash *hash, t_hash *prev)
+void	hash_is_on_middle_link(t_hash *hash, t_hash *prev)
 {
 	hash = hash->next;
 	free(prev->next);
 	prev->next = hash;
-
 }
 
-char				*remove_old_entry_in_hash(t_hash **ghash, char *ans,
-					char *arg, t_var **var)
+char	*remove_old_entry_in_hash(t_hash **ghash, char *ans,
+		char *arg, t_var **var)
 {
 	t_hash	*prev;
 	t_hash	*hash;
@@ -42,8 +41,8 @@ char				*remove_old_entry_in_hash(t_hash **ghash, char *ans,
 	hash->hit = 0;
 	if (prev == NULL && hash->next != NULL)
 	{
-			ghash[get_key_of_exec(arg)] = hash->next;
-			free(hash);
+		ghash[get_key_of_exec(arg)] = hash->next;
+		free(hash);
 	}
 	else
 		hash_is_on_middle_link(hash, prev);
@@ -51,7 +50,7 @@ char				*remove_old_entry_in_hash(t_hash **ghash, char *ans,
 	return (check_path_hash(var, ft_strdup(arg), 0, NULL));
 }
 
-void		prepare_error_message_for_hash(int error, char *str)
+void	prepare_error_message_for_hash(int error, char *str)
 {
 	t_process	*p;
 

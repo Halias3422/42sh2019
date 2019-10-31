@@ -83,7 +83,7 @@ char	**split_space(char *str)
 	tint[1] = 0;
 	tint[2] = 0;
 	tag = NULL;
-	res = malloc(sizeof(char *) * (ft_strlen(str) + 2));
+	res = ft_malloc(sizeof(char *) * (ft_strlen(str) + 2));
 	while (str[tint[0]])
 	{
 		if (basic_split_while(tint, str, res, &tag) == 1)
@@ -102,7 +102,7 @@ void	list_add(t_replace **replace, char *array)
 	start = (*replace);
 	while ((*replace)->next)
 		(*replace) = (*replace)->next;
-	next = malloc(sizeof(t_replace));
+	next = ft_malloc(sizeof(t_replace));
 	next->name = ft_strdup(array);
 	next->next = NULL;
 	(*replace)->next = next;

@@ -51,9 +51,9 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
 
 	hist = stock(NULL, 8);
 	if (hist->cmd_no > 20)
-		new_cmds = (char**)malloc(sizeof(char*) * ((hist->cmd_no + 1) * 2));
+		new_cmds = (char**)ft_malloc(sizeof(char*) * ((hist->cmd_no + 1) * 2));
 	else
-		new_cmds = (char**)malloc(sizeof(char*) * 50 + 1);
+		new_cmds = (char**)ft_malloc(sizeof(char*) * 50 + 1);
 	line = NULL;
 	pwd = ft_strjoinf(getcwd(NULL, 255), "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
@@ -108,7 +108,7 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env)
 	i = 0;
 	ret = 1;
 	father = fork();
-	arg_tmp = (char**)malloc(sizeof(char*) * 3);
+	arg_tmp = (char**)ft_malloc(sizeof(char*) * 3);
 	arg_tmp[0] = ft_strdup(fc->ename);
 	arg_tmp[1] = ft_strdup(".tmp");
 	arg_tmp[2] = NULL;

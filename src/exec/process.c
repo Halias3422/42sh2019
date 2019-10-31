@@ -27,7 +27,7 @@ t_redirect		*fill_agregator(t_redirect *p, t_lexeur **res, int *i, int t)
 		{
 			if (!tmp)
 			{
-				tmp = malloc(sizeof(t_redirect));
+				tmp = ft_malloc(sizeof(t_redirect));
 				p = tmp;
 				(*i) = fill_ag_first(tmp, res, &t);
 			}
@@ -55,7 +55,7 @@ int *i, int k)
 		(*j)->p->cmd = NULL;
 		return ;
 	}
-	(*j)->p->cmd = malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
+	(*j)->p->cmd = ft_malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
 	while (res[*i] && res[*i]->word)
 		fill_cmd(res, j, &k, i);
 	fill_all_cmd(res, j, &k, *i);
@@ -76,7 +76,7 @@ int *i)
 	|| res[*i]->token == 3))
 	{
 		fill_process_split(j, res, *i);
-		(*j)->p->next = malloc(sizeof(t_process));
+		(*j)->p->next = ft_malloc(sizeof(t_process));
 		(*j)->p = (*j)->p->next;
 		(*j)->p->status = '\0';
 	}
@@ -98,7 +98,7 @@ void			fill_process(t_job *j, t_lexeur **res)
 	t_process	*start;
 
 	i = 0;
-	j->p = malloc(sizeof(t_process));
+	j->p = ft_malloc(sizeof(t_process));
 	start = j->p;
 	while (res[i])
 	{
