@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 14:33:44 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:31:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ int			job_is_completed(t_job *j)
 			return (0);
 		p = p->next;
 	}
+	j->status = 'f';
 	return (1);
 }
 
