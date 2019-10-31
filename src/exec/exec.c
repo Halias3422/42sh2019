@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:46:45 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 14:08:36 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ void		save_spe_param(char **cmd, t_var *var, int i)
 	}
 	if (var && !(var->next) && ft_strcmp("_", var->name) != 0)
 	{
-		var->next = malloc(sizeof(t_var));
+		var->next = ft_malloc(sizeof(t_var));
 		var = var->next;
 		var->name = ft_strdup("_");
 		var->data = NULL;
@@ -74,11 +74,11 @@ t_job		*make_job(t_lexeur **res)
 	t_pos	*pos;
 
 	pos = to_stock(NULL, 1);
-	j = malloc(sizeof(t_job));
+	j = ft_malloc(sizeof(t_job));
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
-	fill_process(j, res);
+	fill_process(j, res, -1);
 	tmp = j;
 	pos->last_cmd_on_bg = 0;
 	while (tmp)

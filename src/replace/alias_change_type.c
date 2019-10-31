@@ -19,7 +19,7 @@ char		**make_list_to_ar(t_alias *alias)
 	char	**res;
 	int		i;
 
-	res = malloc(sizeof(char *) * (cnt_list(alias) + 1));
+	res = ft_malloc(sizeof(char *) * (cnt_list(alias) + 1));
 	i = 0;
 	while (alias)
 	{
@@ -36,7 +36,7 @@ void		make_ar_to_list_while(int *i, char **str, t_alias **alias,
 t_alias *prev)
 {
 	if (!(*alias))
-		(*alias) = malloc(sizeof(t_alias));
+		(*alias) = ft_malloc(sizeof(t_alias));
 	if (*i == 0)
 		(*alias)->prev = NULL;
 	else
@@ -45,7 +45,7 @@ t_alias *prev)
 	prev = (*alias);
 	if (str[*i + 1])
 	{
-		(*alias)->next = malloc(sizeof(t_alias));
+		(*alias)->next = ft_malloc(sizeof(t_alias));
 		(*alias) = (*alias)->next;
 	}
 	(*i)++;
@@ -60,7 +60,7 @@ t_alias		*make_ar_to_list(char **str)
 
 	if (!str || !(str[0]))
 		return (NULL);
-	alias = malloc(sizeof(t_alias));
+	alias = ft_malloc(sizeof(t_alias));
 	prev = NULL;
 	start = alias;
 	i = 0;

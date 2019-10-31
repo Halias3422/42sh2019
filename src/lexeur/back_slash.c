@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/27 16:12:36 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 16:14:16 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 09:49:04 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void		init_value(int *quote_simple, int *quote_double)
 	*quote_simple = 0;
 }
 
-void		solve_quote_double(char *str, char **res, int *i, int *j)
+void		solve_quote_double(char *str, char **res, int *i, int j)
 {
 	if (str[*i] == '"')
 	{
@@ -30,7 +30,7 @@ void		solve_quote_double(char *str, char **res, int *i, int *j)
 	(str[*i + 1] == '\\' || str[*i + 1] == '"' || str[*i + 1] == '$'))
 		(*i)++;
 	if (str[*i])
-		(*res)[*j] = str[*i];
+		(*res)[j] = str[*i];
 }
 
 void		solve_normal(char *str, char **res, int *i, int j)
@@ -40,13 +40,13 @@ void		solve_normal(char *str, char **res, int *i, int j)
 	(*res)[j] = str[*i];
 }
 
-char		*browse_back_slash_and_quote(char *str, int i, int j)
+char		*browse_back_slash_and_quote(char *str, int i, int j, char *res)
 {
-	char		*res;
 	int			quote_double;
 	int			quote_simple;
 
-	res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	res = (char *)ft_malloc(sizeof(char) * (ft_strlen(str) + 1));
+	ft_bzero(res, ft_strlen(str));
 	init_value(&quote_simple, &quote_double);
 	while (str[i])
 	{
@@ -58,7 +58,7 @@ char		*browse_back_slash_and_quote(char *str, int i, int j)
 		if (quote_simple)
 			solve_quote_simple(str, &res, &i, j);
 		else if (quote_double)
-			solve_quote_double(str, &res, &i, &j);
+			solve_quote_double(str, &res, &i, j);
 		else if (str[i] && str[i] != '"' && str[i] != '\'')
 			solve_normal(str, &res, &i, j);
 		i += (str[i]) ? 1 : 0;
@@ -76,11 +76,11 @@ char		**del_back_slash_and_quote(char **ar)
 	i = 0;
 	while (ar[i])
 		i++;
-	res = (char **)malloc(sizeof(char *) * (i + 1));
+	res = (char **)ft_malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (ar[i])
 	{
-		res[i] = browse_back_slash_and_quote(ar[i], 0, 0);
+		res[i] = browse_back_slash_and_quote(ar[i], 0, 0, NULL);
 		i++;
 	}
 	res[i] = NULL;

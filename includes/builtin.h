@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 19:39:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/26 12:59:57 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -330,6 +330,12 @@ char			*verif_path_in_cdpath(char *path, t_var *var, char **cmd,
 void			print_cd_error(char *path, int i, int mute, int usage);
 int				finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env,
 				int option);
+
+/*
+**	FT_CD_ERROR_C
+*/
+
+char			*error_in_new_path(char *new_path);
 
 /*
 **	FC_PREPARE_E_FLAG_TOOL.C

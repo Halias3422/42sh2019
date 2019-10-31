@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/02/25 12:55:34 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/24 10:02:44 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/31 15:15:03 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -79,7 +79,7 @@ ISRC_NAME = ft_atoi.c ft_int_len_base.c ft_isdigit.c ft_isxdigit.c ft_putnbr.c\
 
 MINC_NAME = ft_mem.h
 MSRC_NAME = ft_memset.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c\
-			ft_memdel.c ft_memmove.c ft_free_void.c ft_tabdel.c
+			ft_memdel.c ft_memmove.c ft_free_void.c ft_tabdel.c ft_malloc.c
 
 PINC_NAME = ft_printf.h
 PSRC_NAME = add_conversion.c add_flag2.c add_flags.c bonus_conversion_type_1.c\

@@ -30,7 +30,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	l_s1 = ft_strlen(s1);
 	l_s2 = ft_strlen(s2);
 	str = NULL;
-	if ((str = (char *)malloc(sizeof(char) * ((l_s1 + l_s2) + 1))) == NULL)
+	if ((str = (char *)ft_malloc(sizeof(char) * ((l_s1 + l_s2) + 1))) == NULL)
 		return (NULL);
 	l_s1 = 0;
 	while (s1[l_s1])

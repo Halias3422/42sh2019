@@ -44,7 +44,7 @@ char		*ft_itoa_base(int nb, int base)
 	if (base <= 1)
 		return (NULL);
 	j = ft_intlen_base(nb, base);
-	if (!(r = malloc(sizeof(*r) * (j + 1))))
+	if (!(r = ft_malloc(sizeof(*r) * (j + 1))))
 		return (NULL);
 	r[j--] = '\0';
 	n = nb;

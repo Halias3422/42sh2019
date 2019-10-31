@@ -17,7 +17,7 @@ char		**init_al_tab_content(t_process *p, int i)
 {
 	char	**al;
 
-	al = malloc(sizeof(char *) * 3);
+	al = ft_malloc(sizeof(char *) * 3);
 	al[0] = init_name(p->cmd[i]);
 	al[1] = init_data(p->cmd[i]);
 	if (!al[1])

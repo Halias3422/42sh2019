@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:07:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 13:52:11 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 11:35:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ char		**make_list_to_ar_var(t_tvar *alias)
 	int		i;
 
 	s = alias;
-	res = malloc(sizeof(char *) * (cnt_list_var(alias) + 1));
+	res = ft_malloc(sizeof(char *) * (cnt_list_var(alias) + 1));
 	i = 0;
 	while (alias)
 	{
@@ -53,17 +53,17 @@ t_tvar		*make_ar_to_list_var(char **str)
 	t_tvar		*var;
 	int			i;
 
-	var = malloc(sizeof(t_tvar));
+	var = ft_malloc(sizeof(t_tvar));
 	start = var;
 	i = 0;
 	while (str[i])
 	{
 		if (!var)
-			var = malloc(sizeof(t_tvar));
+			var = ft_malloc(sizeof(t_tvar));
 		var->data = ft_strdup(str[i]);
 		if (str[i + 1])
 		{
-			var->next = malloc(sizeof(t_var));
+			var->next = ft_malloc(sizeof(t_var));
 			var = var->next;
 		}
 		i++;

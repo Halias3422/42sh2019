@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:15:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 15:45:11 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 14:22:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,6 +58,7 @@ void	*to_stock(void *stock, int usage)
 {
 	static t_pos		*pos = NULL;
 	static t_process	*p = NULL;
+	static t_hist		*hist = NULL;
 
 	if (usage == 0)
 		pos = stock;
@@ -67,5 +68,9 @@ void	*to_stock(void *stock, int usage)
 		p = stock;
 	else if (usage == 3)
 		return (p);
+	else if (usage == 4)
+		hist = stock;
+	else if (usage == 5)
+		return (hist);
 	return (NULL);
 }

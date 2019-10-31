@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 17:07:45 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 14:47:06 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -127,8 +127,10 @@ typedef struct			s_pos
 	int					act_fd_out;
 	int					act_fd_error;
 	int					separator;
+	int					pipe;
 	int					tab_key_printed;
 	int					exit_mode;
+	int					error_printed;
 }						t_pos;
 
 typedef struct			s_htab
@@ -242,6 +244,7 @@ void					error_handling(t_pos *pos, char *variable, int err);
 ** CHECK_ERROR_C
 */
 
+void					*ft_malloc(size_t size);
 int						check_term(void);
 int						check_if_process_in_bg(t_pos *pos,
 						unsigned char buf[9]);
@@ -614,6 +617,7 @@ char					*check_backslash(t_pos *pos, int i, int j, int count);
 **	TOKEN_C
 */
 
+int						add_space(t_pos *pos, int *i);
 int						token_condition(char *ans, int i);
 int						token(char *ans, t_pos *pos);
 

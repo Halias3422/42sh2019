@@ -6,31 +6,28 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/01 18:00:20 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 10:30:54 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 13:00:45 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
-void	print_hdoc(t_heredoc *hdoc)
+int		add_space(t_pos *pos, int *i)
 {
-	if (!hdoc)
-		ft_printf("hdoc est nulle\n");
-	else
-	{
-		while (hdoc->prev)
-			hdoc = hdoc->prev;
-		ft_printf("===============================\n");
-		while (hdoc)
-		{
-			ft_printf("to find = [%s] - ", hdoc->to_find);
-			ft_printf("current index = %d - ", hdoc->current_index);
-			ft_printf("content = [%s]\n", hdoc->content);
-			hdoc = hdoc->next;
-		}
-		ft_printf("===============================\n");
-	}
+	char	*swap;
+
+	swap = NULL;
+	if (*i <= 0)
+		return (1);
+	swap = ft_strnew(*i + 1);
+	swap = ft_strncpy(swap, pos->ans, *i);
+	swap = ft_strjoinf(swap, " ", 1);
+	swap = ft_strjoinf(swap, pos->ans + *i, 1);
+	free(pos->ans);
+	pos->ans = swap;
+	*i = *i + 1;
+	return (1);
 }
 
 int		is_my_index_open(t_pos *pos, int i, char open, int limit)

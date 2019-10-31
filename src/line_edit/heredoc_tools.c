@@ -27,7 +27,7 @@ t_heredoc		*add_list_back_heredoc(t_heredoc *heredoc)
 	t_heredoc	*new;
 
 	new = NULL;
-	if (!(new = (t_heredoc*)malloc(sizeof(t_heredoc))))
+	if (!(new = (t_heredoc*)ft_malloc(sizeof(t_heredoc))))
 		return (NULL);
 	if (heredoc == NULL)
 	{

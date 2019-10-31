@@ -17,7 +17,7 @@ void		add_alias(t_var **var, char *name, char *data)
 {
 	t_var	*start;
 
-	start = malloc(sizeof(t_var));
+	start = ft_malloc(sizeof(t_var));
 	start->name = name;
 	start->data = data;
 	start->type = ALIAS;
@@ -43,7 +43,7 @@ int			find_alias(t_process *p, int k)
 
 void		add_to_alias(t_var **var, char *name, char *data, t_var *prev)
 {
-	(*var) = malloc(sizeof(t_var));
+	(*var) = ft_malloc(sizeof(t_var));
 	prev->next = (*var);
 	(*var)->next = NULL;
 	(*var)->name = ft_strdup(name);

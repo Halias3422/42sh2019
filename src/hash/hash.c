@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/09 13:32:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 16:09:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 14:25:14 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,7 @@ void				read_hash_table(t_hash **hash)
 		tmp = hash[i];
 		while (tmp != NULL)
 		{
-			if (tmp->path != NULL && tmp->hit == 1)
+			if (tmp->path != NULL && tmp->hit >= 1)
 				ft_printf_fd("%s used by %s %d time(s)\n",
 						tmp->path, tmp->exec, tmp->hit);
 			tmp = tmp->next;
@@ -72,7 +72,7 @@ char				*fill_hash_table(char *path, char *arg)
 	key = get_key_of_exec(arg);
 	if (hash == NULL)
 	{
-		hash = (t_hash**)malloc(sizeof(t_hash*) * 100);
+		hash = (t_hash**)ft_malloc(sizeof(t_hash*) * 100);
 		init_hash_links(hash);
 		stock_hash(hash, 0);
 	}
@@ -97,6 +97,8 @@ char				*check_path_hash(t_var **var, char *arg,
 	if ((hash = stock_hash(NULL, 1)) != NULL &&
 	(ans = search_exec_in_table(hash[get_key_of_exec(arg)], arg)) != NULL)
 	{
+		if (access(ans, F_OK) == -1 || access(ans, X_OK) == -1)
+			ans = remove_old_entry_in_hash(hash, ans, arg, var);
 		ft_strdel(&arg);
 		return (ans);
 	}

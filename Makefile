@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/25 16:59:15 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/31 14:30:34 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -50,10 +50,10 @@ SRC_LEX = $(addprefix lexeur/, \
 SRC_EXEC = $(addprefix exec/, \
 				alias.c builtins.c launch_process.c launch_job.c exec.c process.c tools.c \
 			job_controll.c job_function.c job_notification.c var.c var_tools.c process_fill.c \
-				process_tool.c redirection.c alias_tools.c free_job.c duplication.c \
-				before_redirection.c new_job.c process_file.c alias_reduction.c alias_norme.c \
-				exec_tool.c var_norme.c launch_job_process.c job_function_plus_and_minus.c \
-				process_heredoc.c builtin_redirection.c handle_process.c builtin_redirection_prepare.c)
+				process_tool.c alias_tools.c free_job.c new_job.c process_file.c \
+				alias_reduction.c alias_norme.c exec_tool.c var_norme.c launch_job_process.c \
+				job_function_plus_and_minus.c process_heredoc.c redirection_pipe_dispatch.c \
+				redirection_normal.c redirection_aggregator.c new_new_redirection.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c\
@@ -69,7 +69,7 @@ SRC_BUILTIN = $(addprefix builtin/, \
 				hash_d_flag.c ft_setenv.c ft_unsetenv.c ft_env.c ft_env_tools.c \
 				ft_env_i_flag.c ft_cd.c ft_cd_verif.c ft_cd_prepare_data.c ft_cd_check_cdpath.c \
 				tools_bis.c ft_setenv_tool.c ft_env_i_new_env.c\
-				ft_fg_bg_plus_and_minus.c ft_shtheme.c\
+				ft_fg_bg_plus_and_minus.c ft_shtheme.c ft_cd_error.c\
 				fc_prepare_e_flag_tool.c ft_env_i_flag_tool.c ft_fg_bg_tools.c)
 
 SRC_MAIN = $(addprefix main/, main.c init_pos_main.c)

@@ -43,7 +43,7 @@ t_hist		*add_list_back_hist(t_hist *hist)
 	t_hist	*new;
 
 	new = NULL;
-	if (!(new = (t_hist*)malloc(sizeof(t_hist))))
+	if (!(new = (t_hist*)ft_malloc(sizeof(t_hist))))
 		return (NULL);
 	if (hist == NULL)
 	{

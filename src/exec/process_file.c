@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 09:46:16 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 13:10:49 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/28 13:51:10 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,7 +41,7 @@ char		*add_space_content(char *content)
 	i = 0;
 	if (!content)
 		return (NULL);
-	res = malloc(sizeof(char) * (ft_strlen(content) + 1));
+	res = ft_malloc(sizeof(char) * (ft_strlen(content) + 1));
 	while (content[i])
 	{
 		if (content[i] == -1)
@@ -84,7 +84,7 @@ char		*get_content(char *tag, t_lexeur **res, int *t)
 
 void		make_tmp_great_again(t_redirect **tmp)
 {
-	(*tmp)->next = malloc(sizeof(t_redirect));
+	(*tmp)->next = ft_malloc(sizeof(t_redirect));
 	*tmp = (*tmp)->next;
 	(*tmp)->heredoc_content = NULL;
 }

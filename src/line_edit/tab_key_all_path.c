@@ -88,7 +88,7 @@ static char		*get_name(t_pos *pos, int i, int j)
 	while (pos->ans[j] && pos->ans[j] != '|' &&
 		pos->ans[j] != '&' && pos->ans[j] != 32)
 		j += 1;
-	name = malloc(j - i + 1);
+	name = ft_malloc(j - i + 1);
 	name[j - i] = '\0';
 	ft_strncpy(name, pos->ans + i, j - i);
 	return (name);

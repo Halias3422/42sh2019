@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_memalloc.c                                    .::    .:/ .      .::   */
+/*   ft_cd_error.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/31 16:03:53 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:03:55 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/26 12:58:07 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/26 13:05:32 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "ft_mem.h"
+#include "../../includes/builtin.h"
 
-void		*ft_memalloc(size_t size)
+char		*error_in_new_path(char *new_path)
 {
-	void	*mem;
+	int		i;
+	int		error;
 
-	if (size == 0 || (mem = ft_malloc(size)) == NULL)
-		return (NULL);
-	mem = ft_memset(mem, '\0', size);
-	return (mem);
+	error = 0;
+	i = 0;
+	while (new_path && new_path[i] && error == 0)
+	{
+		if (ft_strncmp(new_path + i, "./", 2) == 0 ||
+			ft_strncmp(new_path + i, "../", 3) == 0)
+			error = 1;
+		i++;
+	}
+	if (error == 1)
+	{
+		free(new_path);
+		new_path = getcwd(NULL, 1000);
+	}
+	return (new_path);
 }

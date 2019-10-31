@@ -17,7 +17,7 @@ char	*ft_strnew(int size)
 {
 	char	*str;
 
-	if (!(str = malloc(sizeof(*str) * (size + 1))))
+	if (!(str = ft_malloc(sizeof(*str) * (size + 1))))
 		return (NULL);
 	ft_bzero(str, size);
 	str[size] = '\0';

@@ -17,7 +17,7 @@ void	ft_strjoin_free(char **s1, const char *s2)
 {
 	char *ret;
 
-	if (!(ret = malloc(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2) + 1))))
+	if (!(ret = ft_malloc(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2) + 1))))
 	{
 		ft_strdel(s1);
 		return ;

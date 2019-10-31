@@ -19,7 +19,7 @@ static void		exec_s_flag(t_fc *fc, t_hist *hist, t_var **var)
 	char	*tmp_cmd;
 
 	*var = stock(NULL, 6);
-	cmd = (char**)malloc(sizeof(char*) * 2);
+	cmd = (char**)ft_malloc(sizeof(char*) * 2);
 	cmd[1] = NULL;
 	tmp_cmd = ft_strdup(hist->cmd);
 	if (fc->ename != NULL)

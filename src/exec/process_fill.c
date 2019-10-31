@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 13:14:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 14:04:54 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,21 +43,20 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 
 int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 {
+	tmp->open_in = 0;
+	tmp->open_out = 0;
 	tmp->heredoc_content = NULL;
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
-	{
-		tmp->fd_in = (res[*t]->fd_in) ? ft_strdup(res[*t]->fd_in) : NULL;
-		tmp->fd_out = (res[*t]->fd_out) ? ft_strdup(res[*t]->fd_out) : NULL;
-	}
+		init_fd_in_and_out(res, t, tmp);
 	else
 	{
-		tmp->fd_in = NULL;
+		tmp->fd_in = (res[*t]->token == 9) ? ft_strdup(res[*t]->fd_in) : NULL;
 		tmp->fd_out = (res[*t]->redirection) ? ft_strdup(res[*t]->redirection)
 		: NULL;
 	}
-	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
+	if (res[*t]->token == 4 || res[*t]->token == 6)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	else
 		tmp->fd = (res[*t]->token == 8) ? 0 : 1;
@@ -72,20 +71,20 @@ int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	while (tmp->next)
 		tmp = tmp->next;
 	make_tmp_great_again(&tmp);
+	tmp->open_in = 0;
+	tmp->open_out = 0;
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
-	{
-		tmp->fd_in = (res[*t]->fd_in) ? ft_strdup(res[*t]->fd_in) : NULL;
-		tmp->fd_out = (res[*t]->fd_out) ? ft_strdup(res[*t]->fd_out) : NULL;
-	}
+		init_fd_in_and_out(res, t, tmp);
 	else
 	{
-		tmp->fd_in = NULL;
+		tmp->fd_in = (res[*t]->token == 9) ? ft_strdup(res[*t]->fd_in) : NULL;
+		tmp->fd_out = res[*t]->fd_in;
 		tmp->fd_out = (res[*t]->redirection) ? ft_strdup(res[*t]->redirection)
 		: NULL;
 	}
-	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
+	if (res[*t]->token == 4 || res[*t]->token == 6)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	else
 		tmp->fd = 1;

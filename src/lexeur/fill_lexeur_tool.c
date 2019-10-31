@@ -21,7 +21,7 @@ char		*change_buf(char *buf)
 
 	i = 0;
 	j = 0;
-	res = malloc(sizeof(char) * (ft_strlen(buf) + 1));
+	res = ft_malloc(sizeof(char) * (ft_strlen(buf) + 1));
 	while (buf[i])
 	{
 		if (!odd_backslash(i, buf) && buf[i + 1])

@@ -24,7 +24,7 @@ t_replace *replace)
 		return (0);
 	while (replace->next)
 		replace = replace->next;
-	replace->next = malloc(sizeof(t_replace));
+	replace->next = ft_malloc(sizeof(t_replace));
 	replace = replace->next;
 	replace->name = ft_strdup(alias->data);
 	replace->next = NULL;
