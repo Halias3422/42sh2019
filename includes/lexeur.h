@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 20:02:49 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:40:11 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -337,5 +337,6 @@ void					check_quote_double(char *str, int *i,
 						int *quote_double);
 void					solve_quote_simple(char *str, char **res, int *i,
 						int j);
+char					*replace_var_to_data(char *str, t_var *env);
 
 #endif

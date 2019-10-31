@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_tool.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:07:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 11:35:56 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:39:42 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,4 +86,14 @@ int			find_second_char(char *str, int *i)
 	else
 		(*i)++;
 	return (1);
+}
+
+void			replace_var(t_var *env, t_alias *alias)
+{
+	while (alias)
+	{
+		if (ft_strchr(alias->data, '$'))
+			alias->data = replace_var_to_data(alias->data, env);
+		alias = alias->next;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_replace.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 12:45:25 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:42:01 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,6 +53,25 @@ int				alpha_numeric_condition(char *str, int i)
 	return (0);
 }
 
+char			*replace_pid(char *str, int i, int s, t_var *env)
+{
+	char	*tmp;
+	char	*dollar;
+	char	*name;
+	char	*res;
+
+	i++;
+	dollar = ft_strrmvi(str, i - 1);
+	name = ft_strsub(dollar, s, i - s);
+	tmp = get_the_data("$", env);
+	ft_strdel(&name);
+	res = fill_res(str, &i, tmp, &s);
+	res = ft_strjoinf(res, ft_strsub(str, s, i - s), 3);
+	ft_strdel(&str);
+	ft_strdel(&dollar);
+	return (res);
+}
+
 char			*replace_var_to_data(char *str, t_var *env)
 {
 	char	*res;
@@ -64,8 +83,9 @@ char			*replace_var_to_data(char *str, t_var *env)
 	i = 0;
 	while (str[i] && str[i] != '$')
 		i++;
-	i++;
-	s = i;
+	s = ++i;
+	if (str[i] == '$')
+		return (replace_pid(str, i, s, env));
 	if (str[i] == '{')
 		s = i++ + 1;
 	while (alpha_numeric_condition(str, i))
@@ -78,14 +98,4 @@ char			*replace_var_to_data(char *str, t_var *env)
 	res = ft_strjoinf(res, ft_strsub(str, s, i - s), 3);
 	ft_strdel(&str);
 	return (res);
-}
-
-void			replace_var(t_var *env, t_alias *alias)
-{
-	while (alias)
-	{
-		if (ft_strchr(alias->data, '$'))
-			alias->data = replace_var_to_data(alias->data, env);
-		alias = alias->next;
-	}
 }
