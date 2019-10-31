@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:04:57 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:41:16 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -341,38 +341,56 @@ int						check_fd_out_content_before_redirection(t_process *p,
 int						is_all_num(char *str);
 
 /*
-**	REDIRECTION_PIPE_DISPATCH_C
+**	REDIRECTION_AGGREGATOR_C
+*/
+
+void					init_fd_in_and_out(t_lexeur **res, int *t, t_redirect
+						*tmp);
+
+/*
+** REDIRECTION_DISPATCH_C
 */
 
 void					get_all_redirections_done(t_process *p, t_pos *pos,
 						t_redirect *red, int is_builtin);
+void					redirect_heredoc(t_fd *fd, t_redirect *red);
+void					dispatch_redirection_with_token(t_fd *fd,
+						t_redirect *red, t_process *p);
+int						is_all_num(char *str);
 
 /*
-**	REDIRECTION_NORMAL_C
+**	REDIRECTION_INIT_AND_NORMAL_C
 */
 
-void					heredoc_redirection_behavior(t_redirect *red,
-						t_process *p, t_pos *pos);
-void					normal_redirection_behavior(t_redirect *red,
-						t_process *p, t_pos *pos, int is_builtin);
-void					redirection_fill_pos_fd(t_pos *pos, int old_fd,
-						int new_fd);
+void					redirect_simple_right(t_fd *fd, t_redirect *red,
+						t_process *p);
+void					redirect_simple_left(t_fd *fd, t_redirect *red,
+						t_process *p);
+t_fd					*add_list_back_fd(t_fd *fd);
+void					init_fd_link(t_fd *ne);
+
+/*
+**	REDIRECTION_PIPE_AGGREGATOR_C
+*/
+
+void					init_pipe_redirection(t_pos *pos, t_process *p,
+						int is_builtin, t_fd *fd);
+void					end_pipe_redirection(t_pos *pos, t_process *p);
+void					redirect_aggregator_left(t_fd *fd, t_redirect *red,
+						t_process *p);
+void					redirect_aggregator_right(t_fd *fd, t_redirect *red,
+						t_process *p);
+void					redirect_aggregator_minus(t_fd *fd);
+
+/*
+**	REDIRECTION_APPLY_C
+*/
+
+void					final_change_fd_for_redirections(t_fd *fd, t_pos *pos);
+void					dup_fd_for_binaries(t_fd *fd);
 int						redirection_get_argument_file_fd(t_redirect *red,
 						char *file, t_process *p, int new_fd_out);
-
-/*
-**	REDIRECTION_AGGREGATOR_C
-*/
-
-void					aggregation_redirection_behavior(t_redirect *red,
-						t_process *p);
-void					finishing_aggregation_redirection(int fd_in, int fd_out,
-						t_redirect *red, t_process *p);
-void					aggregation_file_redirection(t_redirect *red,
-						t_process *p, char *file);
-void					finishing_aggregation_file(t_redirect *red,
-						t_process *p, int new_fd_in, int new_fd_out);
-void					init_fd_in_and_out(t_lexeur **res, int *t, t_redirect
-						*tmp);
+int						redirection_find_file_fd(char *file, t_redirect *red,
+						t_process *p, t_fd *fd);
 
 #endif

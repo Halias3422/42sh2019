@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 20:00:12 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:44:11 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,18 +62,15 @@ void			kill_last_job(t_job_list *jb, t_pos *pos, t_var *var,
 		ft_printf_fd("There are stopped jobs.\n");
 		free_job_list(0);
 		free_copy_job(save);
-		pos->exit_mode = -100;
 	}
-	else
-	{
-		free_job_list(0);
-		free_hash_table();
-		ft_printf_fd("exit\n");
-		write_alias_on_exit(var);
-		free_pos();
-		free_t_hist(stock(NULL, 8));
-		free_env_list(var);
-	}
+	free_job_list(0);
+	free_hash_table();
+	ft_printf_fd("exit\n");
+	write_alias_on_exit(var);
+	free_pos();
+	free_t_hist(stock(NULL, 8));
+	free_env_list(var);
+	tcsetattr(0, TCSANOW, &pos->old_term);
 }
 
 void			free_env_list(t_var *var)
