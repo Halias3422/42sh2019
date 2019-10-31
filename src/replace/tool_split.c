@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 16:46:19 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 11:01:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:26:41 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,9 +34,10 @@ void		heredoc_go_next(char *str, int *i, char *tag, int *heredoc)
 	ft_strdel(&tmp);
 }
 
-void        split_space_find_number(char *str, int *i)
+void		split_space_find_number(char *str, int *i)
 {
-	int     ret;
+	int		ret;
+
 	ret = -1;
 	while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
 		(*i)++;
