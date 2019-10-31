@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 14:04:59 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 21:32:39 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include "builtin.h"
 # include <signal.h>
+#include <fcntl.h>
 
 # include "../libft/includes/ft_str.h"
 
@@ -29,6 +30,16 @@
 typedef struct s_lexeur	t_lexeur;
 typedef struct s_var	t_var;
 typedef struct s_pos	t_pos;
+
+typedef	struct			s_fd
+{
+	int					old_fd;
+	int					new_fd;
+	int					is_builtin;
+	int					error;
+	char				*token;
+	struct s_fd			*next;
+}						t_fd;
 
 typedef	struct			s_redirect
 {

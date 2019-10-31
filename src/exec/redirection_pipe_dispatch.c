@@ -6,13 +6,12 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/24 15:13:45 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 16:18:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 19:37:46 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
-#include <fcntl.h>
 
 int				is_all_num(char *str)
 {
@@ -30,18 +29,16 @@ int				is_all_num(char *str)
 	}
 	return (1);
 }
-
+/*
 static void		end_pipe_redirection(t_pos *pos, t_process *p, int is_builtin)
 {
 	(void)is_builtin;
 	if (pos->pipe > 0)
 	{
-		dprintf(2, "JE FINIS LE PIPE\n");
 		pos->act_fd_out = 1;
 		if (is_builtin != 1)
 		{
 			close(pos->pipe);
-	//		dprintf(2, "p->fd_in avant pipe = %d\n", p->fd_in);
 			if (!p->redirect)
 			dup2(p->fd_in, 0);
 		}
@@ -114,3 +111,4 @@ void			get_all_redirections_done(t_process *p, t_pos *pos,
 	}
 	init_pipe_redirection(pos, p, is_builtin, check);
 }
+*/

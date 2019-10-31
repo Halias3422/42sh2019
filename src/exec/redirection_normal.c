@@ -6,13 +6,13 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/28 17:20:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 14:17:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 21:16:27 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
-
+/*
 int			redirection_get_argument_file_fd(t_redirect *red, char *file,
 			t_process *p, int new_fd_out)
 {
@@ -41,7 +41,7 @@ int			redirection_get_argument_file_fd(t_redirect *red, char *file,
 	}
 	return (new_fd_out);
 }
-
+*/
 void		redirection_fill_pos_fd(t_pos *pos, int old_fd, int new_fd)
 {
 	if (old_fd == 1)

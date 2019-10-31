@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 14:27:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 10:10:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 	tmp->heredoc_content = NULL;
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
-	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
+	if (res[*t]->token != 4 && res[*t]->token != 6)
 		init_fd_in_and_out(res, t, tmp);
 	else
 	{
@@ -54,7 +54,7 @@ int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 		tmp->fd_out = (res[*t]->redirection) ? ft_strdup(res[*t]->redirection)
 		: NULL;
 	}
-	if (res[*t]->token == 4 || res[*t]->token == 6 || res[*t]->token == 9)
+	if (res[*t]->token == 4 || res[*t]->token == 6)
 		tmp->fd = (res[*t]->fd_in) ? ft_atoi(res[*t]->fd_in) : 1;
 	else
 		tmp->fd = (res[*t]->token == 8) ? 0 : 1;
