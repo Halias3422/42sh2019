@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 11:06:29 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/30 14:44:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -84,6 +84,8 @@ void		launch_job(t_job *j, t_var *var)
 	p = init_launch_job(j, &infile);
 	while (p)
 	{
+		pos->act_fd_out = 1;
+		pos->act_fd_error = 2;
 		if (check_process(var, p, j))
 			return (free_temp(&var));
 		send_job_to_fork_simple(p, j, var, &infile);
