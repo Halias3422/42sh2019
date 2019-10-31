@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/16 12:48:03 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 14:31:14 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 10:28:05 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,6 @@ void		init_fd_in_and_out(t_lexeur **res, int *t, t_redirect *tmp)
 	else if (res[*t]->fd_in)
 		tmp->fd_in = ft_strdup(res[*t]->fd_in);
 	else
-		tmp->fd_in = ft_strdup("1");
+		tmp->fd_in = NULL;
 	tmp->fd_out = (res[*t]->fd_out) ? ft_strdup(res[*t]->fd_out) : NULL;
 }
