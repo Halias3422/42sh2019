@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/30 19:07:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 12:37:43 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 12:53:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -119,6 +119,7 @@ void			redirect_simple_right(t_fd *fd, t_redirect *red, t_process *p)
 		fd->error = 1;
 		return ;
 	}
+	ft_printf("je suis toujours vivant\n");
 	ft_strdel(&file);
 }
 
@@ -131,8 +132,13 @@ void			final_change_fd_for_redirections(t_fd *fd, t_pos *pos)
 		{
 			if (ft_strcmp(fd->token, "<") == 0 && fd->old_fd == -1)
 				dup2(fd->new_fd, 0);
-			else
+			else if (ft_strcmp(fd->token, "<") == 0)
+			{
+				ft_printf("je redirige dans le dup\n");
 				dup2(fd->old_fd, fd->new_fd);
+			}
+			if (ft_strcmp(fd->token, ">") == 0)
+				dup2(fd->new_fd, fd->old_fd);
 		}
 		else if (fd->is_builtin == 1 && fd->error == 0)
 		{
