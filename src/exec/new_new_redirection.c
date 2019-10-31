@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/30 19:07:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 11:05:36 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 12:37:43 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,16 +74,41 @@ t_fd			*add_list_back_fd(t_fd *fd)
 	return (head);
 }
 
-void			redirect_simple_left(t_fd *fd, t_redirect *red, t_pos *pos,
-				t_process *p)
+void			redirect_simple_left(t_fd *fd, t_redirect *red, t_process *p)
 {
 	char		*file;
 
 	fd->token = ft_strdup("<");
-	ft_printf(" ICI redirect->fd_in = %s redirect->fd_out = %s redirect->fd = %d\n", red->fd_in, red->fd_out, red->fd);
-	(void)pos;
 	if (red->fd_in)
-	fd->old_fd = ft_atoi(red->fd_in);
+	{
+		fd->old_fd = ft_atoi(red->fd_in);
+		if (fd->old_fd > 255)
+		{
+			ft_printf_err_fd("42sh: %s: Bad file descriptor\n", red->fd_in);
+			fd->error = 1;
+			p->exec_builtin = 0;
+		}
+	}
+	if (red->fd_out[0] != '/')
+		file = ft_strdup("./");
+	else
+		file = ft_strnew(0);
+	file = ft_strjoinf(file, red->fd_out, 1);
+	if ((fd->new_fd = redirection_get_argument_file_fd(red, file, p, 1)) == -1)
+	{
+		fd->error = 1;
+		return ;
+	}
+	ft_strdel(&file);
+}
+
+void			redirect_simple_right(t_fd *fd, t_redirect *red, t_process *p)
+{
+	char		*file;
+
+	(void)p;
+	fd->token = ft_strdup(">");
+	fd->old_fd = red->fd;
 	if (red->fd_out[0] != '/')
 		file = ft_strdup("./");
 	else
@@ -101,7 +126,7 @@ void			final_change_fd_for_redirections(t_fd *fd, t_pos *pos)
 {
 	while (fd)
 	{
-		ft_printf("fd->old_fd = %d fd->new_fd = %d\n", fd->old_fd, fd->new_fd);
+//		ft_printf("fd->old_fd = %d fd->new_fd = %d\n", fd->old_fd, fd->new_fd);
 		if (fd->is_builtin == 0 && fd->error == 0)
 		{
 			if (ft_strcmp(fd->token, "<") == 0 && fd->old_fd == -1)
@@ -120,15 +145,13 @@ void			final_change_fd_for_redirections(t_fd *fd, t_pos *pos)
 	}
 }
 
-// revoir comportement de < 1. "cat < Makefile" 2. "cat 1<Makefile" 3. "cat toto<Makefile"
-
 void			get_all_redirections_done(t_process *p, t_pos *pos, t_redirect
 				*red, int is_builtin)
 {
 	t_fd		*fd;
 	t_fd		*head;
 
-	ft_printf("p->cmd = [%T]\n", p->cmd);
+//	ft_printf("p->cmd = [%T]\n", p->cmd);
 	(void)p;
 	fd = NULL;
 	head = NULL;
@@ -141,9 +164,11 @@ void			get_all_redirections_done(t_process *p, t_pos *pos, t_redirect
 			fd = fd->next;
 		fd->is_builtin = is_builtin;
 		if (ft_strcmp(red->token, "<") == 0)
-			redirect_simple_left(fd, red, pos, p);
+			redirect_simple_left(fd, red, p);
+		else if (ft_strcmp(red->token, ">") == 0)
+			redirect_simple_right(fd, red, p);
 		red = red->next;
 	}
 	final_change_fd_for_redirections(head, pos);
-	ft_printf("pos->act_fd_out = %d pos->act_fd_error = %d\n", pos->act_fd_out, pos->act_fd_error);
+//	ft_printf("pos->act_fd_out = %d pos->act_fd_error = %d\n", pos->act_fd_out, pos->act_fd_error);
 }
