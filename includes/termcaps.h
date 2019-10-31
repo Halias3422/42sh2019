@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 11:23:55 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:56:42 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -245,6 +245,7 @@ void					error_handling(t_pos *pos, char *variable, int err);
 ** CHECK_ERROR_C
 */
 
+void					*ft_malloc(size_t size);
 int						check_term(void);
 int						check_if_process_in_bg(t_pos *pos,
 						unsigned char buf[9]);

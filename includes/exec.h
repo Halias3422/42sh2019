@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:28:28 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:41:16 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -136,7 +136,7 @@ int						start_exec(t_lexeur **res, t_var *var);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void					fill_process(t_job *j, t_lexeur **res);
+void					fill_process(t_job *j, t_lexeur **res, int i);
 void					fill_token(t_process *p, t_lexeur **res, int *i);
 
 /*

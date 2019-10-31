@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 13:11:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:56:05 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -92,15 +92,13 @@ int *i)
 	return (1);
 }
 
-void			fill_process(t_job *j, t_lexeur **res)
+void			fill_process(t_job *j, t_lexeur **res, int i)
 {
-	int			i;
 	t_process	*start;
 
-	i = 0;
 	j->p = ft_malloc(sizeof(t_process));
 	start = j->p;
-	while (res[i])
+	while (res[++i])
 	{
 		j->p->status = '\0';
 		j->p->stoped = 0;
@@ -113,8 +111,11 @@ void			fill_process(t_job *j, t_lexeur **res)
 		j->p->fd_error = 2;
 		j->p->pid = 0;
 		j->p->split = '\0';
+		j->p->file_in = 0;
+		j->p->file_out = 0;
+		j->p->ret = 0;
+		j->p->background = 0;
 		if (fill_process_while(res, &j, &start, &i) == 0)
 			break ;
-		i++;
 	}
 }

@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_memalloc.c                                    .::    .:/ .      .::   */
+/*   ft_malloc.c                                      .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/10/31 16:03:53 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:03:55 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/10/31 15:13:18 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/10/31 16:04:05 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_mem.h"
 
-void		*ft_memalloc(size_t size)
+void			*ft_malloc(size_t size)
 {
-	void	*mem;
+	void	*ret;
 
-	if (size == 0 || (mem = ft_malloc(size)) == NULL)
-		return (NULL);
-	mem = ft_memset(mem, '\0', size);
-	return (mem);
+	ret = malloc(size);
+	if (ret == NULL)
+	{
+		ft_printf("memory allocation failed\n");
+		ft_printf("program stops\n");
+		exit(126);
+	}
+	ft_memset(ret, '\0', size);
+	return (ret);
 }

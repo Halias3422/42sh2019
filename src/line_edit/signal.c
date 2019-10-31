@@ -6,14 +6,12 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 11:00:27 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 15:26:33 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "termcaps.h"
-
-struct s_hist	**ghist;
 
 void			signal_handler(void)
 {
@@ -47,24 +45,24 @@ static void		resize_screen(t_pos *pos)
 	tputs(tgetstr("ve", NULL), 1, ft_putchar);
 }
 
-static void		ctrl_c(t_pos *pos)
+static void		ctrl_c(t_pos *pos, t_hist *hist)
 {
 	t_var		*var;
 
 	var = stock(NULL, 6);
 	if (pos->last_cmd_on_bg == 1)
 		return ;
-	while (*ghist && (*ghist)->next)
-		*ghist = (*ghist)->next;
+	while (hist && hist->next)
+		hist = hist->next;
 	if (pos->active_heredoc == 1)
 	{
-		(*ghist)->cmd = ft_secure_free((*ghist)->cmd);
+		hist->cmd = ft_secure_free(hist->cmd);
 		pos->ans_heredoc_save = ft_secure_free(pos->ans_heredoc_save);
 		pos->ans_heredoc = ft_secure_free(pos->ans_heredoc);
 		free_hdoc(pos->hdoc);
 	}
 	write(1, "\n", 1);
-	(*ghist)->cmd = ft_secure_free((*ghist)->cmd);
+	hist->cmd = ft_secure_free(hist->cmd);
 	pos->ans = ft_secure_free(pos->ans);
 	pos->saved_ans = ft_secure_free(pos->saved_ans);
 	print_first_prompt(pos);
@@ -83,7 +81,7 @@ static void		sighandler(int signum)
 	if (signum == RESIZING)
 		resize_screen(pos);
 	if (signum == CTRL_C)
-		ctrl_c(pos);
+		ctrl_c(pos, to_stock(NULL, 5));
 }
 
 void			signal_list(void)

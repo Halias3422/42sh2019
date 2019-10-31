@@ -3,10 +3,10 @@
 #                                                               /              #
 #    Makefile                                         .::    .:/ .      .::    #
 #                                                  +:+:+   +:    +:  +:+:+     #
-#    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
+#    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/10/31 16:21:10 by vde-sain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/10/31 16:58:25 by mjalenqu    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -106,7 +106,7 @@ RESET = \033[0m
 all:
 	@echo ""
 	@make -C $(LIB_PATH)
-	@make -j $(NAME)
+	@make $(NAME)
 	@echo ""
 
 $(NAME) : $(OBJ) Makefile $(LIB_LIB)

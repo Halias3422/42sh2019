@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 10:37:51 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:38:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,7 +78,7 @@ t_job		*make_job(t_lexeur **res)
 	j->pgid = 0;
 	init_job(j);
 	fill_job(j, res);
-	fill_process(j, res);
+	fill_process(j, res, -1);
 	tmp = j;
 	pos->last_cmd_on_bg = 0;
 	while (tmp)

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/17 18:40:25 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:31:28 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,7 @@ int			job_is_completed(t_job *j)
 			return (0);
 		p = p->next;
 	}
+	j->status = 'f';
 	return (1);
 }
 
@@ -45,13 +46,13 @@ int			job_is_stoped(t_job *j)
 	p = j->p;
 	while (p)
 	{
-		if (p->stoped == 0)
+		if (p->stoped == STOPED)
 		{
-			return (0);
+			return (1);
 		}
 		p = p->next;
 	}
-	return (1);
+	return (0);
 }
 
 t_job_list	*job_notification_while(t_job_list *job_list, t_job_list **last)

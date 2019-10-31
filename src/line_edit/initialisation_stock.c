@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/10 09:57:21 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/26 13:08:05 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:35:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -114,6 +114,8 @@ void			init_pos(t_pos *pos, int usage)
 		pos->len_prompt = ft_strlen(pos->prompt) % pos->max_co;
 	pos->saved_ans = NULL;
 	pos->len_ans = pos->len_prompt;
+	if (pos->ctrl_hist_cmd != NULL)
+		ft_strdel(&pos->ctrl_hist_cmd);
 	init_classic_var(pos);
 	if (usage)
 	{

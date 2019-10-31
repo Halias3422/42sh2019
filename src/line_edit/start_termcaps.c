@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 20:01:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:35:08 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -93,7 +93,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 		return (pos->ans);
 	while (hist && hist->next)
 		hist = hist->next;
-	ghist = &hist;
+	to_stock(hist, 4);
 	init_terminfo(pos);
 	ft_bzero(buf, 8);
 	print_first_prompt(pos);

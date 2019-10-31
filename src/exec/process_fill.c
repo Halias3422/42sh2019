@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/17 17:07:12 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 11:04:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/10/31 16:37:05 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -43,6 +43,8 @@ int			fill_heredoc(t_lexeur **res, t_redirect *tmp, int *t)
 
 int			fill_ag_first(t_redirect *tmp, t_lexeur **res, int *t)
 {
+	tmp->open_in = 0;
+	tmp->open_out = 0;
 	tmp->heredoc_content = NULL;
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
@@ -69,6 +71,8 @@ int			fill_ag_next(t_redirect *tmp, t_lexeur **res, int *t)
 	while (tmp->next)
 		tmp = tmp->next;
 	make_tmp_great_again(&tmp);
+	tmp->open_in = 0;
+	tmp->open_out = 0;
 	if (res[*t]->token == 7)
 		return (fill_heredoc(res, tmp, t));
 	if (res[*t]->token != 4 && res[*t]->token != 6 && res[*t]->token != 9)
