@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/09/26 08:28:35 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 15:41:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -45,10 +45,7 @@ t_replace *replace)
 	else if (replace_alias_first_part(&var, alias, replace) == 1)
 		return (1);
 	else
-	{
-		alias->data = del_space(alias->data);
 		return (0);
-	}
 	return (1);
 }
 
@@ -85,22 +82,24 @@ int			check_boucle(t_alias *alias, t_replace *replace)
 void		replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 {
 	t_var		*s_var;
+	t_alias		*tmp;
 	int			ret;
 
+	tmp = alias;
 	while (1)
 	{
 		s_var = var;
 		if (replace_alias_first_part(&s_var, alias, replace) == 0)
 			break ;
 		ret = replace_alias_while(s_var, alias);
-		if (check_boucle(alias, replace) == 0)
-			break ;
+		check_next(alias, var, replace);
 		if (replace_alias_last_part(alias, &ret, var, replace) == 0)
 			break ;
-		alias->data = del_space(alias->data);
+		if (check_boucle(alias, replace) == 0)
+			break ;
 		if (alias->next)
 			alias = alias->next;
 	}
 	check_tok(alias, var, replace);
-	alias->data = del_space(alias->data);
+	del_all_backslash(tmp);
 }

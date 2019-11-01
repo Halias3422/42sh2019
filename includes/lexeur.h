@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:40:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 15:40:46 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -338,5 +338,7 @@ void					check_quote_double(char *str, int *i,
 void					solve_quote_simple(char *str, char **res, int *i,
 						int j);
 char					*replace_var_to_data(char *str, t_var *env);
+int						check_last_space(char *str);
+void					check_next(t_alias *alias, t_var *var, t_replace *r);
 
 #endif
