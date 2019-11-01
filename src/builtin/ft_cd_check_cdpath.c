@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:39:25 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 13:15:34 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,9 +66,12 @@ void		print_cd_error(char *path, int i, int mute, int usage)
 			ft_printf_err_fd("42sh: cd: %s: is not a directory\n", path + i);
 		else if (usage == 0)
 			ft_printf_err_fd("42sh: cd : not a directory\n");
-		if (usage == 1 && path && path + i + 1)
+		if (usage == 1 && path && path + i + 1 && path[i] == '/')
 			ft_printf_err_fd("42sh: cd: %s: No such file or directory\n",
 					path + i + 1);
+		else if (usage == 1 && path && path + i)
+			ft_printf_err_fd("42sh: cd: %s: No such file or directory\n",
+					path + i);
 		else if (usage == 1)
 			ft_printf_err_fd("42sh: cd: No such file or directory\n");
 		if (usage == 2 && path && path + i)

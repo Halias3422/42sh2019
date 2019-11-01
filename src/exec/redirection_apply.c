@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/31 16:10:01 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 10:48:21 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 12:38:49 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -54,7 +54,6 @@ int				redirection_get_argument_file_fd(t_redirect *red, char *file,
 	{
 		ft_printf_err_fd("42sh: %s: No such file or directory\n", red->fd_out);
 		p->exec_builtin = 0;
-		ft_strdel(&file);
 		return (-1);
 	}
 	return (new_fd_out);
