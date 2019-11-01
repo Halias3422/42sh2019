@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:41:16 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 10:35:11 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -375,7 +375,8 @@ void					init_fd_link(t_fd *ne);
 
 void					init_pipe_redirection(t_pos *pos, t_process *p,
 						int is_builtin, t_fd *fd);
-void					end_pipe_redirection(t_pos *pos, t_process *p);
+void					end_pipe_redirection(t_pos *pos, t_process *p,
+						t_fd *fd);
 void					redirect_aggregator_left(t_fd *fd, t_redirect *red,
 						t_process *p);
 void					redirect_aggregator_right(t_fd *fd, t_redirect *red,
