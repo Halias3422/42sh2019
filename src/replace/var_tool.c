@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:07:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:39:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 12:34:08 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
 
-int			cnt_list_var(t_tvar *var)
+int				cnt_list_var(t_tvar *var)
 {
 	int		nb;
 
@@ -27,7 +27,7 @@ int			cnt_list_var(t_tvar *var)
 	return (nb);
 }
 
-char		**make_list_to_ar_var(t_tvar *alias)
+char			**make_list_to_ar_var(t_tvar *alias)
 {
 	char	**res;
 	t_tvar	*s;
@@ -47,7 +47,7 @@ char		**make_list_to_ar_var(t_tvar *alias)
 	return (res);
 }
 
-t_tvar		*make_ar_to_list_var(char **str)
+t_tvar			*make_ar_to_list_var(char **str)
 {
 	t_tvar		*start;
 	t_tvar		*var;
@@ -74,7 +74,7 @@ t_tvar		*make_ar_to_list_var(char **str)
 	return (var);
 }
 
-int			find_second_char(char *str, int *i)
+int				find_second_char(char *str, int *i)
 {
 	if (str[*i] == '{')
 	{
