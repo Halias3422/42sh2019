@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_exit.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:59:04 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 09:46:41 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,7 +104,7 @@ int				ft_exit(t_process *p, t_var **var)
 		return (1);
 	}
 	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
-		return (status);
+		return (1);
 	while (p->cmd[1] && p->cmd[1][++i])
 		if (p->cmd[1][i] < '0' || p->cmd[1][i] > '9')
 			check = 1;

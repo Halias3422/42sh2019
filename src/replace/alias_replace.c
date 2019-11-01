@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias_replace.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 09:48:21 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/03 07:31:29 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 13:05:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,4 +55,13 @@ int			replace_alias_while(t_var *var, t_alias *alias)
 	}
 	ft_strdel(&tmp);
 	return (i);
+}
+
+void		del_all_backslash(t_alias *al)
+{
+	while (al)
+	{
+		al->data = del_space(al->data);
+		al = al->next;
+	}
 }
