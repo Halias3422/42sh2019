@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   redirection_pipe_aggregator.c                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/31 16:03:54 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 11:37:03 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 10:00:43 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,9 +66,9 @@ void			redirect_aggregator_left(t_fd *fd, t_redirect *red,
 		fd->error = 1;
 		return ;
 	}
-	else if (isatty(fd->old_fd) == 0)
+	if (isatty(fd->new_fd) == 0)
 	{
-		ft_printf_err_fd("42sh: %s: Bad file descriptor\n", red->fd_in);
+		ft_printf_err_fd("42sh: %s: Bad file descriptor\n", red->fd_out);
 		p->exec_builtin = 0;
 		fd->error = 1;
 		return ;
