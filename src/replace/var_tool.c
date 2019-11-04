@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:07:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 10:19:55 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:06:51 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,10 +76,10 @@ t_tvar			*make_ar_to_list_var(char **str)
 
 int				find_second_char(char *str, int *i)
 {
-	if (str[*i] == '{')
+	if (str[*i] && str[*i] == '{')
 	{
 		(*i)++;
-		while (str[*i] != '}')
+		while (str[*i] && str[*i] != '}')
 			(*i)++;
 		return (0);
 	}
@@ -92,7 +92,7 @@ void			replace_var(t_var *env, t_alias *alias)
 {
 	while (alias)
 	{
-		if (ft_strchr(alias->data, '$'))
+		if (condition_find_dollar(alias->data, 0))
 			alias->data = replace_var_to_data(alias->data, env);
 		alias = alias->next;
 	}

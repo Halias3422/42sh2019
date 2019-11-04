@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 13:05:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:05:51 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,15 +60,12 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
 	check_tok(alias, var, replace);
 	while (alias)
 	{
-		if (alias->data && alias->data[0] != '\'')
+		if (alias->data && condition_find_dollar(alias->data, 0) &&
+		check_backslash_var(alias->data))
 		{
-			if (alias->data && ft_strstr(alias->data, "$") != NULL &&
-			check_backslash_var(alias->data))
-			{
-				done = 1;
-				replace_var(var, alias);
-				break ;
-			}
+			done = 1;
+			replace_var(var, alias);
+			break ;
 		}
 		alias = alias->next;
 	}
