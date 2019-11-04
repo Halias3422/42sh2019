@@ -6,12 +6,29 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:45:25 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 10:54:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
+
+pid_t			get_pid_fg(t_process *p)
+{
+	pid_t	save;
+
+	save = p->pid;
+	while (p)
+	{
+		if (kill(p->pid, 0) == 0)
+		{
+			save = p->pid;
+			break ;
+		}
+		p = p->next;
+	}
+	return (save);
+}
 
 int				ft_jobs_option(char **cmd, int *i)
 {

@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 10:09:26 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 11:06:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,12 +42,12 @@ static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
 
 	if (pos->active_heredoc)
 	{
-		pos->tab_key_printed = 0;
 		i = ft_strlen(pos->ans) - 1;
 		if (pos->ans[i] != '\n')
 			return (0);
 		heredoc_ctrl_d(pos, hist);
 		ft_strdel(&pos->saved_ans);
+		pos->is_complete = 1;
 		if (pos->active_heredoc == 0)
 			return (1);
 	}
@@ -99,6 +99,7 @@ char			*termcaps42sh(t_pos *pos, t_hist *hist, t_var *var)
 	ft_bzero(buf, 8);
 	print_first_prompt(pos);
 	init_pos(pos, 1);
+	pos->is_complete = 1;
 	print_prompt(pos);
 	signal_list();
 	while (1)
