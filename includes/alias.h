@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias.h                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:08:47 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 15:46:41 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 10:21:41 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -80,4 +80,11 @@ char				**make_list_to_ar_var(t_tvar *alias);
 t_tvar				*make_ar_to_list_var(char **str);
 void				del_all_backslash(t_alias *al);
 
+/*
+**┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+**┃                        var_condition_tool.c                                ┃
+**┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+*/
+
+void				condition_simple_quote(char *str, int *i);
 #endif
