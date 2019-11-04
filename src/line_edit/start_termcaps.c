@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   start_termcaps.c                                 .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 11:40:57 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 10:09:26 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,7 @@ static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
 
 	if (pos->active_heredoc)
 	{
+		pos->tab_key_printed = 0;
 		i = ft_strlen(pos->ans) - 1;
 		if (pos->ans[i] != '\n')
 			return (0);
