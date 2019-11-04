@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   fc_prepare_e_flag.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 14:02:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:42:31 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,7 +64,7 @@ static int		check_if_ename_is_text_editor(t_fc *fc, char **paths, int i)
 		closedir(dirp);
 	}
 	fc->error = 1;
-	ft_printf_err_fd("42sh: command not found: %s\n", fc->ename);
+	ft_printf_err_fd("21sh: command not found: %s\n", fc->ename);
 	return (0);
 }
 

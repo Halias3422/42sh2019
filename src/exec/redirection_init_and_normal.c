@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   new_normal_redirection.c                         .::    .:/ .      .::   */
+/*   redirection_init_and_normal.c                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/31 13:17:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:29:40 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ void			redirect_simple_left(t_fd *fd, t_redirect *red, t_process *p)
 		fd->old_fd = ft_atoi(red->fd_in);
 		if (fd->old_fd > 255)
 		{
-			ft_printf_err_fd("42sh: %s: Bad file descriptor\n", red->fd_in);
+			ft_printf_err_fd("21sh: %s: Bad file descriptor\n", red->fd_in);
 			fd->error = 1;
 			p->exec_builtin = 0;
 		}

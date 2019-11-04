@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   redirection_apply.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/31 16:10:01 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 12:38:49 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,7 +44,7 @@ int				redirection_get_argument_file_fd(t_redirect *red, char *file,
 			new_fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	}
 	else if (access(file, F_OK) != -1 && access(file, W_OK) == -1)
-		ft_printf_err_fd("42sh: %s: permission denied\n", red->fd_out);
+		ft_printf_err_fd("21sh: %s: permission denied\n", red->fd_out);
 	else if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, ">>") == 0
 			|| ft_strcmp(red->token, ">&") == 0)
 	{
@@ -52,7 +52,7 @@ int				redirection_get_argument_file_fd(t_redirect *red, char *file,
 	}
 	else
 	{
-		ft_printf_err_fd("42sh: %s: No such file or directory\n", red->fd_out);
+		ft_printf_err_fd("21sh: %s: No such file or directory\n", red->fd_out);
 		p->exec_builtin = 0;
 		return (-1);
 	}

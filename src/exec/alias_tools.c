@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/25 15:57:47 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/22 13:35:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ int			find_alias(t_process *p, int k)
 		tmp = tmp->next;
 	if (!tmp)
 	{
-		ft_printf_err_fd("42sh: alias: %s: not found\n", p->cmd[k]);
+		ft_printf_err_fd("21sh: alias: %s: not found\n", p->cmd[k]);
 		return (1);
 	}
 	ft_printf_fd("%s=%s\n", tmp->name, tmp->data);
