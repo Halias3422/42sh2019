@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 14:00:40 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,12 +59,16 @@ int				ft_jobs_option(char **cmd, int *i)
 char			*built_job_name(t_job_list *j, char *name)
 {
 	int			i;
+	t_process	*tmp;
 
+	tmp = j->j->p;
 	i = 0;
-	while (j->j->p->cmd[i])
+	while (kill(tmp->pid, 0) == -1)
+		tmp = tmp->next;
+	while (tmp->cmd[i])
 	{
-		name = ft_strjoinf(name, j->j->p->cmd[i], 1);
-		if (j->j->p->cmd[i + 1])
+		name = ft_strjoinf(name, tmp->cmd[i], 1);
+		if (tmp->cmd[i + 1])
 			name = ft_strjoinf(name, " ", 1);
 		i++;
 	}
