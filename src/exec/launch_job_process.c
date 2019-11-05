@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 10:27:31 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 14:39:08 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,8 @@ void		alert_job(t_job *j)
 {
 	if (j->split != '&' && is_builtin_modify(j->p))
 	{
-		free_job(j);
+		remove_job(j->id, 0);
+		//free_job(j);
 		return ;
 	}
 	if (j->split == '&')
