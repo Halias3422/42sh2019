@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:05:51 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 13:52:48 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,25 +49,29 @@ int			check_spe(t_alias *alias, t_var *var)
 	return (0);
 }
 
-int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace)
+int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace,
+			int *alias_done)
 {
 	int		done;
+	t_alias	*tmp;
 
 	done = 0;
-	if (check_alias(alias->data, var) == 1 && alias->data[0] != '\\')
-		replace_alias(alias, var, replace);
+	if (!(*alias_done) && check_alias(alias->data, var) == 1 &&
+	alias->data[0] != '\\')
+		if (replace_alias(alias, var, replace) == 1)
+			*alias_done = 1;
 	check_spe(alias, var);
-	check_tok(alias, var, replace);
-	while (alias)
+	tmp = alias;
+	while (tmp)
 	{
-		if (alias->data && condition_find_dollar(alias->data, 0) &&
-		check_backslash_var(alias->data))
+		if (tmp->data && condition_find_dollar(tmp->data, 0) &&
+		check_backslash_var(tmp->data))
 		{
 			done = 1;
-			replace_var(var, alias);
+			replace_var(var, tmp);
 			break ;
 		}
-		alias = alias->next;
+		tmp = tmp->next;
 	}
 	return (done);
 }
@@ -91,10 +95,25 @@ void		free_alias(t_alias *alias)
 char		**start_split(t_var *start, char *str)
 {
 	char		**ar;
+	int			alias_done;
+	t_alias		*al;
+	t_replace	*r;
 
+	alias_done = 0;
 	ar = split_space(str);
 	if (!start)
 		return (ar);
+	al = make_ar_to_list(ar);
+	init_replace(&r);
+	r->name = ft_strdup(al->data);
+	while (1)
+	{
+		if (remove_env_while(al, start, r, &alias_done) == 0)
+			break ;
+	}
+	ar = make_list_to_ar(al);
 	ft_strdel(&str);
+	free_replace(r);
+	free_alias(al);
 	return (ar);
 }
