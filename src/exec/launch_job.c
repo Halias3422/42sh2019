@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:39:45 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 17:49:10 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,6 @@ int			check_process(t_var *var, t_process *p, t_job *j)
 			return (1);
 		}
 	}
-	to_stock(p, 2);
 	return (0);
 }
 

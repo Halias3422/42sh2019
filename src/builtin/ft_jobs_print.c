@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:02:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 17:47:17 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,7 @@ void			print_all_jobs(t_job_list *j, int option)
 	{
 		name = built_job_name(j, name);
 		print_current_job(j, option, name);
+		print_job(j->j);
 		j = j->next;
 		ft_strdel(&name);
 		if (j)
