@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 11:21:04 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 14:41:56 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -609,6 +609,7 @@ void					get_pos_coordinates_right_again(t_pos *pos);
 ** CHECK_FOR_TILDE_C
 */
 
+int						verif_tilde(char *ans, int i);
 char					*check_for_tilde(char *ans, t_var *env, int i,
 						int usage);
 void					check_copy(unsigned char *buf, t_pos *pos);
