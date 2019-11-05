@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:10:28 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/28 13:53:02 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,18 +18,20 @@ char	*move_to_home_dir(t_var **var)
 	char	*path;
 	t_pos	*pos;
 
-	if ((path = ft_get_val("HOME", *var, TEMP)) == NULL)
-		path = ft_get_val("HOME", *var, ENVIRONEMENT);
+	if ((path = ft_strdup(ft_get_val("HOME", *var, TEMP))) == NULL)
+		path = ft_strdup(ft_get_val("HOME", *var, ENVIRONEMENT));
+	if (path && path[ft_strlen(path) - 1] != '/')
+		path = ft_strjoinf(path, "/", 1);
 	if (path == NULL)
 	{
 		pos = to_stock(NULL, 1);
 		pos->error_printed = 1;
-		ft_printf_err_fd("42sh: cd: HOME not set\n");
+		ft_printf_err_fd("21sh: cd: HOME not set\n");
 		return (NULL);
 	}
 	else if (verif_path(path, 1, 0) == 0)
 		return (NULL);
-	return (ft_strdup(path));
+	return (path);
 }
 
 char	*move_to_oldpwd(t_var **var)
@@ -37,18 +39,20 @@ char	*move_to_oldpwd(t_var **var)
 	char	*path;
 	t_pos	*pos;
 
-	path = ft_get_val("OLDPWD", *var, ENVIRONEMENT);
+	path = ft_strdup(ft_get_val("OLDPWD", *var, ENVIRONEMENT));
+	if (path && path[ft_strlen(path) - 1] != '/')
+		path = ft_strjoinf(path, "/", 1);
 	if (path == NULL)
 	{
 		pos = to_stock(NULL, 1);
 		pos->error_printed = 1;
-		ft_printf_err_fd("42sh: cd: OLDPWD not set\n");
+		ft_printf_err_fd("21sh: cd: OLDPWD not set\n");
 		return (NULL);
 	}
 	else if (verif_path(path, 1, 0) == 0)
 		return (NULL);
 	ft_printf_fd("%s\n", path);
-	return (ft_strdup(path));
+	return (path);
 }
 
 char	*go_to_absolute_path(char *cmd, t_var **var)

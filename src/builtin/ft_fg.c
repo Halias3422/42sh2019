@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:44:48 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:44:37 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 10:54:06 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,11 +16,13 @@
 
 void			put_foreground(t_job *j, t_var **var, t_process *p)
 {
+	pid_t		tmp;
 	t_pos		*pos;
 
 	pos = to_stock(NULL, 1);
 	pos->last_cmd_on_bg = 1;
-	kill(j->pgid, SIGCONT);
+	tmp = get_pid_fg(j->p);
+	kill(tmp, SIGCONT);
 	j->status = 'r';
 	tcsetpgrp(0, j->pgid);
 	wait_process(var);

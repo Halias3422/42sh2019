@@ -6,7 +6,7 @@
 /*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/30 19:07:24 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:29:33 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 11:34:57 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,7 +76,7 @@ void			get_all_redirections_done(t_process *p, t_pos *pos,
 
 	fd = NULL;
 	head = NULL;
-	end_pipe_redirection(pos, p);
+	end_pipe_redirection(pos, p, fd, is_builtin);
 	while (red)
 	{
 		fd = add_list_back_fd(fd);

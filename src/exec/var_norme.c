@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:11:03 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 11:16:26 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,7 @@ int			add_env_check(char *name, t_var **var, char *str)
 {
 	if (check_name(name) == 1)
 	{
-		ft_printf_err("42sh: %s: ambiguous value name\n", name);
+		ft_printf_err("21sh: %s: ambiguous value name\n", name);
 		ft_strdel(&name);
 		return (1);
 	}

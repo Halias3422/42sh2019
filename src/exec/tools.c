@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   tools.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 10:55:32 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 10:59:30 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,7 @@ char	*strjoin_path(char *s1, char *s2)
 
 void	cnf_print_error(char *str)
 {
-	ft_putstr("42sh: \033[1;31merror: \033[0mcommand not found: ");
+	ft_putstr("21sh: \033[1;31merror: \033[0mcommand not found: ");
 	ft_putstr(str);
 	ft_putstr("\n");
 }

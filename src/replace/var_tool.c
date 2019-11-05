@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:07:49 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/30 11:35:56 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 12:56:52 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
 
-int			cnt_list_var(t_tvar *var)
+int				cnt_list_var(t_tvar *var)
 {
 	int		nb;
 
@@ -27,7 +27,7 @@ int			cnt_list_var(t_tvar *var)
 	return (nb);
 }
 
-char		**make_list_to_ar_var(t_tvar *alias)
+char			**make_list_to_ar_var(t_tvar *alias)
 {
 	char	**res;
 	t_tvar	*s;
@@ -47,7 +47,7 @@ char		**make_list_to_ar_var(t_tvar *alias)
 	return (res);
 }
 
-t_tvar		*make_ar_to_list_var(char **str)
+t_tvar			*make_ar_to_list_var(char **str)
 {
 	t_tvar		*start;
 	t_tvar		*var;
@@ -74,16 +74,26 @@ t_tvar		*make_ar_to_list_var(char **str)
 	return (var);
 }
 
-int			find_second_char(char *str, int *i)
+int				find_second_char(char *str, int *i)
 {
-	if (str[*i] == '{')
+	if (str[*i] && str[*i] == '{')
 	{
 		(*i)++;
-		while (str[*i] != '}')
+		while (str[*i] && str[*i] != '}')
 			(*i)++;
 		return (0);
 	}
 	else
 		(*i)++;
 	return (1);
+}
+
+void			replace_var(t_var *env, t_alias *alias)
+{
+	while (alias)
+	{
+		if (condition_find_dollar(alias->data, 0))
+			alias->data = replace_var_to_data(alias->data, env);
+		alias = alias->next;
+	}
 }

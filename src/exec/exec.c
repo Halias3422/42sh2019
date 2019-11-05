@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:38:08 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 10:01:47 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,27 +15,11 @@
 #include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
 
-void		replace_job(t_process **p, t_var *var)
+void		replace_job(t_process **p)
 {
-	t_alias		*al;
-	t_replace	*r;
-
 	if (!(*p) || !((*p)->cmd))
 		return ;
-	al = make_ar_to_list((*p)->cmd);
-	if (!al)
-		return ;
-	init_replace(&r);
-	r->name = ft_strdup(al->data);
-	while (1)
-	{
-		if (remove_env_while(al, var, r) == 0)
-			break ;
-	}
-	(*p)->cmd = make_list_to_ar(al);
 	(*p)->cmd = del_back_slash_and_quote((*p)->cmd);
-	free_replace(r);
-	free_alias(al);
 }
 
 void		save_spe_param(char **cmd, t_var *var, int i)
@@ -114,7 +98,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 		tmp = j->p;
 		while (tmp)
 		{
-			replace_job(&tmp, var);
+			replace_job(&tmp);
 			tmp = tmp->next;
 		}
 		save_spe_param(j->p->cmd, var, 0);

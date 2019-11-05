@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/25 20:02:49 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 11:17:54 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -312,7 +312,7 @@ void					heredoc_go_next_quote(char *str, int *i);
 void					free_replace(t_replace *replace);
 void					init_replace(t_replace **replace);
 void					*get_replace(void *stock, int i);
-void					replace_alias(t_alias *alias, t_var *var,
+int						replace_alias(t_alias *alias, t_var *var,
 						t_replace *replace);
 
 /*
@@ -326,7 +326,7 @@ int						check_tok(t_alias *alias, t_var *var,
 						t_replace *replace);
 void					free_alias(t_alias *alias);
 int						remove_env_while(t_alias *alias, t_var *var,
-						t_replace *replace);
+						t_replace *replace, int *alias_done);
 void					print_lexer(t_lexeur *lex);
 char					*remove_simple_quote(char **str);
 char					*fill_redirection_heredoc(char **buf, int *i);
@@ -337,5 +337,8 @@ void					check_quote_double(char *str, int *i,
 						int *quote_double);
 void					solve_quote_simple(char *str, char **res, int *i,
 						int j);
+char					*replace_var_to_data(char *str, t_var *env);
+int						check_last_space(char *str);
+void					check_next(t_alias *alias, t_var *var, t_replace *r);
 
 #endif

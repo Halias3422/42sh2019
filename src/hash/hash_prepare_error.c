@@ -3,25 +3,25 @@
 /*                                                              /             */
 /*   hash_prepare_error.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: vde-sain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/23 15:06:52 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:36:50 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/hash.h"
 
-void				hash_is_on_middle_link(t_hash *hash, t_hash *prev)
+void	hash_is_on_middle_link(t_hash *hash, t_hash *prev)
 {
 	hash = hash->next;
 	free(prev->next);
 	prev->next = hash;
 }
 
-char				*remove_old_entry_in_hash(t_hash **ghash, char *ans,
-					char *arg, t_var **var)
+char	*remove_old_entry_in_hash(t_hash **ghash, char *ans,
+		char *arg, t_var **var)
 {
 	t_hash	*prev;
 	t_hash	*hash;
@@ -50,7 +50,7 @@ char				*remove_old_entry_in_hash(t_hash **ghash, char *ans,
 	return (check_path_hash(var, ft_strdup(arg), 0, NULL));
 }
 
-void				prepare_error_message_for_hash(int error, char *str)
+void	prepare_error_message_for_hash(int error, char *str)
 {
 	t_process	*p;
 
@@ -58,7 +58,7 @@ void				prepare_error_message_for_hash(int error, char *str)
 	if (p->hash_error)
 		return ;
 	p->hash_error = ft_strnew(0);
-	p->hash_error = ft_strjoinf(p->hash_error, "42sh: ", 1);
+	p->hash_error = ft_strjoinf(p->hash_error, "21sh: ", 1);
 	if (str)
 		p->hash_error = ft_strjoinf(p->hash_error, str, 1);
 	if (error == 1)

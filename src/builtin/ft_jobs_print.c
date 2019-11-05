@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:02:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 15:44:20 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,5 +76,5 @@ void			print_selected_jobs(t_job_list *j, int option, char *arg)
 			name = ft_strnew(0);
 	}
 	if (!check)
-		ft_printf_err_fd("42sh: jobs: %s: no such job\n", arg);
+		ft_printf_err_fd("21sh: jobs: %s: no such job\n", arg);
 }

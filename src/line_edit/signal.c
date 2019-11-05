@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:09:42 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 15:26:33 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 11:21:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,33 +16,6 @@
 void			signal_handler(void)
 {
 	ft_printf("\n");
-}
-
-static void		resize_screen(t_pos *pos)
-{
-	int			len;
-
-	check_term();
-	pos->max_co = tgetnum("co");
-	pos->max_li = tgetnum("li") - 1;
-	len = get_len_with_lines(pos);
-	pos->let_nb = ft_strlen(pos->ans);
-	pos->len_ans = pos->let_nb;
-	short_update(pos, len);
-	clean_at_start(pos);
-	tputs(tgetstr("cd", NULL), 1, ft_putchar);
-	tputs(tgetstr("vi", NULL), 1, ft_putchar);
-	tputs(tgoto(tgetstr("cm", NULL), 0, pos->start_li), 1, ft_putchar);
-	print_prompt(pos);
-	if (pos->ctrl_search_history == 1)
-	{
-		write(1, "(reverse-i-search)'", 19);
-		ft_printf("%s':", pos->ans);
-		write(1, pos->ctrl_hist_cmd, ft_strlen(pos->ctrl_hist_cmd));
-	}
-	else
-		print_ans(pos, 0, pos->start_co);
-	tputs(tgetstr("ve", NULL), 1, ft_putchar);
 }
 
 static void		ctrl_c(t_pos *pos, t_hist *hist)

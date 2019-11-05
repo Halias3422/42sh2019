@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:02:37 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 14:12:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 15:39:26 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,7 +105,8 @@ char		*del_space(char *str)
 	{
 		jump_space(str, &i);
 		s = i;
-		while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
+		while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
+				&& str[i] != -1))
 			i++;
 		tmp = ft_strsub(str, s, i - s);
 		ft_strjoin_free(&res, tmp);

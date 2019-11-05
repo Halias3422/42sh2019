@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   job_controll.c                                   .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:29:31 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:01:56 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 	else
 	{
 		if (WIFSIGNALED(status))
-			ft_printf_err("terminated by signal %d\n", WTERMSIG(status));
+			ft_printf_err("\n");
 		process->completed = FINISHED;
 		process->ret = WEXITSTATUS(status);
 		add_list_env(var, SPE, ft_strdup("?"), ft_itoa(process->ret));

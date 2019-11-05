@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 15:11:56 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 14:33:18 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ int		get_cd_option(char **cmd, int *i, int ret, int j)
 					ret = cmd[*i][j];
 				else
 				{
-					ft_printf_err_fd("42sh: cd: %c: invalid option\n",
+					ft_printf_err_fd("21sh: cd: %c: invalid option\n",
 							cmd[*i][j]);
 					return (-1);
 				}
@@ -70,7 +70,8 @@ char	*move_to_new_dir(char *cmd, t_var **var, char *new_path)
 
 char	*get_path(char *cmd, t_var **var, char *new_path, int option)
 {
-	if (cmd == NULL || ft_strcmp(cmd, "--") == 0 || (cmd && cmd[0] == '~'))
+	if (cmd == NULL || ft_strcmp(cmd, "--") == 0 || (cmd && cmd[0] == '~' &&
+		verif_tilde(cmd, 0) == 1))
 		new_path = move_to_home_dir(var);
 	else if (ft_strcmp(cmd, "-") == 0)
 		new_path = move_to_oldpwd(var);

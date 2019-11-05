@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/26 12:59:57 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@
 # include <sys/stat.h>
 
 # define LEN_BUILTIN_LIST 19
-# define TERM "42sh"
+# define TERM "21sh"
 
 typedef struct s_var		t_var;
 typedef struct s_process	t_process;
@@ -38,6 +38,12 @@ typedef struct	s_builtin
 	int			(*ptr_builtin)(t_process*, t_var**);
 	int			modify_data;
 }				t_builtin;
+
+typedef struct	s_fc_list
+{
+	char				*cmd;
+	struct s_fc_list	*next;
+}				t_fc_list;
 
 typedef struct	s_fc
 {
@@ -124,7 +130,7 @@ int				ft_bg(t_process *p, t_var **var);
 */
 
 void			write_alias_on_exit(t_var *var);
-void			free_pos(void);
+void			free_pos(t_pos *pos);
 void			kill_last_job(t_job_list *jb, t_pos *pos, t_var *var,
 				t_save_job *save);
 void			free_env_list(t_var *var);
@@ -136,6 +142,13 @@ int				ft_exit(t_process *p, t_var **var);
 int				ft_fc(t_process *p, t_var **var);
 void			check_if_e_flag_induced(t_fc *fc, t_process *p, t_hist *hist);
 void			induced_e_flag_check_first_arg(t_fc *fc, t_process *p);
+
+/*
+**	FC_LIST_C
+*/
+
+char			**convert_fc_list_to_tab(t_fc_list *fc_list);
+t_fc_list		*add_list_back_fc_list(t_fc_list *fc_list, char *line);
 
 /*
 **		FC_TOOLS.C
@@ -189,8 +202,8 @@ void			prepare_s_flag(t_fc *fc, t_hist *hist, t_var **var);
 void			send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env);
 void			exec_ide_with_tmp_file(t_fc *fc, int fd, char **env);
 void			exec_new_cmds(char **new_cmds);
-char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int i,
-				int ret);
+char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int ret,
+				char *line);
 
 /*
 **		FC_PREPARE_E_FLAG.C
@@ -354,6 +367,7 @@ void			print_new_env(t_var **new_env, t_var **head);
 **	FT_JOBS_C
 */
 
+pid_t			get_pid_fg(t_process *p);
 int				ft_jobs(t_process *p, t_var **var);
 char			*built_job_name(t_job_list *j, char *name);
 int				ft_jobs_option(char **cmd, int *i);

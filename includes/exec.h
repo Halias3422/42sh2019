@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:41:16 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/01 11:35:07 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -282,6 +282,8 @@ void					remove_job(int id, int i);
 void					set_job_status(pid_t id, char status);
 int						find_job_pgid(pid_t pgid);
 void					job_notification(t_var **var);
+void					update_status(t_var **var);
+
 int						mark_process_status(pid_t pid, int status, t_var **var);
 void					signal_handler();
 int						job_is_stoped(t_job *j);
@@ -375,7 +377,8 @@ void					init_fd_link(t_fd *ne);
 
 void					init_pipe_redirection(t_pos *pos, t_process *p,
 						int is_builtin, t_fd *fd);
-void					end_pipe_redirection(t_pos *pos, t_process *p);
+void					end_pipe_redirection(t_pos *pos, t_process *p,
+						t_fd *fd, int is_builtin);
 void					redirect_aggregator_left(t_fd *fd, t_redirect *red,
 						t_process *p);
 void					redirect_aggregator_right(t_fd *fd, t_redirect *red,

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/10 11:18:33 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 16:13:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@ int			print_part_of_hash_table(t_hash **hash, char **cmd, int ret)
 			}
 		}
 		else if (cmd[i] && ret++ == 0)
-			ft_printf_err_fd("42sh: hash: %s: not found\n", cmd[i]);
+			ft_printf_err_fd("21sh: hash: %s: not found\n", cmd[i]);
 		i++;
 	}
 	return (ret);
@@ -85,7 +85,7 @@ int			exec_hash_with_flag(t_hash **hash, char flag, char **cmd,
 		ret = remove_selected_entry_hash(hash, cmd);
 	else
 	{
-		ft_printf_err_fd("42sh: hash: bad parameter\n");
+		ft_printf_err_fd("21sh: hash: bad parameter\n");
 		return (1);
 	}
 	return (ret);
@@ -102,7 +102,7 @@ int			ft_hash(t_process *p, t_var **var)
 	hash = stock_hash(NULL, 1);
 	if (hash == NULL || check_if_table_is_empty(hash) == 1)
 	{
-		ft_printf_err_fd("42sh: hash: hash table not set\n");
+		ft_printf_err_fd("21sh: hash: hash table not set\n");
 		return (1);
 	}
 	if (!p->cmd[1])
