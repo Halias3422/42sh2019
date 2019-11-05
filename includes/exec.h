@@ -282,6 +282,8 @@ void					remove_job(int id, int i);
 void					set_job_status(pid_t id, char status);
 int						find_job_pgid(pid_t pgid);
 void					job_notification(t_var **var);
+void					update_status(t_var **var);
+
 int						mark_process_status(pid_t pid, int status, t_var **var);
 void					signal_handler();
 int						job_is_stoped(t_job *j);
