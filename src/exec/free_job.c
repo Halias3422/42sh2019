@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:41:26 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 16:12:25 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -97,4 +97,5 @@ void		free_job(t_job *j)
 {
 	free_process(j->p);
 	free(j);
+	j = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/22 16:43:45 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:39:37 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 17:50:26 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,8 @@ int			job_is_completed(t_job *j)
 {
 	t_process	*p;
 
+	if (!j || !j->p)
+		return (0);
 	p = j->p;
 	while (p)
 	{

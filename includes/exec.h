@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 11:35:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 15:43:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -395,5 +395,6 @@ int						redirection_get_argument_file_fd(t_redirect *red,
 						char *file, t_process *p, int new_fd_out);
 int						redirection_find_file_fd(char *file, t_redirect *red,
 						t_process *p, t_fd *fd);
+void					free_process(t_process *ptr_p);
 
 #endif

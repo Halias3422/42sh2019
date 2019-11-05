@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   launch_job_process.c                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 15:54:37 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 17:53:20 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,11 +38,11 @@ void		alert_job(t_job *j)
 {
 	if (j->split != '&' && is_builtin_modify(j->p))
 	{
-		remove_job(j->id, 0);
+		free_job(j);
 		return ;
 	}
 	if (j->split == '&')
-		print_start_process(j);
+		print_job(j);
 	else if (job_is_stoped(j))
 		j->notified = 1;
 	else
