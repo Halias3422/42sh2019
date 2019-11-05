@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:56:42 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 11:21:04 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -196,12 +196,19 @@ void					*ft_malloc(size_t size);
 void					print_hdoc(t_heredoc *hdoc);
 char					*check_path_hash(t_var **var, char *arg, int i,
 						char *ans);
-void					print_info(t_pos *pos);
+void					print_info(t_pos *pos, int usage);
+void					print_info2(t_pos *pos);
 void					print_hist(t_pos *pos, t_hist *hist);
 int						got_a_wildcard(char *name);
 int						check_ans(char *str);
 void					print_htab_debug(t_htab *htab);
 void					print_all_env(t_var *var);
+
+/*
+**	RESIZE_C
+*/
+
+void					resize_screen(t_pos *pos);
 
 /*
 **	PRINT_PROMPT_C
