@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 13:52:48 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 15:50:05 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,6 +56,7 @@ int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace,
 	t_alias	*tmp;
 
 	done = 0;
+	check_tok(alias, var, replace);
 	if (!(*alias_done) && check_alias(alias->data, var) == 1 &&
 	alias->data[0] != '\\')
 		if (replace_alias(alias, var, replace) == 1)
