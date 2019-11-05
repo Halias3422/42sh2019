@@ -18,8 +18,10 @@ char	*move_to_home_dir(t_var **var)
 	char	*path;
 	t_pos	*pos;
 
-	if ((path = ft_get_val("HOME", *var, TEMP)) == NULL)
-		path = ft_get_val("HOME", *var, ENVIRONEMENT);
+	if ((path = ft_strdup(ft_get_val("HOME", *var, TEMP))) == NULL)
+		path = ft_strdup(ft_get_val("HOME", *var, ENVIRONEMENT));
+	if (path && path[ft_strlen(path) - 1] != '/')
+		path = ft_strjoinf(path, "/", 1);
 	if (path == NULL)
 	{
 		pos = to_stock(NULL, 1);
@@ -29,7 +31,7 @@ char	*move_to_home_dir(t_var **var)
 	}
 	else if (verif_path(path, 1, 0) == 0)
 		return (NULL);
-	return (ft_strdup(path));
+	return (path);
 }
 
 char	*move_to_oldpwd(t_var **var)
@@ -37,7 +39,9 @@ char	*move_to_oldpwd(t_var **var)
 	char	*path;
 	t_pos	*pos;
 
-	path = ft_get_val("OLDPWD", *var, ENVIRONEMENT);
+	path = ft_strdup(ft_get_val("OLDPWD", *var, ENVIRONEMENT));
+	if (path && path[ft_strlen(path) - 1] != '/')
+		path = ft_strjoinf(path, "/", 1);
 	if (path == NULL)
 	{
 		pos = to_stock(NULL, 1);
@@ -48,7 +52,7 @@ char	*move_to_oldpwd(t_var **var)
 	else if (verif_path(path, 1, 0) == 0)
 		return (NULL);
 	ft_printf_fd("%s\n", path);
-	return (ft_strdup(path));
+	return (path);
 }
 
 char	*go_to_absolute_path(char *cmd, t_var **var)

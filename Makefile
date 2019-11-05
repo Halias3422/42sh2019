@@ -6,7 +6,7 @@
 #    By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/11/04 13:13:19 by mjalenqu    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/05 11:21:36 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -34,7 +34,7 @@ SRC_LINE = $(addprefix line_edit/,\
 				 init_alias.c check_for_tilde.c \
 				tab_key_auto_complete_tilde.c check_backslash.c \
 				token.c token_conditions.c heredoc.c heredoc_send_valid_ans.c heredoc_tools.c\
-				init_spe_params.c print_prompt.c)
+				init_spe_params.c print_prompt.c resize.c)
 
 SRC_PRINTF = $(addprefix printf_fd/, \
 			 	ft_printf_fd.c print_colors_fd.c print_printf_fd.c )

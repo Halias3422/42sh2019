@@ -64,11 +64,10 @@ void			dup_fd_for_binaries(t_fd *fd)
 	if (ft_strcmp(fd->token, "<") == 0 &&
 			(fd->old_fd == -1 || fd->old_fd == 0))
 		dup2(fd->new_fd, 0);
-	else if (ft_strcmp(fd->token, "<") == 0 ||
-			ft_strcmp(fd->token, "<&") == 0)
-		dup2(fd->old_fd, fd->new_fd);
+	else if (ft_strcmp(fd->token, "<") == 0)
+		dup2(fd->new_fd, fd->old_fd);
 	else if (ft_strcmp(fd->token, ">") == 0 ||
-			ft_strcmp(fd->token, ">&") == 0)
+			ft_strcmp(fd->token, ">&") == 0 || ft_strcmp(fd->token, "<&") == 0)
 		dup2(fd->new_fd, fd->old_fd);
 	else if (ft_strcmp(fd->token, "<<") == 0)
 	{
