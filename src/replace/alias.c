@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/14 17:50:35 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:07:45 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 15:45:40 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,10 +59,7 @@ int			check_tok(t_alias *alias, t_var *var, t_replace *replace)
 		if (tmp && tmp->next && (ft_strcmp(tmp->data, "&&") == 0 ||
 		ft_strcmp(tmp->data, "||") == 0
 		|| ft_strcmp(tmp->data, ";") == 0 || ft_strcmp(tmp->data, "|") == 0))
-		{
-			replace_alias(tmp->next, var, replace);
-			return (0);
-		}
+			return (replace_alias(tmp->next, var, replace));
 		tmp = tmp->next;
 	}
 	return (1);
@@ -94,6 +91,7 @@ int			replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 		ret = replace_alias_while(s_var, alias);
 		if (check_boucle(alias, replace) == 0)
 		{
+			alias = alias->next;
 			del_all_backslash(tmp);
 			return (1);
 		}
@@ -103,7 +101,6 @@ int			replace_alias(t_alias *alias, t_var *var, t_replace *replace)
 		if (alias->next)
 			alias = alias->next;
 	}
-	check_tok(alias, var, replace);
-	del_all_backslash(tmp);
 	return (0);
+	exit(0);
 }
