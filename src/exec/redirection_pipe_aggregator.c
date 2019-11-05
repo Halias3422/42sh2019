@@ -57,7 +57,10 @@ void			redirect_aggregator_left(t_fd *fd, t_redirect *red,
 				t_process *p)
 {
 	fd->token = ft_strdup("<&");
-	fd->old_fd = ft_atoi(red->fd_in);
+	if (red->fd_in == NULL)
+		fd->old_fd = 0;
+	else
+		fd->old_fd = ft_atoi(red->fd_in);
 	fd->new_fd = ft_atoi(red->fd_out);
 	if (is_all_num(red->fd_out) != 1)
 	{
@@ -66,7 +69,8 @@ void			redirect_aggregator_left(t_fd *fd, t_redirect *red,
 		fd->error = 1;
 		return ;
 	}
-	if (isatty(fd->new_fd) == 0)
+	if (isatty(fd->new_fd) == 0 ||
+					(isatty(fd->old_fd) == 0 && fd->old_fd != 0))
 	{
 		ft_printf_err_fd("21sh: %s: Bad file descriptor\n", red->fd_out);
 		p->exec_builtin = 0;
