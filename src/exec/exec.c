@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:43:41 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 10:01:47 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 17:36:10 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,19 @@
 
 void		replace_job(t_process **p)
 {
+	t_alias		*al;
+
 	if (!(*p) || !((*p)->cmd))
 		return ;
+	al = make_ar_to_list((*p)->cmd);
+	while (1)
+	{
+		if (remove_env_while(al, stock(NULL, 6)) == 0)
+			break ;
+	}
+	(*p)->cmd = make_list_to_ar(al);
 	(*p)->cmd = del_back_slash_and_quote((*p)->cmd);
+	free_alias(al);
 }
 
 void		save_spe_param(char **cmd, t_var *var, int i)
