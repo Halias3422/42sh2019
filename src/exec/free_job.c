@@ -6,12 +6,25 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 15:01:48 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 14:41:26 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+void		free_process_in_job(t_process *process, int i)
+{
+	i = 0;
+	if (kill(process->pid, 0) == 0)
+	{
+		ft_printf_fd("job killed: %d -", process->pid);
+		while (process->cmd[i])
+			ft_printf_fd(" %s", process->cmd[i++]);
+		ft_printf_fd("\n");
+		kill(process->pid, SIGINT);
+	}
+}
 
 void		free_job_list(int i)
 {
@@ -27,12 +40,7 @@ void		free_job_list(int i)
 		process = job_list->j->p;
 		while (process)
 		{
-			i = 0;
-			ft_printf_fd("job killed: %d -", process->pid);
-			while (process->cmd[i])
-				ft_printf_fd(" %s", process->cmd[i++]);
-			ft_printf_fd("\n");
-			kill(process->pid, SIGINT);
+			free_process_in_job(process, i);
 			process = process->next;
 		}
 		free_job(job_list->j);
