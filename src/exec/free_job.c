@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/06 08:50:08 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 09:55:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ void		free_process_in_job(t_process *process, int i)
 		while (process->cmd[i])
 			ft_printf_fd(" %s", process->cmd[i++]);
 		ft_printf_fd("\n");
-		kill(process->pid, SIGINT);
+		kill(process->pid, SIGKILL);
 	}
 }
 
