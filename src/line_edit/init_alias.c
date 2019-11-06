@@ -47,7 +47,7 @@ void	init_alias(t_var *var, t_pos *pos, char *line)
 	char	*pwd;
 	int		ret;
 
-	pos->path = longpwd(NULL, 255);
+	pos->path = getcwd(NULL, 255);
 	pwd = ft_strjoin(pos->path, "/.aliases");
 	if ((pos->alias = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666)) == -1)
 	{

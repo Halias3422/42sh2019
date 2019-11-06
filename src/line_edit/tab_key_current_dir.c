@@ -95,7 +95,7 @@ t_htab				*looking_for_current(t_pos *pos, t_htab *htab, char **path,
 	{
 		if (*path && *path[0] != 0)
 			*name = ft_strjoinf(*path, *name, 2);
-		pwd = longpwd(NULL, 1000);
+		pwd = getcwd(NULL, 1000);
 		dirp = opendir(pwd);
 	}
 	if (dirp)

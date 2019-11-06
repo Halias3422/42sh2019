@@ -208,7 +208,6 @@ void					print_all_env(t_var *var);
 **	RESIZE_C
 */
 
-char					*longpwd(char *pwd, int i);
 void					resize_screen(t_pos *pos);
 
 /*

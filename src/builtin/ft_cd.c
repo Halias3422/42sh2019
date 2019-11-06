@@ -95,7 +95,7 @@ void	replace_pwd_vars_in_env(t_var **var, char *new_path, int option)
 
 	if (option == 'P')
 	{
-		tmp = longpwd(NULL, 1000);
+		tmp = getcwd(NULL, 1000);
 		new_path = ft_secure_free(new_path);
 	}
 	else

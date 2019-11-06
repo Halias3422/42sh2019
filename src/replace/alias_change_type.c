@@ -98,7 +98,7 @@ char		*del_space(char *str)
 	char	*res;
 
 	i = ft_strlen(str) - 1;
-	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
+	while (i >= 0 && str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
 	{
 		if (str[i] && (!odd_backslash(i - 1, str) && str[i] == '"'))
 		{

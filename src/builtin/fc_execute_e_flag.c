@@ -53,7 +53,7 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd,
 	fc_list = NULL;
 	head = NULL;
 	hist = stock(NULL, 8);
-	pwd = ft_strjoinf(longpwd(NULL, 255), "/.tmp", 1);
+	pwd = ft_strjoinf(getcwd(NULL, 255), "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
 	while ((ret = get_next_line(fd, &line)))
 	{
@@ -128,7 +128,7 @@ void				send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env)
 	char			*pwd;
 	int				fd;
 
-	pwd = longpwd(NULL, 255);
+	pwd = getcwd(NULL, 255);
 	pwd = ft_strjoinf(pwd, "/.tmp", 1);
 	fd = open(pwd, O_RDWR | O_TRUNC | O_CREAT, 0666);
 	free(pwd);

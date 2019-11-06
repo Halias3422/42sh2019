@@ -38,7 +38,7 @@ char				*absolute_path(char *path, char *tmp)
 	if (path[0] == '.')
 	{
 		ft_strdel(&path);
-		path = ft_strjoinf(longpwd(NULL, 1000), tmp + 1, 1);
+		path = ft_strjoinf(getcwd(NULL, 1000), tmp + 1, 1);
 	}
 	if ((file = opendir(path)) != NULL)
 	{

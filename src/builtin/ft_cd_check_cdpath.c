@@ -24,7 +24,7 @@ void		restore_old_env(t_var *old_env, t_var **var, t_pos *pos)
 	ft_strdel(&pos->pwd);
 	pos->pwd = ft_strdup(ft_get_val("PWD", *var, ENVIRONEMENT));
 	if (!pos->pwd)
-		pos->pwd = longpwd(NULL, 1000);
+		pos->pwd = getcwd(NULL, 1000);
 }
 
 int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
@@ -45,7 +45,7 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 	chdir(new_path);
 	ft_strdel(&pos->pwd);
 	if (option == 'P')
-		pos->pwd = longpwd(NULL, 1000);
+		pos->pwd = getcwd(NULL, 1000);
 	else
 		pos->pwd = ft_strdup(new_path);
 	replace_pwd_vars_in_env(&var, new_path, option);
