@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   free_job.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 16:12:25 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 08:50:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -83,6 +83,8 @@ void		free_process(t_process *ptr_p)
 	p = ptr_p;
 	while (p)
 	{
+		if (p->fd_in)
+			close(p->fd_in);
 		if (p->cmd)
 			ft_free_tab(p->cmd);
 		if (p->redirect)

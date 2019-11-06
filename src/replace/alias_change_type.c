@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias_change_type.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:02:37 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 15:39:26 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 08:48:46 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -105,8 +105,7 @@ char		*del_space(char *str)
 	{
 		jump_space(str, &i);
 		s = i;
-		while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '
-				&& str[i] != -1))
+		while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
 			i++;
 		tmp = ft_strsub(str, s, i - s);
 		ft_strjoin_free(&res, tmp);
