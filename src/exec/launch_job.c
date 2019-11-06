@@ -79,14 +79,11 @@ void		send_job_to_fork_simple(t_process *p, t_job *j, t_var *var,
 	}
 }
 
-void		launch_job(t_job *j, t_var *var)
+void		launch_job(t_job *j, t_var *var, t_pos *pos, t_process *p)
 {
-	t_process	*p;
 	int			infile;
-	t_pos		*pos;
 	int			ret;
 
-	pos = to_stock(NULL, 1);
 	pos->pipe = 0;
 	p = init_launch_job(j, &infile);
 	while (p)
@@ -99,6 +96,11 @@ void		launch_job(t_job *j, t_var *var)
 			return (free_temp(&var));
 		else
 			send_job_to_fork_simple(p, j, var, &infile);
+		if (p->fd_in == 250)
+		{
+			ft_printf_err("21sh: error: Too many pipes\n");
+			break ;
+		}
 		p = get_and_or(p);
 		if (pos->exit_mode < 0)
 			free_temp(&var);

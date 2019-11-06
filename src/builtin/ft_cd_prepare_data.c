@@ -57,7 +57,7 @@ char	*move_to_oldpwd(t_var **var)
 
 char	*go_to_absolute_path(char *cmd, t_var **var)
 {
-	char	pwd[1000];
+	char	*pwd;
 	char	*ret;
 
 	ret = NULL;
@@ -67,9 +67,9 @@ char	*go_to_absolute_path(char *cmd, t_var **var)
 			ret = ft_strjoin(ret, "/");
 		return (ft_strjoinf(ret, cmd, 1));
 	}
-	getcwd(pwd, 1000);
+	pwd = longpwd(NULL, 1000);
 	if (cmd[0] != '/')
-		ret = ft_strjoin(pwd, "/");
+		ret = ft_strjoinf(pwd, "/", 1);
 	return (ft_strjoinf(ret, cmd, 1));
 }
 

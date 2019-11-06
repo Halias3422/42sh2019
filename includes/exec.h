@@ -188,7 +188,8 @@ int						go_next_token(t_lexeur **res, int *t);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void					launch_job(t_job *j, t_var *var);
+void					launch_job(t_job *j, t_var *var, t_pos *pos,
+						t_process *p);
 int						ft_test_path(t_process *p, t_var *var);
 
 /*

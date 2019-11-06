@@ -13,6 +13,21 @@
 
 #include "../../includes/termcaps.h"
 
+char			*longpwd(char *pwd, int i)
+{
+	i = 1000;
+	pwd = NULL;
+	while (1)
+	{
+		pwd = getcwd(NULL, i);
+		if (pwd && pwd[0] == '/')
+			break ;
+		i += 500;
+		ft_strdel(&pwd);
+	}
+	return (pwd);
+}
+
 static void		horizontal_resize(t_pos *pos, int len)
 {
 	pos->let_nb = ft_strlen(pos->ans);

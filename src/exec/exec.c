@@ -112,7 +112,7 @@ int			start_exec(t_lexeur **res, t_var *var)
 			tmp = tmp->next;
 		}
 		save_spe_param(j->p->cmd, var, 0);
-		launch_job(j, var);
+		launch_job(j, var, to_stock(NULL, 1), NULL);
 		j = next;
 	}
 	return (0);

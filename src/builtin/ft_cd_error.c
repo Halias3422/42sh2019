@@ -30,7 +30,7 @@ char		*error_in_new_path(char *new_path)
 	if (error == 1)
 	{
 		free(new_path);
-		new_path = getcwd(NULL, 1000);
+		new_path = longpwd(NULL, 1000);
 	}
 	return (new_path);
 }

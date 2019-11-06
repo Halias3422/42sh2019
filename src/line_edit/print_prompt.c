@@ -13,8 +13,20 @@
 
 #include "../../includes/termcaps.h"
 
+void		change_pwd_too_long(t_pos *pos)
+{
+	int		i;
+
+	i = 996;
+	while (i > 0 && pos->pwd[i] != '/')
+		i--;
+	ft_strcpy(pos->pwd + i + 1, "...");
+}
+
 void		print_first_prompt(t_pos *pos)
 {
+	if (ft_strlen(pos->pwd) > 996)
+		change_pwd_too_long(pos);
 	if (pos->shtheme == 5)
 		ft_printf("\n42sh --- %s\n",
 				pos->pwd);

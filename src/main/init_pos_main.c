@@ -25,5 +25,5 @@ void			main_init_pos(t_pos *pos, t_var *my_env)
 	pos->prompt = ft_strdup("$ ");
 	if ((pos->pwd = ft_strdup(ft_get_val("PWD", my_env, ENVIRONEMENT))) == NULL
 			|| verif_path(pos->pwd, 0, 0) == 0)
-		pos->pwd = getcwd(NULL, 1000);
+		pos->pwd = longpwd(NULL, 1000);
 }

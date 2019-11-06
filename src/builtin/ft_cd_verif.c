@@ -21,7 +21,7 @@ char		*print_pwd(t_var *var)
 	if (pwd != NULL && verif_path(pwd, 0, 0) != 0)
 		return (ft_strdup(pwd));
 	else
-		return (getcwd(NULL, 1000));
+		return (longpwd(NULL, 1000));
 }
 
 char		*verif_p_option_path(char *new_path, int i, int absolute)
