@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 19:11:29 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/29 15:35:05 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 16:53:06 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,7 +96,9 @@ int			verif_path(char *path, int mute, int usage)
 			return (0);
 	}
 	else
+	{
 		return (check_access_path(path, usage, i, mute));
+	}
 	return (1);
 }
 
