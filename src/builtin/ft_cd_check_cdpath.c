@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/14 16:12:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 17:00:03 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 18:34:41 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,6 @@ int			finish_ft_cd(char *new_path, t_pos *pos, t_var *old_env, int option)
 	t_var		*var;
 	t_process	*p;
 
-//	ft_printf("finish ft cd new parth = [%s], option = %d\n", 
 	p = to_stock(NULL, 3);
 	var = stock(NULL, 6);
 	if (verif_path(new_path, 1, 1) == 0)
