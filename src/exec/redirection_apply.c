@@ -13,6 +13,21 @@
 
 #include "../../includes/exec.h"
 
+char			*del_back_slash_and_quote_red(char *ar)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = NULL;
+	if (ar)
+	{
+		res = browse_back_slash_and_quote(ar, 0, 0, NULL);
+		free(ar);
+	}
+	return (res);
+}
+
 int				redirection_find_file_fd(char *file, t_redirect *red,
 				t_process *p, t_fd *fd)
 {

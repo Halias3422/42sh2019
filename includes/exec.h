@@ -104,7 +104,6 @@ typedef struct			s_save_job
 	struct s_save_job	*prev;
 }						t_save_job;
 
-
 void					print_complete_process(t_process *p);
 
 /*
