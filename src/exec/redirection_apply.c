@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/31 16:10:01 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 18:18:12 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,7 @@ int				redirection_find_file_fd(char *file, t_redirect *red,
 int				redirection_get_argument_file_fd(t_redirect *red, char *file,
 				t_process *p, int new_fd_out)
 {
-	if (access(file, F_OK) != -1 && access(file, W_OK) != -1)
+	if (access(file, F_OK) != -1 && access(file, W_OK) != -1 && access(file, X_OK) != -1)
 	{
 		if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, ">&") == 0)
 			new_fd_out = open(file, O_RDWR | O_TRUNC);

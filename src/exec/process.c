@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 10:38:02 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 18:13:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,9 +56,17 @@ int *i, int k)
 		return ;
 	}
 	(*j)->p->cmd = ft_malloc(sizeof(char *) * (cnt_process(res, *i) + 1));
-	while (res[*i] && res[*i]->word)
-		fill_cmd(res, j, &k, i);
-	fill_all_cmd(res, j, &k, *i);
+	if (cnt_process(res, *i) == 0)
+	{
+		(*j)->p->cmd[0] = ft_strdup("");
+		k++;
+	}
+	else
+	{
+		while (res[*i] && res[*i]->word)
+			fill_cmd(res, j, &k, i);
+		fill_all_cmd(res, j, &k, *i);
+	}
 	(*j)->p->cmd[k] = NULL;
 	(*j)->p->builtin = test_builtin((*j)->p);
 }
