@@ -6,12 +6,29 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:45:25 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 14:00:40 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
+
+pid_t			get_pid_fg(t_process *p)
+{
+	pid_t	save;
+
+	save = p->pid;
+	while (p)
+	{
+		if (kill(p->pid, 0) == 0)
+		{
+			save = p->pid;
+			break ;
+		}
+		p = p->next;
+	}
+	return (save);
+}
 
 int				ft_jobs_option(char **cmd, int *i)
 {
@@ -42,12 +59,16 @@ int				ft_jobs_option(char **cmd, int *i)
 char			*built_job_name(t_job_list *j, char *name)
 {
 	int			i;
+	t_process	*tmp;
 
+	tmp = j->j->p;
 	i = 0;
-	while (j->j->p->cmd[i])
+	while (kill(tmp->pid, 0) == -1)
+		tmp = tmp->next;
+	while (tmp->cmd[i])
 	{
-		name = ft_strjoinf(name, j->j->p->cmd[i], 1);
-		if (j->j->p->cmd[i + 1])
+		name = ft_strjoinf(name, tmp->cmd[i], 1);
+		if (tmp->cmd[i + 1])
 			name = ft_strjoinf(name, " ", 1);
 		i++;
 	}
@@ -65,7 +86,7 @@ int				ft_jobs(t_process *p, t_var **var)
 	option = ft_jobs_option(p->cmd, &i);
 	if (option != 'l' && option != 'p' && option != 0)
 	{
-		ft_printf_err_fd("42sh: jobs: -%c: invalid option\n", option);
+		ft_printf_err_fd("21sh: jobs: -%c: invalid option\n", option);
 		ft_printf_err_fd("jobs: usage: jobs [-l|-p] [job_id...]\n");
 		return (2);
 	}

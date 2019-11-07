@@ -3,15 +3,28 @@
 /*                                                              /             */
 /*   free_job.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:38:00 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 09:55:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+void		free_process_in_job(t_process *process, int i)
+{
+	i = 0;
+	if (kill(process->pid, 0) == 0)
+	{
+		ft_printf_fd("job killed: %d -", process->pid);
+		while (process->cmd[i])
+			ft_printf_fd(" %s", process->cmd[i++]);
+		ft_printf_fd("\n");
+		kill(process->pid, SIGKILL);
+	}
+}
 
 void		free_job_list(int i)
 {
@@ -27,12 +40,7 @@ void		free_job_list(int i)
 		process = job_list->j->p;
 		while (process)
 		{
-			i = 0;
-			ft_printf_fd("job killed: %d -", process->pid);
-			while (process->cmd[i])
-				ft_printf_fd(" %s", process->cmd[i++]);
-			ft_printf_fd("\n");
-			kill(process->pid, SIGINT);
+			free_process_in_job(process, i);
 			process = process->next;
 		}
 		free_job(job_list->j);
@@ -75,6 +83,8 @@ void		free_process(t_process *ptr_p)
 	p = ptr_p;
 	while (p)
 	{
+		if (p->fd_in)
+			close(p->fd_in);
 		if (p->cmd)
 			ft_free_tab(p->cmd);
 		if (p->redirect)
@@ -89,4 +99,5 @@ void		free_job(t_job *j)
 {
 	free_process(j->p);
 	free(j);
+	j = NULL;
 }

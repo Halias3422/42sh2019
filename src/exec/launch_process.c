@@ -29,8 +29,6 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 
 void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 {
-	int status;
-
 	p->pid = pid;
 	if (j->pgid == 0)
 		j->pgid = pid;
@@ -45,7 +43,7 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 		signal(SIGTTOU, SIG_DFL);
 		if (p->fd_in != 0)
 		{
-			waitpid(WAIT_ANY, &status, WNOHANG);
+			update_status(var);
 			close(p->fd_in);
 		}
 	}

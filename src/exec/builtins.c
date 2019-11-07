@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   builtins.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/02 11:06:30 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 10:04:40 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 17:46:30 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -41,15 +41,22 @@ const t_builtin	g_builtin_list[LEN_BUILTIN_LIST] =
 int		is_builtin_modify(t_process *p)
 {
 	int i;
+	int j;
 
 	i = -1;
-	if (!p->cmd)
+	j = -1;
+	if (!p->cmd || !p->cmd[0])
 		return (0);
-	if (!p->cmd[0])
+	while (p->cmd[++j])
+	{
+		if (find_equal(p->cmd[j]) == 0)
+			break ;
+	}
+	if (!(p->cmd[j]))
 		return (0);
 	while (++i < LEN_BUILTIN_LIST)
 	{
-		if (ft_strcmp(p->cmd[0], g_builtin_list[i].name) == 0)
+		if (ft_strcmp(p->cmd[j], g_builtin_list[i].name) == 0)
 		{
 			if (g_builtin_list[i].modify_data == 1)
 				return (1);

@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   alias_change_type.c                              .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/18 18:02:37 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/23 14:12:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 10:44:13 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,24 +95,27 @@ int			check_simple_or_multiple(char *str)
 char		*del_space(char *str)
 {
 	int		i;
-	int		s;
-	char	*tmp;
 	char	*res;
 
-	i = 0;
-	res = ft_strdup("");
-	while (str[i])
+	i = ft_strlen(str) - 1;
+	while (i >= 0 && str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == ' '))
 	{
-		jump_space(str, &i);
-		s = i;
-		while (str[i] && ((str[i] < 9 || str[i] > 13) && str[i] != ' '))
-			i++;
-		tmp = ft_strsub(str, s, i - s);
-		ft_strjoin_free(&res, tmp);
-		ft_strdel(&tmp);
+		if (str[i] && (!odd_backslash(i - 1, str) && str[i] == '"'))
+		{
+			i--;
+			while (str[i] && (!odd_backslash(i - 1, str) && str[i] != '"'))
+				i--;
+		}
+		if (str[i] && (!odd_backslash(i - 1, str) && str[i] == '\''))
+		{
+			i--;
+			while (str[i] && (!odd_backslash(i - 1, str) && str[i] != '\''))
+				i--;
+		}
 		if (str[i])
-			i++;
+			i--;
 	}
+	res = ft_strsub(str, 0, i + 1);
 	ft_strdel(&str);
 	return (res);
 }

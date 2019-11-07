@@ -20,6 +20,11 @@ char		*error_in_new_path(char *new_path)
 
 	error = 0;
 	i = 0;
+	if (new_path[0] != '/')
+	{
+		ft_printf_fd("21sh: cd: error: file name too long\n");
+		error = 1;
+	}
 	while (new_path && new_path[i] && error == 0)
 	{
 		if (ft_strncmp(new_path + i, "./", 2) == 0 ||

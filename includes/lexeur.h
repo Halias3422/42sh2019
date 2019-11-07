@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   lexeur.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:40:11 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 17:34:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -198,6 +198,8 @@ char					*change_buf(char *buf);
 void					fill_lex_solve_back_slash(char *buf, int *i,
 						int *start);
 void					cnt_solve_back_slash(char *buf, int *i, int *cnt);
+char					*browse_back_slash_and_quote(char *str, int i, int j,
+						char *res);
 char					**del_back_slash_and_quote(char **ar);
 
 /*
@@ -312,7 +314,7 @@ void					heredoc_go_next_quote(char *str, int *i);
 void					free_replace(t_replace *replace);
 void					init_replace(t_replace **replace);
 void					*get_replace(void *stock, int i);
-void					replace_alias(t_alias *alias, t_var *var,
+int						replace_alias(t_alias *alias, t_var *var,
 						t_replace *replace);
 
 /*
@@ -325,8 +327,7 @@ void					remoove_quote(char ***array);
 int						check_tok(t_alias *alias, t_var *var,
 						t_replace *replace);
 void					free_alias(t_alias *alias);
-int						remove_env_while(t_alias *alias, t_var *var,
-						t_replace *replace);
+int						remove_env_while(t_alias *alias, t_var *var);
 void					print_lexer(t_lexeur *lex);
 char					*remove_simple_quote(char **str);
 char					*fill_redirection_heredoc(char **buf, int *i);
@@ -338,5 +339,7 @@ void					check_quote_double(char *str, int *i,
 void					solve_quote_simple(char *str, char **res, int *i,
 						int j);
 char					*replace_var_to_data(char *str, t_var *env);
+int						check_last_space(char *str);
+void					check_next(t_alias *alias, t_var *var, t_replace *r);
 
 #endif

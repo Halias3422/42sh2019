@@ -69,10 +69,35 @@ void		remove_job(int id, int i)
 	stock(start, 9);
 }
 
+void		print_complete_process(t_process *p)
+{
+	int		i;
+
+	while (p)
+	{
+		i = 0;
+		while (p->next && p->completed == 1)
+			p = p->next;
+		while (p->cmd[i])
+			ft_printf("%s ", p->cmd[i++]);
+		p->printed = 1;
+		if (p->next)
+		{
+			if (p->split == 'A')
+				ft_printf("&& ");
+			if (p->split == '|')
+				ft_printf("|| ");
+			if (p->split == 'P')
+				ft_printf("| ");
+		}
+		p = p->next;
+	}
+	ft_putchar('\n');
+}
+
 void		print_job(t_job *j)
 {
 	t_process	*process;
-	int			i;
 
 	ft_printf("[%d] %c %d	", j->id, j->current, j->pgid);
 	if (j->status == 'f')
@@ -82,14 +107,7 @@ void		print_job(t_job *j)
 	else
 		ft_printf("Running	");
 	process = j->p;
-	while (process)
-	{
-		i = -1;
-		while (process->cmd[++i])
-			ft_printf("%s ", process->cmd[i]);
-		process = process->next;
-	}
-	ft_putchar('\n');
+	print_complete_process(j->p);
 }
 
 int			find_job_pgid(pid_t pgid)

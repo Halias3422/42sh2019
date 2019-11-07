@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:14:23 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:57:44 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,8 +20,8 @@ void			*ft_malloc(size_t size)
 	ret = malloc(size);
 	if (ret == NULL)
 	{
-		ft_printf("42sh: error: memory allocation failed\n");
-		ft_printf("42sh: program stops\n");
+		ft_printf("21sh: error: memory allocation failed\n");
+		ft_printf("21sh: program stops\n");
 		exit(126);
 	}
 	return (ret);

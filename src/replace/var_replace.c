@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   var_replace.c                                    .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/16 17:44:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:42:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:06:43 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,7 @@ char			*replace_var_to_data(char *str, t_var *env)
 
 	i = 0;
 	while (str[i] && str[i] != '$')
-		i++;
+		condition_simple_quote(str, &i);
 	s = ++i;
 	if (str[i] == '$')
 		return (replace_pid(str, i, s, env));

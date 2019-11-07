@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 11:35:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 15:43:03 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,6 +73,7 @@ typedef	struct			s_process
 	char				*hash_error;
 	int					exec_builtin;
 	t_redirect			*redirect;
+	int					printed;
 }						t_process;
 
 typedef struct			s_job
@@ -102,6 +103,9 @@ typedef struct			s_save_job
 	struct s_save_job	*next;
 	struct s_save_job	*prev;
 }						t_save_job;
+
+
+void					print_complete_process(t_process *p);
 
 /*
 **	NEW_JOB_C
@@ -188,7 +192,8 @@ int						go_next_token(t_lexeur **res, int *t);
 **┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 */
 
-void					launch_job(t_job *j, t_var *var);
+void					launch_job(t_job *j, t_var *var, t_pos *pos,
+						t_process *p);
 int						ft_test_path(t_process *p, t_var *var);
 
 /*
@@ -282,6 +287,8 @@ void					remove_job(int id, int i);
 void					set_job_status(pid_t id, char status);
 int						find_job_pgid(pid_t pgid);
 void					job_notification(t_var **var);
+void					update_status(t_var **var);
+
 int						mark_process_status(pid_t pid, int status, t_var **var);
 void					signal_handler();
 int						job_is_stoped(t_job *j);
@@ -351,6 +358,7 @@ void					init_fd_in_and_out(t_lexeur **res, int *t, t_redirect
 ** REDIRECTION_DISPATCH_C
 */
 
+char					*del_back_slash_and_quote_red(char *ar);
 void					get_all_redirections_done(t_process *p, t_pos *pos,
 						t_redirect *red, int is_builtin);
 void					redirect_heredoc(t_fd *fd, t_redirect *red);
@@ -393,5 +401,6 @@ int						redirection_get_argument_file_fd(t_redirect *red,
 						char *file, t_process *p, int new_fd_out);
 int						redirection_find_file_fd(char *file, t_redirect *red,
 						t_process *p, t_fd *fd);
+void					free_process(t_process *ptr_p);
 
 #endif

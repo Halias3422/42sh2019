@@ -78,14 +78,16 @@ int			verif_path(char *path, int mute, int usage)
 	int			i;
 	struct stat	s_type;
 
-	lstat(path, &s_type);
+	if (path != NULL)
+		lstat(path, &s_type);
 	file = NULL;
 	i = ft_strlen(path) - 2;
 	while (i > 0 && path[i] != '/')
 		i--;
 	if (usage == 1 && (path == NULL || (s_type.st_mode & S_IFMT) != S_IFDIR))
 	{
-		if (((s_type.st_mode & S_IFMT) != S_IFDIR) && access(path, F_OK) != -1)
+		if (path == NULL || (((s_type.st_mode & S_IFMT) != S_IFDIR) &&
+					access(path, F_OK) != -1))
 		{
 			print_cd_error(path, i, mute, 0);
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/13 14:08:25 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 14:45:54 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,7 @@ static int	setenv_rules(t_process *p, char **al)
 {
 	if (p->cmd[1] && !p->cmd[2] && ft_strcmp(p->cmd[1], "-u") == 0)
 	{
-		ft_printf_err_fd("42sh: setenv: usage: setenv [NAME=data, NAME]\n");
+		ft_printf_err_fd("21sh: setenv: usage: setenv [NAME=data, NAME]\n");
 		ft_free_tab(al);
 		return (0);
 	}
@@ -57,7 +57,7 @@ void		add_var_to_env(t_var *var, char *name, char *data, t_var *prev)
 	}
 	while (var)
 	{
-		if (ft_strcmp(name, (var)->name) == 0)
+		if (ft_strcmp(name, (var)->name) == 0 && var->type == ENVIRONEMENT)
 			break ;
 		prev = (var);
 		(var) = (var)->next;

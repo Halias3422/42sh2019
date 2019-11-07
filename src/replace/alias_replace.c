@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 09:48:21 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 13:45:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 10:44:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,12 +14,22 @@
 #include "../../includes/lexeur.h"
 #include "../../includes/alias.h"
 
+void		add_separator(char *tmp)
+{
+	int	i;
+
+	i = ft_strlen(tmp) - 1;
+	tmp[i] = -1;
+}
+
 void		replace_alias_while_fill(char *tmp, int *j, int *i, t_alias *alias)
 {
 	int		t;
 	int		s;
 
 	s = *j;
+	if (check_last_space(tmp) == 1)
+		add_separator(tmp);
 	while (tmp[*j] && ((tmp[*j] < 9 || tmp[*j] > 13) && tmp[*j] != ' '))
 		(*j)++;
 	t = *j;

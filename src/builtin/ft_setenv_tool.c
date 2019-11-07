@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:23:43 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 15:44:38 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,6 @@ void		print_env(t_var *var)
 int			print_err_setenv(char **al)
 {
 	ft_free_tab(al);
-	ft_printf_err_fd("42sh: setenv: ambiguous value name\n");
+	ft_printf_err_fd("21sh: setenv: ambiguous value name\n");
 	return (-1);
 }

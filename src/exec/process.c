@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   process.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/26 14:34:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/31 16:56:05 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 10:38:02 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -115,6 +115,7 @@ void			fill_process(t_job *j, t_lexeur **res, int i)
 		j->p->file_out = 0;
 		j->p->ret = 0;
 		j->p->background = 0;
+		j->p->printed = 0;
 		if (fill_process_while(res, &j, &start, &i) == 0)
 			break ;
 	}
