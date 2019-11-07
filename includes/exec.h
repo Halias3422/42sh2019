@@ -73,6 +73,7 @@ typedef	struct			s_process
 	char				*hash_error;
 	int					exec_builtin;
 	t_redirect			*redirect;
+	int					printed;
 }						t_process;
 
 typedef struct			s_job

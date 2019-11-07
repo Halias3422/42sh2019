@@ -15,7 +15,6 @@
 
 void			init_terminfo(t_pos *pos)
 {
-	tcgetattr(0, &(pos->old_term));
 	tcsetattr(0, TCSANOW, &(pos->old_term));
 	tcgetattr(0, &(pos->my_term));
 	pos->my_term.c_lflag &= ~(ICANON);

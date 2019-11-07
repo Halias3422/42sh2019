@@ -115,6 +115,7 @@ void			fill_process(t_job *j, t_lexeur **res, int i)
 		j->p->file_out = 0;
 		j->p->ret = 0;
 		j->p->background = 0;
+		j->p->printed = 0;
 		if (fill_process_while(res, &j, &start, &i) == 0)
 			break ;
 	}

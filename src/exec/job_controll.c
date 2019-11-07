@@ -14,6 +14,17 @@
 #include "../../includes/exec.h"
 #include "../../includes/termcaps.h"
 
+int			process_printed(t_process *p)
+{
+	while (p)
+	{
+		if (p->printed == 1)
+			return (1);
+		p = p->next;
+	}
+	return (0);
+}
+
 void		process_status(t_process *process, t_job_list *job_list, int status,
 			t_var **var)
 {
@@ -22,7 +33,8 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 		job_list->j->status = 's';
 		process->stoped = STOPED;
 		job_list->j->notified = 1;
-		print_job(job_list->j);
+		if (process_printed(job_list->j->p) == 0)
+			print_job(job_list->j);
 	}
 	else
 	{

@@ -25,8 +25,8 @@ void			print_status_job(char status)
 
 void			print_current_job(t_job_list *j, int option, char *name)
 {
-(void)name;
 
+	(void)name;
 	if (option != 'p')
 		ft_printf_fd("[%d]%c ", j->j->id, j->j->current);
 	if (option == 'p' || option == 'l')
@@ -35,9 +35,7 @@ void			print_current_job(t_job_list *j, int option, char *name)
 	{
 		print_status_job(j->j->status);
 		print_complete_process(j->j->p);
-//		ft_printf_fd("%s", name);
 	}
-	ft_putchar('\n');
 }
 
 void			print_all_jobs(t_job_list *j, int option)

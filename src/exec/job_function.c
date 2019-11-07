@@ -80,6 +80,7 @@ void		print_complete_process(t_process *p)
 			p = p->next;
 		while (p->cmd[i])
 			ft_printf("%s ", p->cmd[i++]);
+		p->printed = 1;
 		if (p->next)
 		{
 			if (p->split == 'A')
