@@ -402,4 +402,13 @@ int						redirection_find_file_fd(char *file, t_redirect *red,
 						t_process *p, t_fd *fd);
 void					free_process(t_process *ptr_p);
 
+/*
+**	REDIRECTION_FILES_RIGHTS_C
+*/
+
+int						check_splited_folds(char *act_fold, char **path, int i,
+						t_process *p);
+int						check_folders_rights(t_process *p, char *file, int i,
+						char *act_fold);
+
 #endif
