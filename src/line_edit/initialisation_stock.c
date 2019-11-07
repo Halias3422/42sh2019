@@ -15,13 +15,14 @@
 
 void			init_terminfo(t_pos *pos)
 {
-	tcgetattr(0, &(pos->my_term));
 	tcgetattr(0, &(pos->old_term));
+	tcsetattr(0, TCSANOW, &(pos->old_term));
+	tcgetattr(0, &(pos->my_term));
 	pos->my_term.c_lflag &= ~(ICANON);
 	pos->my_term.c_lflag &= ~(ECHO);
 	pos->my_term.c_cc[VMIN] = 1;
 	pos->my_term.c_cc[VTIME] = 0;
-	tcsetattr(0, TCSADRAIN, &(pos->my_term));
+	tcsetattr(0, TCSANOW, &(pos->my_term));
 }
 
 void			get_cursor_info(t_pos *pos, int *li, int *co, int i)

@@ -41,10 +41,8 @@ void		alert_job(t_job *j)
 		free_job(j);
 		return ;
 	}
-	if (j->split == '&')
-		print_job(j);
-	else if (job_is_stoped(j))
+	if (j->split != '&' && job_is_stoped(j))
 		j->notified = 1;
-	else
+	else if (j->split != '&')
 		remove_job(j->id, 0);
 }

@@ -103,6 +103,9 @@ typedef struct			s_save_job
 	struct s_save_job	*prev;
 }						t_save_job;
 
+
+void					print_complete_process(t_process *p);
+
 /*
 **	NEW_JOB_C
 */
@@ -354,6 +357,7 @@ void					init_fd_in_and_out(t_lexeur **res, int *t, t_redirect
 ** REDIRECTION_DISPATCH_C
 */
 
+char					*del_back_slash_and_quote_red(char *ar);
 void					get_all_redirections_done(t_process *p, t_pos *pos,
 						t_redirect *red, int is_builtin);
 void					redirect_heredoc(t_fd *fd, t_redirect *red);

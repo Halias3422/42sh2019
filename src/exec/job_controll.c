@@ -27,7 +27,7 @@ void		process_status(t_process *process, t_job_list *job_list, int status,
 	else
 	{
 		if (WIFSIGNALED(status))
-			ft_printf_err("\n");
+			ft_printf_err("Terminated by signal %d\n", status);
 		process->completed = FINISHED;
 		process->ret = WEXITSTATUS(status);
 		add_list_env(var, SPE, ft_strdup("?"), ft_itoa(process->ret));
@@ -59,19 +59,6 @@ int			mark_process_status(pid_t pid, int status, t_var **var)
 		}
 	}
 	return (-1);
-}
-
-void		print_start_process(t_job *j)
-{
-	t_process	*p;
-
-	p = j->p;
-	while (p)
-	{
-		ft_printf(" %d", p->pid);
-		p = p->next;
-	}
-	ft_putchar('\n');
 }
 
 void		wait_process(t_var **var)

@@ -68,6 +68,21 @@ void			free_fd_list(t_fd *fd)
 	}
 }
 
+char		*del_back_slash_and_quote_red(char *ar)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = NULL;
+	if (ar)
+	{
+		res = browse_back_slash_and_quote(ar, 0, 0, NULL);
+		free(ar);
+	}
+	return (res);
+}
+
 void			get_all_redirections_done(t_process *p, t_pos *pos,
 				t_redirect *red, int is_builtin)
 {
@@ -79,6 +94,8 @@ void			get_all_redirections_done(t_process *p, t_pos *pos,
 	end_pipe_redirection(pos, p, fd, is_builtin);
 	while (red)
 	{
+		red->fd_in = del_back_slash_and_quote_red(red->fd_in);
+		red->fd_out = del_back_slash_and_quote_red(red->fd_out);
 		fd = add_list_back_fd(fd);
 		if (head == NULL)
 			head = fd;

@@ -198,6 +198,8 @@ char					*change_buf(char *buf);
 void					fill_lex_solve_back_slash(char *buf, int *i,
 						int *start);
 void					cnt_solve_back_slash(char *buf, int *i, int *cnt);
+char					*browse_back_slash_and_quote(char *str, int i, int j,
+						char *res);
 char					**del_back_slash_and_quote(char **ar);
 
 /*

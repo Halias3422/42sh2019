@@ -20,13 +20,19 @@ pid_t			get_pid_fg(t_process *p)
 	save = p->pid;
 	while (p)
 	{
-		if (kill(p->pid, 0) == 0)
+		if (kill(p->pid, 0) == 0 && p->split != 'P')
 		{
 			save = p->pid;
 			break ;
 		}
+		if (p->split == 'P')
+		{
+			ft_printf("process complete = [%T]\n", p->cmd);
+			p->completed = 1;
+		}
 		p = p->next;
 	}
+	ft_printf("process trouve = [%T]\n", p->cmd);
 	return (save);
 }
 
