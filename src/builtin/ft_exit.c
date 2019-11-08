@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   ft_exit.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/09/27 17:46:07 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 15:01:39 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/11/08 12:06:56 by rlegendr     #+#   ##    ##    #+#       */
+/*   Updated: 2019/11/08 12:35:44 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,6 +59,7 @@ void			kill_last_job(t_job_list *jb, t_pos *pos, t_var *var,
 	free_copy_job(save);
 	free_job_list(0);
 	free_hash_table();
+	free_pid_launch();
 	ft_printf_fd("exit\n");
 	write_alias_on_exit(var);
 	free_pos(pos);

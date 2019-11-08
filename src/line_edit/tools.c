@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/06 08:15:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 09:32:11 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 11:21:47 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,6 +59,7 @@ void	*to_stock(void *stock, int usage)
 	static t_pos		*pos = NULL;
 	static t_process	*p = NULL;
 	static t_hist		*hist = NULL;
+	static t_pid_launch	*spid = NULL;
 
 	if (usage == 0)
 		pos = stock;
@@ -72,5 +73,9 @@ void	*to_stock(void *stock, int usage)
 		hist = stock;
 	else if (usage == 5)
 		return (hist);
+	else if (usage == 6)
+		spid = stock;
+	else if (usage == 7)
+		return (spid);
 	return (NULL);
 }

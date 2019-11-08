@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/11/07 17:54:57 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/08 12:50:42 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -54,7 +54,7 @@ SRC_EXEC = $(addprefix exec/, \
 				alias_reduction.c alias_norme.c exec_tool.c var_norme.c launch_job_process.c \
 				job_function_plus_and_minus.c process_heredoc.c redirection_dispatch.c \
 				redirection_init_and_normal.c redirection_pipe_aggregator.c redirection_apply.c \
-				redirection_files_rights.c)
+				redirection_files_rights.c zombie.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c\

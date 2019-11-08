@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:41:56 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 13:20:20 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,7 @@
 # define RESIZING	28
 # define CTRL_C		2
 
-extern struct s_hist	**ghist;
+typedef struct s_pid_launch	t_pid_launch;
 
 typedef struct			s_heredoc
 {

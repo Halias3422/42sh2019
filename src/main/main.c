@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/09 14:32:39 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 17:06:56 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 13:04:58 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -76,6 +76,7 @@ int				main_loop(t_pos *pos, t_var *my_env, t_hist *hist)
 	if (pos->ans)
 		pos->ans = ft_secure_free(pos->ans);
 	pos->error = 0;
+	kill_zombie(to_stock(NULL, 7), stock(NULL, 10));
 	return (0);
 }
 
