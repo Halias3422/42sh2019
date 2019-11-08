@@ -6,7 +6,7 @@
 /*   By: rlegendr <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/11/08 12:06:56 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 12:35:44 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 15:51:15 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -106,7 +106,7 @@ int				ft_exit(t_process *p, t_var **var)
 	while (p->cmd[1] && p->cmd[1][++i])
 		if (p->cmd[1][i] < '0' || p->cmd[1][i] > '9')
 			check = 1;
-	if (status < 0 || (check && (status = 255)))
+	if ((status < 0 || check) && (status = 255))
 		ft_printf_err_fd("21sh: exit: %s: numeric argument required\n",
 				p->cmd[1]);
 	pos->exit_mode = status;

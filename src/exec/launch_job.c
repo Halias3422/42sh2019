@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:52:00 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/08 11:15:47 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 15:35:58 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -86,7 +86,7 @@ void		launch_job(t_job *j, t_var *var, t_pos *pos, t_process *p)
 
 	pos->pipe = 0;
 	p = init_launch_job(j, &infile);
-	while (p)
+	while (p && pos->exit_mode == -100)
 	{
 		pos->act_fd_out = 1;
 		pos->act_fd_error = 2;
