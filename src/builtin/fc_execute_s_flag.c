@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/24 13:41:03 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 13:17:24 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:45:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,14 @@ static void		exec_s_flag(t_fc *fc, t_hist *hist, t_var **var)
 		tmp_cmd = replace_cmd_content_with_ename(fc, tmp_cmd);
 	cmd = ft_strdup(tmp_cmd);
 	ft_printf_fd("%s\n", tmp_cmd);
-	if ((check_error(hist->cmd)) != -1)
+	if (token(tmp_cmd, to_stock(NULL, 1)) && valid_heredocs(tmp_cmd, 0, -1) &&
+		(check_error(hist->cmd)) != -1 && ft_strstr(tmp_cmd, "fc ") == NULL)
 		start_exec(start_lex(*var, tmp_cmd), *var);
+	else
+	{
+		ft_printf_err_fd("42sh: fc: bad command\n");
+		ft_free_void(tmp_cmd, NULL, NULL, NULL);
+	}
 	place_new_cmds_in_history(cmd, hist);
 }
 

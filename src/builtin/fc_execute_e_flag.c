@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 13:24:51 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:44:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,7 +82,8 @@ void				exec_new_cmds(char **new_cmds, int i, t_hist *hist,
 		var = stock(NULL, 6);
 		tmp_cmd = ft_strdup(new_cmds[i]);
 		if (token(new_cmds[i], to_stock(NULL, 1)) && valid_heredocs(new_cmds[i],
-					0, -1) && (check_error(new_cmds[i])) != -1)
+			0, -1) && (check_error(new_cmds[i])) != -1 &&
+			ft_strstr(new_cmds[i], "fc ") == NULL)
 		{
 			ft_printf_fd("%s\n", tmp_cmd);
 			start_exec(start_lex(stock(NULL, 6), tmp_cmd), stock(NULL, 6));
