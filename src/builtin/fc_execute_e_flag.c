@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 12:57:05 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:24:51 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,7 +57,6 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd,
 	fd = open(pwd, O_RDWR | O_APPEND | O_CREAT, 0666);
 	while ((ret = get_next_line(fd, &line)))
 	{
-		ft_printf("line[[0] = [%c](%d)\n", line[0], line[0]);
 		if (ft_strlen(line) > 0)
 		{
 			transform_tab_into_space(line);
@@ -73,44 +72,17 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd,
 	return (new_cmds);
 }
 
-int				search_for_valid_heredocs_in_ans(char *ans, int i, int open)
+void				exec_new_cmds(char **new_cmds, int i, t_hist *hist,
+					t_var *var)
 {
-	while (ans[i])
-	{
-		if (open != -1 && (ans[i] == open ||
-			(open == '$' && ans[i] == '}')) &&
-			(odd_backslash(i - 1, ans) == 0 || ans[i] == 39))
-			open = -1;
-		else if (open == -1 &&
-				(ans[i] == '"' || ans[i] == 39 ||
-				(ans[i] == '$' && ans[i + 1] == '{')) &&
-				(i == 0 || (i > 0 && odd_backslash(i - 1, ans) == 0)))
-			open = ans[i];
-		if (open == -1 && ans[i] == '<' && ans[i + 1] == '<' &&
-				(i == 0 || (i > 0 && odd_backslash(i - 1, ans) == 0)))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void				exec_new_cmds(char **new_cmds)
-{
-	int				i;
 	char			*tmp_cmd;
-	t_hist			*hist;
-	t_var			*var;
 
-	var = stock(NULL, 6);
-	hist = stock(NULL, 8);
-	i = 0;
-	i = 0;
-	ft_printf("new cmds = [%T]\n", new_cmds);
 	while (new_cmds[i])
 	{
 		var = stock(NULL, 6);
 		tmp_cmd = ft_strdup(new_cmds[i]);
-		if (token(new_cmds[i], to_stock(NULL, 1)) && search_for_valid_heredocs_in_ans(new_cmds[i], 0, -1) && (check_error(new_cmds[i])) != -1)
+		if (token(new_cmds[i], to_stock(NULL, 1)) && valid_heredocs(new_cmds[i],
+					0, -1) && (check_error(new_cmds[i])) != -1)
 		{
 			ft_printf_fd("%s\n", tmp_cmd);
 			start_exec(start_lex(stock(NULL, 6), tmp_cmd), stock(NULL, 6));
@@ -118,8 +90,8 @@ void				exec_new_cmds(char **new_cmds)
 		}
 		else
 		{
-			ft_printf_fd("%s\n", tmp_cmd);
-			ft_printf("42sh: fc: bad command\n");
+			ft_printf_err_fd("%s\n", tmp_cmd);
+			ft_printf_err_fd("42sh: fc: bad command\n");
 			ft_free_void(tmp_cmd, new_cmds[i], NULL, NULL);
 		}
 		i++;
@@ -145,7 +117,7 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env)
 	{
 		wait(&father);
 		new_cmds = recover_new_cmds_from_tmp(new_cmds, fd, ret, NULL);
-		exec_new_cmds(new_cmds);
+		exec_new_cmds(new_cmds, 0, stock(NULL, 8), stock(NULL, 6));
 		ft_free_tab(arg_tmp);
 		return ;
 	}

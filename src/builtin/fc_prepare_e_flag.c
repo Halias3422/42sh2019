@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 14:02:04 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:16:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,9 +25,9 @@ void			correct_int_first_and_int_last_for_e_flag(t_fc *fc,
 		fc->int_first = hist->cmd_no - 1;
 		fc->int_last = hist->cmd_no - 1;
 	}
-	if (fc->int_first > hist->cmd_no)
+	if (fc->int_first > hist->cmd_no || fc->int_first == 0)
 		fc->int_first = hist->cmd_no - 1;
-	if (fc->int_last > hist->cmd_no)
+	if (fc->int_last > hist->cmd_no || fc->int_last == 0)
 		fc->int_last = hist->cmd_no - 1;
 	else if (fc->first_not_precised == 1)
 		fc->int_first = hist->cmd_no - 1;

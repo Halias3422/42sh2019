@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 12:43:19 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:25:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -201,7 +201,7 @@ void			prepare_s_flag(t_fc *fc, t_hist *hist, t_var **var);
 
 void			send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env);
 void			exec_ide_with_tmp_file(t_fc *fc, int fd, char **env);
-void			exec_new_cmds(char **new_cmds);
+void			exec_new_cmds(char **new_cmds, int i, t_hist *hist, t_var *var);
 char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int ret,
 				char *line);
 
@@ -221,6 +221,7 @@ char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 
 void			free_fc_struct(t_fc *fc);
 int				get_value_of_cmd_return(t_fc fc, t_var *var);
+int				valid_heredocs(char *ans, int i, int open);
 
 /*
 **	FT_HASH_C

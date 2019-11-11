@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/24 13:41:03 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 13:02:20 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:17:24 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,21 +31,18 @@ static void		exec_s_flag(t_fc *fc, t_hist *hist, t_var **var)
 
 static void		correct_int_first(t_fc *fc, t_hist *hist)
 {
-	if (fc->str_first == NULL)
-		fc->int_first = hist->cmd_no - 1;
-	else if (fc->str_first && ((fc->str_first[0] >= '0' &&
+	if (fc->str_first && ((fc->str_first[0] >= '0' &&
 		fc->str_first[0] < '9') || (fc->str_first[0] == '-' &&
 		fc->str_first[1] >= '0' && fc->str_first[1] < '9')))
 		fc->int_first = ft_atoi(fc->str_first);
 	if (fc->int_first < 0)
 		fc->int_first = hist->cmd_no + fc->int_first;
-	ft_printf("int first = %d\n", fc->int_first);
 	if (fc->int_first < 0)
 	{
 		fc->error = 1;
 		ft_printf_err_fd("%s: fc: history specification out of range\n", TERM);
 	}
-	if (fc->int_first >= hist->cmd_no)
+	if (fc->int_first >= hist->cmd_no || fc->int_first == 0)
 		fc->int_first = hist->cmd_no - 1;
 }
 
