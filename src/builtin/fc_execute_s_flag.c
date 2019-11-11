@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/24 13:41:03 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/21 15:40:15 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:02:20 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,16 +15,14 @@
 
 static void		exec_s_flag(t_fc *fc, t_hist *hist, t_var **var)
 {
-	char	**cmd;
+	char	*cmd;
 	char	*tmp_cmd;
 
 	*var = stock(NULL, 6);
-	cmd = (char**)ft_malloc(sizeof(char*) * 2);
-	cmd[1] = NULL;
 	tmp_cmd = ft_strdup(hist->cmd);
 	if (fc->ename != NULL)
 		tmp_cmd = replace_cmd_content_with_ename(fc, tmp_cmd);
-	cmd[0] = ft_strdup(tmp_cmd);
+	cmd = ft_strdup(tmp_cmd);
 	ft_printf_fd("%s\n", tmp_cmd);
 	if ((check_error(hist->cmd)) != -1)
 		start_exec(start_lex(*var, tmp_cmd), *var);
@@ -41,6 +39,7 @@ static void		correct_int_first(t_fc *fc, t_hist *hist)
 		fc->int_first = ft_atoi(fc->str_first);
 	if (fc->int_first < 0)
 		fc->int_first = hist->cmd_no + fc->int_first;
+	ft_printf("int first = %d\n", fc->int_first);
 	if (fc->int_first < 0)
 	{
 		fc->error = 1;

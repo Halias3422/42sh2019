@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/05 13:14:57 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/15 08:28:53 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 12:45:37 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,7 +69,7 @@ void			overwrite_history_file(t_hist *hist)
 	}
 }
 
-void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
+void			place_new_cmds_in_history(char *new_cmds, t_hist *hist)
 {
 	int			i;
 
@@ -79,18 +79,18 @@ void			place_new_cmds_in_history(char **new_cmds, t_hist *hist)
 	if (hist->next)
 		hist->next = ft_secure_free(hist->next);
 	i = 0;
-	while (new_cmds[i])
-	{
-		if (ft_strlen(new_cmds[i]) > 0 && (!hist->prev || ft_strcmp(new_cmds[i],
+//	while (new_cmds[i])
+//	{
+		if (ft_strlen(new_cmds) > 0 && (!hist->prev || ft_strcmp(new_cmds,
 					hist->prev->cmd) != 0))
 		{
-			hist->cmd = ft_strdup(new_cmds[i]);
+			hist->cmd = ft_strdup(new_cmds);
 			hist = add_list_back_hist(hist);
 		}
-		i++;
-	}
+//		i++;
+//	}
 	hist->next = NULL;
-	ft_free_tab(new_cmds);
+	free(new_cmds);
 	overwrite_history_file(hist);
 }
 

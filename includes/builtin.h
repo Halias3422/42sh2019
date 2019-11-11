@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 12:43:19 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -157,7 +157,7 @@ t_fc_list		*add_list_back_fc_list(t_fc_list *fc_list, char *line);
 void			remove_cmd_from_hist(t_hist *hist);
 char			*get_program_pwd(char *pwd, int i);
 void			overwrite_history_file(t_hist *hist);
-void			place_new_cmds_in_history(char **new_cmds, t_hist *hist);
+void			place_new_cmds_in_history(char *new_cmds, t_hist *hist);
 void			print_fc_usage(void);
 
 /*
