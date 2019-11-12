@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/04 11:05:11 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/18 13:39:36 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/12 11:36:08 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@ void	error_heredoc_go_next(char *str, int *i)
 	int		s;
 
 	tag = error_heredoc_go_next_init(0, i, str);
+	tmp = NULL;
 	while (str[++(*i)])
 	{
 		jump_space(str, i);
