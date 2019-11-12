@@ -6,12 +6,12 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/22 07:05:34 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/07 17:31:49 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/12 12:52:05 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "termcaps.h"
+#include "../../includes/termcaps.h"
 
 int				check_if_inside_symbols(char *ans, int i)
 {
