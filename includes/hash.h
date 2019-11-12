@@ -59,6 +59,7 @@ int					scan_name_for_undesired_symbols(char *str);
 **	HASH_PREPARE_ERROR_C
 */
 
+int					search_exec_in_tmp_path(t_var **var, char *arg, char **ans);
 char				*remove_old_entry_in_hash(t_hash **ghash, char *ans,
 					char *arg, t_var **var);
 void				prepare_error_message_for_hash(int error, char *str);

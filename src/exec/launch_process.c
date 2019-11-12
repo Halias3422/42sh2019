@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/08/29 18:55:27 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 13:38:19 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 15:34:54 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,6 +30,7 @@ int			ft_execute_function(char *path, char **arg, t_var *var)
 void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 {
 	p->pid = pid;
+	remember_pid(pid);
 	if (j->pgid == 0)
 		j->pgid = pid;
 	setpgid(pid, j->pgid);

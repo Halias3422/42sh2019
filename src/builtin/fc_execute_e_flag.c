@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/25 08:56:49 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/01 15:21:07 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:44:20 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,10 +61,10 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd,
 		{
 			transform_tab_into_space(line);
 			fc_list = add_list_back_fc_list(fc_list, line);
-			ft_strdel(&line);
 			if (head == NULL)
 				head = fc_list;
 		}
+		ft_strdel(&line);
 	}
 	new_cmds = convert_fc_list_to_tab(head);
 	unlink(pwd);
@@ -72,29 +72,32 @@ char				**recover_new_cmds_from_tmp(char **new_cmds, int fd,
 	return (new_cmds);
 }
 
-void				exec_new_cmds(char **new_cmds)
+void				exec_new_cmds(char **new_cmds, int i, t_hist *hist,
+					t_var *var)
 {
-	int				i;
 	char			*tmp_cmd;
-	t_hist			*hist;
-	t_var			*var;
 
-	var = stock(NULL, 6);
-	hist = stock(NULL, 8);
-	i = 0;
-	i = 0;
 	while (new_cmds[i])
 	{
 		var = stock(NULL, 6);
 		tmp_cmd = ft_strdup(new_cmds[i]);
-		if ((check_error(new_cmds[i])) != -1)
+		if (token(new_cmds[i], to_stock(NULL, 1)) && valid_heredocs(new_cmds[i],
+			0, -1) && (check_error(new_cmds[i])) != -1 &&
+			ft_strstr(new_cmds[i], "fc ") == NULL)
 		{
 			ft_printf_fd("%s\n", tmp_cmd);
 			start_exec(start_lex(stock(NULL, 6), tmp_cmd), stock(NULL, 6));
+			place_new_cmds_in_history(new_cmds[i], hist);
+		}
+		else
+		{
+			ft_printf_err_fd("%s\n", tmp_cmd);
+			ft_printf_err_fd("42sh: fc: bad command\n");
+			ft_free_void(tmp_cmd, new_cmds[i], NULL, NULL);
 		}
 		i++;
 	}
-	place_new_cmds_in_history(new_cmds, hist);
+	free(new_cmds);
 }
 
 void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env)
@@ -115,7 +118,7 @@ void				exec_ide_with_tmp_file(t_fc *fc, int fd, char **env)
 	{
 		wait(&father);
 		new_cmds = recover_new_cmds_from_tmp(new_cmds, fd, ret, NULL);
-		exec_new_cmds(new_cmds);
+		exec_new_cmds(new_cmds, 0, stock(NULL, 8), stock(NULL, 6));
 		ft_free_tab(arg_tmp);
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/18 13:44:02 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 15:43:03 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 12:32:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,8 +104,23 @@ typedef struct			s_save_job
 	struct s_save_job	*prev;
 }						t_save_job;
 
+typedef struct			s_pid_launch
+{
+	int					pid;
+	struct s_pid_launch	*next;
+	struct s_pid_launch	*prev;
+}						t_pid_launch;
 
 void					print_complete_process(t_process *p);
+
+/*
+**	ZOMBIE_C
+*/
+
+void					kill_zombie(t_pid_launch *spid, t_job_list *jb);
+void					free_pid_launch(void);
+void					remember_pid(int pid);
+t_pid_launch			*add_list_back_pid_launch(t_pid_launch *spid, int pid);
 
 /*
 **	NEW_JOB_C
@@ -402,5 +417,14 @@ int						redirection_get_argument_file_fd(t_redirect *red,
 int						redirection_find_file_fd(char *file, t_redirect *red,
 						t_process *p, t_fd *fd);
 void					free_process(t_process *ptr_p);
+
+/*
+**	REDIRECTION_FILES_RIGHTS_C
+*/
+
+int						check_splited_folds(char *act_fold, char **path, int i,
+						t_process *p);
+int						check_folders_rights(t_process *p, char *file, int i,
+						char *act_fold);
 
 #endif

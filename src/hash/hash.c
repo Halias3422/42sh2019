@@ -83,14 +83,7 @@ char				*fill_hash_table(char *path, char *arg)
 	ans = complete_hash_table(hash[key], arg, path);
 	return (ans);
 }
-/*
-char				*search_exec_in_tmp_path(t_var **var, char *arg)
-{
-	(void)NULL;
-	ft_printf("arg = [%s]\n", arg);
-	return (NULL);
-}
-*/
+
 char				*check_path_hash(t_var **var, char *arg,
 		int i, char *ans)
 {
@@ -99,8 +92,8 @@ char				*check_path_hash(t_var **var, char *arg,
 	int				denied;
 	char			**env;
 
-//	if ((ans = search_exec_in_tmp_path(var, arg)) != NULL)
-//		return (ans);
+	if (search_exec_in_tmp_path(var, arg, &ans) != -1)
+		return (ans);
 	if ((denied = 0) == 0 && ft_strchr(arg, '/') != 0)
 		return (absolute_path(arg, ft_strdup(arg)));
 	if ((hash = stock_hash(NULL, 1)) != NULL &&

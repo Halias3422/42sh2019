@@ -69,32 +69,6 @@ void		remove_job(int id, int i)
 	stock(start, 9);
 }
 
-void		print_complete_process(t_process *p)
-{
-	int		i;
-
-	while (p)
-	{
-		i = 0;
-		while (p->next && p->completed == 1)
-			p = p->next;
-		while (p->cmd[i])
-			ft_printf("%s ", p->cmd[i++]);
-		p->printed = 1;
-		if (p->next)
-		{
-			if (p->split == 'A')
-				ft_printf("&& ");
-			if (p->split == '|')
-				ft_printf("|| ");
-			if (p->split == 'P')
-				ft_printf("| ");
-		}
-		p = p->next;
-	}
-	ft_putchar('\n');
-}
-
 void		print_job(t_job *j)
 {
 	t_process	*process;

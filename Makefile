@@ -6,7 +6,7 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/11/05 19:34:41 by mdelarbr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/12 10:23:49 by vde-sain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -53,7 +53,8 @@ SRC_EXEC = $(addprefix exec/, \
 				process_tool.c alias_tools.c free_job.c new_job.c process_file.c \
 				alias_reduction.c alias_norme.c exec_tool.c var_norme.c launch_job_process.c \
 				job_function_plus_and_minus.c process_heredoc.c redirection_dispatch.c \
-				redirection_init_and_normal.c redirection_pipe_aggregator.c redirection_apply.c)
+				redirection_init_and_normal.c redirection_pipe_aggregator.c redirection_apply.c \
+				redirection_files_rights.c zombie.c)
 
 SRC_REP = $(addprefix replace/, \
 				alias.c var_replace.c var_tool.c tool_cnt.c tool_list.c replace.c tool.c quote.c\
@@ -86,7 +87,7 @@ INC = $(addprefix $(INC_PATH), $(INC_NAME))
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-FLAG += -Wall -Werror -Wextra -Og -g3 -fsanitize=address #-fsanitize=undefined
+FLAG += -Wall -Werror -Wextra -O3 -g3 # -fsanitize=address #-fsanitize=undefined
 FLAG_END = -lcurses
 NORME = norminette
 
