@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/15 17:27:56 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 13:52:48 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 08:42:21 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,18 +49,12 @@ int			check_spe(t_alias *alias, t_var *var)
 	return (0);
 }
 
-int			remove_env_while(t_alias *alias, t_var *var, t_replace *replace,
-			int *alias_done)
+int			remove_env_while(t_alias *alias, t_var *var)
 {
 	int		done;
 	t_alias	*tmp;
 
 	done = 0;
-	if (!(*alias_done) && check_alias(alias->data, var) == 1 &&
-	alias->data[0] != '\\')
-		if (replace_alias(alias, var, replace) == 1)
-			*alias_done = 1;
-	check_spe(alias, var);
 	tmp = alias;
 	while (tmp)
 	{
@@ -95,22 +89,20 @@ void		free_alias(t_alias *alias)
 char		**start_split(t_var *start, char *str)
 {
 	char		**ar;
-	int			alias_done;
 	t_alias		*al;
 	t_replace	*r;
 
-	alias_done = 0;
 	ar = split_space(str);
 	if (!start)
 		return (ar);
 	al = make_ar_to_list(ar);
 	init_replace(&r);
 	r->name = ft_strdup(al->data);
-	while (1)
-	{
-		if (remove_env_while(al, start, r, &alias_done) == 0)
-			break ;
-	}
+	check_tok(al, start, r);
+	if (check_alias(al->data, start) == 1 &&
+	al->data[0] != '\\')
+		replace_alias(al, start, r);
+	check_spe(al, start);
 	ar = make_list_to_ar(al);
 	ft_strdel(&str);
 	free_replace(r);

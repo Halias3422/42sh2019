@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/22 13:50:20 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 11:17:54 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/05 17:34:22 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -198,6 +198,8 @@ char					*change_buf(char *buf);
 void					fill_lex_solve_back_slash(char *buf, int *i,
 						int *start);
 void					cnt_solve_back_slash(char *buf, int *i, int *cnt);
+char					*browse_back_slash_and_quote(char *str, int i, int j,
+						char *res);
 char					**del_back_slash_and_quote(char **ar);
 
 /*
@@ -325,8 +327,7 @@ void					remoove_quote(char ***array);
 int						check_tok(t_alias *alias, t_var *var,
 						t_replace *replace);
 void					free_alias(t_alias *alias);
-int						remove_env_while(t_alias *alias, t_var *var,
-						t_replace *replace, int *alias_done);
+int						remove_env_while(t_alias *alias, t_var *var);
 void					print_lexer(t_lexeur *lex);
 char					*remove_simple_quote(char **str);
 char					*fill_redirection_heredoc(char **buf, int *i);

@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/11 13:25:44 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -157,7 +157,7 @@ t_fc_list		*add_list_back_fc_list(t_fc_list *fc_list, char *line);
 void			remove_cmd_from_hist(t_hist *hist);
 char			*get_program_pwd(char *pwd, int i);
 void			overwrite_history_file(t_hist *hist);
-void			place_new_cmds_in_history(char **new_cmds, t_hist *hist);
+void			place_new_cmds_in_history(char *new_cmds, t_hist *hist);
 void			print_fc_usage(void);
 
 /*
@@ -201,7 +201,7 @@ void			prepare_s_flag(t_fc *fc, t_hist *hist, t_var **var);
 
 void			send_e_flag_to_exec(t_fc *fc, t_hist *hist, char **env);
 void			exec_ide_with_tmp_file(t_fc *fc, int fd, char **env);
-void			exec_new_cmds(char **new_cmds);
+void			exec_new_cmds(char **new_cmds, int i, t_hist *hist, t_var *var);
 char			**recover_new_cmds_from_tmp(char **new_cmds, int fd, int ret,
 				char *line);
 
@@ -221,6 +221,7 @@ char			*check_new_cmd_is_valid(char *new_cmds, char **paths);
 
 void			free_fc_struct(t_fc *fc);
 int				get_value_of_cmd_return(t_fc fc, t_var *var);
+int				valid_heredocs(char *ans, int i, int open);
 
 /*
 **	FT_HASH_C

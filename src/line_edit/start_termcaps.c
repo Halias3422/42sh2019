@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/04 11:44:25 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 11:23:09 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 13:14:49 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,10 +36,8 @@ static char		*returning_ans(t_pos *pos)
 	return (pos->ans);
 }
 
-static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
+static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var, int i)
 {
-	int			i;
-
 	if (pos->active_heredoc)
 	{
 		i = ft_strlen(pos->ans) - 1;
@@ -53,8 +51,15 @@ static int		handle_ctrl_d(t_pos *pos, t_hist **hist, t_var *var)
 	}
 	if (!pos->ans || !pos->ans[0])
 	{
-		free_job_list(0);
 		write_alias(var, pos);
+		free_job_list(0);
+		free_copy_job(stock_t_job(NULL, 3));
+		free_hash_table();
+		free_pid_launch();
+		free_pos(pos);
+		free_t_hist(stock(NULL, 8));
+		free_env_list(var);
+		tcsetattr(0, TCSANOW, &pos->old_term);
 		exit(0);
 	}
 	return (0);
@@ -70,7 +75,7 @@ static char		*termcaps42sh_loop(t_pos *pos, t_hist **hist, t_var *var,
 		read(0, buf + 1, 8);
 	else if (buf[0] == 4)
 	{
-		if (handle_ctrl_d(pos, hist, var) == 1)
+		if (handle_ctrl_d(pos, hist, var, 0) == 1)
 			return (returning_ans(pos));
 	}
 	if (pos->max_co > 2 && buf[0] != 4)

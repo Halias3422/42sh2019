@@ -13,6 +13,29 @@
 
 #include "../../includes/hash.h"
 
+int		search_exec_in_tmp_path(t_var **var, char *arg, char **ans)
+{
+	char	**tab_path;
+	int		denied;
+	int		i;
+
+	i = 0;
+	if ((*ans = ft_get_val("PATH", *var, TEMP)) == NULL)
+		return (-1);
+	tab_path = ft_strsplit(*ans, ':');
+	denied = test_all_paths_existence(tab_path, arg, &i);
+	if (denied > 0)
+	{
+		*ans = ft_strdup(tab_path[i]);
+		ft_free_tab(tab_path);
+		ft_strdel(&arg);
+		return (0);
+	}
+	path_denied(tab_path, arg, denied);
+	*ans = NULL;
+	return (0);
+}
+
 void	hash_is_on_middle_link(t_hash *hash, t_hash *prev)
 {
 	hash = hash->next;

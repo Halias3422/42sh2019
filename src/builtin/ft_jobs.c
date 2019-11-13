@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:08:12 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 14:00:40 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 17:51:34 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,8 +63,10 @@ char			*built_job_name(t_job_list *j, char *name)
 
 	tmp = j->j->p;
 	i = 0;
-	while (kill(tmp->pid, 0) == -1)
+	while (tmp && kill(tmp->pid, 0) == -1)
 		tmp = tmp->next;
+	if (tmp == NULL)
+		return (NULL);
 	while (tmp->cmd[i])
 	{
 		name = ft_strjoinf(name, tmp->cmd[i], 1);

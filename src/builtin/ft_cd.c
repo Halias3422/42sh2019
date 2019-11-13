@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/26 13:18:39 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:33:18 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 16:45:49 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -95,8 +95,7 @@ void	replace_pwd_vars_in_env(t_var **var, char *new_path, int option)
 
 	if (option == 'P')
 	{
-		tmp = ft_strnew(1000);
-		tmp = getcwd(tmp, 1000);
+		tmp = getcwd(NULL, 1000);
 		new_path = ft_secure_free(new_path);
 	}
 	else

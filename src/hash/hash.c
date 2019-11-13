@@ -92,6 +92,8 @@ char				*check_path_hash(t_var **var, char *arg,
 	int				denied;
 	char			**env;
 
+	if (search_exec_in_tmp_path(var, arg, &ans) != -1)
+		return (ans);
 	if ((denied = 0) == 0 && ft_strchr(arg, '/') != 0)
 		return (absolute_path(arg, ft_strdup(arg)));
 	if ((hash = stock_hash(NULL, 1)) != NULL &&

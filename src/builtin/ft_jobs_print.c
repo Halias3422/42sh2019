@@ -6,12 +6,38 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:02:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 17:51:29 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
+
+void			print_complete_process(t_process *p)
+{
+	int		i;
+
+	while (p)
+	{
+		i = 0;
+		while (p->next && p->completed == 1)
+			p = p->next;
+		while (p->cmd[i])
+			ft_printf("%s ", p->cmd[i++]);
+		p->printed = 1;
+		if (p->next)
+		{
+			if (p->split == 'A')
+				ft_printf("&& ");
+			if (p->split == '|')
+				ft_printf("|| ");
+			if (p->split == 'P')
+				ft_printf("| ");
+		}
+		p = p->next;
+	}
+	ft_putchar('\n');
+}
 
 void			print_status_job(char status)
 {
@@ -25,6 +51,7 @@ void			print_status_job(char status)
 
 void			print_current_job(t_job_list *j, int option, char *name)
 {
+	(void)name;
 	if (option != 'p')
 		ft_printf_fd("[%d]%c ", j->j->id, j->j->current);
 	if (option == 'p' || option == 'l')
@@ -32,9 +59,8 @@ void			print_current_job(t_job_list *j, int option, char *name)
 	if (option != 'p')
 	{
 		print_status_job(j->j->status);
-		ft_printf_fd("%s", name);
+		print_complete_process(j->j->p);
 	}
-	ft_putchar('\n');
 }
 
 void			print_all_jobs(t_job_list *j, int option)

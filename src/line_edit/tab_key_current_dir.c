@@ -98,8 +98,8 @@ t_htab				*looking_for_current(t_pos *pos, t_htab *htab, char **path,
 		pwd = getcwd(NULL, 1000);
 		dirp = opendir(pwd);
 	}
-	htab = building_htab_current(NULL, htab, dirp);
+	if (dirp)
+		htab = building_htab_current(NULL, htab, dirp);
 	free(pwd);
-	htab = adjust_lenght_max(htab);
-	return (htab);
+	return (adjust_lenght_max(htab));
 }

@@ -28,7 +28,10 @@ void		fill_process_split(t_job **j, t_lexeur **res, int i)
 	else if (res[k] && res[k]->token == 2)
 		(*j)->p->split = '|';
 	else if (res[k] && res[k]->token == 3)
+	{
 		(*j)->p->split = 'P';
+		(*j)->p->completed = 1;
+	}
 	else
 		(*j)->p->split = '\0';
 }

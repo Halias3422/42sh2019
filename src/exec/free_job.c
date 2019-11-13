@@ -3,10 +3,10 @@
 /*                                                              /             */
 /*   free_job.c                                       .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
+/*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/21 14:45:30 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:24:28 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 09:55:11 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ void		free_process_in_job(t_process *process, int i)
 		while (process->cmd[i])
 			ft_printf_fd(" %s", process->cmd[i++]);
 		ft_printf_fd("\n");
-		kill(process->pid, SIGINT);
+		kill(process->pid, SIGKILL);
 	}
 }
 
@@ -83,6 +83,8 @@ void		free_process(t_process *ptr_p)
 	p = ptr_p;
 	while (p)
 	{
+		if (p->fd_in)
+			close(p->fd_in);
 		if (p->cmd)
 			ft_free_tab(p->cmd);
 		if (p->redirect)
@@ -97,4 +99,5 @@ void		free_job(t_job *j)
 {
 	free_process(j->p);
 	free(j);
+	j = NULL;
 }

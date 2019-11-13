@@ -6,15 +6,30 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/31 16:10:01 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/07 18:35:33 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
+char			*del_back_slash_and_quote_red(char *ar)
+{
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = NULL;
+	if (ar)
+	{
+		res = browse_back_slash_and_quote(ar, 0, 0, NULL);
+		free(ar);
+	}
+	return (res);
+}
+
 int				redirection_find_file_fd(char *file, t_redirect *red,
-				t_process *p, t_fd *fd)
+		t_process *p, t_fd *fd)
 {
 	char		*path;
 	int			new_fd;
@@ -32,8 +47,10 @@ int				redirection_find_file_fd(char *file, t_redirect *red,
 }
 
 int				redirection_get_argument_file_fd(t_redirect *red, char *file,
-				t_process *p, int new_fd_out)
+		t_process *p, int new_fd_out)
 {
+	if (check_folders_rights(p, file, 1, NULL) == -1)
+		return (-1);
 	if (access(file, F_OK) != -1 && access(file, W_OK) != -1)
 	{
 		if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, ">&") == 0)
@@ -47,9 +64,7 @@ int				redirection_get_argument_file_fd(t_redirect *red, char *file,
 		ft_printf_err_fd("21sh: %s: permission denied\n", red->fd_out);
 	else if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, ">>") == 0
 			|| ft_strcmp(red->token, ">&") == 0)
-	{
 		new_fd_out = open(file, O_RDWR | O_CREAT, 0666);
-	}
 	else
 	{
 		ft_printf_err_fd("21sh: %s: No such file or directory\n", red->fd_out);

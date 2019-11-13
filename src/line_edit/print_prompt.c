@@ -6,15 +6,27 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/17 11:35:06 by rlegendr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/04 12:23:19 by mjalenqu    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/08 13:24:31 by vde-sain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/termcaps.h"
 
+void		change_pwd_too_long(t_pos *pos)
+{
+	int		i;
+
+	i = 996;
+	while (i > 0 && pos->pwd[i] != '/')
+		i--;
+	ft_strcpy(pos->pwd + i + 1, "...");
+}
+
 void		print_first_prompt(t_pos *pos)
 {
+	if (ft_strlen(pos->pwd) > 996)
+		change_pwd_too_long(pos);
 	if (pos->shtheme == 5)
 		ft_printf("\n42sh --- %s\n",
 				pos->pwd);

@@ -72,7 +72,6 @@ void		remove_job(int id, int i)
 void		print_job(t_job *j)
 {
 	t_process	*process;
-	int			i;
 
 	ft_printf("[%d] %c %d	", j->id, j->current, j->pgid);
 	if (j->status == 'f')
@@ -82,14 +81,7 @@ void		print_job(t_job *j)
 	else
 		ft_printf("Running	");
 	process = j->p;
-	while (process)
-	{
-		i = -1;
-		while (process->cmd[++i])
-			ft_printf("%s ", process->cmd[i]);
-		process = process->next;
-	}
-	ft_putchar('\n');
+	print_complete_process(j->p);
 }
 
 int			find_job_pgid(pid_t pgid)

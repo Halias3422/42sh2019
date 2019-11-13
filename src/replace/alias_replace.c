@@ -6,7 +6,7 @@
 /*   By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/23 09:48:21 by mdelarbr     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:07:53 by mdelarbr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/06 10:44:07 by mdelarbr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,21 +73,5 @@ void		del_all_backslash(t_alias *al)
 	{
 		al->data = del_space(al->data);
 		al = al->next;
-	}
-}
-
-void		check_next(t_alias *alias, t_var *var, t_replace *r)
-{
-	int	i;
-
-	i = 0;
-	while (alias)
-	{
-		while (alias->data[i])
-			i++;
-		i--;
-		if (alias->data[i] == -1 && alias->next)
-			replace_alias(alias->next, var, r);
-		alias = alias->next;
 	}
 }

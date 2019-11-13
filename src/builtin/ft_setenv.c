@@ -57,7 +57,7 @@ void		add_var_to_env(t_var *var, char *name, char *data, t_var *prev)
 	}
 	while (var)
 	{
-		if (ft_strcmp(name, (var)->name) == 0)
+		if (ft_strcmp(name, (var)->name) == 0 && var->type == ENVIRONEMENT)
 			break ;
 		prev = (var);
 		(var) = (var)->next;

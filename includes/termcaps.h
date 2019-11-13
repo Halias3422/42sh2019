@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/28 09:15:13 by mjalenqu     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/05 14:29:06 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/12 13:24:19 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -73,7 +73,7 @@
 # define RESIZING	28
 # define CTRL_C		2
 
-extern struct s_hist	**ghist;
+typedef struct s_pid_launch	t_pid_launch;
 
 typedef struct			s_heredoc
 {
@@ -487,7 +487,7 @@ void					jump_up(t_pos *pos);
 /*
 ** HISTORY_EXPANSION.C
 */
-void					check_history_expansion(t_pos *pos, t_hist *hist, int i,
+int						check_history_expansion(t_pos *pos, t_hist *hist, int i,
 						int error);
 int						replace_expansion_by_value(t_pos *pos, t_hist *hist,
 						int i, int error);
