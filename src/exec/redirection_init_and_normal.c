@@ -52,7 +52,7 @@ void			redirect_simple_left(t_fd *fd, t_redirect *red, t_process *p)
 		fd->old_fd = ft_atoi(red->fd_in);
 		if (fd->old_fd > 255)
 		{
-			ft_printf_err_fd("21sh: %s: Bad file descriptor\n", red->fd_in);
+			ft_printf_err_fd("42sh: %s: Bad file descriptor\n", red->fd_in);
 			fd->error = 1;
 			p->exec_builtin = 0;
 		}

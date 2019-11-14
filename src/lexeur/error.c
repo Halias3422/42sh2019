@@ -16,7 +16,7 @@
 
 int		syntax_print_error(int token)
 {
-	ft_printf_err("21sh: syntax {B.T.red.} error{eoc}");
+	ft_printf_err("42sh: syntax {B.T.red.} error{eoc}");
 	ft_printf_err(" near unexpected token `%s`\n", g_fill_token[token].name);
 	return (-1);
 }

@@ -26,7 +26,7 @@ char	*move_to_home_dir(t_var **var)
 	{
 		pos = to_stock(NULL, 1);
 		pos->error_printed = 1;
-		ft_printf_err_fd("21sh: cd: HOME not set\n");
+		ft_printf_err_fd("42sh: cd: HOME not set\n");
 		return (NULL);
 	}
 	else if (verif_path(path, 1, 0) == 0)
@@ -46,7 +46,7 @@ char	*move_to_oldpwd(t_var **var)
 	{
 		pos = to_stock(NULL, 1);
 		pos->error_printed = 1;
-		ft_printf_err_fd("21sh: cd: OLDPWD not set\n");
+		ft_printf_err_fd("42sh: cd: OLDPWD not set\n");
 		return (NULL);
 	}
 	else if (verif_path(path, 1, 0) == 0)

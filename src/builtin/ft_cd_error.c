@@ -38,7 +38,7 @@ char		*error_in_new_path(char *new_path)
 	if ((i = 0) == 0 && new_path[0] != '/')
 	{
 		ft_printf("new_path = [%s]\n", new_path);
-		ft_printf_fd("21sh: cd: error: file name too long\n");
+		ft_printf_fd("42sh: cd: error: file name too long\n");
 		error = 1;
 	}
 	while (new_path && new_path[i] && error == 0)

@@ -25,7 +25,7 @@ static int		fill_new_env(t_process *p, int i, t_var **new_env,
 				p->cmd[i][0] == '=')
 		{
 			ft_free_tab(new_env_var);
-			ft_printf_err_fd("21sh: env: invalid argument");
+			ft_printf_err_fd("42sh: env: invalid argument");
 			return (-2);
 		}
 		if (*new_env == NULL)

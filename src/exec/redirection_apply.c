@@ -61,13 +61,13 @@ int				redirection_get_argument_file_fd(t_redirect *red, char *file,
 			new_fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	}
 	else if (access(file, F_OK) != -1 && access(file, W_OK) == -1)
-		ft_printf_err_fd("21sh: %s: permission denied\n", red->fd_out);
+		ft_printf_err_fd("42sh: %s: permission denied\n", red->fd_out);
 	else if (ft_strcmp(red->token, ">") == 0 || ft_strcmp(red->token, ">>") == 0
 			|| ft_strcmp(red->token, ">&") == 0)
 		new_fd_out = open(file, O_RDWR | O_CREAT, 0666);
 	else
 	{
-		ft_printf_err_fd("21sh: %s: No such file or directory\n", red->fd_out);
+		ft_printf_err_fd("42sh: %s: No such file or directory\n", red->fd_out);
 		p->exec_builtin = 0;
 		return (-1);
 	}

@@ -35,7 +35,7 @@ int		check_name(char *name)
 
 int		print_err(char *name, char *data)
 {
-	ft_printf_err_fd("21sh: alias: error: Permission denied\n");
+	ft_printf_err_fd("42sh: alias: error: Permission denied\n");
 	ft_strdel(&name);
 	ft_strdel(&data);
 	return (1);
@@ -49,6 +49,6 @@ void	ft_free_deux(char *s, char *s1)
 
 int		error_unlias(char *str)
 {
-	ft_printf_err_fd("21sh: unalias: %s: not found\n", str);
+	ft_printf_err_fd("42sh: unalias: %s: not found\n", str);
 	return (1);
 }

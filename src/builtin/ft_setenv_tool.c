@@ -42,6 +42,6 @@ void		print_env(t_var *var)
 int			print_err_setenv(char **al)
 {
 	ft_free_tab(al);
-	ft_printf_err_fd("21sh: setenv: ambiguous value name\n");
+	ft_printf_err_fd("42sh: setenv: ambiguous value name\n");
 	return (-1);
 }

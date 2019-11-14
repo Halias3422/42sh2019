@@ -46,7 +46,7 @@ static t_job	*iterate_through_list(t_job_list *jb, char *ans)
 		ft_strdel(&name);
 		jb = jb->next;
 	}
-	ft_printf_err_fd("21sh: bg: %s: no such job\n", ans);
+	ft_printf_err_fd("42sh: bg: %s: no such job\n", ans);
 	return (NULL);
 }
 
@@ -97,7 +97,7 @@ int				ft_bg(t_process *p, t_var **var)
 		return (0);
 	}
 	else if (p->cmd[1] == NULL)
-		ft_printf_err_fd("21sh: bg: no such job\n", p->fd_out);
+		ft_printf_err_fd("42sh: bg: no such job\n", p->fd_out);
 	var = NULL;
 	return (1);
 }

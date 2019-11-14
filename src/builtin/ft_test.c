@@ -54,7 +54,7 @@ int			simple_operator(char *type, char *name, int *error)
 	}
 	if (ft_strlen(type) < 2 && (*error = 1))
 	{
-		ft_printf_err_fd("21sh: parse error: condition expected: %s\n", type);
+		ft_printf_err_fd("42sh: parse error: condition expected: %s\n", type);
 		return (2);
 	}
 	if (!ft_strchr("ebcdfLpSsgurwx", type[1]) || ft_strlen(type) > 2)

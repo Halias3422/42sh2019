@@ -98,7 +98,7 @@ int				ft_exit(t_process *p, t_var **var)
 	status = ft_atoi(p->cmd[1]);
 	if (p->cmd && p->cmd[1] && p->cmd[2])
 	{
-		ft_printf_err_fd("21sh: exit: error: Too many arguments\n");
+		ft_printf_err_fd("42sh: exit: error: Too many arguments\n");
 		return (1);
 	}
 	if (p->split == 'P' || p->fd_in != STDIN_FILENO)
@@ -107,7 +107,7 @@ int				ft_exit(t_process *p, t_var **var)
 		if (p->cmd[1][i] < '0' || p->cmd[1][i] > '9')
 			check = 1;
 	if ((status < 0 || check) && (status = 255))
-		ft_printf_err_fd("21sh: exit: %s: numeric argument required\n",
+		ft_printf_err_fd("42sh: exit: %s: numeric argument required\n",
 				p->cmd[1]);
 	pos->exit_mode = status;
 	return (status);

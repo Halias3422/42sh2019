@@ -6,12 +6,12 @@
 #    By: mdelarbr <mdelarbr@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/04 18:02:46 by mjalenqu     #+#   ##    ##    #+#        #
-#    Updated: 2019/11/12 13:15:40 by rlegendr    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/11/14 10:20:14 by rlegendr    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME = 21sh
+NAME = 42sh
 
 LIB_PATH = libft/
 LIB_LIB  = libft/libft.a
@@ -111,23 +111,23 @@ all:
 	@echo ""
 
 $(NAME) : $(OBJ) Makefile $(LIB_LIB)
-	@echo  "			\033[2K\r$(YELLOW)21sh:	$(GREEN_BOLD)loaded$(RESET)"
+	@echo  "			\033[2K\r$(YELLOW)42sh:	$(GREEN_BOLD)loaded$(RESET)"
 	@gcc $(FLAG) -o $@ $(OBJ) $(FLAG_END) $(LIB_LIB) -I include
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
 	@if test ! -d $(dir $@); then mkdir -p $(dir $@); fi
 	@gcc $(FLAG) -g -I $(INC_PATH) -o $@ -c $<
-	@printf "\033[2K\r$(YELLOW)21sh:	\033[37m$<\033[36m \033[0m"
+	@printf "\033[2K\r$(YELLOW)42sh:	\033[37m$<\033[36m \033[0m"
 
 clean:
 	@make -C libft/ clean
 	@rm -rf $(OBJ_PATH)
-	@echo "$(YELLOW)21sh:	$(RED)object files deleted$(RESET)"
+	@echo "$(YELLOW)42sh:	$(RED)object files deleted$(RESET)"
 
 fclean: clean
 	@make -C libft/ fclean
 	@rm -rf $(NAME)
-	@echo "$(YELLOW)21sh:	$(RED)executable file deleted$(RESET)"
+	@echo "$(YELLOW)42sh:	$(RED)executable file deleted$(RESET)"
 
 batman: all
 	@echo "$(YELLOW)                   ..oo800ooo..                    ..ooo008oo.. "

@@ -98,7 +98,7 @@ void		launch_job(t_job *j, t_var *var, t_pos *pos, t_process *p)
 			send_job_to_fork_simple(p, j, var, &infile);
 		if (p->fd_in == 250)
 		{
-			ft_printf_err("21sh: error: Too many pipes\n");
+			ft_printf_err("42sh: error: Too many pipes\n");
 			break ;
 		}
 		p = get_and_or(p);

@@ -42,7 +42,7 @@ int				ft_shtheme(t_process *p, t_var **var)
 		pos->shtheme = pos->shtheme == 5 ? 1 : pos->shtheme + 1;
 	else
 	{
-		ft_printf_err_fd("21sh: shtheme: usage: shtheme [1|2|3|4|5]\n");
+		ft_printf_err_fd("42sh: shtheme: usage: shtheme [1|2|3|4|5]\n");
 		return (1);
 	}
 	return (0);

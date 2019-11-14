@@ -26,7 +26,7 @@ int		get_cd_option(char **cmd, int *i, int ret, int j)
 					ret = cmd[*i][j];
 				else
 				{
-					ft_printf_err_fd("21sh: cd: %c: invalid option\n",
+					ft_printf_err_fd("42sh: cd: %c: invalid option\n",
 							cmd[*i][j]);
 					return (-1);
 				}

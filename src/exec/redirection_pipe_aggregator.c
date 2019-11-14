@@ -47,7 +47,7 @@ void			redirect_aggregator_right(t_fd *fd, t_redirect *red,
 		fd->new_fd = ft_atoi(red->fd_out);
 		if (isatty(fd->new_fd) == 0)
 		{
-			ft_printf_err_fd("21sh: %d: Bad file descriptor\n", fd->new_fd);
+			ft_printf_err_fd("42sh: %d: Bad file descriptor\n", fd->new_fd);
 			p->exec_builtin = 0;
 		}
 	}
@@ -64,7 +64,7 @@ void			redirect_aggregator_left(t_fd *fd, t_redirect *red,
 	fd->new_fd = ft_atoi(red->fd_out);
 	if (is_all_num(red->fd_out) != 1)
 	{
-		ft_printf_err_fd("21sh: %s: ambiguous redirect\n", red->fd_out);
+		ft_printf_err_fd("42sh: %s: ambiguous redirect\n", red->fd_out);
 		p->exec_builtin = 0;
 		fd->error = 1;
 		return ;
@@ -72,7 +72,7 @@ void			redirect_aggregator_left(t_fd *fd, t_redirect *red,
 	if (isatty(fd->new_fd) == 0 ||
 					(isatty(fd->old_fd) == 0 && fd->old_fd != 0))
 	{
-		ft_printf_err_fd("21sh: %s: Bad file descriptor\n", red->fd_out);
+		ft_printf_err_fd("42sh: %s: Bad file descriptor\n", red->fd_out);
 		p->exec_builtin = 0;
 		fd->error = 1;
 		return ;

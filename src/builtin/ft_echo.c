@@ -29,7 +29,7 @@ int			ft_echo_simple(t_process *p, t_var **var, t_pos *pos)
 	}
 	if (write(pos->act_fd_out, "\n", 1) == -1)
 	{
-		ft_printf_err_fd("21sh: echo: write error: Bad file descriptor\n");
+		ft_printf_err_fd("42sh: echo: write error: Bad file descriptor\n");
 		return (1);
 	}
 	return (0);
@@ -47,7 +47,7 @@ int			ft_echo_no_line(t_process *p, t_var **var, t_pos *pos)
 			ft_printf_fd(" ");
 		if (write(pos->act_fd_out, p->cmd[i], ft_strlen(p->cmd[i])) == -1)
 		{
-			ft_printf_err_fd("21sh: echo: write error: Bad file descriptor\n");
+			ft_printf_err_fd("42sh: echo: write error: Bad file descriptor\n");
 			return (1);
 		}
 		i++;

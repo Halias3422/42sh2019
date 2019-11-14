@@ -81,7 +81,7 @@ void	prepare_error_message_for_hash(int error, char *str)
 	if (p->hash_error)
 		return ;
 	p->hash_error = ft_strnew(0);
-	p->hash_error = ft_strjoinf(p->hash_error, "21sh: ", 1);
+	p->hash_error = ft_strjoinf(p->hash_error, "42sh: ", 1);
 	if (str)
 		p->hash_error = ft_strjoinf(p->hash_error, str, 1);
 	if (error == 1)

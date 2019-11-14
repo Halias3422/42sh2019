@@ -63,21 +63,21 @@ void		print_cd_error(char *path, int i, int mute, int usage)
 		if (i < 0)
 			i = 0;
 		if (usage == 0 && path && path + i)
-			ft_printf_err_fd("21sh: cd: %s: is not a directory\n", path + i);
+			ft_printf_err_fd("42sh: cd: %s: is not a directory\n", path + i);
 		else if (usage == 0)
-			ft_printf_err_fd("21sh: cd : not a directory\n");
+			ft_printf_err_fd("42sh: cd : not a directory\n");
 		if (usage == 1 && path && path + i + 1 && path[i] == '/')
-			ft_printf_err_fd("21sh: cd: %s: No such file or directory\n",
+			ft_printf_err_fd("42sh: cd: %s: No such file or directory\n",
 					path + i + 1);
 		else if (usage == 1 && path && path + i)
-			ft_printf_err_fd("21sh: cd: %s: No such file or directory\n",
+			ft_printf_err_fd("42sh: cd: %s: No such file or directory\n",
 					path + i);
 		else if (usage == 1)
-			ft_printf_err_fd("21sh: cd: No such file or directory\n");
+			ft_printf_err_fd("42sh: cd: No such file or directory\n");
 		if (usage == 2 && path && path + i)
-			ft_printf_err_fd("21sh: cd: %s: permission denied\n", path + i);
+			ft_printf_err_fd("42sh: cd: %s: permission denied\n", path + i);
 		else if (usage == 2)
-			ft_printf_err_fd("21sh: cd: permission denied\n");
+			ft_printf_err_fd("42sh: cd: permission denied\n");
 	}
 }
 

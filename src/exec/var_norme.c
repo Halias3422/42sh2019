@@ -82,7 +82,7 @@ int			add_env_check(char *name, t_var **var, char *str)
 {
 	if (check_name(name) == 1)
 	{
-		ft_printf_err("21sh: %s: ambiguous value name\n", name);
+		ft_printf_err("42sh: %s: ambiguous value name\n", name);
 		ft_strdel(&name);
 		return (1);
 	}

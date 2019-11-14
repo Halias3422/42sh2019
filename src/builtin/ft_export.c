@@ -42,7 +42,7 @@ static int			print_error(int status)
 {
 	if (status == 1)
 	{
-		ft_printf_err_fd("21sh: export: {B.T.red.}error{eoc}:");
+		ft_printf_err_fd("42sh: export: {B.T.red.}error{eoc}:");
 		ft_printf_err_fd(" Argument required\n");
 	}
 	return (0);

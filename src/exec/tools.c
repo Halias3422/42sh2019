@@ -60,7 +60,7 @@ char	*strjoin_path(char *s1, char *s2)
 
 void	cnf_print_error(char *str)
 {
-	ft_putstr("21sh: \033[1;31merror: \033[0mcommand not found: ");
+	ft_putstr("42sh: \033[1;31merror: \033[0mcommand not found: ");
 	ft_putstr(str);
 	ft_putstr("\n");
 }

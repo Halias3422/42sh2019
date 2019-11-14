@@ -20,8 +20,8 @@ void			*ft_malloc(size_t size)
 	ret = malloc(size);
 	if (ret == NULL)
 	{
-		ft_printf("21sh: error: memory allocation failed\n");
-		ft_printf("21sh: program stops\n");
+		ft_printf("42sh: error: memory allocation failed\n");
+		ft_printf("42sh: program stops\n");
 		exit(126);
 	}
 	return (ret);

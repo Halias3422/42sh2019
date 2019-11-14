@@ -31,16 +31,16 @@ void		print_first_prompt(t_pos *pos)
 		ft_printf("\n42sh --- %s\n",
 				pos->pwd);
 	else if (pos->shtheme == 4)
-		ft_printf("\n{B.T.yellow.}21sh {eoc}{B.}--- {T.cyan.}%s{eoc}\n",
+		ft_printf("\n{B.T.yellow.}42sh {eoc}{B.}--- {T.cyan.}%s{eoc}\n",
 				pos->pwd);
 	else if (pos->shtheme == 3)
-		ft_printf("\n{T.purple.}21sh {eoc}{B.}--- {T.grey.}%s{eoc}\n",
+		ft_printf("\n{T.purple.}42sh {eoc}{B.}--- {T.grey.}%s{eoc}\n",
 				pos->pwd);
 	else if (pos->shtheme == 2)
-		ft_printf("\n{B.T.green.}21sh {eoc}{B.}--- {T.blue.}%s{eoc}\n",
+		ft_printf("\n{B.T.green.}42sh {eoc}{B.}--- {T.blue.}%s{eoc}\n",
 				pos->pwd);
 	else if (pos->shtheme == 1)
-		ft_printf("\n{B.T.cyan.}21sh {eoc}{B.}--- {T.yellow.}%s{eoc}\n",
+		ft_printf("\n{B.T.cyan.}42sh {eoc}{B.}--- {T.yellow.}%s{eoc}\n",
 				pos->pwd);
 }
 

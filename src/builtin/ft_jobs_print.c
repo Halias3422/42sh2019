@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/10 11:02:51 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 17:51:29 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 10:33:39 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,9 +49,8 @@ void			print_status_job(char status)
 		ft_printf_fd("Running	");
 }
 
-void			print_current_job(t_job_list *j, int option, char *name)
+void			print_current_job(t_job_list *j, int option)
 {
-	(void)name;
 	if (option != 'p')
 		ft_printf_fd("[%d]%c ", j->j->id, j->j->current);
 	if (option == 'p' || option == 'l')
@@ -65,18 +64,10 @@ void			print_current_job(t_job_list *j, int option, char *name)
 
 void			print_all_jobs(t_job_list *j, int option)
 {
-	char		*name;
-
-	if (j)
-		name = ft_strnew(0);
 	while (j)
 	{
-		name = built_job_name(j, name);
-		print_current_job(j, option, name);
+		print_current_job(j, option);
 		j = j->next;
-		ft_strdel(&name);
-		if (j)
-			name = ft_strnew(0);
 	}
 }
 
@@ -86,21 +77,21 @@ void			print_selected_jobs(t_job_list *j, int option, char *arg)
 	int			check;
 
 	check = 0;
-	name = ft_strnew(0);
 	while (j)
 	{
+		name = ft_strnew(0);
 		name = built_job_name(j, name);
-		if (ft_strncmp(name, arg, ft_strlen(arg)) == 0
-		|| j->j->id == ft_atoi(arg))
+		if (name && (ft_strncmp(name, arg, ft_strlen(arg)) == 0
+		|| j->j->id == ft_atoi(arg)))
 		{
-			print_current_job(j, option, name);
+			print_current_job(j, option);
 			check += 1;
 		}
 		j = j->next;
 		ft_strdel(&name);
-		if (j)
-			name = ft_strnew(0);
 	}
 	if (!check)
-		ft_printf_err_fd("21sh: jobs: %s: no such job\n", arg);
+		ft_printf_err_fd("42sh: jobs: %s: no such job\n", arg);
+	if (name)
+		ft_strdel(&name);
 }

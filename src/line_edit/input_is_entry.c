@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/09/12 07:27:11 by vde-sain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/12 13:27:42 by rlegendr    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 09:47:53 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,8 +77,8 @@ static void		check_expansion_and_token(t_pos *pos, t_hist *hist, char *buf)
 	pos->ctrl_hist_cmd = ft_secure_free(pos->ctrl_hist_cmd);
 	if (buf[0] != 0 && pos->active_heredoc == 0)
 		pos->is_complete = token(pos->ans, pos);
-	if (buf[0] != 0 && ft_strchr(pos->ans, '<') != NULL && (pos->is_complete == 1 ||
-		pos->active_heredoc == 1))
+	if (buf[0] != 0 && ft_strchr(pos->ans, '<') != NULL &&
+		(pos->is_complete == 1 || pos->active_heredoc == 1))
 		check_for_heredoc(pos, 0, -1);
 }
 

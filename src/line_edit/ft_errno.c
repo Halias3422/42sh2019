@@ -39,7 +39,7 @@ void			error_printing(t_hist *err_list, t_pos *pos)
 	{
 		message = finding_error_message(message, err_list->cmd_no);
 		if (err_list->cmd != NULL)
-			ft_printf_err("21sh: %s: %s\n", err_list->cmd, message);
+			ft_printf_err("42sh: %s: %s\n", err_list->cmd, message);
 		if (err_list->next == NULL)
 			break ;
 		err_list = err_list->next;

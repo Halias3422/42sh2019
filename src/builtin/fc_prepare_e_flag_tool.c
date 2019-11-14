@@ -37,6 +37,6 @@ char			*check_new_cmd_is_valid(char *new_cmds, char **paths)
 		closedir(dirp);
 		i++;
 	}
-	ft_printf_err_fd("21sh: command not found: %s\n", new_cmds);
+	ft_printf_err_fd("42sh: command not found: %s\n", new_cmds);
 	return (0);
 }

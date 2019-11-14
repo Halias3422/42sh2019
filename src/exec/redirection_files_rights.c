@@ -26,7 +26,7 @@ int				check_splited_folds(char *act_fold, char **path, int i,
 		if (access(act_fold, F_OK) != -1 && (s_type.st_mode & S_IFMT) ==
 				S_IFDIR && access(act_fold, X_OK) == -1)
 		{
-			ft_printf_err_fd("21sh: %s: permission denied\n", path[i]);
+			ft_printf_err_fd("42sh: %s: permission denied\n", path[i]);
 			p->exec_builtin = 0;
 			ft_free_tab(path);
 			ft_strdel(&act_fold);
@@ -48,7 +48,7 @@ int				check_folders_rights(t_process *p, char *file, int i,
 	lstat(file, &s_type);
 	if ((s_type.st_mode & S_IFMT) == S_IFDIR)
 	{
-		ft_printf_err_fd("21sh: %s: Is a directory\n", file);
+		ft_printf_err_fd("42sh: %s: Is a directory\n", file);
 		p->exec_builtin = 0;
 		return (-1);
 	}

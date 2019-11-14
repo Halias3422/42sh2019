@@ -64,7 +64,7 @@ static int		check_if_ename_is_text_editor(t_fc *fc, char **paths, int i)
 		closedir(dirp);
 	}
 	fc->error = 1;
-	ft_printf_err_fd("21sh: command not found: %s\n", fc->ename);
+	ft_printf_err_fd("42sh: command not found: %s\n", fc->ename);
 	return (0);
 }
 

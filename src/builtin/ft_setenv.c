@@ -40,7 +40,7 @@ static int	setenv_rules(t_process *p, char **al)
 {
 	if (p->cmd[1] && !p->cmd[2] && ft_strcmp(p->cmd[1], "-u") == 0)
 	{
-		ft_printf_err_fd("21sh: setenv: usage: setenv [NAME=data, NAME]\n");
+		ft_printf_err_fd("42sh: setenv: usage: setenv [NAME=data, NAME]\n");
 		ft_free_tab(al);
 		return (0);
 	}

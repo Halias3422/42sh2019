@@ -6,7 +6,7 @@
 /*   By: mjalenqu <mjalenqu@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/05/16 11:50:38 by husahuc      #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/11 13:25:44 by vde-sain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/11/14 10:13:09 by rlegendr    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@
 # include <sys/stat.h>
 
 # define LEN_BUILTIN_LIST 19
-# define TERM "21sh"
+# define TERM "42sh"
 
 typedef struct s_var		t_var;
 typedef struct s_process	t_process;
@@ -379,7 +379,7 @@ int				ft_jobs_option(char **cmd, int *i);
 
 void			print_selected_jobs(t_job_list *j, int option, char *arg);
 void			print_all_jobs(t_job_list *j, int option);
-void			print_current_job(t_job_list *j, int option, char *name);
+void			print_current_job(t_job_list *j, int option);
 void			print_status_job(char status);
 
 t_job			*find_plus(t_job_list *j);
