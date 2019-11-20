@@ -19,6 +19,7 @@ void		add_env(t_var **var, char *str, char *name)
 {
 	t_var	*prev;
 
+	prev = NULL;
 	name = init_name(str);
 	if (add_env_check(name, var, str) == 1)
 		return ;

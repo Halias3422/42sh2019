@@ -11,8 +11,8 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "exec.h"
-#include "lexeur.h"
+#include "../../includes/exec.h"
+#include "../../includes/lexeur.h"
 
 void		free_temp(t_var **var)
 {
@@ -23,6 +23,7 @@ void		free_temp(t_var **var)
 
 	tmp = (*var);
 	first = tmp;
+	prev = NULL;
 	while (*var)
 	{
 		if ((*var)->type == TEMP)

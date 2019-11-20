@@ -11,7 +11,7 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "termcaps.h"
+#include "../../includes/termcaps.h"
 
 void			signal_handler(void)
 {
@@ -66,7 +66,6 @@ void			signal_list(void)
 	signal(SIGHUP, SIG_IGN);
 	signal(SIGILL, SIG_IGN);
 	signal(SIGTRAP, SIG_IGN);
-	signal(SIGEMT, SIG_IGN);
 	signal(SIGFPE, SIG_IGN);
 	signal(SIGSYS, SIG_IGN);
 	signal(SIGPIPE, SIG_IGN);

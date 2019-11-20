@@ -24,6 +24,7 @@ char	*fill_first_replace(int *i, char **str, char c, int *s)
 {
 	char	*res;
 
+	*i = 0;
 	if (c == '\'')
 		*str = (remove_simple_quote(str));
 	if ((*str)[*i] != c)
@@ -36,7 +37,7 @@ char	*fill_first_replace(int *i, char **str, char c, int *s)
 	else
 		res = ft_strdup("");
 	(*i)++;
-	(*i) = (*i) < ft_strlen(*str) ? (*i)++ : ft_strlen(*str);
+	(*i) = (*i) < ft_strlen(*str) ? ++(*i) : ft_strlen(*str);
 	(*s) = (*i);
 	while ((*str)[*i])
 	{
@@ -75,9 +76,7 @@ char	*replace(char *str, char c)
 void	need_replace_quote(char ***array, int i, int *j)
 {
 	char	c;
-	int		tmp;
 
-	tmp = *j;
 	c = (*array)[i][*j];
 	(*array)[i] = replace((*array)[i], c);
 	if (!(*array) && !ft_strcmp((*array)[i], ""))

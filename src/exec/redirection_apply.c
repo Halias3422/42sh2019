@@ -15,10 +15,8 @@
 
 char			*del_back_slash_and_quote_red(char *ar)
 {
-	int		i;
 	char	*res;
 
-	i = 0;
 	res = NULL;
 	if (ar)
 	{

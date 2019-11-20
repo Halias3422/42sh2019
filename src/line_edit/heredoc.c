@@ -15,10 +15,7 @@
 
 int				heredoc_found(t_pos *pos, int i, int j)
 {
-	int		save;
-
 	j = i;
-	save = i;
 	while (pos->ans[i] && (pos->ans[i] == 32 || (pos->ans[i] >= 9 &&
 			pos->ans[i] <= 13)))
 		i++;

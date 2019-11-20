@@ -77,10 +77,8 @@ int		token_condition(char *ans, int i)
 int		token(char *ans, t_pos *pos)
 {
 	int		i;
-	int		ret;
 
 	i = 0;
-	ret = 1;
 	if (pos->active_heredoc == 0)
 	{
 		while (ans[i])

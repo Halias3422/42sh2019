@@ -71,8 +71,6 @@ void		remove_job(int id, int i)
 
 void		print_job(t_job *j)
 {
-	t_process	*process;
-
 	ft_printf("[%d] %c %d	", j->id, j->current, j->pgid);
 	if (j->status == 'f')
 		ft_printf("Done	");
@@ -80,7 +78,6 @@ void		print_job(t_job *j)
 		ft_printf("Stopped	");
 	else
 		ft_printf("Running	");
-	process = j->p;
 	print_complete_process(j->p);
 }
 

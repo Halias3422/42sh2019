@@ -20,6 +20,7 @@ char	*get_tag(char *str, int *i)
 	int		ret;
 	char	*tag;
 
+	ret = 0;
 	while (str[*i] && (ret = find_token(str, *i)) != 7)
 		(*i)++;
 	(*i) += g_fill_token[ret].size;

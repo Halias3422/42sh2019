@@ -112,10 +112,8 @@ void		auto_complete(t_pos *pos, t_htab *htab, char *name,
 t_htab		*prepare_auto_complete(t_pos *pos, t_htab *htab, char *name)
 {
 	int		wildcard;
-	int		i;
 
 	wildcard = 0;
-	i = 0;
 	if (ft_strchr(name, '*'))
 		wildcard = 1;
 	htab = get_current_match(htab, name, wildcard);

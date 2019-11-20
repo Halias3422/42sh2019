@@ -52,9 +52,6 @@ void		update_pid(t_process *p, t_job *j, pid_t pid, t_var **var)
 
 int			launch_process(t_process *p, t_var *var, char *path)
 {
-	int	ret;
-
-	ret = 0;
 	signal(SIGQUIT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGTTIN, SIG_DFL);
@@ -81,13 +78,10 @@ int			launch_process(t_process *p, t_var *var, char *path)
 int			check_path_before_fork(t_process *p, t_var **var, t_job *j,
 			char **cmd_path)
 {
-	t_pos	*pos;
-
 	if (test_builtin(p) == 1)
 		get_all_redirections_done(p, to_stock(NULL, 1),
 				p->redirect, test_builtin(p));
 	to_stock(p, 2);
-	pos = to_stock(NULL, 1);
 	p->background = j->split == '&' ? 1 : 0;
 	if (j->split != '&' && is_builtin_modify(p))
 	{
